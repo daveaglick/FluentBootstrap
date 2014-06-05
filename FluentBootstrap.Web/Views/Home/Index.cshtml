@@ -6,7 +6,7 @@
 
 @using(Html.Bootstrap(b => b.Container()))
 {
-    using (Html.Bootstrap(b => b.Row()))
+    using (Html.Bootstrap(b => b.Row().CssClass("doc-row")))
     {
         using (Html.Bootstrap(b => b.Column().Md(4)))
         { 
@@ -14,8 +14,8 @@
         }
         @Html.Bootstrap().Column(8).Content("<p>B</p>") 
     }
-    
-    using (var row = Html.Bootstrap(b => b.Row()))
+
+    using (var row = Html.Bootstrap(b => b.Row().CssClass("doc-row")))
     {
         @row.Column(8).Content(@<p>C</p>)
         using (Html.Bootstrap(row.Column().Md(4)))
@@ -24,8 +24,15 @@
         }
     }
     
-    @(Html.Bootstrap().Row()
+    @(Html.Bootstrap().Row().CssClass("doc-row")
         .Child(c => c.Column(6).Content("E"))
         .Child(c => c.Column(6).Content("F"))
     )    
 }
+    
+@(Html.Bootstrap().Container().Fluid()
+    .Child(c => c.Row().CssClass("doc-row")
+        .Child(c2 => c2.Column(6).Content("G"))
+        .Child(c2 => c2.Column(6).Content(@<p>H</p>))
+    )
+)    

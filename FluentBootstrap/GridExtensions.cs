@@ -16,10 +16,11 @@ namespace FluentBootstrap
             return new Container(helper);
         }
 
-        public static Container Fluid(this Container container)
+        public static Container Fluid(this Container container, bool fluid = true)
         {
             container.CssClasses.Remove("container");
-            container.CssClasses.Add("container-fluid");
+            container.CssClasses.Remove("container-fluid");
+            container.CssClasses.Add(fluid ? "container-fluid" : "container");
             return container;
         }
 
