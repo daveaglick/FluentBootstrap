@@ -1,0 +1,31 @@
+﻿@using FluentBootstrap;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using(Html.Bootstrap(b => b.Container()))
+{
+    using (Html.Bootstrap(b => b.Row()))
+    {
+        using (Html.Bootstrap(b => b.Column().Md(4)))
+        { 
+            <p>A</p>
+        }
+        @Html.Bootstrap().Column(8).Content("<p>B</p>") 
+    }
+    
+    using (var row = Html.Bootstrap(b => b.Row()))
+    {
+        @row.Column(8).Content(@<p>C</p>)
+        using (Html.Bootstrap(row.Column().Md(4)))
+        {
+            <p>D</p>
+        }
+    }
+    
+    @(Html.Bootstrap().Row()
+        .Child(c => c.Column(6).Content("E"))
+        .Child(c => c.Column(6).Content("F"))
+    )    
+}
