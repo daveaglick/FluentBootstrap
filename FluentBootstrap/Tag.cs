@@ -9,35 +9,24 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public abstract class BootstrapComponent : IDisposable, IHtmlString
+    public class Tag : Component
     {
-        private bool _started;
-        private bool _ended;
-
         private readonly string _tagName;
-        private readonly List<BootstrapComponent> _children = new List<BootstrapComponent>();
-        private readonly StringBuilder _content = new StringBuilder();
+        private readonly List<Component> _children = new List<Component>();
 
-        internal BootstrapHelper Helper { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
         internal Dictionary<string, string> Attributes { get; private set; }
 
-        protected internal BootstrapComponent(string tagName, BootstrapHelper helper, params string[] cssClasses)
+        protected internal Tag(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper)
         {
             CssClasses = new HashSet<string>();
             Attributes = new Dictionary<string, string>();
             _tagName = tagName;
-            Helper = helper;
             foreach (string cssClass in cssClasses)
                 CssClasses.Add(cssClass);
         }
 
-        public void Dispose()
-        {
-            throw new InvalidOperationException("A component was directly disposed, which is usually an indication that it needs to be passed as an argument to Html.Bootstrap([component]).");
-        }
-
-        internal void AddChild(BootstrapComponent component)
+        internal void AddChild(Component component)
         {
             _children.Add(component);
         }
@@ -75,23 +64,8 @@ namespace FluentBootstrap
             }
         }
 
-        internal void AppendContent(string content)
+        protected override string OnStart()
         {
-            _content.Append(content);
-        }
-
-        // If any manipulation based on the component stack has to happen, do it in an
-        // override of Start() and make sure to call base.Start() when done
-        internal virtual string Start()
-        {
-            // Only write content once
-            if (_started)
-                throw new InvalidOperationException("This component has already generated starting content.");
-            _started = true;
-
-            // Add this component to the stack
-            Helper.PushComponent(this);
-
             // Append the start tag
             StringBuilder stringBuilder = new StringBuilder();
             TagBuilder tag = new TagBuilder(_tagName);
@@ -102,11 +76,8 @@ namespace FluentBootstrap
             }
             stringBuilder.Append(tag.ToString(TagRenderMode.StartTag));
 
-            // Append any content
-            stringBuilder.Append(_content.ToString());
-
             // Append any children
-            foreach (BootstrapComponent child in _children)
+            foreach (Component child in _children)
             {
                 stringBuilder.Append(child.ToHtmlString());
             }
@@ -114,28 +85,14 @@ namespace FluentBootstrap
             return stringBuilder.ToString();
         }
 
-        internal virtual string End()
+        protected override string OnEnd()
         {
-            // Only write content once
-            if (_ended)
-                throw new InvalidOperationException("This component has already generated ending content.");
-            _ended = true;
-
             // Append the end tag
             StringBuilder stringBuilder = new StringBuilder();
             TagBuilder tag = new TagBuilder(_tagName);
             stringBuilder.Append(tag.ToString(TagRenderMode.EndTag));
 
-            // Remove this component from the stack
-            Helper.PopComponent(this);
-
             return stringBuilder.ToString();
-        }
-
-        // Outputs the start and end portions together
-        public virtual string ToHtmlString()
-        {
-            return Start() + End();
         }
     }
 }

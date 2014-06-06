@@ -12,7 +12,7 @@ namespace FluentBootstrap
     public static class HtmlHelperExtensions
     {
         public static ComponentWrapper<TComponent> Bootstrap<TComponent>(this HtmlHelper htmlHelper, Func<BootstrapHelper, TComponent> componentFunc)
-            where TComponent : BootstrapComponent
+            where TComponent : Component
         {
             BootstrapHelper helper = new BootstrapHelper(htmlHelper);
             TComponent component = componentFunc(helper);
@@ -21,7 +21,7 @@ namespace FluentBootstrap
         }
 
         public static ComponentWrapper<TComponent> Bootstrap<TModel, TComponent>(this HtmlHelper<TModel> htmlHelper, Func<BootstrapHelper<TModel>, TComponent> componentFunc)
-            where TComponent : BootstrapComponent
+            where TComponent : Component
         {
             BootstrapHelper<TModel> helper = new BootstrapHelper<TModel>(htmlHelper);
             TComponent component = componentFunc(helper);
@@ -30,7 +30,7 @@ namespace FluentBootstrap
         }
 
         public static ComponentWrapper<TComponent> Bootstrap<TComponent>(this HtmlHelper htmlHelper, TComponent component)
-            where TComponent : BootstrapComponent
+            where TComponent : Component
         {
             BootstrapHelper helper = new BootstrapHelper(htmlHelper);
             helper.Write(component.Start());
@@ -38,7 +38,7 @@ namespace FluentBootstrap
         }
 
         public static ComponentWrapper<TComponent> Bootstrap<TModel, TComponent>(this HtmlHelper<TModel> htmlHelper, TComponent component)
-            where TComponent : BootstrapComponent
+            where TComponent : Component
         {
             BootstrapHelper<TModel> helper = new BootstrapHelper<TModel>(htmlHelper);
             helper.Write(component.Start());

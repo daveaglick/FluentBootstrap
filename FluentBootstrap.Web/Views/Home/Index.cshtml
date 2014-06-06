@@ -29,10 +29,11 @@
         .Child(c => c.Column(6).Content("F"))
     )    
 }
-    
+
 @(Html.Bootstrap().Container().Fluid()
-    .Child(c => c.Row().CssClass("doc-row")
+    .ChildComponent(c => c.Row().CssClass("doc-row")
         .Child(c2 => c2.Column(6).Content("G"))
+        .Content("test")
         .Child(c2 => c2.Column(6).Content(@<p>H</p>))
     )
-)    
+)

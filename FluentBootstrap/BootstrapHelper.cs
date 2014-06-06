@@ -29,48 +29,48 @@ namespace FluentBootstrap
 
         private readonly static object _bootstrapStackKey = new object();
 
-        internal void PushComponent(BootstrapComponent component)
+        internal void PushComponent(Component component)
         {
             IDictionary items = HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<BootstrapComponent> stack = items[_bootstrapStackKey] as Stack<BootstrapComponent>;
+            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
             if (stack == null)
             {
-                stack = new Stack<BootstrapComponent>();
+                stack = new Stack<Component>();
                 items[_bootstrapStackKey] = stack;
             }
             stack.Push(component);
         }
 
-        internal BootstrapComponent PeekComponent()
+        internal Component PeekComponent()
         {
             IDictionary items = HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<BootstrapComponent> stack = items[_bootstrapStackKey] as Stack<BootstrapComponent>;
+            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
             return stack == null ? null : stack.Peek();
         }
 
         internal TComponent PeekComponent<TComponent>()
-            where TComponent : BootstrapComponent
+            where TComponent : Component
         {
             IDictionary items = HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<BootstrapComponent> stack = items[_bootstrapStackKey] as Stack<BootstrapComponent>;
+            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
             return stack == null ? null : stack.Peek() as TComponent;
         }
 
         internal TComponent GetComponent<TComponent>()
-            where TComponent : BootstrapComponent
+            where TComponent : Component
         {
             IDictionary items = HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<BootstrapComponent> stack = items[_bootstrapStackKey] as Stack<BootstrapComponent>;
+            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
             return stack == null ? null : stack.OfType<TComponent>().FirstOrDefault();         
         }
 
-        internal void PopComponent(BootstrapComponent component)
+        internal void PopComponent(Component component)
         {
             IDictionary items = HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<BootstrapComponent> stack = items[_bootstrapStackKey] as Stack<BootstrapComponent>;
+            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
             if (stack == null || stack.Count == 0)
                 throw new InvalidOperationException("Could not get Bootstrap component stack while removing a component (you should never see this).");
-            BootstrapComponent pop = stack.Pop();
+            Component pop = stack.Pop();
             if (component != pop)
                 throw new InvalidOperationException("Attempted to remove a Bootstrap component from the stack that wasn't at the top, the nesting order may be incorrect.");
         }

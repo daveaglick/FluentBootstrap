@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grid
 {
-    public class Row : BootstrapComponent
+    public class Row : Tag
     {
-        internal Row(BootstrapHelper helper) : base("div", helper, "row")
+        internal Row(BootstrapHelper helper) : base(helper, "div", "row")
         {
         }
     }

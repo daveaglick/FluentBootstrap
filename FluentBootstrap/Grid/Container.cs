@@ -7,9 +7,9 @@ using FluentBootstrap;
 
 namespace FluentBootstrap.Grid
 {
-    public class Container : BootstrapComponent
+    public class Container : Tag
     {
-        internal Container(BootstrapHelper helper) : base("div", helper, "container") 
+        internal Container(BootstrapHelper helper) : base(helper, "div", "container")
         {
         }
     }

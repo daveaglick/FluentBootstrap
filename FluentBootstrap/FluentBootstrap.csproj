@@ -42,10 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BootstrapComponent.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Content.cs" />
+    <Compile Include="Tag.cs" />
     <Compile Include="BootstrapHelper.cs" />
     <Compile Include="ColumnExtensions.cs" />
-    <Compile Include="ComponentExtensions.cs" />
+    <Compile Include="TagExtensions.cs" />
     <Compile Include="ComponentWrapper.cs" />
     <Compile Include="Grid\Column.cs" />
     <Compile Include="Grid\Container.cs" />
