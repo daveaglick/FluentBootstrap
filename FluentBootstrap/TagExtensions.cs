@@ -49,7 +49,7 @@ namespace FluentBootstrap
             return tag;
         }
         
-        public static TTag Content<TTag>(this TTag tag, Func<dynamic, HelperResult> content)
+        public static TTag Html<TTag>(this TTag tag, Func<dynamic, HelperResult> content)
             where TTag : Tag
         {
             tag.AddChild(new Content(tag.Helper, 
@@ -57,11 +57,9 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TTag ChildComponent<TTag, TComponent>(this TTag tag, Func<BootstrapHelper, TComponent> contentFunc)
+        public static TTag Child<TTag>(this TTag tag, Component child)
             where TTag : Tag
-            where TComponent : Component
         {
-            TComponent child = contentFunc(tag.Helper);
             tag.AddChild(child);
             return tag;
         }

@@ -17,7 +17,7 @@
 
     using (var row = Html.Bootstrap(b => b.Row().CssClass("doc-row")))
     {
-        @row.Column(8).Content(@<p>C</p>)
+        @row.Column(8).Html(@<p>C</p>)
         using (Html.Bootstrap(row.Column().Md(4)))
         {
             <p>D</p>
@@ -31,9 +31,8 @@
 }
 
 @(Html.Bootstrap().Container().Fluid()
-    .ChildComponent(c => c.Row().CssClass("doc-row")
+    .Child(Html.Bootstrap().Row().CssClass("doc-row")
         .Child(c2 => c2.Column(6).Content("G"))
-        .Content("test")
-        .Child(c2 => c2.Column(6).Content(@<p>H</p>))
+        .Child(c2 => c2.Column(6).Html(@<p>H</p>))
     )
 )

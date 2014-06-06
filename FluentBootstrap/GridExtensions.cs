@@ -31,6 +31,11 @@ namespace FluentBootstrap
             return new Row(helper);
         }
 
+        public static Row Row(this ComponentWrapper<Container> container)
+        {
+            return (new Row(container.Component.Helper));
+        }
+
         // Column
 
         public static Column Column(this BootstrapHelper helper)
