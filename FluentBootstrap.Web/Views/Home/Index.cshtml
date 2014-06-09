@@ -4,43 +4,53 @@
     ViewBag.Title = "Index";
 }
 
-@using(Html.Bootstrap(b => b.Container()))
+@using(Html.Bootstrap().Container().ToDisposable())
 {
-    using (Html.Bootstrap(b => b.Row().CssClass("doc-row")))
+    using (Html.Bootstrap().GridRow().CssClass("doc-row").ToDisposable())
     {
-        using (Html.Bootstrap(b => b.Column().Md(4)))
+        using (Html.Bootstrap().GridColumn().Md(4).ToDisposable())
         { 
             <p>A</p>
         }
-        @Html.Bootstrap().Column(8).Content("<p>B</p>") 
+        @Html.Bootstrap().GridColumn(8).Content("<p>B</p>") 
     }
 
-    using (var row = Html.Bootstrap(b => b.Row().CssClass("doc-row")))
+    using (var row = Html.Bootstrap().GridRow().CssClass("doc-row").ToDisposable())
     {
         @row.Column(8).Html(@<p>C</p>)
-        using (Html.Bootstrap(row.Column().Md(4)))
+        using (row.Column().Md(4).ToDisposable())
         {
             <p>D</p>
         }
     }
     
-    @(Html.Bootstrap().Row().CssClass("doc-row")
+    @(Html.Bootstrap().GridRow().CssClass("doc-row")
         .Child(c => c.Column(6).Content("E"))
         .Child(c => c.Column(6).Content("F"))
-    )    
+    )
 }
 
+
 @(Html.Bootstrap().Container().Fluid()
-    .Child(Html.Bootstrap().Row().CssClass("doc-row")
+    .Child(Html.Bootstrap().GridRow().CssClass("doc-row")
         .Child(c2 => c2.Column(6).Content("G"))
         .Child(c2 => c2.Column(6).Html(@<p>H</p>))
     )
 )
 
-@using(Html.Bootstrap(b => b.Table().Responsive().Striped()))
+@using(var table = Html.Bootstrap().Table().Responsive().Striped().Bordered().ToDisposable())
 {
-    <tbody>
-        <tr><td>A</td><td>B</td></tr>
-        <tr><td>1</td><td>2</td></tr>
-    </tbody>
+    @table.Heading("A")
+    @table.Heading("B")
+    @table.Data("1")
+    @table.Data("2")
+    using (var row = table.Row().ToDisposable())
+    {
+        @row.Data("3")
+        @Html.Bootstrap().TableHeading("4")
+    }
 }
+
+@(Html.Bootstrap().Table().Bordered()
+  .Child(Html.Bootstrap().TableHeading().Content("test"))
+)  

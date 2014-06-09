@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
-    public class Row : Tag
+    public interface IGridColumn
     {
-        internal Row(BootstrapHelper helper) : base(helper, "div", "row")
-        {
-        }
     }
 }

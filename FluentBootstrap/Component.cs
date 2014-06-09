@@ -9,52 +9,54 @@ using System.Web;
 
 namespace FluentBootstrap
 {
-    public abstract class Component : IDisposable, IHtmlString
+    public abstract class Component : IHtmlString
     {
         private bool _started;
         private bool _ended;
 
+        // Implicit components are created by the library as wrappers, missing tags, etc.
+        // The primary difference is that implicit components can be automatically cleaned up from the stack
+        private bool _implicit;
+
         internal BootstrapHelper Helper { get; private set; }
 
-        public Component(BootstrapHelper helper)
+        protected Component(BootstrapHelper helper)
         {
             Helper = helper;
         }
 
-        public void Dispose()
+        internal void Start(TextWriter writer, bool @implicit)
         {
-            throw new InvalidOperationException("A component was directly disposed, which is usually an indication that the Html.Bootstrap().Component() method was used instead of Html.Bootstrap(b => b.Component()).");
-        }
-
-        internal void Start(TextWriter writer)
-        {
-            // Prepare this component
-            Prepare(writer);
+            _implicit = @implicit;
 
             // Only write content once
             if (_started)
-                throw new InvalidOperationException("This component has already generated starting content.");
+                return;
             _started = true;
 
-            // Get the content
-            OnStart(writer);
+            // Prepare this component
+            Prepare(writer);
 
             // Add this component to the stack
             Push();
+
+            // Get the content
+            OnStart(writer);
         }
 
-        internal void End(TextWriter writer)
+        internal void Finish(TextWriter writer)
         {
             // Only write content once
             if (_ended)
-                throw new InvalidOperationException("This component has already generated ending content.");
+                return;
             _ended = true;
 
             // Remove this component from the stack
+            // This must be done before writing the end content in case there are pending components on the stack that need to be ended
             Pop(writer);
 
             // Get the content
-            OnEnd(writer);
+            OnFinish(writer);
         }
 
         // Use this method to add components to the stack before this one is added
@@ -65,7 +67,7 @@ namespace FluentBootstrap
 
         protected abstract void OnStart(TextWriter writer);
 
-        protected virtual void OnEnd(TextWriter writer)
+        protected virtual void OnFinish(TextWriter writer)
         {
         }
 
@@ -74,10 +76,16 @@ namespace FluentBootstrap
         {
             using (StringWriter writer = new StringWriter())
             {
-                Start(writer);
-                End(writer);
+                Start(writer, false);
+                Finish(writer);
                 return writer.ToString();
             }
+        }
+
+        internal Component Implicit()
+        {
+            _implicit = true;
+            return this;
         }
 
         // The following code handles the stack of Bootstrap objects stored in the ViewContext
@@ -86,6 +94,69 @@ namespace FluentBootstrap
 
         private void Push()
         {
+            GetStack().Push(this);
+        }
+
+        // This also writes end content from any components pending on the stack until this one
+        private void Pop(TextWriter writer)
+        {
+            // Get the stack
+            Stack<Component> stack = GetStack();
+
+            // Peek components until we get to this one - the call to Finish() will pop them
+            Component peek = null;
+            while (stack.Count > 0 && (peek = stack.Peek()) != this && peek._implicit)
+            {
+                peek.Finish(writer);
+            }
+
+            // Sanity check
+            if (peek != this)
+                throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, which is usually an indication that a component has been disposed out of order.");
+
+            // Pop the component from the stack
+            if (stack.Pop() != this)
+                throw new InvalidOperationException("Popped a different Bootstrap component from the stack (you should never see this).");
+        }
+
+        // This pops up the stack if (and only if) it is assignable to the specified type and it (and all intermediate components) are implicit
+        // Use this to clear implicitly added components from the stack (see how the table works)
+        protected void Pop<TComponent>(TextWriter writer)
+        {
+            Stack<Component> stack = GetStack();
+
+            // Crawl the stack and queue the components in case an intermediate is not implicit
+            Queue<Component> finish = new Queue<Component>();
+            if (stack.Count > 0)
+            {
+                foreach (Component component in stack)
+                {
+                    if (!component._implicit)
+                    {
+                        break;
+                    }
+                    finish.Enqueue(component);
+                    if (typeof(TComponent).IsAssignableFrom(component.GetType()))
+                    {
+                        // Found the type we were looking for, go ahead and finish it and the intermediates
+                        while (finish.Count > 0)
+                        {
+                            finish.Dequeue().Finish(writer);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        protected TComponent GetComponent<TComponent>()
+            where TComponent : Component
+        {
+            return (TComponent)GetStack().Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault();
+        }
+
+        private Stack<Component> GetStack()
+        {
             IDictionary items = Helper.HtmlHelper.ViewContext.HttpContext.Items;
             Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
             if (stack == null)
@@ -93,36 +164,7 @@ namespace FluentBootstrap
                 stack = new Stack<Component>();
                 items[_bootstrapStackKey] = stack;
             }
-            stack.Push(this);
-        }
-
-        // This also writes end content from any components pending on the stack until this one
-        private void Pop(TextWriter writer)
-        {
-            // Get the stack
-            IDictionary items = Helper.HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
-            if (stack == null)
-                throw new InvalidOperationException("Could not get Bootstrap component stack while removing a component (you should never see this).");
-
-            // Pop components until we get to the requested one
-            Component pop = null;
-            while (stack.Count > 0 && (pop = stack.Pop()) != this)
-            {
-                pop.End(writer);
-            }
-
-            // Sanity check
-            if (stack.Count == 0 && pop != this)
-                throw new InvalidOperationException("Removed all Bootstrap components from the stack, this is usually an indication that one was not disposed in the correct nesting order.");
-        }
-
-        protected TComponent GetComponent<TComponent>()
-            where TComponent : Component
-        {
-            IDictionary items = Helper.HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
-            return stack == null ? null : stack.OfType<TComponent>().FirstOrDefault();
+            return stack;
         }
     }
 }

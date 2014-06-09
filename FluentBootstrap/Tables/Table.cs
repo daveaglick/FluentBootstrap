@@ -16,61 +16,25 @@ namespace FluentBootstrap.Tables
         {
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             if (Responsive)
             {
-                (new Tag(Helper, "div", "table-responsive")).Start(writer);
+                TagBuilder tag = new TagBuilder("div");
+                tag.AddCssClass("table-responsive");
+                writer.Write(tag.ToString(TagRenderMode.StartTag));
             }
+            base.OnStart(writer);
         }
-    }
 
-    public abstract class TableSection : Tag
-    {
-        public TableSection(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
+        protected override void OnFinish(TextWriter writer)
         {
-        }
-    }
-
-    public class TableHead : TableSection
-    {
-        public TableHead(BootstrapHelper helper) : base(helper, "thead")
-        {
-        }
-    }
-
-    public class TableBody : TableSection
-    {
-        public TableBody(BootstrapHelper helper) : base(helper, "tbody")
-        {
-        }
-    }
-
-    public class TableFoot : TableSection
-    {
-        public TableFoot(BootstrapHelper helper) : base(helper, "tfoot")
-        {
-        }
-    }
-
-    public class TableRow : Tag
-    {
-        public TableRow(BootstrapHelper helper) : base(helper, "tr")
-        {
-        }
-    }
-
-    public class TableData : Tag
-    {
-        public TableData(BootstrapHelper helper) : base(helper, "td")
-        {
-        }
-    }
-
-    public class TableHeading : Tag
-    {
-        public TableHeading(BootstrapHelper helper) : base(helper, "th")
-        {
+            base.OnFinish(writer);
+            if (Responsive)
+            {
+                TagBuilder tag = new TagBuilder("div");
+                writer.Write(tag.ToString(TagRenderMode.EndTag));
+            }
         }
     }
 }

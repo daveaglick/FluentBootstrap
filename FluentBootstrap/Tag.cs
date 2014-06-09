@@ -91,12 +91,12 @@ namespace FluentBootstrap
             // Append any children
             foreach (Component child in _children)
             {
-                child.Start(writer);
-                child.End(writer);
+                child.Start(writer, false);
+                child.Finish(writer);
             }
         }
 
-        protected override void OnEnd(TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
             // Append the end tag
             TagBuilder tag = new TagBuilder(_tagName);

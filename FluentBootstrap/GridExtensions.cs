@@ -26,36 +26,26 @@ namespace FluentBootstrap
 
         // Row
 
-        public static Row Row(this BootstrapHelper helper)
+        public static GridRow GridRow(this BootstrapHelper helper)
         {
-            return new Row(helper);
+            return new GridRow(helper);
         }
 
-        public static Row Row(this ComponentWrapper<Container> container)
+        public static GridRow Row(this ComponentWrapper<Container> container)
         {
-            return (new Row(container.Component.Helper));
+            return new GridRow(container.Component.Helper);
         }
 
         // Column
-
-        public static Column Column(this BootstrapHelper helper)
+        
+        public static GridColumn GridColumn(this BootstrapHelper helper, int? md = null)
         {
-            return new Column(helper);
+            return new GridColumn(helper).Md(md);
         }
 
-        public static Column Column(this BootstrapHelper helper, int md)
+        public static GridColumn Column(this ComponentWrapper<GridRow> row, int? md = null)
         {
-            return (new Column(helper)).Md(md);
-        }
-
-        public static Column Column(this ComponentWrapper<Row> row)
-        {
-            return new Column(row.Component.Helper);
-        }
-
-        public static Column Column(this ComponentWrapper<Row> row, int md)
-        {
-            return (new Column(row.Component.Helper)).Md(md);
+            return new GridColumn(row.Component.Helper).Md(md);
         }
     }
 }

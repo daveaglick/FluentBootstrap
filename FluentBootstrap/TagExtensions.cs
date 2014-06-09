@@ -44,8 +44,14 @@ namespace FluentBootstrap
         public static TTag Content<TTag>(this TTag tag, object content)
             where TTag : Tag
         {
-            tag.AddChild(new Content(tag.Helper,
-                Convert.ToString(content, CultureInfo.InvariantCulture)));
+            if (content != null)
+            {
+                string str = Convert.ToString(content, CultureInfo.InvariantCulture);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    tag.AddChild(new Content(tag.Helper, str));
+                }
+            }
             return tag;
         }
         
@@ -57,8 +63,9 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TTag Child<TTag>(this TTag tag, Component child)
+        public static TTag Child<TTag, TChild>(this TTag tag, TChild child)
             where TTag : Tag
+            where TChild : Component
         {
             tag.AddChild(child);
             return tag;

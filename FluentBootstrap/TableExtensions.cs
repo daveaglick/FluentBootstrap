@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,88 @@ namespace FluentBootstrap
         {
             table.Responsive = responsive;
             return table;
+        }
+
+        // Sections
+
+        public static TableHead TableHead(this BootstrapHelper helper)
+        {
+            return new TableHead(helper);
+        }
+
+        public static TableHead Head(this ComponentWrapper<Table> table)
+        {
+            return new TableHead(table.Component.Helper);
+        }
+
+        public static TableBody TableBody(this BootstrapHelper helper)
+        {
+            return new TableBody(helper);
+        }
+
+        public static TableBody Body(this ComponentWrapper<Table> table)
+        {
+            return new TableBody(table.Component.Helper);
+        }
+
+        public static TableFoot TableFoot(this BootstrapHelper helper)
+        {
+            return new TableFoot(helper);
+        }
+
+        public static TableFoot Foot(this ComponentWrapper<Table> table)
+        {
+            return new TableFoot(table.Component.Helper);
+        }
+
+        // Row
+
+        public static TableRow TableRow(this BootstrapHelper helper)
+        {
+            return new TableRow(helper);
+        }
+
+        public static TableRow Row(this ComponentWrapper<Table> table)
+        {
+            return new TableRow(table.Component.Helper);
+        }
+
+        public static TableRow Row<TSection>(this ComponentWrapper<TSection> tableSection)
+            where TSection : TableSection
+        {
+            return new TableRow(tableSection.Component.Helper);
+        }
+
+        // Cells
+
+        public static TableHeading TableHeading(this BootstrapHelper helper, object content = null)
+        {
+            return new TableHeading(helper).Content(content);
+        }
+
+        public static TableHeading Heading(this ComponentWrapper<Table> table, object content = null)
+        {
+            return new TableHeading(table.Component.Helper).Content(content);
+        }
+
+        public static TableHeading Heading(this ComponentWrapper<TableRow> row, object content = null)
+        {
+            return new TableHeading(row.Component.Helper).Content(content);
+        }
+
+        public static TableData TableData(this BootstrapHelper helper, object content = null)
+        {
+            return new TableData(helper).Content(content);
+        }
+
+        public static TableData Data(this ComponentWrapper<Table> table, object content = null)
+        {
+            return new TableData(table.Component.Helper).Content(content);
+        }
+
+        public static TableData Data(this ComponentWrapper<TableRow> row, object content = null)
+        {
+            return new TableData(row.Component.Helper).Content(content);
         }
     }
 }

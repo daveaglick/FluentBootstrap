@@ -22,9 +22,10 @@ namespace FluentBootstrap
             this._endOnDispose = endOnDispose;
         }
 
+        // We shouldn't ever really try to convert a disposable component directly to a string, but just in case
         public string ToHtmlString()
         {
-            throw new InvalidOperationException("A component was converted to a string, which is usually an indication that the Html.Bootstrap(b => b.Component()) method was used instead of Html.Bootstrap().Component().");
+            return Component.ToHtmlString();
         }
 
         public void Dispose()
@@ -33,7 +34,7 @@ namespace FluentBootstrap
                 throw new ObjectDisposedException(GetType().Name);
             _disposed = true;
             if(_endOnDispose)
-                Component.End(Component.Helper.ViewContextWriter);
+                Component.Finish(Component.Helper.ViewContextWriter);
         }
     }
 }

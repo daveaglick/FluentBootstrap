@@ -43,19 +43,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component.cs" />
+    <Compile Include="ComponentExtensions.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="TableExtensions.cs" />
     <Compile Include="Tables\Table.cs" />
+    <Compile Include="Tables\TableBody.cs" />
+    <Compile Include="Tables\TableCell.cs" />
+    <Compile Include="Tables\TableData.cs" />
+    <Compile Include="Tables\TableFoot.cs" />
+    <Compile Include="Tables\TableHead.cs" />
+    <Compile Include="Tables\TableHeading.cs" />
+    <Compile Include="Tables\TableRow.cs" />
+    <Compile Include="Tables\TableSection.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="BootstrapHelper.cs" />
     <Compile Include="ColumnExtensions.cs" />
     <Compile Include="TagExtensions.cs" />
     <Compile Include="ComponentWrapper.cs" />
-    <Compile Include="Grids\Column.cs" />
+    <Compile Include="Grids\GridColumn.cs" />
     <Compile Include="Grids\Container.cs" />
     <Compile Include="GridExtensions.cs" />
-    <Compile Include="Grids\IColumn.cs" />
-    <Compile Include="Grids\Row.cs" />
+    <Compile Include="Grids\IGridColumn.cs" />
+    <Compile Include="Grids\GridRow.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
