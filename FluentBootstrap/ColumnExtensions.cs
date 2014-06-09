@@ -1,4 +1,4 @@
-﻿using FluentBootstrap.Grid;
+﻿using FluentBootstrap.Grids;
 using System;
 using System.Collections.Generic;
 using System.Linq;

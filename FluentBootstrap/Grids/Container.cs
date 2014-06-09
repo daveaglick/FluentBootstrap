@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentBootstrap;
 
-namespace FluentBootstrap.Grid
+namespace FluentBootstrap.Grids
 {
     public class Container : Tag
     {

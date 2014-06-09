@@ -16,7 +16,7 @@ namespace FluentBootstrap
         {
             BootstrapHelper helper = new BootstrapHelper(htmlHelper);
             TComponent component = componentFunc(helper);
-            helper.Write(component.Start());
+            component.Start(helper.ViewContextWriter);
             return new ComponentWrapper<TComponent>(component);
         }
 
@@ -25,7 +25,7 @@ namespace FluentBootstrap
         {
             BootstrapHelper<TModel> helper = new BootstrapHelper<TModel>(htmlHelper);
             TComponent component = componentFunc(helper);
-            helper.Write(component.Start());
+            component.Start(helper.ViewContextWriter);
             return new ComponentWrapper<TComponent>(component);
         }
 
@@ -33,7 +33,7 @@ namespace FluentBootstrap
             where TComponent : Component
         {
             BootstrapHelper helper = new BootstrapHelper(htmlHelper);
-            helper.Write(component.Start());
+            component.Start(helper.ViewContextWriter);
             return new ComponentWrapper<TComponent>(component);
         }
 
@@ -41,7 +41,7 @@ namespace FluentBootstrap
             where TComponent : Component
         {
             BootstrapHelper<TModel> helper = new BootstrapHelper<TModel>(htmlHelper);
-            helper.Write(component.Start());
+            component.Start(helper.ViewContextWriter);
             return new ComponentWrapper<TComponent>(component);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,35 +65,42 @@ namespace FluentBootstrap
             }
         }
 
-        protected override string OnStart()
+        internal void ToggleCssClass(string cssClass, bool add)
+        {
+            if (add)
+            {
+                CssClasses.Add(cssClass);
+            }
+            else
+            {
+                CssClasses.Remove(cssClass);
+            }
+        }
+
+        protected override void OnStart(TextWriter writer)
         {
             // Append the start tag
-            StringBuilder stringBuilder = new StringBuilder();
             TagBuilder tag = new TagBuilder(_tagName);
             tag.MergeAttributes(Attributes);
             foreach (string cssClass in CssClasses)
             {
                 tag.AddCssClass(cssClass);
             }
-            stringBuilder.Append(tag.ToString(TagRenderMode.StartTag));
+            writer.Write(tag.ToString(TagRenderMode.StartTag));
 
             // Append any children
             foreach (Component child in _children)
             {
-                stringBuilder.Append(child.ToHtmlString());
+                child.Start(writer);
+                child.End(writer);
             }
-
-            return stringBuilder.ToString();
         }
 
-        protected override string OnEnd()
+        protected override void OnEnd(TextWriter writer)
         {
             // Append the end tag
-            StringBuilder stringBuilder = new StringBuilder();
             TagBuilder tag = new TagBuilder(_tagName);
-            stringBuilder.Append(tag.ToString(TagRenderMode.EndTag));
-
-            return stringBuilder.ToString();
+            writer.Write(tag.ToString(TagRenderMode.EndTag));
         }
     }
 }

@@ -11,14 +11,15 @@ namespace FluentBootstrap
         where TComponent : Component
     {
         private bool _disposed;
-        private readonly bool _writeOnDispose;
+        private readonly bool _endOnDispose;
 
         internal TComponent Component { get; private set; }
 
-        internal ComponentWrapper(TComponent component, bool writeOnDispose = true)
+        // endOnDispose is used when creating dummy wrappers for extension method purposes and they're not actually supposed to write (or do anything else)
+        internal ComponentWrapper(TComponent component, bool endOnDispose = true)
         {
             Component = component;
-            this._writeOnDispose = writeOnDispose;
+            this._endOnDispose = endOnDispose;
         }
 
         public string ToHtmlString()
@@ -31,8 +32,8 @@ namespace FluentBootstrap
             if (_disposed)
                 throw new ObjectDisposedException(GetType().Name);
             _disposed = true;
-            if(_writeOnDispose)
-                Component.Helper.Write(Component.End());
+            if(_endOnDispose)
+                Component.End(Component.Helper.ViewContextWriter);
         }
     }
 }

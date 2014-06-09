@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentBootstrap.Grid
+namespace FluentBootstrap.Grids
 {
     public class Column : Tag, IColumn
     {

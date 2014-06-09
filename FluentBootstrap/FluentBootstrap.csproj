@@ -44,16 +44,18 @@
   <ItemGroup>
     <Compile Include="Component.cs" />
     <Compile Include="Content.cs" />
+    <Compile Include="TableExtensions.cs" />
+    <Compile Include="Tables\Table.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="BootstrapHelper.cs" />
     <Compile Include="ColumnExtensions.cs" />
     <Compile Include="TagExtensions.cs" />
     <Compile Include="ComponentWrapper.cs" />
-    <Compile Include="Grid\Column.cs" />
-    <Compile Include="Grid\Container.cs" />
+    <Compile Include="Grids\Column.cs" />
+    <Compile Include="Grids\Container.cs" />
     <Compile Include="GridExtensions.cs" />
-    <Compile Include="Grid\IColumn.cs" />
-    <Compile Include="Grid\Row.cs" />
+    <Compile Include="Grids\IColumn.cs" />
+    <Compile Include="Grids\Row.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

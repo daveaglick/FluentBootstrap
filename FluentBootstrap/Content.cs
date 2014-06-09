@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace FluentBootstrap
             _content = content;
         }
 
-        protected override string OnStart()
+        protected override void OnStart(TextWriter writer)
         {
-            return _content;
+            writer.Write(_content);
         }
     }
 }
