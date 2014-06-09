@@ -14,6 +14,8 @@
         }
         @Html.Bootstrap().GridColumn(8).Content("<p>B</p>") 
     }
+    
+    <hr />
 
     using (var row = Html.Bootstrap().GridRow().CssClass("doc-row").ToDisposable())
     {
@@ -24,12 +26,15 @@
         }
     }
     
+    <hr />
+    
     @(Html.Bootstrap().GridRow().CssClass("doc-row")
         .Child(c => c.Column(6).Content("E"))
         .Child(c => c.Column(6).Content("F"))
     )
 }
-
+    
+<hr />
 
 @(Html.Bootstrap().Container().Fluid()
     .Child(Html.Bootstrap().GridRow().CssClass("doc-row")
@@ -38,19 +43,26 @@
     )
 )
 
-@using(var table = Html.Bootstrap().Table().Responsive().Striped().Bordered().ToDisposable())
-{
-    @table.Heading("A")
-    @table.Heading("B")
-    @table.Data("1")
-    @table.Data("2")
-    using (var row = table.Row().ToDisposable())
-    {
-        @row.Data("3")
-        @Html.Bootstrap().TableHeading("4")
-    }
-}
+<hr />
 
-@(Html.Bootstrap().Table().Bordered()
-  .Child(Html.Bootstrap().TableHeading().Content("test"))
-)  
+@using(Html.Bootstrap().Container().ToDisposable())
+{
+    using(var table = Html.Bootstrap().Table().Responsive().ToDisposable())
+    {
+        @table.Heading("A")
+        @table.Heading("B").Warning()
+        @table.Data("1")
+        @table.Data("2")
+        using (var row = table.Row().Danger().ToDisposable())
+        {
+            @row.Data("3")
+            @Html.Bootstrap().TableHeading("4")
+        }
+    }
+    
+    <hr />
+
+    @(Html.Bootstrap().Table().Bordered()
+      .Child(Html.Bootstrap().TableHeading().Content("test"))
+    )  
+}

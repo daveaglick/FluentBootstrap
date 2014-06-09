@@ -2,7 +2,7 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public class TableRow : Tag
+    public class TableRow : Tag, ITableContext
     {
         public TableRow(BootstrapHelper helper) : base(helper, "tr")
         {

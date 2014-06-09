@@ -45,7 +45,9 @@
     <Compile Include="Component.cs" />
     <Compile Include="ComponentExtensions.cs" />
     <Compile Include="Content.cs" />
+    <Compile Include="TableContextExtensions.cs" />
     <Compile Include="TableExtensions.cs" />
+    <Compile Include="Tables\ITableContext.cs" />
     <Compile Include="Tables\Table.cs" />
     <Compile Include="Tables\TableBody.cs" />
     <Compile Include="Tables\TableCell.cs" />
