@@ -128,5 +128,60 @@ namespace FluentBootstrap
         {
             return new TableData(row.Component.Helper).Content(content);
         }
+
+        // ITableContext
+
+        public static TComponent Active<TComponent>(this TComponent component, bool active = true)
+            where TComponent : Tag, ITableContext
+        {
+            return SetClass(component, "active", active);
+        }
+
+        public static TComponent Success<TComponent>(this TComponent component, bool success = true)
+            where TComponent : Tag, ITableContext
+        {
+            return SetClass(component, "success", success);
+        }
+
+        public static TComponent Warning<TComponent>(this TComponent component, bool warning = true)
+            where TComponent : Tag, ITableContext
+        {
+            return SetClass(component, "warning", warning);
+        }
+
+        public static TComponent Danger<TComponent>(this TComponent component, bool danger = true)
+            where TComponent : Tag, ITableContext
+        {
+            return SetClass(component, "danger", danger);
+        }
+
+        public static TComponent Info<TComponent>(this TComponent component, bool info = true)
+            where TComponent : Tag, ITableContext
+        {
+            return SetClass(component, "info", info);
+        }
+
+        private static TComponent SetClass<TComponent>(TComponent component, string cls, bool add)
+            where TComponent : Tag, ITableContext
+        {
+            component.ToggleCssClass(cls, add, "active", "success", "warning", "danger", "info");
+            return component;
+        }
+
+        // TableCell
+
+        public static TComponent ColSpan<TComponent>(this TComponent component, int? colSpan)
+            where TComponent : TableCell
+        {
+            component.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
+            return component;
+        }
+
+        public static TComponent RowSpan<TComponent>(this TComponent component, int? rowSpan)
+            where TComponent : TableCell
+        {
+            component.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
+            return component;
+        }
     }
 }

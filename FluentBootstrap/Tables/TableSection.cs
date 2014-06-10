@@ -4,7 +4,7 @@ namespace FluentBootstrap.Tables
 {
     public abstract class TableSection : Tag
     {
-        public TableSection(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
+        protected TableSection(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
         {
         }
 

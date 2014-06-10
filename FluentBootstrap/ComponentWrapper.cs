@@ -34,7 +34,7 @@ namespace FluentBootstrap
                 throw new ObjectDisposedException(GetType().Name);
             _disposed = true;
             if(_endOnDispose)
-                Component.Finish(Component.Helper.ViewContextWriter);
+                Component.Finish(Component.ViewContext.Writer);
         }
     }
 }

@@ -12,17 +12,15 @@ namespace FluentBootstrap
 {
     public class Tag : Component
     {
-        private readonly string _tagName;
         private readonly List<Component> _children = new List<Component>();
 
+        internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
-        internal Dictionary<string, string> Attributes { get; private set; }
 
         protected internal Tag(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper)
         {
+            TagBuilder = new TagBuilder(tagName);
             CssClasses = new HashSet<string>();
-            Attributes = new Dictionary<string, string>();
-            _tagName = tagName;
             foreach (string cssClass in cssClasses)
                 CssClasses.Add(cssClass);
         }
@@ -51,24 +49,30 @@ namespace FluentBootstrap
             }
         }
 
+        // This works a little bit differently then the TagBuilder.MergeAttribute() method
+        // This version does not throw on null or whitespace key and removes the attribute if value is null
         internal void MergeAttribute(string key, string value, bool replaceExisting = true)
         {
             if (string.IsNullOrWhiteSpace(key))
                 return;
-            if (value == null && replaceExisting && Attributes.ContainsKey(key))
+            if (value == null && replaceExisting && TagBuilder.Attributes.ContainsKey(key))
             {
-                Attributes.Remove(key);
+                TagBuilder.Attributes.Remove(key);
             }
-            else if (value != null && (replaceExisting || !Attributes.ContainsKey(key)))
+            else if (value != null && (replaceExisting || !TagBuilder.Attributes.ContainsKey(key)))
             {
-                Attributes[key] = value;
+                TagBuilder.Attributes[key] = value;
             }
         }
 
-        internal void ToggleCssClass(string cssClass, bool add)
+        internal void ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)
         {
             if (add)
             {
+                foreach (string remove in removeIfAdding)
+                {
+                    CssClasses.Remove(remove);
+                }
                 CssClasses.Add(cssClass);
             }
             else
@@ -79,14 +83,14 @@ namespace FluentBootstrap
 
         protected override void OnStart(TextWriter writer)
         {
-            // Append the start tag
-            TagBuilder tag = new TagBuilder(_tagName);
-            tag.MergeAttributes(Attributes);
+            // Set CSS classes
             foreach (string cssClass in CssClasses)
             {
-                tag.AddCssClass(cssClass);
+                TagBuilder.AddCssClass(cssClass);
             }
-            writer.Write(tag.ToString(TagRenderMode.StartTag));
+
+            // Append the start tag
+            writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
 
             // Append any children
             foreach (Component child in _children)
@@ -99,8 +103,7 @@ namespace FluentBootstrap
         protected override void OnFinish(TextWriter writer)
         {
             // Append the end tag
-            TagBuilder tag = new TagBuilder(_tagName);
-            writer.Write(tag.ToString(TagRenderMode.EndTag));
+            writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
         }
     }
 }

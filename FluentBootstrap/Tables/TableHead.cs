@@ -2,7 +2,7 @@ namespace FluentBootstrap.Tables
 {
     public class TableHead : TableSection
     {
-        public TableHead(BootstrapHelper helper) : base(helper, "thead")
+        internal TableHead(BootstrapHelper helper) : base(helper, "thead")
         {
         }
     }

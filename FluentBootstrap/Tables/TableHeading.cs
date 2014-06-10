@@ -4,7 +4,7 @@ namespace FluentBootstrap.Tables
 {
     public class TableHeading : TableCell
     {
-        public TableHeading(BootstrapHelper helper) : base(helper, "th")
+        internal TableHeading(BootstrapHelper helper) : base(helper, "th")
         {
         }
 

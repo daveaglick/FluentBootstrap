@@ -18,11 +18,6 @@ namespace FluentBootstrap
         {
             HtmlHelper = htmlHelper;
         }
-
-        internal TextWriter ViewContextWriter
-        {
-            get { return HtmlHelper.ViewContext.Writer; }
-        }
     }
 
     public class BootstrapHelper<TModel> : BootstrapHelper

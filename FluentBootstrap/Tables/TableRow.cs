@@ -4,7 +4,7 @@ namespace FluentBootstrap.Tables
 {
     public class TableRow : Tag, ITableContext
     {
-        public TableRow(BootstrapHelper helper) : base(helper, "tr")
+        internal TableRow(BootstrapHelper helper) : base(helper, "tr")
         {
         }
 

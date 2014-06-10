@@ -9,7 +9,7 @@ namespace FluentBootstrap.Tables
 {
     public abstract class TableCell : Tag, ITableContext
     {
-        public TableCell(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
+        internal TableCell(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
         {
         }
 

@@ -65,4 +65,12 @@
     @(Html.Bootstrap().Table().Bordered()
       .Child(Html.Bootstrap().TableHeading().Content("test"))
     )  
+    
+    <hr />
+    
+    using (var form = Html.Bootstrap().Form().ToDisposable())
+    {
+        @form.Text("A", "Testing A")
+        @form.Text("B", "Testing B")
+    }
 }

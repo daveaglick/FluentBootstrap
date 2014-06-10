@@ -12,7 +12,7 @@ namespace FluentBootstrap.Tables
     {
         internal bool Responsive { get; set; }
 
-        public Table(BootstrapHelper helper) : base(helper, "table", "table")
+        internal Table(BootstrapHelper helper) : base(helper, "table", "table")
         {
         }
 

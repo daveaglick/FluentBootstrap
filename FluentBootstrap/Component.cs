@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
@@ -23,6 +24,16 @@ namespace FluentBootstrap
         protected Component(BootstrapHelper helper)
         {
             Helper = helper;
+        }
+
+        internal HtmlHelper HtmlHelper
+        {
+            get { return Helper.HtmlHelper; }
+        }
+
+        internal ViewContext ViewContext
+        {
+            get { return HtmlHelper.ViewContext; }
         }
 
         internal void Start(TextWriter writer, bool @implicit)
