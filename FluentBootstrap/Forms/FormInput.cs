@@ -10,6 +10,9 @@ namespace FluentBootstrap.Forms
 {
     public class FormInput : Tag
     {
+        internal string Label { get; set; }
+        internal bool LabelSrOnly { get; set; }
+
         internal FormInput(BootstrapHelper helper, string type) : base(helper, "input", "form-control")
         {
             MergeAttribute("type", type);
@@ -18,7 +21,7 @@ namespace FluentBootstrap.Forms
         protected override void OnStart(TextWriter writer)
         {
             // Add the validation data
-            string name;
+            string name = null;
             if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
             {
                 // Set the id
@@ -35,7 +38,33 @@ namespace FluentBootstrap.Forms
                 TagBuilder.MergeAttributes<string, object>(HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
             }
 
+            // Append the form group
+            TagBuilder formGroup = new TagBuilder("div");
+            formGroup.AddCssClass("form-group");
+            writer.Write(formGroup.ToString(TagRenderMode.StartTag));
+
+            // Append the label
+            if (!string.IsNullOrWhiteSpace(Label))
+            {
+                TagBuilder label = new TagBuilder("label");
+                if (!string.IsNullOrWhiteSpace(name))
+                    label.MergeAttribute("for", name);
+                if (LabelSrOnly)
+                    label.AddCssClass("sr-only");
+                writer.Write(label.ToString(TagRenderMode.StartTag));
+                writer.Write(Label);
+                writer.Write(label.ToString(TagRenderMode.EndTag));
+            }
+
             base.OnStart(writer);
+        }
+
+        protected override void OnFinish(TextWriter writer)
+        {
+            base.OnFinish(writer);
+
+            TagBuilder formGroup = new TagBuilder("div");
+            writer.Write(formGroup.ToString(TagRenderMode.EndTag));
         }
     }
 }

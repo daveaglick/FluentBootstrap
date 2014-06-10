@@ -70,7 +70,7 @@
     
     using (var form = Html.Bootstrap().Form().ToDisposable())
     {
-        @form.Text("A", "Testing A")
-        @form.Text("B", "Testing B")
+        @form.Password("A")
+        @form.Text("B", "Testing B").Placeholder("Input something...")
     }
 }

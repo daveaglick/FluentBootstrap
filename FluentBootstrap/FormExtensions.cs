@@ -77,144 +77,144 @@ namespace FluentBootstrap
 
         // Inputs
 
-        public static FormInput Text(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Text(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "text").Name(name).Value(value, format);
+            return new FormInput(helper, "text").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Text(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Text(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "text").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "text").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Password(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Password(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "password").Name(name).Value(value, format);
+            return new FormInput(helper, "password").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Password(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Password(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "password").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "password").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput DateTime(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput DateTime(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "datetime").Name(name).Value(value, format);
+            return new FormInput(helper, "datetime").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput DateTime(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput DateTime(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "datetime").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "datetime").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput DateTimeLocal(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput DateTimeLocal(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "datetime-local").Name(name).Value(value, format);
+            return new FormInput(helper, "datetime-local").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput DateTimeLocal(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput DateTimeLocal(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "datetime-local").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "datetime-local").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Date(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Date(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "date").Name(name).Value(value, format);
+            return new FormInput(helper, "date").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Date(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Date(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "date").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "date").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Month(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Month(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "month").Name(name).Value(value, format);
+            return new FormInput(helper, "month").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Month(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Month(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "month").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "month").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Time(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Time(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "time").Name(name).Value(value, format);
+            return new FormInput(helper, "time").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Time(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Time(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "time").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "time").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Week(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Week(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "week").Name(name).Value(value, format);
+            return new FormInput(helper, "week").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Week(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Week(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "week").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "week").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Number(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Number(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "number").Name(name).Value(value, format);
+            return new FormInput(helper, "number").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Number(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Number(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "number").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "number").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Email(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Email(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "email").Name(name).Value(value, format);
+            return new FormInput(helper, "email").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Email(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Email(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "email").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "email").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Url(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Url(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "url").Name(name).Value(value, format);
+            return new FormInput(helper, "url").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Url(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Url(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "url").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "url").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Search(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Search(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "search").Name(name).Value(value, format);
+            return new FormInput(helper, "search").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Search(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Search(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "search").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "search").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Tel(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Tel(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "tel").Name(name).Value(value, format);
+            return new FormInput(helper, "tel").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Tel(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Tel(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "tel").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "tel").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Color(this BootstrapHelper helper, string name = null, object value = null, string format = null)
+        public static FormInput Color(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(helper, "color").Name(name).Value(value, format);
+            return new FormInput(helper, "color").Name(name).Label(label).Value(value, format);
         }
 
-        public static FormInput Color(this ComponentWrapper<Form> form, string name = null, object value = null, string format = null)
+        public static FormInput Color(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null)
         {
-            return new FormInput(form.Component.Helper, "color").Name(name).Value(value, format);
+            return new FormInput(form.Component.Helper, "color").Name(name).Label(label).Value(value, format);
         }
 
         // Input attributes
@@ -226,10 +226,25 @@ namespace FluentBootstrap
             return component;
         }
 
+        public static TComponent Label<TComponent>(this TComponent component, string label, bool srOnly = false)
+            where TComponent : FormInput
+        {
+            component.Label = label;
+            component.LabelSrOnly = srOnly;
+            return component;
+        }
+
         public static TComponent Value<TComponent>(this TComponent component, object value, string format = null)
             where TComponent : FormInput
         {
             component.MergeAttribute("value", value == null ? null : component.HtmlHelper.FormatValue(value, format));
+            return component;
+        }
+
+        public static TComponent Placeholder<TComponent>(this TComponent component, string placeholder)
+            where TComponent : FormInput
+        {
+            component.MergeAttribute("placeholder", placeholder);
             return component;
         }
     }
