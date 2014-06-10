@@ -8,6 +8,9 @@ namespace FluentBootstrap.Forms
 {
     public class FormGroup : Tag
     {
+        // This helps track if a label was written as part of this group so following inputs can adjust offset CSS classes accordingly
+        internal bool WroteLabel { get; set; }
+
         internal FormGroup(BootstrapHelper helper) : base(helper, "div", "form-group")
         {
         }

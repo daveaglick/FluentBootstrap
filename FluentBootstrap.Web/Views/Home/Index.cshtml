@@ -70,12 +70,23 @@
     
     using (var form = Html.Bootstrap().Form().Horizontal(6).ToDisposable())
     {
-        @form.Password("A")
-        @form.Text("B").Label("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
+        @form.Input("A", inputType: FormInputType.Password)
+        @form.Input("B").Label("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
         using (form.FormGroup().CssClass("dave").ToDisposable())
         {
-            @form.Text("C").Md(10).Label("Label C", l => l.Md(2))
+            @form.Input("C").Md(10).Label("Label C", l => l.Md(2))
         }
-        @Html.Bootstrap().FormSearch(label: "Search Label")
+        @Html.Bootstrap().FormInput("Search", "Search Label")
     }
+    
+    <hr />
+    
+    @(Html.Bootstrap().Form().Horizontal()
+        .Child(c => c.Input("Child 1", "Child 1"))
+        .Child(c => c.Input("Child 2"))
+        .Child(c => c.FormGroup()
+            .Child(x => x.Label("My Label"))
+            .Child(x => x.Input("Password", inputType: FormInputType.Password))
+        )
+    )
 }

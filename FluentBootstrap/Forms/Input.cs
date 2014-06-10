@@ -26,9 +26,11 @@ namespace FluentBootstrap.Forms
             base.Prepare(writer);
 
             // Make sure we're in a form group
-            if (!SuppressFormGroup && GetComponent<FormGroup>() == null)
+            FormGroup formGroup = GetComponent<FormGroup>();
+            if (!SuppressFormGroup && formGroup == null)
             {
                 _formGroup = (FormGroup)new FormGroup(Helper).Start(writer, true);
+                formGroup = _formGroup;
             }
 
             // Add the label
@@ -42,12 +44,6 @@ namespace FluentBootstrap.Forms
                     Label.For(name);
                 }
 
-                // Set default column classes if we're horizontal
-                if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !Label.CssClasses.Any(x => x.StartsWith("col-")))
-                {
-                    Label.Md(form.DefaultLabelWidth);
-                }
-
                 // Write the label
                 writer.Write(Label.ToHtmlString());
             }
@@ -56,7 +52,7 @@ namespace FluentBootstrap.Forms
             if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !CssClasses.Any(x => x.StartsWith("col-")))
             {
                 this.Md(BootstrapHelper.GridColumns - form.DefaultLabelWidth);
-                if (Label == null)
+                if (Label == null && (formGroup == null || !formGroup.WroteLabel))
                 {
                     // Also need to add an offset if no label
                     this.MdOffset(form.DefaultLabelWidth);
