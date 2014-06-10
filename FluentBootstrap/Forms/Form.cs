@@ -12,9 +12,17 @@ namespace FluentBootstrap.Forms
 {
     public class Form : Tag
     {
+        // This is only used for horizontal forms
+        internal int? DefaultLabelWidth { get; set; }
+
         public Form(BootstrapHelper helper)
             : base(helper, "form")
         {
+        }
+
+        internal bool Horizontal
+        {
+            get { return CssClasses.Contains("form-horizontal"); }
         }
 
         protected override void OnStart(TextWriter writer)

@@ -2,9 +2,9 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public class TableData : TableCell
+    public class Data : Cell
     {
-        internal TableData(BootstrapHelper helper) : base(helper, "td")
+        internal Data(BootstrapHelper helper) : base(helper, "td")
         {
         }
 
@@ -16,12 +16,12 @@ namespace FluentBootstrap.Tables
             if (GetComponent<Table>() != null)
             {
                 // If we're in a head section, exit out
-                Pop<TableHead>(writer);
+                Pop<Head>(writer);
 
                 // Make sure we're in a row
-                if (GetComponent<TableRow>() == null)
+                if (GetComponent<Row>() == null)
                 {
-                    new TableRow(Helper).Start(writer, true);
+                    new Row(Helper).Start(writer, true);
                 }
             }
         }

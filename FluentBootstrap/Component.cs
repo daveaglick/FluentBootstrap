@@ -36,13 +36,13 @@ namespace FluentBootstrap
             get { return HtmlHelper.ViewContext; }
         }
 
-        internal void Start(TextWriter writer, bool @implicit)
+        internal Component Start(TextWriter writer, bool @implicit)
         {
             _implicit = @implicit;
 
             // Only write content once
             if (_started)
-                return;
+                return this;
             _started = true;
 
             // Prepare this component
@@ -53,13 +53,14 @@ namespace FluentBootstrap
 
             // Get the content
             OnStart(writer);
+            return this;
         }
 
-        internal void Finish(TextWriter writer)
+        internal Component Finish(TextWriter writer)
         {
             // Only write content once
             if (_ended)
-                return;
+                return this;
             _ended = true;
 
             // Remove this component from the stack
@@ -68,6 +69,7 @@ namespace FluentBootstrap
 
             // Get the content
             OnFinish(writer);
+            return this;
         }
 
         // Use this method to add components to the stack before this one is added
@@ -131,7 +133,7 @@ namespace FluentBootstrap
         }
 
         // This pops up the stack if (and only if) it is assignable to the specified type and it (and all intermediate components) are implicit
-        // Use this to clear implicitly added components from the stack (see how the table works)
+        // Use this to clear arbitrary implicitly added components from the stack (see how Tables.Row works)
         protected void Pop<TComponent>(TextWriter writer)
         {
             Stack<Component> stack = GetStack();
@@ -150,6 +152,38 @@ namespace FluentBootstrap
                     if (typeof(TComponent).IsAssignableFrom(component.GetType()))
                     {
                         // Found the type we were looking for, go ahead and finish it and the intermediates
+                        while (finish.Count > 0)
+                        {
+                            finish.Dequeue().Finish(writer);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        // This pops up the stack if (and only if) the requested component and all intermediate components are implicit
+        // Use this to clear specific implicitly added components from the stack (see how Forms.Input works)
+        protected void Pop(Component pop, TextWriter writer)
+        {
+            if (pop == null || !pop._implicit)
+                return;
+            Stack<Component> stack = GetStack();
+
+            // Crawl the stack and queue the components in case an intermediate is not implicit
+            Queue<Component> finish = new Queue<Component>();
+            if (stack.Count > 0)
+            {
+                foreach (Component component in stack)
+                {
+                    if (!component._implicit)
+                    {
+                        break;
+                    }
+                    finish.Enqueue(component);
+                    if (component == pop)
+                    {
+                        // Found the component we were looking for, so go ahead and finish it and the intermediates
                         while (finish.Count > 0)
                         {
                             finish.Dequeue().Finish(writer);

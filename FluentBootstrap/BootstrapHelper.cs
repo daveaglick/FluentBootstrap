@@ -12,6 +12,8 @@ namespace FluentBootstrap
 {
     public class BootstrapHelper
     {
+        public static int GridColumns = 12;
+
         internal HtmlHelper HtmlHelper { get; private set; }
 
         internal BootstrapHelper(HtmlHelper htmlHelper)

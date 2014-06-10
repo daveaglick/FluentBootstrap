@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public static class ColumnExtensions
+    public static class GridColumnExtensions
     {
         public static TComponent Xs<TComponent>(this TComponent component, int? value)
             where TComponent : Tag, IGridColumn
@@ -85,8 +85,14 @@ namespace FluentBootstrap
             where TComponent : Tag, IGridColumn
         {
             component.CssClasses.RemoveWhere(x => x.StartsWith(prefix));
-            if (value != null && value > 0)
+            if (value != null)
+            {
+                if (value <= 0)
+                    value = 1;
+                if (value > BootstrapHelper.GridColumns)
+                    value = BootstrapHelper.GridColumns;
                 component.CssClasses.Add(prefix + value.Value);
+            }
             return component;
         }
     }

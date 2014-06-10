@@ -2,9 +2,9 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public class TableHeading : TableCell
+    public class Heading : Cell
     {
-        internal TableHeading(BootstrapHelper helper) : base(helper, "th")
+        internal Heading(BootstrapHelper helper) : base(helper, "th")
         {
         }
 
@@ -13,14 +13,14 @@ namespace FluentBootstrap.Tables
             base.Prepare(writer);
 
             // Make sure we're in a row, but only if we're also in a table
-            if (GetComponent<Table>() != null && GetComponent<TableRow>() == null)
+            if (GetComponent<Table>() != null && GetComponent<Row>() == null)
             {
                 // ...and make sure the row is in a head section
-                if (GetComponent<TableSection>() == null)
+                if (GetComponent<Section>() == null)
                 {
-                    new TableHead(Helper).Start(writer, true);
+                    new Head(Helper).Start(writer, true);
                 }
-                new TableRow(Helper).Start(writer, true);
+                new Row(Helper).Start(writer, true);
             }
         }
     }

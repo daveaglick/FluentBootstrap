@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public abstract class TableCell : Tag, ITableContext
+    public abstract class Cell : Tag, ITableContext
     {
-        internal TableCell(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
+        internal Cell(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper, tagName, cssClasses)
         {
         }
 
         protected override void Prepare(TextWriter writer)
         {
-            Pop<TableCell>(writer);
+            Pop<Cell>(writer);
             base.Prepare(writer);
         }
     }
