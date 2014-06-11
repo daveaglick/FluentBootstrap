@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="FormInputType.cs" />
-    <Compile Include="Forms\CheckBox.cs" />
+    <Compile Include="Forms\CheckedControl.cs" />
     <Compile Include="Forms\FormControl.cs" />
     <Compile Include="Forms\TextArea.cs" />
     <Compile Include="GridColumnExtensions.cs" />

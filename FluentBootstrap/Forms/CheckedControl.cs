@@ -8,14 +8,14 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public class CheckBox : FormControl
+    public class CheckedControl : FormControl
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }
 
-        public CheckBox(BootstrapHelper helper) : base(helper, "input")
+        public CheckedControl(BootstrapHelper helper, string type) : base(helper, "input")
         {
-            MergeAttribute("type", "checkbox");
+            MergeAttribute("type", type);
         }
 
         protected override void Prepare(TextWriter writer)
@@ -35,7 +35,7 @@ namespace FluentBootstrap.Forms
             if (!Inline)
             {
                 TagBuilder div = new TagBuilder("div");
-                div.AddCssClass("checkbox");
+                div.AddCssClass(TagBuilder.Attributes["type"]);
                 writer.Write(div.ToString(TagRenderMode.StartTag));
             }
 
@@ -43,7 +43,7 @@ namespace FluentBootstrap.Forms
             TagBuilder label = new TagBuilder("label");
             if (Inline)
             {
-                label.AddCssClass("checkbox-inline");
+                label.AddCssClass(TagBuilder.Attributes["type"] + "-inline");
             }
             writer.Write(label.ToString(TagRenderMode.StartTag));
 

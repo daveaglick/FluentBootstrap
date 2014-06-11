@@ -11,7 +11,6 @@ namespace FluentBootstrap.Forms
     public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn
     {
         private FormGroup _formGroup = null;
-        private Tag _columnWrapper = null;
 
         internal Label Label { get; set; }
 
@@ -33,7 +32,6 @@ namespace FluentBootstrap.Forms
             }
 
             // Add the label
-            Form form = GetComponent<Form>();
             if (Label != null)
             {
                 // Set the label's for attribute to the input name
@@ -48,6 +46,7 @@ namespace FluentBootstrap.Forms
             }
 
             // Add default column classes if we're horizontal and none have been explicitly set
+            Form form = GetComponent<Form>();
             if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !CssClasses.Any(x => x.StartsWith("col-")))
             {
                 this.Md(BootstrapHelper.GridColumns - form.DefaultLabelWidth);
@@ -59,12 +58,12 @@ namespace FluentBootstrap.Forms
             }
 
             // Move any grid column classes to a container class
-            if (CssClasses.Any(x => x.StartsWith("col-")))
+            if (CssClasses.Any(x => x.StartsWith("col-")) && formGroup.ColumnWrapper == null)
             {
-                _columnWrapper = new Tag(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
-                CssClasses.RemoveWhere(x => x.StartsWith("col-"));
-                _columnWrapper.Start(writer, true);
+                formGroup.ColumnWrapper = new Tag(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                formGroup.ColumnWrapper.Start(writer, true);
             }
+            CssClasses.RemoveWhere(x => x.StartsWith("col-"));
         }
 
         protected override void OnStart(TextWriter writer)
@@ -93,9 +92,6 @@ namespace FluentBootstrap.Forms
         protected override void OnFinish(TextWriter writer)
         {
             base.OnFinish(writer);
-
-            // Pop wrapper elements if we added any
-            Pop(_columnWrapper, writer);
             Pop(_formGroup, writer);
         }
     }

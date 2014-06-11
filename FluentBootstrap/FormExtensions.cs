@@ -181,45 +181,60 @@ namespace FluentBootstrap
             return textArea;
         }
 
-        // CheckBox
+        // CheckedControl
 
-        public static CheckBox FormCheckBox(this BootstrapHelper helper, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl FormCheckBox(this BootstrapHelper helper, string name = null, string label = null, string description = null, bool isChecked = false)
         {
-            return new CheckBox(helper).Name(name).Label(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl(helper, "checkbox").Name(name).Label(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckBox CheckBox(this ComponentWrapper<Form> form, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl CheckBox(this ComponentWrapper<Form> form, string name = null, string label = null, string description = null, bool isChecked = false)
         {
-            return new CheckBox(form.Component.Helper).Name(name).Label(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl(form.Component.Helper, "checkbox").Name(name).Label(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckBox CheckBox(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl CheckBox(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, string description = null, bool isChecked = false)
         {
-            return new CheckBox(formGroup.Component.Helper).Name(name).Label(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl(formGroup.Component.Helper, "checkbox").Name(name).Label(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckBox Description(this CheckBox checkBox, string description)
+        public static CheckedControl FormRadio(this BootstrapHelper helper, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
         {
-            checkBox.Description = description;
-            return checkBox;
+            return new CheckedControl(helper, "radio").Name(name).Label(label).Description(description).Value(value).IsChecked(isChecked);
         }
 
-        public static CheckBox Inline(this CheckBox checkBox, bool inline = true)
+        public static CheckedControl Radio(this ComponentWrapper<Form> form, string name = null, string label = null, string description = null,object value = null,  bool isChecked = false)
         {
-            checkBox.Inline = inline;
-            return checkBox;
+            return new CheckedControl(form.Component.Helper, "radio").Name(name).Label(label).Description(description).Value(value).IsChecked(isChecked);
         }
 
-        public static CheckBox IsChecked(this CheckBox checkBox, bool isChecked = true)
+        public static CheckedControl Radio(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
         {
-            checkBox.MergeAttribute("checked", isChecked ? "checked" : null);
-            return checkBox;
+            return new CheckedControl(formGroup.Component.Helper, "radio").Name(name).Label(label).Description(description).Value(value).IsChecked(isChecked);
         }
 
-        public static CheckBox Value(this CheckBox checkBox, string value)
+        public static CheckedControl Description(this CheckedControl checkedControl, string description)
         {
-            checkBox.MergeAttribute("value", value);
-            return checkBox;
+            checkedControl.Description = description;
+            return checkedControl;
+        }
+
+        public static CheckedControl Inline(this CheckedControl checkedControl, bool inline = true)
+        {
+            checkedControl.Inline = inline;
+            return checkedControl;
+        }
+
+        public static CheckedControl IsChecked(this CheckedControl checkedControl, bool isChecked = true)
+        {
+            checkedControl.MergeAttribute("checked", isChecked ? "checked" : null);
+            return checkedControl;
+        }
+
+        public static CheckedControl Value(this CheckedControl checkedControl, object value)
+        {
+            checkedControl.MergeAttribute("value", value == null ? null : checkedControl.HtmlHelper.FormatValue(value, null));
+            return checkedControl;
         }
 
         // FormControl
