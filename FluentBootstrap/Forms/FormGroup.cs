@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FormGroup : Tag, FluentBootstrap.Grids.IGridColumn,
+    public class FormGroup : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation,
         Forms.Label.ICreate,
         Forms.Input.ICreate,
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
-        Forms.TextArea.ICreate
+        Forms.TextArea.ICreate,
+        Forms.Static.ICreate
     {
         public interface ICreate : ICreateComponent
         {

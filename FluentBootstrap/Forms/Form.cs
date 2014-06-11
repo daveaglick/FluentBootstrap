@@ -11,12 +11,14 @@ using System.Web.Mvc.Html;
 namespace FluentBootstrap.Forms
 {
     public class Form : Tag,
+        Forms.FieldSet.ICreate,
         Forms.FormGroup.ICreate,
         Forms.Label.ICreate,
         Forms.Input.ICreate,
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
-        Forms.TextArea.ICreate
+        Forms.TextArea.ICreate,
+        Forms.Static.ICreate
     {
         public interface ICreate : ICreateComponent
         {

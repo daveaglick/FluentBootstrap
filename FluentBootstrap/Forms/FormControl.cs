@@ -8,11 +8,13 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn
+    public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation
     {
         private FormGroup _formGroup = null;
 
         internal Label Label { get; set; }
+
+        internal string Help { get; set; }
 
         protected FormControl(BootstrapHelper helper, string tagName, params string[] cssClasses) 
             : base(helper, tagName, cssClasses)
@@ -27,8 +29,24 @@ namespace FluentBootstrap.Forms
             FormGroup formGroup = GetComponent<FormGroup>();
             if (formGroup == null)
             {
-                _formGroup = (FormGroup)new FormGroup(Helper).Start(writer, true);
+                _formGroup = new FormGroup(Helper);
                 formGroup = _formGroup;
+            }
+
+            // Move any validation classes to the form group, but only if it's implicit for this control and doesn't already have form validation classes
+            if (CssClasses.Any(x => x.StartsWith("has-")) && _formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("has-")))
+            {
+                foreach (string formValidation in CssClasses.Where(x => x.StartsWith("has-")))
+                {
+                    formGroup.CssClasses.Add(formValidation);
+                }
+            }
+            CssClasses.RemoveWhere(x => x.StartsWith("has-"));
+
+            // Start the new form group if we created one
+            if (_formGroup != null)
+            {
+                _formGroup.Start(writer, true);
             }
 
             // Add the label
@@ -91,7 +109,16 @@ namespace FluentBootstrap.Forms
 
         protected override void OnFinish(TextWriter writer)
         {
+            // Add the help text
+            if (!string.IsNullOrEmpty(Help))
+            {
+                writer.Write(new Tag(Helper, "p", "help-block")
+                    .AddChild(new Content(Helper, Help))
+                    .ToHtmlString());
+            }
+
             base.OnFinish(writer);
+
             Pop(_formGroup, writer);
         }
     }

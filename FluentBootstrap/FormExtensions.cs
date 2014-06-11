@@ -79,7 +79,21 @@ namespace FluentBootstrap
             return form;
         }
 
-        // Form Group
+        // FieldSet
+
+        public static FieldSet FieldSet<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : FieldSet.ICreate
+        {
+            return new FieldSet(creator.GetHelper());
+        }
+
+        public static FieldSet Disabled(this FieldSet fieldSet, bool disabled = true)
+        {
+            fieldSet.MergeAttribute("disabled", disabled ? "disabled" : null);
+            return fieldSet;
+        }
+
+        // FormGroup
 
         public static FormGroup FormGroup<TCreator>(this IComponentCreator<TCreator> creator)
             where TCreator : FormGroup.ICreate
@@ -224,6 +238,20 @@ namespace FluentBootstrap
             return select;
         }
 
+        // Static
+
+        public static Static Static<TCreator>(this IComponentCreator<TCreator> creator, string label = null, object value = null, string format = null)
+            where TCreator : Static.ICreate
+        {
+            return new Static(creator.GetHelper()).ControlLabel(label).Value(value, format);
+        }
+
+        public static Static Value(this Static @static, object value, string format = null)
+        {
+            @static.Value = value == null ? null : @static.HtmlHelper.FormatValue(value, format);
+            return @static;
+        }
+
         // FormControl
         
         public static TFormControl Name<TFormControl>(this TFormControl control, string name)
@@ -245,6 +273,57 @@ namespace FluentBootstrap
                 }
             }
             return control;
+        }
+
+        public static TFormControl Help<TFormControl>(this TFormControl control, string help)
+            where TFormControl : FormControl
+        {
+            control.Help = help;
+            return control;
+        }
+
+        public static TFormControl Disabled<TFormControl>(this TFormControl control, bool disabled = true)
+            where TFormControl : FormControl
+        {
+            control.MergeAttribute("disabled", disabled ? "disabled" : null);
+            return control;
+        }
+
+        public static TFormControl InputLg<TFormControl>(this TFormControl control, bool lg = true)
+            where TFormControl : FormControl
+        {
+            control.ToggleCssClass("input-lg", lg, "input-sm");
+            return control;
+        }
+
+        public static TFormControl InputSm<TFormControl>(this TFormControl control, bool sm = true)
+            where TFormControl : FormControl
+        {
+            control.ToggleCssClass("input-sm", sm, "input-lg");
+            return control;
+        }
+
+        // IFormValidation
+
+        public static TComponent HasSuccess<TComponent>(this TComponent component, bool hasSuccess = true)
+            where TComponent : Tag, IFormValidation
+        {
+            component.ToggleCssClass("has-success", hasSuccess, "has-warning", "has-error");
+            return component;
+        }
+
+        public static TComponent HasWarning<TComponent>(this TComponent component, bool hasSuccess = true)
+            where TComponent : Tag, IFormValidation
+        {
+            component.ToggleCssClass("has-warning", hasSuccess, "has-success", "has-error");
+            return component;
+        }
+
+        public static TComponent HasError<TComponent>(this TComponent component, bool hasError = true)
+            where TComponent : Tag, IFormValidation
+        {
+            component.ToggleCssClass("has-error", hasError, "has-warning", "has-success");
+            return component;
         }
     }
 }

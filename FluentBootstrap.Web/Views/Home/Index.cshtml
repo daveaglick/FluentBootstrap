@@ -91,21 +91,24 @@
             @group.Radio("Rd-b", "Rdb 1", "rdb1")
             @group.Radio("Rd-b", "Rdb 2", "rdb2")
         }
-        @form.Select("S1", null, 1, 2, 3)
+        @form.Select("S1", null, 1, 2, 3).InputLg()
         @form.Select("S2", "S2", 5, 6, 7).Multiple()
+        @Html.Bootstrap().Static("Static", 1234)
     }
     
     <hr />
     
-    @(Html.Bootstrap().Form()
-        .Child(c => c.Input("Child 1", "Child 1"))
+    @(Html.Bootstrap().Form().Horizontal()
+        .Child(c => c.Input("Child 1", "Child 1").HasSuccess().InputSm().Help("Testing the help text."))
         .Child(c => c.Input("Child 2"))
-        .Child(c => c.FormGroup()
-            .Child(x => x.Label("My Label"))
-            .Child(x => x.Input("Password", inputType: FormInputType.Password))
-            .Child(x => x.TextArea("Text", "Text<>", "Testing<>"))
+        .Child(fs => fs.FieldSet()
+            .Child(c => c.FormGroup()
+                .Child(x => x.Label("My Label"))
+                .Child(x => x.Input("Password", inputType: FormInputType.Password))
+                .Child(x => x.TextArea("Text", "Text<>", "Testing<>").Disabled().InputLg())
+            )
+            .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true).HasWarning().HasError())
+            .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true).Help("Some help text."))
         )
-        .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true))
-        .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true))
     )
 }

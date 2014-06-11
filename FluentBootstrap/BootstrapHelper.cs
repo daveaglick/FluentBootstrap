@@ -25,12 +25,14 @@ namespace FluentBootstrap
         Tables.TableData.ICreate,
         // Forms
         Forms.Form.ICreate,
+        Forms.FieldSet.ICreate,
         Forms.FormGroup.ICreate,
         Forms.Label.ICreate,
         Forms.Input.ICreate,
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
-        Forms.TextArea.ICreate
+        Forms.TextArea.ICreate,
+        Forms.Static.ICreate
     {
         public static int GridColumns = 12;
 

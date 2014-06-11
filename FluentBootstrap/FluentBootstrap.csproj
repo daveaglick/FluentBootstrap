@@ -45,8 +45,11 @@
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="FormInputType.cs" />
     <Compile Include="Forms\CheckedControl.cs" />
+    <Compile Include="Forms\FieldSet.cs" />
     <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\IFormValidation.cs" />
     <Compile Include="Forms\Select.cs" />
+    <Compile Include="Forms\Static.cs" />
     <Compile Include="Forms\TextArea.cs" />
     <Compile Include="GridColumnExtensions.cs" />
     <Compile Include="Component.cs" />
