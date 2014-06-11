@@ -12,9 +12,10 @@ namespace FluentBootstrap
     {
         // Table
 
-        public static Table Table(this BootstrapHelper helper)
+        public static Table Table<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : Table.ICreate
         {
-            return new Table(helper);
+            return new Table(creator.GetHelper());
         }
 
         public static Table Striped(this Table table, bool striped = true)
@@ -48,85 +49,45 @@ namespace FluentBootstrap
         }
 
         // Sections
-
-        public static Head TableHead(this BootstrapHelper helper)
+        
+        public static TableHead TableHead<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : TableHead.ICreate
         {
-            return new Head(helper);
+            return new TableHead(creator.GetHelper());
         }
 
-        public static Head Head(this ComponentWrapper<Table> table)
+        public static TableBody TableBody<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : TableBody.ICreate
         {
-            return new Head(table.Component.Helper);
+            return new TableBody(creator.GetHelper());
         }
 
-        public static Body TableBody(this BootstrapHelper helper)
+        public static TableFoot TableFoot<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : TableFoot.ICreate
         {
-            return new Body(helper);
+            return new TableFoot(creator.GetHelper());
         }
 
-        public static Body Body(this ComponentWrapper<Table> table)
-        {
-            return new Body(table.Component.Helper);
-        }
+        // TableRow
 
-        public static Foot TableFoot(this BootstrapHelper helper)
+        public static TableRow TableRow<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : TableRow.ICreate
         {
-            return new Foot(helper);
-        }
-
-        public static Foot Foot(this ComponentWrapper<Table> table)
-        {
-            return new Foot(table.Component.Helper);
-        }
-
-        // Row
-
-        public static Row TableRow(this BootstrapHelper helper)
-        {
-            return new Row(helper);
-        }
-
-        public static Row Row(this ComponentWrapper<Table> table)
-        {
-            return new Row(table.Component.Helper);
-        }
-
-        public static Row Row<TSection>(this ComponentWrapper<TSection> tableSection)
-            where TSection : Section
-        {
-            return new Row(tableSection.Component.Helper);
+            return new TableRow(creator.GetHelper());
         }
 
         // Cells
 
-        public static Heading TableHeading(this BootstrapHelper helper, object content = null)
+        public static TableHeading TableHeading<TCreator>(this IComponentCreator<TCreator> creator, object content = null)
+            where TCreator : TableHeading.ICreate
         {
-            return new Heading(helper).Content(content);
+            return new TableHeading(creator.GetHelper()).Content(content);
         }
 
-        public static Heading Heading(this ComponentWrapper<Table> table, object content = null)
+        public static TableData TableData<TCreator>(this IComponentCreator<TCreator> creator, object content = null)
+            where TCreator : TableData.ICreate
         {
-            return new Heading(table.Component.Helper).Content(content);
-        }
-
-        public static Heading Heading(this ComponentWrapper<Row> row, object content = null)
-        {
-            return new Heading(row.Component.Helper).Content(content);
-        }
-
-        public static Data TableData(this BootstrapHelper helper, object content = null)
-        {
-            return new Data(helper).Content(content);
-        }
-
-        public static Data Data(this ComponentWrapper<Table> table, object content = null)
-        {
-            return new Data(table.Component.Helper).Content(content);
-        }
-
-        public static Data Data(this ComponentWrapper<Row> row, object content = null)
-        {
-            return new Data(row.Component.Helper).Content(content);
+            return new TableData(creator.GetHelper()).Content(content);
         }
 
         // ITableContext
@@ -171,14 +132,14 @@ namespace FluentBootstrap
         // TableCell
 
         public static TComponent ColSpan<TComponent>(this TComponent component, int? colSpan)
-            where TComponent : Cell
+            where TComponent : TableCell
         {
             component.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
             return component;
         }
 
         public static TComponent RowSpan<TComponent>(this TComponent component, int? rowSpan)
-            where TComponent : Cell
+            where TComponent : TableCell
         {
             component.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
             return component;

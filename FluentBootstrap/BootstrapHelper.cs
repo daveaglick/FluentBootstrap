@@ -10,7 +10,27 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public class BootstrapHelper
+    public class BootstrapHelper : IComponentCreator<BootstrapHelper>,
+        // Grids
+        Grids.Container.ICreate,
+        Grids.GridColumn.ICreate,
+        Grids.GridRow.ICreate,
+        // Tables
+        Tables.Table.ICreate,
+        Tables.TableHead.ICreate,
+        Tables.TableBody.ICreate,
+        Tables.TableFoot.ICreate,
+        Tables.TableRow.ICreate,
+        Tables.TableHeading.ICreate,
+        Tables.TableData.ICreate,
+        // Forms
+        Forms.Form.ICreate,
+        Forms.FormGroup.ICreate,
+        Forms.Label.ICreate,
+        Forms.Input.ICreate,
+        Forms.CheckedControl.ICreate,
+        Forms.Select.ICreate,
+        Forms.TextArea.ICreate
     {
         public static int GridColumns = 12;
 
@@ -19,6 +39,11 @@ namespace FluentBootstrap
         internal BootstrapHelper(HtmlHelper htmlHelper)
         {
             HtmlHelper = htmlHelper;
+        }
+
+        public BootstrapHelper GetHelper()
+        {
+            return this;
         }
     }
 

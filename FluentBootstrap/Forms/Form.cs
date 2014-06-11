@@ -10,8 +10,18 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public class Form : Tag
+    public class Form : Tag,
+        Forms.FormGroup.ICreate,
+        Forms.Label.ICreate,
+        Forms.Input.ICreate,
+        Forms.CheckedControl.ICreate,
+        Forms.Select.ICreate,
+        Forms.TextArea.ICreate
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         // This is only used for horizontal forms
         internal int? DefaultLabelWidth { get; set; }
 

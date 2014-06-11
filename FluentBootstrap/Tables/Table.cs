@@ -8,8 +8,18 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Tables
 {
-    public class Table : Tag
+    public class Table : Tag,
+        TableHead.ICreate,
+        TableBody.ICreate,
+        TableFoot.ICreate,
+        TableRow.ICreate,
+        TableHeading.ICreate,
+        TableData.ICreate
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         internal bool Responsive { get; set; }
 
         internal Table(BootstrapHelper helper) : base(helper, "table", "table")

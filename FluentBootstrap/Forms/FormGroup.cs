@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FormGroup : Tag, FluentBootstrap.Grids.IGridColumn
+    public class FormGroup : Tag, FluentBootstrap.Grids.IGridColumn,
+        Forms.Label.ICreate,
+        Forms.Input.ICreate,
+        Forms.CheckedControl.ICreate,
+        Forms.Select.ICreate,
+        Forms.TextArea.ICreate
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         internal Tag ColumnWrapper { get; set; }
 
         // This helps track if a label was written as part of this group so following inputs can adjust offset CSS classes accordingly

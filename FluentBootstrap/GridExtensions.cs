@@ -11,9 +11,10 @@ namespace FluentBootstrap
     {
         // Container
 
-        public static Container Container(this BootstrapHelper helper)
+        public static Container Container<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : Container.ICreate
         {
-            return new Container(helper);
+            return new Container(creator.GetHelper());
         }
 
         public static Container Fluid(this Container container, bool fluid = true)
@@ -24,28 +25,20 @@ namespace FluentBootstrap
             return container;
         }
 
-        // Row
+        // GridRow
 
-        public static Row GridRow(this BootstrapHelper helper)
+        public static GridRow GridRow<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : GridRow.ICreate
         {
-            return new Row(helper);
+            return new GridRow(creator.GetHelper());
         }
 
-        public static Row Row(this ComponentWrapper<Container> container)
-        {
-            return new Row(container.Component.Helper);
-        }
+        // GridColumn
 
-        // Column
-        
-        public static Column GridColumn(this BootstrapHelper helper, int? md = null)
+        public static GridColumn GridColumn<TCreator>(this IComponentCreator<TCreator> creator, int? md = null)
+            where TCreator : GridColumn.ICreate
         {
-            return new Column(helper).Md(md);
-        }
-
-        public static Column Column(this ComponentWrapper<Row> row, int? md = null)
-        {
-            return new Column(row.Component.Helper).Md(md);
+            return new GridColumn(creator.GetHelper()).Md(md);
         }
     }
 }

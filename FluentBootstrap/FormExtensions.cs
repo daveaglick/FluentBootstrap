@@ -13,19 +13,22 @@ namespace FluentBootstrap
     {
         // Form
 
-        public static Form Form(this BootstrapHelper helper, FormMethod method = FormMethod.Post)
+        public static Form Form<TCreator>(this IComponentCreator<TCreator> creator, FormMethod method = FormMethod.Post)
+            where TCreator : Form.ICreate
         {
-            return new Form(helper).Action(null).Method(method);
+            return new Form(creator.GetHelper()).Action(null).Method(method);
         }
 
-        public static Form Form(this BootstrapHelper helper, string action, FormMethod method = FormMethod.Post)
+        public static Form Form<TCreator>(this IComponentCreator<TCreator> creator, string action, FormMethod method = FormMethod.Post)
+            where TCreator : Form.ICreate
         {
-            return new Form(helper).Action(action).Method(method);
+            return new Form(creator.GetHelper()).Action(action).Method(method);
         }
 
-        public static Form Form(this BootstrapHelper helper, string actionName, string controllerName, FormMethod method = FormMethod.Post)
+        public static Form Form<TCreator>(this IComponentCreator<TCreator> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
+            where TCreator : Form.ICreate
         {
-            return new Form(helper).Action(actionName, controllerName).Method(method);
+            return new Form(creator.GetHelper()).Action(actionName, controllerName).Method(method);
         }
 
         public static Form Inline(this Form form, bool inline = true)
@@ -78,31 +81,18 @@ namespace FluentBootstrap
 
         // Form Group
 
-        public static FormGroup FormGroup(this BootstrapHelper helper)
+        public static FormGroup FormGroup<TCreator>(this IComponentCreator<TCreator> creator)
+            where TCreator : FormGroup.ICreate
         {
-            return new FormGroup(helper);
-        }
-
-        public static FormGroup FormGroup(this ComponentWrapper<Form> form)
-        {
-            return new FormGroup(form.Component.Helper);
+            return new FormGroup(creator.GetHelper());
         }
 
         // Label
-
-        public static Label FormLabel(this BootstrapHelper helper, string label)
+        
+        public static Label Label<TCreator>(this IComponentCreator<TCreator> creator, string label)
+            where TCreator : Label.ICreate
         {
-            return new Label(helper, label);
-        }
-
-        public static Label Label(this ComponentWrapper<Form> form, string label)
-        {
-            return new Label(form.Component.Helper, label);
-        }
-
-        public static Label Label(this ComponentWrapper<FormGroup> formGroup, string label)
-        {
-            return new Label(formGroup.Component.Helper, label);
+            return new Label(creator.GetHelper(), label);
         }
 
         public static Label For(this Label label, string @for)
@@ -119,19 +109,10 @@ namespace FluentBootstrap
 
         // Input
 
-        public static Input FormInput(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        public static Input Input<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+            where TCreator : Input.ICreate
         {
-            return new Input(helper, inputType.GetDescription()).Name(name).Label(label).Value(value, format);
-        }
-
-        public static Input Input(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
-        {
-            return new Input(form.Component.Helper, inputType.GetDescription()).Name(name).Label(label).Value(value, format);
-        }
-
-        public static Input Input(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
-        {
-            return new Input(formGroup.Component.Helper, inputType.GetDescription()).Name(name).Label(label).Value(value, format);
+            return new Input(creator.GetHelper(), inputType.GetDescription()).Name(name).ControlLabel(label).Value(value, format);
         }
 
         public static Input Value(this Input input, object value, string format = null)
@@ -148,19 +129,10 @@ namespace FluentBootstrap
 
         // TextArea
 
-        public static TextArea FormTextArea(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        public static TextArea TextArea<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+            where TCreator : TextArea.ICreate
         {
-            return new TextArea(helper).Name(name).Label(label).Value(value, format).Rows(rows);
-        }
-
-        public static TextArea TextArea(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null, int? rows = null)
-        {
-            return new TextArea(form.Component.Helper).Name(name).Label(label).Value(value, format).Rows(rows);
-        }
-
-        public static TextArea TextArea(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, object value = null, string format = null, int? rows = null)
-        {
-            return new TextArea(formGroup.Component.Helper).Name(name).Label(label).Value(value, format).Rows(rows);
+            return new TextArea(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
         }
 
         public static TextArea Rows(this TextArea textArea, int? rows)
@@ -183,34 +155,16 @@ namespace FluentBootstrap
 
         // CheckedControl
 
-        public static CheckedControl FormCheckBox(this BootstrapHelper helper, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl CheckBox<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, string description = null, bool isChecked = false)
+            where TCreator : CheckedControl.ICreate
         {
-            return new CheckedControl(helper, "checkbox").Name(name).Label(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckedControl CheckBox(this ComponentWrapper<Form> form, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl Radio<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
+            where TCreator : CheckedControl.ICreate
         {
-            return new CheckedControl(form.Component.Helper, "checkbox").Name(name).Label(label).Description(description).IsChecked(isChecked);
-        }
-
-        public static CheckedControl CheckBox(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, string description = null, bool isChecked = false)
-        {
-            return new CheckedControl(formGroup.Component.Helper, "checkbox").Name(name).Label(label).Description(description).IsChecked(isChecked);
-        }
-
-        public static CheckedControl FormRadio(this BootstrapHelper helper, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
-        {
-            return new CheckedControl(helper, "radio").Name(name).Label(label).Description(description).Value(value).IsChecked(isChecked);
-        }
-
-        public static CheckedControl Radio(this ComponentWrapper<Form> form, string name = null, string label = null, string description = null,object value = null,  bool isChecked = false)
-        {
-            return new CheckedControl(form.Component.Helper, "radio").Name(name).Label(label).Description(description).Value(value).IsChecked(isChecked);
-        }
-
-        public static CheckedControl Radio(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
-        {
-            return new CheckedControl(formGroup.Component.Helper, "radio").Name(name).Label(label).Description(description).Value(value).IsChecked(isChecked);
+            return new CheckedControl(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
         }
 
         public static CheckedControl Description(this CheckedControl checkedControl, string description)
@@ -237,6 +191,39 @@ namespace FluentBootstrap
             return checkedControl;
         }
 
+        // Select
+        
+        public static Select Select<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, params object[] options)
+            where TCreator : Select.ICreate
+        {
+            return new Select(creator.GetHelper()).Name(name).ControlLabel(label).Options(options);
+        }
+
+        public static Select Multiple(this Select select, bool multiple = true)
+        {
+            select.MergeAttribute("multiple", multiple ? "multiple" : null);
+            return select;
+        }
+
+        public static Select Options(this Select select, params object[] options)
+        {
+            select.Options.Clear();
+            foreach (object option in options)
+            {
+                select.Option(option);
+            }
+            return select;
+        }
+
+        public static Select Option(this Select select, object option, string format = null)
+        {
+            if (option != null)
+            {
+                select.Options.Add(select.HtmlHelper.FormatValue(option, format));
+            }
+            return select;
+        }
+
         // FormControl
         
         public static TFormControl Name<TFormControl>(this TFormControl control, string name)
@@ -246,7 +233,7 @@ namespace FluentBootstrap
             return control;
         }
 
-        public static TFormControl Label<TFormControl>(this TFormControl control, string label, Action<Label> labelAction = null)
+        public static TFormControl ControlLabel<TFormControl>(this TFormControl control, string label, Action<Label> labelAction = null)
             where TFormControl : FormControl
         {
             if(label != null)

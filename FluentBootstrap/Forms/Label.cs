@@ -8,6 +8,10 @@ namespace FluentBootstrap.Forms
 {
     public class Label : Tag, FluentBootstrap.Grids.IGridColumn
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         internal Label(BootstrapHelper helper, string label) : base(helper, "label", "control-label")
         {
             AddChild(new Content(helper, label));

@@ -19,8 +19,8 @@
 
     using (var row = Html.Bootstrap().GridRow().CssClass("doc-row").ToDisposable())
     {
-        @row.Column(8).Html(@<p>C</p>)
-        using (row.Column().Md(4).ToDisposable())
+        @row.GridColumn(8).Html(@<p>C</p>)
+        using (row.GridColumn().Md(4).ToDisposable())
         {
             <p>D</p>
         }
@@ -29,8 +29,8 @@
     <hr />
     
     @(Html.Bootstrap().GridRow().CssClass("doc-row")
-        .Child(c => c.Column(6).Content("E"))
-        .Child(c => c.Column(6).Content("F"))
+        .Child(c => c.GridColumn(6).Content("E"))
+        .Child(c => c.GridColumn(6).Content("F"))
     )
 }
     
@@ -38,8 +38,8 @@
 
 @(Html.Bootstrap().Container().Fluid()
     .Child(Html.Bootstrap().GridRow().CssClass("doc-row")
-        .Child(c2 => c2.Column(6).Content("G"))
-        .Child(c2 => c2.Column(6).Html(@<p>H</p>))
+        .Child(c2 => c2.GridColumn(6).Content("G"))
+        .Child(c2 => c2.GridColumn(6).Html(@<p>H</p>))
     )
 )
 
@@ -49,13 +49,13 @@
 {
     using(var table = Html.Bootstrap().Table().Responsive().ToDisposable())
     {
-        @table.Heading("A")
-        @table.Heading("B").Warning()
-        @table.Data("1")
-        @table.Data("2")
-        using (var row = table.Row().Danger().ToDisposable())
+        @table.TableHeading("A")
+        @table.TableHeading("B").Warning()
+        @table.TableData("1")
+        @table.TableData("2")
+        using (var row = table.TableRow().Danger().ToDisposable())
         {
-            @row.Data("3")
+            @row.TableData("3")
             @Html.Bootstrap().TableHeading("4")
         }
     }
@@ -71,12 +71,12 @@
     using (var form = Html.Bootstrap().Form().Horizontal(6).ToDisposable())
     {
         @form.Input("A", inputType: FormInputType.Password)
-        @form.Input("B").Label("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
+        @form.Input("B").ControlLabel("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
         using (form.FormGroup().CssClass("dave").ToDisposable())
         {
-            @form.Input("C").Md(10).Label("Label C", l => l.Md(2))
+            @form.Input("C").Md(10).ControlLabel("Label C", l => l.Md(2))
         }
-        @Html.Bootstrap().FormInput("Search", "Search Label")
+        @Html.Bootstrap().Input("Search", "Search Label")
         @form.TextArea("D", "D", "testing", rows: 3)
         @form.Radio("Radio", "Radio 1", "R1")
         @form.Radio("Radio", "Radio 2", "R2")
@@ -91,6 +91,8 @@
             @group.Radio("Rd-b", "Rdb 1", "rdb1")
             @group.Radio("Rd-b", "Rdb 2", "rdb2")
         }
+        @form.Select("S1", null, 1, 2, 3)
+        @form.Select("S2", "S2", 5, 6, 7).Multiple()
     }
     
     <hr />
@@ -101,7 +103,7 @@
         .Child(c => c.FormGroup()
             .Child(x => x.Label("My Label"))
             .Child(x => x.Input("Password", inputType: FormInputType.Password))
-            .Child(x => x.TextArea("Text", "Text"))
+            .Child(x => x.TextArea("Text", "Text<>", "Testing<>"))
         )
         .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true))
         .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true))

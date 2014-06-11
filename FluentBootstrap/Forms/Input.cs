@@ -10,6 +10,10 @@ namespace FluentBootstrap.Forms
 {
     public class Input : FormControl
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         internal Input(BootstrapHelper helper, string type) : base(helper, "input", "form-control")
         {
             MergeAttribute("type", type);

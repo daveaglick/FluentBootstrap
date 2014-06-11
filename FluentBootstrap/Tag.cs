@@ -25,36 +25,39 @@ namespace FluentBootstrap
                 CssClasses.Add(cssClass);
         }
 
-        internal void AddChild(Component component)
+        internal Tag AddChild(Component component)
         {
             _children.Add(component);
+            return this;
         }
 
-        internal void MergeAttributes(object attributes, bool replaceExisting = true)
+        internal Tag MergeAttributes(object attributes, bool replaceExisting = true)
         {
             if (attributes == null)
-                return;
+                return this;
             MergeAttributes(System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(attributes), replaceExisting);
+            return this;
         }
 
-        internal void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        internal Tag MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             if (attributes == null)
-                return;
+                return this;
             foreach (KeyValuePair<TKey, TValue> attribute in attributes)
             {
                 string key = Convert.ToString(attribute.Key, CultureInfo.InvariantCulture);
                 string value = Convert.ToString(attribute.Value, CultureInfo.InvariantCulture);
                 MergeAttribute(key, value, replaceExisting);
             }
+            return this;
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
         // This version does not throw on null or whitespace key and removes the attribute if value is null
-        internal void MergeAttribute(string key, string value, bool replaceExisting = true)
+        internal Tag MergeAttribute(string key, string value, bool replaceExisting = true)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return;
+                return this;
             if (value == null && replaceExisting && TagBuilder.Attributes.ContainsKey(key))
             {
                 TagBuilder.Attributes.Remove(key);
@@ -63,9 +66,10 @@ namespace FluentBootstrap
             {
                 TagBuilder.Attributes[key] = value;
             }
+            return this;
         }
 
-        internal void ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)
+        internal Tag ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)
         {
             if (add)
             {
@@ -79,6 +83,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Remove(cssClass);
             }
+            return this;
         }
 
         protected override void OnStart(TextWriter writer)

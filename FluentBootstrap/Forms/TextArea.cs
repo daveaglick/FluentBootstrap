@@ -8,6 +8,10 @@ namespace FluentBootstrap.Forms
 {
     public class TextArea : FormControl
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         internal string Value { get; set; }
 
         internal TextArea(BootstrapHelper helper)

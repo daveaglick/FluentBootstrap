@@ -7,7 +7,7 @@ using System.Web;
 
 namespace FluentBootstrap
 {
-    public class ComponentWrapper<TComponent> : IDisposable, IHtmlString
+    public class ComponentWrapper<TComponent> : IDisposable, IHtmlString, IComponentCreator<TComponent>
         where TComponent : Component
     {
         private bool _disposed;
@@ -20,6 +20,11 @@ namespace FluentBootstrap
         {
             Component = component;
             this._endOnDispose = endOnDispose;
+        }
+
+        public BootstrapHelper GetHelper()
+        {
+            return Component.Helper;
         }
 
         // We shouldn't ever really try to convert a disposable component directly to a string, but just in case

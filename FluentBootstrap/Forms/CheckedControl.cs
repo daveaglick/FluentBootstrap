@@ -10,10 +10,14 @@ namespace FluentBootstrap.Forms
 {
     public class CheckedControl : FormControl
     {
+        public interface ICreate : ICreateComponent
+        {
+        }
+
         internal bool Inline { get; set; }
         internal string Description { get; set; }
 
-        public CheckedControl(BootstrapHelper helper, string type) : base(helper, "input")
+        internal CheckedControl(BootstrapHelper helper, string type) : base(helper, "input")
         {
             MergeAttribute("type", type);
         }
