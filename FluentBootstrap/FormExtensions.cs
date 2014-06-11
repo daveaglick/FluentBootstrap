@@ -133,25 +133,6 @@ namespace FluentBootstrap
         {
             return new Input(formGroup.Component.Helper, inputType.GetDescription()).Name(name).Label(label).Value(value, format);
         }
-        
-        public static Input Name(this Input input, string name)
-        {
-            input.MergeAttribute("name", name == null ? null : input.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
-            return input;
-        }
-
-        public static Input Label(this Input input, string label, Action<Label> labelAction = null)
-        {
-            if(label != null)
-            {
-                input.Label = new Label(input.Helper, label);
-                if (labelAction != null)
-                {
-                    labelAction(input.Label);
-                }
-            }
-            return input;
-        }
 
         public static Input Value(this Input input, object value, string format = null)
         {
@@ -165,10 +146,103 @@ namespace FluentBootstrap
             return input;
         }
 
-        public static Input SuppressFormGroup(this Input input, bool suppress = true)
+        // TextArea
+
+        public static TextArea FormTextArea(this BootstrapHelper helper, string name = null, string label = null, object value = null, string format = null, int? rows = null)
         {
-            input.SuppressFormGroup = suppress;
-            return input;
+            return new TextArea(helper).Name(name).Label(label).Value(value, format).Rows(rows);
+        }
+
+        public static TextArea TextArea(this ComponentWrapper<Form> form, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        {
+            return new TextArea(form.Component.Helper).Name(name).Label(label).Value(value, format).Rows(rows);
+        }
+
+        public static TextArea TextArea(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        {
+            return new TextArea(formGroup.Component.Helper).Name(name).Label(label).Value(value, format).Rows(rows);
+        }
+
+        public static TextArea Rows(this TextArea textArea, int? rows)
+        {
+            textArea.MergeAttribute("rows", rows == null ? null : rows.Value.ToString());
+            return textArea;
+        }
+
+        public static TextArea Value(this TextArea textArea, object value, string format = null)
+        {
+            textArea.Value = value == null ? null : textArea.HtmlHelper.FormatValue(value, format);
+            return textArea;
+        }
+
+        public static TextArea Placeholder(this TextArea textArea, string placeholder)
+        {
+            textArea.MergeAttribute("placeholder", placeholder);
+            return textArea;
+        }
+
+        // CheckBox
+
+        public static CheckBox FormCheckBox(this BootstrapHelper helper, string name = null, string label = null, string description = null, bool isChecked = false)
+        {
+            return new CheckBox(helper).Name(name).Label(label).Description(description).IsChecked(isChecked);
+        }
+
+        public static CheckBox CheckBox(this ComponentWrapper<Form> form, string name = null, string label = null, string description = null, bool isChecked = false)
+        {
+            return new CheckBox(form.Component.Helper).Name(name).Label(label).Description(description).IsChecked(isChecked);
+        }
+
+        public static CheckBox CheckBox(this ComponentWrapper<FormGroup> formGroup, string name = null, string label = null, string description = null, bool isChecked = false)
+        {
+            return new CheckBox(formGroup.Component.Helper).Name(name).Label(label).Description(description).IsChecked(isChecked);
+        }
+
+        public static CheckBox Description(this CheckBox checkBox, string description)
+        {
+            checkBox.Description = description;
+            return checkBox;
+        }
+
+        public static CheckBox Inline(this CheckBox checkBox, bool inline = true)
+        {
+            checkBox.Inline = inline;
+            return checkBox;
+        }
+
+        public static CheckBox IsChecked(this CheckBox checkBox, bool isChecked = true)
+        {
+            checkBox.MergeAttribute("checked", isChecked ? "checked" : null);
+            return checkBox;
+        }
+
+        public static CheckBox Value(this CheckBox checkBox, string value)
+        {
+            checkBox.MergeAttribute("value", value);
+            return checkBox;
+        }
+
+        // FormControl
+        
+        public static TFormControl Name<TFormControl>(this TFormControl control, string name)
+            where TFormControl : FormControl
+        {
+            control.MergeAttribute("name", name == null ? null : control.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+            return control;
+        }
+
+        public static TFormControl Label<TFormControl>(this TFormControl control, string label, Action<Label> labelAction = null)
+            where TFormControl : FormControl
+        {
+            if(label != null)
+            {
+                control.Label = new Label(control.Helper, label);
+                if (labelAction != null)
+                {
+                    labelAction(control.Label);
+                }
+            }
+            return control;
         }
     }
 }
