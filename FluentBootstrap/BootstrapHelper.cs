@@ -32,7 +32,11 @@ namespace FluentBootstrap
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
         Forms.TextArea.ICreate,
-        Forms.Static.ICreate
+        Forms.Static.ICreate,
+        Forms.FormButton.ICreate,
+        Forms.InputButton.ICreate,
+        // Buttons
+        Buttons.Button.ICreate
     {
         public static int GridColumns = 12;
 

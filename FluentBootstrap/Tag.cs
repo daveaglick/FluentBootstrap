@@ -17,6 +17,8 @@ namespace FluentBootstrap
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
 
+        internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
+
         protected internal Tag(BootstrapHelper helper, string tagName, params string[] cssClasses) : base(helper)
         {
             TagBuilder = new TagBuilder(tagName);
@@ -84,6 +86,17 @@ namespace FluentBootstrap
                 CssClasses.Remove(cssClass);
             }
             return this;
+        }
+
+        protected override void Prepare(TextWriter writer)
+        {
+            base.Prepare(writer);
+
+            // Add the text content as a child
+            if (!string.IsNullOrEmpty(TextContent))
+            {
+                this.AddChild(new Content(Helper, TextContent));
+            }
         }
 
         protected override void OnStart(TextWriter writer)

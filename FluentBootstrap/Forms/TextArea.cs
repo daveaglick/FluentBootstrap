@@ -8,26 +8,13 @@ namespace FluentBootstrap.Forms
 {
     public class TextArea : FormControl
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
-        internal string Value { get; set; }
-
         internal TextArea(BootstrapHelper helper)
             : base(helper, "textarea", "form-control")
         {
         }
 
-        protected override void Prepare(System.IO.TextWriter writer)
+        public interface ICreate : ICreateComponent
         {
-            base.Prepare(writer);
-
-            // Add the value as child content
-            if (!string.IsNullOrEmpty(Value))
-            {
-                this.AddChild(new Content(Helper, Value));
-            }
         }
     }
 }

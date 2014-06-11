@@ -9,11 +9,11 @@ namespace FluentBootstrap.Grids
     public class GridRow : Tag,
         GridColumn.ICreate
     {
-        public interface ICreate : ICreateComponent
+        internal GridRow(BootstrapHelper helper) : base(helper, "div", "row")
         {
         }
 
-        internal GridRow(BootstrapHelper helper) : base(helper, "div", "row")
+        public interface ICreate : ICreateComponent
         {
         }
     }

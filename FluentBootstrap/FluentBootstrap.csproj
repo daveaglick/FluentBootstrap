@@ -42,12 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonExtensions.cs" />
+    <Compile Include="Buttons\Button.cs" />
+    <Compile Include="Buttons\ButtonType.cs" />
+    <Compile Include="Buttons\ButtonStyle.cs" />
+    <Compile Include="Buttons\IButton.cs" />
     <Compile Include="EnumExtensions.cs" />
-    <Compile Include="FormInputType.cs" />
+    <Compile Include="Forms\FormButton.cs" />
+    <Compile Include="Forms\FormInputType.cs" />
     <Compile Include="Forms\CheckedControl.cs" />
     <Compile Include="Forms\FieldSet.cs" />
     <Compile Include="Forms\FormControl.cs" />
     <Compile Include="Forms\IFormValidation.cs" />
+    <Compile Include="Forms\InputButton.cs" />
     <Compile Include="Forms\Select.cs" />
     <Compile Include="Forms\Static.cs" />
     <Compile Include="Forms\TextArea.cs" />
@@ -63,6 +70,10 @@
     <Compile Include="Grids\IGridColumn.cs" />
     <Compile Include="IComponentCreator.cs" />
     <Compile Include="ICreateComponent.cs" />
+    <Compile Include="IDisabledAttribute.cs" />
+    <Compile Include="InterfaceExtensions.cs" />
+    <Compile Include="ITextAttribute.cs" />
+    <Compile Include="IValueAttribute.cs" />
     <Compile Include="TableExtensions.cs" />
     <Compile Include="Tables\ITableContext.cs" />
     <Compile Include="Tables\Table.cs" />

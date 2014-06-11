@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FieldSet : Tag,
+    public class FieldSet : Tag, IDisabledAttribute,
         Forms.FormGroup.ICreate,
         Forms.Label.ICreate,
         Forms.Input.ICreate,
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
         Forms.TextArea.ICreate,
-        Forms.Static.ICreate
+        Forms.Static.ICreate,
+        Forms.FormButton.ICreate,
+        Forms.InputButton.ICreate
     {
-        public interface ICreate : ICreateComponent
+        internal FieldSet(BootstrapHelper helper) : base(helper, "fieldset")
         {
         }
 
-        internal FieldSet(BootstrapHelper helper) : base(helper, "fieldset")
+        public interface ICreate : ICreateComponent
         {
         }
     }

@@ -8,12 +8,8 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public class CheckedControl : FormControl
+    public class CheckedControl : FormControl, IValueAttribute
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal bool Inline { get; set; }
         internal string Description { get; set; }
 
@@ -66,6 +62,10 @@ namespace FluentBootstrap.Forms
                 TagBuilder div = new TagBuilder("div");
                 writer.Write(div.ToString(TagRenderMode.EndTag));
             }
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

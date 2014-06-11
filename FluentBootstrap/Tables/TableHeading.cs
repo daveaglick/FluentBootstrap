@@ -4,10 +4,6 @@ namespace FluentBootstrap.Tables
 {
     public class TableHeading : TableCell
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal TableHeading(BootstrapHelper helper) : base(helper, "th")
         {
         }
@@ -26,6 +22,10 @@ namespace FluentBootstrap.Tables
                 }
                 new TableRow(Helper).Start(writer, true);
             }
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

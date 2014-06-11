@@ -3,11 +3,11 @@ namespace FluentBootstrap.Tables
     public class TableHead : TableSection,
         TableRow.ICreate
     {
-        public interface ICreate : ICreateComponent
+        internal TableHead(BootstrapHelper helper) : base(helper, "thead")
         {
         }
-
-        internal TableHead(BootstrapHelper helper) : base(helper, "thead")
+        
+        public interface ICreate : ICreateComponent
         {
         }
     }

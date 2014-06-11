@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
+    // Keep in the root namespace to match the extensions
     public enum FormInputType
     {
         [Description("text")]

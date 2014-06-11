@@ -6,10 +6,6 @@ namespace FluentBootstrap.Tables
         TableHeading.ICreate,
         TableData.ICreate
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal TableRow(BootstrapHelper helper) : base(helper, "tr")
         {
         }
@@ -25,6 +21,10 @@ namespace FluentBootstrap.Tables
             {
                 new TableBody(Helper).Start(writer, true);
             }
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

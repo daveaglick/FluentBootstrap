@@ -87,12 +87,6 @@ namespace FluentBootstrap
             return new FieldSet(creator.GetHelper());
         }
 
-        public static FieldSet Disabled(this FieldSet fieldSet, bool disabled = true)
-        {
-            fieldSet.MergeAttribute("disabled", disabled ? "disabled" : null);
-            return fieldSet;
-        }
-
         // FormGroup
 
         public static FormGroup FormGroup<TCreator>(this IComponentCreator<TCreator> creator)
@@ -126,13 +120,7 @@ namespace FluentBootstrap
         public static Input Input<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
             where TCreator : Input.ICreate
         {
-            return new Input(creator.GetHelper(), inputType.GetDescription()).Name(name).ControlLabel(label).Value(value, format);
-        }
-
-        public static Input Value(this Input input, object value, string format = null)
-        {
-            input.MergeAttribute("value", value == null ? null : input.HtmlHelper.FormatValue(value, format));
-            return input;
+            return new Input(creator.GetHelper(), inputType).Name(name).ControlLabel(label).Value(value, format);
         }
 
         public static Input Placeholder(this Input input, string placeholder)
@@ -157,7 +145,7 @@ namespace FluentBootstrap
 
         public static TextArea Value(this TextArea textArea, object value, string format = null)
         {
-            textArea.Value = value == null ? null : textArea.HtmlHelper.FormatValue(value, format);
+            textArea.TextContent = value == null ? null : textArea.HtmlHelper.FormatValue(value, format);
             return textArea;
         }
 
@@ -196,12 +184,6 @@ namespace FluentBootstrap
         public static CheckedControl IsChecked(this CheckedControl checkedControl, bool isChecked = true)
         {
             checkedControl.MergeAttribute("checked", isChecked ? "checked" : null);
-            return checkedControl;
-        }
-
-        public static CheckedControl Value(this CheckedControl checkedControl, object value)
-        {
-            checkedControl.MergeAttribute("value", value == null ? null : checkedControl.HtmlHelper.FormatValue(value, null));
             return checkedControl;
         }
 
@@ -248,8 +230,34 @@ namespace FluentBootstrap
 
         public static Static Value(this Static @static, object value, string format = null)
         {
-            @static.Value = value == null ? null : @static.HtmlHelper.FormatValue(value, format);
+            @static.TextContent = value == null ? null : @static.HtmlHelper.FormatValue(value, format);
             return @static;
+        }
+
+        // Buttons
+
+        public static InputButton InputButton<TCreator>(this IComponentCreator<TCreator> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+            where TCreator : InputButton.ICreate
+        {
+            return new InputButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
+        }
+
+        public static FormButton FormButton<TCreator>(this IComponentCreator<TCreator> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+            where TCreator : FormButton.ICreate
+        {
+            return new FormButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
+        }
+
+        public static FormButton Submit<TCreator>(this IComponentCreator<TCreator> creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
+            where TCreator : FormButton.ICreate
+        {
+            return new FormButton(creator.GetHelper(), ButtonType.Submit, buttonStyle).Text(text).ControlLabel(label).Value(value);
+        }
+
+        public static FormButton Reset<TCreator>(this IComponentCreator<TCreator> creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
+            where TCreator : FormButton.ICreate
+        {
+            return new FormButton(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
         // FormControl
@@ -279,13 +287,6 @@ namespace FluentBootstrap
             where TFormControl : FormControl
         {
             control.Help = help;
-            return control;
-        }
-
-        public static TFormControl Disabled<TFormControl>(this TFormControl control, bool disabled = true)
-            where TFormControl : FormControl
-        {
-            control.MergeAttribute("disabled", disabled ? "disabled" : null);
             return control;
         }
 

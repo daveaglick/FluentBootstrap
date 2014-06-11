@@ -18,12 +18,10 @@ namespace FluentBootstrap.Forms
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
         Forms.TextArea.ICreate,
-        Forms.Static.ICreate
+        Forms.Static.ICreate,
+        Forms.FormButton.ICreate,
+        Forms.InputButton.ICreate
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         // This is only used for horizontal forms
         internal int? DefaultLabelWidth { get; set; }
 
@@ -81,6 +79,10 @@ namespace FluentBootstrap.Forms
             int num = (item != null ? (int)item + 1 : 0);
             items[_lastBootstrapFormNumKey] = num;
             return string.Format("bsform{0}", num);
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

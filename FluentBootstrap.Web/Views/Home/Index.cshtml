@@ -94,6 +94,13 @@
         @form.Select("S1", null, 1, 2, 3).InputLg()
         @form.Select("S2", "S2", 5, 6, 7).Multiple()
         @Html.Bootstrap().Static("Static", 1234)
+        using (var group = form.FormGroup().ToDisposable())
+        {
+            <span>
+                @group.Submit()
+                @group.Reset(ButtonStyle.Danger, "FOOBAR")
+            </span>
+        }
     }
     
     <hr />

@@ -8,11 +8,11 @@ namespace FluentBootstrap.Grids
 {
     public class GridColumn : Tag, IGridColumn
     {
-        public interface ICreate : ICreateComponent
+        internal GridColumn(BootstrapHelper helper) : base(helper, "div")
         {
         }
 
-        internal GridColumn(BootstrapHelper helper) : base(helper, "div")
+        public interface ICreate : ICreateComponent
         {
         }
     }

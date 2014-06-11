@@ -12,12 +12,10 @@ namespace FluentBootstrap.Forms
         Forms.CheckedControl.ICreate,
         Forms.Select.ICreate,
         Forms.TextArea.ICreate,
-        Forms.Static.ICreate
+        Forms.Static.ICreate,
+        Forms.FormButton.ICreate,
+        Forms.InputButton.ICreate
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal Tag ColumnWrapper { get; set; }
 
         // This helps track if a label was written as part of this group so following inputs can adjust offset CSS classes accordingly
@@ -45,6 +43,10 @@ namespace FluentBootstrap.Forms
         {
             base.OnFinish(writer);
             Pop(ColumnWrapper, writer);
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

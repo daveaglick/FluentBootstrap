@@ -4,10 +4,6 @@ namespace FluentBootstrap.Tables
 {
     public class TableData : TableCell
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal TableData(BootstrapHelper helper) : base(helper, "td")
         {
         }
@@ -28,6 +24,10 @@ namespace FluentBootstrap.Tables
                     new TableRow(Helper).Start(writer, true);
                 }
             }
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

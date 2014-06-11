@@ -8,10 +8,6 @@ namespace FluentBootstrap.Forms
 {
     public class Select : FormControl
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal List<string> Options { get; private set; }
 
         internal Select(BootstrapHelper helper) : base(helper, "select", "form-control")
@@ -29,6 +25,10 @@ namespace FluentBootstrap.Forms
                 this.AddChild(new Tag(Helper, "option")
                     .AddChild(new Content(Helper, option)));
             }
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }

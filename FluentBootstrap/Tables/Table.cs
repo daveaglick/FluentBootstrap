@@ -16,10 +16,6 @@ namespace FluentBootstrap.Tables
         TableHeading.ICreate,
         TableData.ICreate
     {
-        public interface ICreate : ICreateComponent
-        {
-        }
-
         internal bool Responsive { get; set; }
 
         internal Table(BootstrapHelper helper) : base(helper, "table", "table")
@@ -45,6 +41,10 @@ namespace FluentBootstrap.Tables
                 TagBuilder tag = new TagBuilder("div");
                 writer.Write(tag.ToString(TagRenderMode.EndTag));
             }
+        }
+
+        public interface ICreate : ICreateComponent
+        {
         }
     }
 }
