@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ButtonExtensions.cs" />
     <Compile Include="Buttons\Button.cs" />
+    <Compile Include="Buttons\LinkButton.cs" />
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\ButtonStyle.cs" />
     <Compile Include="Buttons\IButton.cs" />
@@ -74,6 +75,9 @@
     <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="ITextAttribute.cs" />
     <Compile Include="IValueAttribute.cs" />
+    <Compile Include="LinkExtensions.cs" />
+    <Compile Include="Links\ILink.cs" />
+    <Compile Include="Links\Link.cs" />
     <Compile Include="TableExtensions.cs" />
     <Compile Include="Tables\ITableContext.cs" />
     <Compile Include="Tables\Table.cs" />

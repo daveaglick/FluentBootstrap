@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Forms
 {
     // This is like Button except it's derived from FormControl so it includes the form wrapping elements
-    public class FormButton : FormControl, Buttons.IButton
+    public class FormButton : FormControl, Buttons.IButton, IValueAttribute, IDisabledAttribute, ITextAttribute
     {
         internal FormButton(BootstrapHelper helper, ButtonType buttonType, ButtonStyle buttonStyle)
             : base(helper, "button", "btn", buttonStyle.GetDescription())

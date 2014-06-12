@@ -36,7 +36,10 @@ namespace FluentBootstrap
         Forms.FormButton.ICreate,
         Forms.InputButton.ICreate,
         // Buttons
-        Buttons.Button.ICreate
+        Buttons.Button.ICreate,
+        Buttons.LinkButton.ICreate,
+        // Links
+        Links.Link.ICreate
     {
         public static int GridColumns = 12;
 

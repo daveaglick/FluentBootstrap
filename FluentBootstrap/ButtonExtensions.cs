@@ -17,10 +17,24 @@ namespace FluentBootstrap
             return new Button(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
         }
 
-        public static Button Value(this Button button, object value)
+        // LinkButton
+
+        public static LinkButton LinkButton<TCreator>(this IComponentCreator<TCreator> creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
+            where TCreator : LinkButton.ICreate
         {
-            button.MergeAttribute("value", value == null ? null : button.HtmlHelper.FormatValue(value, null));
-            return button;
+            return new LinkButton(creator.GetHelper(), buttonStyle).Text(text).Href(href);
+        }
+
+        public static LinkButton LinkButton<TCreator>(this IComponentCreator<TCreator> creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
+            where TCreator : LinkButton.ICreate
+        {
+            return new LinkButton(creator.GetHelper(), buttonStyle).Text(text).Action(actionName, controllerName, routeValues);
+        }
+
+        public static LinkButton Disabled(this LinkButton linkButton, bool disabled = true)
+        {
+            linkButton.ToggleCssClass("disabled", disabled);
+            return linkButton;
         }
 
         // IButton

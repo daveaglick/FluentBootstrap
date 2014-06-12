@@ -57,9 +57,8 @@ namespace FluentBootstrap
             if(routeValueDictionary == null)
                 new RouteValueDictionary(routeValues);
 
-            form.MergeAttribute("action", UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary, 
+            return form.Action(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary, 
                 form.HtmlHelper.RouteCollection, form.ViewContext.RequestContext, true));
-            return form;
         }
 
         public static Form Route(this Form form, string routeName, object routeValues = null)
@@ -68,9 +67,8 @@ namespace FluentBootstrap
             if (routeValueDictionary == null)
                 new RouteValueDictionary(routeValues);
 
-            form.MergeAttribute("action", UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
+            return form.Action(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
                 form.HtmlHelper.RouteCollection, form.ViewContext.RequestContext, false));
-            return form;
         }
 
         public static Form Method(this Form form, FormMethod method)

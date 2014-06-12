@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentBootstrap.Buttons
+namespace FluentBootstrap.Links
 {
-    public interface IButton
+    public interface ILink
     {
     }
 }
