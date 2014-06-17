@@ -16,7 +16,7 @@ namespace FluentBootstrap
             return new BootstrapHelper(htmlHelper);
         }
 
-        public static BootstrapHelper Bootstrap<TModel>(this HtmlHelper<TModel> htmlHelper)
+        public static BootstrapHelper<TModel> Bootstrap<TModel>(this HtmlHelper<TModel> htmlHelper)
         {
             return new BootstrapHelper<TModel>(htmlHelper);
         }

@@ -41,5 +41,10 @@ namespace FluentBootstrap
             if(_endOnDispose)
                 Component.Finish(Component.ViewContext.Writer);
         }
+
+        public void End()
+        {
+            Dispose();
+        }
     }
 }
