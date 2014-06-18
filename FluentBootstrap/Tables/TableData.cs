@@ -25,9 +25,5 @@ namespace FluentBootstrap.Tables
                 }
             }
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

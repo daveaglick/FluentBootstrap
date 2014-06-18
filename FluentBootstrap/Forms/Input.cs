@@ -14,9 +14,5 @@ namespace FluentBootstrap.Forms
         {
             MergeAttribute("type", inputType.GetDescription());
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

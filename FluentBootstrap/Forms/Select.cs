@@ -26,9 +26,5 @@ namespace FluentBootstrap.Forms
                     .AddChild(new Content(Helper, option)));
             }
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

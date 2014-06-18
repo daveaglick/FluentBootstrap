@@ -3,8 +3,7 @@ using System.IO;
 namespace FluentBootstrap.Tables
 {
     public class TableRow : Tag, ITableContext,
-        TableHeading.ICreate,
-        TableData.ICreate
+        TableCell.ICreate
     {
         internal TableRow(BootstrapHelper helper) : base(helper, "tr")
         {

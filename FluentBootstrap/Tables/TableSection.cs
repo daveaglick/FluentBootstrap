@@ -13,5 +13,9 @@ namespace FluentBootstrap.Tables
             base.Prepare(writer);
             Pop<TableSection>(writer);
         }
+
+        public interface ICreate : ICreateComponent
+        {
+        }
     }
 }

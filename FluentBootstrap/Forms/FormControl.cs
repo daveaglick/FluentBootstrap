@@ -130,5 +130,9 @@ namespace FluentBootstrap.Forms
 
             Pop(_formGroup, writer);
         }
+
+        public interface ICreate : ICreateComponent
+        {
+        }
     }
 }

@@ -11,9 +11,5 @@ namespace FluentBootstrap.Forms
         internal Static(BootstrapHelper helper) : base(helper, "p", "form-control-static")
         {
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

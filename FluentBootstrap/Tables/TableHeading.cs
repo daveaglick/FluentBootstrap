@@ -23,9 +23,5 @@ namespace FluentBootstrap.Tables
                 new TableRow(Helper).Start(writer, true);
             }
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

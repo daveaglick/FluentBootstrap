@@ -8,13 +8,7 @@ namespace FluentBootstrap.Forms
 {
     public class FormGroup : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation,
         Forms.Label.ICreate,
-        Forms.Input.ICreate,
-        Forms.CheckedControl.ICreate,
-        Forms.Select.ICreate,
-        Forms.TextArea.ICreate,
-        Forms.Static.ICreate,
-        Forms.FormButton.ICreate,
-        Forms.InputButton.ICreate
+        Forms.FormControl.ICreate
     {
         internal Tag ColumnWrapper { get; set; }
 

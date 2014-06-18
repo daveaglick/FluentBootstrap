@@ -12,9 +12,5 @@ namespace FluentBootstrap.Forms
             : base(helper, "textarea", "form-control")
         {
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

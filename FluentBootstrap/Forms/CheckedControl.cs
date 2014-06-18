@@ -63,9 +63,5 @@ namespace FluentBootstrap.Forms
                 writer.Write(div.ToString(TagRenderMode.EndTag));
             }
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

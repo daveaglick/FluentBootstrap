@@ -6,9 +6,5 @@ namespace FluentBootstrap.Tables
         internal TableFoot(BootstrapHelper helper) : base(helper, "tfoot")
         {
         }
-
-        public interface ICreate : ICreateComponent
-        {
-        }
     }
 }

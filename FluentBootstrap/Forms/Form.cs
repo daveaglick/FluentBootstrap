@@ -14,13 +14,7 @@ namespace FluentBootstrap.Forms
         Forms.FieldSet.ICreate,
         Forms.FormGroup.ICreate,
         Forms.Label.ICreate,
-        Forms.Input.ICreate,
-        Forms.CheckedControl.ICreate,
-        Forms.Select.ICreate,
-        Forms.TextArea.ICreate,
-        Forms.Static.ICreate,
-        Forms.FormButton.ICreate,
-        Forms.InputButton.ICreate
+        Forms.FormControl.ICreate
     {
         // This is only used for horizontal forms
         internal int? DefaultLabelWidth { get; set; }

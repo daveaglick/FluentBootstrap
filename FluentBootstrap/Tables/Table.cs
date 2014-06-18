@@ -9,12 +9,9 @@ using System.Web.Mvc;
 namespace FluentBootstrap.Tables
 {
     public class Table : Tag,
-        TableHead.ICreate,
-        TableBody.ICreate,
-        TableFoot.ICreate,
+        TableSection.ICreate,
         TableRow.ICreate,
-        TableHeading.ICreate,
-        TableData.ICreate
+        TableCell.ICreate
     {
         internal bool Responsive { get; set; }
 
