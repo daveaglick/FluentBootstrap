@@ -11,14 +11,23 @@ namespace FluentBootstrap.Forms
     public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation, IHasDisabledAttribute
     {
         private FormGroup _formGroup = null;
-
-        internal Label Label { get; set; }
-
+        private Label _label = null;
         internal string Help { get; set; }
 
         protected FormControl(BootstrapHelper helper, string tagName, params string[] cssClasses) 
             : base(helper, tagName, cssClasses)
         {
+        }
+
+        internal Label Label
+        {
+            set
+            {
+                _label = value;
+
+                // Need to remove this from the pending components since it's similar to a child and will be output from this form control
+                PendingComponents.Remove(HtmlHelper, value);
+            }
         }
 
         protected override void Prepare(TextWriter writer)
@@ -50,17 +59,17 @@ namespace FluentBootstrap.Forms
             }
 
             // Add the label
-            if (Label != null)
+            if (_label != null)
             {
                 // Set the label's for attribute to the input name
                 string name = null;
                 if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
                 {
-                    Label.For(name);
+                    _label.For(name);
                 }
 
                 // Write the label
-                writer.Write(Label.ToHtmlString());
+                _label.StartAndFinish(writer);
             }
 
             // Add default column classes if we're horizontal and none have been explicitly set
@@ -68,7 +77,7 @@ namespace FluentBootstrap.Forms
             if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !CssClasses.Any(x => x.StartsWith("col-")))
             {
                 this.Md(BootstrapHelper.GridColumns - form.DefaultLabelWidth);
-                if (Label == null && (formGroup == null || !formGroup.WroteLabel))
+                if (_label == null && (formGroup == null || !formGroup.WroteLabel))
                 {
                     // Also need to add an offset if no label
                     this.MdOffset(form.DefaultLabelWidth);
@@ -112,9 +121,9 @@ namespace FluentBootstrap.Forms
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                writer.Write(new Tag(Helper, "p", "help-block")
+                new Tag(Helper, "p", "help-block")
                     .AddChild(new Content(Helper, Help))
-                    .ToHtmlString());
+                    .StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

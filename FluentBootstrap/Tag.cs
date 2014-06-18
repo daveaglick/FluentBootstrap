@@ -30,6 +30,7 @@ namespace FluentBootstrap
         internal Tag AddChild(Component component)
         {
             _children.Add(component);
+            PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
             return this;
         }
 

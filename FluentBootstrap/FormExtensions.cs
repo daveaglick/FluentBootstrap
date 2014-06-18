@@ -272,10 +272,11 @@ namespace FluentBootstrap
         {
             if(label != null)
             {
-                control.Label = new Label(control.Helper, label);
+                Label controlLabel = new Label(control.Helper, label);
+                control.Label = controlLabel;
                 if (labelAction != null)
                 {
-                    labelAction(control.Label);
+                    labelAction(controlLabel);
                 }
             }
             return control;

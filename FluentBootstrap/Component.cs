@@ -73,7 +73,7 @@ namespace FluentBootstrap
             // Mark the implicit flag
             _implicit = @implicit;
 
-            // Remove this from the pending list
+            // Remove this component from the pending list
             PendingComponents.Remove(HtmlHelper, this);
 
             // Prepare this component
@@ -103,6 +103,14 @@ namespace FluentBootstrap
             return this;
         }
 
+        // This is implicit by definition since it's only ever used inside another component to generate content for a child, etc.
+        internal Component StartAndFinish(TextWriter writer)
+        {
+            Start(writer, true);
+            Finish(writer);
+            return this;
+        }
+
         // Use this method to add components to the stack before this one is added
         // Remember that generally you should call .Start() on any components created here
         protected virtual void Prepare(TextWriter writer)
@@ -116,8 +124,15 @@ namespace FluentBootstrap
         }
 
         // Outputs the start and end portions together
+        // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)
+        // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
         public virtual string ToHtmlString()
         {
+            // Remove this component from the pending list since we're outputting it directly
+            // then output any remaining pending components so we have an accurate component stack
+            PendingComponents.Remove(HtmlHelper, this);
+            PendingComponents.Start(HtmlHelper);
+
             // Write this component out as a string
             using (StringWriter writer = new StringWriter())
             {
