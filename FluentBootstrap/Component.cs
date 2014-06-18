@@ -10,8 +10,9 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public abstract class Component : IHtmlString
+    public abstract class Component : IDisposable, IHtmlString, ICreateComponent
     {
+        private bool _disposed;
         private bool _started;
         private bool _ended;
 
@@ -21,9 +22,35 @@ namespace FluentBootstrap
 
         internal BootstrapHelper Helper { get; private set; }
 
+        // dummy indicates that this component is just used as a settings container for extension methods and shouldn't actually write anything
         protected Component(BootstrapHelper helper)
         {
             Helper = helper;
+            PendingComponents.Add(HtmlHelper, this);
+        }
+
+        public BootstrapHelper GetHelper()
+        {
+            return Helper;
+        }
+
+        //public void Begin()
+        //{
+        //    PendingComponents.StartPendingComponents(Helper.HtmlHelper);
+        //}
+
+        //public void End()
+        //{
+        //    Dispose();
+        //}
+
+        public void Dispose()
+        {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().Name);
+            _disposed = true;
+            PendingComponents.Start(HtmlHelper);
+            Finish(ViewContext.Writer);
         }
 
         internal HtmlHelper HtmlHelper
@@ -38,12 +65,16 @@ namespace FluentBootstrap
 
         internal Component Start(TextWriter writer, bool @implicit)
         {
-            _implicit = @implicit;
-
             // Only write content once
             if (_started)
                 return this;
             _started = true;
+
+            // Mark the implicit flag
+            _implicit = @implicit;
+
+            // Remove this from the pending list
+            PendingComponents.Remove(HtmlHelper, this);
 
             // Prepare this component
             Prepare(writer);
@@ -87,6 +118,7 @@ namespace FluentBootstrap
         // Outputs the start and end portions together
         public virtual string ToHtmlString()
         {
+            // Write this component out as a string
             using (StringWriter writer = new StringWriter())
             {
                 Start(writer, false);
@@ -95,15 +127,9 @@ namespace FluentBootstrap
             }
         }
 
-        internal Component Implicit()
-        {
-            _implicit = true;
-            return this;
-        }
-
         // The following code handles the stack of Bootstrap objects stored in the ViewContext
 
-        private readonly static object _bootstrapStackKey = new object();
+        private readonly static object _bootstrapComponentStackKey = new object();
 
         private void Push()
         {
@@ -128,7 +154,8 @@ namespace FluentBootstrap
                 throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, which is usually an indication that a component has been disposed out of order.");
 
             // Pop the component from the stack
-            if (stack.Pop() != this)
+            Component pop = stack.Pop();
+            if (pop != this)
                 throw new InvalidOperationException("Popped a different Bootstrap component from the stack (you should never see this).");
         }
 
@@ -203,11 +230,11 @@ namespace FluentBootstrap
         private Stack<Component> GetStack()
         {
             IDictionary items = Helper.HtmlHelper.ViewContext.HttpContext.Items;
-            Stack<Component> stack = items[_bootstrapStackKey] as Stack<Component>;
+            Stack<Component> stack = items[_bootstrapComponentStackKey] as Stack<Component>;
             if (stack == null)
             {
                 stack = new Stack<Component>();
-                items[_bootstrapStackKey] = stack;
+                items[_bootstrapComponentStackKey] = stack;
             }
             return stack;
         }

@@ -58,28 +58,17 @@ namespace FluentBootstrap
         public static TTag Html<TTag>(this TTag tag, Func<dynamic, HelperResult> content)
             where TTag : Tag
         {
-            tag.AddChild(new Content(tag.Helper, 
+            tag.AddChild(new Content(tag.Helper,
                 content(null).ToHtmlString()));
             return tag;
         }
 
-        public static TTag Child<TTag, TChild>(this TTag tag, TChild child)
+        public static TTag Child<TTag, TChild>(this TTag tag, Func<TTag, TChild> childFunc)
             where TTag : Tag
             where TChild : Component
         {
+            TChild child = childFunc(tag);
             tag.AddChild(child);
-            return tag;
-        }
-
-        public static TTag Child<TTag, TChild>(this TTag tag, Func<ComponentWrapper<TTag>, TChild> childFunc)
-            where TTag : Tag
-            where TChild : Component
-        {
-            using (ComponentWrapper<TTag> wrapper = new ComponentWrapper<TTag>(tag, false))
-            {
-                TChild child = childFunc(wrapper);
-                tag.AddChild(child);
-            }
             return tag;
         }
     }

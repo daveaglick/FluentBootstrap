@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
         // Container
 
-        public static Container Container<TCreator>(this IComponentCreator<TCreator> creator)
+        public static Container Container<TCreator>(this TCreator creator)
             where TCreator : Container.ICreate
         {
             return new Container(creator.GetHelper());
@@ -27,7 +27,7 @@ namespace FluentBootstrap
 
         // GridRow
 
-        public static GridRow GridRow<TCreator>(this IComponentCreator<TCreator> creator)
+        public static GridRow GridRow<TCreator>(this TCreator creator)
             where TCreator : GridRow.ICreate
         {
             return new GridRow(creator.GetHelper());
@@ -35,7 +35,7 @@ namespace FluentBootstrap
 
         // GridColumn
 
-        public static GridColumn GridColumn<TCreator>(this IComponentCreator<TCreator> creator, int? md = null)
+        public static GridColumn GridColumn<TCreator>(this TCreator creator, int? md = null)
             where TCreator : GridColumn.ICreate
         {
             return new GridColumn(creator.GetHelper()).Md(md);

@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button Button<TCreator>(this IComponentCreator<TCreator> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
+        public static Button Button<TCreator>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
             where TCreator : Button.ICreate
         {
             return new Button(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
@@ -19,13 +19,13 @@ namespace FluentBootstrap
 
         // LinkButton
 
-        public static LinkButton LinkButton<TCreator>(this IComponentCreator<TCreator> creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
+        public static LinkButton LinkButton<TCreator>(this TCreator creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
             where TCreator : LinkButton.ICreate
         {
             return new LinkButton(creator.GetHelper(), buttonStyle).Text(text).Href(href);
         }
 
-        public static LinkButton LinkButton<TCreator>(this IComponentCreator<TCreator> creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
+        public static LinkButton LinkButton<TCreator>(this TCreator creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
             where TCreator : LinkButton.ICreate
         {
             return new LinkButton(creator.GetHelper(), buttonStyle).Text(text).Action(actionName, controllerName, routeValues);
@@ -66,7 +66,5 @@ namespace FluentBootstrap
             button.ToggleCssClass("btn-block", block);
             return button;
         }
-
-        // TODO: Create and add an ILink interface to Button for adding links (including overloads for controller/action, etc.)
     }
 }

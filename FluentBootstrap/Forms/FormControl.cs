@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation, IDisabledAttribute
+    public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation, IHasDisabledAttribute
     {
         private FormGroup _formGroup = null;
 

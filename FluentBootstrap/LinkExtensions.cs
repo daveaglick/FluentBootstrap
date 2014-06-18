@@ -13,13 +13,13 @@ namespace FluentBootstrap
     {
         // Link
 
-        public static Link Link<TCreator>(this IComponentCreator<TCreator> creator, string text, string href = "#")
+        public static Link Link<TCreator>(this TCreator creator, string text, string href = "#")
             where TCreator : Link.ICreate
         {
             return new Link(creator.GetHelper()).Href(href).Text(text);
         }
 
-        public static Link Link<TCreator>(this IComponentCreator<TCreator> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static Link Link<TCreator>(this TCreator creator, string text, string actionName, string controllerName, object routeValues = null)
             where TCreator : Link.ICreate
         {
             return new Link(creator.GetHelper()).Action(actionName, controllerName, routeValues).Text(text);

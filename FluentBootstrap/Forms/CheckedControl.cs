@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public class CheckedControl : FormControl, IValueAttribute
+    public class CheckedControl : FormControl, IHasValueAttribute
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }

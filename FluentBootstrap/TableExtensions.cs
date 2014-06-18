@@ -12,7 +12,7 @@ namespace FluentBootstrap
     {
         // Table
 
-        public static Table Table<TCreator>(this IComponentCreator<TCreator> creator)
+        public static Table Table<TCreator>(this TCreator creator)
             where TCreator : Table.ICreate
         {
             return new Table(creator.GetHelper());
@@ -50,19 +50,19 @@ namespace FluentBootstrap
 
         // Sections
         
-        public static TableHead TableHead<TCreator>(this IComponentCreator<TCreator> creator)
+        public static TableHead TableHead<TCreator>(this TCreator creator)
             where TCreator : TableHead.ICreate
         {
             return new TableHead(creator.GetHelper());
         }
 
-        public static TableBody TableBody<TCreator>(this IComponentCreator<TCreator> creator)
+        public static TableBody TableBody<TCreator>(this TCreator creator)
             where TCreator : TableBody.ICreate
         {
             return new TableBody(creator.GetHelper());
         }
 
-        public static TableFoot TableFoot<TCreator>(this IComponentCreator<TCreator> creator)
+        public static TableFoot TableFoot<TCreator>(this TCreator creator)
             where TCreator : TableFoot.ICreate
         {
             return new TableFoot(creator.GetHelper());
@@ -70,7 +70,7 @@ namespace FluentBootstrap
 
         // TableRow
 
-        public static TableRow TableRow<TCreator>(this IComponentCreator<TCreator> creator)
+        public static TableRow TableRow<TCreator>(this TCreator creator)
             where TCreator : TableRow.ICreate
         {
             return new TableRow(creator.GetHelper());
@@ -78,13 +78,13 @@ namespace FluentBootstrap
 
         // Cells
 
-        public static TableHeading TableHeading<TCreator>(this IComponentCreator<TCreator> creator, object content = null)
+        public static TableHeading TableHeading<TCreator>(this TCreator creator, object content = null)
             where TCreator : TableHeading.ICreate
         {
             return new TableHeading(creator.GetHelper()).Content(content);
         }
 
-        public static TableData TableData<TCreator>(this IComponentCreator<TCreator> creator, object content = null)
+        public static TableData TableData<TCreator>(this TCreator creator, object content = null)
             where TCreator : TableData.ICreate
         {
             return new TableData(creator.GetHelper()).Content(content);

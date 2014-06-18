@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public class Input : FormControl, IValueAttribute
+    public class Input : FormControl, IHasValueAttribute
     {
         internal Input(BootstrapHelper helper, FormInputType inputType) : base(helper, "input", "form-control")
         {

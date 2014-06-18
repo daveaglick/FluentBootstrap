@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
-    public class Link : Tag, ILink, ITextAttribute
+    public class Link : Tag, ILink, IHasTextAttribute
     {
         internal Link(BootstrapHelper helper, params string[] cssClasses)
             : base(helper, "a", cssClasses)

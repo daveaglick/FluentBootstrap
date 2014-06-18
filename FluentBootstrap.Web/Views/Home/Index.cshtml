@@ -4,11 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-@using(Html.Bootstrap().Container().Begin())
+@using(Html.Bootstrap().Container())
 {
-    using (Html.Bootstrap().GridRow().CssClass("doc-row").Begin())
+    using (Html.Bootstrap().GridRow().CssClass("doc-row"))
     {
-        using (Html.Bootstrap().GridColumn().Md(4).Begin())
+        using (Html.Bootstrap().GridColumn().Md(4))
         { 
             <p>A</p>
         }
@@ -17,10 +17,10 @@
     
     <hr />
 
-    using (var row = Html.Bootstrap().GridRow().CssClass("doc-row").Begin())
+    using (var row = Html.Bootstrap().GridRow().CssClass("doc-row"))
     {
         @row.GridColumn(8).Html(@<p>C</p>)
-        using (row.GridColumn().Md(4).Begin())
+        using (row.GridColumn().Md(4))
         {
             <p>D</p>
         }
@@ -37,7 +37,7 @@
 <hr />
 
 @(Html.Bootstrap().Container().Fluid()
-    .Child(Html.Bootstrap().GridRow().CssClass("doc-row")
+    .Child(x => x.GridRow().CssClass("doc-row")
         .Child(c2 => c2.GridColumn(6).Content("G"))
         .Child(c2 => c2.GridColumn(6).Html(@<p>H</p>))
     )
@@ -45,15 +45,15 @@
 
 <hr />
 
-@using(Html.Bootstrap().Container().Begin())
+@using(Html.Bootstrap().Container())
 {
-    using(var table = Html.Bootstrap().Table().Responsive().Begin())
+    using(var table = Html.Bootstrap().Table().Responsive())
     {
         @table.TableHeading("A")
         @table.TableHeading("B").Warning()
         @table.TableData("1")
         @table.TableData("2")
-        using (var row = table.TableRow().Danger().Begin())
+        using (var row = table.TableRow().Danger())
         {
             @row.TableData("3")
             @Html.Bootstrap().TableHeading("4")
@@ -68,16 +68,16 @@
     <hr />
 
     @(Html.Bootstrap().Table().Bordered()
-      .Child(Html.Bootstrap().TableHeading().Content("test"))
+      .Child(x => x.TableHeading().Content("test"))
     )  
     
     <hr />
     
-    using (var form = Html.Bootstrap().Form().Horizontal(6).Begin())
+    using (var form = Html.Bootstrap().Form().Horizontal(6))
     {
         @form.Input("A", inputType: FormInputType.Password)
         @form.Input("B").ControlLabel("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
-        using (form.FormGroup().CssClass("dave").Begin())
+        using (form.FormGroup().CssClass("dave"))
         {
             @form.Input("C").Md(10).ControlLabel("Label C", l => l.Md(2))
         }
@@ -86,12 +86,12 @@
         @form.Radio("Radio", "Radio 1", "R1")
         @form.Radio("Radio", "Radio 2", "R2")
         @form.Radio("Radio", "Radio 3", "R3")
-        using (var group = form.FormGroup().Begin())
+        using (var group = form.FormGroup())
         {
             @group.Radio("Rd", "Rd 1", "rd1").Inline()
             @group.Radio("Rd", null, "rd2").Inline()
         }
-        using (var group = form.FormGroup().Begin())
+        using (var group = form.FormGroup())
         {
             @group.Radio("Rd-b", "Rdb 1", "rdb1")
             @group.Radio("Rd-b", "Rdb 2", "rdb2")
@@ -99,7 +99,7 @@
         @form.Select("S1", null, 1, 2, 3).InputLg()
         @form.Select("S2", "S2", 5, 6, 7).Multiple()
         @Html.Bootstrap().Static("Static", 1234)
-        using (var group = form.FormGroup().Begin())
+        using (var group = form.FormGroup())
         {
             <span>
                 @group.Submit()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FieldSet : Tag, IDisabledAttribute,
+    public class FieldSet : Tag, IHasDisabledAttribute,
         Forms.FormGroup.ICreate,
         Forms.Label.ICreate,
         Forms.Input.ICreate,

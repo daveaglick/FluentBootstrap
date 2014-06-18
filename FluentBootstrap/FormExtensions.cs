@@ -13,19 +13,19 @@ namespace FluentBootstrap
     {
         // Form
 
-        public static Form Form<TCreator>(this IComponentCreator<TCreator> creator, FormMethod method = FormMethod.Post)
+        public static Form Form<TCreator>(this TCreator creator, FormMethod method = FormMethod.Post)
             where TCreator : Form.ICreate
         {
             return new Form(creator.GetHelper()).Action(null).Method(method);
         }
 
-        public static Form Form<TCreator>(this IComponentCreator<TCreator> creator, string action, FormMethod method = FormMethod.Post)
+        public static Form Form<TCreator>(this TCreator creator, string action, FormMethod method = FormMethod.Post)
             where TCreator : Form.ICreate
         {
             return new Form(creator.GetHelper()).Action(action).Method(method);
         }
 
-        public static Form Form<TCreator>(this IComponentCreator<TCreator> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
+        public static Form Form<TCreator>(this TCreator creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
             where TCreator : Form.ICreate
         {
             return new Form(creator.GetHelper()).Action(actionName, controllerName).Method(method);
@@ -79,7 +79,7 @@ namespace FluentBootstrap
 
         // FieldSet
 
-        public static FieldSet FieldSet<TCreator>(this IComponentCreator<TCreator> creator)
+        public static FieldSet FieldSet<TCreator>(this TCreator creator)
             where TCreator : FieldSet.ICreate
         {
             return new FieldSet(creator.GetHelper());
@@ -87,7 +87,7 @@ namespace FluentBootstrap
 
         // FormGroup
 
-        public static FormGroup FormGroup<TCreator>(this IComponentCreator<TCreator> creator)
+        public static FormGroup FormGroup<TCreator>(this TCreator creator)
             where TCreator : FormGroup.ICreate
         {
             return new FormGroup(creator.GetHelper());
@@ -95,7 +95,7 @@ namespace FluentBootstrap
 
         // Label
         
-        public static Label Label<TCreator>(this IComponentCreator<TCreator> creator, string label)
+        public static Label Label<TCreator>(this TCreator creator, string label)
             where TCreator : Label.ICreate
         {
             return new Label(creator.GetHelper(), label);
@@ -115,7 +115,7 @@ namespace FluentBootstrap
 
         // Input
 
-        public static Input Input<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        public static Input Input<TCreator>(this TCreator creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
             where TCreator : Input.ICreate
         {
             return new Input(creator.GetHelper(), inputType).Name(name).ControlLabel(label).Value(value, format);
@@ -129,7 +129,7 @@ namespace FluentBootstrap
 
         // TextArea
 
-        public static TextArea TextArea<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        public static TextArea TextArea<TCreator>(this TCreator creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
             where TCreator : TextArea.ICreate
         {
             return new TextArea(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
@@ -155,13 +155,13 @@ namespace FluentBootstrap
 
         // CheckedControl
 
-        public static CheckedControl CheckBox<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl CheckBox<TCreator>(this TCreator creator, string name = null, string label = null, string description = null, bool isChecked = false)
             where TCreator : CheckedControl.ICreate
         {
             return new CheckedControl(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckedControl Radio<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
+        public static CheckedControl Radio<TCreator>(this TCreator creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
             where TCreator : CheckedControl.ICreate
         {
             return new CheckedControl(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
@@ -187,7 +187,7 @@ namespace FluentBootstrap
 
         // Select
         
-        public static Select Select<TCreator>(this IComponentCreator<TCreator> creator, string name = null, string label = null, params object[] options)
+        public static Select Select<TCreator>(this TCreator creator, string name = null, string label = null, params object[] options)
             where TCreator : Select.ICreate
         {
             return new Select(creator.GetHelper()).Name(name).ControlLabel(label).Options(options);
@@ -220,7 +220,7 @@ namespace FluentBootstrap
 
         // Static
 
-        public static Static Static<TCreator>(this IComponentCreator<TCreator> creator, string label = null, object value = null, string format = null)
+        public static Static Static<TCreator>(this TCreator creator, string label = null, object value = null, string format = null)
             where TCreator : Static.ICreate
         {
             return new Static(creator.GetHelper()).ControlLabel(label).Value(value, format);
@@ -234,25 +234,25 @@ namespace FluentBootstrap
 
         // Buttons
 
-        public static InputButton InputButton<TCreator>(this IComponentCreator<TCreator> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        public static InputButton InputButton<TCreator>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
             where TCreator : InputButton.ICreate
         {
             return new InputButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton FormButton<TCreator>(this IComponentCreator<TCreator> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        public static FormButton FormButton<TCreator>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
             where TCreator : FormButton.ICreate
         {
             return new FormButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton Submit<TCreator>(this IComponentCreator<TCreator> creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
+        public static FormButton Submit<TCreator>(this TCreator creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
             where TCreator : FormButton.ICreate
         {
             return new FormButton(creator.GetHelper(), ButtonType.Submit, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton Reset<TCreator>(this IComponentCreator<TCreator> creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
+        public static FormButton Reset<TCreator>(this TCreator creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
             where TCreator : FormButton.ICreate
         {
             return new FormButton(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);

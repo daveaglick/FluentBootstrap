@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public class LinkButton : Tag, Links.ILink, IButton, ITextAttribute
+    public class LinkButton : Tag, Links.ILink, IButton, IHasTextAttribute
     {
         internal LinkButton(BootstrapHelper helper, ButtonStyle buttonStyle)
             : base(helper, "a", "btn", buttonStyle.GetDescription())

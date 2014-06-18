@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public class BootstrapHelper : IComponentCreator<BootstrapHelper>,
+    public class BootstrapHelper :
         // Grids
         Grids.Container.ICreate,
         Grids.GridColumn.ICreate,
