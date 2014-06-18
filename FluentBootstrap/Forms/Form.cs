@@ -10,16 +10,16 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public class Form : Tag,
-        Forms.FieldSet.ICreate,
-        Forms.FormGroup.ICreate,
-        Forms.Label.ICreate,
-        Forms.FormControl.ICreate
+    public class Form<TModel> : Tag<TModel>,
+        Forms.FieldSet<TModel>.ICreate,
+        Forms.FormGroup<TModel>.ICreate,
+        Forms.Label<TModel>.ICreate,
+        Forms.FormControl<TModel>.ICreate
     {
         // This is only used for horizontal forms
         internal int? DefaultLabelWidth { get; set; }
 
-        public Form(BootstrapHelper helper)
+        public Form(BootstrapHelper<TModel> helper)
             : base(helper, "form")
         {
         }
@@ -75,7 +75,7 @@ namespace FluentBootstrap.Forms
             return string.Format("bsform{0}", num);
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

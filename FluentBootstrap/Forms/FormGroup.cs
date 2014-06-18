@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FormGroup : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation,
-        Forms.Label.ICreate,
-        Forms.FormControl.ICreate
+    public class FormGroup<TModel> : Tag<TModel>, FluentBootstrap.Grids.IGridColumn, IFormValidation,
+        Forms.Label<TModel>.ICreate,
+        Forms.FormControl<TModel>.ICreate
     {
-        internal Tag ColumnWrapper { get; set; }
+        internal Tag<TModel> ColumnWrapper { get; set; }
 
         // This helps track if a label was written as part of this group so following inputs can adjust offset CSS classes accordingly
         internal bool WroteLabel { get; set; }
 
-        internal FormGroup(BootstrapHelper helper) : base(helper, "div", "form-group")
+        internal FormGroup(BootstrapHelper<TModel> helper)
+            : base(helper, "div", "form-group")
         {
 
         }
@@ -27,7 +28,7 @@ namespace FluentBootstrap.Forms
             // Add a column wrapper if we've got explictly set widths
             if (CssClasses.Any(x => x.StartsWith("col-")) && ColumnWrapper == null)
             {
-                ColumnWrapper = new Tag(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                ColumnWrapper = new Tag<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
                 ColumnWrapper.Start(writer, true);
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
@@ -39,7 +40,7 @@ namespace FluentBootstrap.Forms
             Pop(ColumnWrapper, writer);
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

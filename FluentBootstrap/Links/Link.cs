@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
-    public class Link : Tag, ILink, IHasTextAttribute
+    public class Link<TModel> : Tag<TModel>, ILink, IHasTextAttribute
     {
-        internal Link(BootstrapHelper helper, params string[] cssClasses)
+        internal Link(BootstrapHelper<TModel> helper, params string[] cssClasses)
             : base(helper, "a", cssClasses)
         {
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

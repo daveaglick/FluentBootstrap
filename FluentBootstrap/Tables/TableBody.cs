@@ -1,9 +1,10 @@
 namespace FluentBootstrap.Tables
 {
-    public class TableBody : TableSection,
-        TableRow.ICreate
+    public class TableBody<TModel> : TableSection<TModel>,
+        TableRow<TModel>.ICreate
     {
-        internal TableBody(BootstrapHelper helper) : base(helper, "tbody")
+        internal TableBody(BootstrapHelper<TModel> helper)
+            : base(helper, "tbody")
         {
         }
     }

@@ -19,7 +19,7 @@ namespace FluentBootstrap
         private readonly HtmlHelper _htmlHelper;
         private readonly TextWriter _viewContextTextWriter;
 
-        public static void Add(HtmlHelper htmlHelper, Component component)
+        public static void Add(HtmlHelper htmlHelper, IComponent component)
         {
             // Permanently replace the TextWriter at the top of the stack if it's not already been replaced
             PendingComponents pending = htmlHelper.ViewContext.Writer as PendingComponents;
@@ -39,23 +39,23 @@ namespace FluentBootstrap
             }
 
             // Add this component and it's original TextWriter to the list
-            GetList(htmlHelper).Add(new Tuple<Component,TextWriter>(component, pending._viewContextTextWriter));
+            GetList(htmlHelper).Add(new Tuple<IComponent,TextWriter>(component, pending._viewContextTextWriter));
         }
 
-        public static void Remove(HtmlHelper htmlHelper, Component component)
+        public static void Remove(HtmlHelper htmlHelper, IComponent component)
         {
-            List<Tuple<Component, TextWriter>> list = GetList(htmlHelper);
+            List<Tuple<IComponent, TextWriter>> list = GetList(htmlHelper);
             list.RemoveAll(x => x.Item1 == component);
         }
 
         // Need to track the current TextWriter along with the component in case another one gets added to the OutputStack
-        private static List<Tuple<Component, TextWriter>> GetList(HtmlHelper htmlHelper)
+        private static List<Tuple<IComponent, TextWriter>> GetList(HtmlHelper htmlHelper)
         {
             IDictionary items = htmlHelper.ViewContext.HttpContext.Items;
-            List<Tuple<Component, TextWriter>> list = items[_bootstrapPendingListKey] as List<Tuple<Component, TextWriter>>;
+            List<Tuple<IComponent, TextWriter>> list = items[_bootstrapPendingListKey] as List<Tuple<IComponent, TextWriter>>;
             if (list == null)
             {
-                list = new List<Tuple<Component, TextWriter>>();
+                list = new List<Tuple<IComponent, TextWriter>>();
                 items[_bootstrapPendingListKey] = list;
             }
             return list;
@@ -69,7 +69,7 @@ namespace FluentBootstrap
 
         public static void Start(HtmlHelper htmlHelper)
         {
-            List<Tuple<Component, TextWriter>> list = GetList(htmlHelper);
+            List<Tuple<IComponent, TextWriter>> list = GetList(htmlHelper);
             if (list.Count > 0)
             {
                 // If there are pending components, then there should be a pending writer somewhere in the output stack (probably at the top)
@@ -84,7 +84,7 @@ namespace FluentBootstrap
 
         private void Start()
         {
-            List<Tuple<Component, TextWriter>> list = GetList(_htmlHelper);
+            List<Tuple<IComponent, TextWriter>> list = GetList(_htmlHelper);
             while (list.Count > 0)
             {
                 // Start() will remove the component

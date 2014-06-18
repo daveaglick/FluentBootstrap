@@ -8,14 +8,15 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Tables
 {
-    public class Table : Tag,
-        TableSection.ICreate,
-        TableRow.ICreate,
-        TableCell.ICreate
+    public class Table<TModel> : Tag<TModel>,
+        TableSection<TModel>.ICreate,
+        TableRow<TModel>.ICreate,
+        TableCell<TModel>.ICreate
     {
         internal bool Responsive { get; set; }
 
-        internal Table(BootstrapHelper helper) : base(helper, "table", "table")
+        internal Table(BootstrapHelper<TModel> helper)
+            : base(helper, "table", "table")
         {
         }
 
@@ -40,7 +41,7 @@ namespace FluentBootstrap.Tables
             }
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

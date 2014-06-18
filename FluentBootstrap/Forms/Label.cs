@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Label : Tag, FluentBootstrap.Grids.IGridColumn
+    public class Label<TModel> : Tag<TModel>, FluentBootstrap.Grids.IGridColumn
     {
-        internal Label(BootstrapHelper helper, string label) : base(helper, "label", "control-label")
+        internal Label(BootstrapHelper<TModel> helper, string label)
+            : base(helper, "label", "control-label")
         {
             TextContent = label;
         }
@@ -18,8 +19,8 @@ namespace FluentBootstrap.Forms
             base.Prepare(writer);
 
             // Set default column classes if we're horizontal and we haven't already written one
-            Form form = GetComponent<Form>();
-            FormGroup formGroup = GetComponent<FormGroup>();
+            Form<TModel> form = GetComponent<Form<TModel>>();
+            FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
             if (form != null && form.Horizontal && form.DefaultLabelWidth != null 
                 && formGroup != null && !formGroup.WroteLabel
                 && !CssClasses.Any(x => x.StartsWith("col-")))
@@ -33,14 +34,14 @@ namespace FluentBootstrap.Forms
             base.OnStart(writer);
 
             // Track that a label was written as part of this form group
-            FormGroup formGroup = GetComponent<FormGroup>();
+            FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
             if (formGroup != null)
             {
                 formGroup.WroteLabel = true;
             }
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

@@ -8,18 +8,18 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public abstract class FormControl : Tag, FluentBootstrap.Grids.IGridColumn, IFormValidation, IHasDisabledAttribute
+    public abstract class FormControl<TModel> : Tag<TModel>, FluentBootstrap.Grids.IGridColumn, IFormValidation, IHasDisabledAttribute
     {
-        private FormGroup _formGroup = null;
-        private Label _label = null;
+        private FormGroup<TModel> _formGroup = null;
+        private Label<TModel> _label = null;
         internal string Help { get; set; }
 
-        protected FormControl(BootstrapHelper helper, string tagName, params string[] cssClasses) 
+        protected FormControl(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses) 
             : base(helper, tagName, cssClasses)
         {
         }
 
-        internal Label Label
+        internal Label<TModel> Label
         {
             set
             {
@@ -35,10 +35,10 @@ namespace FluentBootstrap.Forms
             base.Prepare(writer);
 
             // Make sure we're in a form group
-            FormGroup formGroup = GetComponent<FormGroup>();
+            FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
             if (formGroup == null)
             {
-                _formGroup = new FormGroup(Helper);
+                _formGroup = new FormGroup<TModel>(Helper);
                 formGroup = _formGroup;
             }
 
@@ -73,10 +73,10 @@ namespace FluentBootstrap.Forms
             }
 
             // Add default column classes if we're horizontal and none have been explicitly set
-            Form form = GetComponent<Form>();
+            Form<TModel> form = GetComponent<Form<TModel>>();
             if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !CssClasses.Any(x => x.StartsWith("col-")))
             {
-                this.Md(BootstrapHelper.GridColumns - form.DefaultLabelWidth);
+                this.Md(BootstrapHelper<TModel>.GridColumns - form.DefaultLabelWidth);
                 if (_label == null && (formGroup == null || !formGroup.WroteLabel))
                 {
                     // Also need to add an offset if no label
@@ -87,7 +87,7 @@ namespace FluentBootstrap.Forms
             // Move any grid column classes to a container class
             if (CssClasses.Any(x => x.StartsWith("col-")) && formGroup.ColumnWrapper == null)
             {
-                formGroup.ColumnWrapper = new Tag(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                formGroup.ColumnWrapper = new Tag<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
                 formGroup.ColumnWrapper.Start(writer, true);
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
@@ -106,7 +106,7 @@ namespace FluentBootstrap.Forms
                 ModelState modelState;
                 if (HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
                 {
-                    CssClasses.Add(HtmlHelper.ValidationInputCssClassName);
+                    CssClasses.Add(System.Web.Mvc.HtmlHelper.ValidationInputCssClassName);
                 }
 
                 // Add other validation attributes
@@ -121,8 +121,8 @@ namespace FluentBootstrap.Forms
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                new Tag(Helper, "p", "help-block")
-                    .AddChild(new Content(Helper, Help))
+                new Tag<TModel>(Helper, "p", "help-block")
+                    .AddChild(new Content<TModel>(Helper, Help))
                     .StartAndFinish(writer);
             }
 
@@ -131,7 +131,7 @@ namespace FluentBootstrap.Forms
             Pop(_formGroup, writer);
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

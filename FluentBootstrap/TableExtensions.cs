@@ -12,118 +12,111 @@ namespace FluentBootstrap
     {
         // Table
 
-        public static Table Table<TCreator>(this TCreator creator)
-            where TCreator : Table.ICreate
+        public static Table<TModel> Table<TModel>(this Table<TModel>.ICreate creator)
         {
-            return new Table(creator.GetHelper());
+            return new Table<TModel>(creator.GetHelper());
         }
 
-        public static Table Striped(this Table table, bool striped = true)
+        public static Table<TModel> Striped<TModel>(this Table<TModel> table, bool striped = true)
         {
             table.ToggleCssClass("table-striped", striped);
             return table;
         }
 
-        public static Table Bordered(this Table table, bool bordered = true)
+        public static Table<TModel> Bordered<TModel>(this Table<TModel> table, bool bordered = true)
         {
             table.ToggleCssClass("table-bordered", bordered);
             return table;
         }
 
-        public static Table Hover(this Table table, bool hover = true)
+        public static Table<TModel> Hover<TModel>(this Table<TModel> table, bool hover = true)
         {
             table.ToggleCssClass("table-hover", hover);
             return table;
         }
 
-        public static Table Condensed(this Table table, bool condensed = true)
+        public static Table<TModel> Condensed<TModel>(this Table<TModel> table, bool condensed = true)
         {
             table.ToggleCssClass("table-condensed", condensed);
             return table;
         }
 
-        public static Table Responsive(this Table table, bool responsive = true)
+        public static Table<TModel> Responsive<TModel>(this Table<TModel> table, bool responsive = true)
         {
             table.Responsive = responsive;
             return table;
         }
 
         // Sections
-        
-        public static TableHead TableHead<TCreator>(this TCreator creator)
-            where TCreator : TableHead.ICreate
+
+        public static TableHead<TModel> TableHead<TModel>(this TableHead<TModel>.ICreate creator)
         {
-            return new TableHead(creator.GetHelper());
+            return new TableHead<TModel>(creator.GetHelper());
         }
 
-        public static TableBody TableBody<TCreator>(this TCreator creator)
-            where TCreator : TableBody.ICreate
+        public static TableBody<TModel> TableBody<TModel>(this TableBody<TModel>.ICreate creator)
         {
-            return new TableBody(creator.GetHelper());
+            return new TableBody<TModel>(creator.GetHelper());
         }
 
-        public static TableFoot TableFoot<TCreator>(this TCreator creator)
-            where TCreator : TableFoot.ICreate
+        public static TableFoot<TModel> TableFoot<TModel>(this TableFoot<TModel>.ICreate creator)
         {
-            return new TableFoot(creator.GetHelper());
+            return new TableFoot<TModel>(creator.GetHelper());
         }
 
         // TableRow
 
-        public static TableRow TableRow<TCreator>(this TCreator creator)
-            where TCreator : TableRow.ICreate
+        public static TableRow<TModel> TableRow<TModel>(this TableRow<TModel>.ICreate creator)
         {
-            return new TableRow(creator.GetHelper());
+            return new TableRow<TModel>(creator.GetHelper());
         }
 
         // Cells
 
-        public static TableHeading TableHeading<TCreator>(this TCreator creator, object content = null)
-            where TCreator : TableHeading.ICreate
+        public static TableHeading<TModel> TableHeading<TModel>(this TableHeading<TModel>.ICreate creator, object content = null)
         {
-            return new TableHeading(creator.GetHelper()).Content(content);
+            return new TableHeading<TModel>(creator.GetHelper()).Content<TableHeading<TModel>, TModel>(content);
         }
 
-        public static TableData TableData<TCreator>(this TCreator creator, object content = null)
-            where TCreator : TableData.ICreate
+        public static TableData<TModel> TableData<TModel>(this TableData<TModel>.ICreate creator, object content = null)
         {
-            return new TableData(creator.GetHelper()).Content(content);
+            return new TableData<TModel>(creator.GetHelper()).Content<TableData<TModel>, TModel>(content);
         }
 
         // ITableContext
 
-        public static TComponent Active<TComponent>(this TComponent component, bool active = true)
-            where TComponent : Tag, ITableContext
+        public static TComponent Active<TComponent, TModel>(this TComponent component, bool active = true)
+            where TComponent : Tag<TModel>, ITableContext
         {
-            return SetClass(component, "active", active);
+            return SetClass<TComponent, TModel>(component, "active", active);
         }
 
-        public static TComponent Success<TComponent>(this TComponent component, bool success = true)
-            where TComponent : Tag, ITableContext
+        public static TComponent Success<TComponent, TModel>(this TComponent component, bool success = true)
+            where TComponent : Tag<TModel>, ITableContext
         {
-            return SetClass(component, "success", success);
+            return SetClass<TComponent, TModel>(component, "success", success);
         }
 
-        public static TComponent Warning<TComponent>(this TComponent component, bool warning = true)
-            where TComponent : Tag, ITableContext
+        public static TComponent Warning<TComponent, TModel>(this TComponent component, bool warning = true)
+            where TComponent : Tag<TModel>, ITableContext
         {
-            return SetClass(component, "warning", warning);
+            return SetClass<TComponent, TModel>(component, "warning", warning);
         }
 
-        public static TComponent Danger<TComponent>(this TComponent component, bool danger = true)
-            where TComponent : Tag, ITableContext
+        public static TComponent Danger<TComponent, TModel>(this TComponent component, bool danger = true)
+            where TComponent : Tag<TModel>, ITableContext
         {
-            return SetClass(component, "danger", danger);
+            return SetClass<TComponent, TModel>(component, "danger", danger);
         }
 
-        public static TComponent Info<TComponent>(this TComponent component, bool info = true)
-            where TComponent : Tag, ITableContext
+        public static TComponent Info<TComponent, TModel>(this TComponent component, bool info = true)
+            where TComponent : Tag<TModel>, ITableContext
         {
-            return SetClass(component, "info", info);
+            return SetClass<TComponent, TModel>(component, "info", info);
         }
 
-        private static TComponent SetClass<TComponent>(TComponent component, string cls, bool add)
-            where TComponent : Tag, ITableContext
+        private static TComponent SetClass<TComponent, TModel>(TComponent component, string cls, bool add)
+            where TComponent : Tag<TModel>, ITableContext
         {
             component.ToggleCssClass(cls, add, "active", "success", "warning", "danger", "info");
             return component;
@@ -131,15 +124,15 @@ namespace FluentBootstrap
 
         // TableCell
 
-        public static TComponent ColSpan<TComponent>(this TComponent component, int? colSpan)
-            where TComponent : TableCell
+        public static TComponent ColSpan<TComponent, TModel>(this TComponent component, int? colSpan)
+            where TComponent : TableCell<TModel>
         {
             component.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
             return component;
         }
 
-        public static TComponent RowSpan<TComponent>(this TComponent component, int? rowSpan)
-            where TComponent : TableCell
+        public static TComponent RowSpan<TComponent, TModel>(this TComponent component, int? rowSpan)
+            where TComponent : TableCell<TModel>
         {
             component.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
             return component;

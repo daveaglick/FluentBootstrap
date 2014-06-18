@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Static : FormControl
+    public class Static<TModel> : FormControl<TModel>
     {
-        internal Static(BootstrapHelper helper) : base(helper, "p", "form-control-static")
+        internal Static(BootstrapHelper<TModel> helper)
+            : base(helper, "p", "form-control-static")
         {
         }
     }

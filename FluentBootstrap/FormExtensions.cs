@@ -13,31 +13,28 @@ namespace FluentBootstrap
     {
         // Form
 
-        public static Form Form<TCreator>(this TCreator creator, FormMethod method = FormMethod.Post)
-            where TCreator : Form.ICreate
+        public static Form<TModel> Form<TModel>(this Form<TModel>.ICreate creator, FormMethod method = FormMethod.Post)
         {
-            return new Form(creator.GetHelper()).Action(null).Method(method);
+            return new Form<TModel>(creator.GetHelper()).Action(null).Method(method);
         }
 
-        public static Form Form<TCreator>(this TCreator creator, string action, FormMethod method = FormMethod.Post)
-            where TCreator : Form.ICreate
+        public static Form<TModel> Form<TModel>(this Form<TModel>.ICreate creator, string action, FormMethod method = FormMethod.Post)
         {
-            return new Form(creator.GetHelper()).Action(action).Method(method);
+            return new Form<TModel>(creator.GetHelper()).Action(action).Method(method);
         }
 
-        public static Form Form<TCreator>(this TCreator creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
-            where TCreator : Form.ICreate
+        public static Form<TModel> Form<TCreator, TModel>(this Form<TModel>.ICreate creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
         {
-            return new Form(creator.GetHelper()).Action(actionName, controllerName).Method(method);
+            return new Form<TModel>(creator.GetHelper()).Action(actionName, controllerName).Method(method);
         }
 
-        public static Form Inline(this Form form, bool inline = true)
+        public static Form<TModel> Inline<TModel>(this Form<TModel> form, bool inline = true)
         {
             form.ToggleCssClass("form-inline", inline, "form-horizontal");
             return form;
         }
 
-        public static Form Horizontal(this Form form, int? defaultLabelWidth = 2, bool horizontal = true)
+        public static Form<TModel> Horizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = 2, bool horizontal = true)
         {
             form.ToggleCssClass("form-horizontal", horizontal, "form-inline");
             form.DefaultLabelWidth = defaultLabelWidth;
@@ -45,13 +42,13 @@ namespace FluentBootstrap
         }
 
         // Use action = null to reset form action to current request url
-        public static Form Action(this Form form, string action)
+        public static Form<TModel> Action<TModel>(this Form<TModel> form, string action)
         {
             form.MergeAttribute("action", action == null ? form.ViewContext.HttpContext.Request.RawUrl : action);
             return form;
         }
 
-        public static Form Action(this Form form, string actionName, string controllerName, object routeValues = null)
+        public static Form<TModel> Action<TModel>(this Form<TModel> form, string actionName, string controllerName, object routeValues = null)
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if(routeValueDictionary == null)
@@ -61,7 +58,7 @@ namespace FluentBootstrap
                 form.HtmlHelper.RouteCollection, form.ViewContext.RequestContext, true));
         }
 
-        public static Form Route(this Form form, string routeName, object routeValues = null)
+        public static Form<TModel> Route<TModel>(this Form<TModel> form, string routeName, object routeValues = null)
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
@@ -71,7 +68,7 @@ namespace FluentBootstrap
                 form.HtmlHelper.RouteCollection, form.ViewContext.RequestContext, false));
         }
 
-        public static Form Method(this Form form, FormMethod method)
+        public static Form<TModel> Method<TModel>(this Form<TModel> form, FormMethod method)
         {
             form.MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
             return form;
@@ -79,35 +76,32 @@ namespace FluentBootstrap
 
         // FieldSet
 
-        public static FieldSet FieldSet<TCreator>(this TCreator creator)
-            where TCreator : FieldSet.ICreate
+        public static FieldSet<TModel> FieldSet<TModel>(this FieldSet<TModel>.ICreate creator)
         {
-            return new FieldSet(creator.GetHelper());
+            return new FieldSet<TModel>(creator.GetHelper());
         }
 
         // FormGroup
 
-        public static FormGroup FormGroup<TCreator>(this TCreator creator)
-            where TCreator : FormGroup.ICreate
+        public static FormGroup<TModel> FormGroup<TModel>(this FormGroup<TModel>.ICreate creator)
         {
-            return new FormGroup(creator.GetHelper());
+            return new FormGroup<TModel>(creator.GetHelper());
         }
 
         // Label
-        
-        public static Label Label<TCreator>(this TCreator creator, string label)
-            where TCreator : Label.ICreate
+
+        public static Label<TModel> Label<TCreator, TModel>(this Label<TModel>.ICreate creator, string label)
         {
-            return new Label(creator.GetHelper(), label);
+            return new Label<TModel>(creator.GetHelper(), label);
         }
 
-        public static Label For(this Label label, string @for)
+        public static Label<TModel> For<TModel>(this Label<TModel> label, string @for)
         {
             label.MergeAttribute("for", @for);
             return label;
         }
 
-        public static Label ScreenReaderOnly(this Label label, bool screenReaderOnly = true)
+        public static Label<TModel> ScreenReaderOnly<TModel>(this Label<TModel> label, bool screenReaderOnly = true)
         {
             label.ToggleCssClass("sr-only", screenReaderOnly);
             return label;
@@ -115,13 +109,12 @@ namespace FluentBootstrap
 
         // Input
 
-        public static Input Input<TCreator>(this TCreator creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
-            where TCreator : Input.ICreate
+        public static Input<TModel> Input<TModel>(this Input<TModel>.ICreate creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
         {
-            return new Input(creator.GetHelper(), inputType).Name(name).ControlLabel(label).Value(value, format);
+            return new Input<TModel>(creator.GetHelper(), inputType).Name(name).ControlLabel(label).Value(value, format);
         }
 
-        public static Input Placeholder(this Input input, string placeholder)
+        public static Input<TModel> Placeholder<TModel>(this Input<TModel> input, string placeholder)
         {
             input.MergeAttribute("placeholder", placeholder);
             return input;
@@ -129,25 +122,24 @@ namespace FluentBootstrap
 
         // TextArea
 
-        public static TextArea TextArea<TCreator>(this TCreator creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
-            where TCreator : TextArea.ICreate
+        public static TextArea<TModel> TextArea<TCreator, TModel>(this TextArea<TModel>.ICreate creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
         {
-            return new TextArea(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
+            return new TextArea<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
         }
 
-        public static TextArea Rows(this TextArea textArea, int? rows)
+        public static TextArea<TModel> Rows<TModel>(this TextArea<TModel> textArea, int? rows)
         {
             textArea.MergeAttribute("rows", rows == null ? null : rows.Value.ToString());
             return textArea;
         }
 
-        public static TextArea Value(this TextArea textArea, object value, string format = null)
+        public static TextArea<TModel> Value<TModel>(this TextArea<TModel> textArea, object value, string format = null)
         {
             textArea.TextContent = value == null ? null : textArea.HtmlHelper.FormatValue(value, format);
             return textArea;
         }
 
-        public static TextArea Placeholder(this TextArea textArea, string placeholder)
+        public static TextArea<TModel> Placeholder<TModel>(this TextArea<TModel> textArea, string placeholder)
         {
             textArea.MergeAttribute("placeholder", placeholder);
             return textArea;
@@ -155,51 +147,49 @@ namespace FluentBootstrap
 
         // CheckedControl
 
-        public static CheckedControl CheckBox<TCreator>(this TCreator creator, string name = null, string label = null, string description = null, bool isChecked = false)
-            where TCreator : CheckedControl.ICreate
+        public static CheckedControl<TModel> CheckBox<TModel>(this CheckedControl<TModel>.ICreate creator, string name = null, string label = null, string description = null, bool isChecked = false)
         {
-            return new CheckedControl(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl<TModel>(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckedControl Radio<TCreator>(this TCreator creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
-            where TCreator : CheckedControl.ICreate
+        public static CheckedControl<TModel> Radio<TCreator, TModel>(this TCreator creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
+            where TCreator : CheckedControl<TModel>.ICreate
         {
-            return new CheckedControl(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
+            return new CheckedControl<TModel>(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
         }
 
-        public static CheckedControl Description(this CheckedControl checkedControl, string description)
+        public static CheckedControl<TModel> Description<TModel>(this CheckedControl<TModel> checkedControl, string description)
         {
             checkedControl.Description = description;
             return checkedControl;
         }
 
-        public static CheckedControl Inline(this CheckedControl checkedControl, bool inline = true)
+        public static CheckedControl<TModel> Inline<TModel>(this CheckedControl<TModel> checkedControl, bool inline = true)
         {
             checkedControl.Inline = inline;
             return checkedControl;
         }
 
-        public static CheckedControl IsChecked(this CheckedControl checkedControl, bool isChecked = true)
+        public static CheckedControl<TModel> IsChecked<TModel>(this CheckedControl<TModel> checkedControl, bool isChecked = true)
         {
             checkedControl.MergeAttribute("checked", isChecked ? "checked" : null);
             return checkedControl;
         }
 
         // Select
-        
-        public static Select Select<TCreator>(this TCreator creator, string name = null, string label = null, params object[] options)
-            where TCreator : Select.ICreate
+
+        public static Select<TModel> Select<TModel>(this Select<TModel>.ICreate creator, string name = null, string label = null, params object[] options)
         {
-            return new Select(creator.GetHelper()).Name(name).ControlLabel(label).Options(options);
+            return new Select<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Options(options);
         }
 
-        public static Select Multiple(this Select select, bool multiple = true)
+        public static Select<TModel> Multiple<TModel>(this Select<TModel> select, bool multiple = true)
         {
             select.MergeAttribute("multiple", multiple ? "multiple" : null);
             return select;
         }
 
-        public static Select Options(this Select select, params object[] options)
+        public static Select<TModel> Options<TModel>(this Select<TModel> select, params object[] options)
         {
             select.Options.Clear();
             foreach (object option in options)
@@ -209,7 +199,7 @@ namespace FluentBootstrap
             return select;
         }
 
-        public static Select Option(this Select select, object option, string format = null)
+        public static Select<TModel> Option<TModel>(this Select<TModel> select, object option, string format = null)
         {
             if (option != null)
             {
@@ -220,13 +210,12 @@ namespace FluentBootstrap
 
         // Static
 
-        public static Static Static<TCreator>(this TCreator creator, string label = null, object value = null, string format = null)
-            where TCreator : Static.ICreate
+        public static Static<TModel> Static<TModel>(this Static<TModel>.ICreate creator, string label = null, object value = null, string format = null)
         {
-            return new Static(creator.GetHelper()).ControlLabel(label).Value(value, format);
+            return new Static<TModel>(creator.GetHelper()).ControlLabel(label).Value(value, format);
         }
 
-        public static Static Value(this Static @static, object value, string format = null)
+        public static Static<TModel> Value<TModel>(this Static<TModel> @static, object value, string format = null)
         {
             @static.TextContent = value == null ? null : @static.HtmlHelper.FormatValue(value, format);
             return @static;
@@ -234,45 +223,50 @@ namespace FluentBootstrap
 
         // Buttons
 
-        public static InputButton InputButton<TCreator>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
-            where TCreator : InputButton.ICreate
+        public static InputButton<TModel> InputButton<TModel>(this InputButton<TModel>.ICreate creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
         {
-            return new InputButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
+            return new InputButton<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton FormButton<TCreator>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
-            where TCreator : FormButton.ICreate
+        public static FormButton<TModel> FormButton<TModel>(this FormButton<TModel>.ICreate creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
         {
-            return new FormButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton Submit<TCreator>(this TCreator creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
-            where TCreator : FormButton.ICreate
+        public static FormButton<TModel> Submit<TModel>(this FormButton<TModel>.ICreate creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
         {
-            return new FormButton(creator.GetHelper(), ButtonType.Submit, buttonStyle).Text(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Submit, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton Reset<TCreator>(this TCreator creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
-            where TCreator : FormButton.ICreate
+        public static FormButton<TModel> Reset<TModel>(this FormButton<TModel>.ICreate creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
         {
-            return new FormButton(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
+
+        // DisplayFor
+
+        //public static DisplayFor<TModel> DisplayFor<TCreator, TModel>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        //    where TCreator : InputButton.ICreate
+        //{
+        //    return new InputButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
+        //}
+
 
         // FormControl
         
-        public static TFormControl Name<TFormControl>(this TFormControl control, string name)
-            where TFormControl : FormControl
+        public static TFormControl Name<TFormControl, TModel>(this TFormControl control, string name)
+            where TFormControl : FormControl<TModel>
         {
             control.MergeAttribute("name", name == null ? null : control.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
             return control;
         }
 
-        public static TFormControl ControlLabel<TFormControl>(this TFormControl control, string label, Action<Label> labelAction = null)
-            where TFormControl : FormControl
+        public static TFormControl ControlLabel<TFormControl, TModel>(this TFormControl control, string label, Action<Label<TModel>> labelAction = null)
+            where TFormControl : FormControl<TModel>
         {
             if(label != null)
             {
-                Label controlLabel = new Label(control.Helper, label);
+                Label<TModel> controlLabel = new Label<TModel>(control.Helper, label);
                 control.Label = controlLabel;
                 if (labelAction != null)
                 {
@@ -282,22 +276,22 @@ namespace FluentBootstrap
             return control;
         }
 
-        public static TFormControl Help<TFormControl>(this TFormControl control, string help)
-            where TFormControl : FormControl
+        public static TFormControl Help<TFormControl, TModel>(this TFormControl control, string help)
+            where TFormControl : FormControl<TModel>
         {
             control.Help = help;
             return control;
         }
 
-        public static TFormControl InputLg<TFormControl>(this TFormControl control, bool lg = true)
-            where TFormControl : FormControl
+        public static TFormControl InputLg<TFormControl, TModel>(this TFormControl control, bool lg = true)
+            where TFormControl : FormControl<TModel>
         {
             control.ToggleCssClass("input-lg", lg, "input-sm");
             return control;
         }
 
-        public static TFormControl InputSm<TFormControl>(this TFormControl control, bool sm = true)
-            where TFormControl : FormControl
+        public static TFormControl InputSm<TFormControl, TModel>(this TFormControl control, bool sm = true)
+            where TFormControl : FormControl<TModel>
         {
             control.ToggleCssClass("input-sm", sm, "input-lg");
             return control;
@@ -305,22 +299,22 @@ namespace FluentBootstrap
 
         // IFormValidation
 
-        public static TComponent HasSuccess<TComponent>(this TComponent component, bool hasSuccess = true)
-            where TComponent : Tag, IFormValidation
+        public static TComponent HasSuccess<TComponent, TModel>(this TComponent component, bool hasSuccess = true)
+            where TComponent : Tag<TModel>, IFormValidation
         {
             component.ToggleCssClass("has-success", hasSuccess, "has-warning", "has-error");
             return component;
         }
 
-        public static TComponent HasWarning<TComponent>(this TComponent component, bool hasSuccess = true)
-            where TComponent : Tag, IFormValidation
+        public static TComponent HasWarning<TComponent, TModel>(this TComponent component, bool hasSuccess = true)
+            where TComponent : Tag<TModel>, IFormValidation
         {
             component.ToggleCssClass("has-warning", hasSuccess, "has-success", "has-error");
             return component;
         }
 
-        public static TComponent HasError<TComponent>(this TComponent component, bool hasError = true)
-            where TComponent : Tag, IFormValidation
+        public static TComponent HasError<TComponent, TModel>(this TComponent component, bool hasError = true)
+            where TComponent : Tag<TModel>, IFormValidation
         {
             component.ToggleCssClass("has-error", hasError, "has-warning", "has-success");
             return component;

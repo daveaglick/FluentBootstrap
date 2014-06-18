@@ -7,14 +7,15 @@ using FluentBootstrap;
 
 namespace FluentBootstrap.Grids
 {
-    public class Container : Tag,
-        GridRow.ICreate
+    public class Container<TModel> : Tag<TModel>,
+        GridRow<TModel>.ICreate
     {
-        internal Container(BootstrapHelper helper) : base(helper, "div", "container")
+        internal Container(BootstrapHelper<TModel> helper)
+            : base(helper, "div", "container")
         {
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

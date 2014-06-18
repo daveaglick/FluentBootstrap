@@ -11,27 +11,24 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button Button<TCreator>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
-            where TCreator : Button.ICreate
+        public static Button<TModel> Button<TModel>(this Button<TModel>.ICreate creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
         {
-            return new Button(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
+            return new Button<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
         }
 
         // LinkButton
 
-        public static LinkButton LinkButton<TCreator>(this TCreator creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
-            where TCreator : LinkButton.ICreate
+        public static LinkButton<TModel> LinkButton<TModel>(this LinkButton<TModel>.ICreate creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
         {
-            return new LinkButton(creator.GetHelper(), buttonStyle).Text(text).Href(href);
+            return new LinkButton<TModel>(creator.GetHelper(), buttonStyle).Text(text).Href(href);
         }
 
-        public static LinkButton LinkButton<TCreator>(this TCreator creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
-            where TCreator : LinkButton.ICreate
+        public static LinkButton<TModel> LinkButton<TModel>(this LinkButton<TModel>.ICreate creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
         {
-            return new LinkButton(creator.GetHelper(), buttonStyle).Text(text).Action(actionName, controllerName, routeValues);
+            return new LinkButton<TModel>(creator.GetHelper(), buttonStyle).Text(text).Action(actionName, controllerName, routeValues);
         }
 
-        public static LinkButton Disabled(this LinkButton linkButton, bool disabled = true)
+        public static LinkButton<TModel> Disabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)
         {
             linkButton.ToggleCssClass("disabled", disabled);
             return linkButton;
@@ -39,29 +36,29 @@ namespace FluentBootstrap
 
         // IButton
 
-        public static TButton BtnLg<TButton>(this TButton button, bool lg = true)
-            where TButton : Tag, IButton
+        public static TButton BtnLg<TButton, TModel>(this TButton button, bool lg = true)
+            where TButton : Tag<TModel>, IButton
         {
             button.ToggleCssClass("btn-lg", lg, "btn-sm", "btn-xs");
             return button;
         }
 
-        public static TButton BtnSm<TButton>(this TButton button, bool sm = true)
-            where TButton : Tag, IButton
+        public static TButton BtnSm<TButton, TModel>(this TButton button, bool sm = true)
+            where TButton : Tag<TModel>, IButton
         {
             button.ToggleCssClass("btn-sm", sm, "btn-lg", "btn-xs");
             return button;
         }
 
-        public static TButton BtnXs<TButton>(this TButton button, bool xs = true)
-            where TButton : Tag, IButton
+        public static TButton BtnXs<TButton, TModel>(this TButton button, bool xs = true)
+            where TButton : Tag<TModel>, IButton
         {
             button.ToggleCssClass("btn-xs", xs, "btn-lg", "btn-sm");
             return button;
         }
 
-        public static TButton BtnBlock<TButton>(this TButton button, bool block = true)
-            where TButton : Tag, IButton
+        public static TButton BtnBlock<TButton, TModel>(this TButton button, bool block = true)
+            where TButton : Tag<TModel>, IButton
         {
             button.ToggleCssClass("btn-block", block);
             return button;

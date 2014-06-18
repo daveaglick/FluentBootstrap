@@ -9,22 +9,22 @@ namespace FluentBootstrap
     // These are extensions for general interfaces
     public static class InterfaceExtensions
     {        
-        public static TComponent Disabled<TComponent>(this TComponent component, bool disabled = true)
-            where TComponent : Tag, IHasDisabledAttribute
+        public static TComponent Disabled<TComponent, TModel>(this TComponent component, bool disabled = true)
+            where TComponent : Tag<TModel>, IHasDisabledAttribute
         {
             component.MergeAttribute("disabled", disabled ? "disabled" : null);
             return component;
         }
 
-        public static TComponent Text<TComponent>(this TComponent component, string text)
-            where TComponent : Tag, IHasTextAttribute
+        public static TComponent Text<TComponent, TModel>(this TComponent component, string text)
+            where TComponent : Tag<TModel>, IHasTextAttribute
         {
             component.TextContent = text;
             return component;
         }
 
-        public static TComponent Value<TComponent>(this TComponent component, object value, string format = null)
-            where TComponent : Tag, IHasValueAttribute
+        public static TComponent Value<TComponent, TModel>(this TComponent component, object value, string format = null)
+            where TComponent : Tag<TModel>, IHasValueAttribute
         {
             component.MergeAttribute("value", value == null ? null : component.HtmlHelper.FormatValue(value, format));
             return component;

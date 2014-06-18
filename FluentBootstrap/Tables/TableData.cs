@@ -2,9 +2,10 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public class TableData : TableCell
+    public class TableData<TModel> : TableCell<TModel>
     {
-        internal TableData(BootstrapHelper helper) : base(helper, "td")
+        internal TableData(BootstrapHelper<TModel> helper)
+            : base(helper, "td")
         {
         }
 
@@ -13,15 +14,15 @@ namespace FluentBootstrap.Tables
             base.Prepare(writer);
 
             // Only add implicit components if we're in a table
-            if (GetComponent<Table>() != null)
+            if (GetComponent<Table<TModel>>() != null)
             {
                 // If we're in a head section, exit out
-                Pop<TableHead>(writer);
+                Pop<TableHead<TModel>>(writer);
 
                 // Make sure we're in a row
-                if (GetComponent<TableRow>() == null)
+                if (GetComponent<TableRow<TModel>>() == null)
                 {
-                    new TableRow(Helper).Start(writer, true);
+                    new TableRow<TModel>(Helper).Start(writer, true);
                 }
             }
         }

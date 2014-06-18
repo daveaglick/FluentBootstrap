@@ -2,10 +2,11 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public class TableRow : Tag, ITableContext,
-        TableCell.ICreate
+    public class TableRow<TModel> : Tag<TModel>, ITableContext,
+        TableCell<TModel>.ICreate
     {
-        internal TableRow(BootstrapHelper helper) : base(helper, "tr")
+        internal TableRow(BootstrapHelper<TModel> helper)
+            : base(helper, "tr")
         {
         }
 
@@ -13,16 +14,16 @@ namespace FluentBootstrap.Tables
         {
             base.Prepare(writer);
 
-            Pop<TableRow>(writer);
+            Pop<TableRow<TModel>>(writer);
 
             // Make sure we're in a section, but only if we're also in a table
-            if (GetComponent<Table>() != null && GetComponent<TableSection>() == null)
+            if (GetComponent<Table<TModel>>() != null && GetComponent<TableSection<TModel>>() == null)
             {
-                new TableBody(Helper).Start(writer, true);
+                new TableBody<TModel>(Helper).Start(writer, true);
             }
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

@@ -1,7 +1,7 @@
 namespace FluentBootstrap
 {
-    public interface ICreateComponent
+    public interface ICreateComponent<TModel>
     {
-        BootstrapHelper GetHelper();
+        BootstrapHelper<TModel> GetHelper();
     }
 }

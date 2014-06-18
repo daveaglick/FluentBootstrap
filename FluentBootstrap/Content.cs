@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public class Content : Component
+    public class Content<TModel> : Component<TModel>
     {
         private readonly string _content;
 
-        public Content(BootstrapHelper helper, string content)
+        public Content(BootstrapHelper<TModel> helper, string content)
             : base(helper)
         {
             _content = content;

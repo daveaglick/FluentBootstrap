@@ -10,51 +10,38 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public class BootstrapHelper :
+    public class BootstrapHelper<TModel> : 
         // Grids
-        Grids.Container.ICreate,
-        Grids.GridColumn.ICreate,
-        Grids.GridRow.ICreate,
+        Grids.Container<TModel>.ICreate,
+        Grids.GridColumn<TModel>.ICreate,
+        Grids.GridRow<TModel>.ICreate,
         // Tables
-        Tables.Table.ICreate,
-        Tables.TableSection.ICreate,
-        Tables.TableRow.ICreate,
-        Tables.TableCell.ICreate,
+        Tables.Table<TModel>.ICreate,
+        Tables.TableSection<TModel>.ICreate,
+        Tables.TableRow<TModel>.ICreate,
+        Tables.TableCell<TModel>.ICreate,
         // Forms
-        Forms.Form.ICreate,
-        Forms.FieldSet.ICreate,
-        Forms.FormGroup.ICreate,
-        Forms.Label.ICreate,
-        Forms.FormControl.ICreate,
+        Forms.Form<TModel>.ICreate,
+        Forms.FieldSet<TModel>.ICreate,
+        Forms.FormGroup<TModel>.ICreate,
+        Forms.Label<TModel>.ICreate,
+        Forms.FormControl<TModel>.ICreate,
         // Buttons
-        Buttons.Button.ICreate,
-        Buttons.LinkButton.ICreate,
+        Buttons.Button<TModel>.ICreate,
+        Buttons.LinkButton<TModel>.ICreate,
         // Links
-        Links.Link.ICreate
+        Links.Link<TModel>.ICreate
     {
-        public static int GridColumns = 12;
+        internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 
-        internal HtmlHelper HtmlHelper { get; private set; }
-
-        internal BootstrapHelper(HtmlHelper htmlHelper)
+        internal BootstrapHelper(HtmlHelper<TModel> htmlHelper)
         {
             HtmlHelper = htmlHelper;
         }
 
-        public BootstrapHelper GetHelper()
+        public BootstrapHelper<TModel> GetHelper()
         {
             return this;
-        }
-    }
-
-    public class BootstrapHelper<TModel> : BootstrapHelper
-    {
-        internal HtmlHelper<TModel> StrongHtmlHelper { get; private set; }
-
-        internal BootstrapHelper(HtmlHelper<TModel> htmlHelper)
-            : base(htmlHelper)
-        {
-            StrongHtmlHelper = htmlHelper;
         }
     }
 }

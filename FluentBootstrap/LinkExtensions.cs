@@ -13,22 +13,20 @@ namespace FluentBootstrap
     {
         // Link
 
-        public static Link Link<TCreator>(this TCreator creator, string text, string href = "#")
-            where TCreator : Link.ICreate
+        public static Link<TModel> Link<TModel>(this Link<TModel>.ICreate creator, string text, string href = "#")
         {
-            return new Link(creator.GetHelper()).Href(href).Text(text);
+            return new Link<TModel>(creator.GetHelper()).Href<Link<TModel>, TModel>(href).Text<Link<TModel>, TModel>(text);
         }
 
-        public static Link Link<TCreator>(this TCreator creator, string text, string actionName, string controllerName, object routeValues = null)
-            where TCreator : Link.ICreate
+        public static Link<TModel> Link<TModel>(this Link<TModel>.ICreate creator, string text, string actionName, string controllerName, object routeValues = null)
         {
-            return new Link(creator.GetHelper()).Action(actionName, controllerName, routeValues).Text(text);
+            return new Link<TModel>(creator.GetHelper()).Action<Link<TModel>, TModel>(actionName, controllerName, routeValues).Text<Link<TModel>, TModel>(text);
         }
 
         // ILink
         
-        public static TComponent Href<TComponent>(this TComponent component, string href)
-            where TComponent : Tag, ILink
+        public static TComponent Href<TComponent, TModel>(this TComponent component, string href)
+            where TComponent : Tag<TModel>, ILink
         {
             if (string.IsNullOrWhiteSpace(href))
             {
@@ -38,25 +36,25 @@ namespace FluentBootstrap
             return component;
         }
 
-        public static TComponent Action<TComponent>(this TComponent component, string actionName, string controllerName, object routeValues = null)
-            where TComponent : Tag, ILink
+        public static TComponent Action<TComponent, TModel>(this TComponent component, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Tag<TModel>, ILink
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
                 new RouteValueDictionary(routeValues);
 
-            return component.Href(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
+            return component.Href<TComponent, TModel>(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
                 component.HtmlHelper.RouteCollection, component.ViewContext.RequestContext, true));
         }
 
-        public static TComponent Route<TComponent>(this TComponent component, string routeName, object routeValues = null)
-            where TComponent : Tag, ILink
+        public static TComponent Route<TComponent, TModel>(this TComponent component, string routeName, object routeValues = null)
+            where TComponent : Tag<TModel>, ILink
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
                 new RouteValueDictionary(routeValues);
 
-            return component.Href(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
+            return component.Href<TComponent, TModel>(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
                 component.HtmlHelper.RouteCollection, component.ViewContext.RequestContext, false));
         }
     }

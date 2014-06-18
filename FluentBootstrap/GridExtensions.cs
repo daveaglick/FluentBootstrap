@@ -11,13 +11,12 @@ namespace FluentBootstrap
     {
         // Container
 
-        public static Container Container<TCreator>(this TCreator creator)
-            where TCreator : Container.ICreate
+        public static Container<TModel> Container<TModel>(this Container<TModel>.ICreate creator)
         {
-            return new Container(creator.GetHelper());
+            return new Container<TModel>(creator.GetHelper());
         }
 
-        public static Container Fluid(this Container container, bool fluid = true)
+        public static Container<TModel> Fluid<TModel>(this Container<TModel> container, bool fluid = true)
         {
             container.CssClasses.Remove("container");
             container.CssClasses.Remove("container-fluid");
@@ -27,18 +26,16 @@ namespace FluentBootstrap
 
         // GridRow
 
-        public static GridRow GridRow<TCreator>(this TCreator creator)
-            where TCreator : GridRow.ICreate
+        public static GridRow<TModel> GridRow<TModel>(this GridRow<TModel>.ICreate creator)
         {
-            return new GridRow(creator.GetHelper());
+            return new GridRow<TModel>(creator.GetHelper());
         }
 
         // GridColumn
 
-        public static GridColumn GridColumn<TCreator>(this TCreator creator, int? md = null)
-            where TCreator : GridColumn.ICreate
+        public static GridColumn<TModel> GridColumn<TModel>(this GridColumn<TModel>.ICreate creator, int? md = null)
         {
-            return new GridColumn(creator.GetHelper()).Md(md);
+            return new GridColumn<TModel>(creator.GetHelper()).Md(md);
         }
     }
 }

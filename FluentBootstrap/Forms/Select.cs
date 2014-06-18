@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Select : FormControl
+    public class Select<TModel> : FormControl<TModel>
     {
         internal List<string> Options { get; private set; }
 
-        internal Select(BootstrapHelper helper) : base(helper, "select", "form-control")
+        internal Select(BootstrapHelper<TModel> helper)
+            : base(helper, "select", "form-control")
         {
             Options = new List<string>();
         }
@@ -22,8 +23,8 @@ namespace FluentBootstrap.Forms
             // Add options as child tags
             foreach (string option in Options)
             {
-                this.AddChild(new Tag(Helper, "option")
-                    .AddChild(new Content(Helper, option)));
+                this.AddChild(new Tag<TModel>(Helper, "option")
+                    .AddChild(new Content<TModel>(Helper, option)));
             }
         }
     }

@@ -8,12 +8,13 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public class CheckedControl : FormControl, IHasValueAttribute
+    public class CheckedControl<TModel> : FormControl<TModel>, IHasValueAttribute
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }
 
-        internal CheckedControl(BootstrapHelper helper, string type) : base(helper, "input")
+        internal CheckedControl(BootstrapHelper<TModel> helper, string type)
+            : base(helper, "input")
         {
             MergeAttribute("type", type);
         }
@@ -25,7 +26,7 @@ namespace FluentBootstrap.Forms
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
             {
-                this.AddChild(new Content(Helper, Description));
+                this.AddChild(new Content<TModel>(Helper, Description));
             }
         }
 

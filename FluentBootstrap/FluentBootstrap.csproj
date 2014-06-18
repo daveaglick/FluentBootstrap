@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap.cs" />
     <Compile Include="ButtonExtensions.cs" />
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\LinkButton.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Buttons\ButtonStyle.cs" />
     <Compile Include="Buttons\IButton.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="Forms\DisplayFor.cs" />
     <Compile Include="Forms\FormButton.cs" />
     <Compile Include="Forms\FormInputType.cs" />
     <Compile Include="Forms\CheckedControl.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Forms\Input.cs" />
     <Compile Include="Forms\Label.cs" />
     <Compile Include="Grids\IGridColumn.cs" />
+    <Compile Include="IComponent.cs" />
     <Compile Include="ICreateComponent.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
     <Compile Include="InterfaceExtensions.cs" />

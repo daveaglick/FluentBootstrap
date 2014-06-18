@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FieldSet : Tag, IHasDisabledAttribute,
-        Forms.FormGroup.ICreate,
-        Forms.Label.ICreate,
-        Forms.FormControl.ICreate
+    public class FieldSet<TModel> : Tag<TModel>, IHasDisabledAttribute,
+        Forms.FormGroup<TModel>.ICreate,
+        Forms.Label<TModel>.ICreate,
+        Forms.FormControl<TModel>.ICreate
     {
-        internal FieldSet(BootstrapHelper helper) : base(helper, "fieldset")
+        internal FieldSet(BootstrapHelper<TModel> helper)
+            : base(helper, "fieldset")
         {
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

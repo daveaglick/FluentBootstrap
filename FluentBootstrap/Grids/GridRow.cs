@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
-    public class GridRow : Tag,
-        GridColumn.ICreate
+    public class GridRow<TModel> : Tag<TModel>,
+        GridColumn<TModel>.ICreate
     {
-        internal GridRow(BootstrapHelper helper) : base(helper, "div", "row")
+        internal GridRow(BootstrapHelper<TModel> helper)
+            : base(helper, "div", "row")
         {
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class TextArea : FormControl
+    public class TextArea<TModel> : FormControl<TModel>
     {
-        internal TextArea(BootstrapHelper helper)
+        internal TextArea(BootstrapHelper<TModel> helper)
             : base(helper, "textarea", "form-control")
         {
         }

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public class Button : Tag, IButton, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public class Button<TModel> : Tag<TModel>, IButton, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
-        internal Button(BootstrapHelper helper, ButtonType buttonType, ButtonStyle buttonStyle) 
+        internal Button(BootstrapHelper<TModel> helper, ButtonType buttonType, ButtonStyle buttonStyle) 
             : base(helper, "button", "btn", buttonStyle.GetDescription())
         {
             MergeAttribute("type", buttonType.GetDescription());
         }
 
-        public interface ICreate : ICreateComponent
+        public interface ICreate : ICreateComponent<TModel>
         {
         }
     }
