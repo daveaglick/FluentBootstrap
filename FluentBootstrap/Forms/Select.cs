@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Select<TModel> : FormControl<TModel>
+    public interface ISelect : IFormControl
+    {
+    }
+
+    public class Select<TModel> : FormControl<TModel, Select<TModel>>, ISelect
     {
         internal List<string> Options { get; private set; }
 

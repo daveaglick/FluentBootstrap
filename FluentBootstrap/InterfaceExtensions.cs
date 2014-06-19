@@ -8,26 +8,29 @@ namespace FluentBootstrap
 {
     // These are extensions for general interfaces
     public static class InterfaceExtensions
-    {        
-        public static TComponent Disabled<TComponent, TModel>(this TComponent component, bool disabled = true)
-            where TComponent : Tag<TModel>, IHasDisabledAttribute
+    {
+        public static TThis Disabled<TModel, TThis>(this Component<TModel, TThis> component, bool disabled = true)
+            where TThis : Tag<TModel, TThis>, IHasDisabledAttribute
         {
-            component.MergeAttribute("disabled", disabled ? "disabled" : null);
-            return component;
+            TThis tag = component.GetThis();
+            tag.MergeAttribute("disabled", disabled ? "disabled" : null);
+            return tag;
         }
 
-        public static TComponent Text<TComponent, TModel>(this TComponent component, string text)
-            where TComponent : Tag<TModel>, IHasTextAttribute
+        public static TThis Text<TModel, TThis>(this Component<TModel, TThis> component, string text)
+            where TThis : Tag<TModel, TThis>, IHasTextAttribute
         {
-            component.TextContent = text;
-            return component;
+            TThis tag = component.GetThis();
+            tag.TextContent = text;
+            return tag;
         }
 
-        public static TComponent Value<TComponent, TModel>(this TComponent component, object value, string format = null)
-            where TComponent : Tag<TModel>, IHasValueAttribute
+        public static TThis Value<TModel, TThis>(this Component<TModel, TThis> component, object value, string format = null)
+            where TThis : Tag<TModel, TThis>, IHasValueAttribute
         {
-            component.MergeAttribute("value", value == null ? null : component.HtmlHelper.FormatValue(value, format));
-            return component;
+            TThis tag = component.GetThis();
+            tag.MergeAttribute("value", value == null ? null : component.HtmlHelper.FormatValue(value, format));
+            return tag;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace FluentBootstrap
     {
         // Table
 
-        public static Table<TModel> Table<TModel>(this Table<TModel>.ICreate creator)
+        public static Table<TModel> Table<TModel>(this ITableCreator<TModel> creator)
         {
             return new Table<TModel>(creator.GetHelper());
         }
@@ -49,93 +49,96 @@ namespace FluentBootstrap
 
         // Sections
 
-        public static TableHead<TModel> TableHead<TModel>(this TableHead<TModel>.ICreate creator)
+        public static TableHead<TModel> TableHead<TModel>(this ITableSectionCreator<TModel> creator)
         {
             return new TableHead<TModel>(creator.GetHelper());
         }
 
-        public static TableBody<TModel> TableBody<TModel>(this TableBody<TModel>.ICreate creator)
+        public static TableBody<TModel> TableBody<TModel>(this ITableSectionCreator<TModel> creator)
         {
             return new TableBody<TModel>(creator.GetHelper());
         }
 
-        public static TableFoot<TModel> TableFoot<TModel>(this TableFoot<TModel>.ICreate creator)
+        public static TableFoot<TModel> TableFoot<TModel>(this ITableSectionCreator<TModel> creator)
         {
             return new TableFoot<TModel>(creator.GetHelper());
         }
 
         // TableRow
 
-        public static TableRow<TModel> TableRow<TModel>(this TableRow<TModel>.ICreate creator)
+        public static TableRow<TModel> TableRow<TModel>(this ITableRowCreator<TModel> creator)
         {
             return new TableRow<TModel>(creator.GetHelper());
         }
 
         // Cells
 
-        public static TableHeading<TModel> TableHeading<TModel>(this TableHeading<TModel>.ICreate creator, object content = null)
+        public static TableHeading<TModel> TableHeading<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableHeading<TModel>(creator.GetHelper()).Content<TableHeading<TModel>, TModel>(content);
+            return new TableHeading<TModel>(creator.GetHelper()).Content(content);
         }
 
-        public static TableData<TModel> TableData<TModel>(this TableData<TModel>.ICreate creator, object content = null)
+        public static TableData<TModel> TableData<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableData<TModel>(creator.GetHelper()).Content<TableData<TModel>, TModel>(content);
+            return new TableData<TModel>(creator.GetHelper()).Content(content);
         }
 
-        // ITableContext
+        // IHasTableContextExtensions
 
-        public static TComponent Active<TComponent, TModel>(this TComponent component, bool active = true)
-            where TComponent : Tag<TModel>, ITableContext
+        public static TThis Active<TModel, TThis>(this Component<TModel, TThis> component, bool active = true)
+            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass<TComponent, TModel>(component, "active", active);
+            return SetClass(component, "active", active);
         }
 
-        public static TComponent Success<TComponent, TModel>(this TComponent component, bool success = true)
-            where TComponent : Tag<TModel>, ITableContext
+        public static TThis Success<TModel, TThis>(this Component<TModel, TThis> component, bool success = true)
+            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass<TComponent, TModel>(component, "success", success);
+            return SetClass(component, "success", success);
         }
 
-        public static TComponent Warning<TComponent, TModel>(this TComponent component, bool warning = true)
-            where TComponent : Tag<TModel>, ITableContext
+        public static TThis Warning<TModel, TThis>(this Component<TModel, TThis> component, bool warning = true)
+            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass<TComponent, TModel>(component, "warning", warning);
+            return SetClass(component, "warning", warning);
         }
 
-        public static TComponent Danger<TComponent, TModel>(this TComponent component, bool danger = true)
-            where TComponent : Tag<TModel>, ITableContext
+        public static TThis Danger<TModel, TThis>(this Component<TModel, TThis> component, bool danger = true)
+            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass<TComponent, TModel>(component, "danger", danger);
+            return SetClass(component, "danger", danger);
         }
 
-        public static TComponent Info<TComponent, TModel>(this TComponent component, bool info = true)
-            where TComponent : Tag<TModel>, ITableContext
+        public static TThis Info<TModel, TThis>(this Component<TModel, TThis> component, bool info = true)
+            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass<TComponent, TModel>(component, "info", info);
+            return SetClass(component, "info", info);
         }
 
-        private static TComponent SetClass<TComponent, TModel>(TComponent component, string cls, bool add)
-            where TComponent : Tag<TModel>, ITableContext
+        private static TThis SetClass<TThis, TModel>(Component<TModel, TThis> component, string cls, bool add)
+            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            component.ToggleCssClass(cls, add, "active", "success", "warning", "danger", "info");
-            return component;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass(cls, add, "active", "success", "warning", "danger", "info");
+            return tag;
         }
 
         // TableCell
 
-        public static TComponent ColSpan<TComponent, TModel>(this TComponent component, int? colSpan)
-            where TComponent : TableCell<TModel>
+        public static TThis ColSpan<TModel, TThis>(this Component<TModel, TThis> component, int? colSpan)
+            where TThis : TableCell<TModel, TThis>
         {
-            component.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
-            return component;
+            TThis cell = component.GetThis();
+            cell.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
+            return cell;
         }
 
-        public static TComponent RowSpan<TComponent, TModel>(this TComponent component, int? rowSpan)
-            where TComponent : TableCell<TModel>
+        public static TThis RowSpan<TModel, TThis>(this Component<TModel, TThis> component, int? rowSpan)
+            where TThis : TableCell<TModel, TThis>
         {
-            component.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
-            return component;
+            TThis cell = component.GetThis();
+            cell.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
+            return cell;
         }
     }
 }

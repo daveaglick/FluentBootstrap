@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableContext
+    public interface IHasTableContextExtensions
     {
     }
 }

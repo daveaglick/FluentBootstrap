@@ -9,91 +9,92 @@ namespace FluentBootstrap
 {
     public static class GridColumnExtensions
     {
-        public static TComponent Xs<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis Xs<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-xs-", value);
+            return SetClass(component, "col-xs-", value);
         }
 
-        public static TComponent Sm<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis Sm<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-sm-", value);
+            return SetClass(component, "col-sm-", value);
         }
 
-        public static TComponent Md<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis Md<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-md-", value);
+            return SetClass(component, "col-md-", value);
         }
 
-        public static TComponent Lg<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis Lg<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-lg-", value);
+            return SetClass(component, "col-lg-", value);
         }
 
-        public static TComponent XsOffset<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis XsOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-xs-offset-", value);
+            return SetClass(component, "col-xs-offset-", value);
         }
 
-        public static TComponent SmOffset<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis SmOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-sm-offset-", value);
+            return SetClass(component, "col-sm-offset-", value);
         }
 
-        public static TComponent MdOffset<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis MdOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-md-offset-", value);
+            return SetClass(component, "col-md-offset-", value);
         }
 
-        public static TComponent LgOffset<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis LgOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-lg-offset-", value);
+            return SetClass(component, "col-lg-offset-", value);
         }
 
-        public static TComponent XsPush<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis XsPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-xs-push-", value);
+            return SetClass(component, "col-xs-push-", value);
         }
 
-        public static TComponent SmPush<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis SmPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-sm-push-", value);
+            return SetClass(component, "col-sm-push-", value);
         }
 
-        public static TComponent MdPush<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis MdPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-md-push-", value);
+            return SetClass(component, "col-md-push-", value);
         }
 
-        public static TComponent LgPush<TComponent, TModel>(this TComponent component, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        public static TThis LgPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            return SetClass<TComponent, TModel>(component, "col-lg-push-", value);
+            return SetClass(component, "col-lg-push-", value);
         }
 
-        private static TComponent SetClass<TComponent, TModel>(TComponent component, string prefix, int? value)
-            where TComponent : Tag<TModel>, IGridColumn
+        private static TThis SetClass<TModel, TThis>(Component<TModel, TThis> component, string prefix, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
-            component.CssClasses.RemoveWhere(x => x.StartsWith(prefix));
+            TThis tag = component.GetThis();
+            tag.CssClasses.RemoveWhere(x => x.StartsWith(prefix));
             if (value != null)
             {
                 if (value <= 0)
                     value = 1;
                 if (value > Bootstrap.GridColumns)
                     value = Bootstrap.GridColumns;
-                component.CssClasses.Add(prefix + value.Value);
+                tag.CssClasses.Add(prefix + value.Value);
             }
-            return component;
+            return tag;
         }
     }
 }

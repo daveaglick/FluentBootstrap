@@ -8,7 +8,16 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public abstract class FormControl<TModel> : Tag<TModel>, FluentBootstrap.Grids.IGridColumn, IFormValidation, IHasDisabledAttribute
+    public interface IFormControl : ITag
+    {
+    }
+
+    public interface IFormControlCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public abstract class FormControl<TModel, TThis> : Tag<TModel, TThis>, IFormControl, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
+        where TThis : FormControl<TModel, TThis>
     {
         private FormGroup<TModel> _formGroup = null;
         private Label<TModel> _label = null;
@@ -76,7 +85,7 @@ namespace FluentBootstrap.Forms
             Form<TModel> form = GetComponent<Form<TModel>>();
             if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !CssClasses.Any(x => x.StartsWith("col-")))
             {
-                this.Md(BootstrapHelper<TModel>.GridColumns - form.DefaultLabelWidth);
+                this.Md(Bootstrap.GridColumns - form.DefaultLabelWidth);
                 if (_label == null && (formGroup == null || !formGroup.WroteLabel))
                 {
                     // Also need to add an offset if no label
@@ -129,10 +138,6 @@ namespace FluentBootstrap.Forms
             base.OnFinish(writer);
 
             Pop(_formGroup, writer);
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
         }
     }
 }

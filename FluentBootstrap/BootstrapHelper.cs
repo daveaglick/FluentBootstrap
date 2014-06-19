@@ -12,25 +12,25 @@ namespace FluentBootstrap
 {
     public class BootstrapHelper<TModel> : 
         // Grids
-        Grids.Container<TModel>.ICreate,
-        Grids.GridColumn<TModel>.ICreate,
-        Grids.GridRow<TModel>.ICreate,
+        Grids.IContainerCreator<TModel>,
+        Grids.IGridColumnCreator<TModel>,
+        Grids.IGridRowCreator<TModel>,
         // Tables
-        Tables.Table<TModel>.ICreate,
-        Tables.TableSection<TModel>.ICreate,
-        Tables.TableRow<TModel>.ICreate,
-        Tables.TableCell<TModel>.ICreate,
+        Tables.ITableCreator<TModel>,
+        Tables.ITableSectionCreator<TModel>,
+        Tables.ITableRowCreator<TModel>,
+        Tables.ITableCellCreator<TModel>,
         // Forms
-        Forms.Form<TModel>.ICreate,
-        Forms.FieldSet<TModel>.ICreate,
-        Forms.FormGroup<TModel>.ICreate,
-        Forms.Label<TModel>.ICreate,
-        Forms.FormControl<TModel>.ICreate,
+        Forms.IFormCreator<TModel>,
+        Forms.IFieldSetCreator<TModel>,
+        Forms.IFormGroupCreator<TModel>,
+        Forms.ILabelCreator<TModel>,
+        Forms.IFormControlCreator<TModel>,
         // Buttons
-        Buttons.Button<TModel>.ICreate,
-        Buttons.LinkButton<TModel>.ICreate,
+        Buttons.IButtonCreator<TModel>,
+        Buttons.ILinkButtonCreator<TModel>,
         // Links
-        Links.Link<TModel>.ICreate
+        Links.ILinkCreator<TModel>
     {
         internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 

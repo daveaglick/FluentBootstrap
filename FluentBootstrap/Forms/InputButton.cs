@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class InputButton<TModel> : FormControl<TModel>, Buttons.IButton, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public interface IInputButton : IFormControl
+    {
+    }
+
+    public class InputButton<TModel> : FormControl<TModel, InputButton<TModel>>, IInputButton, Buttons.IHasButtonExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
         internal InputButton(BootstrapHelper<TModel> helper, ButtonType buttonType, ButtonStyle buttonStyle)
             : base(helper, "input", "btn", buttonStyle.GetDescription())

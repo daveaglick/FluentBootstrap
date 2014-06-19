@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public class LinkButton<TModel> : Tag<TModel>, Links.ILink, IButton, IHasTextAttribute
+    public interface ILinkButton : ITag
+    {
+    }
+
+    public interface ILinkButtonCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>>, ILinkButton, Links.IHasLinkExtensions, IHasButtonExtensions, IHasTextAttribute
     {
         internal LinkButton(BootstrapHelper<TModel> helper, ButtonStyle buttonStyle)
             : base(helper, "a", "btn", buttonStyle.GetDescription())
         {
             MergeAttribute("role", "button");
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
         }
     }
 }

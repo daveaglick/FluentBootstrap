@@ -10,9 +10,14 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public class Tag<TModel> : Component<TModel>
+    public interface ITag : IComponent
     {
-        private readonly List<IComponent> _children = new List<IComponent>();
+    }
+
+    public abstract class Tag<TModel, TThis> : Component<TModel, TThis>, ITag
+        where TThis : Tag<TModel, TThis>
+    {
+        private readonly List<Component> _children = new List<Component>();
 
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
@@ -28,40 +33,40 @@ namespace FluentBootstrap
                 CssClasses.Add(cssClass);
         }
 
-        internal Tag<TModel> AddChild(IComponent component)
+        internal TThis AddChild(Component component)
         {
             _children.Add(component);
             PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
-            return this;
+            return GetThis();
         }
 
-        internal Tag<TModel> MergeAttributes(object attributes, bool replaceExisting = true)
+        internal TThis MergeAttributes(object attributes, bool replaceExisting = true)
         {
             if (attributes == null)
-                return this;
+                return GetThis();
             MergeAttributes(System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(attributes), replaceExisting);
-            return this;
+            return GetThis();
         }
 
-        internal Tag<TModel> MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        internal TThis MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             if (attributes == null)
-                return this;
+                return GetThis();
             foreach (KeyValuePair<TKey, TValue> attribute in attributes)
             {
                 string key = Convert.ToString(attribute.Key, CultureInfo.InvariantCulture);
                 string value = Convert.ToString(attribute.Value, CultureInfo.InvariantCulture);
                 MergeAttribute(key, value, replaceExisting);
             }
-            return this;
+            return GetThis();
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
         // This version does not throw on null or whitespace key and removes the attribute if value is null
-        internal Tag<TModel> MergeAttribute(string key, string value, bool replaceExisting = true)
+        internal TThis MergeAttribute(string key, string value, bool replaceExisting = true)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return this;
+                return GetThis();
             if (value == null && replaceExisting && TagBuilder.Attributes.ContainsKey(key))
             {
                 TagBuilder.Attributes.Remove(key);
@@ -70,10 +75,10 @@ namespace FluentBootstrap
             {
                 TagBuilder.Attributes[key] = value;
             }
-            return this;
+            return GetThis();
         }
 
-        internal Tag<TModel> ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)
+        internal TThis ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)
         {
             if (add)
             {
@@ -87,7 +92,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Remove(cssClass);
             }
-            return this;
+            return GetThis();
         }
 
         protected override void Prepare(TextWriter writer)
@@ -113,7 +118,7 @@ namespace FluentBootstrap
             writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
 
             // Append any children
-            foreach (IComponent child in _children)
+            foreach (Component child in _children)
             {
                 child.Start(writer, false);
                 child.Finish(writer);
@@ -124,6 +129,15 @@ namespace FluentBootstrap
         {
             // Append the end tag
             writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
+        }
+    }
+
+    // This class is used for actual tag instances
+    public class Tag<TModel> : Tag<TModel, Tag<TModel>>
+    {
+        public Tag(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
+            : base(helper, tagName, cssClasses)
+        {
         }
     }
 }

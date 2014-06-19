@@ -10,9 +10,10 @@ namespace FluentBootstrap
 {
     public static class TagExtensions
     {
-        public static TTag CssClass<TTag, TModel>(this TTag tag, params string[] cssClasses)
-            where TTag : Tag<TModel>
+        public static TThis CssClass<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
+            where TThis : Tag<TModel, TThis>
         {
+            TThis tag = component.GetThis();
             foreach (string cssClass in cssClasses)
             {
                 tag.CssClasses.Add(cssClass);
@@ -20,30 +21,34 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TTag HtmlAttributes<TTag, TModel>(this TTag tag, object htmlAttributes)
-            where TTag : Tag<TModel>
+        public static TThis HtmlAttributes<TModel, TThis>(this Component<TModel, TThis> component, object htmlAttributes)
+            where TThis : Tag<TModel, TThis>
         {
+            TThis tag = component.GetThis();
             tag.MergeAttributes(htmlAttributes);
             return tag;
         }
 
-        public static TTag HtmlAttributes<TTag, TModel>(this TTag tag, IDictionary<string, object> htmlAttributes)
-            where TTag : Tag<TModel>
+        public static TThis HtmlAttributes<TModel, TThis>(this Component<TModel, TThis> component, IDictionary<string, object> htmlAttributes)
+            where TThis : Tag<TModel, TThis>
         {
+            TThis tag = component.GetThis();
             tag.MergeAttributes(htmlAttributes);
             return tag;
         }
 
-        public static TTag HtmlAttribute<TTag, TModel>(this TTag tag, string key, object value)
-            where TTag : Tag<TModel>
+        public static TThis HtmlAttribute<TModel, TThis>(this Component<TModel, TThis> component, string key, object value)
+            where TThis : Tag<TModel, TThis>
         {
+            TThis tag = component.GetThis();
             tag.MergeAttribute(key, Convert.ToString(value, CultureInfo.InvariantCulture));
             return tag;
         }
 
-        public static TTag Content<TTag, TModel>(this TTag tag, object content)
-            where TTag : Tag<TModel>
+        public static TThis Content<TModel, TThis>(this Component<TModel, TThis> component, object content)
+            where TThis : Tag<TModel, TThis>
         {
+            TThis tag = component.GetThis();
             if (content != null)
             {
                 string str = Convert.ToString(content, CultureInfo.InvariantCulture);
@@ -55,18 +60,20 @@ namespace FluentBootstrap
             return tag;
         }
         
-        public static TTag Html<TTag, TModel>(this TTag tag, Func<dynamic, HelperResult> content)
-            where TTag : Tag<TModel>
+        public static TThis Html<TModel, TThis>(this Component<TModel, TThis> component, Func<dynamic, HelperResult> content)
+            where TThis : Tag<TModel, TThis>
         {
+            TThis tag = component.GetThis();
             tag.AddChild(new Content<TModel>(tag.Helper,
                 content(null).ToHtmlString()));
             return tag;
         }
 
-        public static TTag Child<TTag, TChild, TModel>(this TTag tag, Func<TTag, TChild> childFunc)
-            where TTag : Tag<TModel>
-            where TChild : Component<TModel>
+        public static TThis Child<TThis, TChild, TModel>(this Component<TModel, TThis> component, Func<TThis, TChild> childFunc)
+            where TThis : Tag<TModel, TThis>
+            where TChild : Component
         {
+            TThis tag = component.GetThis();
             TChild child = childFunc(tag);
             tag.AddChild(child);
             return tag;

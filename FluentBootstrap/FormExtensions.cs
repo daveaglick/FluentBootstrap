@@ -13,17 +13,17 @@ namespace FluentBootstrap
     {
         // Form
 
-        public static Form<TModel> Form<TModel>(this Form<TModel>.ICreate creator, FormMethod method = FormMethod.Post)
+        public static Form<TModel> Form<TModel>(this IFormCreator<TModel> creator, FormMethod method = FormMethod.Post)
         {
             return new Form<TModel>(creator.GetHelper()).Action(null).Method(method);
         }
 
-        public static Form<TModel> Form<TModel>(this Form<TModel>.ICreate creator, string action, FormMethod method = FormMethod.Post)
+        public static Form<TModel> Form<TModel>(this IFormCreator<TModel> creator, string action, FormMethod method = FormMethod.Post)
         {
             return new Form<TModel>(creator.GetHelper()).Action(action).Method(method);
         }
 
-        public static Form<TModel> Form<TCreator, TModel>(this Form<TModel>.ICreate creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
+        public static Form<TModel> Form<TCreator, TModel>(this IFormCreator<TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
         {
             return new Form<TModel>(creator.GetHelper()).Action(actionName, controllerName).Method(method);
         }
@@ -76,21 +76,21 @@ namespace FluentBootstrap
 
         // FieldSet
 
-        public static FieldSet<TModel> FieldSet<TModel>(this FieldSet<TModel>.ICreate creator)
+        public static FieldSet<TModel> FieldSet<TModel>(this IFieldSetCreator<TModel> creator)
         {
             return new FieldSet<TModel>(creator.GetHelper());
         }
 
         // FormGroup
 
-        public static FormGroup<TModel> FormGroup<TModel>(this FormGroup<TModel>.ICreate creator)
+        public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator)
         {
             return new FormGroup<TModel>(creator.GetHelper());
         }
 
         // Label
 
-        public static Label<TModel> Label<TCreator, TModel>(this Label<TModel>.ICreate creator, string label)
+        public static Label<TModel> Label<TCreator, TModel>(this ILabelCreator<TModel> creator, string label)
         {
             return new Label<TModel>(creator.GetHelper(), label);
         }
@@ -109,7 +109,7 @@ namespace FluentBootstrap
 
         // Input
 
-        public static Input<TModel> Input<TModel>(this Input<TModel>.ICreate creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        public static Input<TModel> Input<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
         {
             return new Input<TModel>(creator.GetHelper(), inputType).Name(name).ControlLabel(label).Value(value, format);
         }
@@ -122,7 +122,7 @@ namespace FluentBootstrap
 
         // TextArea
 
-        public static TextArea<TModel> TextArea<TCreator, TModel>(this TextArea<TModel>.ICreate creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        public static TextArea<TModel> TextArea<TCreator, TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
         {
             return new TextArea<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
         }
@@ -147,13 +147,12 @@ namespace FluentBootstrap
 
         // CheckedControl
 
-        public static CheckedControl<TModel> CheckBox<TModel>(this CheckedControl<TModel>.ICreate creator, string name = null, string label = null, string description = null, bool isChecked = false)
+        public static CheckedControl<TModel> CheckBox<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, bool isChecked = false)
         {
             return new CheckedControl<TModel>(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckedControl<TModel> Radio<TCreator, TModel>(this TCreator creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
-            where TCreator : CheckedControl<TModel>.ICreate
+        public static CheckedControl<TModel> Radio<TCreator, TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
         {
             return new CheckedControl<TModel>(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
         }
@@ -178,7 +177,7 @@ namespace FluentBootstrap
 
         // Select
 
-        public static Select<TModel> Select<TModel>(this Select<TModel>.ICreate creator, string name = null, string label = null, params object[] options)
+        public static Select<TModel> Select<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, params object[] options)
         {
             return new Select<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Options(options);
         }
@@ -210,7 +209,7 @@ namespace FluentBootstrap
 
         // Static
 
-        public static Static<TModel> Static<TModel>(this Static<TModel>.ICreate creator, string label = null, object value = null, string format = null)
+        public static Static<TModel> Static<TModel>(this IFormControlCreator<TModel> creator, string label = null, object value = null, string format = null)
         {
             return new Static<TModel>(creator.GetHelper()).ControlLabel(label).Value(value, format);
         }
@@ -223,47 +222,48 @@ namespace FluentBootstrap
 
         // Buttons
 
-        public static InputButton<TModel> InputButton<TModel>(this InputButton<TModel>.ICreate creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
         {
             return new InputButton<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton<TModel> FormButton<TModel>(this FormButton<TModel>.ICreate creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        public static FormButton<TModel> FormButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
         {
             return new FormButton<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton<TModel> Submit<TModel>(this FormButton<TModel>.ICreate creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
+        public static FormButton<TModel> Submit<TModel>(this IFormControlCreator<TModel> creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
         {
             return new FormButton<TModel>(creator.GetHelper(), ButtonType.Submit, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton<TModel> Reset<TModel>(this FormButton<TModel>.ICreate creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
+        public static FormButton<TModel> Reset<TModel>(this IFormControlCreator<TModel> creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
         {
             return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
         // DisplayFor
 
-        //public static DisplayFor<TModel> DisplayFor<TCreator, TModel>(this TCreator creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        //public static DisplayFor<TModel> DisplayFor<TCreator, TModel>(this TCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
         //    where TCreator : InputButton.ICreate
         //{
         //    return new InputButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         //}
 
-
         // FormControl
-        
-        public static TFormControl Name<TFormControl, TModel>(this TFormControl control, string name)
-            where TFormControl : FormControl<TModel>
+
+        public static TThis Name<TModel, TThis>(this Component<TModel, TThis> component, string name)
+            where TThis : FormControl<TModel, TThis>
         {
+            TThis control = component.GetThis();
             control.MergeAttribute("name", name == null ? null : control.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
             return control;
         }
 
-        public static TFormControl ControlLabel<TFormControl, TModel>(this TFormControl control, string label, Action<Label<TModel>> labelAction = null)
-            where TFormControl : FormControl<TModel>
+        public static TThis ControlLabel<TModel, TThis>(this Component<TModel, TThis> component, string label, Action<Label<TModel>> labelAction = null)
+            where TThis : FormControl<TModel, TThis>
         {
+            TThis control = component.GetThis();
             if(label != null)
             {
                 Label<TModel> controlLabel = new Label<TModel>(control.Helper, label);
@@ -276,48 +276,54 @@ namespace FluentBootstrap
             return control;
         }
 
-        public static TFormControl Help<TFormControl, TModel>(this TFormControl control, string help)
-            where TFormControl : FormControl<TModel>
+        public static TThis Help<TModel, TThis>(this Component<TModel, TThis> component, string help)
+            where TThis : FormControl<TModel, TThis>
         {
+            TThis control = component.GetThis();
             control.Help = help;
             return control;
         }
 
-        public static TFormControl InputLg<TFormControl, TModel>(this TFormControl control, bool lg = true)
-            where TFormControl : FormControl<TModel>
+        public static TThis InputLg<TModel, TThis>(this Component<TModel, TThis> component, bool lg = true)
+            where TThis : FormControl<TModel, TThis>
         {
+            TThis control = component.GetThis();
             control.ToggleCssClass("input-lg", lg, "input-sm");
             return control;
         }
 
-        public static TFormControl InputSm<TFormControl, TModel>(this TFormControl control, bool sm = true)
-            where TFormControl : FormControl<TModel>
+        public static TThis InputSm<TModel, TThis>(this Component<TModel, TThis> component, bool sm = true)
+            where TThis : FormControl<TModel, TThis>
         {
+            TThis control = component.GetThis();
             control.ToggleCssClass("input-sm", sm, "input-lg");
             return control;
         }
 
         // IFormValidation
 
-        public static TComponent HasSuccess<TComponent, TModel>(this TComponent component, bool hasSuccess = true)
-            where TComponent : Tag<TModel>, IFormValidation
+        public static TThis HasSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool hasSuccess = true)
+            where TThis : Tag<TModel, TThis>, IFormValidation
         {
-            component.ToggleCssClass("has-success", hasSuccess, "has-warning", "has-error");
-            return component;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("has-success", hasSuccess, "has-warning", "has-error");
+            return tag;
         }
 
-        public static TComponent HasWarning<TComponent, TModel>(this TComponent component, bool hasSuccess = true)
-            where TComponent : Tag<TModel>, IFormValidation
+        public static TThis HasWarning<TModel, TThis>(this Component<TModel, TThis> component, bool hasSuccess = true)
+            where TThis : Tag<TModel, TThis>, IFormValidation
         {
-            component.ToggleCssClass("has-warning", hasSuccess, "has-success", "has-error");
-            return component;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("has-warning", hasSuccess, "has-success", "has-error");
+            return tag;
         }
 
-        public static TComponent HasError<TComponent, TModel>(this TComponent component, bool hasError = true)
-            where TComponent : Tag<TModel>, IFormValidation
+        public static TThis HasError<TModel, TThis>(this Component<TModel, TThis> component, bool hasError = true)
+            where TThis : Tag<TModel, TThis>, IFormValidation
         {
-            component.ToggleCssClass("has-error", hasError, "has-warning", "has-success");
-            return component;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("has-error", hasError, "has-warning", "has-success");
+            return tag;
         }
     }
 }

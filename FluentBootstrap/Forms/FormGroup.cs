@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FormGroup<TModel> : Tag<TModel>, FluentBootstrap.Grids.IGridColumn, IFormValidation,
-        Forms.Label<TModel>.ICreate,
-        Forms.FormControl<TModel>.ICreate
+    public interface IFormGroup : IFormControl
+    {
+    }
+
+    public interface IFormGroupCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class FormGroup<TModel> : Tag<TModel, FormGroup<TModel>>, IFormGroup, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation,
+        Forms.ILabelCreator<TModel>,
+        Forms.IFormControlCreator<TModel>
     {
         internal Tag<TModel> ColumnWrapper { get; set; }
 
@@ -38,10 +46,6 @@ namespace FluentBootstrap.Forms
         {
             base.OnFinish(writer);
             Pop(ColumnWrapper, writer);
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
         }
     }
 }

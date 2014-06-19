@@ -11,19 +11,19 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button<TModel> Button<TModel>(this Button<TModel>.ICreate creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
+        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
         {
             return new Button<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
         }
 
         // LinkButton
 
-        public static LinkButton<TModel> LinkButton<TModel>(this LinkButton<TModel>.ICreate creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
+        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
         {
             return new LinkButton<TModel>(creator.GetHelper(), buttonStyle).Text(text).Href(href);
         }
 
-        public static LinkButton<TModel> LinkButton<TModel>(this LinkButton<TModel>.ICreate creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
+        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
         {
             return new LinkButton<TModel>(creator.GetHelper(), buttonStyle).Text(text).Action(actionName, controllerName, routeValues);
         }
@@ -34,34 +34,38 @@ namespace FluentBootstrap
             return linkButton;
         }
 
-        // IButton
+        // IHasButtonExtensions
 
-        public static TButton BtnLg<TButton, TModel>(this TButton button, bool lg = true)
-            where TButton : Tag<TModel>, IButton
+        public static TThis BtnLg<TModel, TThis>(this Component<TModel, TThis> component, bool lg = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
-            button.ToggleCssClass("btn-lg", lg, "btn-sm", "btn-xs");
-            return button;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("btn-lg", lg, "btn-sm", "btn-xs");
+            return tag;
         }
 
-        public static TButton BtnSm<TButton, TModel>(this TButton button, bool sm = true)
-            where TButton : Tag<TModel>, IButton
+        public static TThis BtnSm<TModel, TThis>(this Component<TModel, TThis> component, bool sm = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
-            button.ToggleCssClass("btn-sm", sm, "btn-lg", "btn-xs");
-            return button;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("btn-sm", sm, "btn-lg", "btn-xs");
+            return tag;
         }
 
-        public static TButton BtnXs<TButton, TModel>(this TButton button, bool xs = true)
-            where TButton : Tag<TModel>, IButton
+        public static TThis BtnXs<TModel, TThis>(this Component<TModel, TThis> component, bool xs = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
-            button.ToggleCssClass("btn-xs", xs, "btn-lg", "btn-sm");
-            return button;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("btn-xs", xs, "btn-lg", "btn-sm");
+            return tag;
         }
 
-        public static TButton BtnBlock<TButton, TModel>(this TButton button, bool block = true)
-            where TButton : Tag<TModel>, IButton
+        public static TThis BtnBlock<TModel, TThis>(this Component<TModel, TThis> component, bool block = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
-            button.ToggleCssClass("btn-block", block);
-            return button;
+            TThis tag = component.GetThis();
+            tag.ToggleCssClass("btn-block", block);
+            return tag;
         }
     }
 }

@@ -2,7 +2,11 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public class TableHeading<TModel> : TableCell<TModel>
+    public interface ITableHeading : ITableCell
+    {
+    }
+
+    public class TableHeading<TModel> : TableCell<TModel, TableHeading<TModel>>, ITableHeading
     {
         internal TableHeading(BootstrapHelper<TModel> helper)
             : base(helper, "th")
@@ -17,7 +21,7 @@ namespace FluentBootstrap.Tables
             if (GetComponent<Table<TModel>>() != null && GetComponent<TableRow<TModel>>() == null)
             {
                 // ...and make sure the row is in a head section
-                if (GetComponent<TableSection<TModel>>() == null)
+                if (GetComponent<ITableSection>() == null)
                 {
                     new TableHead<TModel>(Helper).Start(writer, true);
                 }

@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Label<TModel> : Tag<TModel>, FluentBootstrap.Grids.IGridColumn
+    public interface ILabel : ITag
+    {
+    }
+
+    public interface ILabelCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class Label<TModel> : Tag<TModel, Label<TModel>>, ILabel, FluentBootstrap.Grids.IHasGridColumnExtensions
     {
         internal Label(BootstrapHelper<TModel> helper, string label)
             : base(helper, "label", "control-label")
@@ -39,10 +47,6 @@ namespace FluentBootstrap.Forms
             {
                 formGroup.WroteLabel = true;
             }
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
         }
     }
 }

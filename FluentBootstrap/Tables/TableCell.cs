@@ -7,7 +7,16 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public abstract class TableCell<TModel> : Tag<TModel>, ITableContext
+    public interface ITableCell : ITag
+    {
+    }
+
+    public interface ITableCellCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public abstract class TableCell<TModel, TThis> : Tag<TModel, TThis>, ITableCell, IHasTableContextExtensions
+        where TThis : TableCell<TModel, TThis>
     {
         internal TableCell(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
             : base(helper, tagName, cssClasses)
@@ -16,12 +25,8 @@ namespace FluentBootstrap.Tables
 
         protected override void Prepare(TextWriter writer)
         {
-            Pop<TableCell<TModel>>(writer);
+            Pop<ITableCell>(writer);
             base.Prepare(writer);
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
         }
     }
 }

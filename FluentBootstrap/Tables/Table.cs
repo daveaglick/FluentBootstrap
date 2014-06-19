@@ -8,10 +8,18 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Tables
 {
-    public class Table<TModel> : Tag<TModel>,
-        TableSection<TModel>.ICreate,
-        TableRow<TModel>.ICreate,
-        TableCell<TModel>.ICreate
+    public interface ITable : ITag
+    {
+    }
+
+    public interface ITableCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class Table<TModel> : Tag<TModel, Table<TModel>>, ITable,
+        ITableSectionCreator<TModel>,
+        ITableRowCreator<TModel>,
+        ITableCellCreator<TModel>
     {
         internal bool Responsive { get; set; }
 
@@ -39,10 +47,6 @@ namespace FluentBootstrap.Tables
                 TagBuilder tag = new TagBuilder("div");
                 writer.Write(tag.ToString(TagRenderMode.EndTag));
             }
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
         }
     }
 }

@@ -10,7 +10,21 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public abstract class Component<TModel> : IComponent, IDisposable, IHtmlString, ICreateComponent<TModel>
+    // This (and derived) non-generic interfaces get applied to every component
+    // This allowed type comparisons of component references without worrying about all the generic stuff
+    public interface IComponent
+    {
+    }
+
+    public abstract class Component
+    {
+        internal abstract void Start(TextWriter writer, bool @implicit);
+        internal abstract void Finish(TextWriter writer);
+        internal abstract bool Implicit { get; }
+    }
+
+    public abstract class Component<TModel, TThis> : Component, IComponent, IDisposable, IHtmlString, IComponentCreator<TModel>
+        where TThis : Component<TModel, TThis>
     {
         private bool _disposed;
         private bool _started;
@@ -20,16 +34,21 @@ namespace FluentBootstrap
         // The primary difference is that implicit components can be automatically cleaned up from the stack
         private bool _implicit;
 
-        bool IComponent.Implicit
+        internal override bool Implicit
         {
             get { return _implicit; }
         }
 
         internal BootstrapHelper<TModel> Helper { get; private set; }
 
-        // dummy indicates that this component is just used as a settings container for extension methods and shouldn't actually write anything
         protected Component(BootstrapHelper<TModel> helper)
         {
+            // Sanity check
+            if (typeof(TThis) != this.GetType())
+            {
+                throw new Exception("Invalid TThis generic type parameter for " + this.GetType().Name + " (you should never see this).");
+            }
+
             Helper = helper;
             PendingComponents.Add(HtmlHelper, this);
         }
@@ -37,6 +56,11 @@ namespace FluentBootstrap
         public BootstrapHelper<TModel> GetHelper()
         {
             return Helper;
+        }
+
+        internal TThis GetThis()
+        {
+            return (TThis)this;
         }
 
         public void Begin()
@@ -68,12 +92,7 @@ namespace FluentBootstrap
             get { return HtmlHelper.ViewContext; }
         }
 
-        void IComponent.Start(TextWriter writer, bool @implicit)
-        {
-            Start(writer, @implicit);
-        }
-
-        internal void Start(TextWriter writer, bool @implicit)
+        internal override void Start(TextWriter writer, bool @implicit)
         {
             // Only write content once
             if (_started)
@@ -96,12 +115,7 @@ namespace FluentBootstrap
             OnStart(writer);
         }
 
-        void IComponent.Finish(TextWriter writer)
-        {
-            Finish(writer);
-        }
-
-        internal void Finish(TextWriter writer)
+        internal override void Finish(TextWriter writer)
         {
             // Only write content once
             if (_ended)
@@ -167,10 +181,10 @@ namespace FluentBootstrap
         private void Pop(TextWriter writer)
         {
             // Get the stack
-            Stack<IComponent> stack = GetStack();
+            Stack<Component> stack = GetStack();
 
             // Peek components until we get to this one - the call to Finish() will pop them
-            IComponent peek = null;
+            Component peek = null;
             while (stack.Count > 0 && (peek = stack.Peek()) != this && peek.Implicit)
             {
                 peek.Finish(writer);
@@ -181,22 +195,23 @@ namespace FluentBootstrap
                 throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, which is usually an indication that a component has been disposed out of order.");
 
             // Pop the component from the stack
-            IComponent pop = stack.Pop();
+            Component pop = stack.Pop();
             if (pop != this)
                 throw new InvalidOperationException("Popped a different Bootstrap component from the stack (you should never see this).");
         }
 
         // This pops up the stack if (and only if) it is assignable to the specified type and it (and all intermediate components) are implicit
         // Use this to clear arbitrary implicitly added components from the stack (see how Tables.Row works)
-        internal void Pop<TComponent>(TextWriter writer)
+        protected void Pop<TComponent>(TextWriter writer)
+            where TComponent : IComponent
         {
-            Stack<IComponent> stack = GetStack();
+            Stack<Component> stack = GetStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
-            Queue<IComponent> finish = new Queue<IComponent>();
+            Queue<Component> finish = new Queue<Component>();
             if (stack.Count > 0)
             {
-                foreach (IComponent component in stack)
+                foreach (Component component in stack)
                 {
                     if (!component.Implicit)
                     {
@@ -218,17 +233,17 @@ namespace FluentBootstrap
 
         // This pops up the stack if (and only if) the requested component and all intermediate components are implicit
         // Use this to clear specific implicitly added components from the stack (see how Forms.Input works)
-        internal void Pop(IComponent pop, TextWriter writer)
+        protected void Pop(Component pop, TextWriter writer)
         {
             if (pop == null || !pop.Implicit)
                 return;
-            Stack<IComponent> stack = GetStack();
+            Stack<Component> stack = GetStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
-            Queue<IComponent> finish = new Queue<IComponent>();
+            Queue<Component> finish = new Queue<Component>();
             if (stack.Count > 0)
             {
-                foreach (IComponent component in stack)
+                foreach (Component component in stack)
                 {
                     if (!component.Implicit)
                     {
@@ -248,19 +263,19 @@ namespace FluentBootstrap
             }
         }
 
-        internal TComponent GetComponent<TComponent>()
-            where TComponent : IComponent
+        protected TComponent GetComponent<TComponent>()
+            where TComponent : class, IComponent
         {
-            return (TComponent)GetStack().Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault();
+            return GetStack().Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault() as TComponent;
         }
 
-        private Stack<IComponent> GetStack()
+        private Stack<Component> GetStack()
         {
             IDictionary items = ViewContext.HttpContext.Items;
-            Stack<IComponent> stack = items[_bootstrapComponentStackKey] as Stack<IComponent>;
+            Stack<Component> stack = items[_bootstrapComponentStackKey] as Stack<Component>;
             if (stack == null)
             {
-                stack = new Stack<IComponent>();
+                stack = new Stack<Component>();
                 items[_bootstrapComponentStackKey] = stack;
             }
             return stack;

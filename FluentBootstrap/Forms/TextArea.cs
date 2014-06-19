@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class TextArea<TModel> : FormControl<TModel>
+    public interface ITextArea : IFormControl
+    {
+    }
+
+    public class TextArea<TModel> : FormControl<TModel, TextArea<TModel>>, ITextArea
     {
         internal TextArea(BootstrapHelper<TModel> helper)
             : base(helper, "textarea", "form-control")

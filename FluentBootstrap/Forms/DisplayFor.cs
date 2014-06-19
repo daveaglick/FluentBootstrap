@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class DisplayFor<TModel> : FormControl<TModel>
+    public interface IDisplayFor : IFormControl
+    {
+    }
+
+    public class DisplayFor<TModel> : FormControl<TModel, DisplayFor<TModel>>, IDisplayFor
     {
         internal DisplayFor(BootstrapHelper<TModel> helper)
             : base(helper, null)

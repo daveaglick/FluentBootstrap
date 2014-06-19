@@ -2,7 +2,17 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public abstract class TableSection<TModel> : Tag<TModel>
+    public interface ITableSection : ITag
+    {
+    }
+
+    public interface ITableSectionCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public abstract class TableSection<TModel, TThis> : Tag<TModel, TThis>, ITableSection,
+        ITableRowCreator<TModel>
+        where TThis : TableSection<TModel, TThis>
     {
         protected TableSection(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
             : base(helper, tagName, cssClasses)
@@ -12,11 +22,7 @@ namespace FluentBootstrap.Tables
         protected override void Prepare(TextWriter writer)
         {
             base.Prepare(writer);
-            Pop<TableSection<TModel>>(writer);
-        }
-
-        public interface ICreate : ICreateComponent<TModel>
-        {
+            Pop<ITableSection>(writer);
         }
     }
 }
