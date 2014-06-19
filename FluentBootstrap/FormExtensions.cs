@@ -23,7 +23,7 @@ namespace FluentBootstrap
             return new Form<TModel>(creator.GetHelper()).Action(action).Method(method);
         }
 
-        public static Form<TModel> Form<TCreator, TModel>(this IFormCreator<TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
+        public static Form<TModel> Form<TModel>(this IFormCreator<TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
         {
             return new Form<TModel>(creator.GetHelper()).Action(actionName, controllerName).Method(method);
         }
@@ -90,7 +90,7 @@ namespace FluentBootstrap
 
         // Label
 
-        public static Label<TModel> Label<TCreator, TModel>(this ILabelCreator<TModel> creator, string label)
+        public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string label)
         {
             return new Label<TModel>(creator.GetHelper(), label);
         }
@@ -122,7 +122,7 @@ namespace FluentBootstrap
 
         // TextArea
 
-        public static TextArea<TModel> TextArea<TCreator, TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        public static TextArea<TModel> TextArea<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
         {
             return new TextArea<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
         }
@@ -152,7 +152,7 @@ namespace FluentBootstrap
             return new CheckedControl<TModel>(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
         }
 
-        public static CheckedControl<TModel> Radio<TCreator, TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
+        public static CheckedControl<TModel> Radio<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
         {
             return new CheckedControl<TModel>(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
         }

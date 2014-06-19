@@ -170,8 +170,6 @@ namespace FluentBootstrap
 
         // The following code handles the stack of Bootstrap objects stored in the ViewContext
 
-        private readonly static object _bootstrapComponentStackKey = new object();
-
         private void Push()
         {
             GetStack().Push(this);
@@ -272,11 +270,11 @@ namespace FluentBootstrap
         private Stack<Component> GetStack()
         {
             IDictionary items = ViewContext.HttpContext.Items;
-            Stack<Component> stack = items[_bootstrapComponentStackKey] as Stack<Component>;
+            Stack<Component> stack = items[Bootstrap.ComponentStackKey] as Stack<Component>;
             if (stack == null)
             {
                 stack = new Stack<Component>();
-                items[_bootstrapComponentStackKey] = stack;
+                items[Bootstrap.ComponentStackKey] = stack;
             }
             return stack;
         }
