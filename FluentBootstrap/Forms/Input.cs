@@ -12,7 +12,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class Input<TModel> : FormControl<TModel, Input<TModel>>, IInput, IHasValueAttribute
+    public class Input<TModel> : FormControl<TModel, Input<TModel>>, IInput, IHasValueAttribute, IHasNameAttribute
     {
         internal Input(BootstrapHelper<TModel> helper, FormInputType inputType)
             : base(helper, "input", "form-control")

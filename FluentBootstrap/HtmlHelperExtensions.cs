@@ -26,16 +26,18 @@ namespace FluentBootstrap
                 new ViewDataDictionary(htmlHelper.ViewDataContainer.ViewData) { Model = model },
                 htmlHelper.ViewContext.TempData,
                 htmlHelper.ViewContext.Writer);
-            var viewDataContainer = new ViewDataContainer(newViewContext.ViewData);
+            var viewDataContainer = new ProxyViewDataContainer(htmlHelper.ViewDataContainer, newViewContext.ViewData);
             return new BootstrapHelper<TModel>(new HtmlHelper<TModel>(newViewContext, viewDataContainer, htmlHelper.RouteCollection));
         }
 
-        private class ViewDataContainer : System.Web.Mvc.IViewDataContainer
+        internal class ProxyViewDataContainer : IViewDataContainer
         {
-            public System.Web.Mvc.ViewDataDictionary ViewData { get; set; }
+            public IViewDataContainer ViewDataContainer { get; private set; }
+            public ViewDataDictionary ViewData { get; set; }
 
-            public ViewDataContainer(System.Web.Mvc.ViewDataDictionary viewData)
+            public ProxyViewDataContainer(IViewDataContainer viewDataContainer, ViewDataDictionary viewData)
             {
+                ViewDataContainer = viewDataContainer;
                 ViewData = viewData;
             }
         }

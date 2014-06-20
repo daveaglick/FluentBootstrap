@@ -10,7 +10,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class Select<TModel> : FormControl<TModel, Select<TModel>>, ISelect
+    public class Select<TModel> : FormControl<TModel, Select<TModel>>, ISelect, IHasNameAttribute
     {
         internal List<string> Options { get; private set; }
 

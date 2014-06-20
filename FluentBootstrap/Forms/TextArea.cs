@@ -10,7 +10,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class TextArea<TModel> : FormControl<TModel, TextArea<TModel>>, ITextArea
+    public class TextArea<TModel> : FormControl<TModel, TextArea<TModel>>, ITextArea, IHasNameAttribute
     {
         internal TextArea(BootstrapHelper<TModel> helper)
             : base(helper, "textarea", "form-control")

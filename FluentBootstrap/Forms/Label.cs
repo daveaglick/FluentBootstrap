@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,15 +15,15 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class Label<TModel> : Tag<TModel, Label<TModel>>, ILabel, FluentBootstrap.Grids.IHasGridColumnExtensions
+    public class Label<TModel> : Tag<TModel, Label<TModel>>, ILabel, FluentBootstrap.Grids.IHasGridColumnExtensions, IHasTextAttribute
     {
-        internal Label(BootstrapHelper<TModel> helper, string label)
+        internal Label(BootstrapHelper<TModel> helper, string text)
             : base(helper, "label", "control-label")
         {
-            TextContent = label;
+            TextContent = text;
         }
 
-        protected override void Prepare(System.IO.TextWriter writer)
+        protected override void Prepare(TextWriter writer)
         {
             base.Prepare(writer);
 
@@ -37,7 +38,7 @@ namespace FluentBootstrap.Forms
             }
         }
 
-        protected override void OnStart(System.IO.TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
 

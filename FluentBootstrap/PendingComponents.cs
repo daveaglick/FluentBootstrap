@@ -28,13 +28,13 @@ namespace FluentBootstrap
                 // A pending writer was not found on the stack, so replace it
                 // In order to intercept HTML literal content from Razor, the OutputStack has to be manually handled
                 // See http://stackoverflow.com/questions/17557732/textwriter-references-not-behaving-as-expected                
-                TextWriter pop = ((WebPageBase)htmlHelper.ViewDataContainer).OutputStack.Pop();
+                TextWriter pop = GetOutputStack(htmlHelper).Pop();
                 if (pop != htmlHelper.ViewContext.Writer)
                 {
                     throw new InvalidOperationException("The top of the OutputStack does not equal the ViewContext.Writer (you should never see this).");
                 }
                 pending = new PendingComponents(htmlHelper);
-                ((WebPageBase)htmlHelper.ViewDataContainer).OutputStack.Push(pending);
+                GetOutputStack(htmlHelper).Push(pending);
                 htmlHelper.ViewContext.Writer = pending;
             }
 
@@ -46,19 +46,6 @@ namespace FluentBootstrap
         {
             List<Tuple<Component, TextWriter>> list = GetList(htmlHelper);
             list.RemoveAll(x => x.Item1 == component);
-        }
-
-        // Need to track the current TextWriter along with the component in case another one gets added to the OutputStack
-        private static List<Tuple<Component, TextWriter>> GetList(HtmlHelper htmlHelper)
-        {
-            IDictionary items = htmlHelper.ViewContext.HttpContext.Items;
-            List<Tuple<Component, TextWriter>> list = items[_bootstrapPendingListKey] as List<Tuple<Component, TextWriter>>;
-            if (list == null)
-            {
-                list = new List<Tuple<Component, TextWriter>>();
-                items[_bootstrapPendingListKey] = list;
-            }
-            return list;
         }
 
         private PendingComponents(HtmlHelper htmlHelper)
@@ -73,7 +60,7 @@ namespace FluentBootstrap
             if (list.Count > 0)
             {
                 // If there are pending components, then there should be a pending writer somewhere in the output stack (probably at the top)
-                PendingComponents pending = ((WebPageBase)htmlHelper.ViewDataContainer).OutputStack.OfType<PendingComponents>().FirstOrDefault();
+                PendingComponents pending = GetOutputStack(htmlHelper).OfType<PendingComponents>().FirstOrDefault();
                 if (pending == null)
                 {
                     throw new InvalidOperationException("Could not find a PendingComponentTextWriter when there are pending components (you should never see this).");
@@ -90,6 +77,30 @@ namespace FluentBootstrap
                 // Start() will remove the component
                 list[0].Item1.Start(list[0].Item2, false);
             }
+        }
+
+        // Need to track the current TextWriter along with the component in case another one gets added to the OutputStack
+        private static List<Tuple<Component, TextWriter>> GetList(HtmlHelper htmlHelper)
+        {
+            IDictionary items = htmlHelper.ViewContext.HttpContext.Items;
+            List<Tuple<Component, TextWriter>> list = items[_bootstrapPendingListKey] as List<Tuple<Component, TextWriter>>;
+            if (list == null)
+            {
+                list = new List<Tuple<Component, TextWriter>>();
+                items[_bootstrapPendingListKey] = list;
+            }
+            return list;
+        }
+
+        private static Stack<TextWriter> GetOutputStack(HtmlHelper htmlHelper)
+        {
+            HtmlHelperExtensions.ProxyViewDataContainer proxyViewDataContainer = htmlHelper.ViewDataContainer as HtmlHelperExtensions.ProxyViewDataContainer;
+            WebPageBase webPageBase = (proxyViewDataContainer == null ? htmlHelper.ViewDataContainer : proxyViewDataContainer.ViewDataContainer) as  WebPageBase;
+            if(webPageBase == null)
+            {
+                throw new Exception ("Could not get WebPageBase which might be an indication Bootstrap is being used outside a page.");
+            }
+            return webPageBase.OutputStack;
         }
 
         public override Encoding Encoding

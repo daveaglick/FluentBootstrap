@@ -124,3 +124,14 @@
         )
     )
 }
+
+@{
+    var model = new { A = "a", B = true, C = 123 };
+    using (Html.Bootstrap().Container())
+    {
+        using (var form = Html.Bootstrap(model).Form().Horizontal())
+        { 
+            @form.DisplayFor(x => x.B)
+        }
+    }    
+}

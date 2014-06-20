@@ -12,7 +12,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class CheckedControl<TModel> : FormControl<TModel, CheckedControl<TModel>>, ICheckedControl, IHasValueAttribute
+    public class CheckedControl<TModel> : FormControl<TModel, CheckedControl<TModel>>, ICheckedControl, IHasValueAttribute, IHasNameAttribute
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }

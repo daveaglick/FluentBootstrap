@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FluentBootstrap.Forms;
+using System.Linq.Expressions;
 
 namespace FluentBootstrap
 {
@@ -90,9 +91,32 @@ namespace FluentBootstrap
 
         // Label
 
-        public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string label)
+        public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string text)
         {
-            return new Label<TModel>(creator.GetHelper(), label);
+            return new Label<TModel>(creator.GetHelper(), text);
+        }
+
+        public static Label<TModel> LabelFor<TModel, TValue>(this ILabelCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
+        {
+            return GetLabelFor(creator.GetHelper(), expression);
+        }
+
+        private static Label<TModel> GetLabelFor<TModel, TValue>(BootstrapHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
+        {
+            string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.HtmlHelper.ViewData);
+            string text = metadata.DisplayName;
+            if (text == null)
+            {
+                text = metadata.PropertyName;
+                if (text == null)
+                {
+                    char[] chrArray = new char[] { '.' };
+                    text = htmlFieldName.Split(chrArray).Last<string>();
+                }
+            }
+            return new Label<TModel>(helper, text).For(TagBuilder.CreateSanitizedId(
+                helper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
         }
 
         public static Label<TModel> For<TModel>(this Label<TModel> label, string @for)
@@ -105,6 +129,19 @@ namespace FluentBootstrap
         {
             label.ToggleCssClass("sr-only", screenReaderOnly);
             return label;
+        }
+
+        // Hidden
+
+        public static Hidden<TModel> Hidden<TModel>(this IFormControlCreator<TModel> creator, string name = null, object value = null)
+        {
+            return new Hidden<TModel>(creator.GetHelper()).Name(name).Value(value);
+        }
+
+        public static Hidden<TModel> Name<TModel>(this Hidden<TModel> hidden, string name)
+        {
+            hidden.MergeAttribute("name", name == null ? null : hidden.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+            return hidden;
         }
 
         // Input
@@ -244,21 +281,53 @@ namespace FluentBootstrap
 
         // DisplayFor
 
-        //public static DisplayFor<TModel> DisplayFor<TCreator, TModel>(this TCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
-        //    where TCreator : InputButton.ICreate
-        //{
-        //    return new InputButton(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
-        //}
+        public static DisplayFor<TModel, TValue> DisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression, 
+            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
+        {
+            DisplayFor<TModel, TValue> displayFor = new DisplayFor<TModel, TValue>(creator.GetHelper(), expression)
+                .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage).TemplateName(templateName).AdditionalViewData(additionalViewData);
+            displayFor.Label = GetLabelFor(creator.GetHelper(), expression);
+            return displayFor;
+        }
+
+        public static DisplayFor<TModel, TValue> AddHidden<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addHidden = true)
+        {
+            displayFor.AddHidden = addHidden;
+            return displayFor;
+        }
+
+        public static DisplayFor<TModel, TValue> AddDescription<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addDescription = true)
+        {
+            displayFor.AddDescription = addDescription;
+            return displayFor;
+        }
+
+        public static DisplayFor<TModel, TValue> AddValidationMessage<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addValidationMessage = true)
+        {
+            displayFor.AddValidationMessage = addValidationMessage;
+            return displayFor;
+        }
+
+        public static DisplayFor<TModel, TValue> TemplateName<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, string templateName)
+        {
+            displayFor.TemplateName = templateName;
+            return displayFor;
+        }
+
+        public static DisplayFor<TModel, TValue> AdditionalViewData<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, object additionalViewData)
+        {
+            displayFor.AdditionalViewData = additionalViewData;
+            return displayFor;
+        }
+
+        // HiddenFor
+
+        public static HiddenFor<TModel, TValue> HiddenFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
+        {
+            return new HiddenFor<TModel, TValue>(creator.GetHelper(), expression);
+        }
 
         // FormControl
-
-        public static TThis Name<TModel, TThis>(this Component<TModel, TThis> component, string name)
-            where TThis : FormControl<TModel, TThis>
-        {
-            TThis control = component.GetThis();
-            control.MergeAttribute("name", name == null ? null : control.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
-            return control;
-        }
 
         public static TThis ControlLabel<TModel, TThis>(this Component<TModel, TThis> component, string label, Action<Label<TModel>> labelAction = null)
             where TThis : FormControl<TModel, TThis>
