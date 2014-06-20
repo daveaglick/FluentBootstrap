@@ -12,5 +12,11 @@ namespace FluentBootstrap
         internal readonly static object ComponentStackKey = new object();
 
         public static int GridColumns = 12;
+        public static bool PrettyPrint = true;
+
+        // This keeps track of the nesting level for tags for pretty printing
+        internal static int TagIndent = 0;
+        internal static ITag LastToWrite = null;
+        internal static bool JustWroteNewLine = false;
     }
 }

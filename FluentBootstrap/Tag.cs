@@ -108,6 +108,18 @@ namespace FluentBootstrap
 
         protected override void OnStart(TextWriter writer)
         {
+            // Pretty print
+            if (Bootstrap.PrettyPrint)
+            {
+                if (!Bootstrap.JustWroteNewLine)
+                {
+                    writer.WriteLine();
+                    Bootstrap.JustWroteNewLine = true;
+                }
+                writer.Write(new String(' ', Bootstrap.TagIndent++));
+                Bootstrap.LastToWrite = this;
+            }
+
             // Set CSS classes
             foreach (string cssClass in CssClasses)
             {
@@ -123,12 +135,36 @@ namespace FluentBootstrap
                 child.Start(writer, false);
                 child.Finish(writer);
             }
+
+            // Pretty print
+            if (Bootstrap.PrettyPrint)
+            {
+                Bootstrap.JustWroteNewLine = false;
+            }
         }
 
         protected override void OnFinish(TextWriter writer)
         {
+            // Pad the end tag if requested
+            if (Bootstrap.PrettyPrint)
+            {
+                Bootstrap.TagIndent--;
+                if (Bootstrap.LastToWrite != this)
+                {
+                    writer.Write(new String(' ', Bootstrap.TagIndent));
+                }
+                Bootstrap.JustWroteNewLine = false;
+            }
+
             // Append the end tag
             writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
+
+            // Generate a new line if requested
+            if (Bootstrap.PrettyPrint && !Bootstrap.JustWroteNewLine)
+            {
+                writer.WriteLine();
+                Bootstrap.JustWroteNewLine = true;
+            }
         }
     }
 
