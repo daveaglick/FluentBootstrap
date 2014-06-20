@@ -10,64 +10,28 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IDisplayFor : IFormControl
+    public interface IDisplayFor : IFormControlFor
     {
     }
 
-    public class DisplayFor<TModel, TValue> : FormControl<TModel, DisplayFor<TModel, TValue>>, IDisplayFor
-    {
-        private readonly Expression<Func<TModel, TValue>> _expression;
-        
+    public class DisplayFor<TModel, TValue> : FormControlFor<TModel, TValue, DisplayFor<TModel, TValue>>, IDisplayFor
+    {        
         internal bool AddHidden { get; set; }
-        internal bool AddDescription { get; set; }
-        internal bool AddValidationMessage { get; set; }
-        internal string TemplateName { get; set; }
-        internal object AdditionalViewData { get; set; }
 
         internal DisplayFor(BootstrapHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
-            : base(helper, "div", "form-control-static")
+            : base(helper, expression)
         {
-            _expression = expression;
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void WriteTemplate(TextWriter writer)
         {
             // Insert the hidden control if requested
             if (AddHidden)
             {
-                new HiddenFor<TModel, TValue>(Helper, _expression).StartAndFinish(writer);
+                new HiddenFor<TModel, TValue>(Helper, Expression).StartAndFinish(writer);
             }
 
-            base.Prepare(writer);
-        }
-
-        protected override void OnStart(TextWriter writer)
-        {
-            base.OnStart(writer);
-
-            writer.Write(HtmlHelper.DisplayFor(_expression, TemplateName, AdditionalViewData));
-
-            if (AddValidationMessage)
-            {
-                writer.Write(HtmlHelper.ValidationMessageFor(_expression));
-            }
-        }
-
-        protected override void OnFinish(TextWriter writer)
-        {
-            // Add the description text
-            if (AddDescription)
-            {
-                ModelMetadata metadata = ModelMetadata.FromLambdaExpression(_expression, Helper.HtmlHelper.ViewData);
-                if (!string.IsNullOrWhiteSpace(metadata.Description))
-                {
-                    new Tag<TModel>(Helper, "p", "help-block")
-                        .AddChild(new Content<TModel>(Helper, metadata.Description))
-                        .StartAndFinish(writer);
-                }
-            }
-
-            base.OnFinish(writer);
+            writer.Write(HtmlHelper.DisplayFor(Expression, TemplateName, AdditionalViewData));
         }
     }
 }

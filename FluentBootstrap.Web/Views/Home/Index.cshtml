@@ -132,6 +132,7 @@
         using (var form = Html.Bootstrap(model).Form().Horizontal())
         { 
             @form.DisplayFor(x => x.B)
+            @form.EditorFor(x => x.C)
         }
     }    
 }

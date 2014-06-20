@@ -296,28 +296,49 @@ namespace FluentBootstrap
             return displayFor;
         }
 
-        public static DisplayFor<TModel, TValue> AddDescription<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addDescription = true)
+        // EditorFor
+
+        public static EditorFor<TModel, TValue> EditorFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression,
+            bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
-            displayFor.AddDescription = addDescription;
-            return displayFor;
+            EditorFor<TModel, TValue> editorFor = new EditorFor<TModel, TValue>(creator.GetHelper(), expression)
+                .AddDescription(addDescription).AddValidationMessage(addValidationMessage).TemplateName(templateName).AdditionalViewData(additionalViewData);
+            editorFor.Label = GetLabelFor(creator.GetHelper(), expression);
+            return editorFor;
         }
 
-        public static DisplayFor<TModel, TValue> AddValidationMessage<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addValidationMessage = true)
+        // FormControlFor
+
+        public static TThis AddDescription<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, bool addDescription = true)
+            where TThis : FormControlFor<TModel, TValue, TThis>
         {
-            displayFor.AddValidationMessage = addValidationMessage;
-            return displayFor;
+            TThis formControlFor = component.GetThis();
+            formControlFor.AddDescription = addDescription;
+            return formControlFor;
         }
 
-        public static DisplayFor<TModel, TValue> TemplateName<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, string templateName)
+        public static TThis AddValidationMessage<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, bool addValidationMessage = true)
+            where TThis : FormControlFor<TModel, TValue, TThis>
         {
-            displayFor.TemplateName = templateName;
-            return displayFor;
+            TThis formControlFor = component.GetThis();
+            formControlFor.AddValidationMessage = addValidationMessage;
+            return formControlFor;
         }
 
-        public static DisplayFor<TModel, TValue> AdditionalViewData<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, object additionalViewData)
+        public static TThis TemplateName<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, string templateName)
+            where TThis : FormControlFor<TModel, TValue, TThis>
         {
-            displayFor.AdditionalViewData = additionalViewData;
-            return displayFor;
+            TThis formControlFor = component.GetThis();
+            formControlFor.TemplateName = templateName;
+            return formControlFor;
+        }
+
+        public static TThis AdditionalViewData<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, object additionalViewData)
+            where TThis : FormControlFor<TModel, TValue, TThis>
+        {
+            TThis formControlFor = component.GetThis();
+            formControlFor.AdditionalViewData = additionalViewData;
+            return formControlFor;
         }
 
         // HiddenFor
