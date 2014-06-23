@@ -83,7 +83,7 @@ namespace FluentBootstrap.Forms
 
             // Add default column classes if we're horizontal and none have been explicitly set
             Form<TModel> form = GetComponent<Form<TModel>>();
-            if (form != null && form.Horizontal && form.DefaultLabelWidth != null && !CssClasses.Any(x => x.StartsWith("col-")))
+            if (form != null && form.Horizontal && !CssClasses.Any(x => x.StartsWith("col-")))
             {
                 this.Md(Bootstrap.GridColumns - form.DefaultLabelWidth);
                 if (_label == null && (formGroup == null || !formGroup.WroteLabel))

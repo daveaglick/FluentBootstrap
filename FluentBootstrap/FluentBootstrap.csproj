@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="ButtonExtensions.cs" />
+    <Compile Include="Buttons\ButtonExtensions.cs" />
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\LinkButton.cs" />
     <Compile Include="Buttons\ButtonType.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="GridColumnExtensions.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Content.cs" />
-    <Compile Include="FormExtensions.cs" />
+    <Compile Include="Forms\FormExtensions.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormGroup.cs" />
     <Compile Include="Forms\Input.cs" />
@@ -85,11 +85,19 @@
     <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="IHasTextAttribute.cs" />
     <Compile Include="IHasValueAttribute.cs" />
-    <Compile Include="LinkExtensions.cs" />
+    <Compile Include="Links\LinkExtensions.cs" />
     <Compile Include="Links\IHasLinkExtensions.cs" />
     <Compile Include="Links\Link.cs" />
+    <Compile Include="Panels\Panel.cs" />
+    <Compile Include="Panels\PanelBody.cs" />
+    <Compile Include="Panels\PanelExtensions.cs" />
+    <Compile Include="Panels\PanelFooter.cs" />
+    <Compile Include="Panels\PanelHeading.cs" />
+    <Compile Include="Panels\PanelSection.cs" />
+    <Compile Include="Panels\PanelTable.cs" />
+    <Compile Include="Panels\PanelTitle.cs" />
     <Compile Include="PendingComponents.cs" />
-    <Compile Include="TableExtensions.cs" />
+    <Compile Include="Tables\TableExtensions.cs" />
     <Compile Include="Tables\IHasTableContextExtensions.cs" />
     <Compile Include="Tables\Table.cs" />
     <Compile Include="Tables\TableBody.cs" />
@@ -105,7 +113,7 @@
     <Compile Include="TagExtensions.cs" />
     <Compile Include="Grids\GridColumn.cs" />
     <Compile Include="Grids\Container.cs" />
-    <Compile Include="GridExtensions.cs" />
+    <Compile Include="Grids\GridExtensions.cs" />
     <Compile Include="Grids\GridRow.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +121,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

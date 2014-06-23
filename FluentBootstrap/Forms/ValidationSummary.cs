@@ -12,7 +12,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class ValidationSummary<TModel> : FormControl<TModel, ValidationSummary<TModel>>
+    public class ValidationSummary<TModel> : FormControl<TModel, ValidationSummary<TModel>>, IValidationSummary
     {
         internal bool IncludePropertyErrors { get; set; }
 

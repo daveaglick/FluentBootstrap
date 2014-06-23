@@ -11,26 +11,28 @@ using System.Web.Mvc;
 namespace FluentBootstrap
 {
     public class BootstrapHelper<TModel> : 
-        // Grids
-        Grids.IContainerCreator<TModel>,
-        Grids.IGridColumnCreator<TModel>,
-        Grids.IGridRowCreator<TModel>,
-        // Tables
-        Tables.ITableCreator<TModel>,
-        Tables.ITableSectionCreator<TModel>,
-        Tables.ITableRowCreator<TModel>,
-        Tables.ITableCellCreator<TModel>,
+        // Buttons
+        Buttons.IButtonCreator<TModel>,
+        Buttons.ILinkButtonCreator<TModel>,
         // Forms
         Forms.IFormCreator<TModel>,
         Forms.IFieldSetCreator<TModel>,
         Forms.IFormGroupCreator<TModel>,
         Forms.ILabelCreator<TModel>,
         Forms.IFormControlCreator<TModel>,
-        // Buttons
-        Buttons.IButtonCreator<TModel>,
-        Buttons.ILinkButtonCreator<TModel>,
+        // Grids
+        Grids.IContainerCreator<TModel>,
+        Grids.IGridColumnCreator<TModel>,
+        Grids.IGridRowCreator<TModel>,
         // Links
-        Links.ILinkCreator<TModel>
+        Links.ILinkCreator<TModel>,
+        // Panels
+        Panels.IPanelCreator<TModel>,
+        // Tables
+        Tables.ITableCreator<TModel>,
+        Tables.ITableSectionCreator<TModel>,
+        Tables.ITableRowCreator<TModel>,
+        Tables.ITableCellCreator<TModel>
     {
         internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 
