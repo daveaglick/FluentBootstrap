@@ -23,9 +23,9 @@ namespace FluentBootstrap.Forms
             TextContent = text;
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void PreStart(TextWriter writer)
         {
-            base.Prepare(writer);
+            base.PreStart(writer);
 
             // Set default column classes if we're horizontal and we haven't already written one
             Form<TModel> form = GetComponent<Form<TModel>>();

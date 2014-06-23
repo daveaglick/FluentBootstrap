@@ -17,6 +17,5 @@ namespace FluentBootstrap
         // This keeps track of the nesting level for tags for pretty printing
         internal static int TagIndent = 0;
         internal static ITag LastToWrite = null;
-        internal static bool JustWroteNewLine = false;
     }
 }

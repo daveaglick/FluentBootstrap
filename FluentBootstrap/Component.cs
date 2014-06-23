@@ -106,7 +106,7 @@ namespace FluentBootstrap
             PendingComponents.Remove(HtmlHelper, this);
 
             // Prepare this component
-            Prepare(writer);
+            PreStart(writer);
 
             // Add this component to the stack
             Push();
@@ -128,6 +128,9 @@ namespace FluentBootstrap
 
             // Get the content
             OnFinish(writer);
+
+            // Clean up
+            PostFinish(writer);
         }
 
         // This is implicit by definition since it's only ever used inside another component to generate content for a child, etc.
@@ -138,14 +141,19 @@ namespace FluentBootstrap
         }
 
         // Use this method to add components to the stack before this one is added
-        // Remember that generally you should call .Start() on any components created here
-        protected virtual void Prepare(TextWriter writer)
+        // Remember that generally you should call Start() on any components created here
+        protected virtual void PreStart(TextWriter writer)
         {
         }
 
         protected abstract void OnStart(TextWriter writer);
 
         protected virtual void OnFinish(TextWriter writer)
+        {
+        }
+
+        // Use this method to finish up anything done during PreStart()
+        protected virtual void PostFinish(TextWriter writer)
         {
         }
 

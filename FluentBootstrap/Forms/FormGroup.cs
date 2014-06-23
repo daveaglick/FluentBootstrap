@@ -29,9 +29,9 @@ namespace FluentBootstrap.Forms
 
         }
 
-        protected override void Prepare(System.IO.TextWriter writer)
+        protected override void PreStart(System.IO.TextWriter writer)
         {
-            base.Prepare(writer);
+            base.PreStart(writer);
 
             // Add a column wrapper if we've got explictly set widths
             if (CssClasses.Any(x => x.StartsWith("col-")) && ColumnWrapper == null)

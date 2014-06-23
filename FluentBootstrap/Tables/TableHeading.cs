@@ -13,9 +13,9 @@ namespace FluentBootstrap.Tables
         {
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void PreStart(TextWriter writer)
         {
-            base.Prepare(writer);
+            base.PreStart(writer);
 
             // Make sure we're in a row, but only if we're also in a table
             if (GetComponent<Table<TModel>>() != null && GetComponent<TableRow<TModel>>() == null)

@@ -17,56 +17,45 @@ namespace FluentBootstrap.Forms
         internal bool Inline { get; set; }
         internal string Description { get; set; }
 
+        private Tag<TModel> _wrapper = null;
+        private Tag<TModel> _label = null;
+
         internal CheckedControl(BootstrapHelper<TModel> helper, string type)
             : base(helper, "input")
         {
             MergeAttribute("type", type);
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void PreStart(TextWriter writer)
         {
-            base.Prepare(writer);
+            base.PreStart(writer);
 
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
             {
                 this.AddChild(new Content<TModel>(Helper, Description));
             }
-        }
 
-        protected override void OnStart(TextWriter writer)
-        {
-            // Add the wrapper div
+            // Add the wrapper
             if (!Inline)
             {
-                TagBuilder div = new TagBuilder("div");
-                div.AddCssClass(TagBuilder.Attributes["type"]);
-                writer.Write(div.ToString(TagRenderMode.StartTag));
+                _wrapper = new Tag<TModel>(Helper, "div", TagBuilder.Attributes["type"]);
+                _wrapper.Start(writer, true);
             }
 
-            // Add the wrapper label
-            TagBuilder label = new TagBuilder("label");
-            if (Inline)
-            {
-                label.AddCssClass(TagBuilder.Attributes["type"] + "-inline");
-            }
-            writer.Write(label.ToString(TagRenderMode.StartTag));
-
-            base.OnStart(writer);
+            // Add the label
+            _label = new Tag<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : null);
+            _label.Start(writer, true);
         }
 
-        protected override void OnFinish(TextWriter writer)
+        protected override void PostFinish(TextWriter writer)
         {
-            base.OnFinish(writer);
-
-            // Close the wrappers
-            TagBuilder label = new TagBuilder("label");
-            writer.Write(label.ToString(TagRenderMode.EndTag));
-            if (!Inline)
+            _label.Finish(writer);
+            if (_wrapper != null)
             {
-                TagBuilder div = new TagBuilder("div");
-                writer.Write(div.ToString(TagRenderMode.EndTag));
+                _wrapper.Finish(writer);
             }
+            base.PostFinish(writer);
         }
     }
 }

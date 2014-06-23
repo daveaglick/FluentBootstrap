@@ -29,8 +29,10 @@ namespace FluentBootstrap
         {
             TagBuilder = new TagBuilder(tagName);
             CssClasses = new HashSet<string>();
-            foreach (string cssClass in cssClasses)
+            foreach (string cssClass in cssClasses.Where(x => !string.IsNullOrWhiteSpace(x)))
+            {
                 CssClasses.Add(cssClass);
+            }
         }
 
         internal TThis AddChild(Component component)
@@ -95,9 +97,9 @@ namespace FluentBootstrap
             return GetThis();
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void PreStart(TextWriter writer)
         {
-            base.Prepare(writer);
+            base.PreStart(writer);
 
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
@@ -111,11 +113,7 @@ namespace FluentBootstrap
             // Pretty print
             if (Bootstrap.PrettyPrint)
             {
-                if (!Bootstrap.JustWroteNewLine)
-                {
-                    writer.WriteLine();
-                    Bootstrap.JustWroteNewLine = true;
-                }
+                writer.WriteLine();
                 writer.Write(new String(' ', Bootstrap.TagIndent++));
                 Bootstrap.LastToWrite = this;
             }
@@ -135,36 +133,23 @@ namespace FluentBootstrap
                 child.Start(writer, false);
                 child.Finish(writer);
             }
-
-            // Pretty print
-            if (Bootstrap.PrettyPrint)
-            {
-                Bootstrap.JustWroteNewLine = false;
-            }
         }
 
         protected override void OnFinish(TextWriter writer)
         {
-            // Pad the end tag if requested
+            // Pretty print
             if (Bootstrap.PrettyPrint)
             {
                 Bootstrap.TagIndent--;
                 if (Bootstrap.LastToWrite != this)
                 {
+                    writer.WriteLine();
                     writer.Write(new String(' ', Bootstrap.TagIndent));
                 }
-                Bootstrap.JustWroteNewLine = false;
             }
 
             // Append the end tag
             writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
-
-            // Generate a new line if requested
-            if (Bootstrap.PrettyPrint && !Bootstrap.JustWroteNewLine)
-            {
-                writer.WriteLine();
-                Bootstrap.JustWroteNewLine = true;
-            }
         }
     }
 

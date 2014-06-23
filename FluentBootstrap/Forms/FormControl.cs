@@ -39,9 +39,9 @@ namespace FluentBootstrap.Forms
             }
         }
 
-        protected override void Prepare(TextWriter writer)
+        protected override void PreStart(TextWriter writer)
         {
-            base.Prepare(writer);
+            base.PreStart(writer);
 
             // Make sure we're in a form group
             FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
@@ -136,8 +136,12 @@ namespace FluentBootstrap.Forms
             }
 
             base.OnFinish(writer);
+        }
 
+        protected override void PostFinish(TextWriter writer)
+        {
             Pop(_formGroup, writer);
+            base.PostFinish(writer);
         }
     }
 }
