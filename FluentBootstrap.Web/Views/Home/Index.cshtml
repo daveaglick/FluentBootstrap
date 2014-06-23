@@ -103,7 +103,7 @@
         {
             <span>
                 @group.Submit()
-                @group.Reset(ButtonStyle.Danger, "FOOBAR")
+                @group.Reset("FOOBAR", ButtonStyle.Danger)
             </span>
         }
     }
@@ -131,7 +131,7 @@
     {
         using (var form = Html.Bootstrap(model).Form().Horizontal())
         { 
-            @form.DisplayFor(x => x.B)
+            @form.DisplayFor(x => x.A)
             @form.EditorFor(x => x.C)
         }
     }    
@@ -139,7 +139,7 @@
 
 @using (var form = Html.Bootstrap().Form().Horizontal())
 {		
-    using(form.FormContent("Group"))
+    using(form.FormContent("Group").Static())
 	{
         <span>abcd</span>
 	}

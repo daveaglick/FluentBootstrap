@@ -35,10 +35,13 @@ namespace FluentBootstrap
             return form;
         }
 
-        public static Form<TModel> Horizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = 2, bool horizontal = true)
+        public static Form<TModel> Horizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = null, bool horizontal = true)
         {
             form.ToggleCssClass("form-horizontal", horizontal, "form-inline");
-            form.DefaultLabelWidth = defaultLabelWidth;
+            if (defaultLabelWidth.HasValue)
+            {
+                form.DefaultLabelWidth = defaultLabelWidth.Value;
+            }
             return form;
         }
 
@@ -73,6 +76,25 @@ namespace FluentBootstrap
         {
             form.MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
             return form;
+        }
+
+        public static Form<TModel> HideValidationSummary<TModel>(this Form<TModel> form, bool hideValidationSummary = true)
+        {
+            form.HideValidationSummary = hideValidationSummary;
+            return form;
+        }
+
+        // ValidationSummary
+
+        public static ValidationSummary<TModel> ValidationSummary<TModel>(this IFormControlCreator<TModel> creator, bool includePropertyErrors = false)
+        {
+            return new ValidationSummary<TModel>(creator.GetHelper());
+        }
+
+        public static ValidationSummary<TModel> IncludePropertyErrors<TModel>(this ValidationSummary<TModel> validationSummary, bool includePropertyErrors = false)
+        {
+            validationSummary.IncludePropertyErrors = includePropertyErrors;
+            return validationSummary;
         }
 
         // FieldSet
@@ -151,9 +173,15 @@ namespace FluentBootstrap
 
         // FormContent
 
-        public static FormContent<TModel> FormContent<TModel>(this IFormControlCreator<TModel> creator, string label = null)
+        public static FormContent<TModel> FormContent<TModel>(this IFormControlCreator<TModel> creator, string label = null, bool @static = false)
         {
             return new FormContent<TModel>(creator.GetHelper()).ControlLabel(label);
+        }
+
+        public static FormContent<TModel> Static<TModel>(this FormContent<TModel> formContent, bool @static = true)
+        {
+            formContent.ToggleCssClass("form-control-static", @static);
+            return formContent;
         }
 
         // Input
@@ -271,22 +299,22 @@ namespace FluentBootstrap
 
         // Buttons
 
-        public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default, string label = null, object value = null)
         {
             return new InputButton<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton<TModel> FormButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, string label = null, object value = null)
+        public static FormButton<TModel> FormButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default, string label = null, object value = null)
         {
             return new FormButton<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton<TModel> Submit<TModel>(this IFormControlCreator<TModel> creator, ButtonStyle buttonStyle = ButtonStyle.Primary, string text = "Submit", string label = null, object value = null)
+        public static FormButton<TModel> Submit<TModel>(this IFormControlCreator<TModel> creator, string text = "Submit", ButtonStyle buttonStyle = ButtonStyle.Primary, string label = null, object value = null)
         {
             return new FormButton<TModel>(creator.GetHelper(), ButtonType.Submit, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        public static FormButton<TModel> Reset<TModel>(this IFormControlCreator<TModel> creator, ButtonStyle buttonStyle = ButtonStyle.Default, string text = "Reset", string label = null, object value = null)
+        public static FormButton<TModel> Reset<TModel>(this IFormControlCreator<TModel> creator, string text = "Reset", ButtonStyle buttonStyle = ButtonStyle.Default, string label = null, object value = null)
         {
             return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
@@ -294,10 +322,11 @@ namespace FluentBootstrap
         // DisplayFor
 
         public static DisplayFor<TModel, TValue> DisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression, 
-            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
+            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool @static = true)
         {
             DisplayFor<TModel, TValue> displayFor = new DisplayFor<TModel, TValue>(creator.GetHelper(), expression)
-                .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage).TemplateName(templateName).AdditionalViewData(additionalViewData);
+                .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
+                .TemplateName(templateName).AdditionalViewData(additionalViewData).Static(@static);
             displayFor.Label = GetLabelFor(creator.GetHelper(), expression);
             return displayFor;
         }
@@ -305,6 +334,12 @@ namespace FluentBootstrap
         public static DisplayFor<TModel, TValue> AddHidden<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addHidden = true)
         {
             displayFor.AddHidden = addHidden;
+            return displayFor;
+        }
+
+        public static DisplayFor<TModel, TValue> Static<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool @static = true)
+        {
+            displayFor.ToggleCssClass("form-control-static", @static);
             return displayFor;
         }
 

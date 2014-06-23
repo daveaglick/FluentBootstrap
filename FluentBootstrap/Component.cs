@@ -122,15 +122,15 @@ namespace FluentBootstrap
                 return;
             _ended = true;
 
+            // Provide finishing prior to popping from the stack
+            PreFinish(writer);
+
             // Remove this component from the stack
             // This must be done before writing the end content in case there are pending components on the stack that need to be ended
             Pop(writer);
 
             // Get the content
             OnFinish(writer);
-
-            // Clean up
-            PostFinish(writer);
         }
 
         // This is implicit by definition since it's only ever used inside another component to generate content for a child, etc.
@@ -140,22 +140,22 @@ namespace FluentBootstrap
             Finish(writer);
         }
 
-        // Use this method to add components to the stack before this one is added
-        // Remember that generally you should call Start() on any components created here
+        // This gets called before this component is pushed to the stack
         protected virtual void PreStart(TextWriter writer)
         {
         }
 
         protected abstract void OnStart(TextWriter writer);
 
+        // This gets called before this component is popped from the stack
+        protected virtual void PreFinish(TextWriter writer)
+        {
+        }
+
         protected virtual void OnFinish(TextWriter writer)
         {
         }
 
-        // Use this method to finish up anything done during PreStart()
-        protected virtual void PostFinish(TextWriter writer)
-        {
-        }
 
         // Outputs the start and end portions together
         // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)

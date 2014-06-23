@@ -48,14 +48,16 @@ namespace FluentBootstrap.Forms
             _label.Start(writer, true);
         }
 
-        protected override void PostFinish(TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
+            base.OnFinish(writer);
+
+            // Finish the wrapper and label
             _label.Finish(writer);
             if (_wrapper != null)
             {
                 _wrapper.Finish(writer);
             }
-            base.PostFinish(writer);
         }
     }
 }

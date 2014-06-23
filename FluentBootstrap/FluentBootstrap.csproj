@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -62,6 +65,7 @@
     <Compile Include="Forms\Hidden.cs" />
     <Compile Include="Forms\HiddenFor.cs" />
     <Compile Include="Forms\IFormValidation.cs" />
+    <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="IHasNameAttribute.cs" />
     <Compile Include="Forms\InputButton.cs" />
     <Compile Include="Forms\Select.cs" />
@@ -105,6 +109,9 @@
     <Compile Include="Grids\GridRow.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

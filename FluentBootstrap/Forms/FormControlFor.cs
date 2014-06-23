@@ -24,7 +24,7 @@ namespace FluentBootstrap.Forms
         internal object AdditionalViewData { get; set; }
 
         internal FormControlFor(BootstrapHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
-            : base(helper, "div", "form-control-static")
+            : base(helper, "div")
         {
             Expression = expression;
         }

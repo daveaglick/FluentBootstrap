@@ -23,13 +23,14 @@ namespace FluentBootstrap.Forms
         Forms.IFormGroupCreator<TModel>,
         Forms.ILabelCreator<TModel>,
         Forms.IFormControlCreator<TModel>
-    {
-        // This is only used for horizontal forms
-        internal int? DefaultLabelWidth { get; set; }
+    {        
+        internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
+        internal bool HideValidationSummary { get; set; }
 
         public Form(BootstrapHelper<TModel> helper)
             : base(helper, "form")
         {
+            DefaultLabelWidth = Bootstrap.DefaultFormLabelWidth;
         }
 
         internal bool Horizontal
@@ -54,6 +55,15 @@ namespace FluentBootstrap.Forms
             if (flag)
             {
                 ViewContext.FormContext.FormId = TagBuilder.Attributes["id"];
+            }
+        }
+
+        protected override void PreFinish(TextWriter writer)
+        {
+            // Validation summary if it's not hidden or one was not already output
+            if (!HideValidationSummary)
+            {
+                new ValidationSummary<TModel>(Helper).StartAndFinish(writer);
             }
         }
 

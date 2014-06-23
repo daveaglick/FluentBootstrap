@@ -13,7 +13,7 @@ namespace FluentBootstrap.Forms
     public class FormContent<TModel> : FormControl<TModel, FormContent<TModel>>
     {
         internal FormContent(BootstrapHelper<TModel> helper)
-            : base(helper, "div", "form-control-static")
+            : base(helper, "div")
         {
         }
     }

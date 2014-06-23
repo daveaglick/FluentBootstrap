@@ -136,12 +136,7 @@ namespace FluentBootstrap.Forms
             }
 
             base.OnFinish(writer);
-        }
-
-        protected override void PostFinish(TextWriter writer)
-        {
             Pop(_formGroup, writer);
-            base.PostFinish(writer);
         }
     }
 }
