@@ -198,7 +198,9 @@ namespace FluentBootstrap
 
             // Sanity check
             if (peek != this)
-                throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, which is usually an indication that a component has been disposed out of order.");
+                throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, " +
+                    "which is usually an indication that a component has been disposed out of order " +
+                    "or that more than one component was created in a single using statement.");
 
             // Pop the component from the stack
             Component pop = stack.Pop();

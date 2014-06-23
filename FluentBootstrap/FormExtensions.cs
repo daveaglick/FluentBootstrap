@@ -84,9 +84,14 @@ namespace FluentBootstrap
 
         // FormGroup
 
-        public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator)
+        public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator, string label = null)
         {
-            return new FormGroup<TModel>(creator.GetHelper());
+            FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
+            if (!string.IsNullOrWhiteSpace(label))
+            {
+                formGroup.Child(x => x.Label(label));
+            }
+            return formGroup;
         }
 
         // Label
@@ -142,6 +147,13 @@ namespace FluentBootstrap
         {
             hidden.MergeAttribute("name", name == null ? null : hidden.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
             return hidden;
+        }
+
+        // FormContent
+
+        public static FormContent<TModel> FormContent<TModel>(this IFormControlCreator<TModel> creator, string label = null)
+        {
+            return new FormContent<TModel>(creator.GetHelper()).ControlLabel(label);
         }
 
         // Input

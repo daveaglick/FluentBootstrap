@@ -136,3 +136,12 @@
         }
     }    
 }
+
+@using (var form = Html.Bootstrap().Form().Horizontal())
+{		
+    using(form.FormContent("Group"))
+	{
+        <span>abcd</span>
+	}
+    @form.Submit()
+}

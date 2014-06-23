@@ -53,6 +53,7 @@
     <Compile Include="Forms\DisplayFor.cs" />
     <Compile Include="Forms\EditorFor.cs" />
     <Compile Include="Forms\FormButton.cs" />
+    <Compile Include="Forms\FormContent.cs" />
     <Compile Include="Forms\FormControlFor.cs" />
     <Compile Include="Forms\FormInputType.cs" />
     <Compile Include="Forms\CheckedControl.cs" />
