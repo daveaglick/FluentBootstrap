@@ -136,4 +136,12 @@ namespace FluentBootstrap.Forms
             Pop(_formGroup, writer);
         }
     }
+
+    public class FormControl<TModel> : FormControl<TModel, FormControl<TModel>>, IFormControl
+    {
+        internal FormControl(BootstrapHelper<TModel> helper)
+            : base(helper, "div")
+        {
+        }
+    }
 }

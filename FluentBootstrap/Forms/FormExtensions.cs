@@ -116,10 +116,10 @@ namespace FluentBootstrap
             return formGroup;
         }
 
-        public static FormGroup<TModel> FormGroupFor<TModel, TValue>(this IFormGroupCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
+        public static FormGroup<TModel> FormGroup<TModel, TValue>(this IFormGroupCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
         {
             FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
-            formGroup.Label = formGroup.LabelFor(labelExpression);
+            formGroup.Label = formGroup.Label(labelExpression);
             return formGroup;
         }
 
@@ -137,9 +137,9 @@ namespace FluentBootstrap
             return formGroup;
         }
 
-        public static FormGroup<TModel> GroupLabelFor<TModel, TValue, TThis>(this FormGroup<TModel> formGroup, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
+        public static FormGroup<TModel> GroupLabel<TModel, TValue, TThis>(this FormGroup<TModel> formGroup, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
         {
-            Label<TModel> controlLabel = GetLabelFor(formGroup.Helper, expression);
+            Label<TModel> controlLabel = GetLabel(formGroup.Helper, expression);
             formGroup.Label = controlLabel;
             if (labelAction != null)
             {
@@ -155,12 +155,12 @@ namespace FluentBootstrap
             return new Label<TModel>(creator.GetHelper(), text);
         }
 
-        public static Label<TModel> LabelFor<TModel, TValue>(this ILabelCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
+        public static Label<TModel> Label<TModel, TValue>(this ILabelCreator<TModel> creator, Expression<Func<TModel, TValue>> textExpression)
         {
-            return GetLabelFor(creator.GetHelper(), expression);
+            return GetLabel(creator.GetHelper(), textExpression);
         }
 
-        private static Label<TModel> GetLabelFor<TModel, TValue>(BootstrapHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
+        private static Label<TModel> GetLabel<TModel, TValue>(BootstrapHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
         {
             string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.HtmlHelper.ViewData);
@@ -316,6 +316,24 @@ namespace FluentBootstrap
             return @static;
         }
 
+        // FormControl (instance)
+
+        public static FormControl<TModel> FormControl<TModel>(this IFormControlCreator<TModel> creator, string label = null)
+        {
+            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(label);
+        }
+
+        public static FormControl<TModel> FormControl<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
+        {
+            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(labelExpression);
+        }
+
+        public static FormControl<TModel> AddStaticClass<TModel>(this FormControl<TModel> formControl, bool addStaticClass = true)
+        {
+            formControl.ToggleCssClass("form-control-static", addStaticClass);
+            return formControl;
+        }
+
         // Buttons
 
         public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default, string label = null, object value = null)
@@ -358,7 +376,7 @@ namespace FluentBootstrap
             FormControlFor<TModel, TValue> formControl = new FormControlFor<TModel, TValue>(creator.GetHelper(), editor, expression)
                 .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
                 .TemplateName(templateName).AdditionalViewData(additionalViewData);
-            formControl.Label = GetLabelFor(creator.GetHelper(), expression);
+            formControl.Label = GetLabel(creator.GetHelper(), expression);
             return formControl;
         }
 
@@ -429,11 +447,11 @@ namespace FluentBootstrap
             return control;
         }
 
-        public static TThis ControlLabelFor<TModel, TValue, TThis>(this Component<TModel, TThis> component, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
+        public static TThis ControlLabel<TModel, TValue, TThis>(this Component<TModel, TThis> component, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            Label<TModel> controlLabel = GetLabelFor(component.Helper, expression);
+            Label<TModel> controlLabel = GetLabel(component.Helper, expression);
             control.Label = controlLabel;
             if (labelAction != null)
             {
