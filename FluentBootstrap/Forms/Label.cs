@@ -22,34 +22,5 @@ namespace FluentBootstrap.Forms
         {
             TextContent = text;
         }
-
-        protected override void PreStart(TextWriter writer)
-        {
-            base.PreStart(writer);
-
-            // Set default column classes if we're horizontal and we haven't already written one
-            Form<TModel> form = GetComponent<Form<TModel>>();
-            FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
-            if (form != null 
-                && form.Horizontal 
-                && formGroup != null 
-                && !formGroup.WroteLabel
-                && !CssClasses.Any(x => x.StartsWith("col-")))
-            {
-                this.Md(form.DefaultLabelWidth);
-            }
-        }
-
-        protected override void OnStart(TextWriter writer)
-        {
-            base.OnStart(writer);
-
-            // Track that a label was written as part of this form group
-            FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
-            if (formGroup != null)
-            {
-                formGroup.WroteLabel = true;
-            }
-        }
     }
 }

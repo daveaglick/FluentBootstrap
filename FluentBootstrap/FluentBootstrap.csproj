@@ -54,7 +54,6 @@
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="Forms\FormButton.cs" />
-    <Compile Include="Forms\FormContent.cs" />
     <Compile Include="Forms\FormControlFor.cs" />
     <Compile Include="Forms\FormInputType.cs" />
     <Compile Include="Forms\CheckedControl.cs" />

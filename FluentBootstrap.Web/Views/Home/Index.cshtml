@@ -86,9 +86,9 @@
         @form.Radio("Radio", "Radio 1", "R1")
         @form.Radio("Radio", "Radio 2", "R2")
         @form.Radio("Radio", "Radio 3", "R3")
-        using (var group = form.FormGroup())
+        using (var group = form.FormGroup("Inline"))
         {
-            @group.Radio("Rd", "Rd 1", "rd1").Inline()
+            @group.Radio("Rd", null, "rd1").Inline()
             @group.Radio("Rd", null, "rd2").Inline()
         }
         using (var group = form.FormGroup())
@@ -139,7 +139,7 @@
 
 @using (var form = Html.Bootstrap().Form().Horizontal())
 {		
-    using(form.FormContent("Group").Static())
+    using(form.Static("Group"))
 	{
         <span>abcd</span>
 	}

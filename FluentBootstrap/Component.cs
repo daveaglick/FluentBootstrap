@@ -125,6 +125,7 @@ namespace FluentBootstrap
 
             // Get the content
             OnStart(writer);
+            PostStart(writer);
         }
 
         internal override void Finish(TextWriter writer)
@@ -162,6 +163,12 @@ namespace FluentBootstrap
         }
 
         protected abstract void OnStart(TextWriter writer);
+
+        // This gets called after the primary content for the component is written
+        // It was added primarily to support Tag children where they should be output on Start, but after everything else from derived classes
+        protected virtual void PostStart(TextWriter writer)
+        {
+        }
 
         // This gets called before this component is popped from the stack
         protected virtual void PreFinish(TextWriter writer)

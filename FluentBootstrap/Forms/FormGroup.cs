@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormGroup : IFormControl
+    public interface IFormGroup : ITag
     {
     }
 
@@ -18,10 +19,22 @@ namespace FluentBootstrap.Forms
         Forms.ILabelCreator<TModel>,
         Forms.IFormControlCreator<TModel>
     {
-        internal Tag<TModel> ColumnWrapper { get; set; }
+        private Label<TModel> _label = null;
+        private Tag<TModel> _columnWrapper;
 
-        // This helps track if a label was written as part of this group so following inputs can adjust offset CSS classes accordingly
-        internal bool WroteLabel { get; set; }
+        internal Label<TModel> Label
+        {
+            set
+            {
+                _label = value;                
+                PendingComponents.Remove(HtmlHelper, value);    // Need to remove this from the pending components since it's similar to a child and will be output from this form control
+            }
+        }
+
+        internal bool HasLabel
+        {
+            get { return _label != null; }
+        }
 
         internal FormGroup(BootstrapHelper<TModel> helper)
             : base(helper, "div", "form-group")
@@ -29,23 +42,63 @@ namespace FluentBootstrap.Forms
 
         }
 
-        protected override void PreStart(System.IO.TextWriter writer)
+        protected override void PreStart(TextWriter writer)
         {
             base.PreStart(writer);
 
-            // Add a column wrapper if we've got explictly set widths
-            if (CssClasses.Any(x => x.StartsWith("col-")) && ColumnWrapper == null)
+            // Set column classes if we're horizontal            
+            Form<TModel> form = GetComponent<Form<TModel>>();
+            if (form != null && form.Horizontal)
             {
-                ColumnWrapper = new Tag<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
-                ColumnWrapper.Start(writer, true);
+                // Set label column class
+                if (_label != null && !_label.CssClasses.Any(x => x.StartsWith("col-")))
+                {
+                    _label.Md(form.DefaultLabelWidth);
+                }
+
+                // Add column classes to this (these will get moved to a wrapper later in this method)
+                if (!CssClasses.Any(x => x.StartsWith("col-")))
+                {
+                    this.Md(Bootstrap.GridColumns - form.DefaultLabelWidth);
+
+                    // Also need to add an offset if no label
+                    if (_label == null)
+                    {
+                        this.MdOffset(form.DefaultLabelWidth);
+                    }
+                }
+            }
+
+            // Move any grid column classes to a container class
+            if (CssClasses.Any(x => x.StartsWith("col-")))
+            {
+                _columnWrapper = new Tag<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                PendingComponents.Remove(HtmlHelper, _columnWrapper);    // Need to remove this from the pending components since it'll be output during OnStart
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
         }
 
-        protected override void OnFinish(System.IO.TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
+            base.OnStart(writer);
+
+            // Write the label
+            if (_label != null)
+            {
+                _label.StartAndFinish(writer);
+            }
+
+            // Write the column wrapper
+            if (_columnWrapper != null)
+            {
+                _columnWrapper.Start(writer, true);
+            }
+        }
+
+        protected override void OnFinish(TextWriter writer)
+        {
+            Pop(_columnWrapper, writer);
             base.OnFinish(writer);
-            Pop(ColumnWrapper, writer);
         }
     }
 }

@@ -126,7 +126,10 @@ namespace FluentBootstrap
 
             // Append the start tag
             writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
+        }
 
+        protected override void PostStart(TextWriter writer)
+        {
             // Append any children
             foreach (Component child in _children)
             {

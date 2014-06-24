@@ -109,9 +109,41 @@ namespace FluentBootstrap
         public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator, string label = null)
         {
             FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
-            if (!string.IsNullOrWhiteSpace(label))
+            if (label != null)
             {
-                formGroup.Child(x => x.Label(label));
+                formGroup.Label = formGroup.Label(label);
+            }
+            return formGroup;
+        }
+
+        public static FormGroup<TModel> FormGroupFor<TModel, TValue>(this IFormGroupCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
+        {
+            FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
+            formGroup.Label = formGroup.LabelFor(labelExpression);
+            return formGroup;
+        }
+
+        public static FormGroup<TModel> GroupLabel<TModel, TThis>(this FormGroup<TModel> formGroup, string label, Action<Label<TModel>> labelAction = null)
+        {
+            if (label != null)
+            {
+                Label<TModel> controlLabel = new Label<TModel>(formGroup.Helper, label);
+                formGroup.Label = controlLabel;
+                if (labelAction != null)
+                {
+                    labelAction(controlLabel);
+                }
+            }
+            return formGroup;
+        }
+
+        public static FormGroup<TModel> GroupLabelFor<TModel, TValue, TThis>(this FormGroup<TModel> formGroup, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
+        {
+            Label<TModel> controlLabel = GetLabelFor(formGroup.Helper, expression);
+            formGroup.Label = controlLabel;
+            if (labelAction != null)
+            {
+                labelAction(controlLabel);
             }
             return formGroup;
         }
@@ -169,19 +201,6 @@ namespace FluentBootstrap
         {
             hidden.MergeAttribute("name", name == null ? null : hidden.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
             return hidden;
-        }
-
-        // FormContent
-
-        public static FormContent<TModel> FormContent<TModel>(this IFormControlCreator<TModel> creator, string label = null, bool @static = false)
-        {
-            return new FormContent<TModel>(creator.GetHelper()).ControlLabel(label);
-        }
-
-        public static FormContent<TModel> Static<TModel>(this FormContent<TModel> formContent, bool @static = true)
-        {
-            formContent.ToggleCssClass("form-control-static", @static);
-            return formContent;
         }
 
         // Input
@@ -319,7 +338,7 @@ namespace FluentBootstrap
             return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        // FormControlForFor
+        // FormControlFor
 
         public static FormControlFor<TModel, TValue> DisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression, 
             bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
@@ -406,6 +425,19 @@ namespace FluentBootstrap
                 {
                     labelAction(controlLabel);
                 }
+            }
+            return control;
+        }
+
+        public static TThis ControlLabelFor<TModel, TValue, TThis>(this Component<TModel, TThis> component, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
+            where TThis : FormControl<TModel, TThis>
+        {
+            TThis control = component.GetThis();
+            Label<TModel> controlLabel = GetLabelFor(component.Helper, expression);
+            control.Label = controlLabel;
+            if (labelAction != null)
+            {
+                labelAction(controlLabel);
             }
             return control;
         }

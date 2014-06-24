@@ -51,23 +51,27 @@ namespace FluentBootstrap.Forms
                 formGroup = _formGroup;
             }
 
-            // Move any validation classes to the form group, but only if it's implicit for this control and doesn't already have form validation classes
+            // Move any validation classes to the form group, but only if it's implicit for this control and doesn't already have any
             if (CssClasses.Any(x => x.StartsWith("has-")) && _formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("has-")))
             {
                 foreach (string formValidation in CssClasses.Where(x => x.StartsWith("has-")))
                 {
                     formGroup.CssClasses.Add(formValidation);
                 }
+                CssClasses.RemoveWhere(x => x.StartsWith("has-"));
             }
-            CssClasses.RemoveWhere(x => x.StartsWith("has-"));
 
-            // Start the new form group if we created one
-            if (_formGroup != null)
+            // Move any grid column classes to the form group, but only if it's implicit for this control and doesn't already have any
+            if (CssClasses.Any(x => x.StartsWith("col-")) && _formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("col-")))
             {
-                _formGroup.Start(writer, true);
+                foreach (string col in CssClasses.Where(x => x.StartsWith("col-")))
+                {
+                    formGroup.CssClasses.Add(col);
+                }
+                CssClasses.RemoveWhere(x => x.StartsWith("col-"));
             }
 
-            // Add the label
+            // Add the label to the form group or write it
             if (_label != null)
             {
                 // Set the label's for attribute to the input name
@@ -77,29 +81,22 @@ namespace FluentBootstrap.Forms
                     _label.For(name);
                 }
 
-                // Write the label
-                _label.StartAndFinish(writer);
-            }
-
-            // Add default column classes if we're horizontal and none have been explicitly set
-            Form<TModel> form = GetComponent<Form<TModel>>();
-            if (form != null && form.Horizontal && !CssClasses.Any(x => x.StartsWith("col-")))
-            {
-                this.Md(Bootstrap.GridColumns - form.DefaultLabelWidth);
-                if (_label == null && (formGroup == null || !formGroup.WroteLabel))
+                // Add or write the label
+                if (_formGroup != null)
                 {
-                    // Also need to add an offset if no label
-                    this.MdOffset(form.DefaultLabelWidth);
+                    formGroup.Label = _label;
+                }
+                else
+                {
+                    _label.StartAndFinish(writer);
                 }
             }
 
-            // Move any grid column classes to a container class
-            if (CssClasses.Any(x => x.StartsWith("col-")) && formGroup.ColumnWrapper == null)
+            // Start the new form group if we created one
+            if (_formGroup != null)
             {
-                formGroup.ColumnWrapper = new Tag<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
-                formGroup.ColumnWrapper.Start(writer, true);
+                _formGroup.Start(writer, true);
             }
-            CssClasses.RemoveWhere(x => x.StartsWith("col-"));
         }
 
         protected override void OnStart(TextWriter writer)
