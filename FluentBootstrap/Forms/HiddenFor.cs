@@ -13,10 +13,6 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public interface IHiddenForCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
     public class HiddenFor<TModel, TValue> : Component<TModel, HiddenFor<TModel, TValue>>, IHiddenFor
     {
         private readonly Expression<Func<TModel, TValue>> _expression;

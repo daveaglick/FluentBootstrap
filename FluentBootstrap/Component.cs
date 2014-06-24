@@ -29,6 +29,7 @@ namespace FluentBootstrap
         private bool _disposed;
         private bool _started;
         private bool _ended;
+        private bool _render = true;
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
         // The primary difference is that implicit components can be automatically cleaned up from the stack
@@ -73,6 +74,13 @@ namespace FluentBootstrap
             Dispose();
         }
 
+        // Setting this to false prevents all output
+        public TThis If(bool condition)
+        {
+            _render = condition;
+            return (TThis)this;
+        }
+
         public void Dispose()
         {
             if (_disposed)
@@ -105,6 +113,10 @@ namespace FluentBootstrap
             // Remove this component from the pending list
             PendingComponents.Remove(HtmlHelper, this);
 
+            // Stop now if not rendering
+            if (!_render)
+                return;
+
             // Prepare this component
             PreStart(writer);
 
@@ -121,6 +133,10 @@ namespace FluentBootstrap
             if (_ended)
                 return;
             _ended = true;
+
+            // Stop now if not rendering
+            if (!_render)
+                return;
 
             // Provide finishing prior to popping from the stack
             PreFinish(writer);
@@ -155,7 +171,6 @@ namespace FluentBootstrap
         protected virtual void OnFinish(TextWriter writer)
         {
         }
-
 
         // Outputs the start and end portions together
         // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)

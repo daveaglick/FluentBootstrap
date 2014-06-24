@@ -8,11 +8,11 @@
 {
     using (Html.Bootstrap().GridRow().CssClass("doc-row"))
     {
-        using (Html.Bootstrap().GridColumn().Md(4))
+        using (Html.Bootstrap().All().GridColumn().Md(4))
         { 
             <p>A</p>
         }
-        @Html.Bootstrap().GridColumn(8).Content("<p>B</p>") 
+        @Html.Bootstrap().All().GridColumn(8).Content("<p>B</p>") 
     }
     
     <hr />
@@ -56,7 +56,7 @@
         using (var row = table.TableRow().Danger())
         {
             @row.TableData("3")
-            @Html.Bootstrap().TableHeading("4")
+            @Html.Bootstrap().All().TableHeading("4")
         }
     }
     
@@ -81,7 +81,7 @@
         {
             @form.Input("C").Md(10).ControlLabel("Label C", l => l.Md(2))
         }
-        @Html.Bootstrap().Input("Search", "Search Label")
+        @Html.Bootstrap().All().Input("Search", "Search Label")
         @form.TextArea("D", "D", "testing", rows: 3)
         @form.Radio("Radio", "Radio 1", "R1")
         @form.Radio("Radio", "Radio 2", "R2")
@@ -98,7 +98,7 @@
         }
         @form.Select("S1", null, 1, 2, 3).InputLg()
         @form.Select("S2", "S2", 5, 6, 7).Multiple()
-        @Html.Bootstrap().Static("Static", 1234)
+        @Html.Bootstrap().All().Static("Static", 1234)
         using (var group = form.FormGroup())
         {
             <span>

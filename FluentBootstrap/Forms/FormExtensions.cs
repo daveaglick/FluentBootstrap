@@ -319,73 +319,70 @@ namespace FluentBootstrap
             return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset, buttonStyle).Text(text).ControlLabel(label).Value(value);
         }
 
-        // DisplayFor
+        // FormControlForFor
 
-        public static DisplayFor<TModel, TValue> DisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression, 
-            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool @static = true)
+        public static FormControlFor<TModel, TValue> DisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression, 
+            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
-            DisplayFor<TModel, TValue> displayFor = new DisplayFor<TModel, TValue>(creator.GetHelper(), expression)
-                .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
-                .TemplateName(templateName).AdditionalViewData(additionalViewData).Static(@static);
-            displayFor.Label = GetLabelFor(creator.GetHelper(), expression);
-            return displayFor;
+            return creator.EditorOrDisplayFor(false, expression, addDescription, addValidationMessage, templateName, additionalViewData, addHidden);
         }
 
-        public static DisplayFor<TModel, TValue> AddHidden<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool addHidden = true)
-        {
-            displayFor.AddHidden = addHidden;
-            return displayFor;
-        }
-
-        public static DisplayFor<TModel, TValue> Static<TModel, TValue>(this DisplayFor<TModel, TValue> displayFor, bool @static = true)
-        {
-            displayFor.ToggleCssClass("form-control-static", @static);
-            return displayFor;
-        }
-
-        // EditorFor
-
-        public static EditorFor<TModel, TValue> EditorFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression,
+        public static FormControlFor<TModel, TValue> EditorFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression,
             bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
-            EditorFor<TModel, TValue> editorFor = new EditorFor<TModel, TValue>(creator.GetHelper(), expression)
-                .AddDescription(addDescription).AddValidationMessage(addValidationMessage).TemplateName(templateName).AdditionalViewData(additionalViewData);
-            editorFor.Label = GetLabelFor(creator.GetHelper(), expression);
-            return editorFor;
+            return creator.EditorOrDisplayFor(true, expression, addDescription, addValidationMessage, templateName, additionalViewData);
         }
 
-        // FormControlFor
-
-        public static TThis AddDescription<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, bool addDescription = true)
-            where TThis : FormControlFor<TModel, TValue, TThis>
+        public static FormControlFor<TModel, TValue> EditorOrDisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, bool editor, Expression<Func<TModel, TValue>> expression,
+            bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
         {
-            TThis formControlFor = component.GetThis();
-            formControlFor.AddDescription = addDescription;
-            return formControlFor;
+            FormControlFor<TModel, TValue> formControl = new FormControlFor<TModel, TValue>(creator.GetHelper(), editor, expression)
+                .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
+                .TemplateName(templateName).AdditionalViewData(additionalViewData);
+            formControl.Label = GetLabelFor(creator.GetHelper(), expression);
+            return formControl;
         }
 
-        public static TThis AddValidationMessage<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, bool addValidationMessage = true)
-            where TThis : FormControlFor<TModel, TValue, TThis>
+        public static FormControlFor<TModel, TValue> AddHidden<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addHidden = true)
         {
-            TThis formControlFor = component.GetThis();
-            formControlFor.AddValidationMessage = addValidationMessage;
-            return formControlFor;
+            formControl.AddHidden = addHidden;
+            return formControl;
         }
 
-        public static TThis TemplateName<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, string templateName)
-            where TThis : FormControlFor<TModel, TValue, TThis>
+        public static FormControlFor<TModel, TValue> AddStaticClass<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addStaticClass = true)
         {
-            TThis formControlFor = component.GetThis();
-            formControlFor.TemplateName = templateName;
-            return formControlFor;
+            formControl.ToggleCssClass("form-control-static", addStaticClass);
+            return formControl;
         }
 
-        public static TThis AdditionalViewData<TModel, TValue, TThis>(this FormControlFor<TModel, TValue, TThis> component, object additionalViewData)
-            where TThis : FormControlFor<TModel, TValue, TThis>
+        public static FormControlFor<TModel, TValue> AddFormControlClass<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addFormControlClass = true)
         {
-            TThis formControlFor = component.GetThis();
-            formControlFor.AdditionalViewData = additionalViewData;
-            return formControlFor;
+            formControl.AddFormControlClass = addFormControlClass;
+            return formControl;
+        }
+
+        public static FormControlFor<TModel, TValue> AddDescription<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addDescription = true)
+        {
+            formControl.AddDescription = addDescription;
+            return formControl;
+        }
+
+        public static FormControlFor<TModel, TValue> AddValidationMessage<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addValidationMessage = true)
+        {
+            formControl.AddValidationMessage = addValidationMessage;
+            return formControl;
+        }
+
+        public static FormControlFor<TModel, TValue> TemplateName<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, string templateName)
+        {
+            formControl.TemplateName = templateName;
+            return formControl;
+        }
+
+        public static FormControlFor<TModel, TValue> AdditionalViewData<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, object additionalViewData)
+        {
+            formControl.AdditionalViewData = additionalViewData;
+            return formControl;
         }
 
         // HiddenFor
