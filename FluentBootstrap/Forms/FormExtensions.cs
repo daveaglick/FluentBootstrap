@@ -316,24 +316,6 @@ namespace FluentBootstrap
             return @static;
         }
 
-        // FormControl (instance)
-
-        public static FormControl<TModel> FormControl<TModel>(this IFormControlCreator<TModel> creator, string label = null)
-        {
-            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(label);
-        }
-
-        public static FormControl<TModel> FormControl<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
-        {
-            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(labelExpression);
-        }
-
-        public static FormControl<TModel> AddStaticClass<TModel>(this FormControl<TModel> formControl, bool addStaticClass = true)
-        {
-            formControl.ToggleCssClass("form-control-static", addStaticClass);
-            return formControl;
-        }
-
         // Buttons
 
         public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default, string label = null, object value = null)
@@ -380,44 +362,83 @@ namespace FluentBootstrap
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> AddHidden<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addHidden = true)
+        public static FormControlListFor<TModel, TValue> DisplayListFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression,
+            Typography.ListType listType = Typography.ListType.Unstyled, 
+            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
+            return creator.EditorOrDisplayListFor(false, expression, listType, addDescription, addValidationMessage, templateName, additionalViewData, addHidden);
+        }
+
+        public static FormControlListFor<TModel, TValue> EditorListFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression,
+            Typography.ListType listType = Typography.ListType.Unstyled, 
+            bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
+        {
+            return creator.EditorOrDisplayListFor(true, expression, listType, addDescription, addValidationMessage, templateName, additionalViewData);
+        }
+
+        public static FormControlListFor<TModel, TValue> EditorOrDisplayListFor<TModel, TValue>(this IFormControlCreator<TModel> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression,
+            Typography.ListType listType = Typography.ListType.Unstyled, 
+            bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
+        {
+            FormControlListFor<TModel, TValue> formControl = new FormControlListFor<TModel, TValue>(creator.GetHelper(), editor, expression, listType)
+                .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
+                .TemplateName(templateName).AdditionalViewData(additionalViewData);
+            formControl.Label = GetLabel(creator.GetHelper(), expression);
+            return formControl;
+        }
+
+        public static TThis AddHidden<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addHidden = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
+        {
+            TThis formControl = component.GetThis();
             formControl.AddHidden = addHidden;
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> AddStaticClass<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addStaticClass = true)
+        public static TThis AddStaticClass<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addStaticClass = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
         {
+            TThis formControl = component.GetThis();
             formControl.ToggleCssClass("form-control-static", addStaticClass);
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> AddFormControlClass<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addFormControlClass = true)
+        public static TThis AddFormControlClass<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addFormControlClass = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
         {
+            TThis formControl = component.GetThis();
             formControl.AddFormControlClass = addFormControlClass;
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> AddDescription<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addDescription = true)
+        public static TThis AddDescription<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addDescription = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
         {
+            TThis formControl = component.GetThis();
             formControl.AddDescription = addDescription;
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> AddValidationMessage<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, bool addValidationMessage = true)
+        public static TThis AddValidationMessage<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addValidationMessage = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
         {
+            TThis formControl = component.GetThis();
             formControl.AddValidationMessage = addValidationMessage;
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> TemplateName<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, string templateName)
+        public static TThis TemplateName<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, string templateName)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
         {
+            TThis formControl = component.GetThis();
             formControl.TemplateName = templateName;
             return formControl;
         }
 
-        public static FormControlFor<TModel, TValue> AdditionalViewData<TModel, TValue>(this FormControlFor<TModel, TValue> formControl, object additionalViewData)
+        public static TThis AdditionalViewData<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, object additionalViewData)
+            where TThis : FormControlForBase<TModel, TValue, TThis>
         {
+            TThis formControl = component.GetThis();
             formControl.AdditionalViewData = additionalViewData;
             return formControl;
         }
@@ -427,6 +448,24 @@ namespace FluentBootstrap
         public static HiddenFor<TModel, TValue> HiddenFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
         {
             return new HiddenFor<TModel, TValue>(creator.GetHelper(), expression);
+        }
+
+        // FormControl (instance)
+
+        public static FormControl<TModel> FormControl<TModel>(this IFormControlCreator<TModel> creator, string label = null)
+        {
+            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(label);
+        }
+
+        public static FormControl<TModel> FormControl<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
+        {
+            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(labelExpression);
+        }
+
+        public static FormControl<TModel> AddStaticClass<TModel>(this FormControl<TModel> formControl, bool addStaticClass = true)
+        {
+            formControl.ToggleCssClass("form-control-static", addStaticClass);
+            return formControl;
         }
 
         // FormControl

@@ -6,20 +6,20 @@
 
 @using(Html.Bootstrap().Container())
 {
-    using (Html.Bootstrap().GridRow().CssClass("doc-row"))
+    using (Html.Bootstrap().GridRow().AddCssClass("doc-row"))
     {
         using (Html.Bootstrap().All().GridColumn().Md(4))
         { 
             <p>A</p>
         }
-        @Html.Bootstrap().All().GridColumn(8).Content("<p>B</p>") 
+        @Html.Bootstrap().All().GridColumn(8).AddContent("<p>B</p>") 
     }
     
     <hr />
 
-    using (var row = Html.Bootstrap().GridRow().CssClass("doc-row"))
+    using (var row = Html.Bootstrap().GridRow().AddCssClass("doc-row"))
     {
-        @row.GridColumn(8).Html(@<p>C</p>)
+        @row.GridColumn(8).AddHtml(@<p>C</p>)
         using (row.GridColumn().Md(4))
         {
             <p>D</p>
@@ -28,18 +28,18 @@
     
     <hr />
     
-    @(Html.Bootstrap().GridRow().CssClass("doc-row")
-        .Child(c => c.GridColumn(6).Content("E"))
-        .Child(c => c.GridColumn(6).Content("F"))
+    @(Html.Bootstrap().GridRow().AddCssClass("doc-row")
+        .AddChild(c => c.GridColumn(6).AddContent("E"))
+        .AddChild(c => c.GridColumn(6).AddContent("F"))
     )
 }
     
 <hr />
 
 @(Html.Bootstrap().Container().Fluid()
-    .Child(x => x.GridRow().CssClass("doc-row")
-        .Child(c2 => c2.GridColumn(6).Content("G"))
-        .Child(c2 => c2.GridColumn(6).Html(@<p>H</p>))
+    .AddChild(x => x.GridRow().AddCssClass("doc-row")
+        .AddChild(c2 => c2.GridColumn(6).AddContent("G"))
+        .AddChild(c2 => c2.GridColumn(6).AddHtml(@<p>H</p>))
     )
 )
 
@@ -68,7 +68,7 @@
     <hr />
 
     @(Html.Bootstrap().Table().Bordered()
-      .Child(x => x.TableHeading().Content("test"))
+      .AddChild(x => x.TableHeading().AddContent("test"))
     )  
     
     <hr />
@@ -77,7 +77,7 @@
     {
         @form.Input("A", inputType: FormInputType.Password)
         @form.Input("B").ControlLabel("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
-        using (form.FormGroup().CssClass("dave"))
+        using (form.FormGroup().AddCssClass("dave"))
         {
             @form.Input("C").Md(10).ControlLabel("Label C", l => l.Md(2))
         }
@@ -111,28 +111,31 @@
     <hr />
     
     @(Html.Bootstrap().Form().Horizontal()
-        .Child(c => c.Input("Child 1", "Child 1").HasSuccess().InputSm().Help("Testing the help text."))
-        .Child(c => c.Input("Child 2"))
-        .Child(fs => fs.FieldSet()
-            .Child(c => c.FormGroup()
-                .Child(x => x.Label("My Label"))
-                .Child(x => x.Input("Password", inputType: FormInputType.Password))
-                .Child(x => x.TextArea("Text", "Text<>", "Testing<>").Disabled().InputLg())
+        .AddChild(c => c.Input("Child 1", "Child 1").HasSuccess().InputSm().Help("Testing the help text."))
+        .AddChild(c => c.Input("Child 2"))
+        .AddChild(fs => fs.FieldSet()
+            .AddChild(c => c.FormGroup()
+                .AddChild(x => x.Label("My Label"))
+                .AddChild(x => x.Input("Password", inputType: FormInputType.Password))
+                .AddChild(x => x.TextArea("Text", "Text<>", "Testing<>").Disabled().InputLg())
             )
-            .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true).HasWarning().HasError())
-            .Child(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true).Help("Some help text."))
+            .AddChild(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true).HasWarning().HasError())
+            .AddChild(c => c.CheckBox("Checkbox", "Check Label", "Check Description", true).Help("Some help text."))
         )
     )
 }
 
 @{
-    var model = new { A = "a", B = true, C = 123 };
+    var model = new { A = "a", B = true, C = 123, D = new int[]{ 2, 4, 6, 8 } };
     using (Html.Bootstrap().Container())
     {
         using (var form = Html.Bootstrap(model).Form().Horizontal())
         { 
             @form.DisplayFor(x => x.A)
             @form.EditorFor(x => x.C)
+            @form.DisplayFor(x => x.D)
+            @form.DisplayListFor(x => x.D)
+            @form.EditorListFor(x => x.D)
         }
     }    
 }

@@ -75,12 +75,12 @@ namespace FluentBootstrap
 
         public static TableHeading<TModel> TableHeading<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableHeading<TModel>(creator.GetHelper()).Content(content);
+            return new TableHeading<TModel>(creator.GetHelper()).AddContent(content);
         }
 
         public static TableData<TModel> TableData<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableData<TModel>(creator.GetHelper()).Content(content);
+            return new TableData<TModel>(creator.GetHelper()).AddContent(content);
         }
 
         // IHasTableContextExtensions

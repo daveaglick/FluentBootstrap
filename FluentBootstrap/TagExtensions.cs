@@ -10,7 +10,7 @@ namespace FluentBootstrap
 {
     public static class TagExtensions
     {
-        public static TThis CssClass<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
+        public static TThis AddCssClass<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -45,7 +45,7 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis Content<TModel, TThis>(this Component<TModel, TThis> component, object content)
+        public static TThis AddContent<TModel, TThis>(this Component<TModel, TThis> component, object content)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -60,7 +60,7 @@ namespace FluentBootstrap
             return tag;
         }
         
-        public static TThis Html<TModel, TThis>(this Component<TModel, TThis> component, Func<dynamic, HelperResult> content)
+        public static TThis AddHtml<TModel, TThis>(this Component<TModel, TThis> component, Func<dynamic, HelperResult> content)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -69,7 +69,7 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis Child<TThis, TChild, TModel>(this Component<TModel, TThis> component, Func<TThis, TChild> childFunc)
+        public static TThis AddChild<TThis, TChild, TModel>(this Component<TModel, TThis> component, Func<TThis, TChild> childFunc)
             where TThis : Tag<TModel, TThis>
             where TChild : Component
         {

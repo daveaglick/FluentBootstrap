@@ -114,6 +114,10 @@
     <Compile Include="Grids\GridRow.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Typography\List.cs" />
+    <Compile Include="Typography\ListItem.cs" />
+    <Compile Include="Typography\ListType.cs" />
+    <Compile Include="Typography\TypographyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

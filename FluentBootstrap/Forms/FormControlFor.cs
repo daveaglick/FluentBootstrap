@@ -1,4 +1,5 @@
-﻿using HtmlAgilityPack;
+﻿using System.Collections;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,14 +12,16 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlFor : IFormControl
+    public interface IFormControlForBase : IFormControl
     {
     }
 
-    public class FormControlFor<TModel, TValue> : FormControl<TModel, FormControlFor<TModel, TValue>>, IFormControlFor
+    public abstract class FormControlForBase<TModel, TValue, TThis> : FormControl<TModel, TThis>, IFormControlForBase
+        where TThis : FormControlForBase<TModel, TValue, TThis>
     {
-        internal bool Editor { get; set; }
+        private readonly bool _editor;
         protected Expression<Func<TModel, TValue>> Expression { get; private set; }
+
         internal bool AddDescription { get; set; }
         internal bool AddValidationMessage { get; set; }
         internal bool AddHidden { get; set; }   // No effect if Editor == true
@@ -26,10 +29,10 @@ namespace FluentBootstrap.Forms
         internal string TemplateName { get; set; }
         internal object AdditionalViewData { get; set; }
 
-        internal FormControlFor(BootstrapHelper<TModel> helper, bool editor, Expression<Func<TModel, TValue>> expression)
+        protected FormControlForBase(BootstrapHelper<TModel> helper, bool editor, Expression<Func<TModel, TValue>> expression)
             : base(helper, "div", editor ? null : "form-control-static")
         {
-            Editor = editor;
+            _editor = editor;
             Expression = expression;
             AddFormControlClass = true;
         }
@@ -38,7 +41,7 @@ namespace FluentBootstrap.Forms
         {
             base.OnStart(writer);
 
-            if (Editor)
+            if (_editor)
             {
                 WriteEditor(writer);
             }
@@ -54,19 +57,41 @@ namespace FluentBootstrap.Forms
             }
         }
 
-        private void WriteDisplay(TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
+        {
+            // Add the description text if requested
+            if (AddDescription)
+            {
+                ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
+                if (!string.IsNullOrWhiteSpace(metadata.Description))
+                {
+                    new Tag<TModel>(Helper, "p", "help-block")
+                        .AddChild(new Content<TModel>(Helper, metadata.Description))
+                        .StartAndFinish(writer);
+                }
+            }
+
+            base.OnFinish(writer);
+        }
+
+        protected virtual void WriteDisplay(TextWriter writer)
         {
             // Insert the hidden control if requested
             if (AddHidden)
             {
                 new HiddenFor<TModel, TValue>(Helper, Expression).StartAndFinish(writer);
             }
+
             writer.Write(HtmlHelper.DisplayFor(Expression, TemplateName, AdditionalViewData));
         }
 
-        private void WriteEditor(TextWriter writer)
+        protected virtual void WriteEditor(TextWriter writer)
         {
-            string html = HtmlHelper.EditorFor(Expression, TemplateName, AdditionalViewData).ToString();
+            writer.Write(GetEditor(HtmlHelper.EditorFor(Expression, TemplateName, AdditionalViewData).ToString()));
+        }
+
+        protected string GetEditor(string html)
+        {
             if (AddFormControlClass)
             {
                 HtmlDocument doc = new HtmlDocument();
@@ -99,24 +124,78 @@ namespace FluentBootstrap.Forms
                     html = doc.DocumentNode.OuterHtml;
                 }
             }
-            writer.Write(html);
+            return html;
+        }
+    }
+
+    public interface IFormControlListFor : IFormControl
+    {
+    }
+
+    public class FormControlListFor<TModel, TValue> : FormControlForBase<TModel, IEnumerable<TValue>, FormControlListFor<TModel, TValue>>, IFormControlListFor
+    {
+        private readonly Typography.ListType _listType;
+
+        public FormControlListFor(BootstrapHelper<TModel> helper, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression, Typography.ListType listType) 
+            : base(helper, editor, expression)
+        {
+            _listType = listType;
         }
 
-        protected override void OnFinish(TextWriter writer)
+        protected override void WriteDisplay(TextWriter writer)
         {
-            // Add the description text if requested
-            if (AddDescription)
+            // Get the values
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(Expression, HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            if (values == null)
             {
-                ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
-                if (!string.IsNullOrWhiteSpace(metadata.Description))
-                {
-                    new Tag<TModel>(Helper, "p", "help-block")
-                        .AddChild(new Content<TModel>(Helper, metadata.Description))
-                        .StartAndFinish(writer);
-                }
+                base.WriteDisplay(writer);
+                return;
             }
 
-            base.OnFinish(writer);
+            // Iterate
+            Typography.List<TModel> list = new Typography.List<TModel>(Helper, _listType);
+            PendingComponents.Remove(HtmlHelper, list);
+            foreach (TValue value in values)
+            {
+                list.AddChild(x => x.ListItem(
+                    (AddHidden ? new HiddenFor<TModel, TValue>(Helper, _ => value).ToHtmlString() : string.Empty)
+                        + HtmlHelper.DisplayFor(_ => value, TemplateName, AdditionalViewData).ToString()));
+            }
+            list.StartAndFinish(writer);
+        }
+
+        protected override void WriteEditor(TextWriter writer)
+        {
+            // Get the values
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(Expression, HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            if (values == null)
+            {
+                base.WriteEditor(writer);
+                return;
+            }
+
+            // Iterate
+            Typography.List<TModel> list = new Typography.List<TModel>(Helper, _listType);
+            PendingComponents.Remove(HtmlHelper, list);
+            int c = 0;
+            foreach (TValue value in values)
+            {
+                list.AddChild(x => x.ListItem(GetEditor(HtmlHelper.EditorFor(_ => value, TemplateName, AdditionalViewData).ToString())));
+                c++;
+            }
+            list.StartAndFinish(writer);
+        }
+    }
+
+    public interface IFormControlFor : IFormControl
+    {
+    }
+
+    public class FormControlFor<TModel, TValue> : FormControlForBase<TModel, TValue, FormControlFor<TModel, TValue>>, IFormControlFor
+    {
+        public FormControlFor(BootstrapHelper<TModel> helper, bool editor, Expression<Func<TModel, TValue>> expression)
+            : base(helper, editor, expression)
+        {
         }
     }
 }
