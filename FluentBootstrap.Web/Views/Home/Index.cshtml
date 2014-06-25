@@ -82,7 +82,7 @@
             @form.Input("C").Md(10).ControlLabel("Label C", l => l.Md(2))
         }
         @Html.Bootstrap().All().Input("Search", "Search Label")
-        @form.TextArea("D", "D", "testing", rows: 3)
+        @form.TextArea("D", "D", "testing", rows: 3).Help("This is some help text.")
         @form.Radio("Radio", "Radio 1", "R1")
         @form.Radio("Radio", "Radio 2", "R2")
         @form.Radio("Radio", "Radio 3", "R3")
@@ -90,6 +90,10 @@
         {
             @group.Radio("Rd", null, "rd1").Inline()
             @group.Radio("Rd", null, "rd2").Inline()
+            using (@group.HelpBlock())
+            {
+                <span>This is a <strong>help</strong> block.</span> 
+            }
         }
         using (var group = form.FormGroup())
         {

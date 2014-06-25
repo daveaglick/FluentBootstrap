@@ -16,7 +16,8 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public abstract class FormControl<TModel, TThis> : Tag<TModel, TThis>, IFormControl, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
+    public abstract class FormControl<TModel, TThis> : Tag<TModel, TThis>, IFormControl, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
+        IHelpBlockCreator<TModel>
         where TThis : FormControl<TModel, TThis>
     {
         private FormGroup<TModel> _formGroup = null;
@@ -124,15 +125,14 @@ namespace FluentBootstrap.Forms
 
         protected override void OnFinish(TextWriter writer)
         {
+            base.OnFinish(writer);
+
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                new Tag<TModel>(Helper, "p", "help-block")
-                    .AddChild(new Content<TModel>(Helper, Help))
-                    .StartAndFinish(writer);
+                new HelpBlock<TModel>(Helper).Text(Help).StartAndFinish(writer);
             }
 
-            base.OnFinish(writer);
             Pop(_formGroup, writer);
         }
     }

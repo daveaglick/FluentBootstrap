@@ -17,7 +17,8 @@ namespace FluentBootstrap.Forms
     public class FieldSet<TModel> : Tag<TModel, FieldSet<TModel>>, IFieldSet, IHasDisabledAttribute,
         Forms.IFormGroupCreator<TModel>,
         Forms.ILabelCreator<TModel>,
-        Forms.IFormControlCreator<TModel>
+        Forms.IFormControlCreator<TModel>,
+        IHelpBlockCreator<TModel>
     {
         internal FieldSet(BootstrapHelper<TModel> helper)
             : base(helper, "fieldset")

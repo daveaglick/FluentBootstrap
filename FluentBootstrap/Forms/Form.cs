@@ -22,7 +22,8 @@ namespace FluentBootstrap.Forms
         Forms.IFieldSetCreator<TModel>,
         Forms.IFormGroupCreator<TModel>,
         Forms.ILabelCreator<TModel>,
-        Forms.IFormControlCreator<TModel>
+        Forms.IFormControlCreator<TModel>,
+        IHelpBlockCreator<TModel>
     {        
         internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
         internal bool HideValidationSummary { get; set; }

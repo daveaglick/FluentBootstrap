@@ -468,6 +468,13 @@ namespace FluentBootstrap
             return formControl;
         }
 
+        // Help
+
+        public static HelpBlock<TModel> HelpBlock<TModel>(this IFormControlCreator<TModel> creator, string text = null)
+        {
+            return new HelpBlock<TModel>(creator.GetHelper()).Text(text);
+        }
+
         // FormControl
 
         public static TThis ControlLabel<TModel, TThis>(this Component<TModel, TThis> component, string label, Action<Label<TModel>> labelAction = null)

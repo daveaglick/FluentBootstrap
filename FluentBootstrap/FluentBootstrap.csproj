@@ -59,6 +59,7 @@
     <Compile Include="Forms\CheckedControl.cs" />
     <Compile Include="Forms\FieldSet.cs" />
     <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\HelpBlock.cs" />
     <Compile Include="Forms\Hidden.cs" />
     <Compile Include="Forms\HiddenFor.cs" />
     <Compile Include="Forms\IFormValidation.cs" />

@@ -37,11 +37,19 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis HtmlAttribute<TModel, TThis>(this Component<TModel, TThis> component, string key, object value)
+        public static TThis AddHtmlAttribute<TModel, TThis>(this Component<TModel, TThis> component, string key, object value)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
             tag.MergeAttribute(key, Convert.ToString(value, CultureInfo.InvariantCulture));
+            return tag;
+        }
+
+        public static TThis Id<TModel, TThis>(this Component<TModel, TThis> component, string id)
+            where TThis : Tag<TModel, TThis>
+        {
+            TThis tag = component.GetThis();
+            tag.MergeAttribute("id", id);
             return tag;
         }
 
