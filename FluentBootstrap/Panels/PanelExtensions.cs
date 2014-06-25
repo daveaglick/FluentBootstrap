@@ -16,7 +16,7 @@ namespace FluentBootstrap
             Panel<TModel> panel = new Panel<TModel>(creator.GetHelper());
             if (!string.IsNullOrWhiteSpace(title))
             {
-                panel.AddChild(x => x.PanelTitle(title, titleHeadingLevel));
+                panel.AddChild(x => x.PanelHeading().AddChild(y => y.PanelTitle(title, titleHeadingLevel)));
             }
             return panel;
         }
