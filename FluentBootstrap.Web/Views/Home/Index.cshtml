@@ -114,11 +114,18 @@
     
     <hr />
     
+    using (var form = Html.Bootstrap().Form())
+    {
+        @form.Input("Name", "Label") 
+    }
+    
+    <hr />
+    
     @(Html.Bootstrap().Form().Horizontal()
         .AddChild(c => c.Input("Child 1", "Child 1").HasSuccess().InputSm().Help("Testing the help text."))
         .AddChild(c => c.Input("Child 2"))
         .AddChild(fs => fs.FieldSet()
-            .AddChild(c => c.FormGroup()
+            .AddChild(c => c.FormGroup().Horizontal(false)
                 .AddChild(x => x.Label("My Label"))
                 .AddChild(x => x.Input("Password", inputType: FormInputType.Password))
                 .AddChild(x => x.TextArea("Text", "Text<>", "Testing<>").Disabled().InputLg())

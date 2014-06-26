@@ -22,6 +22,7 @@ namespace FluentBootstrap.Forms
     {
         private Label<TModel> _label = null;
         private Tag<TModel> _columnWrapper;
+        private bool _columnWrapperBeforeLabel = false;
 
         internal Label<TModel> Label
         {
@@ -37,6 +38,8 @@ namespace FluentBootstrap.Forms
             get { return _label != null; }
         }
 
+        internal bool? Horizontal { get; set; }
+
         internal FormGroup(BootstrapHelper<TModel> helper)
             : base(helper, "div", "form-group")
         {
@@ -47,27 +50,35 @@ namespace FluentBootstrap.Forms
         {
             base.PreStart(writer);
 
-            // Set column classes if we're horizontal            
+            // Set column classes if we're horizontal          
             Form<TModel> form = GetComponent<Form<TModel>>();
-            if (form != null && form.Horizontal)
+            if ((form != null && form.Horizontal && (!Horizontal.HasValue || Horizontal.Value)) || (Horizontal.HasValue && Horizontal.Value))
             {
+                int labelWidth = form == null ? Bootstrap.DefaultFormLabelWidth : form.DefaultLabelWidth;
+
                 // Set label column class
                 if (_label != null && !_label.CssClasses.Any(x => x.StartsWith("col-")))
                 {
-                    _label.Md(form.DefaultLabelWidth);
+                    _label.Md(labelWidth);
                 }
 
                 // Add column classes to this (these will get moved to a wrapper later in this method)
                 if (!CssClasses.Any(x => x.StartsWith("col-")))
                 {
-                    this.Md(Bootstrap.GridColumns - form.DefaultLabelWidth);
+                    this.Md(Bootstrap.GridColumns - labelWidth);
 
                     // Also need to add an offset if no label
                     if (_label == null)
                     {
-                        this.MdOffset(form.DefaultLabelWidth);
+                        this.MdOffset(labelWidth);
                     }
                 }
+            }
+            else if (form != null && form.Horizontal)
+            {
+                // If the form is horizontal but we requested not to be, create a full-width column wrapper
+                this.Md(Bootstrap.GridColumns);
+                _columnWrapperBeforeLabel = true;
             }
 
             // Move any grid column classes to a container class
@@ -83,6 +94,12 @@ namespace FluentBootstrap.Forms
         {
             base.OnStart(writer);
 
+            // Write the column wrapper first if needed
+            if (_columnWrapperBeforeLabel && _columnWrapper != null)
+            {
+                _columnWrapper.Start(writer, true);
+            }
+
             // Write the label
             if (_label != null)
             {
@@ -90,7 +107,7 @@ namespace FluentBootstrap.Forms
             }
 
             // Write the column wrapper
-            if (_columnWrapper != null)
+            if (!_columnWrapperBeforeLabel && _columnWrapper != null)
             {
                 _columnWrapper.Start(writer, true);
             }

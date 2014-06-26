@@ -148,6 +148,12 @@ namespace FluentBootstrap
             return formGroup;
         }
 
+        public static FormGroup<TModel> Horizontal<TModel>(this FormGroup<TModel> formGroup, bool? horizontal = true)
+        {
+            formGroup.Horizontal = horizontal;
+            return formGroup;
+        }
+
         // Label
 
         public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string text)
