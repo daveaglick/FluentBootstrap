@@ -81,7 +81,7 @@ namespace FluentBootstrap
 
         // PanelTitle
 
-        public static PanelTitle<TModel> PanelTitle<TModel>(this IPanelTitleCreator<TModel> creator, string text, int headingLevel = 4)
+        public static PanelTitle<TModel> PanelTitle<TModel>(this IPanelTitleCreator<TModel> creator, string text = null, int headingLevel = 4)
         {
             return new PanelTitle<TModel>(creator.GetHelper(), text, headingLevel);
         }

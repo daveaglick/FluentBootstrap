@@ -106,12 +106,12 @@ namespace FluentBootstrap
 
         // FormGroup
 
-        public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator, string label = null)
+        public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator, string label = null, string labelFor = null)
         {
             FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
             if (label != null)
             {
-                formGroup.Label = formGroup.Label(label);
+                formGroup.Label = formGroup.Label(label, labelFor);
             }
             return formGroup;
         }
@@ -123,12 +123,12 @@ namespace FluentBootstrap
             return formGroup;
         }
 
-        public static FormGroup<TModel> GroupLabel<TModel, TThis>(this FormGroup<TModel> formGroup, string label, Action<Label<TModel>> labelAction = null)
+        public static FormGroup<TModel> GroupLabel<TModel, TThis>(this FormGroup<TModel> formGroup, string label, string labelFor = null, Action<Label<TModel>> labelAction = null)
         {
             if (label != null)
             {
-                Label<TModel> controlLabel = new Label<TModel>(formGroup.Helper, label);
-                formGroup.Label = controlLabel;
+                Label<TModel> controlLabel = new Label<TModel>(formGroup.Helper, label).For(labelFor);
+                formGroup.Label = formGroup.Label(label, labelFor);
                 if (labelAction != null)
                 {
                     labelAction(controlLabel);
@@ -156,9 +156,9 @@ namespace FluentBootstrap
 
         // Label
 
-        public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string text)
+        public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string text, string labelFor = null)
         {
-            return new Label<TModel>(creator.GetHelper(), text);
+            return new Label<TModel>(creator.GetHelper(), text).For(labelFor);
         }
 
         public static Label<TModel> Label<TModel, TValue>(this ILabelCreator<TModel> creator, Expression<Func<TModel, TValue>> textExpression)
@@ -184,9 +184,9 @@ namespace FluentBootstrap
                 helper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
         }
 
-        public static Label<TModel> For<TModel>(this Label<TModel> label, string @for)
+        public static Label<TModel> For<TModel>(this Label<TModel> label, string labelFor)
         {
-            label.MergeAttribute("for", @for);
+            label.MergeAttribute("for", labelFor);
             return label;
         }
 
@@ -458,9 +458,11 @@ namespace FluentBootstrap
 
         // FormControl (instance)
 
-        public static FormControl<TModel> FormControl<TModel>(this IFormControlCreator<TModel> creator, string label = null)
+        public static FormControl<TModel> FormControl<TModel>(this IFormControlCreator<TModel> creator, string label = null, string labelFor = null)
         {
-            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(label);
+            FormControl<TModel> formControl = new FormControl<TModel>(creator.GetHelper());
+            formControl.Label = new Label<TModel>(formControl.Helper, label).For(labelFor);
+            return formControl;
         }
 
         public static FormControl<TModel> FormControl<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
@@ -489,7 +491,7 @@ namespace FluentBootstrap
             TThis control = component.GetThis();
             if(label != null)
             {
-                Label<TModel> controlLabel = new Label<TModel>(control.Helper, label);
+                Label<TModel> controlLabel = new Label<TModel>(control.Helper, label).For(control.GetName());
                 control.Label = controlLabel;
                 if (labelAction != null)
                 {
@@ -503,7 +505,7 @@ namespace FluentBootstrap
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            Label<TModel> controlLabel = GetLabel(component.Helper, expression);
+            Label<TModel> controlLabel = GetLabel(component.Helper, expression).For(control.GetName());
             control.Label = controlLabel;
             if (labelAction != null)
             {

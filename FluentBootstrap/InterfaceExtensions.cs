@@ -48,5 +48,17 @@ namespace FluentBootstrap
             tag.MergeAttribute("name", name == null ? null : tag.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
             return tag;
         }
+
+        internal static string GetName<TModel, TThis>(this Component<TModel, TThis> component)
+            where TThis : Tag<TModel, TThis>
+        {
+            TThis tag = component.GetThis();
+            string name;
+            if (!tag.TagBuilder.Attributes.TryGetValue("name", out name))
+            {
+                name = null; 
+            }
+            return name;
+        }
     }
 }
