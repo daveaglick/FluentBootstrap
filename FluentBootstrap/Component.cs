@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -30,6 +28,7 @@ namespace FluentBootstrap
         private bool _started;
         private bool _ended;
         private bool _render = true;
+        private readonly List<Component> _children = new List<Component>();
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
         // The primary difference is that implicit components can be automatically cleaned up from the stack
@@ -62,6 +61,13 @@ namespace FluentBootstrap
         internal TThis GetThis()
         {
             return (TThis)this;
+        }
+
+        internal TThis AddChild(Component component)
+        {
+            _children.Add(component);
+            PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
+            return GetThis();
         }
 
         public void Begin()
@@ -125,7 +131,9 @@ namespace FluentBootstrap
 
             // Get the content
             OnStart(writer);
-            PostStart(writer);
+
+            // Write any children
+            WriteChildren(writer);
         }
 
         internal override void Finish(TextWriter writer)
@@ -164,10 +172,13 @@ namespace FluentBootstrap
 
         protected abstract void OnStart(TextWriter writer);
 
-        // This gets called after the primary content for the component is written
-        // It was added primarily to support Tag children where they should be output on Start, but after everything else from derived classes
-        protected virtual void PostStart(TextWriter writer)
+        private void WriteChildren(TextWriter writer)
         {
+            foreach (Component child in _children)
+            {
+                child.Start(writer, false);
+                child.Finish(writer);
+            }
         }
 
         // This gets called before this component is popped from the stack

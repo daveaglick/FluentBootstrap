@@ -51,13 +51,17 @@
     {
         @table.TableHeading("A")
         @table.TableHeading("B").Warning()
+        @table.TableHeadings("C", "D")
         @table.TableData("1")
         @table.TableData("2")
+        @table.TableDatas("3", "4")
         using (var row = table.TableRow().Danger())
         {
-            @row.TableData("3")
-            @Html.Bootstrap().All().TableHeading("4")
+            @row.TableData("5")
+            @Html.Bootstrap().All().TableHeading("6").ColSpan(2)
+            @row.TableData("7")
         }
+        @table.TableHeadings("E", "F", "G", "H")
     }
     
     <hr />

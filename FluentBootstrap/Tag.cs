@@ -17,8 +17,6 @@ namespace FluentBootstrap
     public abstract class Tag<TModel, TThis> : Component<TModel, TThis>, ITag
         where TThis : Tag<TModel, TThis>
     {
-        private readonly List<Component> _children = new List<Component>();
-
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
 
@@ -33,13 +31,6 @@ namespace FluentBootstrap
             {
                 CssClasses.Add(cssClass);
             }
-        }
-
-        internal TThis AddChild(Component component)
-        {
-            _children.Add(component);
-            PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
-            return GetThis();
         }
 
         internal TThis MergeAttributes(object attributes, bool replaceExisting = true)
@@ -127,17 +118,7 @@ namespace FluentBootstrap
             // Append the start tag
             writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
         }
-
-        protected override void PostStart(TextWriter writer)
-        {
-            // Append any children
-            foreach (Component child in _children)
-            {
-                child.Start(writer, false);
-                child.Finish(writer);
-            }
-        }
-
+        
         protected override void OnFinish(TextWriter writer)
         {
             // Pretty print
