@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFieldSet : IFormControl
+    internal interface IFieldSet : IFormControl
     {
     }
 

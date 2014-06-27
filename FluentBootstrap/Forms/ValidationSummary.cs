@@ -8,7 +8,7 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IValidationSummary : IFormControl
+    internal interface IValidationSummary : IFormControl
     {
     }
 
@@ -33,7 +33,7 @@ namespace FluentBootstrap.Forms
             }
 
             // Indicate to the form that it's been written
-            Form<TModel> form = GetComponent<Form<TModel>>();
+            IForm form = GetComponent<IForm>();
             if (form != null)
             {
                 form.HideValidationSummary = true;

@@ -9,7 +9,7 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IHiddenFor : IFormControl
+    internal interface IHiddenFor : IComponent
     {
     }
 

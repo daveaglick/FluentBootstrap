@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+@model string
+
 @using(Html.Bootstrap().Container())
 {
     using (Html.Bootstrap().GridRow().AddCssClass("doc-row"))
@@ -74,7 +76,7 @@
     @(Html.Bootstrap().Table().Bordered()
       .AddChild(x => x.TableHeading().AddContent("test"))
     )  
-    
+            
     <hr />
     
     using (var form = Html.Bootstrap().Form().Horizontal(6))
@@ -104,9 +106,13 @@
             @group.Radio("Rd-b", "Rdb 1", "rdb1")
             @group.Radio("Rd-b", "Rdb 2", "rdb2")
         }
+        <h4>Partial A</h4>
+        @Html.Partial("~/Views/Home/Partial.cshtml", new int[] { 1, 2, 3 })
         @form.Select("S1", null, 1, 2, 3).InputLg()
         @form.Select("S2", "S2", 5, 6, 7).Multiple()
         @Html.Bootstrap().All().Static("Static", 1234)
+        <h4>Partial B</h4>
+        @Html.Partial("~/Views/Home/Partial.cshtml", "string model")
         using (var group = form.FormGroup())
         {
             <span>

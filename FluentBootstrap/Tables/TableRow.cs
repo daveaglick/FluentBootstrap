@@ -2,7 +2,7 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableRow : ITag
+    internal interface ITableRow : ITag
     {
     }
 
@@ -25,7 +25,7 @@ namespace FluentBootstrap.Tables
             Pop<ITableRow>(writer);
 
             // Make sure we're in a section, but only if we're also in a table
-            if (GetComponent<Table<TModel>>() != null && GetComponent<ITableSection>() == null)
+            if (GetComponent<ITable>() != null && GetComponent<ITableSection>() == null)
             {
                 new TableBody<TModel>(Helper).Start(writer, true);
             }

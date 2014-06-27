@@ -8,7 +8,7 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormButton : IFormControl
+    internal interface IFormButton : IFormControl
     {
     }
 

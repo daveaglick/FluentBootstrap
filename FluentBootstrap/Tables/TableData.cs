@@ -2,7 +2,7 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableData : ITableCell
+    internal interface ITableData : ITableCell
     {
     }
 
@@ -18,13 +18,13 @@ namespace FluentBootstrap.Tables
             base.PreStart(writer);
 
             // Only add implicit components if we're in a table
-            if (GetComponent<Table<TModel>>() != null)
+            if (GetComponent<ITable>() != null)
             {
                 // If we're in a head section, exit out
                 Pop<ITableHead>(writer);
 
                 // Make sure we're in a row
-                if (GetComponent<TableRow<TModel>>() == null)
+                if (GetComponent<ITableRow>() == null)
                 {
                     new TableRow<TModel>(Helper).Start(writer, true);
                 }

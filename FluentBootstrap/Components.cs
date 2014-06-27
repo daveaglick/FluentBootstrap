@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public interface IComponents : IComponent
+    internal interface IComponents : IComponent
     {
 
     }

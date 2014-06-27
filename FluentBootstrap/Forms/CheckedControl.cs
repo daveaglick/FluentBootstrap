@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public interface ICheckedControl : IFormControl
+    internal interface ICheckedControl : IFormControl
     {
     }
 

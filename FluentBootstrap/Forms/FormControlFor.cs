@@ -12,7 +12,7 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlForBase : IFormControl
+    internal interface IFormControlForBase : IFormControl
     {
     }
 
@@ -128,7 +128,7 @@ namespace FluentBootstrap.Forms
         }
     }
 
-    public interface IFormControlListFor : IFormControl
+    internal interface IFormControlListFor : IFormControl
     {
     }
 
@@ -187,7 +187,7 @@ namespace FluentBootstrap.Forms
         }
     }
 
-    public interface IFormControlFor : IFormControl
+    internal interface IFormControlFor : IFormControl
     {
     }
 

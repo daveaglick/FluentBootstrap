@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IList : ITag
+    internal interface IList : ITag
     {
     }
 

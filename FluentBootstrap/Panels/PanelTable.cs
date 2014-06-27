@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelTable : IPanelSection
+    internal interface IPanelTable : IPanelSection
     {
     }
 

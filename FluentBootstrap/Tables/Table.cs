@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITable : ITag
+    internal interface ITable : ITag
     {
     }
 

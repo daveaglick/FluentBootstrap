@@ -2,7 +2,7 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableSection : ITag
+    internal interface ITableSection : ITag
     {
     }
 

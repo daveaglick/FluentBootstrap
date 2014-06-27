@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
-    public interface ILink : ITag
+    internal interface ILink : ITag
     {
     }
 

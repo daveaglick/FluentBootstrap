@@ -7,7 +7,7 @@ using FluentBootstrap;
 
 namespace FluentBootstrap.Grids
 {
-    public interface IContainer : ITag
+    internal interface IContainer : ITag
     {
     }
 

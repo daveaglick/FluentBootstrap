@@ -1,6 +1,6 @@
 namespace FluentBootstrap.Tables
 {
-    public interface ITableFoot : ITableSection
+    internal interface ITableFoot : ITableSection
     {
     }
 

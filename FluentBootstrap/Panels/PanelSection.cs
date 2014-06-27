@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelSection : ITag
+    internal interface IPanelSection : ITag
     {
     }
 

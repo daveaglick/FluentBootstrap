@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
-    public interface IGridRow : ITag
+    internal interface IGridRow : ITag
     {
     }
 

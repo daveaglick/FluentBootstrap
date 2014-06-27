@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormGroup : ITag
+    internal interface IFormGroup : ITag
     {
+        ILabel Label { set; }
     }
 
     public interface IFormGroupCreator<TModel> : IComponentCreator<TModel>
@@ -20,17 +21,22 @@ namespace FluentBootstrap.Forms
         Forms.IFormControlCreator<TModel>,
         IHelpBlockCreator<TModel>
     {
-        private Label<TModel> _label = null;
+        private ILabel _label = null;
         private Tag<TModel> _columnWrapper;
         private bool _columnWrapperBeforeLabel = false;
 
-        internal Label<TModel> Label
+        internal ILabel Label
         {
             set
             {
                 _label = value;                
                 PendingComponents.Remove(HtmlHelper, value);    // Need to remove this from the pending components since it's similar to a child and will be output from this form control
             }
+        }
+
+        ILabel IFormGroup.Label
+        {
+            set { Label = value; }
         }
 
         internal bool HasLabel
@@ -51,7 +57,7 @@ namespace FluentBootstrap.Forms
             base.PreStart(writer);
 
             // Set column classes if we're horizontal          
-            Form<TModel> form = GetComponent<Form<TModel>>();
+            IForm form = GetComponent<IForm>();
             if ((form != null && form.Horizontal && (!Horizontal.HasValue || Horizontal.Value)) || (Horizontal.HasValue && Horizontal.Value))
             {
                 int labelWidth = form == null ? Bootstrap.DefaultFormLabelWidth : form.DefaultLabelWidth;
@@ -59,7 +65,7 @@ namespace FluentBootstrap.Forms
                 // Set label column class
                 if (_label != null && !_label.CssClasses.Any(x => x.StartsWith("col-")))
                 {
-                    _label.Md(labelWidth);
+                    _label.SetColumnClass("col-md-", labelWidth);
                 }
 
                 // Add column classes to this (these will get moved to a wrapper later in this method)

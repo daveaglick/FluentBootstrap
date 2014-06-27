@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControl : ITag
+    internal interface IFormControl : ITag
     {
     }
 
@@ -21,7 +21,7 @@ namespace FluentBootstrap.Forms
         where TThis : FormControl<TModel, TThis>
     {
         private FormGroup<TModel> _formGroup = null;
-        private Label<TModel> _label = null;
+        private ILabel _label = null;
         internal string Help { get; set; }
 
         protected FormControl(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses) 
@@ -29,7 +29,7 @@ namespace FluentBootstrap.Forms
         {
         }
 
-        internal Label<TModel> Label
+        internal ILabel Label
         {
             set
             {
@@ -45,7 +45,7 @@ namespace FluentBootstrap.Forms
             base.PreStart(writer);
 
             // Make sure we're in a form group
-            FormGroup<TModel> formGroup = GetComponent<FormGroup<TModel>>();
+            IFormGroup formGroup = GetComponent<IFormGroup>();
             if (formGroup == null)
             {
                 _formGroup = new FormGroup<TModel>(Helper);
@@ -79,7 +79,7 @@ namespace FluentBootstrap.Forms
                 string name = null;
                 if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
                 {
-                    _label.For(name);
+                    _label.MergeAttribute("for", "name");
                 }
 
                 // Add or write the label

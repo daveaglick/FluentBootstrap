@@ -10,8 +10,10 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public interface ITag : IComponent
+    internal interface ITag : IComponent
     {
+        HashSet<string> CssClasses { get; }
+        void MergeAttribute(string key, string value, bool replaceExisting = true);
     }
 
     public abstract class Tag<TModel, TThis> : Component<TModel, TThis>, ITag
@@ -19,6 +21,11 @@ namespace FluentBootstrap
     {
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
+
+        HashSet<string> ITag.CssClasses
+        {
+            get { return CssClasses; }
+        }
 
         internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
@@ -69,6 +76,11 @@ namespace FluentBootstrap
                 TagBuilder.Attributes[key] = value;
             }
             return GetThis();
+        }
+
+        void ITag.MergeAttribute(string key, string value, bool replaceExisting = true)
+        {
+            MergeAttribute(key, value, replaceExisting);
         }
 
         internal TThis ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)

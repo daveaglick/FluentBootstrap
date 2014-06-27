@@ -10,8 +10,11 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IForm : ITag
+    internal interface IForm : ITag
     {
+        int DefaultLabelWidth { get; }
+        bool Horizontal { get; }
+        bool HideValidationSummary { set; }
     }
 
     public interface IFormCreator<TModel> : IComponentCreator<TModel>
@@ -26,7 +29,18 @@ namespace FluentBootstrap.Forms
         IHelpBlockCreator<TModel>
     {        
         internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
+
+        int IForm.DefaultLabelWidth
+        {
+            get { return DefaultLabelWidth; }
+        }
+
         internal bool HideValidationSummary { get; set; }
+
+        bool IForm.HideValidationSummary
+        {
+            set { HideValidationSummary = value; }
+        }
 
         public Form(BootstrapHelper<TModel> helper)
             : base(helper, "form")
@@ -37,6 +51,11 @@ namespace FluentBootstrap.Forms
         internal bool Horizontal
         {
             get { return CssClasses.Contains("form-horizontal"); }
+        }
+
+        bool IForm.Horizontal
+        {
+            get { return Horizontal; }
         }
 
         protected override void OnStart(TextWriter writer)

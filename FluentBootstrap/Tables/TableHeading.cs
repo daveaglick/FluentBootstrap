@@ -2,7 +2,7 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableHeading : ITableCell
+    internal interface ITableHeading : ITableCell
     {
     }
 
@@ -18,7 +18,7 @@ namespace FluentBootstrap.Tables
             base.PreStart(writer);
 
             // Make sure we're in a row, but only if we're also in a table
-            if (GetComponent<Table<TModel>>() != null && GetComponent<TableRow<TModel>>() == null)
+            if (GetComponent<ITable>() != null && GetComponent<ITableRow>() == null)
             {
                 // ...and make sure the row is in a head section
                 if (GetComponent<ITableSection>() == null)

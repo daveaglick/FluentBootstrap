@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableCell : ITag
+    internal interface ITableCell : ITag
     {
     }
 

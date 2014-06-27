@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface ILabel : ITag
+    internal interface ILabel : ITag
     {
     }
 

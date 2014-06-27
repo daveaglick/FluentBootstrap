@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IInputButton : IFormControl
+    internal interface IInputButton : IFormControl
     {
     }
 
