@@ -21,6 +21,17 @@ namespace FluentBootstrap
             return tag;
         }
 
+        public static TThis RemoveCssClass<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
+            where TThis : Tag<TModel, TThis>
+        {
+            TThis tag = component.GetThis();
+            foreach (string cssClass in cssClasses)
+            {
+                tag.CssClasses.Remove(cssClass);
+            }
+            return tag;
+        }
+
         public static TThis HtmlAttributes<TModel, TThis>(this Component<TModel, TThis> component, object htmlAttributes)
             where TThis : Tag<TModel, TThis>
         {
