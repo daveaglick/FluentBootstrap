@@ -44,6 +44,10 @@ namespace FluentBootstrap
 
         public static void Remove(HtmlHelper htmlHelper, IComponent component)
         {
+            if (component == null)
+            {
+                return;
+            }
             List<Tuple<IComponent, TextWriter>> list = GetList(htmlHelper);
             list.RemoveAll(x => x.Item1 == component);
         }

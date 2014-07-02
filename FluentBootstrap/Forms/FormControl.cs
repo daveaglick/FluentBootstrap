@@ -23,10 +23,12 @@ namespace FluentBootstrap.Forms
         private FormGroup<TModel> _formGroup = null;
         private ILabel _label = null;
         internal string Help { get; set; }
+        internal bool EnsureFormGroup { get; set; }
 
         protected FormControl(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses) 
             : base(helper, tagName, cssClasses)
         {
+            EnsureFormGroup = true;
         }
 
         internal ILabel Label
@@ -36,7 +38,10 @@ namespace FluentBootstrap.Forms
                 _label = value;
 
                 // Need to remove this from the pending components since it's similar to a child and will be output from this form control
-                PendingComponents.Remove(HtmlHelper, value);
+                if (value != null)
+                {
+                    PendingComponents.Remove(HtmlHelper, value);
+                }
             }
         }
 
@@ -46,14 +51,14 @@ namespace FluentBootstrap.Forms
 
             // Make sure we're in a form group
             IFormGroup formGroup = GetComponent<IFormGroup>();
-            if (formGroup == null)
+            if (formGroup == null && EnsureFormGroup)
             {
                 _formGroup = new FormGroup<TModel>(Helper);
                 formGroup = _formGroup;
             }
 
             // Move any validation classes to the form group, but only if it's implicit for this control and doesn't already have any
-            if (CssClasses.Any(x => x.StartsWith("has-")) && _formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("has-")))
+            if (CssClasses.Any(x => x.StartsWith("has-")) && _formGroup != null && formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("has-")))
             {
                 foreach (string formValidation in CssClasses.Where(x => x.StartsWith("has-")))
                 {
@@ -63,7 +68,7 @@ namespace FluentBootstrap.Forms
             }
 
             // Move any grid column classes to the form group, but only if it's implicit for this control and doesn't already have any
-            if (CssClasses.Any(x => x.StartsWith("col-")) && _formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("col-")))
+            if (CssClasses.Any(x => x.StartsWith("col-")) && _formGroup != null && formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("col-")))
             {
                 foreach (string col in CssClasses.Where(x => x.StartsWith("col-")))
                 {
@@ -85,7 +90,7 @@ namespace FluentBootstrap.Forms
                 // Add or write the label
                 if (_formGroup != null)
                 {
-                    formGroup.Label = _label;
+                    _formGroup.Label = _label;
                 }
                 else
                 {

@@ -489,7 +489,7 @@ namespace FluentBootstrap
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            if(label != null)
+            if (label != null)
             {
                 Label<TModel> controlLabel = new Label<TModel>(control.Helper, label).For(control.GetName());
                 control.Label = controlLabel;
@@ -497,6 +497,10 @@ namespace FluentBootstrap
                 {
                     labelAction(controlLabel);
                 }
+            }
+            else
+            {
+                control.Label = null;
             }
             return control;
         }
@@ -519,6 +523,14 @@ namespace FluentBootstrap
         {
             TThis control = component.GetThis();
             control.Help = help;
+            return control;
+        }
+
+        public static TThis EnsureFormGroup<TModel, TThis>(this Component<TModel, TThis> component, bool ensureFormGroup = true)
+            where TThis : FormControl<TModel, TThis>
+        {
+            TThis control = component.GetThis();
+            control.EnsureFormGroup = ensureFormGroup;
             return control;
         }
 

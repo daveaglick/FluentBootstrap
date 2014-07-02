@@ -13,6 +13,8 @@ namespace FluentBootstrap.Tables
     public class TableRow<TModel> : Tag<TModel, TableRow<TModel>>, ITableRow, IHasTableContextExtensions,
         ITableCellCreator<TModel>
     {
+        internal bool HeadRow { get; set; }
+
         internal TableRow(BootstrapHelper<TModel> helper)
             : base(helper, "tr")
         {
@@ -27,7 +29,14 @@ namespace FluentBootstrap.Tables
             // Make sure we're in a section, but only if we're also in a table
             if (GetComponent<ITable>() != null && GetComponent<ITableSection>() == null)
             {
-                new TableBody<TModel>(Helper).Start(writer, true);
+                if (HeadRow)
+                {
+                    new TableHead<TModel>(Helper).Start(writer, true);
+                }
+                else
+                {
+                    new TableBody<TModel>(Helper).Start(writer, true);
+                }
             }
         }
     }

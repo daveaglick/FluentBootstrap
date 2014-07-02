@@ -83,25 +83,24 @@ namespace FluentBootstrap
             return new TableData<TModel>(creator.GetHelper()).AddContent(content);
         }
 
-        public static Components<TModel> TableHeadings<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
+        public static TableRow<TModel> TableHeadingRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
         {
-            Components<TModel> components = new Components<TModel>(creator.GetHelper());
+            TableRow<TModel> row = new TableRow<TModel>(creator.GetHelper()) { HeadRow = true };
             foreach (object c in content)
             {
-                components.AddChild(new TableHeading<TModel>(creator.GetHelper()).AddContent(c));
+                row.AddChild(new TableHeading<TModel>(creator.GetHelper()).AddContent(c));
             }
-            return components;
+            return row;
         }
 
-        // Yeah, yeah - I know that "datas" is not the valid plural of "data", but there is a danger of method confusion if I use "datum" and "data"
-        public static Components<TModel> TableDatas<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
+        public static TableRow<TModel> TableDataRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
         {
-            Components<TModel> components = new Components<TModel>(creator.GetHelper());
+            TableRow<TModel> row = new TableRow<TModel>(creator.GetHelper());
             foreach (object c in content)
             {
-                components.AddChild(new TableData<TModel>(creator.GetHelper()).AddContent(c));
+                row.AddChild(new TableData<TModel>(creator.GetHelper()).AddContent(c));
             }
-            return components;
+            return row;
         }
 
         // IHasTableContextExtensions

@@ -52,7 +52,6 @@
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\ButtonStyle.cs" />
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
-    <Compile Include="Components.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="Forms\FormButton.cs" />
     <Compile Include="Forms\FormControlFor.cs" />

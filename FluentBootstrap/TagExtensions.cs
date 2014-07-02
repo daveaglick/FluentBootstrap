@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.WebPages;
 
 namespace FluentBootstrap
@@ -70,7 +71,26 @@ namespace FluentBootstrap
             TThis tag = component.GetThis();
             if (content != null)
             {
-                string str = Convert.ToString(content, CultureInfo.InvariantCulture);
+                // Make sure that this isn't a component
+                Component contentComponent = content as Component;
+                if (contentComponent != null)
+                {
+                    return AddChild(component, x => contentComponent);
+                }
+
+                // Now check if it's an IHtmlString
+                string str;
+                IHtmlString htmlString = content as IHtmlString;
+                if (htmlString != null)
+                {
+                    str = htmlString.ToHtmlString();
+                }
+                else
+                {
+                    // Just convert to a string using the standard conversion logic
+                    str = Convert.ToString(content, CultureInfo.InvariantCulture);
+                }
+
                 if (!string.IsNullOrEmpty(str))
                 {
                     tag.AddChild(new Content<TModel>(tag.Helper, str));
