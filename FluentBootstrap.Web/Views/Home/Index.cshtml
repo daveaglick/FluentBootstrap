@@ -107,7 +107,7 @@
         }
         <h4>Partial A</h4>
         @Html.Partial("~/Views/Home/Partial.cshtml", new int[] { 1, 2, 3 })
-        @form.Select("S1", null, 1, 2, 3).InputLg()
+        @form.Select("S1", null, 1, 2, 3).InputSm()
         @form.Select("S2", "S2", 5, 6, 7).Multiple()
         @Html.Bootstrap().All().Static("Static", 1234)
         <h4>Partial B</h4>

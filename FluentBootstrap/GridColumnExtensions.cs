@@ -81,6 +81,30 @@ namespace FluentBootstrap
             return SetColumnClass(component, "col-lg-push-", value);
         }
 
+        public static TThis XsPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        {
+            return SetColumnClass(component, "col-xs-pull-", value);
+        }
+
+        public static TThis SmPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        {
+            return SetColumnClass(component, "col-sm-pull-", value);
+        }
+
+        public static TThis MdPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        {
+            return SetColumnClass(component, "col-md-pull-", value);
+        }
+
+        public static TThis LgPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
+            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        {
+            return SetColumnClass(component, "col-lg-pull-", value);
+        }
+
         private static TThis SetColumnClass<TModel, TThis>(Component<TModel, TThis> component, string prefix, int? value)
             where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
         {
