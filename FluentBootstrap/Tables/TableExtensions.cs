@@ -19,25 +19,25 @@ namespace FluentBootstrap
 
         public static Table<TModel> Striped<TModel>(this Table<TModel> table, bool striped = true)
         {
-            table.ToggleCssClass(Css.TableStriped, striped);
+            table.ToggleCss(Css.TableStriped, striped);
             return table;
         }
 
         public static Table<TModel> Bordered<TModel>(this Table<TModel> table, bool bordered = true)
         {
-            table.ToggleCssClass(Css.TableBordered, bordered);
+            table.ToggleCss(Css.TableBordered, bordered);
             return table;
         }
 
         public static Table<TModel> Hover<TModel>(this Table<TModel> table, bool hover = true)
         {
-            table.ToggleCssClass(Css.TableHover, hover);
+            table.ToggleCss(Css.TableHover, hover);
             return table;
         }
 
         public static Table<TModel> Condensed<TModel>(this Table<TModel> table, bool condensed = true)
         {
-            table.ToggleCssClass(Css.TableCondensed, condensed);
+            table.ToggleCss(Css.TableCondensed, condensed);
             return table;
         }
 
@@ -139,7 +139,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass(cls, add, Css.Active, Css.Success, Css.Warning, Css.Danger, Css.Info);
+            tag.ToggleCss(cls, add, Css.Active, Css.Success, Css.Warning, Css.Danger, Css.Info);
             return tag;
         }
 

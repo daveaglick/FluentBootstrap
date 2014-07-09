@@ -8,7 +8,7 @@
 
 @using(Html.Bootstrap().Container())
 {
-    using (Html.Bootstrap().GridRow().AddCssClass("doc-row"))
+    using (Html.Bootstrap().GridRow().AddCss("doc-row"))
     {
         using (Html.Bootstrap().All().GridColumn().Md(4))
         { 
@@ -19,7 +19,7 @@
     
     <hr />
 
-    using (var row = Html.Bootstrap().GridRow().AddCssClass("doc-row"))
+    using (var row = Html.Bootstrap().GridRow().AddCss("doc-row"))
     {
         @row.GridColumn(8).AddHtml(@<p>C</p>)
         using (row.GridColumn().Md(4))
@@ -30,7 +30,7 @@
     
     <hr />
     
-    @(Html.Bootstrap().GridRow().AddCssClass("doc-row")
+    @(Html.Bootstrap().GridRow().AddCss("doc-row")
         .AddChild(c => c.GridColumn(6).AddContent("E"))
         .AddChild(c => c.GridColumn(6).AddContent("F"))
     )
@@ -39,7 +39,7 @@
 <hr />
 
 @(Html.Bootstrap().Container().Fluid()
-    .AddChild(x => x.GridRow().AddCssClass("doc-row")
+    .AddChild(x => x.GridRow().AddCss("doc-row")
         .AddChild(c2 => c2.GridColumn(6).AddContent("G"))
         .AddChild(c2 => c2.GridColumn(6).AddHtml(@<p>H</p>))
     )
@@ -82,7 +82,7 @@
     {
         @form.Input("A", inputType: FormInputType.Password)
         @form.Input("B").ControlLabel("Label B", l => l.Md(4)).Placeholder("Input something...").Md(8)
-        using (form.FormGroup().AddCssClass("dave"))
+        using (form.FormGroup().AddCss("dave"))
         {
             @form.Input("C").Md(10).ControlLabel("Label C", l => l.Md(2))
         }

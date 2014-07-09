@@ -11,7 +11,7 @@ namespace FluentBootstrap
 {
     public static class TagExtensions
     {
-        public static TThis AddCssClass<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
+        public static TThis AddCss<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -22,7 +22,7 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis RemoveCssClass<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
+        public static TThis RemoveCss<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -33,7 +33,7 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis HtmlAttributes<TModel, TThis>(this Component<TModel, TThis> component, object htmlAttributes)
+        public static TThis Attributes<TModel, TThis>(this Component<TModel, TThis> component, object htmlAttributes)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -41,7 +41,7 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis HtmlAttributes<TModel, TThis>(this Component<TModel, TThis> component, IDictionary<string, object> htmlAttributes)
+        public static TThis Attributes<TModel, TThis>(this Component<TModel, TThis> component, IDictionary<string, object> htmlAttributes)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -49,7 +49,7 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis AddHtmlAttribute<TModel, TThis>(this Component<TModel, TThis> component, string key, object value)
+        public static TThis AddAttribute<TModel, TThis>(this Component<TModel, TThis> component, string key, object value)
             where TThis : Tag<TModel, TThis>
         {
             TThis tag = component.GetThis();
@@ -123,97 +123,97 @@ namespace FluentBootstrap
         public static TThis VisibleXsBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleXsBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleXsBlock, toggle);
         }
 
         public static TThis VisibleXsInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleXsInline, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleXsInline, toggle);
         }
 
         public static TThis VisibleXsInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleXsInlineBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleXsInlineBlock, toggle);
         }
 
         public static TThis VisibleSmBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleSmBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleSmBlock, toggle);
         }
 
         public static TThis VisibleSmInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleSmInline, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleSmInline, toggle);
         }
 
         public static TThis VisibleSmInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleSmInlineBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleSmInlineBlock, toggle);
         }
 
         public static TThis VisibleMdBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleMdBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleMdBlock, toggle);
         }
 
         public static TThis VisibleMdInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleMdInline, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleMdInline, toggle);
         }
 
         public static TThis VisibleMdInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleMdInlineBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleMdInlineBlock, toggle);
         }
 
         public static TThis VisibleLgBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleLgBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleLgBlock, toggle);
         }
 
         public static TThis VisibleLgInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleLgInline, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleLgInline, toggle);
         }
 
         public static TThis VisibleLgInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.VisibleLgInlineBlock, toggle);
+            return component.GetThis().ToggleCss(Css.VisibleLgInlineBlock, toggle);
         }
 
         public static TThis HiddenXs<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.HiddenXs, toggle);
+            return component.GetThis().ToggleCss(Css.HiddenXs, toggle);
         }
 
         public static TThis HiddenSm<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.HiddenSm, toggle);
+            return component.GetThis().ToggleCss(Css.HiddenSm, toggle);
         }
 
         public static TThis HiddenMd<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.HiddenMd, toggle);
+            return component.GetThis().ToggleCss(Css.HiddenMd, toggle);
         }
 
         public static TThis HiddenLg<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCssClass(Css.HiddenLg, toggle);
+            return component.GetThis().ToggleCss(Css.HiddenLg, toggle);
         }
     }
 }

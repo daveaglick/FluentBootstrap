@@ -53,7 +53,7 @@ namespace FluentBootstrap
 
         private static Panel<TModel> SetClass<TModel>(Panel<TModel> panel, string cls, bool add)
         {
-            panel.ToggleCssClass(cls, add, Css.PanelDefault, Css.PanelPrimary, Css.PanelSuccess, Css.PanelInfo, Css.PanelWarning, Css.PanelDanger);
+            panel.ToggleCss(cls, add, Css.PanelDefault, Css.PanelPrimary, Css.PanelSuccess, Css.PanelInfo, Css.PanelWarning, Css.PanelDanger);
             return panel;
         }
 

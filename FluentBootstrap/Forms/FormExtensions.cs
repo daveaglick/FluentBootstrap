@@ -31,13 +31,13 @@ namespace FluentBootstrap
 
         public static Form<TModel> Inline<TModel>(this Form<TModel> form, bool inline = true)
         {
-            form.ToggleCssClass(Css.FormInline, inline, Css.FormHorizontal);
+            form.ToggleCss(Css.FormInline, inline, Css.FormHorizontal);
             return form;
         }
 
         public static Form<TModel> Horizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = null, bool horizontal = true)
         {
-            form.ToggleCssClass(Css.FormHorizontal, horizontal, Css.FormInline);
+            form.ToggleCss(Css.FormHorizontal, horizontal, Css.FormInline);
             if (defaultLabelWidth.HasValue)
             {
                 form.DefaultLabelWidth = defaultLabelWidth.Value;
@@ -192,7 +192,7 @@ namespace FluentBootstrap
 
         public static Label<TModel> ScreenReaderOnly<TModel>(this Label<TModel> label, bool screenReaderOnly = true)
         {
-            label.ToggleCssClass(Css.SrOnly, screenReaderOnly);
+            label.ToggleCss(Css.SrOnly, screenReaderOnly);
             return label;
         }
 
@@ -405,7 +405,7 @@ namespace FluentBootstrap
             where TThis : FormControlForBase<TModel, TValue, TThis>
         {
             TThis formControl = component.GetThis();
-            formControl.ToggleCssClass(Css.FormControlStatic, addStaticClass);
+            formControl.ToggleCss(Css.FormControlStatic, addStaticClass);
             return formControl;
         }
 
@@ -472,7 +472,7 @@ namespace FluentBootstrap
 
         public static FormControl<TModel> AddStaticClass<TModel>(this FormControl<TModel> formControl, bool addStaticClass = true)
         {
-            formControl.ToggleCssClass(Css.FormControlStatic, addStaticClass);
+            formControl.ToggleCss(Css.FormControlStatic, addStaticClass);
             return formControl;
         }
 
@@ -538,7 +538,7 @@ namespace FluentBootstrap
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            control.ToggleCssClass(Css.InputLg, lg, Css.InputSm);
+            control.ToggleCss(Css.InputLg, lg, Css.InputSm);
             return control;
         }
 
@@ -546,7 +546,7 @@ namespace FluentBootstrap
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            control.ToggleCssClass(Css.InputSm, sm, Css.InputLg);
+            control.ToggleCss(Css.InputSm, sm, Css.InputLg);
             return control;
         }
 
@@ -556,7 +556,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IFormValidation
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass(Css.HasSuccess, hasSuccess, Css.HasWarning, Css.HasError);
+            tag.ToggleCss(Css.HasSuccess, hasSuccess, Css.HasWarning, Css.HasError);
             return tag;
         }
 
@@ -564,7 +564,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IFormValidation
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass(Css.HasWarning, hasSuccess, Css.HasSuccess, Css.HasError);
+            tag.ToggleCss(Css.HasWarning, hasSuccess, Css.HasSuccess, Css.HasError);
             return tag;
         }
 
@@ -572,7 +572,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IFormValidation
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass(Css.HasError, hasError, Css.HasWarning, Css.HasSuccess);
+            tag.ToggleCss(Css.HasError, hasError, Css.HasWarning, Css.HasSuccess);
             return tag;
         }
     }

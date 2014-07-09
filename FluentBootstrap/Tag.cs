@@ -83,7 +83,7 @@ namespace FluentBootstrap
             MergeAttribute(key, value, replaceExisting);
         }
 
-        internal TThis ToggleCssClass(string cssClass, bool add, params string[] removeIfAdding)
+        internal TThis ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
         {
             if (add)
             {

@@ -62,6 +62,7 @@ namespace FluentBootstrap
         // Typography
         public const string ListUnstyled = "list-unstyled";
         public const string ListInline = "list-inline";
+        public const string Lead = "lead";
 
         // Buttons
         public const string Btn = "btn";
