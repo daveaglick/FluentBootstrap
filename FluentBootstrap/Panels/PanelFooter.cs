@@ -13,7 +13,7 @@ namespace FluentBootstrap.Panels
     public class PanelFooter<TModel> : PanelSection<TModel, PanelFooter<TModel>>, IPanelFooter
     {
         internal PanelFooter(BootstrapHelper<TModel> helper)
-            : base(helper, "panel-footer")
+            : base(helper, Css.PanelFooter)
         {
         }
     }

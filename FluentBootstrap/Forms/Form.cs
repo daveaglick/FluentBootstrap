@@ -50,7 +50,7 @@ namespace FluentBootstrap.Forms
 
         internal bool Horizontal
         {
-            get { return CssClasses.Contains("form-horizontal"); }
+            get { return CssClasses.Contains(Css.FormHorizontal); }
         }
 
         bool IForm.Horizontal

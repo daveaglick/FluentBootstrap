@@ -16,7 +16,7 @@ namespace FluentBootstrap.Forms
     public class FormButton<TModel> : FormControl<TModel, FormButton<TModel>>, IFormButton, Buttons.IHasButtonExtensions, IHasValueAttribute, IHasDisabledAttribute, IHasTextAttribute, IHasNameAttribute
     {
         internal FormButton(BootstrapHelper<TModel> helper, ButtonType buttonType, ButtonStyle buttonStyle)
-            : base(helper, "button", "btn", buttonStyle.GetDescription())
+            : base(helper, "button", Css.Btn, buttonStyle.GetDescription())
         {
             MergeAttribute("type", buttonType.GetDescription());
         }

@@ -19,7 +19,7 @@ namespace FluentBootstrap.Grids
         IGridRowCreator<TModel>
     {
         internal Container(BootstrapHelper<TModel> helper)
-            : base(helper, "div", "container")
+            : base(helper, "div", Css.Container)
         {
         }
     }

@@ -13,7 +13,7 @@ namespace FluentBootstrap.Panels
     public class PanelTable<TModel> : PanelSection<TModel, PanelTable<TModel>>, IPanelTable
     {
         internal PanelTable(BootstrapHelper<TModel> helper)
-            : base(helper, "table")
+            : base(helper, Css.Table)
         {
         }
     }

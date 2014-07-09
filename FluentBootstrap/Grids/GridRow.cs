@@ -18,7 +18,7 @@ namespace FluentBootstrap.Grids
         IGridColumnCreator<TModel>
     {
         internal GridRow(BootstrapHelper<TModel> helper)
-            : base(helper, "div", "row")
+            : base(helper, "div", Css.Row)
         {
         }
     }

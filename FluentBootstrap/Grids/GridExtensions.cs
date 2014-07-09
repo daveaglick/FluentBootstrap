@@ -18,9 +18,9 @@ namespace FluentBootstrap
 
         public static Container<TModel> Fluid<TModel>(this Container<TModel> container, bool fluid = true)
         {
-            container.CssClasses.Remove("container");
-            container.CssClasses.Remove("container-fluid");
-            container.CssClasses.Add(fluid ? "container-fluid" : "container");
+            container.CssClasses.Remove(Css.Container);
+            container.CssClasses.Remove(Css.ContainerFluid);
+            container.CssClasses.Add(fluid ? Css.ContainerFluid : Css.Container);
             return container;
         }
 

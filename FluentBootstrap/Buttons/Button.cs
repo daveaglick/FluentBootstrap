@@ -17,7 +17,7 @@ namespace FluentBootstrap.Buttons
     public class Button<TModel> : Tag<TModel, Button<TModel>>, IButton, IHasButtonExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
         internal Button(BootstrapHelper<TModel> helper, ButtonType buttonType, ButtonStyle buttonStyle) 
-            : base(helper, "button", "btn", buttonStyle.GetDescription())
+            : base(helper, "button", Css.Btn, buttonStyle.GetDescription())
         {
             MergeAttribute("type", buttonType.GetDescription());
         }

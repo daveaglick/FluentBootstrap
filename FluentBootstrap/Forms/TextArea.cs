@@ -13,7 +13,7 @@ namespace FluentBootstrap.Forms
     public class TextArea<TModel> : FormControl<TModel, TextArea<TModel>>, ITextArea, IHasNameAttribute
     {
         internal TextArea(BootstrapHelper<TModel> helper)
-            : base(helper, "textarea", "form-control")
+            : base(helper, "textarea", Css.FormControl)
         {
         }
     }

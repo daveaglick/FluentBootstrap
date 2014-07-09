@@ -18,7 +18,7 @@ namespace FluentBootstrap.Forms
     public class Label<TModel> : Tag<TModel, Label<TModel>>, ILabel, FluentBootstrap.Grids.IHasGridColumnExtensions, IHasTextAttribute
     {
         internal Label(BootstrapHelper<TModel> helper, string text)
-            : base(helper, "label", "control-label")
+            : base(helper, "label", Css.ControlLabel)
         {
             TextContent = text;
         }

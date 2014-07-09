@@ -20,8 +20,8 @@ namespace FluentBootstrap.Typography
 
         internal List(BootstrapHelper<TModel> helper, ListType listType)
             : base(helper, listType == ListType.Ordered ? "ol" : "ul", 
-                listType == ListType.Unstyled ? "list-unstyled" : null,
-                listType == ListType.Inline ? "list-inline" : null)
+                listType == ListType.Unstyled ? Css.ListUnstyled : null,
+                listType == ListType.Inline ? Css.ListInline : null)
         {
         }
     }

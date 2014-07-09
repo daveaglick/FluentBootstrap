@@ -24,7 +24,7 @@ namespace FluentBootstrap.Tables
         internal bool Responsive { get; set; }
 
         internal Table(BootstrapHelper<TModel> helper)
-            : base(helper, "table", "table")
+            : base(helper, "table", Css.Table)
         {
         }
 
@@ -33,7 +33,7 @@ namespace FluentBootstrap.Tables
             if (Responsive)
             {
                 TagBuilder tag = new TagBuilder("div");
-                tag.AddCssClass("table-responsive");
+                tag.AddCssClass(Css.TableResponsive);
                 writer.Write(tag.ToString(TagRenderMode.StartTag));
             }
             base.OnStart(writer);

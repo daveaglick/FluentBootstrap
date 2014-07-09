@@ -15,7 +15,7 @@ namespace FluentBootstrap.Forms
         internal List<string> Options { get; private set; }
 
         internal Select(BootstrapHelper<TModel> helper)
-            : base(helper, "select", "form-control")
+            : base(helper, "select", Css.FormControl)
         {
             Options = new List<string>();
         }

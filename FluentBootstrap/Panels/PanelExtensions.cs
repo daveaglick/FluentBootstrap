@@ -21,39 +21,39 @@ namespace FluentBootstrap
             return panel;
         }
 
-        public static Panel<TModel> Default<TModel>(this Panel<TModel> panel, bool @default = true)
+        public static Panel<TModel> Default<TModel>(this Panel<TModel> panel, bool def = true)
         {
-            return SetClass(panel, "panel-default", @default);
+            return SetClass(panel, Css.PanelDefault, def);
         }
 
-        public static Panel<TModel> Primary<TModel>(this Panel<TModel> panel, bool @default = true)
+        public static Panel<TModel> Primary<TModel>(this Panel<TModel> panel, bool primary = true)
         {
-            return SetClass(panel, "panel-primary", @default);
+            return SetClass(panel, Css.PanelPrimary, primary);
         }
 
-        public static Panel<TModel> Success<TModel>(this Panel<TModel> panel, bool @default = true)
+        public static Panel<TModel> Success<TModel>(this Panel<TModel> panel, bool success = true)
         {
-            return SetClass(panel, "panel-success", @default);
+            return SetClass(panel, Css.PanelSuccess, success);
         }
 
-        public static Panel<TModel> Info<TModel>(this Panel<TModel> panel, bool @default = true)
+        public static Panel<TModel> Info<TModel>(this Panel<TModel> panel, bool info = true)
         {
-            return SetClass(panel, "panel-info", @default);
+            return SetClass(panel, Css.PanelInfo, info);
         }
 
-        public static Panel<TModel> Warning<TModel>(this Panel<TModel> panel, bool @default = true)
+        public static Panel<TModel> Warning<TModel>(this Panel<TModel> panel, bool warning = true)
         {
-            return SetClass(panel, "panel-warning", @default);
+            return SetClass(panel, Css.PanelWarning, warning);
         }
 
-        public static Panel<TModel> Danger<TModel>(this Panel<TModel> panel, bool @default = true)
+        public static Panel<TModel> Danger<TModel>(this Panel<TModel> panel, bool danger = true)
         {
-            return SetClass(panel, "panel-danger", @default);
+            return SetClass(panel, Css.PanelDanger, danger);
         }       
 
         private static Panel<TModel> SetClass<TModel>(Panel<TModel> panel, string cls, bool add)
         {
-            panel.ToggleCssClass(cls, add, "panel-default", "panel-primary", "panel-success", "panel-info", "panel-warning", "panel-danger");
+            panel.ToggleCssClass(cls, add, Css.PanelDefault, Css.PanelPrimary, Css.PanelSuccess, Css.PanelInfo, Css.PanelWarning, Css.PanelDanger);
             return panel;
         }
 

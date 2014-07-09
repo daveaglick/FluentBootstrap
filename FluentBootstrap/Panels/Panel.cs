@@ -20,7 +20,7 @@ namespace FluentBootstrap.Panels
     {
 
         internal Panel(BootstrapHelper<TModel> helper)
-            : base(helper, "div", "panel", "panel-default")
+            : base(helper, "div", Css.Panel, Css.PanelDefault)
         {
         }
     }

@@ -31,13 +31,13 @@ namespace FluentBootstrap
 
         public static Form<TModel> Inline<TModel>(this Form<TModel> form, bool inline = true)
         {
-            form.ToggleCssClass("form-inline", inline, "form-horizontal");
+            form.ToggleCssClass(Css.FormInline, inline, Css.FormHorizontal);
             return form;
         }
 
         public static Form<TModel> Horizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = null, bool horizontal = true)
         {
-            form.ToggleCssClass("form-horizontal", horizontal, "form-inline");
+            form.ToggleCssClass(Css.FormHorizontal, horizontal, Css.FormInline);
             if (defaultLabelWidth.HasValue)
             {
                 form.DefaultLabelWidth = defaultLabelWidth.Value;
@@ -192,7 +192,7 @@ namespace FluentBootstrap
 
         public static Label<TModel> ScreenReaderOnly<TModel>(this Label<TModel> label, bool screenReaderOnly = true)
         {
-            label.ToggleCssClass("sr-only", screenReaderOnly);
+            label.ToggleCssClass(Css.SrOnly, screenReaderOnly);
             return label;
         }
 
@@ -251,12 +251,12 @@ namespace FluentBootstrap
 
         public static CheckedControl<TModel> CheckBox<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, bool isChecked = false)
         {
-            return new CheckedControl<TModel>(creator.GetHelper(), "checkbox").Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl<TModel>(creator.GetHelper(), Css.Checkbox).Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
         }
 
         public static CheckedControl<TModel> Radio<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
         {
-            return new CheckedControl<TModel>(creator.GetHelper(), "radio").Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
+            return new CheckedControl<TModel>(creator.GetHelper(), Css.Radio).Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
         }
 
         public static CheckedControl<TModel> Description<TModel>(this CheckedControl<TModel> checkedControl, string description)
@@ -405,7 +405,7 @@ namespace FluentBootstrap
             where TThis : FormControlForBase<TModel, TValue, TThis>
         {
             TThis formControl = component.GetThis();
-            formControl.ToggleCssClass("form-control-static", addStaticClass);
+            formControl.ToggleCssClass(Css.FormControlStatic, addStaticClass);
             return formControl;
         }
 
@@ -472,7 +472,7 @@ namespace FluentBootstrap
 
         public static FormControl<TModel> AddStaticClass<TModel>(this FormControl<TModel> formControl, bool addStaticClass = true)
         {
-            formControl.ToggleCssClass("form-control-static", addStaticClass);
+            formControl.ToggleCssClass(Css.FormControlStatic, addStaticClass);
             return formControl;
         }
 
@@ -538,7 +538,7 @@ namespace FluentBootstrap
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            control.ToggleCssClass("input-lg", lg, "input-sm");
+            control.ToggleCssClass(Css.InputLg, lg, Css.InputSm);
             return control;
         }
 
@@ -546,7 +546,7 @@ namespace FluentBootstrap
             where TThis : FormControl<TModel, TThis>
         {
             TThis control = component.GetThis();
-            control.ToggleCssClass("input-sm", sm, "input-lg");
+            control.ToggleCssClass(Css.InputSm, sm, Css.InputLg);
             return control;
         }
 
@@ -556,7 +556,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IFormValidation
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("has-success", hasSuccess, "has-warning", "has-error");
+            tag.ToggleCssClass(Css.HasSuccess, hasSuccess, Css.HasWarning, Css.HasError);
             return tag;
         }
 
@@ -564,7 +564,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IFormValidation
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("has-warning", hasSuccess, "has-success", "has-error");
+            tag.ToggleCssClass(Css.HasWarning, hasSuccess, Css.HasSuccess, Css.HasError);
             return tag;
         }
 
@@ -572,7 +572,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IFormValidation
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("has-error", hasError, "has-warning", "has-success");
+            tag.ToggleCssClass(Css.HasError, hasError, Css.HasWarning, Css.HasSuccess);
             return tag;
         }
     }

@@ -30,7 +30,7 @@ namespace FluentBootstrap.Forms
         internal object AdditionalViewData { get; set; }
 
         protected FormControlForBase(BootstrapHelper<TModel> helper, bool editor, Expression<Func<TModel, TValue>> expression)
-            : base(helper, "div", editor ? null : "form-control-static")
+            : base(helper, "div", editor ? null : Css.FormControlStatic)
         {
             _editor = editor;
             Expression = expression;
@@ -65,7 +65,7 @@ namespace FluentBootstrap.Forms
                 ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
                 if (!string.IsNullOrWhiteSpace(metadata.Description))
                 {
-                    new Tag<TModel>(Helper, "p", "help-block")
+                    new Tag<TModel>(Helper, "p", Css.HelpBlock)
                         .AddChild(new Content<TModel>(Helper, metadata.Description))
                         .StartAndFinish(writer);
                 }

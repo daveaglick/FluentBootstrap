@@ -17,7 +17,7 @@ namespace FluentBootstrap.Forms
         internal bool IncludePropertyErrors { get; set; }
 
         internal ValidationSummary(BootstrapHelper<TModel> helper)
-            : base(helper, "div", "form-control-static", "text-danger")
+            : base(helper, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }
 

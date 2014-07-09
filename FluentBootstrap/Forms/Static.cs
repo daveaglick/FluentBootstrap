@@ -13,7 +13,7 @@ namespace FluentBootstrap.Forms
     public class Static<TModel> : FormControl<TModel, Static<TModel>>, IStatic
     {
         internal Static(BootstrapHelper<TModel> helper)
-            : base(helper, "p", "form-control-static")
+            : base(helper, "p", Css.FormControlStatic)
         {
         }
     }

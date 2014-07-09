@@ -10,19 +10,19 @@ namespace FluentBootstrap
     // Keep in the root namespace to match the extensions
     public enum ButtonStyle
     {
-        [Description("btn-default")]
+        [Description(Css.BtnDefault)]
         Default,
-        [Description("btn-primary")]
+        [Description(Css.BtnPrimary)]
         Primary,
-        [Description("btn-success")]
+        [Description(Css.BtnSuccess)]
         Success,
-        [Description("btn-info")]
+        [Description(Css.BtnInfo)]
         Info,
-        [Description("btn-warning")]
+        [Description(Css.BtnWarning)]
         Warning,
-        [Description("btn-danger")]
+        [Description(Css.BtnDanger)]
         Danger,
-        [Description("btn-link")]
+        [Description(Css.BtnLink)]
         Link
     }
 }

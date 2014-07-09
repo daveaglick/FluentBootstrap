@@ -14,7 +14,7 @@ namespace FluentBootstrap.Panels
         IPanelTitleCreator<TModel>
     {
         internal PanelHeading(BootstrapHelper<TModel> helper)
-            : base(helper, "panel-heading")
+            : base(helper, Css.PanelHeading)
         {
         }
     }

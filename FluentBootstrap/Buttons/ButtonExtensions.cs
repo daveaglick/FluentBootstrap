@@ -30,7 +30,7 @@ namespace FluentBootstrap
 
         public static LinkButton<TModel> Disabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)
         {
-            linkButton.ToggleCssClass("disabled", disabled);
+            linkButton.ToggleCssClass(Css.Disabled, disabled);
             return linkButton;
         }
 
@@ -40,7 +40,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("btn-lg", lg, "btn-sm", "btn-xs");
+            tag.ToggleCssClass(Css.BtnLg, lg, Css.BtnSm, Css.BtnXs);
             return tag;
         }
 
@@ -48,7 +48,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("btn-sm", sm, "btn-lg", "btn-xs");
+            tag.ToggleCssClass(Css.BtnSm, sm, Css.BtnLg, Css.BtnXs);
             return tag;
         }
 
@@ -56,7 +56,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("btn-xs", xs, "btn-lg", "btn-sm");
+            tag.ToggleCssClass(Css.BtnXs, xs, Css.BtnLg, Css.BtnSm);
             return tag;
         }
 
@@ -64,7 +64,7 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>, IHasButtonExtensions
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass("btn-block", block);
+            tag.ToggleCssClass(Css.BtnBlock, block);
             return tag;
         }
     }

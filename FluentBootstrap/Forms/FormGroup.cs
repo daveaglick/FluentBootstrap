@@ -47,7 +47,7 @@ namespace FluentBootstrap.Forms
         internal bool? Horizontal { get; set; }
 
         internal FormGroup(BootstrapHelper<TModel> helper)
-            : base(helper, "div", "form-group")
+            : base(helper, "div", Css.FormGroup)
         {
 
         }

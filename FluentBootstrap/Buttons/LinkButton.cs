@@ -17,7 +17,7 @@ namespace FluentBootstrap.Buttons
     public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>>, ILinkButton, Links.IHasLinkExtensions, IHasButtonExtensions, IHasTextAttribute
     {
         internal LinkButton(BootstrapHelper<TModel> helper, ButtonStyle buttonStyle)
-            : base(helper, "a", "btn", buttonStyle.GetDescription())
+            : base(helper, "a", Css.Btn, buttonStyle.GetDescription())
         {
             MergeAttribute("role", "button");
         }

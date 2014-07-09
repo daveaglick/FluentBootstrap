@@ -19,25 +19,25 @@ namespace FluentBootstrap
 
         public static Table<TModel> Striped<TModel>(this Table<TModel> table, bool striped = true)
         {
-            table.ToggleCssClass("table-striped", striped);
+            table.ToggleCssClass(Css.TableStriped, striped);
             return table;
         }
 
         public static Table<TModel> Bordered<TModel>(this Table<TModel> table, bool bordered = true)
         {
-            table.ToggleCssClass("table-bordered", bordered);
+            table.ToggleCssClass(Css.TableBordered, bordered);
             return table;
         }
 
         public static Table<TModel> Hover<TModel>(this Table<TModel> table, bool hover = true)
         {
-            table.ToggleCssClass("table-hover", hover);
+            table.ToggleCssClass(Css.TableHover, hover);
             return table;
         }
 
         public static Table<TModel> Condensed<TModel>(this Table<TModel> table, bool condensed = true)
         {
-            table.ToggleCssClass("table-condensed", condensed);
+            table.ToggleCssClass(Css.TableCondensed, condensed);
             return table;
         }
 
@@ -108,38 +108,38 @@ namespace FluentBootstrap
         public static TThis Active<TModel, TThis>(this Component<TModel, TThis> component, bool active = true)
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass(component, "active", active);
+            return SetClass(component, Css.Active, active);
         }
 
         public static TThis Success<TModel, TThis>(this Component<TModel, TThis> component, bool success = true)
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass(component, "success", success);
+            return SetClass(component, Css.Success, success);
         }
 
         public static TThis Warning<TModel, TThis>(this Component<TModel, TThis> component, bool warning = true)
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass(component, "warning", warning);
+            return SetClass(component, Css.Warning, warning);
         }
 
         public static TThis Danger<TModel, TThis>(this Component<TModel, TThis> component, bool danger = true)
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass(component, "danger", danger);
+            return SetClass(component, Css.Danger, danger);
         }
 
         public static TThis Info<TModel, TThis>(this Component<TModel, TThis> component, bool info = true)
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
-            return SetClass(component, "info", info);
+            return SetClass(component, Css.Info, info);
         }
 
         private static TThis SetClass<TThis, TModel>(Component<TModel, TThis> component, string cls, bool add)
             where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
         {
             TThis tag = component.GetThis();
-            tag.ToggleCssClass(cls, add, "active", "success", "warning", "danger", "info");
+            tag.ToggleCssClass(cls, add, Css.Active, Css.Success, Css.Warning, Css.Danger, Css.Info);
             return tag;
         }
 

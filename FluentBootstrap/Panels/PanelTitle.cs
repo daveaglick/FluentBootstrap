@@ -18,7 +18,7 @@ namespace FluentBootstrap.Panels
     public class PanelTitle<TModel> : Tag<TModel, PanelTitle<TModel>>, IPanelTitle, IHasTextAttribute
     {
         internal PanelTitle(BootstrapHelper<TModel> helper, string text, int headingLevel)
-            : base(helper, "h" + headingLevel, "panel-title")
+            : base(helper, "h" + headingLevel, Css.PanelTitle)
         {
             if (headingLevel < 1 || headingLevel > 6)
             {
