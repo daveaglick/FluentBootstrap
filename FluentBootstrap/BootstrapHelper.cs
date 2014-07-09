@@ -20,6 +20,8 @@ namespace FluentBootstrap
         // Grids
         Grids.IContainerCreator<TModel>,
         Grids.IGridRowCreator<TModel>,
+        // Images
+        Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Panels
@@ -63,6 +65,8 @@ namespace FluentBootstrap
         Grids.IContainerCreator<TModel>,
         Grids.IGridColumnCreator<TModel>,
         Grids.IGridRowCreator<TModel>,
+        // Images
+        Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Panels

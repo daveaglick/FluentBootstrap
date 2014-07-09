@@ -81,6 +81,8 @@
     <Compile Include="Grids\IHasGridColumnExtensions.cs" />
     <Compile Include="IComponentCreator.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
+    <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\ImageExtensions.cs" />
     <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="IHasTextAttribute.cs" />
     <Compile Include="IHasValueAttribute.cs" />

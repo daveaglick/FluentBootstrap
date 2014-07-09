@@ -78,7 +78,7 @@ namespace FluentBootstrap
             return GetThis();
         }
 
-        void ITag.MergeAttribute(string key, string value, bool replaceExisting = true)
+        void ITag.MergeAttribute(string key, string value, bool replaceExisting)
         {
             MergeAttribute(key, value, replaceExisting);
         }

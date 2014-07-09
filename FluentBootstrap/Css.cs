@@ -64,6 +64,12 @@ namespace FluentBootstrap
         public const string ListInline = "list-inline";
         public const string Lead = "lead";
 
+        // Images
+        public const string ImgResponsive = "img-responsive";
+        public const string ImgRounded = "img-rounded";
+        public const string ImgCircle = "img-circle";
+        public const string ImgThumbnail = "img-thumbnail";
+
         // Buttons
         public const string Btn = "btn";
         public const string BtnDefault = "btn-default";
