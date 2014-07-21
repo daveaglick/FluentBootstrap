@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Html;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace FluentBootstrap.Forms
         IHelpBlockCreator<TModel>
     {
         private ILabel _label = null;
-        private Tag<TModel> _columnWrapper;
+        private Element<TModel> _columnWrapper;
         private bool _columnWrapperBeforeLabel = false;
 
         internal ILabel Label
@@ -90,7 +91,7 @@ namespace FluentBootstrap.Forms
             // Move any grid column classes to a container class
             if (CssClasses.Any(x => x.StartsWith("col-")))
             {
-                _columnWrapper = new Tag<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                _columnWrapper = new Element<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
                 PendingComponents.Remove(HtmlHelper, _columnWrapper);    // Need to remove this from the pending components since it'll be output during OnStart
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));

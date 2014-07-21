@@ -105,7 +105,22 @@ namespace FluentBootstrap
 
         // Misc
         public const string Disabled = "disabled";
-        public const string TextDanger = "text-danger";
         public const string Clearfix = "clearfix";
+        public const string CenterBlock = "center-block";
+        public const string PullLeft = "pull-left";
+        public const string PullRight = "pull-right";
+        public const string Caret = "caret";
+        public const string Close = "close";
+        public const string TextMuted = "text-muted";
+        public const string TextPrimary = "text-primary";
+        public const string TextSuccess = "text-success";
+        public const string TextInfo = "text-info";
+        public const string TextWarning = "text-warning";
+        public const string TextDanger = "text-danger";
+        public const string BgPrimary = "bg-primary";
+        public const string BgSuccess = "bg-success";
+        public const string BgInfo = "bg-info";
+        public const string BgWarning = "bg-warning";
+        public const string BgDanger = "bg-danger";
     }
 }

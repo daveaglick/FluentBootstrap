@@ -11,6 +11,7 @@ namespace FluentBootstrap
 {
     public static class TagExtensions
     {
+        // Tag extensions
         public static TThis AddCss<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
             where TThis : Tag<TModel, TThis>
         {
@@ -214,6 +215,76 @@ namespace FluentBootstrap
             where TThis : Tag<TModel, TThis>
         {
             return component.GetThis().ToggleCss(Css.HiddenLg, toggle);
+        }
+
+        // Contextual colors
+
+        public static TThis TextMuted<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextMuted, toggle);
+        }
+
+        public static TThis TextPrimary<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextPrimary, toggle);
+        }
+
+        public static TThis TextSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextSuccess, toggle);
+        }
+
+        public static TThis TextInfo<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextInfo, toggle);
+        }
+
+        public static TThis TextWarning<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextWarning, toggle);
+        }
+
+        public static TThis TextDanger<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextDanger, toggle);
+        }
+
+        // Contextual backgrounds
+
+        public static TThis BgPrimary<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.BgPrimary, toggle);
+        }
+
+        public static TThis BgSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.BgSuccess, toggle);
+        }
+
+        public static TThis BgInfo<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.BgInfo, toggle);
+        }
+
+        public static TThis BgWarning<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.BgWarning, toggle);
+        }
+
+        public static TThis BgDanger<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.BgDanger, toggle);
         }
     }
 }

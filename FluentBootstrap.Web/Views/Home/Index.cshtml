@@ -8,6 +8,9 @@
 
 @using(Html.Bootstrap().Container())
 {
+    @Html.Bootstrap().Close()
+    @Html.Bootstrap().Clearfix()
+    
     using (Html.Bootstrap().GridRow().AddCss("doc-row"))
     {
         using (Html.Bootstrap().All().GridColumn().Md(4))

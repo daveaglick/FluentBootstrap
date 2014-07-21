@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Html;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,8 +18,8 @@ namespace FluentBootstrap.Forms
         internal bool Inline { get; set; }
         internal string Description { get; set; }
 
-        private Tag<TModel> _wrapper = null;
-        private Tag<TModel> _label = null;
+        private Element<TModel> _wrapper = null;
+        private Element<TModel> _label = null;
 
         internal CheckedControl(BootstrapHelper<TModel> helper, string type)
             : base(helper, "input")
@@ -39,12 +40,12 @@ namespace FluentBootstrap.Forms
             // Add the wrapper
             if (!Inline)
             {
-                _wrapper = new Tag<TModel>(Helper, "div", TagBuilder.Attributes["type"]);
+                _wrapper = new Element<TModel>(Helper, "div", TagBuilder.Attributes["type"]);
                 _wrapper.Start(writer, true);
             }
 
             // Add the label
-            _label = new Tag<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : null);
+            _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : null);
             _label.Start(writer, true);
         }
 

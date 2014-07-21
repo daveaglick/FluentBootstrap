@@ -65,6 +65,9 @@
     <Compile Include="Forms\HiddenFor.cs" />
     <Compile Include="Forms\IFormValidation.cs" />
     <Compile Include="Forms\ValidationSummary.cs" />
+    <Compile Include="Html\Element.cs" />
+    <Compile Include="Html\HtmlExtensions.cs" />
+    <Compile Include="Misc\MiscExtensions.cs" />
     <Compile Include="IHasNameAttribute.cs" />
     <Compile Include="Forms\InputButton.cs" />
     <Compile Include="Forms\Select.cs" />

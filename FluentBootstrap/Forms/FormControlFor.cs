@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using FluentBootstrap.Html;
 
 namespace FluentBootstrap.Forms
 {
@@ -65,7 +66,7 @@ namespace FluentBootstrap.Forms
                 ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
                 if (!string.IsNullOrWhiteSpace(metadata.Description))
                 {
-                    new Tag<TModel>(Helper, "p", Css.HelpBlock)
+                    new Element<TModel>(Helper, "p", Css.HelpBlock)
                         .AddChild(new Content<TModel>(Helper, metadata.Description))
                         .StartAndFinish(writer);
                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Html;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace FluentBootstrap.Forms
             // Add options as child tags
             foreach (string option in Options)
             {
-                this.AddChild(new Tag<TModel>(Helper, "option")
+                this.AddChild(new Element<TModel>(Helper, "option")
                     .AddChild(new Content<TModel>(Helper, option)));
             }
         }

@@ -16,6 +16,10 @@ namespace FluentBootstrap
         void MergeAttribute(string key, string value, bool replaceExisting = true);
     }
 
+    public interface ITagCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
     public abstract class Tag<TModel, TThis> : Component<TModel, TThis>, ITag
         where TThis : Tag<TModel, TThis>
     {
@@ -146,15 +150,6 @@ namespace FluentBootstrap
 
             // Append the end tag
             writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
-        }
-    }
-
-    // This class is used for actual tag instances
-    public class Tag<TModel> : Tag<TModel, Tag<TModel>>
-    {
-        public Tag(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
-            : base(helper, tagName, cssClasses)
-        {
         }
     }
 }
