@@ -8,6 +8,15 @@
 
 @using(Html.Bootstrap().Container())
 {
+    @Html.Bootstrap().Heading1("Heading Test")
+    @Html.Bootstrap().Heading2("Heading With").Small("Small Text")
+    using (Html.Bootstrap().Paragraph())
+    {
+        <span>Some text</span>
+        @Html.Bootstrap().Small("Small Text") 
+    }
+    @Html.Bootstrap().Paragraph("This is a paragraph").Small().TextRight().TextUppercase().TextWarning()
+    
     @Html.Bootstrap().Close()
     @Html.Bootstrap().Clearfix()
     

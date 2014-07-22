@@ -63,6 +63,16 @@ namespace FluentBootstrap
         public const string ListUnstyled = "list-unstyled";
         public const string ListInline = "list-inline";
         public const string Lead = "lead";
+        public const string Small = "small";
+        public const string TextLeft = "text-left";
+        public const string TextCenter = "text-center";
+        public const string TextRight = "text-right";
+        public const string TextJustify = "text-justify";
+        public const string TextNoWrap = "text-nowrap";
+        public const string TextLowercase = "text-lowercase";
+        public const string TextUppercase = "text-uppercase";
+        public const string TextCapitalize = "text-capitalize";
+        public const string Initialism = "initialism";
 
         // Images
         public const string ImgResponsive = "img-responsive";

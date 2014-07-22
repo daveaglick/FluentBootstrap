@@ -10,7 +10,7 @@ namespace FluentBootstrap.Html
     {
     }
 
-    public class Element<TModel> : Tag<TModel, Element<TModel>>, IElement
+    public class Element<TModel> : Tag<TModel, Element<TModel>>, IElement, IHasTextAttribute
     {
         internal Element(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
             : base(helper, tagName, cssClasses)
