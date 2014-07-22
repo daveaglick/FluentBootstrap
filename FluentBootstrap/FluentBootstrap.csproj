@@ -52,6 +52,8 @@
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\ButtonStyle.cs" />
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
+    <Compile Include="Html\Cite.cs" />
+    <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="Css.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="Forms\FormButton.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="Html\Element.cs" />
     <Compile Include="Typography\Abbr.cs" />
+    <Compile Include="Typography\Blockquote.cs" />
     <Compile Include="Typography\Heading.cs" />
     <Compile Include="Html\HtmlExtensions.cs" />
     <Compile Include="Misc\MiscExtensions.cs" />

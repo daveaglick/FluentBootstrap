@@ -167,21 +167,9 @@ namespace FluentBootstrap
 
         // Abbreviation
 
-        public static Abbr<TModel> Abbreviation<TModel>(this ITagCreator<TModel> creator, string title, string abbreviation, params string[] cssClasses)
+        public static Abbr<TModel> Abbreviation<TModel>(this ITagCreator<TModel> creator, string title, string text, params string[] cssClasses)
         {
-            return new Abbr<TModel>(creator.GetHelper(), title, abbreviation, cssClasses);
-        }
-
-        public static Abbr<TModel> Title<TModel>(this Abbr<TModel> abbr, string title)
-        {
-            abbr.MergeAttribute("title", title);
-            return abbr;
-        }
-
-        public static Abbr<TModel> Abbreviation<TModel>(this Abbr<TModel> abbr, string abbreviation)
-        {
-            abbr.Text(abbreviation);
-            return abbr;
+            return new Abbr<TModel>(creator.GetHelper(), cssClasses).Title(title).Text(text);
         }
 
         public static Abbr<TModel> Initialism<TModel>(this Abbr<TModel> abbr, bool toggle = true)
@@ -189,6 +177,37 @@ namespace FluentBootstrap
             return abbr.ToggleCss(Css.Initialism, toggle);
         }
 
+        // Address
+
+        public static Element<TModel> Address<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "address", cssClasses).Text(text);
+        }
+
+        // Blockquote
+
+        public static Blockquote<TModel> Blockquote<TModel>(this ITagCreator<TModel> creator, string quote = null, string footer = null, params string[] cssClasses)
+        {
+            return new Blockquote<TModel>(creator.GetHelper(), cssClasses).Quote(quote).Footer(footer);
+        }
+
+        public static Blockquote<TModel> Quote<TModel>(this Blockquote<TModel> blockquote, string quote)
+        {
+            blockquote.Quote = quote;
+            return blockquote;
+        }
+
+        public static Blockquote<TModel> Footer<TModel>(this Blockquote<TModel> blockquote, string footer)
+        {
+            blockquote.Footer = footer;
+            return blockquote;
+        }
+
+        public static Blockquote<TModel> Reverse<TModel>(this Blockquote<TModel> blockquote, bool toggle = true)
+        {
+            return blockquote.ToggleCss(Css.BlockquoteReverse, toggle);
+        }
+        
         // List
 
         public static Typography.List<TModel> List<TModel>(this IListCreator<TModel> creator, ListType listType = ListType.Unstyled)

@@ -10,13 +10,11 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class Abbr<TModel> : Tag<TModel, Abbr<TModel>>, IAbbr, IHasTextAttribute
+    public class Abbr<TModel> : Tag<TModel, Abbr<TModel>>, IAbbr, IHasTextAttribute, IHasTitleAttribute
     {
-        internal Abbr(BootstrapHelper<TModel> helper, string title, string abbreviation, params string[] cssClasses)
+        internal Abbr(BootstrapHelper<TModel> helper, params string[] cssClasses)
             : base(helper, "abbr", cssClasses)
         {
-            this.MergeAttribute("title", title);
-            TextContent = abbreviation;
         }
     }
 }

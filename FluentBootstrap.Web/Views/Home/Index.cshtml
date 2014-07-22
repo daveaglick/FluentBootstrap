@@ -19,6 +19,16 @@
     
     @Html.Bootstrap().Close()
     @Html.Bootstrap().Clearfix()
+
+    @Html.Bootstrap().Blockquote("This is a quote.", "Footer")
+    using (Html.Bootstrap().Blockquote().Reverse())
+    {
+        @Html.Bootstrap().Paragraph("Another quote.")
+        using (Html.Bootstrap().Footer())
+        {
+            @:From some citation with a @Html.Bootstrap().Cite("Citation", "Citation") 
+        } 
+    }
     
     using (Html.Bootstrap().GridRow().AddCss("doc-row"))
     {

@@ -60,5 +60,15 @@ namespace FluentBootstrap
             }
             return name;
         }
+
+        // IHasTitleAttribute
+
+        public static TThis Title<TModel, TThis>(this Component<TModel, TThis> component, object title, string format = null)
+            where TThis : Tag<TModel, TThis>, IHasTitleAttribute
+        {
+            TThis tag = component.GetThis();
+            tag.MergeAttribute("title", title == null ? null : component.HtmlHelper.FormatValue(title, format));
+            return tag;
+        }
     }
 }

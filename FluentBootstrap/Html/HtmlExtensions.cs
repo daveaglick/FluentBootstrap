@@ -28,5 +28,15 @@ namespace FluentBootstrap
         {
             return new Element<TModel>(creator.GetHelper(), "p", cssClasses).Text(text);
         }
+
+        public static Element<TModel> Footer<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "footer", cssClasses).Text(text);
+        }
+
+        public static Cite<TModel> Cite<TModel>(this ITagCreator<TModel> creator, string title = null, string text = null, params string[] cssClasses)
+        {
+            return new Cite<TModel>(creator.GetHelper(), cssClasses).Title(title).Text(text);
+        }
     }
 }

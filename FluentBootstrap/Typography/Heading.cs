@@ -22,15 +22,14 @@ namespace FluentBootstrap.Typography
 
         internal string Small { get; set; }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
-            base.PreStart(writer);
-
-            // Add the description as child content
-            if (!string.IsNullOrEmpty(Small))
+            if (!string.IsNullOrWhiteSpace(Small))
             {
-                this.Small(Small);
+                new Element<TModel>(Helper, "small").Text(Small).StartAndFinish(writer);
             }
+
+            base.OnFinish(writer);
         }
     }
 }
