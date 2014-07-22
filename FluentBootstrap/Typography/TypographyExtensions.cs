@@ -208,6 +208,16 @@ namespace FluentBootstrap
             return blockquote.ToggleCss(Css.BlockquoteReverse, toggle);
         }
         
+        public static Element<TModel> Footer<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "footer", cssClasses).Text(text);
+        }
+
+        public static Cite<TModel> Cite<TModel>(this ITagCreator<TModel> creator, string title = null, string text = null, params string[] cssClasses)
+        {
+            return new Cite<TModel>(creator.GetHelper(), cssClasses).Title(title).Text(text);
+        }
+        
         // List
 
         public static Typography.List<TModel> List<TModel>(this IListCreator<TModel> creator, ListType listType = ListType.Unstyled)
@@ -236,5 +246,36 @@ namespace FluentBootstrap
             return new ListItem<TModel>(creator.GetHelper()).AddContent(content);
         }
 
+        // Code, etc.
+
+        public static Element<TModel> Code<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "code", cssClasses).Text(text);
+        }
+
+        public static Element<TModel> Keyboard<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "kbd", cssClasses).Text(text);
+        }
+
+        public static Pre<TModel> Preformatted<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Pre<TModel>(creator.GetHelper(), cssClasses).Text(text);
+        }
+
+        public static Pre<TModel> Scrollable<TModel>(this Pre<TModel> pre, bool toggle = true)
+        {
+            return pre.ToggleCss(Css.PreScrollable, toggle);
+        }
+
+        public static Element<TModel> Variable<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "var", cssClasses).Text(text);
+        }
+
+        public static Element<TModel> Sample<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        {
+            return new Element<TModel>(creator.GetHelper(), "samp", cssClasses).Text(text);
+        }
     }
 }

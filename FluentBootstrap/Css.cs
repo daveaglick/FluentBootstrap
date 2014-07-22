@@ -74,6 +74,7 @@ namespace FluentBootstrap
         public const string TextCapitalize = "text-capitalize";
         public const string Initialism = "initialism";
         public const string BlockquoteReverse = "blockquote-reverse";
+        public const string PreScrollable = "pre-scrollable";
 
         // Images
         public const string ImgResponsive = "img-responsive";

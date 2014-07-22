@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
+    // Extensions for very general HTML elements go in here
     public static class HtmlExtensions
     {
         public static Element<TModel> Element<TModel>(this ITagCreator<TModel> creator, string name, params string[] cssClasses)
@@ -27,16 +28,6 @@ namespace FluentBootstrap
         public static Element<TModel> Paragraph<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
         {
             return new Element<TModel>(creator.GetHelper(), "p", cssClasses).Text(text);
-        }
-
-        public static Element<TModel> Footer<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
-        {
-            return new Element<TModel>(creator.GetHelper(), "footer", cssClasses).Text(text);
-        }
-
-        public static Cite<TModel> Cite<TModel>(this ITagCreator<TModel> creator, string title = null, string text = null, params string[] cssClasses)
-        {
-            return new Cite<TModel>(creator.GetHelper(), cssClasses).Title(title).Text(text);
         }
     }
 }

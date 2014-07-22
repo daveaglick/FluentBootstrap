@@ -30,6 +30,13 @@
         } 
     }
     
+    @Html.Bootstrap().Preformatted("Inline preformatted.")
+    
+    using (Html.Bootstrap().Preformatted())
+    {
+@:Disposable preformatted 
+    }
+    
     using (Html.Bootstrap().GridRow().AddCss("doc-row"))
     {
         using (Html.Bootstrap().All().GridColumn().Md(4))

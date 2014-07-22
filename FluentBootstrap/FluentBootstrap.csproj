@@ -52,7 +52,7 @@
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\ButtonStyle.cs" />
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
-    <Compile Include="Html\Cite.cs" />
+    <Compile Include="Typography\Cite.cs" />
     <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="Css.cs" />
     <Compile Include="EnumExtensions.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Typography\List.cs" />
     <Compile Include="Typography\ListItem.cs" />
     <Compile Include="Typography\ListType.cs" />
+    <Compile Include="Typography\Pre.cs" />
     <Compile Include="Typography\TypographyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
