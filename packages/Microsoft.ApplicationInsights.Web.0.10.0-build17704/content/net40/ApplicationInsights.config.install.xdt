@@ -1,0 +1,27 @@
+<ApplicationInsights schemaVersion="2014-05-30" xdt:Transform="SetAttributes" xmlns="http://schemas.microsoft.com/ApplicationInsights/2013/Settings" xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+  <ContextInitializers xdt:Transform="InsertIfMissing">
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.ComponentContextInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.DeviceContextInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.AzureRoleEnvironmentContextInitializer, Microsoft.ApplicationInsights.Web" />
+  </ContextInitializers>
+
+  <TelemetryInitializers xdt:Transform="InsertIfMissing">
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Core.TimestampPropertyInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.NetBiosMachineNameTelemetryInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.OperatingSystemTelemetryInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.ProcessIdTelemetryInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.ProcessNameTelemetryInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.ThreadIdTelemetryInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Contexts.ThreadLanguageTelemetryInitializer, Microsoft.ApplicationInsights" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.TelemetryInitializers.WebOperationNameTelemetryInitializer, Microsoft.ApplicationInsights.Web" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.TelemetryInitializers.WebOperationIdTelemetryInitializer, Microsoft.ApplicationInsights.Web" />
+  </TelemetryInitializers>
+
+  <TelemetryModules xdt:Transform="InsertIfMissing">
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.RequestTracking.TelemetryModules.WebRequestTrackingTelemetryModule, Microsoft.ApplicationInsights.Web" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.RequestTracking.TelemetryModules.WebExceptionTrackingTelemetryModule, Microsoft.ApplicationInsights.Web" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.RequestTracking.TelemetryModules.WebSessionTrackingTelemetryModule, Microsoft.ApplicationInsights.Web" />
+    <Add xdt:Transform="InsertIfMissing" xdt:Locator="Match(Type)" Type="Microsoft.ApplicationInsights.Web.RequestTracking.TelemetryModules.WebUserTrackingTelemetryModule, Microsoft.ApplicationInsights.Web" />
+  </TelemetryModules>
+</ApplicationInsights>

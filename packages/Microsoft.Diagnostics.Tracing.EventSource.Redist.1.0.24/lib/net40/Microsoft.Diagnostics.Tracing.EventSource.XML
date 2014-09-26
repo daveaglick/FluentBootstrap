@@ -1,0 +1,1278 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Diagnostics.Tracing.EventSource</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventProvider">
+            <summary>
+            Only here because System.Diagnostics.EventProvider needs one more extensibility hook (when it gets a 
+            controller callback)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.#ctor(System.Guid)">
+            <summary>
+            Constructs a new EventProvider.  This causes the class to be registered with the OS and
+            if an ETW controller turns on the logging then logging will start. 
+            </summary>
+            <param name="providerGuid">The GUID that identifies this provider to the system.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.Register(System.Guid)">
+            <summary>
+            This method registers the controlGuid of this class with ETW. We need to be running on
+            Vista or above. If not a PlatformNotSupported exception will be thrown. If for some 
+            reason the ETW Register call failed a NotSupported exception will be thrown. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.Close">
+            <summary>
+            This method deregisters the controlGuid of this class with ETW.
+            
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.Deregister">
+            <summary>
+            This method un-registers from ETW.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.GetSessions">
+             <summary>
+             Determines the ETW sessions that have been added and/or removed to the set of
+             sessions interested in the current provider. It does so by (1) enumerating over all
+             ETW sessions that enabled 'this.m_Guid' for the current process ID, and (2)
+             comparing the current list with a list it cached on the previous invocation.
+            
+             The return value is a list of tuples, where the SessionInfo specifies the
+             ETW session that was added or remove, and the bool specifies whether the
+             session was added or whether it was removed from the set.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.GetSessionInfoCallback(System.Int32,System.Int64,System.Collections.Generic.List{Microsoft.Diagnostics.Tracing.EventProvider.SessionInfo}@)">
+            <summary>
+            This method is the callback used by GetSessions() when it calls into GetSessionInfo(). 
+            It updates a List{SessionInfo} based on the etwSessionId and matchAllKeywords that 
+            GetSessionInfo() passes in.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.GetSessionInfo(System.Action{System.Int32,System.Int64})">
+            <summary>
+            This method enumerates over all active ETW sessions that have enabled 'this.m_Guid' 
+            for the current process ID, calling 'action' for each session, and passing it the
+            ETW session and the 'AllKeywords' the session enabled for the current provider.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.IndexOfSessionInList(System.Collections.Generic.List{Microsoft.Diagnostics.Tracing.EventProvider.SessionInfo},System.Int32)">
+            <summary>
+            Returns the index of the SesisonInfo from 'sessions' that has the specified 'etwSessionId'
+            or -1 if the value is not present.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.GetDataFromController(System.Int32,Microsoft.Win32.UnsafeNativeMethods.ManifestEtw.EVENT_FILTER_DESCRIPTOR*,Microsoft.Diagnostics.Tracing.ControllerCommand@,System.Byte[]@,System.Int32@)">
+            <summary>
+            Gets any data to be passed from the controller to the provider.  It starts with what is passed
+            into the callback, but unfortunately this data is only present for when the provider is active
+            at the time the controller issues the command.  To allow for providers to activate after the
+            controller issued a command, we also check the registry and use that to get the data.  The function
+            returns an array of bytes representing the data, the index into that byte array where the data
+            starts, and the command being issued associated with that data.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.IsEnabled">
+            <summary>
+            IsEnabled, method used to test if provider is enabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.IsEnabled(System.Byte,System.Int64)">
+            <summary>
+            IsEnabled, method used to test if event is enabled
+            </summary>
+            <param name="level">
+            Level  to test
+            </param>
+            <param name="keywords">
+            Keyword  to test
+            </param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.WriteEvent(Microsoft.Diagnostics.Tracing.EventDescriptor@,System.Guid*,System.Object[])">
+            <summary>
+            WriteEvent, method to write a parameters with event schema properties
+            </summary>
+            <param name="eventDescriptor">
+            Event Descriptor for this event. 
+            </param>
+            <param name="childActivityID">
+            childActivityID is marked as 'related' to the current activity ID. 
+            </param>
+            <param name="eventPayload">
+            Payload for the ETW event. 
+            </param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventProvider.WriteEvent(Microsoft.Diagnostics.Tracing.EventDescriptor@,System.Guid*,System.Int32,System.IntPtr)">
+            <summary>
+            WriteEvent, method to be used by generated code on a derived class
+            </summary>
+            <param name="eventDescriptor">
+            Event Descriptor for this event. 
+            </param>
+            <param name="childActivityID">
+            If this event is generating a child activity (WriteEventTransfer related activity) this is child activity
+            This can be null for events that do not generate a child activity.  
+            </param>
+            <param name="dataCount">
+            number of event descriptors 
+            </param>
+            <param name="data">
+            pointer  do the event data
+            </param>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventProvider.SessionInfo">
+            <summary>
+            A struct characterizing ETW sessions (identified by the etwSessionId) as
+            activity-tracing-aware or legacy. A session that's activity-tracing-aware
+            has specified one non-zero bit in the reserved range 44-47 in the 
+            'allKeywords' value it passed in for a specific EventProvider.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventSource">
+            <summary>
+            This class is meant to be inherited by a user-defined event source in order to define a managed
+            ETW provider.
+            The minimal definition of an EventSource simply specifies a number of ETW event methods that
+            call one of the EventSource.WriteEvent overloads, <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventCore(System.Int32,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)"/>, 
+            or <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventWithRelatedActivityIdCore(System.Int32,System.Guid*,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)"/> to log them. This functionality 
+            is sufficient for many users.
+            <para>
+            To achieve more control over the ETW provider manifest exposed by the event source type, the 
+            [<see cref="T:Microsoft.Diagnostics.Tracing.EventAttribute"/>] attributes can be specified for the ETW event methods.
+            </para><para>
+            For very advanced EventSources, it is possible to intercept the commands being given to the
+            eventSource and change what filtering is done (see EventListener.EnableEvents and 
+            <see cref="M:Microsoft.Diagnostics.Tracing.EventListener.DisableEvents(Microsoft.Diagnostics.Tracing.EventSource)"/>) or cause actions to be performed by the eventSource, 
+            e.g. dumping a data structure (see EventSource.SendCommand and
+            <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.OnEventCommand(Microsoft.Diagnostics.Tracing.EventCommandEventArgs)"/>).
+            </para><para>
+            The eventSources can be turned on with Windows ETW controllers (e.g. logman), immediately. 
+            It is also possible to control and intercept the data dispatcher programmatically.  See 
+            <see cref="T:Microsoft.Diagnostics.Tracing.EventListener"/> for more.
+            </para>
+            </summary>
+            <remarks>
+            This is a minimal definition for a custom event source:
+            <code>
+            [EventSource(Name="Samples-Demos-Minimal")]
+            sealed class MinimalEventSource : EventSource
+            {
+                public static MinimalEventSource Log = new MinimalEventSource();
+                public void Load(long ImageBase, string Name) { WriteEvent(1, ImageBase, Name); }
+                public void Unload(long ImageBase) { WriteEvent(2, ImageBase); }
+                private MinimalEventSource() {}
+            }
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.IsEnabled">
+            <summary>
+            Returns true if the eventSource has been enabled at all. This is the prefered test
+            to be performed before a relatively expensive EventSource operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.IsEnabled(Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.Diagnostics.Tracing.EventKeywords)">
+            <summary>
+            Returns true if events with greater than or equal 'level' and have one of 'keywords' set are enabled. 
+            
+            Note that the result of this function is only an approximation on whether a particular
+            event is active or not. It is only meant to be used as way of avoiding expensive
+            computation for logging when logging is not on, therefore it sometimes returns false
+            positives (but is always accurate when returning false).  EventSources are free to 
+            have additional filtering.    
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.IsEnabled(Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.Diagnostics.Tracing.EventKeywords,Microsoft.Diagnostics.Tracing.EventChannel)">
+            <summary>
+            Returns true if events with greater than or equal 'level' and have one of 'keywords' set are enabled, or
+            if 'keywords' specifies a channel bit for a channel that is enabled.
+            
+            Note that the result of this function only an approximation on whether a particular
+            event is active or not. It is only meant to be used as way of avoiding expensive
+            computation for logging when logging is not on, therefore it sometimes returns false
+            positives (but is always accurate when returning false).  EventSources are free to 
+            have additional filtering.    
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.GetGuid(System.Type)">
+            <summary>
+            Returns the GUID that uniquely identifies the eventSource defined by 'eventSourceType'.  
+            This API allows you to compute this without actually creating an instance of the EventSource.   
+            It only needs to reflect over the type.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.GetName(System.Type)">
+            <summary>
+            Returns the official ETW Provider name for the eventSource defined by 'eventSourceType'.  
+            This API allows you to compute this without actually creating an instance of the EventSource.   
+            It only needs to reflect over the type.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.GenerateManifest(System.Type,System.String)">
+            <summary>
+            Returns a string of the XML manifest associated with the eventSourceType. The scheme for this XML is
+            documented at in EventManifest Schema http://msdn.microsoft.com/en-us/library/aa384043(VS.85).aspx.
+            This is the preferred way of generating a manifest to be embedded in the ETW stream as it is fast and
+            the fact that it only includes localized entries for the current UI culture is an acceptable tradeoff.
+            </summary>
+            <param name="eventSourceType">The type of the event source class for which the manifest is generated</param>
+            <param name="assemblyPathToIncludeInManifest">The manifest XML fragment contains the string name of the DLL name in
+            which it is embedded.  This parameter specifies what name will be used</param>
+            <returns>The XML data string</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.GenerateManifest(System.Type,System.String,Microsoft.Diagnostics.Tracing.EventManifestOptions)">
+            <summary>
+            Returns a string of the XML manifest associated with the eventSourceType. The scheme for this XML is
+            documented at in EventManifest Schema http://msdn.microsoft.com/en-us/library/aa384043(VS.85).aspx.
+            Pass EventManifestOptions.AllCultures when generating a manifest to be registered on the machine. This
+            ensures that the entries in the event log will be "optimally" localized.
+            </summary>
+            <param name="eventSourceType">The type of the event source class for which the manifest is generated</param>
+            <param name="assemblyPathToIncludeInManifest">The manifest XML fragment contains the string name of the DLL name in
+            which it is embedded.  This parameter specifies what name will be used</param>
+            <param name="flags">The flags to customize manifest generation. If flags has bit OnlyIfNeededForRegistration specified
+            this returns null when the eventSourceType does not require explicit registration</param>
+            <returns>The XML data string or null</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.GetSources">
+            <summary>
+            returns a list (IEnumerable) of all sources in the appdomain).  EventListeners typically need this.  
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.SendCommand(Microsoft.Diagnostics.Tracing.EventSource,Microsoft.Diagnostics.Tracing.EventCommand,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Send a command to a particular EventSource identified by 'eventSource'.
+            Calling this routine simply forwards the command to the EventSource.OnEventCommand
+            callback.  What the EventSource does with the command and its arguments are from 
+            that point EventSource-specific.  
+            </summary>
+            <param name="eventSource">The instance of EventSource to send the command to</param>
+            <param name="command">A positive user-defined EventCommand, or EventCommand.SendManifest</param>
+            <param name="commandArguments">A set of (name-argument, value-argument) pairs associated with the command</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.SetCurrentThreadActivityId(System.Guid)">
+            <summary>
+            When a thread starts work that is on behalf of 'something else' (typically another 
+            thread or network request) it should mark the thread as working on that other work.
+            This API marks the current thread as working on activity 'activityID'. This API
+            should be used when the caller knows the thread's current activity (the one being
+            overwritten) has completed. Otherwise, callers should prefer the overload that
+            return the oldActivityThatWillContinue (below).
+            
+            All events created with the EventSource on this thread are also tagged with the 
+            activity ID of the thread. 
+            
+            It is common, and good practice after setting the thread to an activity to log an event
+            with a 'start' opcode to indicate that precise time/thread where the new activity 
+            started.
+            </summary>
+            <param name="activityId">A Guid that represents the new activity with which to mark 
+            the current thread</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.SetCurrentThreadActivityId(System.Guid,System.Guid@)">
+            <summary>
+            When a thread starts work that is on behalf of 'something else' (typically another 
+            thread or network request) it should mark the thread as working on that other work.
+            This API marks the current thread as working on activity 'activityID'. It returns 
+            whatever activity the thread was previously marked with. There is a convention that
+            callers can assume that callees restore this activity mark before the callee returns. 
+            To encourage this this API returns the old activity, so that it can be restored later.
+            
+            All events created with the EventSource on this thread are also tagged with the 
+            activity ID of the thread. 
+            
+            It is common, and good practice after setting the thread to an activity to log an event
+            with a 'start' opcode to indicate that precise time/thread where the new activity 
+            started.
+            </summary>
+            <param name="activityId">A Guid that represents the new activity with which to mark 
+            the current thread</param>
+            <param name="oldActivityThatWillContinue">The Guid that represents the current activity  
+            which will continue at some point in the future, on the current thread</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.ToString">
+            <summary>
+            Displays the name and GUID for the eventSource for debugging purposes.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.#ctor">
+            <summary>
+            This is the constructor that most users will use to create their eventSource.   It takes 
+            no parameters.  The ETW provider name and GUID of the EventSource are determined by the EventSource 
+            custom attribute (so you can determine these things declaratively).   If the GUID for the eventSource
+            is not specified in the EventSourceAttribute (recommended), it is Generated by hashing the name.
+            If the ETW provider name of the EventSource is not given, the name of the EventSource class is used as
+            the ETW provider name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.#ctor(System.Boolean)">
+            <summary>
+            By default calling the 'WriteEvent' methods do NOT throw on errors (they silently discard the event).  
+            This is because in most cases users assume logging is not 'precious' and do NOT wish to have logging failures
+            crash the program.   However for those applications where logging is 'precious' and if it fails the caller
+            wishes to react, setting 'throwOnEventWriteErrors' will cause an exception to be thrown if WriteEvent
+            fails.   Note the fact that EventWrite succeeds does not necessarily mean that the event reached its destination
+            only that operation of writing it did not fail.   
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.Initialize(System.Guid,System.String)">
+            <summary>
+            This method is responsible for the common initialization path from our constructors. It must
+            not leak any exceptions (otherwise, since most EventSource classes define a static member, 
+            "Log", such an exception would become a cached exception for the initialization of the static
+            member, and any future access to the "Log" would throw the cached exception).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.OnEventCommand(Microsoft.Diagnostics.Tracing.EventCommandEventArgs)">
+            <summary>
+            This method is called when the eventSource is updated by the controller.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteString(System.String,Microsoft.Diagnostics.Tracing.SessionMask)">
+            <summary>
+            Best effort method to notify all listeners (ETW or otherwise) of a "message" of interest.
+            Since this is a means of reporting errors (see ReportoutOfBandMessage) any failure encountered 
+            while writing the message to any one of the listeners will be silently ignored.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteString(System.String)">
+            <summary>
+            Best effort method to notify all listeners (ETW or otherwise) of a "message" of interest.
+            Since this is a means of reporting errors (see ReportoutOfBandMessage) any failure encountered 
+            while writing the message to any one of the listeners will be silently ignored.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventCore(System.Int32,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)">
+            <summary>
+            This routine allows you to create efficient WriteEvent helpers, however the code that you use to
+            do this, while straightforward, is unsafe.
+            </summary>
+            <remarks>
+            <code>
+               protected unsafe void WriteEvent(int eventId, string arg1, long arg2)
+               {
+                   if (IsEnabled())
+                   {
+                       if (arg2 == null) arg2 = "";
+                       fixed (char* string2Bytes = arg2)
+                       {
+                           EventSource.EventData* descrs = stackalloc EventSource.EventData[2];
+                           descrs[0].DataPointer = (IntPtr)(&amp;arg1);
+                           descrs[0].Size = 8;
+                           descrs[1].DataPointer = (IntPtr)string2Bytes;
+                           descrs[1].Size = ((arg2.Length + 1) * 2);
+                           WriteEventCore(eventId, 2, descrs);
+                       }
+                   }
+               }
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventWithRelatedActivityIdCore(System.Int32,System.Guid*,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)">
+            <summary>
+            This routine allows you to create efficient WriteEventWithRelatedActivityId helpers, however the code 
+            that you use to do this, while straightforward, is unsafe. The only difference from
+            <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventCore(System.Int32,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)"/> is that you pass the relatedActivityId from caller through to this API
+            </summary>
+            <remarks>
+            <code>
+               protected unsafe void WriteEventWithRelatedActivityId(int eventId, Guid relatedActivityId, string arg1, long arg2)
+               {
+                   if (IsEnabled())
+                   {
+                       if (arg2 == null) arg2 = "";
+                       fixed (char* string2Bytes = arg2)
+                       {
+                           EventSource.EventData* descrs = stackalloc EventSource.EventData[2];
+                           descrs[0].DataPointer = (IntPtr)(&amp;arg1);
+                           descrs[0].Size = 8;
+                           descrs[1].DataPointer = (IntPtr)string2Bytes;
+                           descrs[1].Size = ((arg2.Length + 1) * 2);
+                           WriteEventWithRelatedActivityIdCore(eventId, relatedActivityId, 2, descrs);
+                       }
+                   }
+               }
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEvent(System.Int32,System.Object[])">
+            <summary>
+            This is the varargs helper for writing an event. It does create an array and box all the arguments so it is
+            relatively inefficient and should only be used for relatively rare events (e.g. less than 100 / sec). If your
+            rates are faster than that you should use <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventCore(System.Int32,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)"/> to create fast helpers for your particular 
+            method signature. Even if you use this for rare events, this call should be guarded by an <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.IsEnabled"/> 
+            check so that the varargs call is not made when the EventSource is not active.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventWithRelatedActivityId(System.Int32,System.Guid,System.Object[])">
+            <summary>
+            This is the varargs helper for writing an event which also specifies a related activity. It is completely analogous
+            to corresponding WriteEvent (they share implementation). It does create an array and box all the arguments so it is
+            relatively inefficient and should only be used for relatively rare events (e.g. less than 100 / sec).  If your
+            rates are faster than that you should use <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.WriteEventWithRelatedActivityIdCore(System.Int32,System.Guid*,System.Int32,Microsoft.Diagnostics.Tracing.EventSource.EventData*)"/> to create fast helpers for your 
+            particular method signature. Even if you use this for rare events, this call should be guarded by an <see cref="M:Microsoft.Diagnostics.Tracing.EventSource.IsEnabled"/>
+            check so that the varargs call is not made when the EventSource is not active.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.Dispose">
+            <summary>
+            Disposes of an EventSource.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.Dispose(System.Boolean)">
+            <summary>
+            Disposes of an EventSource.
+            </summary>
+            <remarks>
+            Called from Dispose() with disposing=true, and from the finalizer (~EventSource) with disposing=false.
+            Guidelines:
+            1. We may be called more than once: do nothing after the first call.
+            2. Avoid throwing exceptions if disposing is false, i.e. if we're being finalized.
+            </remarks>
+            <param name="disposing">True if called from Dispose(), false if called from the finalizer.</param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.Finalize">
+            <summary>
+            Finalizer for EventSource
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.WriteStringToAllListeners(System.String)">
+            <summary>
+            Since this is a means of reporting errors (see ReportoutOfBandMessage) any failure encountered 
+            while writing the message to any one of the listeners will be silently ignored.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.IsEnabledByDefault(System.Int32,System.Boolean,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.Diagnostics.Tracing.EventKeywords)">
+            <summary>
+            Returns true if 'eventNum' is enabled if you only consider the level and matchAnyKeyword filters.
+            It is possible that eventSources turn off the event based on additional filtering criteria.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.EnableEventForDispatcher(Microsoft.Diagnostics.Tracing.EventDispatcher,System.Int32,System.Boolean)">
+            <summary>
+            If 'value is 'true' then set the eventSource so that 'dispatcher' will receive event with the eventId
+            of 'eventId.  If value is 'false' disable the event for that dispatcher.   If 'eventId' is out of
+            range return false, otherwise true.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.AnyEventEnabled">
+            <summary>
+            Returns true if any event at all is on.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.AttributeTypeNamesMatch(System.Type,System.Type)">
+            <summary>
+            Evaluates if two related "EventSource"-domain types should be considered the same
+            </summary>
+            <param name="attributeType">The attribute type in the load context - it's associated with the running 
+            EventSource type. This type may be different fromt he base type of the user-defined EventSource.</param>
+            <param name="reflectedAttributeType">The attribute type in the reflection context - it's associated with
+            the user-defined EventSource, and is in the same assembly as the eventSourceType passed to 
+            </param>
+            <returns>True - if the types should be considered equivalent, False - otherwise</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSource.GetHelperCallFirstArg(System.Reflection.MethodInfo)">
+            <summary>
+            This method looks at the IL and tries to pattern match against the standard
+            'boilerplate' event body 
+            <code>
+                { if (Enabled()) WriteEvent(#, ...) } 
+            </code>
+            If the pattern matches, it returns the literal number passed as the first parameter to
+            the WriteEvent.  This is used to find common user errors (mismatching this
+            number with the EventAttribute ID).  It is only used for validation.   
+            </summary>
+            <param name="method">The method to probe.</param>
+            <returns>The literal value or -1 if the value could not be determined. </returns>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.Name">
+            <summary>
+            The human-friendly name of the eventSource.  It defaults to the simple name of the class
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.Guid">
+            <summary>
+            Every eventSource is assigned a GUID to uniquely identify it to the system. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.CurrentThreadActivityId">
+            <summary>
+            Retrieves the ETW activity ID associated with the current thread.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.InternalCurrentThreadActivityId">
+            <summary>
+            This property allows EventSource code to appropriately handle as "different" 
+            activities started on different threads that have not had an activity created on them.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.ConstructionException">
+            <summary>
+            Because
+            
+                1) Logging is often optional and thus should not generate fatal errors (exceptions)
+                2) EventSources are often initialized in class constructors (which propagate exceptions poorly)
+                
+            The event source constructor does not throw exceptions.  Instead we remember any exception that 
+            was generated (it is also logged to Trace.WriteLine).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventSource.EventData">
+            <summary>
+            Used to construct the data structure to be passed to the native ETW APIs - EventWrite and EventWriteTransfer.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.EventData.DataPointer">
+            <summary>
+            Address where the one argument lives (if this points to managed memory you must ensure the
+            managed object is pinned.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSource.EventData.Size">
+            <summary>
+            Size of the argument referenced by DataPointer
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventSource.OverideEventProvider">
+            <summary>
+            This class lets us hook the 'OnEventCommand' from the eventSource.  
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventSource.EventMetadata">
+            <summary>
+            Used to hold all the static information about an event.  This includes everything in the event
+            descriptor as well as some stuff we added specifically for EventSource. see the
+            code:m_eventData for where we use this.  
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventListener">
+            <summary>
+            An EventListener represents a target for the events generated by EventSources (that is subclasses
+            of <see cref="T:Microsoft.Diagnostics.Tracing.EventSource"/>), in the current appdomain. When a new EventListener is created
+            it is logically attached to all eventSources in that appdomain. When the EventListener is Disposed, then
+            it is disconnected from the event eventSources. Note that there is a internal list of STRONG references
+            to EventListeners, which means that relying on the lack of references to EventListeners to clean up
+            EventListeners will NOT work. You must call EventListener.Dispose explicitly when a dispatcher is no
+            longer needed.
+            <para>
+            Once created, EventListeners can enable or disable on a per-eventSource basis using verbosity levels
+            (<see cref="T:Microsoft.Diagnostics.Tracing.EventLevel"/>) and bitfields (<see cref="T:Microsoft.Diagnostics.Tracing.EventKeywords"/>) to further restrict the set of 
+            events to be sent to the dispatcher. The dispatcher can also send arbitrary commands to a particular 
+            eventSource using the 'SendCommand' method. The meaning of the commands are eventSource specific.
+            </para><para>
+            The Null Guid (that is (new Guid()) has special meaning as a wildcard for 'all current eventSources in
+            the appdomain'. Thus it is relatively easy to turn on all events in the appdomain if desired.
+            </para><para>
+            It is possible for there to be many EventListener's defined in a single appdomain. Each dispatcher is
+            logically independent of the other listeners. Thus when one dispatcher enables or disables events, it
+            affects only that dispatcher (other listeners get the events they asked for). It is possible that
+            commands sent with 'SendCommand' would do a semantic operation that would affect the other listeners
+            (like doing a GC, or flushing data ...), but this is the exception rather than the rule.
+            </para><para>
+            Thus the model is that each EventSource keeps a list of EventListeners that it is sending events
+            to. Associated with each EventSource-dispatcher pair is a set of filtering criteria that determine for
+            that eventSource what events that dispatcher will receive.
+            </para><para>
+            Listeners receive the events on their 'OnEventWritten' method. Thus subclasses of EventListener must
+            override this method to do something useful with the data.
+            </para><para>
+            In addition, when new eventSources are created, the 'OnEventSourceCreate' method is called. The
+            invariant associated with this callback is that every eventSource gets exactly one
+            'OnEventSourceCreate' call for ever eventSource that can potentially send it log messages. In
+            particular when a EventListener is created, typically a series of OnEventSourceCreate' calls are
+            made to notify the new dispatcher of all the eventSources that existed before the EventListener was
+            created.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.#ctor">
+            <summary>
+            Create a new EventListener in which all events start off turned off (use EnableEvents to turn
+            them on).  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.Dispose">
+            <summary>
+            Dispose should be called when the EventListener no longer desires 'OnEvent*' callbacks. Because
+            there is an internal list of strong references to all EventListeners, calling 'Dispose' directly
+            is the only way to actually make the listen die. Thus it is important that users of EventListener
+            call Dispose when they are done with their logging.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.EnableEvents(Microsoft.Diagnostics.Tracing.EventSource,Microsoft.Diagnostics.Tracing.EventLevel)">
+             <summary>
+             Enable all events from the eventSource identified by 'eventSource' to the current 
+             dispatcher that have a verbosity level of 'level' or lower.
+               
+             This call can have the effect of REDUCING the number of events sent to the 
+             dispatcher if 'level' indicates a less verbose level than was previously enabled.
+             
+             This call never has an effect on other EventListeners.
+            
+             </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.EnableEvents(Microsoft.Diagnostics.Tracing.EventSource,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.Diagnostics.Tracing.EventKeywords)">
+            <summary>
+            Enable all events from the eventSource identified by 'eventSource' to the current
+            dispatcher that have a verbosity level of 'level' or lower and have a event keyword
+            matching any of the bits in 'matchAnyKeyword'.
+            
+            This call can have the effect of REDUCING the number of events sent to the 
+            dispatcher if 'level' indicates a less verbose level than was previously enabled or
+            if 'matchAnyKeyword' has fewer keywords set than where previously set.
+            
+            This call never has an effect on other EventListeners.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.EnableEvents(Microsoft.Diagnostics.Tracing.EventSource,Microsoft.Diagnostics.Tracing.EventLevel,Microsoft.Diagnostics.Tracing.EventKeywords,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Enable all events from the eventSource identified by 'eventSource' to the current
+            dispatcher that have a verbosity level of 'level' or lower and have a event keyword
+            matching any of the bits in 'matchAnyKeyword' as well as any (eventSource specific)
+            effect passing additional 'key-value' arguments 'arguments' might have.  
+            
+            This call can have the effect of REDUCING the number of events sent to the 
+            dispatcher if 'level' indicates a less verbose level than was previously enabled or
+            if 'matchAnyKeyword' has fewer keywords set than where previously set.
+            
+            This call never has an effect on other EventListeners.
+            </summary>       
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.DisableEvents(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            Disables all events coming from eventSource identified by 'eventSource'.  
+            
+            This call never has an effect on other EventListeners.      
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.OnEventSourceCreated(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            This method is called whenever a new eventSource is 'attached' to the dispatcher.
+            This can happen for all existing EventSources when the EventListener is created
+            as well as for any EventSources that come into existence after the EventListener
+            has been created.
+            
+            These 'catch up' events are called during the construction of the EventListener.
+            Subclasses need to be prepared for that.
+            
+            In a multi-threaded environment, it is possible that 'OnEventWritten' callbacks
+            for a particular eventSource to occur BEFORE the OnEventSourceCreated is issued.
+            </summary>
+            <param name="eventSource"></param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.OnEventWritten(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            This method is called whenever an event has been written by a EventSource for which 
+            the EventListener has enabled events.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.EventSourceIndex(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            EventSourceIndex is small non-negative integer (suitable for indexing in an array)
+            identifying EventSource. It is unique per-appdomain. Some EventListeners might find
+            it useful to store additional information about each eventSource connected to it,
+            and EventSourceIndex allows this extra information to be efficiently stored in a
+            (growable) array (eg List(T)).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.AddEventSource(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            This routine adds newEventSource to the global list of eventSources, it also assigns the
+            ID to the eventSource (which is simply the ordinal in the global list).
+            
+            EventSources currently do not pro-actively remove themselves from this list. Instead
+            when eventSources's are GCed, the weak handle in this list naturally gets nulled, and
+            we will reuse the slot. Today this list never shrinks (but we do reuse entries
+            that are in the list). This seems OK since the expectation is that EventSources
+            tend to live for the lifetime of the appdomain anyway (they tend to be used in
+            global variables).
+            </summary>
+            <param name="newEventSource"></param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.RemoveReferencesToListenerInEventSources(Microsoft.Diagnostics.Tracing.EventListener)">
+            <summary>
+            Helper used in code:Dispose that removes any references to 'listenerToRemove' in any of the
+            eventSources in the appdomain.  
+            
+            The EventListenersLock must be held before calling this routine. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventListener.Validate">
+            <summary>
+            Checks internal consistency of EventSources/Listeners. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventListener.EventListenersLock">
+            <summary>
+            Gets a global lock that is intended to protect the code:s_Listeners linked list and the
+            code:s_EventSources WeakReference list.  (We happen to use the s_EventSources list as
+            the lock object)
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventCommandEventArgs">
+            <summary>
+            Passed to the code:EventSource.OnEventCommand callback
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventCommandEventArgs.EnableEvent(System.Int32)">
+            <summary>
+            Enables the event that has the specified identifier.
+            </summary>
+            <param name="eventId">Event ID of event to be enabled</param>
+            <returns>true if eventId is in range</returns>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventCommandEventArgs.DisableEvent(System.Int32)">
+            <summary>
+            Disables the event that have the specified identifier.
+            </summary>
+            <param name="eventId">Event ID of event to be disabled</param>
+            <returns>true if eventId is in range</returns>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventCommandEventArgs.Command">
+            <summary>
+            Gets the command for the callback.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventCommandEventArgs.Arguments">
+            <summary>
+            Gets the arguments for the callback.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs">
+            <summary>
+            EventWrittenEventArgs is passed to the user-provided override for
+            <see cref="M:Microsoft.Diagnostics.Tracing.EventListener.OnEventWritten(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)"/> when an event is fired.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.EventName">
+            <summary>
+            The name of the event.   
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.EventId">
+            <summary>
+            Gets the event ID for the event that was written.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId">
+            <summary>
+            Gets the activity ID for the thread on which the event was written.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.RelatedActivityId">
+            <summary>
+            Gets the related activity ID if one was specified when the event was written.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Payload">
+            <summary>
+            Gets the payload for the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.EventSource">
+            <summary>
+            Gets the event source object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Keywords">
+            <summary>
+            Gets the keywords for the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Opcode">
+            <summary>
+            Gets the operation code for the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Task">
+            <summary>
+            Gets the task for the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Message">
+            <summary>
+            Gets the message for the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Channel">
+            <summary>
+            Gets the channel for the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Version">
+            <summary>
+            Gets the version of the event.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventWrittenEventArgs.Level">
+            <summary>
+            Gets the level for the event.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventSourceAttribute">
+            <summary>
+            Allows customizing defaults and specifying localization support for the event source class to which it is applied. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSourceAttribute.Name">
+            <summary>
+            Overrides the ETW name of the event source (which defaults to the class name)
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSourceAttribute.Guid">
+            <summary>
+            Overrides the default (calculated) Guid of an EventSource type. Explicitly defining a GUID is discouraged, 
+            except when upgrading existing ETW providers to using event sources.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventSourceAttribute.LocalizationResources">
+            <summary>
+            <para>
+            EventSources support localization of events. The names used for events, opcodes, tasks, keywords and maps 
+            can be localized to several languages if desired. This works by creating a ResX style string table 
+            (by simply adding a 'Resource File' to your project). This resource file is given a name e.g. 
+            'DefaultNameSpace.ResourceFileName' which can be passed to the ResourceManager constructor to read the 
+            resources. This name is the value of the LocalizationResources property. 
+            </para><para>
+            If LocalizationResources property is non-null, then EventSource will look up the localized strings for events by 
+            using the following resource naming scheme
+            </para>
+                <para>* event_EVENTNAME</para>
+                <para>* task_TASKNAME</para>
+                <para>* keyword_KEYWORDNAME</para>
+                <para>* map_MAPNAME</para>
+            <para>
+            where the capitalized name is the name of the event, task, keyword, or map value that should be localized.   
+            Note that the localized string for an event corresponds to the Message string, and can have {0} values 
+            which represent the payload values.  
+            </para>
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventAttribute">
+            <summary>
+            Any instance methods in a class that subclasses <see cref="T:Microsoft.Diagnostics.Tracing.EventSource"/> and that return void are
+            assumed by default to be methods that generate an ETW event. Enough information can be deduced from the
+            name of the method and its signature to generate basic schema information for the event. The
+            <see cref="T:Microsoft.Diagnostics.Tracing.EventAttribute"/> class allows you to specify additional event schema information for an event if
+            desired.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventAttribute.#ctor(System.Int32)">
+            <summary>Construct an EventAttribute with specified eventId</summary>
+            <param name="eventId">ID of the ETW event (an integer between 1 and 65535)</param>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.EventId">
+            <summary>Event's ID</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Level">
+            <summary>Event's severity level: indicates the severity or verbosity of the event</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Keywords">
+            <summary>Event's keywords: allows classification of events by "categories"</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Opcode">
+            <summary>Event's operation code: allows defining operations, generally used with Tasks</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Task">
+            <summary>Event's task: allows logical grouping of events</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Channel">
+            <summary>Event's channel: defines an event log as an additional destination for the event</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Version">
+            <summary>Event's version</summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventAttribute.Message">
+            <summary>
+            This can be specified to enable formatting and localization of the event's payload. You can 
+            use standard .NET substitution operators (eg {1}) in the string and they will be replaced 
+            with the 'ToString()' of the corresponding part of the  event payload.   
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.NonEventAttribute">
+            <summary>
+            By default all instance methods in a class that subclasses code:EventSource that and return
+            void are assumed to be methods that generate an event. This default can be overridden by specifying
+            the code:NonEventAttribute
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.NonEventAttribute.#ctor">
+            <summary>
+            Constructs a default NonEventAttribute
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventChannelAttribute">
+            <summary>
+            EventChannelAttribute allows customizing channels supported by an EventSource. This attribute must be
+            applied to an member of type EventChannel defined in a Channels class nested in the EventSource class:
+            <code>
+                public static class Channels
+                {
+                    [Channel(Enabled = true, EventChannelType = EventChannelType.Admin)]
+                    public const EventChannel Admin = (EventChannel)16;
+                
+                    [Channel(Enabled = false, EventChannelType = EventChannelType.Operational)]
+                    public const EventChannel Operational = (EventChannel)17;
+                }
+            </code>
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventChannelAttribute.Enabled">
+            <summary>
+            Specified whether the channel is enabled by default
+            </summary>
+        </member>
+        <member name="P:Microsoft.Diagnostics.Tracing.EventChannelAttribute.EventChannelType">
+            <summary>
+            Legal values are in EventChannelType
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventChannelType">
+            <summary>
+            Allowed channel types
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannelType.Admin">
+            <summary>The admin channel</summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannelType.Operational">
+            <summary>The operational channel</summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannelType.Analytic">
+            <summary>The Analytic channel</summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannelType.Debug">
+            <summary>The debug channel</summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventCommand">
+            <summary>
+            Describes the pre-defined command (EventCommandEventArgs.Command property) that is passed to the OnEventCommand callback.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventCommand.Update">
+            <summary>
+            Update EventSource state
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventCommand.SendManifest">
+            <summary>
+            Request EventSource to generate and send its manifest
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventCommand.Enable">
+            <summary>
+            Enable event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventCommand.Disable">
+            <summary>
+            Disable event
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.SessionMask">
+            <summary>
+            A SessionMask represents a set of (at most MAX) sessions as a bit mask. The perEventSourceSessionId
+            is the index in the SessionMask of the bit that will be set. These can translate to
+            EventSource's reserved keywords bits using the provided ToEventKeywords() and
+            FromEventKeywords() methods.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventDispatcher">
+            <summary>
+            code:EventDispatchers are a simple 'helper' structure that holds the filtering state
+            (m_EventEnabled) for a particular EventSource X EventListener tuple
+            
+            Thus a single EventListener may have many EventDispatchers (one for every EventSource 
+            that that EventListener has activate) and a Single EventSource may also have many
+            event Dispatchers (one for every EventListener that has activated it). 
+            
+            Logically a particular EventDispatcher belongs to exactly one EventSource and exactly  
+            one EventListener (alhtough EventDispatcher does not 'remember' the EventSource it is
+            associated with. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventManifestOptions">
+            <summary>
+            Flags that can be used with EventSource.GenerateManifest to control how the ETW manifest for the EventSource is
+            generated.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventManifestOptions.None">
+            <summary>
+            Only the resources associated with current UI culture are included in the  manifest
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventManifestOptions.Strict">
+            <summary>
+            Throw exceptions for any inconsistency encountered
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventManifestOptions.AllCultures">
+            <summary>
+            Generate a "resources" node under "localization" for every satellite assembly provided
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventManifestOptions.OnlyIfNeededForRegistration">
+            <summary>
+            Generate the manifest only if the event source needs to be registered on the machine,
+            otherwise return null (but still perform validation if Strict is specified)
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventManifestOptions.AllowEventSourceOverride">
+            <summary>
+            When generating the manifest do *not* enforce the rule that the current EventSource class
+            must be the base class for the user-defined type passed in. This allows validation of .net
+            event sources using the new validation code
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.ManifestBuilder">
+            <summary>
+            ManifestBuilder is designed to isolate the details of the message of the event from the
+            rest of EventSource.  This one happens to create XML. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.ManifestBuilder.#ctor(System.String,System.Guid,System.String,System.Resources.ResourceManager,Microsoft.Diagnostics.Tracing.EventManifestOptions)">
+            <summary>
+            Build a manifest for 'providerName' with the given GUID, which will be packaged into 'dllName'.
+            'resources, is a resource manager.  If specified all messages are localized using that manager.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.ManifestBuilder.AddChannel(System.String,System.Int32,Microsoft.Diagnostics.Tracing.EventChannelAttribute)">
+            <summary>
+            Add a channel.  channelAttribute can be null
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.ManifestBuilder.ManifestError(System.String,System.Boolean)">
+            <summary>
+            When validating an event source it adds the error to the error collection.
+            When not validating it throws an exception if runtimeCritical is "true".
+            Otherwise the error is ignored.
+            </summary>
+            <param name="msg"></param>
+            <param name="runtimeCritical"></param>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.ManifestBuilder.GetSupportedCultures(System.Resources.ResourceManager)">
+            <summary>
+            There's no API to enumerate all languages an assembly is localized into, so instead
+            we enumerate through all the "known" cultures and attempt to load a corresponding satellite 
+            assembly
+            </summary>
+            <param name="resources"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.ManifestEnvelope">
+            <summary>
+            Used to send the m_rawManifest into the event dispatcher as a series of events.  
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventSourceException">
+            <summary>
+            Exception that is thrown when an error occurs during EventSource operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSourceException.#ctor">
+            <summary>
+            Initializes a new instance of the EventSourceException class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSourceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the EventSourceException class with a specified error message.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSourceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the EventSourceException class with a specified error message 
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Diagnostics.Tracing.EventSourceException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the EventSourceException class with serialized data.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventLevel">
+            <summary>
+            WindowsEventLevel. Custom values must be in the range from 16 through 255
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventLevel.LogAlways">
+            <summary>
+            Log always
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventLevel.Critical">
+            <summary>
+            Only critical errors
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventLevel.Error">
+            <summary>
+            All errors, including previous levels
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventLevel.Warning">
+            <summary>
+            All warnings, including previous levels
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventLevel.Informational">
+            <summary>
+            All informational events, including previous levels
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventLevel.Verbose">
+            <summary>
+            All events, including previous levels 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventTask">
+            <summary>
+            WindowsEventTask. Custom values must be in the range from 1 through 65534
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventTask.None">
+            <summary>
+            Undefined task
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventOpcode">
+            <summary>
+            EventOpcode. Custom values must be in the range from 11 through 239
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Info">
+            <summary>
+            An informational event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Start">
+            <summary>
+            An activity start event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Stop">
+            <summary>
+            An activity end event 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.DataCollectionStart">
+            <summary>
+            A trace collection start event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.DataCollectionStop">
+            <summary>
+            A trace collection end event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Extension">
+            <summary>
+            An extensional event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Reply">
+            <summary>
+            A reply event
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Resume">
+            <summary>
+            An event representing the activity resuming from the suspension
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Suspend">
+            <summary>
+            An event representing the activity is suspended, pending another activity's completion
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Send">
+            <summary>
+            An event representing the activity is transferred to another component, and can continue to work
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventOpcode.Receive">
+            <summary>
+            An event representing receiving an activity transfer from another component 
+            </summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventChannel">
+            <summary>
+            EventChannel. Custom values must be in the range from 16 through 255. Currently only predefined values allowed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannel.None">
+            <summary>
+            No channel
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannel.Admin">
+            <summary>The admin channel</summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannel.Operational">
+            <summary>The operational channel</summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannel.Analytic">
+            <summary>The snalytic channel</summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventChannel.Debug">
+            <summary>The debug channel</summary>
+        </member>
+        <member name="T:Microsoft.Diagnostics.Tracing.EventKeywords">
+            <summary>
+            EventOpcode
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.None">
+            <summary>
+            No events. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.All">
+            <summary>
+            All Events 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.WdiContext">
+            <summary>
+            WDI context events
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.WdiDiagnostic">
+            <summary>
+            WDI diagnostic events
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.Sqm">
+            <summary>
+            SQM events
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.AuditFailure">
+            <summary>
+            Failed security audits
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.AuditSuccess">
+            <summary>
+            Successful security audits
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.CorrelationHint">
+            <summary>
+            Transfer events where the related Activity ID is a computed value and not a GUID
+            </summary>
+        </member>
+        <member name="F:Microsoft.Diagnostics.Tracing.EventKeywords.EventLogClassic">
+            <summary>
+            Events raised using classic eventlog API
+            </summary>
+        </member>
+    </members>
+</doc>

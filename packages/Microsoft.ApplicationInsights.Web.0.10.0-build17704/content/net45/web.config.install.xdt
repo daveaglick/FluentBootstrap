@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web xdt:Transform="InsertIfMissing">
+    <compilation xdt:Transform="InsertIfMissing">
+      <assemblies xdt:Transform="InsertIfMissing">
+        <!--Application Insights: add System.Runtime assembly to resolve PCL dependencies-->
+        <add assembly="System.Runtime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xdt:Transform="InsertIfMissing" xdt:Locator="Match(assembly)"/> 
+      </assemblies>
+    </compilation>
+    
+    <httpModules xdt:Transform="InsertIfMissing">
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.RequestTracking.WebRequestTrackingModule, Microsoft.ApplicationInsights.Web" xdt:Transform="Remove" xdt:Locator="Match(type)"/>
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.RequestTracking.WebRequestTrackingModule, Microsoft.ApplicationInsights.Web" xdt:Transform="InsertIfMissing" xdt:Locator="Match(type)"/>
+    </httpModules>
+  </system.web>
+  
+  <system.webServer xdt:Transform="InsertIfMissing">
+    <validation validateIntegratedModeConfiguration="false" xdt:Transform="InsertIfMissing" />
+    <modules xdt:Transform="InsertIfMissing">
+      <remove name="ApplicationInsightsWebTracking" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)"/>
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.RequestTracking.WebRequestTrackingModule, Microsoft.ApplicationInsights.Web" preCondition="managedHandler" xdt:Transform="Remove" xdt:Locator="Match(type)"/>
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.RequestTracking.WebRequestTrackingModule, Microsoft.ApplicationInsights.Web" preCondition="managedHandler" xdt:Transform="InsertIfMissing" xdt:Locator="Match(type)"/>
+    </modules>
+  </system.webServer>
+</configuration>

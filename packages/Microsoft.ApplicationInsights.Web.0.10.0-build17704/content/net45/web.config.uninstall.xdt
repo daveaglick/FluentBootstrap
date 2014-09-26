@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web>
+    <httpModules>
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.RequestTracking.WebRequestTrackingModule, Microsoft.ApplicationInsights.Web" preCondition="managedHandler" xdt:Transform="Remove" xdt:Locator="Match(type)"/>
+    </httpModules>
+  </system.web>
+  
+  <system.webServer>
+    <modules>
+      <remove name="ApplicationInsightsWebTracking" xdt:Transform="Remove" xdt:Locator="Match(name)"/>          
+      <add name="ApplicationInsightsWebTracking" type="Microsoft.ApplicationInsights.Web.RequestTracking.WebRequestTrackingModule, Microsoft.ApplicationInsights.Web" preCondition="managedHandler" xdt:Transform="Remove" xdt:Locator="Match(type)"/>
+    </modules>
+  </system.webServer>
+</configuration>

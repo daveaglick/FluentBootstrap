@@ -1,0 +1,829 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.ApplicationInsights.RuntimeTelemetry</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.ApmcModule">
+            <summary>
+            The modules used to support decoupled data connection between APMC and AIC.
+            <remarks>
+            It uses EventListener from NuGet package in order to listen in 4.0 and 4.5 EventSource.
+            In order to compile the code for both 4.5 and 4.0 it is placed in separate 4.0 assembly.
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.ApmcModule.#ctor(Microsoft.ApplicationInsights.TelemetryConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.RuntimeTelemetry.ApmcModule"/> class.
+            </summary>
+            <param name="configuration">The configuration to use while constructing a telemetry context.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.ApmcModule.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener">
+            <summary>
+            The modules used to support decoupled data connection between APMC and AIC.
+            <remarks>
+            It uses EventListener from NuGet package in order to listen in 4.0 and 4.5 EventSource.
+            In order to compile the code for both 4.5 and 4.0 it is placed in separate 4.0 assembly.
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.eventProcessor">
+            <summary>
+            The event processor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.#ctor(Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener"/> class.
+            </summary>
+            <param name="eventProcessor">Event processor.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.OnEventSourceCreated(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            Handles creation of new <see cref="T:Microsoft.Diagnostics.Tracing.EventSource"/>
+            <remarks>We are intercepting event source creation callback in order to subscribe to attach EventListener if EventSource was created after EventListener.</remarks>
+            </summary>
+            <param name="eventSource">The event source.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.OnEventWritten(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Called whenever an event has been written by an event source for which the event listener has enabled events.
+            </summary>
+            <param name="eventData">The event arguments that describe the event.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.EnableEventSource(Microsoft.Diagnostics.Tracing.EventSource)">
+            <summary>
+            Enable event source.
+            </summary>
+            <param name="eventSource">The event source to enable.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.ProcessAggregatedRemoteDependency(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Process Remote Dependency Event.
+            </summary>
+            <param name="eventData">The event data with 5 corresponding parameters.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.OnBeginGetResponse(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Process Remote Dependency Event.
+            </summary>
+            <param name="eventData">The event data with 5 corresponding parameters.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.OnEndGetResponse(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Process EndGetResponse Event.
+            </summary>
+            <param name="eventData">The event data with 5 corresponding parameters.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.OnBeginGetRequestStream(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Process BeginGetRequestStream Event.
+            </summary>
+            <param name="eventData">The event data with 5 corresponding parameters.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.OnEndGetRequestStream(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Process EndGetRequestStream Event.
+            </summary>
+            <param name="eventData">The event data with 5 corresponding parameters.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Apmc.ApmcEventListener.ProcessRawRemoteDependency(Microsoft.Diagnostics.Tracing.EventWrittenEventArgs,Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup)">
+            <summary>
+            Processes remote dependency.
+            </summary>
+            <param name="eventData">The event data.</param>
+            <param name="remoteDependencyGroup">The remote dependency group.</param>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1">
+            <summary>
+            The implementation of cache provider for Windows Phone and Windows Store as MemoryCache is not available there.
+            </summary>
+            <typeparam name="TValue">Type of items to store in the cache.</typeparam>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.ICacheProvider`1">
+            <summary>
+            Represents an object cache and provides the base methods and properties for accessing the object cache.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.ICacheProvider`1.Contains(System.Int64)">
+            <summary>
+            Checks whether the cache entry already exists in the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <returns>true if the cache contains a cache entry with the same key value as key; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.ICacheProvider`1.Get(System.Int64)">
+            <summary>
+            Gets the specified cache entry from the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <returns>A reference to the cache entry identified by key if the entry exists; otherwise, null.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.ICacheProvider`1.Set(System.Int64,`0)">
+            <summary>
+            Inserts a cache entry into the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <param name="value">The object to insert.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.ICacheProvider`1.Remove(System.Int64)">
+            <summary>
+            Removes the cache entry from the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <returns>True if the element is successfully found and removed; otherwise, false. This method returns false if key is not found.</returns>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.readerWriterLock">
+            <summary>
+            Reader-Writer Lock for thread safety.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.dictionary">
+            <summary>
+            Dictionary of cache items for fast Get and Contains operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.sortedList">
+            <summary>
+            Cache items sorted by the time of adding to cache. Required for to clear fast cache items when items are expired.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.maxSize">
+            <summary>
+            The maximum number of elements in the cache to avoid out of memory crashes.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.timer">
+            <summary>
+            Timer for clearing expired cache items on recurring bases.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.expirationMilliseconds">
+            <summary>
+            The duration in milliseconds after which item in the cache is expired.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.#ctor(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+             Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1"/> class.
+            </summary>
+            <param name="expirationMilliseconds">Expiration timeout in milliseconds for an object to live in the cache.</param>
+            <param name="maxSize">Maximum number of entries to cache (adjustable at runtime with MaxSize property).</param>
+            <param name="synchronized">True to use a reader-writer lock to protect the data in the MemoryCacheList; false if the caller will handle synchronization.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.Contains(System.Int64)">
+            <summary>
+            Checks whether the cache entry already exists in the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <returns>true if the cache contains a cache entry with the same key value as key; otherwise, false.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.Get(System.Int64)">
+            <summary>
+            Gets the specified cache entry from the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <returns>A reference to the cache entry identified by key if the entry exists; otherwise, null.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.Set(System.Int64,`0)">
+            <summary>
+            Inserts a cache entry into the cache.
+            </summary>
+            <param name="key">A unique identifier for the cache entry.</param>
+            <param name="value">The object to insert.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.Remove(System.Int64)">
+            <summary>
+            Removes a specific key from the cache.
+            </summary>
+            <param name="key">Key to remove.</param>
+            <returns>An object that represents the value of the removed cache entry that was specified by the key, or null if the specified entry was not found.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.ClearExpiredCacheItems(System.Object)">
+            <summary>
+            The timer callback that clears expired items in the cache.
+            </summary>
+            <param name="state">An object containing information to be used by the callback method, or null.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.Add(System.Int64,`0,System.Boolean)">
+            <summary>
+            Adds the specified key and value to the dictionary.
+            </summary>
+            <param name="key">Key to add.</param>
+            <param name="value">Value to associate with key.</param>
+            <param name="overwrite">If true, will overwrite an existing key.</param>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemoryCacheEntry">
+            <summary>
+            An entry in the MemoryCacheList.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemoryCacheEntry.#ctor(System.Int64,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemoryCacheEntry"/> class.
+            </summary>
+            <param name="key">The key of the element.</param>
+            <param name="value">The value of the element.</param>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemoryCacheEntry.Key">
+            <summary>
+            Gets the key of the element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemoryCacheEntry.Value">
+            <summary>
+            Gets or sets the value of the element.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemoryCacheEntry.CreatedTicks">
+            <summary>
+            Gets number of ticks elapsed on the clock since the element was created.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemmoryCacheEntryTimeComparer">
+            <summary>
+            Exposes a method that compares two MemoryCacheEntry objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider`1.MemmoryCacheEntryTimeComparer.Compare(Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider{`0}.MemoryCacheEntry,Microsoft.ApplicationInsights.RuntimeTelemetry.CacheProvider{`0}.MemoryCacheEntry)">
+            <summary>
+            Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+            </summary>
+            <param name="x">The first object to compare.</param>
+            <param name="y">The second object to compare.</param>
+            <returns>A signed integer that indicates the relative values of x and y, as shown in the following table.</returns>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor">
+            <summary>
+            Event processor.
+            <remarks>We are using Strategy Method pattern to attach EventListener to EventSource in both FW 4.0 and FW 4.5.</remarks>
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor">
+            <summary>
+            Identifies the interface for processing APMC events.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor.ProcessAggregatedRemoteDependency(System.Byte,System.String,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Processing Remote Dependency Event.
+            </summary>
+            <param name="remoteDependencyKind">Remote dependency kind.</param>
+            <param name="name">The remote dependency name.</param>
+            <param name="dateTimeOffset">Date time offset.</param>
+            <param name="value">Remote dependency value.</param>
+            <param name="count">Remote dependency count.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor.ProcessBeginGetResponse(System.Int64,System.String)">
+            <summary>
+            Processing BeginGetResponse Event.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="uri">The uri.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor.ProcessEndGetResponse(System.Int64)">
+            <summary>
+            Processing EndGetResponse Event.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor.ProcessBeginGetRequestStream(System.Int64,System.String)">
+            <summary>
+            Processing BeginGetRequestStream Event.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="uri">The uri.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor.ProcessEndGetRequestStream(System.Int64)">
+            <summary>
+            Processing EndGetRequestStream Event.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.IEventProcessor.ProcessRawRemoteDependency(System.String,System.Int64,Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup)">
+            <summary>
+            Processing raw remote dependency data.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="duration">The duration in milliseconds.</param>
+            <param name="remoteDependencyGroup">Remote dependency group.</param>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.FrameworkEventSourceName">
+            <summary>
+            The Framework EventSource name. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ApmcEventSourceName">
+            <summary>
+            The ApplicationInsights EventSource name. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.RddEventId">
+            <summary>
+            Remote Dependency Event ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.BeginGetResponseEventId">
+            <summary>
+            BeginGetResponse Event ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.EndGetResponseEventId">
+            <summary>
+            EndGetResponse Event ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.BeginGetRequestStreamEventId">
+            <summary>
+            BeginGetRequestStream Event ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.EndGetRequestStreamEventId">
+            <summary>
+            EndGetRequestStream Event ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.GetResponseEventId">
+            <summary>
+            GetResponse Event ID.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.SqlCommandExecuteEventId">
+            <summary>
+             The identifier for SQL command execute operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.requestCache">
+            <summary>
+            Setting expiration timeout to 100 seconds as it is the default timeout on HttpWebRequest object.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.remoteDependencyUtils">
+            <summary>
+            A reference to telemetry channel. It is null if Configuration is using the channel other than TelemetryChannel.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ProcessAggregatedRemoteDependency(System.Byte,System.String,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Processing Remote Dependency Event.
+            </summary>
+            <param name="remoteDependencyKind">Remote dependency kind.</param>
+            <param name="name">The remote dependency name.</param>
+            <param name="dateTimeOffset">Date time offset.</param>
+            <param name="value">Remote dependency value.</param>
+            <param name="count">Remote dependency count.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ProcessBeginGetResponse(System.Int64,System.String)">
+            <summary>
+            Processing BeginGetResponse Event.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="uri">The uri.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ProcessEndGetResponse(System.Int64)">
+            <summary>
+            Processing EndGetResponse Event.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ProcessBeginGetRequestStream(System.Int64,System.String)">
+            <summary>
+            Processing BeginGetRequestStream Event.
+            </summary>
+            <param name="id">The id.</param>
+            <param name="uri">The uri.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ProcessEndGetRequestStream(System.Int64)">
+            <summary>
+            Processing EndGetRequestStream Event.
+            </summary>
+            <param name="id">The id.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.ProcessRawRemoteDependency(System.String,System.Int64,Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup)">
+            <summary>
+            Processing GetResponse Event.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="duration">The duration in microseconds.</param>
+            <param name="remoteDependencyGroup">Remote dependency group.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.StartRequestMonitoring(System.Int64,System.String)">
+            <summary>
+            Starts operation that monitors outbound http request.
+            </summary>
+            <param name="id">Http request id.</param>
+            <param name="url">Http request url.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.EndRequestMonitoring(System.Int64,Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.HttpRddContext)">
+            <summary>
+            Ends operation that monitors outbound http request.
+            </summary>
+            <param name="id">Http request id.</param>
+            <param name="httpRddContext">Telemetry Context.</param>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.HttpRddContext">
+            <summary>
+            RDD context for http call that is handled between the EventListener callbacks.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.HttpRddContext.StartWatchElapsedTicks">
+            <summary>
+            Gets the total elapsed time at the start of http request in timer tick.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.EventProcessor.HttpRddContext.Url">
+            <summary>
+            Gets URI that identifies the Internet resource.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener">
+            <summary>
+            Provides methods for enabling and disabling events from FrameworkEventSource.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.OnEventWritten(System.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Called whenever an event has been written by an event source for which the event listener has enabled events.
+            </summary>
+            <param name="eventData">The event arguments that describe the event.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.EnableOrDisableEvents">
+            <summary>
+            Enable or disable events.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.OnApmcEventEnabled(System.Object,System.EventArgs)">
+            <summary>
+            The event handler for APMC Enabled event.
+            </summary>
+            <param name="sender">The sender object.</param>
+            <param name="e">The event argument.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.OnBeginGetResponse(System.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Called when a postfix of a (HttpWebRequest|FileWebRequest|FtpWebRequest).BeginGetResponse method has been invoked.
+            </summary>
+            <param name="eventData">The event arguments that describe the event.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.OnEndGetResponse(System.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Called when a postfix of a (HttpWebRequest|FileWebRequest|FtpWebRequest).EndGetResponse method has been invoked.
+            </summary>
+            <param name="eventData">The event arguments that describe the event.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.FrameworkEventListener.OnBeginGetRequestStream(System.Diagnostics.Tracing.EventWrittenEventArgs)">
+            <summary>
+            Called when a postfix of a (HttpWebRequest|FileWebRequest|FtpWebRequest).BeginGetRequestStream method has been invoked.
+            </summary>
+            <param name="eventData">The event arguments that describe the event.</param>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RequestTracking.OperationWatch">
+            <summary>
+            Single high precision clock used by operations.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.Watch">
+            <summary>
+            High precision stopwatch.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.NanosecondsPerTick">
+            <summary>
+            Number of nanoseconds per high-precision clock tick.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.StartTime">
+            <summary>
+            The time clock started.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.DurationNanoseconds(System.Int64,System.Int64)">
+            <summary>
+            Calculates time between two clock readings in nanoseconds.
+            </summary>
+            <param name="fromTicks">Start time in ticks.</param>
+            <param name="toTicks">End time in ticks.</param>
+            <returns>Time between two clock readings in nanoseconds.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.Duration(System.Int64,System.Int64)">
+            <summary>
+            Calculates time between two clock readings.
+            </summary>
+            <param name="fromTicks">Start time in ticks.</param>
+            <param name="toTicks">End time in ticks.</param>
+            <returns>Time between two clock readings.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.Timestamp(System.Int64)">
+            <summary>
+            Converts time on the operation clock (in ticks) to date and time structure.
+            </summary>
+            <param name="elapsedTicks">Ticks elapsed according to operation watch.</param>
+            <returns>Date time structure representing the date and time that corresponds to the operation clock reading.</returns>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RequestTracking.OperationWatch.ElapsedTicks">
+            <summary>
+            Gets number of ticks elapsed on the clock since the start.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup">
+            <summary>
+            Resource group enumeration.
+            </summary>
+            <remarks>
+            Values:
+            0 - Undefined
+            1 - MSSQL
+            2 - Soap Web Service
+            3 - Soap WCF Service
+            4 - Plain Http
+            5 - Windows Azure Table
+            6 - Windows Azure Queue
+            7 - Windows Azure Blob Container
+            8 - Any HTTP call (including calls from Azure Storage SDK).
+            </remarks>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.Undefined">
+            <summary>
+            Undefined resource type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.SQL">
+            <summary>
+            MSSQL resource type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.WebService">
+            <summary>
+            Soap Web Service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.WCF">
+            <summary>
+            Soap WCF Service.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.HttpOnly">
+            <summary>
+             Http calls except Azure SDK calls.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.AzureTable">
+            <summary>
+            Windows Azure Table.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.AzureQueue">
+            <summary>
+            Windows Azure Queue.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.AzureBlob">
+            <summary>
+            Windows Azure Blob Container.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyGroup.AnyHttp">
+            <summary>
+            HTTP and Azure SDK calls.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyModule">
+            <summary>
+            RDD monitoring for Framework 4.5 - supports async outbound http request monitoring.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyModule.#ctor(Microsoft.ApplicationInsights.TelemetryConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyModule"/> class.
+            </summary>
+            <param name="configuration">The configuration to use while constructing a telemetry context.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyModule.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry">
+            <summary>
+            The class that represents information about collected RDD.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Microsoft#ApplicationInsights#ObjectModel#IJsonSerializable#Serialize(Microsoft.ApplicationInsights.ObjectModel.IJsonWriter)">
+            <summary>
+            Serializes this object in JSON format.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Timestamp">
+            <summary>
+            Gets or sets date and time when telemetry was recorded.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.InstrumentationKey">
+            <summary>
+            Gets or sets the instrumentation key provided by the Application Insights portal. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Component">
+            <summary>
+            Gets or sets component context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Device">
+            <summary>
+            Gets or sets device context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Session">
+            <summary>
+            Gets or sets session context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.User">
+            <summary>
+            Gets or sets user context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Operation">
+            <summary>
+            Gets or sets operation context.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Properties">
+            <summary>
+            Gets dictionary of properties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Name">
+            <summary>
+            Gets or sets resource name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.DependencyKind">
+            <summary>
+            Gets or sets the dependency kind, like SQL, HTTP, Azure, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Value">
+            <summary>
+            Gets or sets request duration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyTelemetry.Count">
+            <summary>
+            Gets or sets request count.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.RemoteDependencyUtils.IsApplicationInsightsUrl(System.String)">
+            <summary>
+            Determines whether an URL is application insights URL.
+            </summary>
+            <param name="url">HTTP URL.</param>
+            <returns>True if URL is application insights url, otherwise false.</returns>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1">
+            <summary>
+            Represents a collection of sorted elements that are accessible by index.
+            </summary>
+            <typeparam name="T">The type of element.</typeparam>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.list">
+            <summary>
+            Represents a collection of objects that can be individually accessed by index.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.comparer">
+            <summary>
+            Exposes a method that compares two objects.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.#ctor(System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Initializes a new instance of the SortedList class that is empty.
+            </summary>
+            <param name="comparer">The IComparer implementation to use when comparing elements.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>An IEnumerator object that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.Add(`0)">
+            <summary>
+            Adds an element with the specified value to a SortedList object.
+            </summary>
+            <param name="item">Item to add.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.RemoveAt(System.Int32)">
+            <summary>
+            Removes the element at the specified index of a SortedList object.
+            </summary>
+            <param name="index">The zero-based index of the element to remove.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.Remove(`0)">
+            <summary>
+            Removes the element with the specified value from a SortedList object.
+            </summary>
+            <param name="item">Item to remove.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.TryIndexOf(`0,System.Boolean@)">
+            <summary>
+            Determines the index of a specific item in the IList.
+            </summary>
+            <param name="item">The object to locate in the IList.</param>
+            <param name="found">True if value is found in the list, otherwise false.</param>
+            <returns>The index of value if found in the list; otherwise, the index of value where it needs to be inserted.</returns>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.Count">
+            <summary>
+            Gets the number of elements contained in a SortedList object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.ApplicationInsights.RuntimeTelemetry.SortedList`1.Item(System.Int32)">
+            <summary>
+            Gets the element at a specified index in a sequence.
+            </summary>
+            <param name="index">The zero-based index of the element to get.</param>
+            <returns>The element at the specified position in the source sequence.</returns>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource">
+            <summary>
+            ETW EventSource tracing class.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.Log">
+            <summary>
+            Instance of the PlatformEventSource class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.RemoteDependencyModuleFailure(System.String,System.String)">
+            <summary>
+            Remote dependency module failed.
+            </summary>
+            <param name="msg">Exception message.</param>
+            <param name="appDomainName">Parameter is not used. Added to comply EventSource rules.</param>
+        </member>
+        <member name="M:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.RemoteDependencyDisabledApmcEnabled(System.String)">
+            <summary>
+            Remote dependency module failed.
+            </summary>
+        </member>
+        <member name="T:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.Keywords">
+            <summary>
+            Keywords for the PlatformEventSource.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.Keywords.UserActionable">
+            <summary>
+            Key word for user actionable events.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.Keywords.Diagnostics">
+            <summary>
+            Diagnostics tracing keyword.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.Keywords.VerboseFailure">
+            <summary>
+            Keyword for errors that trace at Verbose level.
+            </summary>
+        </member>
+        <member name="F:Microsoft.ApplicationInsights.RuntimeTelemetry.Tracing.PlatformEventSource.Keywords.RddEventKeywords">
+            <summary>
+            Key word for resource discovery module failures.
+            </summary>
+        </member>
+    </members>
+</doc>
