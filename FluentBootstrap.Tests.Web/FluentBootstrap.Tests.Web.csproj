@@ -128,7 +128,8 @@
     <Content Include="Views\Shared\_Layout.cshtml">
       <Generator>RazorGenerator</Generator>
     </Content>
-    <Content Include="Views\Tests\Foo\Bar.cshtml" />
+    <Content Include="Views\Tests\Grids.cshtml" />
+    <Content Include="Views\Tests\Typography.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

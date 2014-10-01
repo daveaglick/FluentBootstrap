@@ -1,0 +1,19 @@
+﻿@using(Html.Bootstrap().Container())
+{
+    @Html.Bootstrap().Heading1("Container")
+    <div id="test-container">
+        @using (Html.Bootstrap().Container())
+        {
+            <text>Container</text>
+        }
+    </div>
+    
+    @Html.Bootstrap().Heading1("Fluid Container")
+    <div id="test-fluid-container">
+        @using (Html.Bootstrap().Container().Fluid())
+        {
+            <text>Fluid Container</text>
+        }
+    </div>
+}
+
