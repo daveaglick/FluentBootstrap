@@ -1,19 +1,104 @@
 ﻿@using(Html.Bootstrap().Container())
 {
     @Html.Bootstrap().Heading1("Container")
-    <div id="test-container">
-        @using (Html.Bootstrap().Container())
+    using (Html.Bootstrap().Div().Id("test-container"))
+    {
+        using (Html.Bootstrap().Container())
         {
             <text>Container</text>
         }
-    </div>
-    
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Fluid Container")
-    <div id="test-fluid-container">
-        @using (Html.Bootstrap().Container().Fluid())
+    using (Html.Bootstrap().Div().Id("test-fluid-container"))
+    { 
+        using (Html.Bootstrap().Container().Fluid())
         {
             <text>Fluid Container</text>
         }
-    </div>
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Simple Grid")
+    using (Html.Bootstrap().Div().Id("test-simple-grid"))
+    {
+        using(var row = Html.Bootstrap().GridRow())
+        {
+            using(row.GridColumn(3))
+            {
+                <text>3</text>
+            }
+            using (row.GridColumn(4))
+            {
+                <text>4</text>
+            }
+            using (row.GridColumn(5))
+            {
+                <text>5</text>
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Complex Grid")
+    using (Html.Bootstrap().Div().Id("test-complex-grid"))
+    {
+        using (var row = Html.Bootstrap().GridRow())
+        {
+            using (row.GridColumn().Xs(1))
+            {
+                <text>Xs1</text>
+            }
+            using (row.GridColumn().Sm(2))
+            {
+                <text>Sm2</text>
+            }
+            using (row.GridColumn().Md(3))
+            {
+                <text>Md3</text>
+            }
+            using (row.GridColumn().Lg(4))
+            {
+                <text>Lg4</text>
+            }
+            using (row.GridColumn().Xs(2).Lg(3))
+            {
+                <text>Xs2Lg3</text>
+            }
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Offset/Pull/Push Grid")
+    using (Html.Bootstrap().Div().Id("test-offset-pull-push-grid"))
+    {
+        using (var row = Html.Bootstrap().GridRow())
+        {
+            using (row.GridColumn().Sm(5).Md(6))
+            {
+                <text>A</text>
+            }
+            using (row.GridColumn().Sm(5).SmOffset(2).Md(6).MdOffset(0))
+            {
+                <text>B</text>
+            }
+        }
+        using (var row = Html.Bootstrap().GridRow())
+        {
+            using (row.GridColumn(9).MdPush(3))
+            {
+                <text>D</text>
+            }
+            using (row.GridColumn(3).MdPull(9))
+            {
+                <text>C</text>
+            }
+        }
+    }
 }
 

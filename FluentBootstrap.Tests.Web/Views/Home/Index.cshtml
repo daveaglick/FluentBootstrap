@@ -1,1 +1,9 @@
-﻿<p>TODO: Add list of tests with links</p>
+﻿@using(Html.Bootstrap().Container())
+{
+    @Html.Bootstrap().Heading1("FluentBootstrap Tests")
+    using(var list = Html.Bootstrap().List())
+    {
+        @list.ListItem(Html.Bootstrap().Link("Typography", "/Tests/Typography"))
+        @list.ListItem(Html.Bootstrap().Link("Grids", "/Tests/Grids"))
+    }
+}

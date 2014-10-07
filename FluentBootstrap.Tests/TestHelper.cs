@@ -45,6 +45,7 @@ namespace FluentBootstrap.Tests
             {
                 html = html.Replace("  ", " ");
             }
+            html = html.Replace("> ", ">").Replace(" <", "<");
             return html.Trim();
         }
     }

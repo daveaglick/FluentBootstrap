@@ -118,7 +118,7 @@ namespace FluentBootstrap
             tag.CssClasses.RemoveWhere(x => x.StartsWith(prefix));
             if (value != null)
             {
-                if (value <= 0)
+                if (value < 0)
                     value = 1;
                 if (value > Bootstrap.GridColumns)
                     value = Bootstrap.GridColumns;

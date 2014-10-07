@@ -78,7 +78,7 @@
     <Compile Include="Forms\Select.cs" />
     <Compile Include="Forms\Static.cs" />
     <Compile Include="Forms\TextArea.cs" />
-    <Compile Include="GridColumnExtensions.cs" />
+    <Compile Include="Grids\GridColumnExtensions.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Forms\FormExtensions.cs" />
