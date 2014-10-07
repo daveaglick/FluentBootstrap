@@ -52,31 +52,45 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void UnorderedListProduceCorrectHtml()
+        public void UnorderedListProducesCorrectHtml()
         {
             HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
             Assert.AreEqual(@"<ul><li>One</li><li>Two</li></ul>", doc.GetElementbyId("test-unordered-list").CollapsedInnerHtml());
         }
 
         [Test]
-        public void OrderedListProduceCorrectHtml()
+        public void OrderedListProducesCorrectHtml()
         {
             HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
             Assert.AreEqual(@"<ol><li>One</li><li>Two</li></ol>", doc.GetElementbyId("test-ordered-list").CollapsedInnerHtml());
         }
 
         [Test]
-        public void UnstyledListProduceCorrectHtml()
+        public void UnstyledListProducesCorrectHtml()
         {
             HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
             Assert.AreEqual(@"<ul class=""list-unstyled""><li>One</li><li>Two</li></ul>", doc.GetElementbyId("test-unstyled-list").CollapsedInnerHtml());
         }
 
         [Test]
-        public void InlineListProduceCorrectHtml()
+        public void InlineListProducesCorrectHtml()
         {
             HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
             Assert.AreEqual(@"<ul class=""list-inline""><li>One</li><li>Two</li></ul>", doc.GetElementbyId("test-inline-list").CollapsedInnerHtml());
+        }
+
+        [Test]
+        public void DescriptionListProducesCorrectHtml()
+        {
+            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
+            Assert.AreEqual(@"<dl><dt>Term</dt><dd>Desc</dd><dt>One</dt><dd>Two</dd></dl>", doc.GetElementbyId("test-description-list").CollapsedInnerHtml());
+        }
+
+        [Test]
+        public void HorizontalDescriptionListProducesCorrectHtml()
+        {
+            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
+            Assert.AreEqual(@"<dl class=""dl-horizontal""><dt>Term</dt><dd>Desc</dd><dt>One</dt><dd>Two</dd></dl>", doc.GetElementbyId("test-horizontal-description-list").CollapsedInnerHtml());
         }
     }
 }

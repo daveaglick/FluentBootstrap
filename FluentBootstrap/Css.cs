@@ -75,6 +75,7 @@ namespace FluentBootstrap
         public const string Initialism = "initialism";
         public const string BlockquoteReverse = "blockquote-reverse";
         public const string PreScrollable = "pre-scrollable";
+        public const string DlHorizontal = "dl-horizontal";
 
         // Images
         public const string ImgResponsive = "img-responsive";

@@ -239,11 +239,32 @@ namespace FluentBootstrap
             return list;
         }
 
-        // ListItem
-
         public static ListItem<TModel> ListItem<TModel>(this IListItemCreator<TModel> creator, object content = null)
         {
             return new ListItem<TModel>(creator.GetHelper()).AddContent(content);
+        }
+
+        // DescriptionList
+
+        public static DescriptionList<TModel> DescriptionList<TModel>(this IDescriptionListCreator<TModel> creator)
+        {
+            return new DescriptionList<TModel>(creator.GetHelper());
+        }
+
+        public static DescriptionList<TModel> Horizontal<TModel>(this DescriptionList<TModel> descriptionList, bool horizontal = true)
+        {
+            descriptionList.ToggleCss(Css.DlHorizontal, horizontal);
+            return descriptionList;
+        }
+
+        public static DescriptionTerm<TModel> DescriptionTerm<TModel>(this IDescriptionListItemCreator<TModel> creator, object content = null)
+        {
+            return new DescriptionTerm<TModel>(creator.GetHelper()).AddContent(content);
+        }
+
+        public static DescriptionDescription<TModel> DescriptionDescription<TModel>(this IDescriptionListItemCreator<TModel> creator, object content = null)
+        {
+            return new DescriptionDescription<TModel>(creator.GetHelper()).AddContent(content);
         }
 
         // Code, etc.

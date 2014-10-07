@@ -101,4 +101,32 @@
             @list.ListItem("Two")
         }
     }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Description List")
+    using (Html.Bootstrap().Div().Id("test-description-list"))
+    {
+        using (var list = Html.Bootstrap().DescriptionList())
+        {
+            @list.DescriptionTerm("Term")
+            @list.DescriptionDescription("Desc")
+            @list.DescriptionTerm("One")
+            @list.DescriptionDescription("Two")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Horizontal Description List")
+    using (Html.Bootstrap().Div().Id("test-horizontal-description-list"))
+    {
+        using (var list = Html.Bootstrap().DescriptionList().Horizontal())
+        {
+            @list.DescriptionTerm("Term")
+            @list.DescriptionDescription("Desc")
+            @list.DescriptionTerm("One")
+            @list.DescriptionDescription("Two")
+        }
+    }
 }

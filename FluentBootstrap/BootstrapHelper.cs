@@ -30,7 +30,8 @@ namespace FluentBootstrap
         // Tables
         Tables.ITableCreator<TModel>,
         // Typography
-        Typography.IListCreator<TModel>
+        Typography.IListCreator<TModel>,
+        Typography.IDescriptionListCreator<TModel>
     {
         public HtmlHelper<TModel> HtmlHelper { get; private set; }
 
@@ -82,7 +83,9 @@ namespace FluentBootstrap
         Tables.ITableCellCreator<TModel>,
         // Typography
         Typography.IListCreator<TModel>,
-        Typography.IListItemCreator<TModel>
+        Typography.IListItemCreator<TModel>,
+        Typography.IDescriptionListCreator<TModel>,
+        Typography.IDescriptionListItemCreator<TModel>
     {
         public BootstrapHelperAll(HtmlHelper<TModel> htmlHelper) : base(htmlHelper)
         {
