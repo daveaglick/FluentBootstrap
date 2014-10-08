@@ -31,11 +31,11 @@ namespace FluentBootstrap.Tables
             {
                 if (HeadRow)
                 {
-                    new TableHead<TModel>(Helper).Start(writer, true);
+                    new TableHeadSection<TModel>(Helper).Start(writer, true);
                 }
                 else
                 {
-                    new TableBody<TModel>(Helper).Start(writer, true);
+                    new TableBodySection<TModel>(Helper).Start(writer, true);
                 }
             }
         }

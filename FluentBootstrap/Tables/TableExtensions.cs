@@ -49,19 +49,19 @@ namespace FluentBootstrap
 
         // Sections
 
-        public static TableHead<TModel> TableHead<TModel>(this ITableSectionCreator<TModel> creator)
+        public static TableHeadSection<TModel> TableHeadSection<TModel>(this ITableSectionCreator<TModel> creator)
         {
-            return new TableHead<TModel>(creator.GetHelper());
+            return new TableHeadSection<TModel>(creator.GetHelper());
         }
 
-        public static TableBody<TModel> TableBody<TModel>(this ITableSectionCreator<TModel> creator)
+        public static TableBodySection<TModel> TableBodySection<TModel>(this ITableSectionCreator<TModel> creator)
         {
-            return new TableBody<TModel>(creator.GetHelper());
+            return new TableBodySection<TModel>(creator.GetHelper());
         }
 
-        public static TableFoot<TModel> TableFoot<TModel>(this ITableSectionCreator<TModel> creator)
+        public static TableFootSection<TModel> TableFootSection<TModel>(this ITableSectionCreator<TModel> creator)
         {
-            return new TableFoot<TModel>(creator.GetHelper());
+            return new TableFootSection<TModel>(creator.GetHelper());
         }
 
         // TableRow
@@ -73,9 +73,9 @@ namespace FluentBootstrap
 
         // Cells
 
-        public static TableHeading<TModel> TableHeading<TModel>(this ITableCellCreator<TModel> creator, object content = null)
+        public static TableHeader<TModel> TableHeader<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableHeading<TModel>(creator.GetHelper()).AddContent(content);
+            return new TableHeader<TModel>(creator.GetHelper()).AddContent(content);
         }
 
         public static TableData<TModel> TableData<TModel>(this ITableCellCreator<TModel> creator, object content = null)
@@ -83,12 +83,12 @@ namespace FluentBootstrap
             return new TableData<TModel>(creator.GetHelper()).AddContent(content);
         }
 
-        public static TableRow<TModel> TableHeadingRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
+        public static TableRow<TModel> TableHeaderRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
         {
             TableRow<TModel> row = new TableRow<TModel>(creator.GetHelper()) { HeadRow = true };
             foreach (object c in content)
             {
-                row.AddChild(new TableHeading<TModel>(creator.GetHelper()).AddContent(c));
+                row.AddChild(new TableHeader<TModel>(creator.GetHelper()).AddContent(c));
             }
             return row;
         }

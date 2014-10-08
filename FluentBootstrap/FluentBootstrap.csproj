@@ -112,12 +112,12 @@
     <Compile Include="Tables\TableExtensions.cs" />
     <Compile Include="Tables\IHasTableContextExtensions.cs" />
     <Compile Include="Tables\Table.cs" />
-    <Compile Include="Tables\TableBody.cs" />
+    <Compile Include="Tables\TableBodySection.cs" />
     <Compile Include="Tables\TableCell.cs" />
     <Compile Include="Tables\TableData.cs" />
-    <Compile Include="Tables\TableFoot.cs" />
-    <Compile Include="Tables\TableHead.cs" />
-    <Compile Include="Tables\TableHeading.cs" />
+    <Compile Include="Tables\TableFootSection.cs" />
+    <Compile Include="Tables\TableHeadSection.cs" />
+    <Compile Include="Tables\TableHeader.cs" />
     <Compile Include="Tables\TableRow.cs" />
     <Compile Include="Tables\TableSection.cs" />
     <Compile Include="Tag.cs" />
