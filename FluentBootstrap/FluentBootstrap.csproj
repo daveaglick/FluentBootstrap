@@ -52,6 +52,13 @@
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\ButtonStyle.cs" />
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
+    <Compile Include="Icons\Icon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Icons\IconExtensions.cs" />
+    <Compile Include="Icons\IconSpan.cs" />
     <Compile Include="Typography\Cite.cs" />
     <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="Css.cs" />
@@ -136,9 +143,33 @@
     <Compile Include="Typography\TypographyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap.css.map" />
+    <None Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Icons\Icon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Icon.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
+    <None Include="Scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.0.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

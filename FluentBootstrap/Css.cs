@@ -120,6 +120,8 @@ namespace FluentBootstrap
         public const string HasWarning = "has-warning";
         public const string HasError = "has-error";
         public const string FormGroup = "form-group";
+        public const string HasFeedback = "has-feedback";
+        public const string FormControlFeedback = "form-control-feedback";
 
         // Misc
         public const string Disabled = "disabled";
@@ -146,5 +148,6 @@ namespace FluentBootstrap
         public const string SrOnly = "sr-only";
         public const string SrOnlyFocusable = "sr-only-focusable";
         public const string TextHide = "text-hide";
+        public const string Glyphicon = "glyphicon";
     }
 }

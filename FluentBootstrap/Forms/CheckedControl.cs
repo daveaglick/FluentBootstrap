@@ -45,7 +45,7 @@ namespace FluentBootstrap.Forms
             }
 
             // Add the label
-            _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : null);
+            _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
             _label.Start(writer, true);
         }
 

@@ -1,0 +1,29 @@
+﻿@using (Html.Bootstrap().Container())
+{
+    @Html.Bootstrap().Heading1("Inline Icon")
+    using (Html.Bootstrap().Div().Id("test-inline-icon"))
+    {
+        <text>This is an inline @Html.Bootstrap().Icon(Icon.ArrowUp) icon.</text>
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Button Icon")
+    using (Html.Bootstrap().Div().Id("test-button-icon"))
+    {
+        @Html.Bootstrap().Button("Icon Button").Icon(Icon.Bell)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Form Feedback")
+    using (Html.Bootstrap().Div().Id("test-form-feedback"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            @form.Input("Normal", "Normal").HasFeedback(Icon.OkCircle)
+            @form.Input("Error", "Error").HasError().HasFeedback(Icon.RemoveCircle)
+            @form.Input("SrOnly").HasWarning().HasFeedback(Icon.Check).ControlLabel("SrOnly Label", x => x.SrOnly())
+        }
+    }
+}

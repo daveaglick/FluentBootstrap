@@ -9,4 +9,17 @@
             @form.Input("readonly2", "Normal Input", "Initial Value").Readonly(false)
         }
     }
+    
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Validation")
+    using (Html.Bootstrap().Div().Id("test-validation"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            @form.Input("Error", "Error").HasError()
+            @form.CheckBox("Warning", "Warning").HasWarning()
+            @form.Radio("Success", "Success", "Description here").HasSuccess()
+        }
+    }
 }

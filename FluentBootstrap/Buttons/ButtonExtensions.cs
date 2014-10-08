@@ -11,9 +11,19 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, string text = null, object value = null)
+        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, object value = null)
         {
             return new Button<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
+        }
+
+        public static Button<TModel> Icon<TModel>(this Button<TModel> button, Icon icon)
+        {
+            if (icon != FluentBootstrap.Icon.None)
+            {
+                button.AddChild(button.GetHelper().Icon(icon));
+                button.AddContent(" ");    // Add a space to give a little separation to the icon
+            }
+            return button;
         }
 
         // LinkButton
