@@ -28,6 +28,12 @@ namespace FluentBootstrap
         public const string HiddenMd = "hidden-md";
         public const string HiddenLg = "hidden-lg";
 
+        // Print classes
+        public const string VisiblePrintBlock = "visible-print-block";
+        public const string VisiblePrintInline = "visible-print-inline";
+        public const string VisiblePrintInlineBlock = "visible-print-inline-block";
+        public const string HiddenPrint = "hidden-print";
+
         // Grid
         public const string Container = "container";
         public const string ContainerFluid = "container-fluid";
@@ -100,7 +106,6 @@ namespace FluentBootstrap
         // Forms
         public const string FormHorizontal = "form-horizontal";
         public const string FormInline = "form-inline";
-        public const string SrOnly = "sr-only";
         public const string FormControl = "form-control";
         public const string FormControlStatic = "form-control-static";
         public const string ControlLabel = "control-label";
@@ -135,5 +140,11 @@ namespace FluentBootstrap
         public const string BgInfo = "bg-info";
         public const string BgWarning = "bg-warning";
         public const string BgDanger = "bg-danger";
+        public const string Show = "show";
+        public const string Hidden = "hidden";
+        public const string Invisible = "invisible";
+        public const string SrOnly = "sr-only";
+        public const string SrOnlyFocusable = "sr-only-focusable";
+        public const string TextHide = "text-hide";
     }
 }

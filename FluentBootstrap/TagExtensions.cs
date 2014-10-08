@@ -217,6 +217,33 @@ namespace FluentBootstrap
             return component.GetThis().ToggleCss(Css.HiddenLg, toggle);
         }
 
+        // Print classes
+
+        public static TThis VisiblePrintBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.VisiblePrintBlock, toggle);
+        }
+
+        public static TThis VisiblePrintInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.VisiblePrintInline, toggle);
+        }
+
+        public static TThis VisiblePrintInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.VisiblePrintInlineBlock, toggle);
+        }
+
+        public static TThis HiddenPrint<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.HiddenPrint, toggle);
+        }
+
+
         // Contextual colors
 
         public static TThis TextMuted<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
@@ -286,5 +313,49 @@ namespace FluentBootstrap
         {
             return component.GetThis().ToggleCss(Css.BgDanger, toggle);
         }
+
+        // Showing and hiding content
+
+        public static TThis Show<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.Show, toggle);
+        }
+
+        public static TThis Hidden<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.Hidden, toggle);
+        }
+
+        public static TThis Invisible<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.Invisible, toggle);
+        }
+
+        // Screen reader
+
+        public static TThis SrOnly<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.SrOnly, toggle);
+        }
+
+        public static TThis SrOnlyFocusable<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.SrOnlyFocusable, toggle);
+        }
+
+        // Image replacement
+
+        public static TThis TextHide<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
+            where TThis : Tag<TModel, TThis>
+        {
+            return component.GetThis().ToggleCss(Css.TextHide, toggle);
+        }
+
+
     }
 }

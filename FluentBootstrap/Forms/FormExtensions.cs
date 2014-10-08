@@ -190,12 +190,6 @@ namespace FluentBootstrap
             return label;
         }
 
-        public static Label<TModel> ScreenReaderOnly<TModel>(this Label<TModel> label, bool screenReaderOnly = true)
-        {
-            label.ToggleCss(Css.SrOnly, screenReaderOnly);
-            return label;
-        }
-
         // Hidden
 
         public static Hidden<TModel> Hidden<TModel>(this IFormControlCreator<TModel> creator, string name = null, object value = null)
