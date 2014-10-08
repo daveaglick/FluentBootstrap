@@ -1,0 +1,28 @@
+﻿using HtmlAgilityPack;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FluentBootstrap.Tests
+{
+    // Note that HtmlAgilityPack strips the closing </input> tag off inputs, which is actually more valid HTML5
+    // Whether FluentBootstrap should be outputting the closing </input> in the first place is a problem for another day
+    [TestFixture]
+    public class FormsFixture
+    {
+        [Test]
+        public void ReadonlyProducesCorrectHtml()
+        {
+            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Forms>();
+            Assert.AreEqual(@"<form action="""" method=""post"">"
+                + @"<div class=""form-group""><label class=""control-label"" for=""readonly"">Readonly Input</label>"
+                    + @"<input class=""form-control"" id=""readonly"" name=""readonly"" readonly="""" type=""text"" value=""Initial Value""></div>"
+                + @"<div class=""form-group""><label class=""control-label"" for=""readonly2"">Normal Input</label>"
+                    + @"<input class=""form-control"" id=""readonly2"" name=""readonly2"" type=""text"" value=""Initial Value""></div>"
+                + @"<div class=""form-group""><div class=""text-danger form-control-static""></div></div></form>", doc.GetElementbyId("test-readonly").CollapsedInnerHtml());
+        }
+    }
+}

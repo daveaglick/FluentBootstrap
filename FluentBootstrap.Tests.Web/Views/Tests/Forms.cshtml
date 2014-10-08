@@ -1,0 +1,12 @@
+﻿@using (Html.Bootstrap().Container())
+{
+    @Html.Bootstrap().Heading1("Readonly")
+    using (Html.Bootstrap().Div().Id("test-readonly"))
+    {
+        using(var form = Html.Bootstrap().Form())
+        {
+            @form.Input("readonly", "Readonly Input", "Initial Value").Readonly()
+            @form.Input("readonly2", "Normal Input", "Initial Value").Readonly(false)
+        }
+    }
+}

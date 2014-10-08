@@ -222,6 +222,12 @@ namespace FluentBootstrap
             return input;
         }
 
+        public static Input<TModel> Readonly<TModel>(this Input<TModel> input, bool toggle = true)
+        {
+            input.MergeAttribute("readonly", toggle ? string.Empty : null);
+            return input;
+        }
+
         // TextArea
 
         public static TextArea<TModel> TextArea<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)

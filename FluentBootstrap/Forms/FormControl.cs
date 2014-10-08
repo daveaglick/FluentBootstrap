@@ -84,7 +84,7 @@ namespace FluentBootstrap.Forms
                 string name = null;
                 if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
                 {
-                    _label.MergeAttribute("for", "name");
+                    _label.MergeAttribute("for", name);
                 }
 
                 // Add or write the label
