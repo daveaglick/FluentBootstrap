@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropdownsFixture.cs" />
     <Compile Include="FormsFixture.cs" />
     <Compile Include="GridsFixture.cs" />
     <Compile Include="IconsFixture.cs" />

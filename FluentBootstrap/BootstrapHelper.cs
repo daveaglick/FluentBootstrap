@@ -16,6 +16,8 @@ namespace FluentBootstrap
         // Buttons
         Buttons.IButtonCreator<TModel>,
         Buttons.ILinkButtonCreator<TModel>,
+        // Dropdowns
+        Dropdowns.IDropdownCreator<TModel>,
         // Forms
         Forms.IFormCreator<TModel>,
         // Grids
@@ -57,6 +59,9 @@ namespace FluentBootstrap
         // Buttons
         Buttons.IButtonCreator<TModel>,
         Buttons.ILinkButtonCreator<TModel>,
+        // Dropdowns
+        Dropdowns.IDropdownCreator<TModel>,
+        Dropdowns.IDropdownItemCreator<TModel>,
         // Forms
         Forms.IFormCreator<TModel>,
         Forms.IFieldSetCreator<TModel>,

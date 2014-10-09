@@ -1,0 +1,62 @@
+﻿@using (Html.Bootstrap().Container())
+{
+    @Html.Bootstrap().Heading1("Simple")
+    using (Html.Bootstrap().Div().Id("test-simple"))
+    {
+        using(var dropdown = Html.Bootstrap().Dropdown("Dropdown"))
+        {         
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")   
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("No Caret")
+    using (Html.Bootstrap().Div().Id("test-no-caret"))
+    {
+        using (var dropdown = Html.Bootstrap().Dropdown("No Caret").Caret(false))
+        {
+            @dropdown.DropdownLink("A", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Button Styles")
+    using (Html.Bootstrap().Div().Id("test-button-styles"))
+    {
+        using (var dropdown = Html.Bootstrap().Dropdown("Button", ButtonStyle.Warning).BtnXs())
+        {
+            @dropdown.DropdownLink("A", "http://www.google.com")
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Right Menu")
+    using (Html.Bootstrap().Div().Id("test-right-menu"))
+    {
+        using (var dropdown = Html.Bootstrap().Dropdown("Right").MenuRight())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Disabled")
+    using (Html.Bootstrap().Div().Id("test-disabled"))
+    {
+        using (var dropdown = Html.Bootstrap().Dropdown("Disabled"))
+        {
+            @dropdown.DropdownLink("A", "http://www.google.com")
+            @dropdown.DropdownLink("B", "http://www.google.com").Disabled()
+        }
+    }
+}

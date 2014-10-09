@@ -11,6 +11,7 @@ namespace FluentBootstrap.Tests
     [TestFixture]
     public class TypographyFixture
     {
+
         [Test]
         public void HeadingsProduceCorrectHtml()
         {
@@ -26,71 +27,102 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SmallProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<h3>Heading 3<small>This is small</small></h3>", doc.GetElementbyId("test-small").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-small",
+@"<h3>Heading 3
+   <small>This is small</small>
+  </h3>");
         }
 
         [Test]
         public void AlignmentProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<p class=""text-left"">Left</p><p class=""text-right"">Right</p><p class=""text-center"">Center</p><p class=""text-justify"">Justify</p><p class=""text-nowrap"">No Wrap</p>", doc.GetElementbyId("test-alignment").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-alignment",
+@"<p class=""text-left"">Left</p>
+  <p class=""text-right"">            Right
+</p>
+  <p class=""text-center"">Center</p>
+  <p class=""text-justify"">Justify</p>
+  <p class=""text-nowrap"">No Wrap</p>");
         }
 
         [Test]
         public void TransformationProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<p class=""text-lowercase"">Lowercase</p><p class=""text-uppercase"">Uppercase</p><p class=""text-capitalize"">capitalized text</p>", doc.GetElementbyId("test-transformation").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-transformation",
+@"<p class=""text-lowercase"">Lowercase</p>
+  <p class=""text-uppercase"">Uppercase</p>
+  <p class=""text-capitalize"">capitalized text</p>");
         }
 
         [Test]
         public void MultipleTextClassesProduceCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<p class=""text-center text-uppercase"">Multiple</p>", doc.GetElementbyId("test-multiple-text-classes").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-multiple-text-classes",
+@"<p class=""text-center text-uppercase"">Multiple</p>");
         }
 
         [Test]
         public void UnorderedListProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<ul><li>One</li><li>Two</li></ul>", doc.GetElementbyId("test-unordered-list").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-unordered-list",
+@"<ul>
+   <li>One</li>
+   <li>Two</li>
+  </ul>");
         }
 
         [Test]
         public void OrderedListProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<ol><li>One</li><li>Two</li></ol>", doc.GetElementbyId("test-ordered-list").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-ordered-list",
+@"<ol>
+   <li>One</li>
+   <li>Two</li>
+  </ol>");
         }
 
         [Test]
         public void UnstyledListProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<ul class=""list-unstyled""><li>One</li><li>Two</li></ul>", doc.GetElementbyId("test-unstyled-list").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-unstyled-list",
+@"<ul class=""list-unstyled"">
+   <li>One</li>
+   <li>Two</li>
+  </ul>");
         }
 
         [Test]
         public void InlineListProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<ul class=""list-inline""><li>One</li><li>Two</li></ul>", doc.GetElementbyId("test-inline-list").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-inline-list",
+@"<ul class=""list-inline"">
+   <li>One</li>
+   <li>Two</li>
+  </ul>");
         }
 
         [Test]
         public void DescriptionListProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<dl><dt>Term</dt><dd>Desc</dd><dt>One</dt><dd>Two</dd></dl>", doc.GetElementbyId("test-description-list").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-description-list",
+@"<dl>
+   <dt>Term</dt>
+   <dd>Desc</dd>
+   <dt>One</dt>
+   <dd>Two</dd>
+  </dl>");
         }
 
         [Test]
         public void HorizontalDescriptionListProducesCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
-            Assert.AreEqual(@"<dl class=""dl-horizontal""><dt>Term</dt><dd>Desc</dd><dt>One</dt><dd>Two</dd></dl>", doc.GetElementbyId("test-horizontal-description-list").CollapsedInnerHtml());
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-horizontal-description-list",
+@"<dl class=""dl-horizontal"">
+   <dt>Term</dt>
+   <dd>Desc</dd>
+   <dt>One</dt>
+   <dd>Two</dd>
+  </dl>");
         }
     }
 }

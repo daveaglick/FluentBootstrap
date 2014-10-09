@@ -130,6 +130,7 @@
     <Content Include="Views\Tests\Typography.cshtml" />
     <Content Include="Views\Tests\Forms.cshtml" />
     <Content Include="Views\Tests\Icons.cshtml" />
+    <Content Include="Views\Tests\Dropdowns.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

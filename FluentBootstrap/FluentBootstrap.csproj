@@ -58,7 +58,10 @@
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
     <Compile Include="Dropdowns\Dropdown.cs" />
+    <Compile Include="Dropdowns\DropdownDivider.cs" />
     <Compile Include="Dropdowns\DropdownExtensions.cs" />
+    <Compile Include="Dropdowns\DropdownHeader.cs" />
+    <Compile Include="Dropdowns\DropdownLink.cs" />
     <Compile Include="Icons\Icon.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,7 +71,6 @@
     <Compile Include="Icons\IconSpan.cs" />
     <Compile Include="Typography\Cite.cs" />
     <Compile Include="IHasTitleAttribute.cs" />
-    <Compile Include="Css2.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="Forms\FormButton.cs" />
     <Compile Include="Forms\FormControlFor.cs" />

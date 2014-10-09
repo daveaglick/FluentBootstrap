@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using RazorGenerator.Testing;
+using NUnit.Framework;
 
 namespace FluentBootstrap.Tests
 {
@@ -50,6 +51,13 @@ namespace FluentBootstrap.Tests
             }
             html = html.Replace("> ", ">").Replace(" <", "<");
             return html.Trim();
+        }
+
+        public static void AssertHtml<TView>(string containerId, string expected, bool collapsed = false)
+            where TView : WebViewPage, new()
+        {
+            HtmlDocument doc = Render<TView>();
+            Assert.AreEqual(expected, collapsed ? doc.GetElementbyId(containerId).CollapsedInnerHtml() : doc.GetElementbyId(containerId).InnerHtml.Trim());
         }
     }
 }
