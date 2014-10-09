@@ -1,0 +1,57 @@
+﻿<#@ template language="C#" hostSpecific="true" #>
+<#@ assembly name="System.Core" #> 
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<# Process(); #>
+<#+
+	// Regex for CSS classes from http://paul.kinlan.me/regex-to-get-class-names-from-css-2-0/
+	readonly Regex regex = new Regex(@"\.[-]?[_a-zA-Z][_a-zA-Z0-9-]*|[^\0-\177]*\\[0-9a-f]{1,6}(\r\n[ \n\r\t\f])?|\\[^\n\r\f0-9a-f]*", RegexOptions.Compiled);
+
+	// Regexes for removing comments from http://stackoverflow.com/questions/3524317/regex-to-strip-line-comments-from-c-sharp/3524689#3524689
+	string blockComments = @"/\*(.*?)\*/";
+	string lineComments = @"//(.*?)\r?\n";
+	string strings = @"""((\\[^\n]|[^""\n])*)""";
+	string verbatimStrings = @"@(""[^""]*"")+";
+
+	public void Process()
+	{
+		WriteLine("namespace FluentBootstrap");
+		WriteLine("{");
+		WriteLine("\tpublic static class Css");
+		WriteLine("\t{");
+
+		// Read the CSS file and strip comments
+		string css = System.IO.File.ReadAllText(Host.ResolvePath(@"Content\bootstrap.css"));
+		css = css.Replace("\r\n", "\n");
+		css = Regex.Replace(css,
+			blockComments + "|" + lineComments + "|" + strings + "|" + verbatimStrings,
+			me => {
+				if (me.Value.StartsWith("/*") || me.Value.StartsWith("//"))
+					return me.Value.StartsWith("//") ? Environment.NewLine : "";
+				// Keep the literal strings
+				return me.Value;
+			},
+			RegexOptions.Singleline);
+
+		// Get all CSS classes in the file (except for icons)
+		HashSet<string> cssClasses = new HashSet<string>();
+		foreach (Match match in regex.Matches(css))
+		{
+			if(match.Success && !string.IsNullOrWhiteSpace(match.Groups[0].Value) && !match.Groups[0].Value.StartsWith(@"\") && !match.Groups[0].Value.StartsWith(".glyphicon-"))
+			{
+				cssClasses.Add(match.Groups[0].Value.Substring(1));	
+			}
+		}
+
+		// Generate the const strings
+		foreach(string cssClass in cssClasses.OrderBy(x => x))
+		{
+			WriteLine("\t\tpublic const string " + String.Join(null, cssClass.Split(new char[]{'-'}, StringSplitOptions.RemoveEmptyEntries)
+				.Select(x => char.ToUpper(x[0]).ToString() + x.Substring(1))) + " = \"" + cssClass + "\";");		
+		}
+
+		WriteLine("\t}");
+		WriteLine("}");
+	}
+#>

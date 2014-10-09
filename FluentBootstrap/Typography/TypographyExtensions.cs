@@ -118,31 +118,31 @@ namespace FluentBootstrap
         public static TThis TextLeft<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCss(Css.TextLeft, toggle, Css.TextCenter, Css.TextRight, Css.TextJustify, Css.TextNoWrap);
+            return component.GetThis().ToggleCss(Css.TextLeft, toggle, Css.TextCenter, Css.TextRight, Css.TextJustify, Css.TextNowrap);
         }
 
         public static TThis TextCenter<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCss(Css.TextCenter, toggle, Css.TextLeft, Css.TextRight, Css.TextJustify, Css.TextNoWrap);
+            return component.GetThis().ToggleCss(Css.TextCenter, toggle, Css.TextLeft, Css.TextRight, Css.TextJustify, Css.TextNowrap);
         }
 
         public static TThis TextRight<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCss(Css.TextRight, toggle, Css.TextCenter, Css.TextLeft, Css.TextJustify, Css.TextNoWrap);
+            return component.GetThis().ToggleCss(Css.TextRight, toggle, Css.TextCenter, Css.TextLeft, Css.TextJustify, Css.TextNowrap);
         }
 
         public static TThis TextJustify<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCss(Css.TextJustify, toggle, Css.TextCenter, Css.TextRight, Css.TextLeft, Css.TextNoWrap);
+            return component.GetThis().ToggleCss(Css.TextJustify, toggle, Css.TextCenter, Css.TextRight, Css.TextLeft, Css.TextNowrap);
         }
 
         public static TThis TextNoWrap<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
             where TThis : Tag<TModel, TThis>
         {
-            return component.GetThis().ToggleCss(Css.TextNoWrap, toggle, Css.TextCenter, Css.TextRight, Css.TextJustify, Css.TextLeft);
+            return component.GetThis().ToggleCss(Css.TextNowrap, toggle, Css.TextCenter, Css.TextRight, Css.TextJustify, Css.TextLeft);
         }
 
         // Transformation
