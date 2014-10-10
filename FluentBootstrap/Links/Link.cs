@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Icons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace FluentBootstrap.Links
     {
     }
 
-    public class Link<TModel> : Tag<TModel, Link<TModel>>, ILink, IHasLinkExtensions, IHasTextAttribute
+    public class Link<TModel> : Tag<TModel, Link<TModel>>, ILink, IHasIcon, IHasLinkExtensions, IHasTextAttribute
     {
         internal Link(BootstrapHelper<TModel> helper, params string[] cssClasses)
             : base(helper, "a", cssClasses)

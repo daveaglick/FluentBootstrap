@@ -17,7 +17,7 @@ namespace FluentBootstrap.Tests
         {
             WebViewPage<dynamic> view = new TView() as WebViewPage<dynamic>;
             HtmlDocument doc = view.RenderAsHtml();
-
+            Assert.IsEmpty(doc.ParseErrors);
             return doc;
         }
 
@@ -26,6 +26,7 @@ namespace FluentBootstrap.Tests
         {
             var view = new TView();
             HtmlDocument doc = view.RenderAsHtml();
+            Assert.IsEmpty(doc.ParseErrors);
             return doc;
         }
 

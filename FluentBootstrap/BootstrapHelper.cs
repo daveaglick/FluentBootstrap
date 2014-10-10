@@ -14,6 +14,8 @@ namespace FluentBootstrap
     public class BootstrapHelper<TModel> : 
         ITagCreator<TModel>,
         // Buttons
+        Buttons.IButtonToolbarCreator<TModel>,
+        Buttons.IButtonGroupCreator<TModel>,
         Buttons.IButtonCreator<TModel>,
         Buttons.ILinkButtonCreator<TModel>,
         // Dropdowns
@@ -57,6 +59,8 @@ namespace FluentBootstrap
     public class BootstrapHelperAll<TModel> : BootstrapHelper<TModel>,
         ITagCreator<TModel>,
         // Buttons
+        Buttons.IButtonToolbarCreator<TModel>,
+        Buttons.IButtonGroupCreator<TModel>,
         Buttons.IButtonCreator<TModel>,
         Buttons.ILinkButtonCreator<TModel>,
         // Dropdowns

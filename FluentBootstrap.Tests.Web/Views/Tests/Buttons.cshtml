@@ -1,0 +1,153 @@
+﻿@using (Html.Bootstrap().Container())
+{
+    @Html.Bootstrap().Heading1("Group")
+    using (Html.Bootstrap().Div().Id("test-group"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup())
+        {
+            @group.Button("A").Icon(Icon.Music)
+            @group.LinkButton("L")
+            @group.Button("B", ButtonStyle.Success)
+        }
+    }
+    
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Toolbar")
+    using (Html.Bootstrap().Div().Id("test-toolbar"))
+    {
+        using(var toolbar = Html.Bootstrap().ButtonToolbar())
+        {
+            using (var group = toolbar.ButtonGroup())
+            {
+                @group.Button("A")
+                @group.Button("B", ButtonStyle.Danger)
+            }
+            using (var group = toolbar.ButtonGroup())
+            {
+                @group.Button("C")
+                @group.LinkButton("L", "#", ButtonStyle.Success)
+                @group.Button("D").Icon(Icon.ShareAlt)
+            }
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Group Sizing")
+    using (Html.Bootstrap().Div().Id("test-group-sizing"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup().BtnGroupLg())
+        {
+            @group.LinkButton("L")
+            @group.Button("A")
+            @group.Button("B").Icon(Icon.Pencil)
+        }
+        using (var group = Html.Bootstrap().ButtonGroup().BtnGroupSm())
+        {
+            @group.Button("C")
+            @group.LinkButton("L").Icon(Icon.Phone)
+            @group.Button("D")
+        }
+        using (var group = Html.Bootstrap().ButtonGroup().BtnGroupXs())
+        {
+            @group.Button("E").Icon(Icon.Tags)
+            @group.Button("F")
+            @group.LinkButton("L")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Nested Dropdown")
+    using (Html.Bootstrap().Div().Id("test-nested-dropdown"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup())
+        {
+            @group.Button("A")
+            @group.LinkButton("L")
+            using (var dropdown = group.Dropdown("Dropdown"))
+            {
+                @dropdown.DropdownLink("B")
+                @dropdown.DropdownLink("C")
+            }
+            using (var dropdown = group.Dropdown("Styled", ButtonStyle.Danger))
+            {
+                @dropdown.DropdownLink("D")
+                @dropdown.DropdownLink("E")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Vertical")
+    using (Html.Bootstrap().Div().Id("test-vertical"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup().Vertical())
+        {
+            @group.Button("A")
+            @group.LinkButton("L")
+            using (var dropdown = group.Dropdown("Dropdown"))
+            {
+                @dropdown.DropdownLink("B")
+                @dropdown.DropdownLink("C")
+            }
+            using (var dropdown = group.Dropdown("Styled", ButtonStyle.Danger))
+            {
+                @dropdown.DropdownLink("D")
+                @dropdown.DropdownLink("E")
+            }
+            @group.Button("F")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Justified Links")
+    using (Html.Bootstrap().Div().Id("test-justified-links"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup().Justified())
+        {
+            @group.LinkButton("A")
+            @group.LinkButton("B")
+            @group.LinkButton("Long Link Text")
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Justified Buttons")
+    using (Html.Bootstrap().Div().Id("test-justified-buttons"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup().Justified())
+        {
+            @group.Button("A")
+            using (var dropdown = group.Dropdown("B"))
+            {
+                @dropdown.DropdownLink("C")
+                @dropdown.DropdownLink("D")
+            }
+            @group.Button("Long Button Text")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Justified Mixed")
+    using (Html.Bootstrap().Div().Id("test-justified-mixed"))
+    {
+        using (var group = Html.Bootstrap().ButtonGroup().Justified())
+        {
+            @group.Button("A")
+            @group.LinkButton("Long Link Text")
+            using (var dropdown = group.Dropdown("C"))
+            {
+                @dropdown.DropdownLink("D")
+                @dropdown.DropdownLink("E")
+            }
+            @group.Button("Long Button Text")
+            @group.LinkButton("F")
+        }
+    }
+}

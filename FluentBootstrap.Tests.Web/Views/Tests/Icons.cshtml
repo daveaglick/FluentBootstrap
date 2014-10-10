@@ -16,6 +16,22 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Link Button Icon")
+    using (Html.Bootstrap().Div().Id("test-link-button-icon"))
+    {
+        @Html.Bootstrap().LinkButton("Link Button").Icon(Icon.Picture)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Link Icon")
+    using (Html.Bootstrap().Div().Id("test-link-icon"))
+    {
+        @Html.Bootstrap().Link("Link").Icon(Icon.Road)
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Form Feedback")
     using (Html.Bootstrap().Div().Id("test-form-feedback"))
     {

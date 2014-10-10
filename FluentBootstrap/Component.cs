@@ -332,10 +332,22 @@ namespace FluentBootstrap
 
         // Only the simple interface types should be used as generic type parameters here
         // Using a type that has TModel will skip components with a different model (such as when run from inside a partial with a different model)
-        internal TComponent GetComponent<TComponent>()
+        // onlyParent indicates that just the parent component in the stack should be searched (instead of all the way up)
+        internal TComponent GetComponent<TComponent>(bool onlyParent = false)
             where TComponent : class, IComponent
         {
-            return GetStack().Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault() as TComponent;
+            Stack<IComponent> stack = GetStack();
+            if(onlyParent)
+            {
+                // Need to account for if this component has been added to the stack or not
+                IComponent parent =stack.Peek();
+                if(parent == this)
+                {
+                    parent = stack.Skip(1).FirstOrDefault();
+                }
+                return parent as TComponent;
+            }
+            return stack.Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault() as TComponent;
         }
 
         private Stack<IComponent> GetStack()

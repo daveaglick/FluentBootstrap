@@ -48,6 +48,8 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Buttons\ButtonExtensions.cs" />
     <Compile Include="Buttons\Button.cs" />
+    <Compile Include="Buttons\ButtonGroup.cs" />
+    <Compile Include="Buttons\ButtonToolbar.cs" />
     <Compile Include="Buttons\LinkButton.cs" />
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\ButtonStyle.cs" />
@@ -69,6 +71,7 @@
     </Compile>
     <Compile Include="Icons\IconExtensions.cs" />
     <Compile Include="Icons\IconSpan.cs" />
+    <Compile Include="Icons\IHasIcon.cs" />
     <Compile Include="Typography\Cite.cs" />
     <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="EnumExtensions.cs" />

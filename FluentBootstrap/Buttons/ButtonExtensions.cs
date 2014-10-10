@@ -11,19 +11,58 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonType buttonType = ButtonType.Button, ButtonStyle buttonStyle = ButtonStyle.Default, object value = null)
+        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default, ButtonType buttonType = ButtonType.Button, object value = null)
         {
-            return new Button<TModel>(creator.GetHelper(), buttonType, buttonStyle).Text(text).Value(value);
+            return new Button<TModel>(creator.GetHelper(), buttonStyle, buttonType).Text(text).Value(value);
+        }
+        
+        // Button groups
+
+        public static ButtonGroup<TModel> ButtonGroup<TModel>(this IButtonGroupCreator<TModel> creator)
+        {
+            return new ButtonGroup<TModel>(creator.GetHelper());
         }
 
-        public static Button<TModel> Icon<TModel>(this Button<TModel> button, Icon icon)
+        public static ButtonGroup<TModel> BtnGroupLg<TModel>(this ButtonGroup<TModel> buttonGroup, bool lg = true)
         {
-            if (icon != FluentBootstrap.Icon.None)
+            buttonGroup.ToggleCss(Css.BtnGroupLg, lg, Css.BtnGroupSm, Css.BtnGroupXs);
+            return buttonGroup;
+        }
+
+        public static ButtonGroup<TModel> BtnGroupSm<TModel>(this ButtonGroup<TModel> buttonGroup, bool sm = true)
+        {
+            buttonGroup.ToggleCss(Css.BtnGroupSm, sm, Css.BtnGroupLg, Css.BtnGroupXs);
+            return buttonGroup;
+        }
+
+        public static ButtonGroup<TModel> BtnGroupXs<TModel>(this ButtonGroup<TModel> buttonGroup, bool xs = true)
+        {
+            buttonGroup.ToggleCss(Css.BtnGroupXs, xs, Css.BtnGroupSm, Css.BtnGroupLg);
+            return buttonGroup;
+        }
+
+        public static ButtonGroup<TModel> Vertical<TModel>(this ButtonGroup<TModel> buttonGroup, bool vertical = true)
+        {
+            if (vertical)
             {
-                button.AddChild(button.GetHelper().Icon(icon));
-                button.AddContent(" ");    // Add a space to give a little separation to the icon
+                buttonGroup.ToggleCss(Css.BtnGroupVertical, true, Css.BtnGroup);
             }
-            return button;
+            else
+            {
+                buttonGroup.ToggleCss(Css.BtnGroup, true, Css.BtnGroupVertical);
+            }
+            return buttonGroup;
+        }
+
+        public static ButtonGroup<TModel> Justified<TModel>(this ButtonGroup<TModel> buttonGroup, bool justified = true)
+        {
+            buttonGroup.ToggleCss(Css.BtnGroupJustified, justified);
+            return buttonGroup;
+        }
+
+        public static ButtonToolbar<TModel> ButtonToolbar<TModel>(this IButtonToolbarCreator<TModel> creator)
+        {
+            return new ButtonToolbar<TModel>(creator.GetHelper());
         }
 
         // LinkButton

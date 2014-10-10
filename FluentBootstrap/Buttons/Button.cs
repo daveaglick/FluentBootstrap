@@ -1,6 +1,7 @@
 ﻿using FluentBootstrap.Icons;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,12 +16,38 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class Button<TModel> : Tag<TModel, Button<TModel>>, IButton, IHasButtonExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public class Button<TModel> : Tag<TModel, Button<TModel>>, IButton, IHasIcon, IHasButtonExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
-        internal Button(BootstrapHelper<TModel> helper, ButtonType buttonType, ButtonStyle buttonStyle) 
+        private ButtonGroup<TModel> _buttonGroup;
+
+        internal Button(BootstrapHelper<TModel> helper, ButtonStyle buttonStyle, ButtonType buttonType) 
             : base(helper, "button", Css.Btn, buttonStyle.GetDescription())
         {
             MergeAttribute("type", buttonType.GetDescription());
+        }
+
+        protected override void PreStart(TextWriter writer)
+        {
+            // Fix for justified buttons in a group (need to surround them with an extra button group)
+            // See https://github.com/twbs/bootstrap/issues/12476
+            IButtonGroup buttonGroup = GetComponent<IButtonGroup>(true);
+            if (buttonGroup != null && buttonGroup.CssClasses.Contains(Css.BtnGroupJustified))
+            {
+                _buttonGroup = Helper.ButtonGroup();
+                _buttonGroup.Start(writer, true);
+            }
+
+            base.PreStart(writer);
+        }
+
+        protected override void OnFinish(TextWriter writer)
+        {
+            base.OnFinish(writer);
+            
+            if (_buttonGroup != null)
+            {
+                _buttonGroup.Finish(writer);
+            }
         }
     }
 }

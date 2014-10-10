@@ -29,6 +29,24 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void LinkButtonIconProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-link-button-icon",
+@"<a class=""btn-default btn"" href=""#"" role=""button"">
+   <span class=""glyphicon-picture glyphicon""></span> Link Button
+  </a>");
+        }
+
+        [Test]
+        public void LinkIconProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-link-icon",
+@"<a href=""#"">
+   <span class=""glyphicon-road glyphicon""></span> Link
+  </a>");
+        }
+
+        [Test]
         public void FormFeedbackProducesCorrectHtml()
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-form-feedback",

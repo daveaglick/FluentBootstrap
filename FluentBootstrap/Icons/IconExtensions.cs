@@ -14,5 +14,19 @@ namespace FluentBootstrap
         {
             return new IconSpan<TModel>(creator.GetHelper(), icon);
         }
+
+        // IHasIcon
+
+        public static TThis Icon<TModel, TThis>(this Component<TModel, TThis> component, Icon icon)
+            where TThis : Tag<TModel, TThis>, IHasIcon
+        {
+            TThis tag = component.GetThis();
+            if (icon != FluentBootstrap.Icon.None)
+            {
+                tag.AddChild(component.GetHelper().Icon(icon));
+                tag.AddContent(" ");    // Add a space to give a little separation to the icon
+            }
+            return tag;
+        }
     }
 }

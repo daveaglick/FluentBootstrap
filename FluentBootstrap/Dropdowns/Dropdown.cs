@@ -56,7 +56,7 @@ namespace FluentBootstrap.Dropdowns
         protected override void PreStart(TextWriter writer)
         {
             // Create a button and copy over any button classes and text
-            _button = Helper.Button(null, ButtonType.Button, _buttonStyle);
+            _button = Helper.Button(null, _buttonStyle);
             _button.AddCss(Css.DropdownToggle);
             _button.AddAttribute("data-toggle", "dropdown");
             foreach (string buttonClass in CssClasses.Where(x => x.StartsWith("btn")))
@@ -69,6 +69,13 @@ namespace FluentBootstrap.Dropdowns
             if(_caret)
             {
                 _button.AddChild(Helper.Caret());
+            }
+
+            // Check if we're in a button group, and if so change the outer CSS class
+            // Do this after copying over the btn classes so this doesn't get copied
+            if (GetComponent<IButtonGroup>(true) != null)
+            {
+                ToggleCss(Css.BtnGroup, true, Css.Dropdown);
             }
 
             // Create the list
