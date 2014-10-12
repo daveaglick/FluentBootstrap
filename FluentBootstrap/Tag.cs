@@ -134,6 +134,11 @@ namespace FluentBootstrap
             // Append the start tag
             writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
         }
+
+        protected virtual bool OutputEndTag
+        {
+            get { return true; }
+        }
         
         protected override void OnFinish(TextWriter writer)
         {
@@ -149,7 +154,10 @@ namespace FluentBootstrap
             }
 
             // Append the end tag
-            writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
+            if (OutputEndTag)
+            {
+                writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
+            }
         }
     }
 }

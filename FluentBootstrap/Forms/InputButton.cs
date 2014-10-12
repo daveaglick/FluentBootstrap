@@ -17,5 +17,10 @@ namespace FluentBootstrap.Forms
         {
             MergeAttribute("type", buttonType.GetDescription());
         }
+
+        protected override bool OutputEndTag
+        {
+            get { return false; }
+        }
     }
 }

@@ -38,5 +38,10 @@ namespace FluentBootstrap.Forms
 
             base.OnFinish(writer);
         }
+
+        protected override bool OutputEndTag
+        {
+            get { return false; }
+        }
     }
 }

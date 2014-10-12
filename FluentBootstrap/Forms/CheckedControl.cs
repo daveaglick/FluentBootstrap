@@ -60,5 +60,10 @@ namespace FluentBootstrap.Forms
                 _wrapper.Finish(writer);
             }
         }
+
+        protected override bool OutputEndTag
+        {
+            get { return false; }
+        }
     }
 }
