@@ -15,10 +15,10 @@ namespace FluentBootstrap
             return new IconSpan<TModel>(creator.GetHelper(), icon);
         }
 
-        // IHasIcon
+        // IHasIconExtensions
 
         public static TThis Icon<TModel, TThis>(this Component<TModel, TThis> component, Icon icon)
-            where TThis : Tag<TModel, TThis>, IHasIcon
+            where TThis : Tag<TModel, TThis>, IHasIconExtensions
         {
             TThis tag = component.GetThis();
             if (icon != FluentBootstrap.Icon.None)

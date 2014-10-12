@@ -10,10 +10,10 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class InputButton<TModel> : FormControl<TModel, InputButton<TModel>>, IInputButton, Buttons.IHasButtonExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute, IHasNameAttribute
+    public class InputButton<TModel> : FormControl<TModel, InputButton<TModel>>, IInputButton, Buttons.IHasButtonExtensions, Buttons.IHasButtonStyleExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute, IHasNameAttribute
     {
-        internal InputButton(BootstrapHelper<TModel> helper, ButtonType buttonType, ButtonStyle buttonStyle)
-            : base(helper, "input", Css.Btn, buttonStyle.GetDescription())
+        internal InputButton(BootstrapHelper<TModel> helper, ButtonType buttonType)
+            : base(helper, "input", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("type", buttonType.GetDescription());
         }

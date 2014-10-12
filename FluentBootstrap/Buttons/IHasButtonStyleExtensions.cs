@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentBootstrap.Icons
+namespace FluentBootstrap.Buttons
 {
-    public interface IHasIconExtensions
+    public interface IHasButtonStyleExtensions
     {
     }
 }

@@ -16,12 +16,12 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class Button<TModel> : Tag<TModel, Button<TModel>>, IButton, IHasIcon, IHasButtonExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public class Button<TModel> : Tag<TModel, Button<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStyleExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
         private ButtonGroup<TModel> _buttonGroup;
 
-        internal Button(BootstrapHelper<TModel> helper, ButtonStyle buttonStyle, ButtonType buttonType) 
-            : base(helper, "button", Css.Btn, buttonStyle.GetDescription())
+        internal Button(BootstrapHelper<TModel> helper, ButtonType buttonType) 
+            : base(helper, "button", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("type", buttonType.GetDescription());
         }

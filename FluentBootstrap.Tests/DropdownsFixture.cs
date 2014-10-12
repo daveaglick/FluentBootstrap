@@ -16,7 +16,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-simple", 
 @"<div class=""dropdown"">
-   <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+   <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
     <span class=""caret""></span>
    </button>
    <ul class=""dropdown-menu"" role=""menu"">
@@ -37,7 +37,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-no-caret",
 @"<div class=""dropdown"">
-   <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">No Caret </button>
+   <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">No Caret </button>
    <ul class=""dropdown-menu"" role=""menu"">
     <li role=""presentation"">
      <a href=""http://www.google.com"" role=""menuitem"">A</a>
@@ -51,7 +51,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-button-styles",
 @"<div class=""dropdown"">
-   <button class=""btn-xs dropdown-toggle btn-warning btn"" data-toggle=""dropdown"" type=""button"">Button 
+   <button class=""btn-xs btn-warning dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Button 
     <span class=""caret""></span>
    </button>
    <ul class=""dropdown-menu"" role=""menu"">
@@ -67,7 +67,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-right-menu",
 @"<div class=""dropdown"">
-   <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">Right 
+   <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Right 
     <span class=""caret""></span>
    </button>
    <ul class=""dropdown-menu-right dropdown-menu"" role=""menu"">
@@ -88,7 +88,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-disabled",
 @"<div class=""dropdown"">
-   <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">Disabled 
+   <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Disabled 
     <span class=""caret""></span>
    </button>
    <ul class=""dropdown-menu"" role=""menu"">
@@ -96,6 +96,25 @@ namespace FluentBootstrap.Tests
      <a href=""http://www.google.com"" role=""menuitem"">A</a>
     </li>
     <li class=""disabled"" role=""presentation"">
+     <a href=""http://www.google.com"" role=""menuitem"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void DropupProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-dropup",
+@"<div class=""dropup dropdown"">
+   <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropup 
+    <span class=""caret""></span>
+   </button>
+   <ul class=""dropdown-menu"" role=""menu"">
+    <li role=""presentation"">
+     <a href=""http://www.google.com"" role=""menuitem"">A</a>
+    </li>
+    <li role=""presentation"">
      <a href=""http://www.google.com"" role=""menuitem"">B</a>
     </li>
    </ul>

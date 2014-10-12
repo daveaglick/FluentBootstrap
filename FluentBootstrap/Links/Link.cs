@@ -15,7 +15,7 @@ namespace FluentBootstrap.Links
     {
     }
 
-    public class Link<TModel> : Tag<TModel, Link<TModel>>, ILink, IHasIcon, IHasLinkExtensions, IHasTextAttribute
+    public class Link<TModel> : Tag<TModel, Link<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextAttribute
     {
         internal Link(BootstrapHelper<TModel> helper, params string[] cssClasses)
             : base(helper, "a", cssClasses)

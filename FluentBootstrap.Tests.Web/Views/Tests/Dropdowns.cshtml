@@ -28,7 +28,7 @@
     @Html.Bootstrap().Heading1("Button Styles")
     using (Html.Bootstrap().Div().Id("test-button-styles"))
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("Button", ButtonStyle.Warning).BtnXs())
+        using (var dropdown = Html.Bootstrap().Dropdown("Button").BtnXs().BtnWarning())
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
         }
@@ -57,6 +57,18 @@
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
             @dropdown.DropdownLink("B", "http://www.google.com").Disabled()
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Dropup")
+    using (Html.Bootstrap().Div().Id("test-dropup"))
+    {
+        using (var dropdown = Html.Bootstrap().Dropdown("Dropup").Dropup())
+        {
+            @dropdown.DropdownLink("A", "http://www.google.com")
+            @dropdown.DropdownLink("B", "http://www.google.com")
         }
     }
 }

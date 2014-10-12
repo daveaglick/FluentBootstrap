@@ -11,9 +11,9 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default, ButtonType buttonType = ButtonType.Button, object value = null)
+        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
         {
-            return new Button<TModel>(creator.GetHelper(), buttonStyle, buttonType).Text(text).Value(value);
+            return new Button<TModel>(creator.GetHelper(), buttonType).Text(text).Value(value);
         }
         
         // Button groups
@@ -65,16 +65,29 @@ namespace FluentBootstrap
             return new ButtonToolbar<TModel>(creator.GetHelper());
         }
 
-        // LinkButton
+        // Dropdown buttons
 
-        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string href = "#", ButtonStyle buttonStyle = ButtonStyle.Default)
+        public static DropdownButton<TModel> DropdownButton<TModel>(this IDropdownButtonCreator<TModel> creator)
         {
-            return new LinkButton<TModel>(creator.GetHelper(), buttonStyle).Text(text).Href(href);
+            return new DropdownButton<TModel>(creator.GetHelper());
         }
 
-        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null, ButtonStyle buttonStyle = ButtonStyle.Default)
+        public static DropdownButton<TModel> Dropup<TModel>(this DropdownButton<TModel> dropdownButton, bool dropup = true)
         {
-            return new LinkButton<TModel>(creator.GetHelper(), buttonStyle).Text(text).Action(actionName, controllerName, routeValues);
+            dropdownButton.ToggleCss(Css.Dropup, dropup);
+            return dropdownButton;
+        }
+
+        // LinkButton
+
+        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string href = "#")
+        {
+            return new LinkButton<TModel>(creator.GetHelper()).Text(text).Href(href);
+        }
+
+        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
+        {
+            return new LinkButton<TModel>(creator.GetHelper()).Text(text).Action(actionName, controllerName, routeValues);
         }
 
         public static LinkButton<TModel> Disabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)
@@ -114,6 +127,64 @@ namespace FluentBootstrap
         {
             TThis tag = component.GetThis();
             tag.ToggleCss(Css.BtnBlock, block);
+            return tag;
+        }
+
+        // IHasButtonStyleExtensions
+
+        public static TThis BtnDefault<TModel, TThis>(this Component<TModel, TThis> component, bool def = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnDefault, def, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
+            return tag;
+        }
+
+        public static TThis BtnPrimary<TModel, TThis>(this Component<TModel, TThis> component, bool primary = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnPrimary, primary, Css.BtnDefault, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
+            return tag;
+        }
+
+        public static TThis BtnSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool success = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnSuccess, success, Css.BtnPrimary, Css.BtnDefault, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
+            return tag;
+        }
+
+        public static TThis BtnInfo<TModel, TThis>(this Component<TModel, TThis> component, bool info = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnInfo, info, Css.BtnPrimary, Css.BtnSuccess, Css.BtnDefault, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
+            return tag;
+        }
+
+        public static TThis BtnWarning<TModel, TThis>(this Component<TModel, TThis> component, bool warning = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnWarning, warning, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnDefault, Css.BtnDanger, Css.BtnLink);
+            return tag;
+        }
+
+        public static TThis BtnDanger<TModel, TThis>(this Component<TModel, TThis> component, bool danger = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnDanger, danger, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDefault, Css.BtnLink);
+            return tag;
+        }
+
+        public static TThis BtnLink<TModel, TThis>(this Component<TModel, TThis> component, bool link = true)
+            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        {
+            TThis tag = component.GetThis();
+            tag.ToggleCss(Css.BtnLink, link, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnDefault);
             return tag;
         }
     }

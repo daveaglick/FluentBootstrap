@@ -9,9 +9,11 @@ namespace FluentBootstrap
 {
     public static class DropdownExtensions
     {
-        public static Dropdown<TModel> Dropdown<TModel>(this IDropdownCreator<TModel> creator, string text = null, ButtonStyle buttonStyle = ButtonStyle.Default)
+        // Dropdown
+
+        public static Dropdown<TModel> Dropdown<TModel>(this IDropdownCreator<TModel> creator, string text = null)
         {
-            return new Dropdown<TModel>(creator.GetHelper(), buttonStyle).Text(text);
+            return new Dropdown<TModel>(creator.GetHelper()).Text(text);
         }
 
         public static Dropdown<TModel> Caret<TModel>(this Dropdown<TModel> dropdown, bool caret = true)
@@ -31,6 +33,14 @@ namespace FluentBootstrap
             dropdown.MenuLeft = menuLeft;
             return dropdown;
         }
+
+        public static Dropdown<TModel> Dropup<TModel>(this Dropdown<TModel> dropdown, bool dropup = true)
+        {
+            dropdown.ToggleCss(Css.Dropup, dropup);
+            return dropdown;
+        }
+
+        // Dropdown items
 
         public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownItemCreator<TModel> creator, string text, string href = "#")
         {

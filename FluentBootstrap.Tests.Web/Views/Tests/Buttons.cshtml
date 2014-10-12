@@ -7,7 +7,7 @@
         {
             @group.Button("A").Icon(Icon.Music)
             @group.LinkButton("L")
-            @group.Button("B", ButtonStyle.Success)
+            @group.Button("B").BtnSuccess()
         }
     }
     
@@ -21,12 +21,12 @@
             using (var group = toolbar.ButtonGroup())
             {
                 @group.Button("A")
-                @group.Button("B", ButtonStyle.Danger)
+                @group.Button("B").BtnDanger()
             }
             using (var group = toolbar.ButtonGroup())
             {
                 @group.Button("C")
-                @group.LinkButton("L", "#", ButtonStyle.Success)
+                @group.LinkButton("L", "#").BtnSuccess()
                 @group.Button("D").Icon(Icon.ShareAlt)
             }
         }
@@ -71,7 +71,7 @@
                 @dropdown.DropdownLink("B")
                 @dropdown.DropdownLink("C")
             }
-            using (var dropdown = group.Dropdown("Styled", ButtonStyle.Danger))
+            using (var dropdown = group.Dropdown("Styled").BtnDanger())
             {
                 @dropdown.DropdownLink("D")
                 @dropdown.DropdownLink("E")
@@ -93,7 +93,7 @@
                 @dropdown.DropdownLink("B")
                 @dropdown.DropdownLink("C")
             }
-            using (var dropdown = group.Dropdown("Styled", ButtonStyle.Danger))
+            using (var dropdown = group.Dropdown("Styled").BtnDanger())
             {
                 @dropdown.DropdownLink("D")
                 @dropdown.DropdownLink("E")
@@ -148,6 +148,76 @@
             }
             @group.Button("Long Button Text")
             @group.LinkButton("F")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Single Button Dropdown")
+    using (Html.Bootstrap().Div().Id("test-single-button-dropdown"))
+    {
+        using (var dropdownButton = Html.Bootstrap().DropdownButton())
+        {
+            using (var dropdown = dropdownButton.Dropdown("Dropdown").BtnSuccess())
+            {
+                @dropdown.DropdownLink("A")
+                @dropdown.DropdownLink("B")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Split Button Dropdown")
+    using (Html.Bootstrap().Div().Id("test-split-button-dropdown"))
+    {
+        using (var dropdownButton = Html.Bootstrap().DropdownButton())
+        {
+            @dropdownButton.Button("A").BtnSuccess()
+            using (var dropdown = dropdownButton.Dropdown().BtnSuccess())
+            {
+                @dropdown.DropdownLink("A")
+                @dropdown.DropdownLink("B")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Button Dropdown Sizes")
+    using (Html.Bootstrap().Div().Id("test-button-dropdown-sizes"))
+    {
+        using (var dropdownButton = Html.Bootstrap().DropdownButton())
+        {
+            using (var dropdown = dropdownButton.Dropdown("Large").BtnLg())
+            {
+                @dropdown.DropdownLink("A")
+                @dropdown.DropdownLink("B")
+            }
+        }
+        using (var dropdownButton = Html.Bootstrap().DropdownButton())
+        {
+            using (var dropdown = dropdownButton.Dropdown("XSmall").BtnXs())
+            {
+                @dropdown.DropdownLink("A")
+                @dropdown.DropdownLink("B")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Dropup")
+    using (Html.Bootstrap().Div().Id("test-dropup"))
+    {
+        using (var dropdownButton = Html.Bootstrap().DropdownButton().Dropup())
+        {
+            @dropdownButton.Button("A").BtnSuccess()
+            using (var dropdown = dropdownButton.Dropdown().BtnSuccess())
+            {
+                @dropdown.DropdownLink("A")
+                @dropdown.DropdownLink("B")
+            }
         }
     }
 }

@@ -77,7 +77,7 @@ namespace FluentBootstrap.Tests
    <button class=""btn-default btn"" type=""button"">A</button>
    <a class=""btn-default btn"" href=""#"" role=""button"">L</a>
    <div class=""btn-group"">
-    <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
      <span class=""caret""></span>
     </button>
     <ul class=""dropdown-menu"" role=""menu"">
@@ -90,7 +90,7 @@ namespace FluentBootstrap.Tests
     </ul>
    </div>
    <div class=""btn-group"">
-    <button class=""dropdown-toggle btn-danger btn"" data-toggle=""dropdown"" type=""button"">Styled 
+    <button class=""btn-danger dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Styled 
      <span class=""caret""></span>
     </button>
     <ul class=""dropdown-menu"" role=""menu"">
@@ -113,7 +113,7 @@ namespace FluentBootstrap.Tests
    <button class=""btn-default btn"" type=""button"">A</button>
    <a class=""btn-default btn"" href=""#"" role=""button"">L</a>
    <div class=""btn-group"">
-    <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
      <span class=""caret""></span>
     </button>
     <ul class=""dropdown-menu"" role=""menu"">
@@ -126,7 +126,7 @@ namespace FluentBootstrap.Tests
     </ul>
    </div>
    <div class=""btn-group"">
-    <button class=""dropdown-toggle btn-danger btn"" data-toggle=""dropdown"" type=""button"">Styled 
+    <button class=""btn-danger dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Styled 
      <span class=""caret""></span>
     </button>
     <ul class=""dropdown-menu"" role=""menu"">
@@ -162,7 +162,7 @@ namespace FluentBootstrap.Tests
     <button class=""btn-default btn"" type=""button"">A</button>
    </div>
    <div class=""btn-group"">
-    <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">B 
+    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">B 
      <span class=""caret""></span>
     </button>
     <ul class=""dropdown-menu"" role=""menu"">
@@ -190,7 +190,7 @@ namespace FluentBootstrap.Tests
    </div>
    <a class=""btn-default btn"" href=""#"" role=""button"">Long Link Text</a>
    <div class=""btn-group"">
-    <button class=""dropdown-toggle btn-default btn"" data-toggle=""dropdown"" type=""button"">C 
+    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">C 
      <span class=""caret""></span>
     </button>
     <ul class=""dropdown-menu"" role=""menu"">
@@ -206,6 +206,99 @@ namespace FluentBootstrap.Tests
     <button class=""btn-default btn"" type=""button"">Long Button Text</button>
    </div>
    <a class=""btn-default btn"" href=""#"" role=""button"">F</a>
+  </div>");
+        }
+
+        [Test]
+        public void SingleButtonDropdownProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-single-button-dropdown",
+@"<div class=""btn-group"">
+   <button class=""btn-success dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+    <span class=""caret""></span>
+   </button>
+   <ul class=""dropdown-menu"" role=""menu"">
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void SplitButtonDropdownProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-split-button-dropdown",
+@"<div class=""btn-group"">
+   <button class=""btn-success btn"" type=""button"">A</button>
+   <button class=""btn-success dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
+    <span class=""sr-only"">Toggle Dropdown</span>
+    <span class=""caret""></span>
+   </button>
+   <ul class=""dropdown-menu"" role=""menu"">
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void ButtonDropdownSizesProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-button-dropdown-sizes",
+@"<div class=""btn-group"">
+   <button class=""btn-lg btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Large 
+    <span class=""caret""></span>
+   </button>
+   <ul class=""dropdown-menu"" role=""menu"">
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">B</a>
+    </li>
+   </ul>
+  </div>
+  <div class=""btn-group"">
+   <button class=""btn-xs btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">XSmall 
+    <span class=""caret""></span>
+   </button>
+   <ul class=""dropdown-menu"" role=""menu"">
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void DropupProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-dropup",
+@"<div class=""dropup btn-group"">
+   <button class=""btn-success btn"" type=""button"">A</button>
+   <button class=""btn-success dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
+    <span class=""sr-only"">Toggle Dropdown</span>
+    <span class=""caret""></span>
+   </button>
+   <ul class=""dropdown-menu"" role=""menu"">
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a href=""#"" role=""menuitem"">B</a>
+    </li>
+   </ul>
   </div>");
         }
     }

@@ -16,6 +16,7 @@ namespace FluentBootstrap
         // Buttons
         Buttons.IButtonToolbarCreator<TModel>,
         Buttons.IButtonGroupCreator<TModel>,
+        Buttons.IDropdownButtonCreator<TModel>,
         Buttons.IButtonCreator<TModel>,
         Buttons.ILinkButtonCreator<TModel>,
         // Dropdowns
@@ -61,6 +62,7 @@ namespace FluentBootstrap
         // Buttons
         Buttons.IButtonToolbarCreator<TModel>,
         Buttons.IButtonGroupCreator<TModel>,
+        Buttons.IDropdownButtonCreator<TModel>,
         Buttons.IButtonCreator<TModel>,
         Buttons.ILinkButtonCreator<TModel>,
         // Dropdowns

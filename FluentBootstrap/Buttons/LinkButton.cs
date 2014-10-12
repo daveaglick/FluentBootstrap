@@ -15,10 +15,10 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>>, ILinkButton, IHasIcon, Links.IHasLinkExtensions, IHasButtonExtensions, IHasTextAttribute
+    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>>, ILinkButton, IHasIconExtensions, Links.IHasLinkExtensions, IHasButtonExtensions, IHasButtonStyleExtensions, IHasTextAttribute
     {
-        internal LinkButton(BootstrapHelper<TModel> helper, ButtonStyle buttonStyle)
-            : base(helper, "a", Css.Btn, buttonStyle.GetDescription())
+        internal LinkButton(BootstrapHelper<TModel> helper)
+            : base(helper, "a", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("role", "button");
         }
