@@ -22,11 +22,12 @@ namespace FluentBootstrap.Forms
     }
 
     public class Form<TModel> : Tag<TModel, Form<TModel>>, IForm,
-        Forms.IFieldSetCreator<TModel>,
-        Forms.IFormGroupCreator<TModel>,
-        Forms.ILabelCreator<TModel>,
-        Forms.IFormControlCreator<TModel>,
-        IHelpBlockCreator<TModel>
+        IFieldSetCreator<TModel>,
+        IFormGroupCreator<TModel>,
+        ILabelCreator<TModel>,
+        IFormControlCreator<TModel>,
+        IHelpBlockCreator<TModel>,
+        IInputGroupCreator<TModel>
     {        
         internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
 
@@ -46,6 +47,7 @@ namespace FluentBootstrap.Forms
             : base(helper, "form")
         {
             DefaultLabelWidth = Bootstrap.DefaultFormLabelWidth;
+            MergeAttribute("role", "form");
         }
 
         internal bool Horizontal

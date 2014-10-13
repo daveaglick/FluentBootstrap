@@ -50,7 +50,7 @@ namespace FluentBootstrap.Tests
         public void FormFeedbackProducesCorrectHtml()
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-form-feedback",
-@"<form action="""" method=""post"">
+@"<form action="""" method=""post"" role=""form"">
    <div class=""has-feedback form-group"">
     <label class=""control-label"" for=""Normal"">Normal</label>
     <input class=""form-control"" id=""Normal"" name=""Normal"" type=""text"">

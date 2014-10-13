@@ -1,4 +1,5 @@
 ﻿using FluentBootstrap.Buttons;
+using FluentBootstrap.Forms;
 using FluentBootstrap.Html;
 using FluentBootstrap.Typography;
 using System;
@@ -78,10 +79,10 @@ namespace FluentBootstrap.Dropdowns
                 _button.AddChild(Helper.Caret());
             }
 
-            // Check if we're in a dropdown button, then
+            // Check if we're in a IDropdownButton or IInputGroupButton, then
             // Check if we're in a button group, and if so change the outer CSS class
             // Do this after copying over the btn classes so this doesn't get copied
-            if (GetComponent<IDropdownButton>(true) != null)
+            if (GetComponent<IDropdownButton>(true) != null || GetComponent<IInputGroupButton>(true) != null)
             {
                 _dropdownButton = true;
             }

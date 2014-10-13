@@ -18,8 +18,8 @@ namespace FluentBootstrap.Forms
     }
 
     public class FormGroup<TModel> : Tag<TModel, FormGroup<TModel>>, IFormGroup, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation,
-        Forms.ILabelCreator<TModel>,
-        Forms.IFormControlCreator<TModel>,
+        ILabelCreator<TModel>,
+        IFormControlCreator<TModel>,
         IHelpBlockCreator<TModel>
     {
         private ILabel _label = null;

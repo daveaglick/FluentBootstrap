@@ -585,5 +585,53 @@ namespace FluentBootstrap
             tag.ToggleCss(Css.HasError, hasError, Css.HasWarning, Css.HasSuccess);
             return tag;
         }
+
+        // InputGroup
+
+        public static InputGroup<TModel> InputGroup<TModel>(this IInputGroupCreator<TModel> creator)
+        {
+            return new InputGroup<TModel>(creator.GetHelper());
+        }
+
+        public static InputGroup<TModel> InputGroupLg<TModel>(this InputGroup<TModel> inputGroup, bool lg = true)
+        {
+            inputGroup.ToggleCss(Css.InputGroupLg, lg, Css.InputGroupSm);
+            return inputGroup;
+        }
+
+        public static InputGroup<TModel> InputGroupSm<TModel>(this InputGroup<TModel> inputGroup, bool sm = true)
+        {
+            inputGroup.ToggleCss(Css.InputGroupSm, sm, Css.InputGroupLg);
+            return inputGroup;
+        }
+
+        public static InputGroupAddon<TModel> InputGroupAddon<TModel>(this IInputGroupAddonCreator<TModel> creator, object content = null)
+        {
+            return new InputGroupAddon<TModel>(creator.GetHelper()).AddContent(content);
+        }
+
+        public static InputGroupButton<TModel> InputGroupButton<TModel>(this IInputGroupButtonCreator<TModel> creator)
+        {
+            return new InputGroupButton<TModel>(creator.GetHelper());
+        }
+
+        // Use special creator extensions to create input group addons so we can control the output more closely (I.e., no labels, form groups, etc.)
+
+        public static Input<TModel> Input<TModel>(this InputGroup<TModel> inputGroup, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        {
+            return new Input<TModel>(inputGroup.GetHelper(), inputType).Name(name).Value(value, format).EnsureFormGroup(false);
+        }
+
+        public static CheckedControl<TModel> CheckBox<TModel>(this InputGroupAddon<TModel> inputGroupAddon, string name = null, bool isChecked = false)
+        {
+            return new CheckedControl<TModel>(inputGroupAddon.GetHelper(), Css.Checkbox) { SuppressLabelWrapper = true }
+                .Name(name).IsChecked(isChecked).EnsureFormGroup(false).Inline(true);
+        }
+
+        public static CheckedControl<TModel> Radio<TModel>(this InputGroupAddon<TModel> inputGroupAddon, string name = null, object value = null, bool isChecked = false)
+        {
+            return new CheckedControl<TModel>(inputGroupAddon.GetHelper(), Css.Radio) { SuppressLabelWrapper = true }
+                .Name(name).Value(value).IsChecked(isChecked).EnsureFormGroup(false).Inline(true);
+        }
     }
 }

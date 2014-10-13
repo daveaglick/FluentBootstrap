@@ -17,6 +17,7 @@ namespace FluentBootstrap.Forms
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }
+        internal bool SuppressLabelWrapper { get; set; }
 
         private Element<TModel> _wrapper = null;
         private Element<TModel> _label = null;
@@ -44,9 +45,12 @@ namespace FluentBootstrap.Forms
                 _wrapper.Start(writer, true);
             }
 
-            // Add the label
-            _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
-            _label.Start(writer, true);
+            // Add the label wrapper
+            if (!SuppressLabelWrapper)
+            {
+                _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
+                _label.Start(writer, true);
+            }
         }
 
         protected override void OnFinish(TextWriter writer)
@@ -54,7 +58,10 @@ namespace FluentBootstrap.Forms
             base.OnFinish(writer);
 
             // Finish the wrapper and label
-            _label.Finish(writer);
+            if (_label != null)
+            {
+                _label.Finish(writer);
+            }
             if (_wrapper != null)
             {
                 _wrapper.Finish(writer);

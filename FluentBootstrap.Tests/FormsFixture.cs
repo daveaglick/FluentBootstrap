@@ -17,7 +17,7 @@ namespace FluentBootstrap.Tests
         public void ReadonlyProducesCorrectHtml()
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-readonly",
-@"<form action="""" method=""post"">
+@"<form action="""" method=""post"" role=""form"">
    <div class=""form-group"">
     <label class=""control-label"" for=""readonly"">Readonly Input</label>
     <input class=""form-control"" id=""readonly"" name=""readonly"" readonly="""" type=""text"" value=""Initial Value"">
@@ -36,7 +36,7 @@ namespace FluentBootstrap.Tests
         public void ValidationClassesProduceCorrectHtml()
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-validation",
-@"<form action="""" method=""post"">
+@"<form action="""" method=""post"" role=""form"">
    <div class=""has-error form-group"">
     <label class=""control-label"" for=""Error"">Error</label>
     <input class=""form-control"" id=""Error"" name=""Error"" type=""text"">
@@ -56,6 +56,185 @@ namespace FluentBootstrap.Tests
       <input id=""Success"" name=""Success"" type=""radio"">Description here
      </label>
     </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void BasicInputGroupProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-basic-input-group",
+@"<form action="""" method=""post"" role=""form"">
+   <div class=""input-group"">
+    <span class=""input-group-addon"">@</span>
+    <input class=""form-control"" placeholder=""Username"" type=""text"">
+   </div>
+   <div class=""input-group"">
+    <input class=""form-control"" type=""text"">
+    <span class=""input-group-addon"">.00</span>
+   </div>
+   <div class=""input-group"">
+    <span class=""input-group-addon"">$</span>
+    <input class=""form-control"" type=""text"">
+    <span class=""input-group-addon"">.00</span>
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void InputGroupSizingProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-sizing",
+@"<form action="""" method=""post"" role=""form"">
+   <div class=""input-group-lg input-group"">
+    <span class=""input-group-addon"">@</span>
+    <input class=""form-control"" placeholder=""Username"" type=""text"">
+   </div>
+   <div class=""input-group-sm input-group"">
+    <span class=""input-group-addon"">@</span>
+    <input class=""form-control"" placeholder=""Username"" type=""text"">
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void InputGroupCheckedProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-checked",
+@"<form action="""" method=""post"" role=""form"">
+   <div class=""input-group"">
+    <span class=""input-group-addon"">
+     <input type=""checkbox"">
+    </span>
+    <input class=""form-control"" type=""text"">
+   </div>
+   <div class=""input-group"">
+    <span class=""input-group-addon"">
+     <input type=""radio"">
+    </span>
+    <input class=""form-control"" type=""text"">
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void InputGroupButtonAddonsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-button-addons",
+@"<form action="""" method=""post"" role=""form"">
+   <div class=""input-group"">
+    <span class=""input-group-btn"">
+     <button class=""btn-default btn"" type=""button"">Go!</button>
+    </span>
+    <input class=""form-control"" type=""text"">
+   </div>
+   <div class=""input-group"">
+    <input class=""form-control"" type=""text"">
+    <span class=""input-group-btn"">
+     <button class=""btn-warning btn"" type=""button"">Go!</button>
+    </span>
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void InputGroupButtonDropdownsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-button-dropdowns",
+@"<form action="""" method=""post"" role=""form"">
+   <div class=""input-group"">
+    <span class=""input-group-btn"">
+     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+      <span class=""caret""></span>
+     </button>
+     <ul class=""dropdown-menu"" role=""menu"">
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">A</a>
+      </li>
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">B</a>
+      </li>
+     </ul>
+    </span>
+    <input class=""form-control"" type=""text"">
+   </div>
+   <div class=""input-group"">
+    <input class=""form-control"" type=""text"">
+    <span class=""input-group-btn"">
+     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+      <span class=""caret""></span>
+     </button>
+     <ul class=""dropdown-menu"" role=""menu"">
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">A</a>
+      </li>
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">B</a>
+      </li>
+     </ul>
+    </span>
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void InputGroupSegmentedButtonsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-segmented-buttons",
+@"<form action="""" method=""post"" role=""form"">
+   <div class=""input-group"">
+    <span class=""input-group-btn"">
+     <button class=""btn-default btn"" type=""button"">Action</button>
+     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
+      <span class=""sr-only"">Toggle Dropdown</span>
+      <span class=""caret""></span>
+     </button>
+     <ul class=""dropdown-menu"" role=""menu"">
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">A</a>
+      </li>
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">B</a>
+      </li>
+     </ul>
+    </span>
+    <input class=""form-control"" type=""text"">
+   </div>
+   <div class=""input-group"">
+    <input class=""form-control"" type=""text"">
+    <span class=""input-group-btn"">
+     <button class=""btn-default btn"" type=""button"">Action</button>
+     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
+      <span class=""sr-only"">Toggle Dropdown</span>
+      <span class=""caret""></span>
+     </button>
+     <ul class=""dropdown-menu"" role=""menu"">
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">A</a>
+      </li>
+      <li role=""presentation"">
+       <a href=""#"" role=""menuitem"">B</a>
+      </li>
+     </ul>
+    </span>
    </div>
    <div class=""form-group"">
     <div class=""text-danger form-control-static""></div>

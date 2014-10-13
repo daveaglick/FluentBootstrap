@@ -65,6 +65,9 @@
     <Compile Include="Dropdowns\DropdownExtensions.cs" />
     <Compile Include="Dropdowns\DropdownHeader.cs" />
     <Compile Include="Dropdowns\DropdownLink.cs" />
+    <Compile Include="Forms\InputGroup.cs" />
+    <Compile Include="Forms\InputGroupAddon.cs" />
+    <Compile Include="Forms\InputGroupButton.cs" />
     <Compile Include="Icons\Icon.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

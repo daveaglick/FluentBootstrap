@@ -22,4 +22,172 @@
             @form.Radio("Success", "Success", "Description here").HasSuccess()
         }
     }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Basic Input Group")
+    using (Html.Bootstrap().Div().Id("test-basic-input-group"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            using(var inputGroup = form.InputGroup())
+            {
+                @inputGroup.InputGroupAddon("@")
+                @inputGroup.Input().Placeholder("Username")
+            }
+            using (var inputGroup = form.InputGroup())
+            {
+                @inputGroup.Input()
+                @inputGroup.InputGroupAddon(".00")
+            }
+            using (var inputGroup = form.InputGroup())
+            {
+                @inputGroup.InputGroupAddon("$")
+                @inputGroup.Input()
+                @inputGroup.InputGroupAddon(".00")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input Group Sizing")
+    using (Html.Bootstrap().Div().Id("test-input-group-sizing"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            using (var inputGroup = form.InputGroup().InputGroupLg())
+            {
+                @inputGroup.InputGroupAddon("@")
+                @inputGroup.Input().Placeholder("Username")
+            }
+            using (var inputGroup = form.InputGroup().InputGroupSm())
+            {
+                @inputGroup.InputGroupAddon("@")
+                @inputGroup.Input().Placeholder("Username")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input Group Checked")
+    using (Html.Bootstrap().Div().Id("test-input-group-checked"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            using (var inputGroup = form.InputGroup())
+            {
+                using(var addon = inputGroup.InputGroupAddon())
+                {
+                    @addon.CheckBox()
+                }
+                @inputGroup.Input()
+            }
+            using (var inputGroup = form.InputGroup())
+            {
+                using(var addon = inputGroup.InputGroupAddon())
+                {
+                    @addon.Radio()
+                }
+                @inputGroup.Input()
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input Group Button Addons")
+    using (Html.Bootstrap().Div().Id("test-input-group-button-addons"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            using (var inputGroup = form.InputGroup())
+            {
+                using(var button = inputGroup.InputGroupButton())
+                {
+                    @button.Button("Go!")
+                }
+                @inputGroup.Input()
+            }
+            using (var inputGroup = form.InputGroup())
+            {
+                @inputGroup.Input()
+                using (var button = inputGroup.InputGroupButton())
+                {
+                    @button.Button("Go!").BtnWarning()
+                }
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input Group Button Dropdowns")
+    using (Html.Bootstrap().Div().Id("test-input-group-button-dropdowns"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            using (var inputGroup = form.InputGroup())
+            {
+                using (var button = inputGroup.InputGroupButton())
+                {
+                    using(var dropdown = button.Dropdown("Dropdown"))
+                    {
+                        @dropdown.DropdownLink("A")
+                        @dropdown.DropdownLink("B")
+                    }
+                }
+                @inputGroup.Input()
+            }
+            using (var inputGroup = form.InputGroup())
+            {
+                @inputGroup.Input()
+                using (var button = inputGroup.InputGroupButton())
+                {
+                    using (var dropdown = button.Dropdown("Dropdown"))
+                    {
+                        @dropdown.DropdownLink("A")
+                        @dropdown.DropdownLink("B")
+                    }
+                }
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input Group Segmented Buttons")
+    using (Html.Bootstrap().Div().Id("test-input-group-segmented-buttons"))
+    {
+        using (var form = Html.Bootstrap().Form())
+        {
+            using (var inputGroup = form.InputGroup())
+            {
+                using (var button = inputGroup.InputGroupButton())
+                {
+                    @button.Button("Action")
+                    using (var dropdown = button.Dropdown())
+                    {
+                        @dropdown.DropdownLink("A")
+                        @dropdown.DropdownLink("B")
+                    }
+                }
+                @inputGroup.Input()
+            }
+            using (var inputGroup = form.InputGroup())
+            {
+                @inputGroup.Input()
+                using (var button = inputGroup.InputGroupButton())
+                {
+                    @button.Button("Action")
+                    using (var dropdown = button.Dropdown())
+                    {
+                        @dropdown.DropdownLink("A")
+                        @dropdown.DropdownLink("B")
+                    }
+                }
+            }
+        }
+    }
 }

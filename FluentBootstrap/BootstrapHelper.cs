@@ -75,6 +75,9 @@ namespace FluentBootstrap
         Forms.ILabelCreator<TModel>,
         Forms.IFormControlCreator<TModel>,
         Forms.IHelpBlockCreator<TModel>,
+        Forms.IInputGroupCreator<TModel>,
+        Forms.IInputGroupAddonCreator<TModel>,
+        Forms.IInputGroupButtonCreator<TModel>,
         // Grids
         Grids.IContainerCreator<TModel>,
         Grids.IGridColumnCreator<TModel>,
