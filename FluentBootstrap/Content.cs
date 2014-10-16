@@ -11,12 +11,12 @@ namespace FluentBootstrap
     {
     }
 
-    public class Content<TModel> : Component<TModel, Content<TModel>>, IContent
+    public class Content<TModel> : Component<TModel, Content<TModel>, ComponentParent<TModel>>, IContent
     {
         private readonly string _content;
 
-        public Content(BootstrapHelper<TModel> helper, string content)
-            : base(helper)
+        public Content(IComponentCreator<TModel> creator, string content)
+            : base(creator)
         {
             _content = content;
         }

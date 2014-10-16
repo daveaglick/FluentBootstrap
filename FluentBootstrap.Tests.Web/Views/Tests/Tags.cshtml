@@ -1,0 +1,53 @@
+﻿@using(Html.Bootstrap().Container())
+{
+    @*@Html.Bootstrap().Heading1("With Child")*@
+    //using (Html.Bootstrap().Div().Id("test-with-child"))
+    {
+        @Html.Bootstrap().GridRow().WithChild().GridColumn(12).AddContent("With Child")
+    }
+    
+    <hr />
+    
+    @*@Html.Bootstrap().Heading1("With Child Disposable")*@
+    //using (Html.Bootstrap().Div().Id("test-with-child-disposable"))
+    {
+        using (Html.Bootstrap().GridRow().WithChild().GridColumn(12))
+        {
+            <text>With Child Disposable</text>
+        }
+    }
+
+    <hr />
+
+    @*@Html.Bootstrap().Heading1("With Child Begin")*@
+    //using (Html.Bootstrap().Div().Id("test-with-child-begin"))
+    {
+        using (Html.Bootstrap().GridRow().WithChild().GridColumn(12).Begin())
+        {
+            <text>With Child Begin</text>
+        }
+    }
+
+    <hr />
+
+    @*@Html.Bootstrap().Heading1("With Child Nested")*@
+    //using (Html.Bootstrap().Div().Id("test-with-child-nested"))
+    {
+        using (var row = Html.Bootstrap().Container().WithChild().GridRow().Begin())
+        {
+            using (row.GridColumn(8))
+            {
+                <text>A</text>
+            }
+            @row.GridColumn(4).AddContent("B")
+        }
+    }
+
+    <hr />
+
+    @*@Html.Bootstrap().Heading1("Add Child")*@
+    //using (Html.Bootstrap().Div().Id("test-add-child"))
+    {
+        @Html.Bootstrap().GridRow().AddChild(x => x.GridColumn(6).AddContent("A")).AddChild(x => x.GridColumn(6).AddContent("B").AddChild(y => Html.Bootstrap().Container()))
+    }
+}

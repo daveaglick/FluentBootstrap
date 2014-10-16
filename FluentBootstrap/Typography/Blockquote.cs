@@ -28,12 +28,12 @@ namespace FluentBootstrap.Typography
 
             if (!string.IsNullOrWhiteSpace(Quote))
             {
-                new Element<TModel>(Helper, "p").Text(Quote).StartAndFinish(writer);
+                new Element<TModel>(Helper, "p").SetText(Quote).StartAndFinish(writer);
             }
 
             if (!string.IsNullOrWhiteSpace(Footer))
             {
-                new Element<TModel>(Helper, "footer").Text(Footer).StartAndFinish(writer);
+                new Element<TModel>(Helper, "footer").SetText(Footer).StartAndFinish(writer);
             }
         }
     }

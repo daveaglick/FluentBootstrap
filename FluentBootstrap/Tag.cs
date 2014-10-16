@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,8 +21,13 @@ namespace FluentBootstrap
     {
     }
 
-    public abstract class Tag<TModel, TThis> : Component<TModel, TThis>, ITag
-        where TThis : Tag<TModel, TThis>
+    public abstract class TagParent<TModel> : ComponentParent<TModel>
+    {
+    }
+
+    public abstract class Tag<TModel, TThis, TParent> : Component<TModel, TThis, TParent>, ITag
+        where TThis : Tag<TModel, TThis, TParent>
+        where TParent : TagParent<TModel>, new()
     {
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
@@ -33,8 +39,8 @@ namespace FluentBootstrap
 
         internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
-        protected internal Tag(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
-            : base(helper)
+        protected internal Tag(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+            : base(creator)
         {
             TagBuilder = new TagBuilder(tagName);
             CssClasses = new HashSet<string>();
@@ -100,6 +106,19 @@ namespace FluentBootstrap
             else
             {
                 CssClasses.Remove(cssClass);
+            }
+            return GetThis();
+        }
+
+        // This takes a flags enum and adds all css classes that are on and removes all that are off
+        // Or if not flags, adds the current enum description and turns all others off
+        // The CSS class is specified as a DescriptionAttribute on each enum value
+        internal TThis ToggleCss(Enum css)
+        {
+            bool flags = css.GetType().GetCustomAttributes<FlagsAttribute>().Any();
+            foreach(Enum value in Enum.GetValues(css.GetType()))
+            {
+                ToggleCss(value.GetDescription(), flags ? css.HasFlag(value) : css.Equals(value));
             }
             return GetThis();
         }

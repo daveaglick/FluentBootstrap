@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
+    public interface IGridRowCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class GridRowParent<TModel> : TagParent<TModel>, IGridColumnCreator<TModel>
+    {
+    }
+
     internal interface IGridRow : ITag
     {
     }
 
-    public interface IGridRowCreator<TModel> : IComponentCreator<TModel>
+    public class GridRow<TModel> : Tag<TModel, GridRow<TModel>, GridRowParent<TModel>>, IGridRow
     {
-    }
-
-    public class GridRow<TModel> : Tag<TModel, GridRow<TModel>>, IGridRow,
-        IGridColumnCreator<TModel>
-    {
-        internal GridRow(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.Row)
+        internal GridRow(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.Row)
         {
         }
     }

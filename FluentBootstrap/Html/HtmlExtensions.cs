@@ -27,7 +27,7 @@ namespace FluentBootstrap
 
         public static Element<TModel> Paragraph<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
         {
-            return new Element<TModel>(creator.GetHelper(), "p", cssClasses).Text(text);
+            return new Element<TModel>(creator.GetHelper(), "p", cssClasses).SetText(text);
         }
     }
 }

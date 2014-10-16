@@ -9,104 +9,121 @@ namespace FluentBootstrap
 {
     public static class GridColumnExtensions
     {
-        public static TThis Xs<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetXs<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-xs-", value);
         }
 
-        public static TThis Sm<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetSm<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-sm-", value);
         }
 
-        public static TThis Md<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetMd<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-md-", value);
         }
 
-        public static TThis Lg<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetLg<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-lg-", value);
         }
 
-        public static TThis XsOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetXsOffset<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-xs-offset-", value);
         }
 
-        public static TThis SmOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetSmOffset<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-sm-offset-", value);
         }
 
-        public static TThis MdOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetMdOffset<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-md-offset-", value);
         }
 
-        public static TThis LgOffset<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetLgOffset<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-lg-offset-", value);
         }
 
-        public static TThis XsPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetXsPush<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-xs-push-", value);
         }
 
-        public static TThis SmPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetSmPush<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-sm-push-", value);
         }
 
-        public static TThis MdPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetMdPush<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-md-push-", value);
         }
 
-        public static TThis LgPush<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetLgPush<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-lg-push-", value);
         }
 
-        public static TThis XsPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetXsPull<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-xs-pull-", value);
         }
 
-        public static TThis SmPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetSmPull<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-sm-pull-", value);
         }
 
-        public static TThis MdPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetMdPull<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-md-pull-", value);
         }
 
-        public static TThis LgPull<TModel, TThis>(this Component<TModel, TThis> component, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        public static TThis SetLgPull<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             return SetColumnClass(component, "col-lg-pull-", value);
         }
 
-        private static TThis SetColumnClass<TModel, TThis>(Component<TModel, TThis> component, string prefix, int? value)
-            where TThis : Tag<TModel, TThis>, IHasGridColumnExtensions
+        private static TThis SetColumnClass<TModel, TThis, TParent>(Component<TModel, TThis, TParent> component, string prefix, int? value)
+            where TThis : Tag<TModel, TThis, TParent>, IHasGridColumnExtensions
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.SetColumnClass(prefix, value);

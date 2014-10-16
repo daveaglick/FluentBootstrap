@@ -12,8 +12,9 @@ namespace FluentBootstrap
     public static class TagExtensions
     {
         // Tag extensions
-        public static TThis AddCss<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
-            where TThis : Tag<TModel, TThis>
+        public static TThis AddCss<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, params string[] cssClasses)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             foreach (string cssClass in cssClasses)
@@ -23,8 +24,9 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis RemoveCss<TModel, TThis>(this Component<TModel, TThis> component, params string[] cssClasses)
-            where TThis : Tag<TModel, TThis>
+        public static TThis RemoveCss<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, params string[] cssClasses)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             foreach (string cssClass in cssClasses)
@@ -34,40 +36,37 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis Attributes<TModel, TThis>(this Component<TModel, TThis> component, object htmlAttributes)
-            where TThis : Tag<TModel, TThis>
+        public static TThis AddAttributes<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, object htmlAttributes)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.MergeAttributes(htmlAttributes);
-            return tag;
+            return component.GetThis().MergeAttributes(htmlAttributes);
         }
 
-        public static TThis Attributes<TModel, TThis>(this Component<TModel, TThis> component, IDictionary<string, object> htmlAttributes)
-            where TThis : Tag<TModel, TThis>
+        public static TThis AddAttributes<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, IDictionary<string, object> htmlAttributes)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.MergeAttributes(htmlAttributes);
-            return tag;
+            return component.GetThis().MergeAttributes(htmlAttributes);
         }
 
-        public static TThis AddAttribute<TModel, TThis>(this Component<TModel, TThis> component, string key, object value)
-            where TThis : Tag<TModel, TThis>
+        public static TThis AddAttribute<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, string key, object value)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.MergeAttribute(key, Convert.ToString(value, CultureInfo.InvariantCulture));
-            return tag;
+            return component.GetThis().MergeAttribute(key, Convert.ToString(value, CultureInfo.InvariantCulture));
         }
 
-        public static TThis Id<TModel, TThis>(this Component<TModel, TThis> component, string id)
-            where TThis : Tag<TModel, TThis>
+        public static TThis SetId<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, string id)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.MergeAttribute("id", id);
-            return tag;
+            return component.GetThis().MergeAttribute("id", id);
         }
 
-        public static TThis AddContent<TModel, TThis>(this Component<TModel, TThis> component, object content)
-            where TThis : Tag<TModel, TThis>
+        public static TThis AddContent<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, object content)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             if (content != null)
@@ -99,9 +98,10 @@ namespace FluentBootstrap
             }
             return tag;
         }
-        
-        public static TThis AddHtml<TModel, TThis>(this Component<TModel, TThis> component, Func<dynamic, HelperResult> content)
-            where TThis : Tag<TModel, TThis>
+
+        public static TThis AddHtml<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, Func<dynamic, HelperResult> content)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.AddChild(new Content<TModel>(tag.Helper,
@@ -109,253 +109,47 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis AddChild<TThis, TChild, TModel>(this Component<TModel, TThis> component, Func<TThis, TChild> childFunc)
-            where TThis : Tag<TModel, TThis>
+        public static TThis AddChild<TModel, TThis, TChild, TParent>(this Component<TModel, TThis, TParent> component, Func<TParent, TChild> childFunc)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
             where TChild : Component
         {
             TThis tag = component.GetThis();
-            TChild child = childFunc(tag);
-            tag.AddChild(child);
+            tag.AddChild(childFunc(tag.GetParent()));
             return tag;
         }
 
-        // Responsive utilities
-
-        public static TThis VisibleXsBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
+        // This is a very special extension - it allows adding a child using fluent style and switches the fluent object to the child, but behind the scenes
+        // will still defer all rendering calls to the parent (so that the while hierarchy gets output at once, starting with the parent)
+        public static TParent WithChild<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            return component.GetThis().ToggleCss(Css.VisibleXsBlock, toggle);
+            TThis tag = component.GetThis();
+            TParent parent = tag.GetParent();
+            parent.WithChild = true;
+            return parent;
         }
 
-        public static TThis VisibleXsInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
+        public static TThis SetVisibility<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, Visibility visibility)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            return component.GetThis().ToggleCss(Css.VisibleXsInline, toggle);
+            return component.GetThis().ToggleCss(visibility);
         }
 
-        public static TThis VisibleXsInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
+        public static TThis SetTextColor<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, TextColor textColor)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            return component.GetThis().ToggleCss(Css.VisibleXsInlineBlock, toggle);
+            return component.GetThis().ToggleCss(textColor);
         }
 
-        public static TThis VisibleSmBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
+        public static TThis SetBackgroundColor<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, BackgroundColor backgroundColor)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
-            return component.GetThis().ToggleCss(Css.VisibleSmBlock, toggle);
+            return component.GetThis().ToggleCss(backgroundColor);
         }
-
-        public static TThis VisibleSmInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleSmInline, toggle);
-        }
-
-        public static TThis VisibleSmInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleSmInlineBlock, toggle);
-        }
-
-        public static TThis VisibleMdBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleMdBlock, toggle);
-        }
-
-        public static TThis VisibleMdInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleMdInline, toggle);
-        }
-
-        public static TThis VisibleMdInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleMdInlineBlock, toggle);
-        }
-
-        public static TThis VisibleLgBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleLgBlock, toggle);
-        }
-
-        public static TThis VisibleLgInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleLgInline, toggle);
-        }
-
-        public static TThis VisibleLgInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisibleLgInlineBlock, toggle);
-        }
-
-        public static TThis HiddenXs<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.HiddenXs, toggle);
-        }
-
-        public static TThis HiddenSm<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.HiddenSm, toggle);
-        }
-
-        public static TThis HiddenMd<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.HiddenMd, toggle);
-        }
-
-        public static TThis HiddenLg<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.HiddenLg, toggle);
-        }
-
-        // Print classes
-
-        public static TThis VisiblePrintBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisiblePrintBlock, toggle);
-        }
-
-        public static TThis VisiblePrintInline<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisiblePrintInline, toggle);
-        }
-
-        public static TThis VisiblePrintInlineBlock<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.VisiblePrintInlineBlock, toggle);
-        }
-
-        public static TThis HiddenPrint<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.HiddenPrint, toggle);
-        }
-
-
-        // Contextual colors
-
-        public static TThis TextMuted<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextMuted, toggle);
-        }
-
-        public static TThis TextPrimary<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextPrimary, toggle);
-        }
-
-        public static TThis TextSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextSuccess, toggle);
-        }
-
-        public static TThis TextInfo<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextInfo, toggle);
-        }
-
-        public static TThis TextWarning<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextWarning, toggle);
-        }
-
-        public static TThis TextDanger<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextDanger, toggle);
-        }
-
-        // Contextual backgrounds
-
-        public static TThis BgPrimary<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.BgPrimary, toggle);
-        }
-
-        public static TThis BgSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.BgSuccess, toggle);
-        }
-
-        public static TThis BgInfo<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.BgInfo, toggle);
-        }
-
-        public static TThis BgWarning<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.BgWarning, toggle);
-        }
-
-        public static TThis BgDanger<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.BgDanger, toggle);
-        }
-
-        // Showing and hiding content
-
-        public static TThis Show<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.Show, toggle);
-        }
-
-        public static TThis Hidden<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.Hidden, toggle);
-        }
-
-        public static TThis Invisible<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.Invisible, toggle);
-        }
-
-        // Screen reader
-
-        public static TThis SrOnly<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.SrOnly, toggle);
-        }
-
-        public static TThis SrOnlyFocusable<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.SrOnlyFocusable, toggle);
-        }
-
-        // Image replacement
-
-        public static TThis TextHide<TModel, TThis>(this Component<TModel, TThis> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis>
-        {
-            return component.GetThis().ToggleCss(Css.TextHide, toggle);
-        }
-
-
     }
 }

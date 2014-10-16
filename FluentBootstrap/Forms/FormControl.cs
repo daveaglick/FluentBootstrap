@@ -135,7 +135,7 @@ namespace FluentBootstrap.Forms
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                new HelpBlock<TModel>(Helper).Text(Help).StartAndFinish(writer);
+                new HelpBlock<TModel>(Helper).SetText(Help).StartAndFinish(writer);
             }
 
             Pop(_formGroup, writer);

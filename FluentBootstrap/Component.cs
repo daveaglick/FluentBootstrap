@@ -8,6 +8,34 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
+    public interface IComponentCreator<TModel>
+    {
+        BootstrapHelper<TModel> GetHelper();
+        Component GetParentComponent();
+    }
+
+    // This wraps a component once it's been output and indicates the available child components
+    public class ComponentParent<TModel> : IDisposable, IComponentCreator<TModel>
+    {
+        internal Component<TModel> Component { private get; set; }
+        internal bool WithChild { private get; set; }
+
+        public void Dispose()
+        {
+            Component.Dispose();
+        }
+
+        public BootstrapHelper<TModel> GetHelper()
+        {
+            return Component.Helper;
+        }
+
+        public Component GetParentComponent()
+        {
+            return WithChild ? Component : null;
+        }
+    }
+    
     // This (and derived) non-generic interfaces get applied to every component
     // This allowed type comparisons of component references without worrying about all the generic stuff
     // Generally, any members that need to be accessed after getting a component off the stack from another one should be put in the interface
@@ -19,7 +47,7 @@ namespace FluentBootstrap
         bool Implicit { get; }
     }
 
-    public abstract class Component : IComponent
+    public abstract class Component : IDisposable, IComponent
     {
         void IComponent.Start(TextWriter writer, bool isImplicit)
         {
@@ -45,16 +73,26 @@ namespace FluentBootstrap
         internal abstract void Finish(TextWriter writer);
         internal abstract void StartAndFinish(TextWriter writer);
         internal abstract bool Implicit { get; }
+        internal abstract void AddChild(IComponent component);
+        public abstract void End();
+        public abstract void Dispose();
     }
 
-    public abstract class Component<TModel, TThis> : Component, IDisposable, IHtmlString, IComponentCreator<TModel>
-        where TThis : Component<TModel, TThis>
+    public abstract class Component<TModel> : Component
+    {
+        internal abstract BootstrapHelper<TModel> Helper { get; }
+    }
+
+    public abstract class Component<TModel, TThis, TParent> : Component<TModel>, IHtmlString
+        where TThis : Component<TModel, TThis, TParent>
+        where TParent : ComponentParent<TModel>, new()
     {
         private bool _disposed;
         private bool _started;
         private bool _ended;
-        private bool _render = true;
         private readonly List<IComponent> _children = new List<IComponent>();
+        private readonly Component _parentComponent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
+        private readonly BootstrapHelper<TModel> _helper;
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
         // The primary difference is that implicit components can be automatically cleaned up from the stack
@@ -65,9 +103,19 @@ namespace FluentBootstrap
             get { return _implicit; }
         }
 
-        internal BootstrapHelper<TModel> Helper { get; private set; }
+        private bool _render = true;
 
-        protected Component(BootstrapHelper<TModel> helper)
+        internal bool Render
+        {
+            set { _render = value; }
+        }
+
+        internal override BootstrapHelper<TModel> Helper
+        {
+            get { return _helper; }
+        }
+
+        protected Component(IComponentCreator<TModel> creator)
         {
             // Sanity check
             if (typeof(TThis) != this.GetType())
@@ -75,13 +123,9 @@ namespace FluentBootstrap
                 throw new Exception("Invalid TThis generic type parameter for " + this.GetType().Name + " (you should never see this).");
             }
 
-            Helper = helper;
+            _helper = creator.GetHelper();
+            _parentComponent = creator.GetParentComponent();
             PendingComponents.Add(HtmlHelper, this);
-        }
-
-        public BootstrapHelper<TModel> GetHelper()
-        {
-            return Helper;
         }
 
         internal TThis GetThis()
@@ -89,31 +133,32 @@ namespace FluentBootstrap
             return (TThis)this;
         }
 
-        internal TThis AddChild(IComponent component)
+        internal override void AddChild(IComponent component)
         {
             _children.Add(component);
             PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
-            return GetThis();
         }
 
-        public void Begin()
+        // This gets the parent wrapper for this component, NOT the actual parent component
+        internal TParent GetParent()
+        {
+            TParent parent = new TParent();
+            parent.Component = this;
+            return parent;
+        }
+
+        public TParent Begin()
         {
             PendingComponents.Start(HtmlHelper);
+            return GetParent();
         }
 
-        public void End()
+        public override void End()
         {
             Dispose();
         }
 
-        // Setting this to false prevents all output
-        public TThis If(bool condition)
-        {
-            _render = condition;
-            return (TThis)this;
-        }
-
-        public void Dispose()
+        public override void Dispose()
         {
             if (_disposed)
                 throw new ObjectDisposedException(GetType().Name);

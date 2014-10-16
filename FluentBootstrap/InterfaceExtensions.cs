@@ -11,18 +11,18 @@ namespace FluentBootstrap
     {
         // IHasDisabledAttribute
 
-        public static TThis Disabled<TModel, TThis>(this Component<TModel, TThis> component, bool disabled = true)
-            where TThis : Tag<TModel, TThis>, IHasDisabledAttribute
+        public static TThis Disable<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, bool disable = true)
+            where TThis : Tag<TModel, TThis, TParent>, IHasDisabledAttribute
+            where TParent : TagParent<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.MergeAttribute("disabled", disabled ? "disabled" : null);
-            return tag;
+            return component.GetThis().MergeAttribute("disabled", disable ? "disabled" : null);
         }
 
         // IHasTextAttribute
 
-        public static TThis Text<TModel, TThis>(this Component<TModel, TThis> component, string text)
-            where TThis : Tag<TModel, TThis>, IHasTextAttribute
+        public static TThis SetText<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, string text)
+            where TThis : Tag<TModel, TThis, TParent>, IHasTextAttribute
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.TextContent = text;
@@ -31,8 +31,9 @@ namespace FluentBootstrap
 
         // IHasValueAttribute
 
-        public static TThis Value<TModel, TThis>(this Component<TModel, TThis> component, object value, string format = null)
-            where TThis : Tag<TModel, TThis>, IHasValueAttribute
+        public static TThis SetValue<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, object value, string format = null)
+            where TThis : Tag<TModel, TThis, TParent>, IHasValueAttribute
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.MergeAttribute("value", value == null ? null : component.HtmlHelper.FormatValue(value, format));
@@ -41,16 +42,18 @@ namespace FluentBootstrap
 
         // IHasNameAttribute
 
-        public static TThis Name<TModel, TThis>(this Component<TModel, TThis> component, string name)
-            where TThis : Tag<TModel, TThis>, IHasNameAttribute
+        public static TThis SetName<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, string name)
+            where TThis : Tag<TModel, TThis, TParent>, IHasNameAttribute
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.MergeAttribute("name", name == null ? null : tag.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
             return tag;
         }
 
-        internal static string GetName<TModel, TThis>(this Component<TModel, TThis> component)
-            where TThis : Tag<TModel, TThis>
+        internal static string GetName<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component)
+            where TThis : Tag<TModel, TThis, TParent>
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             string name;
@@ -63,8 +66,9 @@ namespace FluentBootstrap
 
         // IHasTitleAttribute
 
-        public static TThis Title<TModel, TThis>(this Component<TModel, TThis> component, object title, string format = null)
-            where TThis : Tag<TModel, TThis>, IHasTitleAttribute
+        public static TThis SetTitle<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, object title, string format = null)
+            where TThis : Tag<TModel, TThis, TParent>, IHasTitleAttribute
+            where TParent : TagParent<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.MergeAttribute("title", title == null ? null : component.HtmlHelper.FormatValue(title, format));

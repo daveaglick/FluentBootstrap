@@ -336,22 +336,22 @@ namespace FluentBootstrap
 
         public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
         {
-            return new InputButton<TModel>(creator.GetHelper(), buttonType).Text(text).ControlLabel(label).Value(value);
+            return new InputButton<TModel>(creator.GetHelper(), buttonType).SetText(text).ControlLabel(label).Value(value);
         }
 
         public static FormButton<TModel> FormButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
         {
-            return new FormButton<TModel>(creator.GetHelper(), buttonType).Text(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator.GetHelper(), buttonType).SetText(text).ControlLabel(label).Value(value);
         }
 
         public static FormButton<TModel> Submit<TModel>(this IFormControlCreator<TModel> creator, string text = "Submit", string label = null, object value = null)
         {
-            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Submit).Text(text).ControlLabel(label).Value(value).BtnPrimary();
+            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Submit).SetText(text).ControlLabel(label).Value(value).BtnPrimary();
         }
 
         public static FormButton<TModel> Reset<TModel>(this IFormControlCreator<TModel> creator, string text = "Reset", string label = null, object value = null)
         {
-            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset).Text(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset).SetText(text).ControlLabel(label).Value(value);
         }
 
         // FormControlFor
@@ -490,7 +490,7 @@ namespace FluentBootstrap
 
         public static HelpBlock<TModel> HelpBlock<TModel>(this IFormControlCreator<TModel> creator, string text = null)
         {
-            return new HelpBlock<TModel>(creator.GetHelper()).Text(text);
+            return new HelpBlock<TModel>(creator.GetHelper()).SetText(text);
         }
 
         // FormControl

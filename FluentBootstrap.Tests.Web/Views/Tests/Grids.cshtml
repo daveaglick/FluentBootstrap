@@ -1,7 +1,7 @@
 ﻿@using(Html.Bootstrap().Container())
 {
-    @Html.Bootstrap().Heading1("Container")
-    using (Html.Bootstrap().Div().Id("test-container"))
+    @*@Html.Bootstrap().Heading1("Container")*@
+    //using (Html.Bootstrap().Div().Id("test-container"))
     {
         using (Html.Bootstrap().Container())
         {
@@ -11,8 +11,8 @@
 
     <hr />
 
-    @Html.Bootstrap().Heading1("Fluid Container")
-    using (Html.Bootstrap().Div().Id("test-fluid-container"))
+    @*@Html.Bootstrap().Heading1("Fluid Container")*@
+    //using (Html.Bootstrap().Div().Id("test-fluid-container"))
     { 
         using (Html.Bootstrap().Container().Fluid())
         {
@@ -22,10 +22,10 @@
     
     <hr />
 
-    @Html.Bootstrap().Heading1("Simple Grid")
-    using (Html.Bootstrap().Div().Id("test-simple-grid"))
+    @*@Html.Bootstrap().Heading1("Simple Grid")*@
+    //using (Html.Bootstrap().Div().Id("test-simple-grid"))
     {
-        using(var row = Html.Bootstrap().GridRow())
+        using(var row = Html.Bootstrap().GridRow().Begin())
         {
             using(row.GridColumn(3))
             {
@@ -44,28 +44,28 @@
 
     <hr />
 
-    @Html.Bootstrap().Heading1("Complex Grid")
-    using (Html.Bootstrap().Div().Id("test-complex-grid"))
+    @*@Html.Bootstrap().Heading1("Complex Grid")*@
+    //using (Html.Bootstrap().Div().Id("test-complex-grid"))
     {
-        using (var row = Html.Bootstrap().GridRow())
+        using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            using (row.GridColumn().Xs(1))
+            using (row.GridColumn().SetXs(1))
             {
                 <text>Xs1</text>
             }
-            using (row.GridColumn().Sm(2))
+            using (row.GridColumn().SetSm(2))
             {
                 <text>Sm2</text>
             }
-            using (row.GridColumn().Md(3))
+            using (row.GridColumn().SetMd(3))
             {
                 <text>Md3</text>
             }
-            using (row.GridColumn().Lg(4))
+            using (row.GridColumn().SetLg(4))
             {
                 <text>Lg4</text>
             }
-            using (row.GridColumn().Xs(2).Lg(3))
+            using (row.GridColumn().SetXs(2).SetLg(3))
             {
                 <text>Xs2Lg3</text>
             }
@@ -74,27 +74,27 @@
     
     <hr />
 
-    @Html.Bootstrap().Heading1("Offset/Pull/Push Grid")
-    using (Html.Bootstrap().Div().Id("test-offset-pull-push-grid"))
+    @*@Html.Bootstrap().Heading1("Offset/Pull/Push Grid")*@
+    //using (Html.Bootstrap().Div().Id("test-offset-pull-push-grid"))
     {
-        using (var row = Html.Bootstrap().GridRow())
+        using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            using (row.GridColumn().Sm(5).Md(6))
+            using (row.GridColumn().SetSm(5).SetMd(6))
             {
                 <text>A</text>
             }
-            using (row.GridColumn().Sm(5).SmOffset(2).Md(6).MdOffset(0))
+            using (row.GridColumn().SetSm(5).SetSmOffset(2).SetMd(6).SetMdOffset(0))
             {
                 <text>B</text>
             }
         }
-        using (var row = Html.Bootstrap().GridRow())
+        using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            using (row.GridColumn(9).MdPush(3))
+            using (row.GridColumn(9).SetMdPush(3))
             {
                 <text>D</text>
             }
-            using (row.GridColumn(3).MdPull(9))
+            using (row.GridColumn(3).SetMdPull(9))
             {
                 <text>C</text>
             }

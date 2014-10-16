@@ -47,121 +47,50 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="Buttons\ButtonExtensions.cs" />
-    <Compile Include="Buttons\Button.cs" />
-    <Compile Include="Buttons\ButtonGroup.cs" />
-    <Compile Include="Buttons\ButtonToolbar.cs" />
-    <Compile Include="Buttons\DropdownButton.cs" />
-    <Compile Include="Buttons\IHasButtonStyleExtensions.cs" />
-    <Compile Include="Buttons\LinkButton.cs" />
-    <Compile Include="Buttons\ButtonType.cs" />
-    <Compile Include="Buttons\IHasButtonExtensions.cs" />
+    <Compile Include="ComponentExtensions.cs" />
     <Compile Include="Css.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
-    <Compile Include="Dropdowns\Dropdown.cs" />
-    <Compile Include="Dropdowns\DropdownDivider.cs" />
-    <Compile Include="Dropdowns\DropdownExtensions.cs" />
-    <Compile Include="Dropdowns\DropdownHeader.cs" />
-    <Compile Include="Dropdowns\DropdownLink.cs" />
-    <Compile Include="Forms\InputGroup.cs" />
-    <Compile Include="Forms\InputGroupAddon.cs" />
-    <Compile Include="Forms\InputGroupButton.cs" />
-    <Compile Include="Icons\Icon.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Icon.tt</DependentUpon>
+    <Compile Include="BackgroundColor.cs" />
+    <Compile Include="Grids\Container.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Icons\IconExtensions.cs" />
-    <Compile Include="Icons\IconSpan.cs" />
-    <Compile Include="Icons\IHasIcon.cs" />
-    <Compile Include="Typography\Cite.cs" />
+    <Compile Include="Grids\GridColumn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Grids\GridColumnExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Grids\GridExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Grids\GridRow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Grids\IHasGridColumnExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TextColor.cs" />
+    <Compile Include="Visibility.cs" />
     <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="EnumExtensions.cs" />
-    <Compile Include="Forms\FormButton.cs" />
-    <Compile Include="Forms\FormControlFor.cs" />
-    <Compile Include="Forms\FormInputType.cs" />
-    <Compile Include="Forms\CheckedControl.cs" />
-    <Compile Include="Forms\FieldSet.cs" />
-    <Compile Include="Forms\FormControl.cs" />
-    <Compile Include="Forms\HelpBlock.cs" />
-    <Compile Include="Forms\Hidden.cs" />
-    <Compile Include="Forms\HiddenFor.cs" />
-    <Compile Include="Forms\IFormValidation.cs" />
-    <Compile Include="Forms\ValidationSummary.cs" />
-    <Compile Include="Html\Element.cs" />
-    <Compile Include="Typography\Abbr.cs" />
-    <Compile Include="Typography\Blockquote.cs" />
-    <Compile Include="Typography\DescriptionDescription.cs" />
-    <Compile Include="Typography\DescriptionList.cs" />
-    <Compile Include="Typography\DescriptionTerm.cs" />
-    <Compile Include="Typography\Heading.cs" />
-    <Compile Include="Html\HtmlExtensions.cs" />
-    <Compile Include="Misc\MiscExtensions.cs" />
     <Compile Include="IHasNameAttribute.cs" />
-    <Compile Include="Forms\InputButton.cs" />
-    <Compile Include="Forms\Select.cs" />
-    <Compile Include="Forms\Static.cs" />
-    <Compile Include="Forms\TextArea.cs" />
-    <Compile Include="Grids\GridColumnExtensions.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Content.cs" />
-    <Compile Include="Forms\FormExtensions.cs" />
-    <Compile Include="Forms\Form.cs" />
-    <Compile Include="Forms\FormGroup.cs" />
-    <Compile Include="Forms\Input.cs" />
-    <Compile Include="Forms\Label.cs" />
-    <Compile Include="Grids\IHasGridColumnExtensions.cs" />
-    <Compile Include="IComponentCreator.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
-    <Compile Include="Images\Image.cs" />
-    <Compile Include="Images\ImageExtensions.cs" />
     <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="IHasTextAttribute.cs" />
     <Compile Include="IHasValueAttribute.cs" />
-    <Compile Include="Links\LinkExtensions.cs" />
-    <Compile Include="Links\IHasLinkExtensions.cs" />
-    <Compile Include="Links\Link.cs" />
-    <Compile Include="Panels\Panel.cs" />
-    <Compile Include="Panels\PanelBody.cs" />
-    <Compile Include="Panels\PanelExtensions.cs" />
-    <Compile Include="Panels\PanelFooter.cs" />
-    <Compile Include="Panels\PanelHeading.cs" />
-    <Compile Include="Panels\PanelSection.cs" />
-    <Compile Include="Panels\PanelTable.cs" />
-    <Compile Include="Panels\PanelTitle.cs" />
     <Compile Include="PendingComponents.cs" />
-    <Compile Include="Tables\TableExtensions.cs" />
-    <Compile Include="Tables\IHasTableContextExtensions.cs" />
-    <Compile Include="Tables\Table.cs" />
-    <Compile Include="Tables\TableBodySection.cs" />
-    <Compile Include="Tables\TableCell.cs" />
-    <Compile Include="Tables\TableData.cs" />
-    <Compile Include="Tables\TableFootSection.cs" />
-    <Compile Include="Tables\TableHeadSection.cs" />
-    <Compile Include="Tables\TableHeader.cs" />
-    <Compile Include="Tables\TableRow.cs" />
-    <Compile Include="Tables\TableSection.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="BootstrapHelper.cs" />
     <Compile Include="TagExtensions.cs" />
-    <Compile Include="Grids\GridColumn.cs" />
-    <Compile Include="Grids\Container.cs" />
-    <Compile Include="Grids\GridExtensions.cs" />
-    <Compile Include="Grids\GridRow.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Typography\List.cs" />
-    <Compile Include="Typography\ListItem.cs" />
-    <Compile Include="Typography\ListType.cs" />
-    <Compile Include="Typography\Pre.cs" />
-    <Compile Include="Typography\TypographyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\bootstrap-theme.css.map" />
-    <None Include="Content\bootstrap.css.map" />
     <None Include="Css.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Css.cs</LastGenOutput>
@@ -169,18 +98,10 @@
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Icons\Icon.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Icon.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
     <None Include="Scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

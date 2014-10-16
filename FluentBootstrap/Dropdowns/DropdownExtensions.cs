@@ -13,7 +13,7 @@ namespace FluentBootstrap
 
         public static Dropdown<TModel> Dropdown<TModel>(this IDropdownCreator<TModel> creator, string text = null)
         {
-            return new Dropdown<TModel>(creator.GetHelper()).Text(text);
+            return new Dropdown<TModel>(creator.GetHelper()).SetText(text);
         }
 
         public static Dropdown<TModel> Caret<TModel>(this Dropdown<TModel> dropdown, bool caret = true)
@@ -60,7 +60,7 @@ namespace FluentBootstrap
 
         public static DropdownHeader<TModel> DropdownHeader<TModel>(this IDropdownItemCreator<TModel> creator, string text = null)
         {
-            return new DropdownHeader<TModel>(creator.GetHelper()).Text(text);
+            return new DropdownHeader<TModel>(creator.GetHelper()).SetText(text);
         }
 
         public static DropdownDivider<TModel> DropdownDivider<TModel>(this IDropdownItemCreator<TModel> creator)

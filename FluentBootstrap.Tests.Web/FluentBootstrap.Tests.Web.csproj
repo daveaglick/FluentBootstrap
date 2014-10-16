@@ -120,18 +120,17 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\Index.cshtml">
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Shared\_Layout.cshtml">
       <LastGenOutput>_Layout.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Tests\Grids.cshtml" />
-    <Content Include="Views\Tests\Typography.cshtml" />
-    <Content Include="Views\Tests\Forms.cshtml" />
-    <Content Include="Views\Tests\Icons.cshtml" />
-    <Content Include="Views\Tests\Dropdowns.cshtml" />
-    <Content Include="Views\Tests\Buttons.cshtml" />
+    <None Include="Views\Home\Index.cshtml2" />
+    <Content Include="Views\Tests\Tags.cshtml" />
+    <None Include="Views\Tests\Typography.cshtml2" />
+    <None Include="Views\Tests\Buttons.cshtml2" />
+    <None Include="Views\Tests\Dropdowns.cshtml2" />
+    <None Include="Views\Tests\Forms.cshtml2" />
+    <None Include="Views\Tests\Icons.cshtml2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

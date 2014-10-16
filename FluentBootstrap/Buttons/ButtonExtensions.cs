@@ -13,7 +13,7 @@ namespace FluentBootstrap
 
         public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
         {
-            return new Button<TModel>(creator.GetHelper(), buttonType).Text(text).Value(value);
+            return new Button<TModel>(creator.GetHelper(), buttonType).SetText(text).Value(value);
         }
         
         // Button groups
@@ -82,12 +82,12 @@ namespace FluentBootstrap
 
         public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string href = "#")
         {
-            return new LinkButton<TModel>(creator.GetHelper()).Text(text).Href(href);
+            return new LinkButton<TModel>(creator.GetHelper()).SetText(text).Href(href);
         }
 
         public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
-            return new LinkButton<TModel>(creator.GetHelper()).Text(text).Action(actionName, controllerName, routeValues);
+            return new LinkButton<TModel>(creator.GetHelper()).SetText(text).Action(actionName, controllerName, routeValues);
         }
 
         public static LinkButton<TModel> Disabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)

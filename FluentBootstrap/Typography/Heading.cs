@@ -26,7 +26,7 @@ namespace FluentBootstrap.Typography
         {
             if (!string.IsNullOrWhiteSpace(Small))
             {
-                new Element<TModel>(Helper, "small").Text(Small).StartAndFinish(writer);
+                new Element<TModel>(Helper, "small").SetText(Small).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);
