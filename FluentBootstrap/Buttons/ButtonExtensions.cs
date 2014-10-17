@@ -13,35 +13,23 @@ namespace FluentBootstrap
 
         public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
         {
-            return new Button<TModel>(creator.GetHelper(), buttonType).SetText(text).Value(value);
+            return new Button<TModel>(creator, buttonType).SetText(text).SetValue(value);
         }
         
         // Button groups
 
         public static ButtonGroup<TModel> ButtonGroup<TModel>(this IButtonGroupCreator<TModel> creator)
         {
-            return new ButtonGroup<TModel>(creator.GetHelper());
+            return new ButtonGroup<TModel>(creator);
         }
 
-        public static ButtonGroup<TModel> BtnGroupLg<TModel>(this ButtonGroup<TModel> buttonGroup, bool lg = true)
+        public static ButtonGroup<TModel> SetSize<TModel>(this ButtonGroup<TModel> buttonGroup, ButtonGroupSize size)
         {
-            buttonGroup.ToggleCss(Css.BtnGroupLg, lg, Css.BtnGroupSm, Css.BtnGroupXs);
+            buttonGroup.ToggleCss(size);
             return buttonGroup;
         }
 
-        public static ButtonGroup<TModel> BtnGroupSm<TModel>(this ButtonGroup<TModel> buttonGroup, bool sm = true)
-        {
-            buttonGroup.ToggleCss(Css.BtnGroupSm, sm, Css.BtnGroupLg, Css.BtnGroupXs);
-            return buttonGroup;
-        }
-
-        public static ButtonGroup<TModel> BtnGroupXs<TModel>(this ButtonGroup<TModel> buttonGroup, bool xs = true)
-        {
-            buttonGroup.ToggleCss(Css.BtnGroupXs, xs, Css.BtnGroupSm, Css.BtnGroupLg);
-            return buttonGroup;
-        }
-
-        public static ButtonGroup<TModel> Vertical<TModel>(this ButtonGroup<TModel> buttonGroup, bool vertical = true)
+        public static ButtonGroup<TModel> SetVertical<TModel>(this ButtonGroup<TModel> buttonGroup, bool vertical = true)
         {
             if (vertical)
             {
@@ -54,7 +42,7 @@ namespace FluentBootstrap
             return buttonGroup;
         }
 
-        public static ButtonGroup<TModel> Justified<TModel>(this ButtonGroup<TModel> buttonGroup, bool justified = true)
+        public static ButtonGroup<TModel> SetJustified<TModel>(this ButtonGroup<TModel> buttonGroup, bool justified = true)
         {
             buttonGroup.ToggleCss(Css.BtnGroupJustified, justified);
             return buttonGroup;
@@ -62,17 +50,17 @@ namespace FluentBootstrap
 
         public static ButtonToolbar<TModel> ButtonToolbar<TModel>(this IButtonToolbarCreator<TModel> creator)
         {
-            return new ButtonToolbar<TModel>(creator.GetHelper());
+            return new ButtonToolbar<TModel>(creator);
         }
 
         // Dropdown buttons
 
         public static DropdownButton<TModel> DropdownButton<TModel>(this IDropdownButtonCreator<TModel> creator)
         {
-            return new DropdownButton<TModel>(creator.GetHelper());
+            return new DropdownButton<TModel>(creator);
         }
 
-        public static DropdownButton<TModel> Dropup<TModel>(this DropdownButton<TModel> dropdownButton, bool dropup = true)
+        public static DropdownButton<TModel> SetDropup<TModel>(this DropdownButton<TModel> dropdownButton, bool dropup = true)
         {
             dropdownButton.ToggleCss(Css.Dropup, dropup);
             return dropdownButton;
@@ -82,15 +70,15 @@ namespace FluentBootstrap
 
         public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string href = "#")
         {
-            return new LinkButton<TModel>(creator.GetHelper()).SetText(text).Href(href);
+            return new LinkButton<TModel>(creator).SetText(text).SetHref(href);
         }
 
         public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
-            return new LinkButton<TModel>(creator.GetHelper()).SetText(text).Action(actionName, controllerName, routeValues);
+            return new LinkButton<TModel>(creator).SetText(text).SetAction(actionName, controllerName, routeValues);
         }
 
-        public static LinkButton<TModel> Disabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)
+        public static LinkButton<TModel> SetDisabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)
         {
             linkButton.ToggleCss(Css.Disabled, disabled);
             return linkButton;
@@ -98,94 +86,27 @@ namespace FluentBootstrap
 
         // IHasButtonExtensions
 
-        public static TThis BtnLg<TModel, TThis>(this Component<TModel, TThis> component, bool lg = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
+        public static TThis SetSize<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ButtonSize size)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnLg, lg, Css.BtnSm, Css.BtnXs);
-            return tag;
+            return component.GetThis().ToggleCss(size);
         }
 
-        public static TThis BtnSm<TModel, TThis>(this Component<TModel, TThis> component, bool sm = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
+        public static TThis SetBlock<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool block = true)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnSm, sm, Css.BtnLg, Css.BtnXs);
-            return tag;
-        }
-
-        public static TThis BtnXs<TModel, TThis>(this Component<TModel, TThis> component, bool xs = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnXs, xs, Css.BtnLg, Css.BtnSm);
-            return tag;
-        }
-
-        public static TThis BtnBlock<TModel, TThis>(this Component<TModel, TThis> component, bool block = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnBlock, block);
-            return tag;
+            return component.GetThis().ToggleCss(Css.BtnBlock, block);
         }
 
         // IHasButtonStyleExtensions
 
-        public static TThis BtnDefault<TModel, TThis>(this Component<TModel, TThis> component, bool def = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
+        public static TThis SetStyle<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ButtonStyle style)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonStyleExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnDefault, def, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
-            return tag;
-        }
-
-        public static TThis BtnPrimary<TModel, TThis>(this Component<TModel, TThis> component, bool primary = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnPrimary, primary, Css.BtnDefault, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
-            return tag;
-        }
-
-        public static TThis BtnSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool success = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnSuccess, success, Css.BtnPrimary, Css.BtnDefault, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
-            return tag;
-        }
-
-        public static TThis BtnInfo<TModel, TThis>(this Component<TModel, TThis> component, bool info = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnInfo, info, Css.BtnPrimary, Css.BtnSuccess, Css.BtnDefault, Css.BtnWarning, Css.BtnDanger, Css.BtnLink);
-            return tag;
-        }
-
-        public static TThis BtnWarning<TModel, TThis>(this Component<TModel, TThis> component, bool warning = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnWarning, warning, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnDefault, Css.BtnDanger, Css.BtnLink);
-            return tag;
-        }
-
-        public static TThis BtnDanger<TModel, TThis>(this Component<TModel, TThis> component, bool danger = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnDanger, danger, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDefault, Css.BtnLink);
-            return tag;
-        }
-
-        public static TThis BtnLink<TModel, TThis>(this Component<TModel, TThis> component, bool link = true)
-            where TThis : Tag<TModel, TThis>, IHasButtonStyleExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.BtnLink, link, Css.BtnPrimary, Css.BtnSuccess, Css.BtnInfo, Css.BtnWarning, Css.BtnDanger, Css.BtnDefault);
-            return tag;
+            return component.GetThis().ToggleCss(style);
         }
     }
 }

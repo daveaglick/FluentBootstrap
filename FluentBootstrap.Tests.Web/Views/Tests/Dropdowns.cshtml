@@ -1,9 +1,9 @@
-﻿@using (Html.Bootstrap().Container())
+﻿@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Simple")
-    using (Html.Bootstrap().Div().Id("test-simple"))
+    using (Html.Bootstrap().Div().SetId("test-simple").Begin())
     {
-        using(var dropdown = Html.Bootstrap().Dropdown("Dropdown"))
+        using (var dropdown = Html.Bootstrap().Dropdown("Dropdown").Begin())
         {         
             @dropdown.DropdownHeader("Header")
             @dropdown.DropdownDivider()
@@ -15,9 +15,9 @@
     <hr />
 
     @Html.Bootstrap().Heading1("No Caret")
-    using (Html.Bootstrap().Div().Id("test-no-caret"))
+    using (Html.Bootstrap().Div().SetId("test-no-caret").Begin())
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("No Caret").Caret(false))
+        using (var dropdown = Html.Bootstrap().Dropdown("No Caret").SetCaret(false).Begin())
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
         }
@@ -26,9 +26,9 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Button Styles")
-    using (Html.Bootstrap().Div().Id("test-button-styles"))
+    using (Html.Bootstrap().Div().SetId("test-button-styles").Begin())
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("Button").BtnXs().BtnWarning())
+        using (var dropdown = Html.Bootstrap().Dropdown("Button").SetSize(ButtonSize.Xs).SetStyle(ButtonStyle.Warning).Begin())
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
         }
@@ -37,9 +37,9 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Right Menu")
-    using (Html.Bootstrap().Div().Id("test-right-menu"))
+    using (Html.Bootstrap().Div().SetId("test-right-menu").Begin())
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("Right").MenuRight())
+        using (var dropdown = Html.Bootstrap().Dropdown("Right").SetMenuRight().Begin())
         {
             @dropdown.DropdownHeader("Header")
             @dropdown.DropdownDivider()
@@ -51,21 +51,21 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Disabled")
-    using (Html.Bootstrap().Div().Id("test-disabled"))
+    using (Html.Bootstrap().Div().SetId("test-disabled").Begin())
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("Disabled"))
+        using (var dropdown = Html.Bootstrap().Dropdown("Disabled").Begin())
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
-            @dropdown.DropdownLink("B", "http://www.google.com").Disabled()
+            @dropdown.DropdownLink("B", "http://www.google.com").SetDisabled()
         }
     }
 
     <hr />
 
     @Html.Bootstrap().Heading1("Dropup")
-    using (Html.Bootstrap().Div().Id("test-dropup"))
+    using (Html.Bootstrap().Div().SetId("test-dropup").Begin())
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("Dropup").Dropup())
+        using (var dropdown = Html.Bootstrap().Dropdown("Dropup").SetDropup().Begin())
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
             @dropdown.DropdownLink("B", "http://www.google.com")

@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
+    public interface IDropdownButtonCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class DropdownButtonWrapper<TModel> : TagWrapper<TModel>, IButtonCreator<TModel>, ILinkButtonCreator<TModel>, IDropdownCreator<TModel>
+    {
+    }
+
     internal interface IDropdownButton : ITag
     {
     }
 
-    public interface IDropdownButtonCreator<TModel> : IComponentCreator<TModel>
+    public class DropdownButton<TModel> : Tag<TModel, DropdownButton<TModel>, DropdownButtonWrapper<TModel>>, IDropdownButton
     {
-    }
-
-    public class DropdownButton<TModel> : Tag<TModel, DropdownButton<TModel>>, IDropdownButton, IButtonCreator<TModel>, ILinkButtonCreator<TModel>, IDropdownCreator<TModel>
-    {
-        internal DropdownButton(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.BtnGroup)
+        internal DropdownButton(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.BtnGroup)
         {
         }
     }

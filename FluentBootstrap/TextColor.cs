@@ -9,6 +9,8 @@ namespace FluentBootstrap
 {
     public enum TextColor
     {
+        [Description()]
+        Default,
         [Description(Css.TextMuted)]
         Muted,
         [Description(Css.TextPrimary)]

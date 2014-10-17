@@ -1,7 +1,7 @@
-﻿@using (Html.Bootstrap().Container())
+﻿@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Inline Icon")
-    using (Html.Bootstrap().Div().Id("test-inline-icon"))
+    using (Html.Bootstrap().Div().SetId("test-inline-icon").Begin())
     {
         <text>This is an inline @Html.Bootstrap().Icon(Icon.ArrowUp) icon.</text>
     }
@@ -9,7 +9,7 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Button Icon")
-    using (Html.Bootstrap().Div().Id("test-button-icon"))
+    using (Html.Bootstrap().Div().SetId("test-button-icon").Begin())
     {
         @Html.Bootstrap().Button("Icon Button").Icon(Icon.Bell)
     }
@@ -17,7 +17,7 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Link Button Icon")
-    using (Html.Bootstrap().Div().Id("test-link-button-icon"))
+    using (Html.Bootstrap().Div().SetId("test-link-button-icon").Begin())
     {
         @Html.Bootstrap().LinkButton("Link Button").Icon(Icon.Picture)
     }
@@ -25,7 +25,7 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Link Icon")
-    using (Html.Bootstrap().Div().Id("test-link-icon"))
+    using (Html.Bootstrap().Div().SetId("test-link-icon").Begin())
     {
         @Html.Bootstrap().Link("Link").Icon(Icon.Road)
     }
@@ -33,7 +33,7 @@
     <hr />
 
     @Html.Bootstrap().Heading1("Form Feedback")
-    using (Html.Bootstrap().Div().Id("test-form-feedback"))
+    using (Html.Bootstrap().Div().SetId("test-form-feedback").Begin())
     {
         using (var form = Html.Bootstrap().Form())
         {

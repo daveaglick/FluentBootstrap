@@ -13,28 +13,28 @@ namespace FluentBootstrap
 
         public static Dropdown<TModel> Dropdown<TModel>(this IDropdownCreator<TModel> creator, string text = null)
         {
-            return new Dropdown<TModel>(creator.GetHelper()).SetText(text);
+            return new Dropdown<TModel>(creator).SetText(text);
         }
 
-        public static Dropdown<TModel> Caret<TModel>(this Dropdown<TModel> dropdown, bool caret = true)
+        public static Dropdown<TModel> SetCaret<TModel>(this Dropdown<TModel> dropdown, bool caret = true)
         {
             dropdown.Caret = caret;
             return dropdown;
         }
 
-        public static Dropdown<TModel> MenuRight<TModel>(this Dropdown<TModel> dropdown, bool menuRight = true)
+        public static Dropdown<TModel> SetMenuRight<TModel>(this Dropdown<TModel> dropdown, bool menuRight = true)
         {
             dropdown.MenuRight = menuRight;
             return dropdown;
         }
 
-        public static Dropdown<TModel> MenuLeft<TModel>(this Dropdown<TModel> dropdown, bool menuLeft = true)
+        public static Dropdown<TModel> SetMenuLeft<TModel>(this Dropdown<TModel> dropdown, bool menuLeft = true)
         {
             dropdown.MenuLeft = menuLeft;
             return dropdown;
         }
 
-        public static Dropdown<TModel> Dropup<TModel>(this Dropdown<TModel> dropdown, bool dropup = true)
+        public static Dropdown<TModel> SetDropup<TModel>(this Dropdown<TModel> dropdown, bool dropup = true)
         {
             dropdown.ToggleCss(Css.Dropup, dropup);
             return dropdown;
@@ -42,30 +42,30 @@ namespace FluentBootstrap
 
         // Dropdown items
 
-        public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownItemCreator<TModel> creator, string text, string href = "#")
+        public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownLinkCreator<TModel> creator, string text, string href = "#")
         {
-            return new DropdownLink<TModel>(creator.GetHelper()).Href(href).Text(text);
+            return new DropdownLink<TModel>(creator).SetHref(href).SetText(text);
         }
 
-        public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownItemCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownLinkCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
-            return new DropdownLink<TModel>(creator.GetHelper()).Action(actionName, controllerName, routeValues).Text(text);
+            return new DropdownLink<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
         }
 
-        public static DropdownLink<TModel> Disabled<TModel>(this DropdownLink<TModel> dropdownLink, bool disabled = true)
+        public static DropdownLink<TModel> SetDisabled<TModel>(this DropdownLink<TModel> dropdownLink, bool disabled = true)
         {
             dropdownLink.Disabled = disabled;
             return dropdownLink;
         }
 
-        public static DropdownHeader<TModel> DropdownHeader<TModel>(this IDropdownItemCreator<TModel> creator, string text = null)
+        public static DropdownHeader<TModel> DropdownHeader<TModel>(this IDropdownHeaderCreator<TModel> creator, string text = null)
         {
-            return new DropdownHeader<TModel>(creator.GetHelper()).SetText(text);
+            return new DropdownHeader<TModel>(creator).SetText(text);
         }
 
-        public static DropdownDivider<TModel> DropdownDivider<TModel>(this IDropdownItemCreator<TModel> creator)
+        public static DropdownDivider<TModel> DropdownDivider<TModel>(this IDropdownDividerCreator<TModel> creator)
         {
-            return new DropdownDivider<TModel>(creator.GetHelper());
+            return new DropdownDivider<TModel>(creator);
         }
     }
 }

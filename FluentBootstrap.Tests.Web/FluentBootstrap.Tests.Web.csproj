@@ -127,8 +127,8 @@
     <None Include="Views\Home\Index.cshtml2" />
     <Content Include="Views\Tests\Tags.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
-    <None Include="Views\Tests\Buttons.cshtml2" />
-    <None Include="Views\Tests\Dropdowns.cshtml2" />
+    <None Include="Views\Tests\Buttons.cshtml" />
+    <None Include="Views\Tests\Dropdowns.cshtml" />
     <None Include="Views\Tests\Forms.cshtml2" />
     <None Include="Views\Tests\Icons.cshtml2" />
     <None Include="Web.Debug.config">

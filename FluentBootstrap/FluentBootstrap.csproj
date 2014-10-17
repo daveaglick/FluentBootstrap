@@ -47,6 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="Buttons\Button.cs" />
+    <Compile Include="Buttons\ButtonExtensions.cs" />
+    <Compile Include="Buttons\ButtonGroup.cs" />
+    <Compile Include="Buttons\ButtonGroupSize.cs" />
+    <Compile Include="Buttons\ButtonSize.cs" />
+    <Compile Include="Buttons\ButtonStyle.cs" />
+    <Compile Include="Buttons\ButtonToolbar.cs" />
+    <Compile Include="Buttons\ButtonType.cs" />
+    <Compile Include="Buttons\DropdownButton.cs" />
+    <Compile Include="Buttons\IHasButtonExtensions.cs" />
+    <Compile Include="Buttons\IHasButtonStyleExtensions.cs" />
+    <Compile Include="Buttons\LinkButton.cs" />
     <Compile Include="ComponentExtensions.cs" />
     <Compile Include="Css.cs">
       <AutoGen>True</AutoGen>
@@ -54,6 +66,11 @@
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
     <Compile Include="BackgroundColor.cs" />
+    <Compile Include="Dropdowns\Dropdown.cs" />
+    <Compile Include="Dropdowns\DropdownDivider.cs" />
+    <Compile Include="Dropdowns\DropdownExtensions.cs" />
+    <Compile Include="Dropdowns\DropdownHeader.cs" />
+    <Compile Include="Dropdowns\DropdownLink.cs" />
     <Compile Include="Grids\Container.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -74,6 +91,18 @@
     </Compile>
     <Compile Include="Html\Element.cs" />
     <Compile Include="Html\HtmlExtensions.cs" />
+    <Compile Include="Icons\Icon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Icons\IconExtensions.cs" />
+    <Compile Include="Icons\IconSpan.cs" />
+    <Compile Include="Icons\IHasIcon.cs" />
+    <Compile Include="Links\IHasLinkExtensions.cs" />
+    <Compile Include="Links\Link.cs" />
+    <Compile Include="Links\LinkExtensions.cs" />
+    <Compile Include="Misc\MiscExtensions.cs" />
     <Compile Include="TextColor.cs" />
     <Compile Include="Typography\Abbr.cs">
       <SubType>Code</SubType>
@@ -126,6 +155,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap.css.map" />
     <None Include="Css.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Css.cs</LastGenOutput>
@@ -133,10 +164,18 @@
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Icons\Icon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Icon.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="Scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

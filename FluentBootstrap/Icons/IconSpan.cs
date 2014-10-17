@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Icons
 {
+    public interface IIconSpanCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class IconSpanWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
     internal interface IIconSpan : ITag
     {
     }
 
-    public class IconSpan<TModel> : Tag<TModel, IconSpan<TModel>>, IIconSpan
+    public class IconSpan<TModel> : Tag<TModel, IconSpan<TModel>, IconSpanWrapper<TModel>>, IIconSpan
     {
-        internal IconSpan(BootstrapHelper<TModel> helper, Icon icon)
-            : base(helper, "span", Css.Glyphicon, icon.GetDescription())
+        internal IconSpan(IComponentCreator<TModel> creator, Icon icon)
+            : base(creator, "span", Css.Glyphicon, icon.GetDescription())
         {
         }
     }

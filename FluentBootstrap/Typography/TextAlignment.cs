@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentBootstrap.Typography
+namespace FluentBootstrap
 {
     public enum TextAlignment
     {
+        [Description()]
+        Default,
         [Description(Css.TextLeft)]
         Left,
         [Description(Css.TextCenter)]

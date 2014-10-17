@@ -116,14 +116,14 @@ namespace FluentBootstrap
 
         // Text alignment and transformation
 
-        public static TThis SetTextAlignment<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextAlignment alignment)
+        public static TThis SetAlignment<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextAlignment alignment)
             where TThis : Tag<TModel, TThis, TWrapper>
             where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().ToggleCss(alignment);
         }
 
-        public static TThis SetTextTransformation<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextTransformation transformation)
+        public static TThis SetTransformation<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextTransformation transformation)
             where TThis : Tag<TModel, TThis, TWrapper>
             where TWrapper : TagWrapper<TModel>, new()
         {
@@ -193,7 +193,7 @@ namespace FluentBootstrap
         public static Typography.List<TModel> ListFor<TModel, TValue>(this IListCreator<TModel> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
         {
             Typography.List<TModel> list = new Typography.List<TModel>(creator, listType);
-            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, creator.GetHelper().HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, list.Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
             if (values != null)
             {
                 foreach (TValue value in values)

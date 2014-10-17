@@ -8,20 +8,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
+    public interface IButtonCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class ButtonWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
+
     internal interface IButton : ITag
     {
     }
 
-    public interface IButtonCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
-    public class Button<TModel> : Tag<TModel, Button<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStyleExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public class Button<TModel> : Tag<TModel, Button<TModel>, ButtonWrapper<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStyleExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
         private ButtonGroup<TModel> _buttonGroup;
 
-        internal Button(BootstrapHelper<TModel> helper, ButtonType buttonType) 
-            : base(helper, "button", Css.Btn, Css.BtnDefault)
+        internal Button(IComponentCreator<TModel> creator, ButtonType buttonType) 
+            : base(creator, "button", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("type", buttonType.GetDescription());
         }

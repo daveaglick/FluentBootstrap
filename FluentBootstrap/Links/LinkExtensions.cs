@@ -15,49 +15,50 @@ namespace FluentBootstrap
 
         public static Link<TModel> Link<TModel>(this ILinkCreator<TModel> creator, string text, string href = "#")
         {
-            return new Link<TModel>(creator.GetHelper()).Href(href).Text(text);
+            return new Link<TModel>(creator).SetHref(href).SetText(text);
         }
 
         public static Link<TModel> Link<TModel>(this ILinkCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
-            return new Link<TModel>(creator.GetHelper()).Action(actionName, controllerName, routeValues).Text(text);
+            return new Link<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
         }
 
         // IHasLinkExtensions
         
-        public static TThis Href<TModel, TThis>(this Component<TModel, TThis> component, string href)
-            where TThis : Tag<TModel, TThis>, IHasLinkExtensions
+        public static TThis SetHref<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string href)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
             if (string.IsNullOrWhiteSpace(href))
             {
                 href = "#";
             }
-            tag.MergeAttribute("href", href);
-            return tag;
+            return component.GetThis().MergeAttribute("href", href);
         }
 
-        public static TThis Action<TModel, TThis>(this Component<TModel, TThis> component, string actionName, string controllerName, object routeValues = null)
-            where TThis : Tag<TModel, TThis>, IHasLinkExtensions
+        public static TThis SetAction<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string actionName, string controllerName, object routeValues = null)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
+            {
                 new RouteValueDictionary(routeValues);
-
-            return tag.Href<TModel, TThis>(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
+            }
+            return component.GetThis().SetHref(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
                 component.HtmlHelper.RouteCollection, component.ViewContext.RequestContext, true));
         }
 
-        public static TThis Route<TModel, TThis>(this Component<TModel, TThis> component, string routeName, object routeValues = null)
-            where TThis : Tag<TModel, TThis>, IHasLinkExtensions
+        public static TThis SetRoute<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string routeName, object routeValues = null)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
+            {
                 new RouteValueDictionary(routeValues);
-
-            return tag.Href<TModel, TThis>(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
+            }
+            return component.GetThis().SetHref(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
                 component.HtmlHelper.RouteCollection, component.ViewContext.RequestContext, false));
         }
     }

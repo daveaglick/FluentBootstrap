@@ -1,5 +1,5 @@
 ﻿using FluentBootstrap.Buttons;
-using FluentBootstrap.Forms;
+//using FluentBootstrap.Forms;
 using FluentBootstrap.Html;
 using FluentBootstrap.Typography;
 using System;
@@ -11,20 +11,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
+    // TODO: REMOVE THIS!!
+    internal interface IInputGroupButton : ITag { }
+
+    public interface IDropdownCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class DropdownWrapper<TModel> : TagWrapper<TModel>, IDropdownDividerCreator<TModel>, IDropdownHeaderCreator<TModel>, IDropdownLinkCreator<TModel>
+    {
+    }
+
     internal interface IDropdown : IButton
     {
     }
 
-    public interface IDropdownCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
-    public interface IDropdownItemCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
-    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStyleExtensions, IHasTextAttribute,
-        IDropdownItemCreator<TModel>
+    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>, DropdownWrapper<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStyleExtensions, IHasTextAttribute
     {
         private bool _dropdownButton = false;
         private bool _caret = true;
@@ -48,8 +50,8 @@ namespace FluentBootstrap.Dropdowns
             set { _menuLeft = value; }
         }
 
-        internal Dropdown(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.Dropdown, Css.BtnDefault)
+        internal Dropdown(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.Dropdown, Css.BtnDefault)
         {
         }
 
@@ -71,7 +73,9 @@ namespace FluentBootstrap.Dropdowns
             }
             else
             {
-                _button.AddChild(new Element<TModel>(Helper, "span", Css.SrOnly).AddChild(new Content<TModel>(Helper, "Toggle Dropdown")));
+                Element<TModel> element = new Element<TModel>(Helper, "span", Css.SrOnly);
+                element.AddChild(new Content<TModel>(Helper, "Toggle Dropdown"));
+                _button.AddChild(element);
             }
             TextContent = null;
             if(_caret)

@@ -112,13 +112,17 @@ namespace FluentBootstrap
 
         // This takes a flags enum and adds all css classes that are on and removes all that are off
         // Or if not flags, adds the current enum description and turns all others off
-        // The CSS class is specified as a DescriptionAttribute on each enum value
+        // The CSS class is specified as a DescriptionAttribute on each enum value (use description of null to indicate a default state)
         internal TThis ToggleCss(Enum css)
         {
             bool flags = css.GetType().GetCustomAttributes<FlagsAttribute>().Any();
             foreach(Enum value in Enum.GetValues(css.GetType()))
             {
-                ToggleCss(value.GetDescription(), flags ? css.HasFlag(value) : css.Equals(value));
+                string description = value.GetDescription();
+                if (!string.IsNullOrWhiteSpace(description))
+                {
+                    ToggleCss(description, flags ? css.HasFlag(value) : css.Equals(value));
+                }
             }
             return GetThis();
         }

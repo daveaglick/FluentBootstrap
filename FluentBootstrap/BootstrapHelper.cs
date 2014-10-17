@@ -14,13 +14,13 @@ namespace FluentBootstrap
     public class BootstrapHelper<TModel> : 
         ITagCreator<TModel>,
         // Buttons
-        //Buttons.IButtonToolbarCreator<TModel>,
-        //Buttons.IButtonGroupCreator<TModel>,
-        //Buttons.IDropdownButtonCreator<TModel>,
-        //Buttons.IButtonCreator<TModel>,
-        //Buttons.ILinkButtonCreator<TModel>,
+        Buttons.IButtonToolbarCreator<TModel>,
+        Buttons.IButtonGroupCreator<TModel>,
+        Buttons.IDropdownButtonCreator<TModel>,
+        Buttons.IButtonCreator<TModel>,
+        Buttons.ILinkButtonCreator<TModel>,
         // Dropdowns
-        //Dropdowns.IDropdownCreator<TModel>,
+        Dropdowns.IDropdownCreator<TModel>,
         // Forms
         //Forms.IFormCreator<TModel>,
         // Grids
@@ -29,7 +29,7 @@ namespace FluentBootstrap
         // Images
         //Images.IImageCreator<TModel>,
         // Links
-        //Links.ILinkCreator<TModel>,
+        Links.ILinkCreator<TModel>,
         // Panels
         //Panels.IPanelCreator<TModel>,
         // Tables
@@ -65,14 +65,16 @@ namespace FluentBootstrap
     public class BootstrapHelperAll<TModel> : BootstrapHelper<TModel>,
         ITagCreator<TModel>,
         // Buttons
-        //Buttons.IButtonToolbarCreator<TModel>,
-        //Buttons.IButtonGroupCreator<TModel>,
-        //Buttons.IDropdownButtonCreator<TModel>,
-        //Buttons.IButtonCreator<TModel>,
-        //Buttons.ILinkButtonCreator<TModel>,
+        Buttons.IButtonToolbarCreator<TModel>,
+        Buttons.IButtonGroupCreator<TModel>,
+        Buttons.IDropdownButtonCreator<TModel>,
+        Buttons.IButtonCreator<TModel>,
+        Buttons.ILinkButtonCreator<TModel>,
         // Dropdowns
-        //Dropdowns.IDropdownCreator<TModel>,
-        //Dropdowns.IDropdownItemCreator<TModel>,
+        Dropdowns.IDropdownCreator<TModel>,
+        Dropdowns.IDropdownDividerCreator<TModel>,
+        Dropdowns.IDropdownHeaderCreator<TModel>,
+        Dropdowns.IDropdownLinkCreator<TModel>,
         // Forms
         //Forms.IFormCreator<TModel>,
         //Forms.IFieldSetCreator<TModel>,
@@ -90,7 +92,7 @@ namespace FluentBootstrap
         // Images
         //Images.IImageCreator<TModel>,
         // Links
-        //Links.ILinkCreator<TModel>,
+        Links.ILinkCreator<TModel>,
         // Panels
         //Panels.IPanelCreator<TModel>,
         //Panels.IPanelSectionCreator<TModel>,

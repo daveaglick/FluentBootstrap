@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
+    public interface ILinkCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class LinkWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
+
     internal interface ILink : ITag
     {
     }
 
-    public interface ILinkCreator<TModel> : IComponentCreator<TModel>
+    public class Link<TModel> : Tag<TModel, Link<TModel>, LinkWrapper<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextAttribute
     {
-    }
-
-    public class Link<TModel> : Tag<TModel, Link<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextAttribute
-    {
-        internal Link(BootstrapHelper<TModel> helper, params string[] cssClasses)
-            : base(helper, "a", cssClasses)
+        internal Link(IComponentCreator<TModel> creator, params string[] cssClasses)
+            : base(creator, "a", cssClasses)
         {
         }
     }
