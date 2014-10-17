@@ -12,9 +12,9 @@ namespace FluentBootstrap
     public static class TagExtensions
     {
         // Tag extensions
-        public static TThis AddCss<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, params string[] cssClasses)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddCss<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, params string[] cssClasses)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();
             foreach (string cssClass in cssClasses)
@@ -24,9 +24,9 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis RemoveCss<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, params string[] cssClasses)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis RemoveCss<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, params string[] cssClasses)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();
             foreach (string cssClass in cssClasses)
@@ -36,37 +36,37 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis AddAttributes<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, object htmlAttributes)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddAttributes<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, object htmlAttributes)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().MergeAttributes(htmlAttributes);
         }
 
-        public static TThis AddAttributes<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, IDictionary<string, object> htmlAttributes)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddAttributes<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, IDictionary<string, object> htmlAttributes)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().MergeAttributes(htmlAttributes);
         }
 
-        public static TThis AddAttribute<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, string key, object value)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddAttribute<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string key, object value)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().MergeAttribute(key, Convert.ToString(value, CultureInfo.InvariantCulture));
         }
 
-        public static TThis SetId<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, string id)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis SetId<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string id)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().MergeAttribute("id", id);
         }
 
-        public static TThis AddContent<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, object content)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddContent<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, object content)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();
             if (content != null)
@@ -99,9 +99,9 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis AddHtml<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, Func<dynamic, HelperResult> content)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddHtml<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, Func<dynamic, HelperResult> content)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.AddChild(new Content<TModel>(tag.Helper,
@@ -109,45 +109,45 @@ namespace FluentBootstrap
             return tag;
         }
 
-        public static TThis AddChild<TModel, TThis, TChild, TParent>(this Component<TModel, TThis, TParent> component, Func<TParent, TChild> childFunc)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis AddChild<TModel, TThis, TChild, TWrapper>(this Component<TModel, TThis, TWrapper> component, Func<TWrapper, TChild> childFunc)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
             where TChild : Component
         {
             TThis tag = component.GetThis();
-            tag.AddChild(childFunc(tag.GetParent()));
+            tag.AddChild(childFunc(tag.GetWrapper()));
             return tag;
         }
 
-        // This is a very special extension - it allows adding a child using fluent style and switches the fluent object to the child, but behind the scenes
-        // will still defer all rendering calls to the parent (so that the while hierarchy gets output at once, starting with the parent)
-        public static TParent WithChild<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        // This is a very special extension - it allows adding a child using fluent style and switches the current chaining object to the child
+        // behind the scenes the parent start is immediately output and the child ends the parent when it ends (so that the while hierarchy gets output)
+        public static TWrapper WithChild<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();
-            TParent parent = tag.GetParent();
-            parent.WithChild = true;
-            return parent;
+            TWrapper wrapper = tag.Begin();
+            wrapper.WithChild = true;
+            return wrapper;
         }
 
-        public static TThis SetVisibility<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, Visibility visibility)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis SetVisibility<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, Visibility visibility)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().ToggleCss(visibility);
         }
 
-        public static TThis SetTextColor<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, TextColor textColor)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis SetTextColor<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextColor textColor)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().ToggleCss(textColor);
         }
 
-        public static TThis SetBackgroundColor<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, BackgroundColor backgroundColor)
-            where TThis : Tag<TModel, TThis, TParent>
-            where TParent : TagParent<TModel>, new()
+        public static TThis SetBackgroundColor<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, BackgroundColor backgroundColor)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
         {
             return component.GetThis().ToggleCss(backgroundColor);
         }

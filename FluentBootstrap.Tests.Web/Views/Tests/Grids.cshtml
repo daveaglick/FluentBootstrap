@@ -1,9 +1,9 @@
-﻿@using(Html.Bootstrap().Container())
+﻿@using (Html.Bootstrap().Container().Begin())
 {
     @*@Html.Bootstrap().Heading1("Container")*@
     //using (Html.Bootstrap().Div().Id("test-container"))
     {
-        using (Html.Bootstrap().Container())
+        using (Html.Bootstrap().Container().Begin())
         {
             <text>Container</text>
         }
@@ -13,8 +13,8 @@
 
     @*@Html.Bootstrap().Heading1("Fluid Container")*@
     //using (Html.Bootstrap().Div().Id("test-fluid-container"))
-    { 
-        using (Html.Bootstrap().Container().Fluid())
+    {
+        using (Html.Bootstrap().Container().Fluid().Begin())
         {
             <text>Fluid Container</text>
         }
@@ -27,15 +27,15 @@
     {
         using(var row = Html.Bootstrap().GridRow().Begin())
         {
-            using(row.GridColumn(3))
+            using (row.GridColumn(3).Begin())
             {
                 <text>3</text>
             }
-            using (row.GridColumn(4))
+            using (row.GridColumn(4).Begin())
             {
                 <text>4</text>
             }
-            using (row.GridColumn(5))
+            using (row.GridColumn(5).Begin())
             {
                 <text>5</text>
             }
@@ -49,23 +49,23 @@
     {
         using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            using (row.GridColumn().SetXs(1))
+            using (row.GridColumn().SetXs(1).Begin())
             {
                 <text>Xs1</text>
             }
-            using (row.GridColumn().SetSm(2))
+            using (row.GridColumn().SetSm(2).Begin())
             {
                 <text>Sm2</text>
             }
-            using (row.GridColumn().SetMd(3))
+            using (row.GridColumn().SetMd(3).Begin())
             {
                 <text>Md3</text>
             }
-            using (row.GridColumn().SetLg(4))
+            using (row.GridColumn().SetLg(4).Begin())
             {
                 <text>Lg4</text>
             }
-            using (row.GridColumn().SetXs(2).SetLg(3))
+            using (row.GridColumn().SetXs(2).SetLg(3).Begin())
             {
                 <text>Xs2Lg3</text>
             }
@@ -79,22 +79,22 @@
     {
         using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            using (row.GridColumn().SetSm(5).SetMd(6))
+            using (row.GridColumn().SetSm(5).SetMd(6).Begin())
             {
                 <text>A</text>
             }
-            using (row.GridColumn().SetSm(5).SetSmOffset(2).SetMd(6).SetMdOffset(0))
+            using (row.GridColumn().SetSm(5).SetSmOffset(2).SetMd(6).SetMdOffset(0).Begin())
             {
                 <text>B</text>
             }
         }
         using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            using (row.GridColumn(9).SetMdPush(3))
+            using (row.GridColumn(9).SetMdPush(3).Begin())
             {
                 <text>D</text>
             }
-            using (row.GridColumn(3).SetMdPull(9))
+            using (row.GridColumn(3).SetMdPull(9).Begin())
             {
                 <text>C</text>
             }

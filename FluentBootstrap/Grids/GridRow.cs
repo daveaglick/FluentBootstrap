@@ -10,7 +10,7 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class GridRowParent<TModel> : TagParent<TModel>, IGridColumnCreator<TModel>
+    public class GridRowWrapper<TModel> : TagWrapper<TModel>, IGridColumnCreator<TModel>
     {
     }
 
@@ -18,7 +18,7 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class GridRow<TModel> : Tag<TModel, GridRow<TModel>, GridRowParent<TModel>>, IGridRow
+    public class GridRow<TModel> : Tag<TModel, GridRow<TModel>, GridRowWrapper<TModel>>, IGridRow
     {
         internal GridRow(IComponentCreator<TModel> creator)
             : base(creator, "div", Css.Row)

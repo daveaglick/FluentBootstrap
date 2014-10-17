@@ -11,23 +11,23 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
+    public interface ITagCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public abstract class TagWrapper<TModel> : ComponentWrapper<TModel>
+    {
+    }
+
     internal interface ITag : IComponent
     {
         HashSet<string> CssClasses { get; }
         void MergeAttribute(string key, string value, bool replaceExisting = true);
     }
 
-    public interface ITagCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
-    public abstract class TagParent<TModel> : ComponentParent<TModel>
-    {
-    }
-
-    public abstract class Tag<TModel, TThis, TParent> : Component<TModel, TThis, TParent>, ITag
-        where TThis : Tag<TModel, TThis, TParent>
-        where TParent : TagParent<TModel>, new()
+    public abstract class Tag<TModel, TThis, TWrapper> : Component<TModel, TThis, TWrapper>, ITag
+        where TThis : Tag<TModel, TThis, TWrapper>
+        where TWrapper : TagWrapper<TModel>, new()
     {
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }

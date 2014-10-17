@@ -8,9 +8,9 @@ namespace FluentBootstrap
 {
     public static class ComponentExtensions
     {
-        public static TThis RenderIf<TModel, TThis, TParent>(this Component<TModel, TThis, TParent> component, bool condition)
-            where TThis : Component<TModel, TThis, TParent>
-            where TParent : ComponentParent<TModel>, new()
+        public static TThis RenderIf<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool condition)
+            where TThis : Component<TModel, TThis, TWrapper>
+            where TWrapper : ComponentWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();
             tag.Render = condition;

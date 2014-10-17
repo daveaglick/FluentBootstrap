@@ -1,4 +1,4 @@
-﻿@using(Html.Bootstrap().Container())
+﻿@using (Html.Bootstrap().Container().Begin())
 {
     @*@Html.Bootstrap().Heading1("With Child")*@
     //using (Html.Bootstrap().Div().Id("test-with-child"))
@@ -11,20 +11,9 @@
     @*@Html.Bootstrap().Heading1("With Child Disposable")*@
     //using (Html.Bootstrap().Div().Id("test-with-child-disposable"))
     {
-        using (Html.Bootstrap().GridRow().WithChild().GridColumn(12))
-        {
-            <text>With Child Disposable</text>
-        }
-    }
-
-    <hr />
-
-    @*@Html.Bootstrap().Heading1("With Child Begin")*@
-    //using (Html.Bootstrap().Div().Id("test-with-child-begin"))
-    {
         using (Html.Bootstrap().GridRow().WithChild().GridColumn(12).Begin())
         {
-            <text>With Child Begin</text>
+            <text>With Child Disposable</text>
         }
     }
 
@@ -35,7 +24,7 @@
     {
         using (var row = Html.Bootstrap().Container().WithChild().GridRow().Begin())
         {
-            using (row.GridColumn(8))
+            using (row.GridColumn(8).Begin())
             {
                 <text>A</text>
             }

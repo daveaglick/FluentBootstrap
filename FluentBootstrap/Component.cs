@@ -11,11 +11,11 @@ namespace FluentBootstrap
     public interface IComponentCreator<TModel>
     {
         BootstrapHelper<TModel> GetHelper();
-        Component GetParentComponent();
+        Component GetParent();
     }
 
     // This wraps a component once it's been output and indicates the available child components
-    public class ComponentParent<TModel> : IDisposable, IComponentCreator<TModel>
+    public class ComponentWrapper<TModel> : IDisposable, IComponentCreator<TModel>
     {
         internal Component<TModel> Component { private get; set; }
         internal bool WithChild { private get; set; }
@@ -30,7 +30,7 @@ namespace FluentBootstrap
             return Component.Helper;
         }
 
-        public Component GetParentComponent()
+        public Component GetParent()
         {
             return WithChild ? Component : null;
         }
@@ -47,7 +47,7 @@ namespace FluentBootstrap
         bool Implicit { get; }
     }
 
-    public abstract class Component : IDisposable, IComponent
+    public abstract class Component : IComponent
     {
         void IComponent.Start(TextWriter writer, bool isImplicit)
         {
@@ -75,7 +75,7 @@ namespace FluentBootstrap
         internal abstract bool Implicit { get; }
         internal abstract void AddChild(IComponent component);
         public abstract void End();
-        public abstract void Dispose();
+        internal abstract void Dispose(TextWriter writer = null);
     }
 
     public abstract class Component<TModel> : Component
@@ -83,15 +83,15 @@ namespace FluentBootstrap
         internal abstract BootstrapHelper<TModel> Helper { get; }
     }
 
-    public abstract class Component<TModel, TThis, TParent> : Component<TModel>, IHtmlString
-        where TThis : Component<TModel, TThis, TParent>
-        where TParent : ComponentParent<TModel>, new()
+    public abstract class Component<TModel, TThis, TWrapper> : Component<TModel>, IHtmlString
+        where TThis : Component<TModel, TThis, TWrapper>
+        where TWrapper : ComponentWrapper<TModel>, new()
     {
         private bool _disposed;
         private bool _started;
         private bool _ended;
         private readonly List<IComponent> _children = new List<IComponent>();
-        private readonly Component _parentComponent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
+        private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
         private readonly BootstrapHelper<TModel> _helper;
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
@@ -124,7 +124,7 @@ namespace FluentBootstrap
             }
 
             _helper = creator.GetHelper();
-            _parentComponent = creator.GetParentComponent();
+            _parent = creator.GetParent();
             PendingComponents.Add(HtmlHelper, this);
         }
 
@@ -139,18 +139,17 @@ namespace FluentBootstrap
             PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
         }
 
-        // This gets the parent wrapper for this component, NOT the actual parent component
-        internal TParent GetParent()
+        internal TWrapper GetWrapper()
         {
-            TParent parent = new TParent();
-            parent.Component = this;
-            return parent;
+            TWrapper wrapper = new TWrapper();
+            wrapper.Component = this;
+            return wrapper;
         }
 
-        public TParent Begin()
+        public TWrapper Begin()
         {
             PendingComponents.Start(HtmlHelper);
-            return GetParent();
+            return GetWrapper();
         }
 
         public override void End()
@@ -158,13 +157,49 @@ namespace FluentBootstrap
             Dispose();
         }
 
-        public override void Dispose()
+        internal override void Dispose(TextWriter writer = null)
         {
             if (_disposed)
+            {
                 throw new ObjectDisposedException(GetType().Name);
+            }
+
             _disposed = true;
             PendingComponents.Start(HtmlHelper);
-            Finish(ViewContext.Writer);
+            Finish(writer ?? ViewContext.Writer);
+
+            // If we have a parent, it needs to be finished
+            if(_parent != null)
+            {
+                _parent.Dispose(writer);
+            }
+        }
+
+        // Outputs the start and end portions together
+        // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)
+        // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
+        public virtual string ToHtmlString()
+        {
+            // Remove this component from the pending list since we're outputting it directly
+            // then output any remaining pending components so we have an accurate component stack
+            PendingComponents.Remove(HtmlHelper, this);
+            PendingComponents.Start(HtmlHelper);
+
+            // Write this component out as a string
+            using (StringWriter writer = new StringWriter())
+            {
+                Start(writer, false);
+                Finish(writer);
+
+                // If we have a parent, it needs to be finished
+                if (_parent != null)
+                {
+                    _parent.Dispose(writer);
+                }
+
+                return writer.ToString();
+            }
+
         }
 
         internal HtmlHelper<TModel> HtmlHelper
@@ -259,25 +294,6 @@ namespace FluentBootstrap
 
         protected virtual void OnFinish(TextWriter writer)
         {
-        }
-
-        // Outputs the start and end portions together
-        // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)
-        // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
-        public virtual string ToHtmlString()
-        {
-            // Remove this component from the pending list since we're outputting it directly
-            // then output any remaining pending components so we have an accurate component stack
-            PendingComponents.Remove(HtmlHelper, this);
-            PendingComponents.Start(HtmlHelper);
-
-            // Write this component out as a string
-            using (StringWriter writer = new StringWriter())
-            {
-                Start(writer, false);
-                Finish(writer);
-                return writer.ToString();
-            }
         }
 
         // The following code handles the stack of Bootstrap objects stored in the ViewContext

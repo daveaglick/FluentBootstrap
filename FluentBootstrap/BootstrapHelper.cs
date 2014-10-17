@@ -35,8 +35,8 @@ namespace FluentBootstrap
         //// Tables
         //Tables.ITableCreator<TModel>,
         //// Typography
-        //Typography.ILisTParent<TModel>,
-        //Typography.IDescriptionLisTParent<TModel>
+        //Typography.ILisTWrapper<TModel>,
+        //Typography.IDescriptionLisTWrapper<TModel>
     {
         public HtmlHelper<TModel> HtmlHelper { get; private set; }
 
@@ -50,7 +50,7 @@ namespace FluentBootstrap
             return this;
         }
 
-        public Component GetParentComponent()
+        public Component GetParent()
         {
             return null;
         }
@@ -75,7 +75,7 @@ namespace FluentBootstrap
         //Dropdowns.IDropdownItemCreator<TModel>,
         //// Forms
         //Forms.IFormCreator<TModel>,
-        //Forms.IFieldSeTParent<TModel>,
+        //Forms.IFieldSeTWrapper<TModel>,
         //Forms.IFormGroupCreator<TModel>,
         //Forms.ILabelCreator<TModel>,
         //Forms.IFormControlCreator<TModel>,
@@ -101,9 +101,9 @@ namespace FluentBootstrap
         //Tables.ITableRowCreator<TModel>,
         //Tables.ITableCellCreator<TModel>,
         //// Typography
-        //Typography.ILisTParent<TModel>,
+        //Typography.ILisTWrapper<TModel>,
         //Typography.IListItemCreator<TModel>,
-        //Typography.IDescriptionLisTParent<TModel>,
+        //Typography.IDescriptionLisTWrapper<TModel>,
         //Typography.IDescriptionListItemCreator<TModel>
     {
         public BootstrapHelperAll(HtmlHelper<TModel> htmlHelper) : base(htmlHelper)

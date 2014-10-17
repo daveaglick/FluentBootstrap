@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
     }
 
-    public class Content<TModel> : Component<TModel, Content<TModel>, ComponentParent<TModel>>, IContent
+    public class Content<TModel> : Component<TModel, Content<TModel>, ComponentWrapper<TModel>>, IContent
     {
         private readonly string _content;
 

@@ -11,7 +11,7 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class ContainerParent<TModel> : TagParent<TModel>, IGridRowCreator<TModel>
+    public class ContainerWrapper<TModel> : TagWrapper<TModel>, IGridRowCreator<TModel>
     {
     }
 
@@ -19,7 +19,7 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class Container<TModel> : Tag<TModel, Container<TModel>, ContainerParent<TModel>>, IContainer
+    public class Container<TModel> : Tag<TModel, Container<TModel>, ContainerWrapper<TModel>>, IContainer
     {
         internal Container(IComponentCreator<TModel> creator)
             : base(creator, "div", Css.Container)
