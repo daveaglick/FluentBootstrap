@@ -136,9 +136,13 @@ namespace FluentBootstrap
             if (value != null)
             {
                 if (value < 0)
+                {
                     value = 1;
+                }
                 if (value > Bootstrap.GridColumns)
+                {
                     value = Bootstrap.GridColumns;
+                }
                 tag.CssClasses.Add(prefix + value.Value);
             }
         }

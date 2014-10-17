@@ -1,7 +1,7 @@
 ﻿@using (Html.Bootstrap().Container().Begin())
 {
-    @*@Html.Bootstrap().Heading1("Container")*@
-    //using (Html.Bootstrap().Div().Id("test-container"))
+    @Html.Bootstrap().Heading1("Container")
+    using (Html.Bootstrap().Div().SetId("test-container").Begin())
     {
         using (Html.Bootstrap().Container().Begin())
         {
@@ -11,10 +11,10 @@
 
     <hr />
 
-    @*@Html.Bootstrap().Heading1("Fluid Container")*@
-    //using (Html.Bootstrap().Div().Id("test-fluid-container"))
+    @Html.Bootstrap().Heading1("Fluid Container")
+    using (Html.Bootstrap().Div().SetId("test-fluid-container").Begin())
     {
-        using (Html.Bootstrap().Container().Fluid().Begin())
+        using (Html.Bootstrap().Container().SetFluid().Begin())
         {
             <text>Fluid Container</text>
         }
@@ -22,8 +22,8 @@
     
     <hr />
 
-    @*@Html.Bootstrap().Heading1("Simple Grid")*@
-    //using (Html.Bootstrap().Div().Id("test-simple-grid"))
+    @Html.Bootstrap().Heading1("Simple Grid")
+    using (Html.Bootstrap().Div().SetId("test-simple-grid").Begin())
     {
         using(var row = Html.Bootstrap().GridRow().Begin())
         {
@@ -44,8 +44,8 @@
 
     <hr />
 
-    @*@Html.Bootstrap().Heading1("Complex Grid")*@
-    //using (Html.Bootstrap().Div().Id("test-complex-grid"))
+    @Html.Bootstrap().Heading1("Complex Grid")
+    using (Html.Bootstrap().Div().SetId("test-complex-grid").Begin())
     {
         using (var row = Html.Bootstrap().GridRow().Begin())
         {
@@ -74,8 +74,8 @@
     
     <hr />
 
-    @*@Html.Bootstrap().Heading1("Offset/Pull/Push Grid")*@
-    //using (Html.Bootstrap().Div().Id("test-offset-pull-push-grid"))
+    @Html.Bootstrap().Heading1("Offset/Pull/Push Grid")
+    using (Html.Bootstrap().Div().SetId("test-offset-pull-push-grid").Begin())
     {
         using (var row = Html.Bootstrap().GridRow().Begin())
         {

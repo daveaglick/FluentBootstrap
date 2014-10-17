@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
+    // This is applied to wrappers to indicate that they can create a particular component
     public interface IComponentCreator<TModel>
     {
         BootstrapHelper<TModel> GetHelper();
@@ -15,7 +16,8 @@ namespace FluentBootstrap
     }
 
     // This wraps a component once it's been output and indicates the available child components
-    public class ComponentWrapper<TModel> : IDisposable, IComponentCreator<TModel>
+    // If the component does not create any other components, this base ComponentWrapper class can be used
+    public abstract class ComponentWrapper<TModel> : IDisposable, IComponentCreator<TModel>
     {
         internal Component<TModel> Component { private get; set; }
         internal bool WithChild { private get; set; }
@@ -36,9 +38,9 @@ namespace FluentBootstrap
         }
     }
     
-    // This (and derived) non-generic interfaces get applied to every component
-    // This allowed type comparisons of component references without worrying about all the generic stuff
-    // Generally, any members that need to be accessed after getting a component off the stack from another one should be put in the interface
+    // This (and derived) non-generic interfaces are needed for every component
+    // They allow type comparisons of component references without worrying about all the generic stuff
+    // Generally, any members that need to be accessed after getting a component off the stack from another one should be put in this interface
     internal interface IComponent
     {
         void Start(TextWriter writer, bool isImplicit = false);

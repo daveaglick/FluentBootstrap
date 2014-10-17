@@ -8,25 +8,33 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
+    public interface IHeadingCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class HeadingWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
+
     internal interface IHeading : ITag
     {
     }
 
-    public class Heading<TModel> : Tag<TModel, Heading<TModel>>, IHeading, IHasTextAttribute
+    public class Heading<TModel> : Tag<TModel, Heading<TModel>, HeadingWrapper<TModel>>, IHeading, IHasTextAttribute
     {
-        internal Heading(BootstrapHelper<TModel> helper, string tagName, string text, params string[] cssClasses)
-            : base(helper, tagName, cssClasses)
+        internal Heading(IComponentCreator<TModel> creator, string tagName, string text, params string[] cssClasses)
+            : base(creator, tagName, cssClasses)
         {
             TextContent = text;
         }
 
-        internal string Small { get; set; }
+        internal string SmallText { get; set; }
 
         protected override void OnFinish(TextWriter writer)
         {
-            if (!string.IsNullOrWhiteSpace(Small))
+            if (!string.IsNullOrWhiteSpace(SmallText))
             {
-                new Element<TModel>(Helper, "small").SetText(Small).StartAndFinish(writer);
+                new Element<TModel>(Helper, "small").SetText(SmallText).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

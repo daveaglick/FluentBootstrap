@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Html
 {
+    public interface IElementCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class ElementWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
+
     internal interface IElement : ITag
     {
     }
 
-    public class Element<TModel> : Tag<TModel, Element<TModel>>, IElement, IHasTextAttribute
+    public class Element<TModel> : Tag<TModel, Element<TModel>, ElementWrapper<TModel>>, IElement, IHasTextAttribute
     {
-        internal Element(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
-            : base(helper, tagName, cssClasses)
+        internal Element(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+            : base(creator, tagName, cssClasses)
         {
         }
     }

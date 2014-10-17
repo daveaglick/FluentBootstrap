@@ -72,7 +72,11 @@
     <Compile Include="Grids\IHasGridColumnExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Html\Element.cs" />
+    <Compile Include="Html\HtmlExtensions.cs" />
     <Compile Include="TextColor.cs" />
+    <Compile Include="Typography\Heading.cs" />
+    <Compile Include="Typography\TypographyExtensions.cs" />
     <Compile Include="Visibility.cs" />
     <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="EnumExtensions.cs" />
@@ -83,7 +87,6 @@
     <Compile Include="InterfaceExtensions.cs" />
     <Compile Include="IHasTextAttribute.cs" />
     <Compile Include="IHasValueAttribute.cs" />
-    <Compile Include="PendingComponents.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="BootstrapHelper.cs" />
     <Compile Include="TagExtensions.cs" />
