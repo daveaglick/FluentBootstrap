@@ -8,14 +8,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
+    public interface IBlockquoteCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class BlockquoteWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
     internal interface IBlockquote : ITag
     {
     }
 
-    public class Blockquote<TModel> : Tag<TModel, Blockquote<TModel>>, IBlockquote
+    public class Blockquote<TModel> : Tag<TModel, Blockquote<TModel>, BlockquoteWrapper<TModel>>, IBlockquote
     {
-        internal Blockquote(BootstrapHelper<TModel> helper, params string[] cssClasses)
-            : base(helper, "blockquote", cssClasses)
+        internal Blockquote(IComponentCreator<TModel> creator, params string[] cssClasses)
+            : base(creator, "blockquote", cssClasses)
         {
         }
 

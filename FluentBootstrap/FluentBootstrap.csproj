@@ -75,7 +75,39 @@
     <Compile Include="Html\Element.cs" />
     <Compile Include="Html\HtmlExtensions.cs" />
     <Compile Include="TextColor.cs" />
+    <Compile Include="Typography\Abbr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\Blockquote.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\Cite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\Description.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\DescriptionList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\DescriptionTerm.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Typography\Heading.cs" />
+    <Compile Include="Typography\List.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\ListItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\ListType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\Pre.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Typography\TextAlignment.cs" />
+    <Compile Include="Typography\TextTransformation.cs" />
     <Compile Include="Typography\TypographyExtensions.cs" />
     <Compile Include="Visibility.cs" />
     <Compile Include="IHasTitleAttribute.cs" />

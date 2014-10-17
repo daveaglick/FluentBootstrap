@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
+    public interface IPreCreator<TModel> : ITagCreator<TModel>
+    {
+    }
+
+    public class PreWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
     internal interface IPre : ITag
     {
     }
 
-    public class Pre<TModel> : Tag<TModel, Pre<TModel>>, IPre, IHasTextAttribute
+    public class Pre<TModel> : Tag<TModel, Pre<TModel>, PreWrapper<TModel>>, IPre, IHasTextAttribute
     {
-        internal Pre(BootstrapHelper<TModel> helper, params string[] cssClasses)
-            : base(helper, "pre", cssClasses)
+        internal Pre(IComponentCreator<TModel> creator, params string[] cssClasses)
+            : base(creator, "pre", cssClasses)
         {
         }
     }

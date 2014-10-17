@@ -1,0 +1,132 @@
+﻿@using FluentBootstrap.Typography;
+
+@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Headings")
+    using (Html.Bootstrap().Div().SetId("test-heading-levels").Begin())
+    {
+        @Html.Bootstrap().Heading1("Heading 1")
+        @Html.Bootstrap().Heading2("Heading 2")
+        @Html.Bootstrap().Heading3("Heading 3")
+        @Html.Bootstrap().Heading4("Heading 4")
+        @Html.Bootstrap().Heading5("Heading 5")
+        @Html.Bootstrap().Heading6("Heading 6")
+    }
+    
+    <hr/>
+
+    @Html.Bootstrap().Heading1("Small")
+    using (Html.Bootstrap().Div().SetId("test-small").Begin())
+    {
+        @Html.Bootstrap().Heading3("Heading 3").SetSmallText("This is small")
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Alignment")
+    using (Html.Bootstrap().Div().SetId("test-alignment").Begin())
+    {
+        @Html.Bootstrap().Paragraph("Left").SetTextAlignment(TextAlignment.Left)
+        using (Html.Bootstrap().Paragraph().SetTextAlignment(TextAlignment.Right).Begin())
+        {
+            <text>Right</text>
+        }
+        @Html.Bootstrap().Paragraph("Center").SetTextAlignment(TextAlignment.Center)
+        @Html.Bootstrap().Paragraph("Justify").SetTextAlignment(TextAlignment.Justify)
+        @Html.Bootstrap().Paragraph("No Wrap").SetTextAlignment(TextAlignment.Nowrap)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Transformation")
+    using (Html.Bootstrap().Div().SetId("test-transformation").Begin())
+    {
+        @Html.Bootstrap().Paragraph("Lowercase").SetTextTransformation(TextTransformation.Lowercase)
+        @Html.Bootstrap().Paragraph("Uppercase").SetTextTransformation(TextTransformation.Uppercase)
+        @Html.Bootstrap().Paragraph("capitalized text").SetTextTransformation(TextTransformation.Capitalize)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Multiple Text Classes")
+    using (Html.Bootstrap().Div().SetId("test-multiple-text-classes").Begin())
+    {
+        @Html.Bootstrap().Paragraph("Multiple").SetTextTransformation(TextTransformation.Uppercase).SetTextAlignment(TextAlignment.Center)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Unordered List")
+    using (Html.Bootstrap().Div().SetId("test-unordered-list").Begin())
+    {
+        using (var list = Html.Bootstrap().List(ListType.Unordered).Begin())
+        {
+            @list.ListItem("One")
+            @list.ListItem("Two")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Ordered List")
+    using (Html.Bootstrap().Div().SetId("test-ordered-list").Begin())
+    {
+        using (var list = Html.Bootstrap().List(ListType.Ordered).Begin())
+        {
+            @list.ListItem("One")
+            @list.ListItem("Two")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Unstyled List")
+    using (Html.Bootstrap().Div().SetId("test-unstyled-list").Begin())
+    {
+        using (var list = Html.Bootstrap().List(ListType.Unstyled).Begin())
+        {
+            @list.ListItem("One")
+            @list.ListItem("Two")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Inline List")
+    using (Html.Bootstrap().Div().SetId("test-inline-list").Begin())
+    {
+        using (var list = Html.Bootstrap().List(ListType.Inline).Begin())
+        {
+            @list.ListItem("One")
+            @list.ListItem("Two")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Description List")
+    using (Html.Bootstrap().Div().SetId("test-description-list").Begin())
+    {
+        using (var list = Html.Bootstrap().DescriptionList().Begin())
+        {
+            @list.DescriptionTerm("Term")
+            @list.Description("Desc")
+            @list.DescriptionTerm("One")
+            @list.Description("Two")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Horizontal Description List")
+    using (Html.Bootstrap().Div().SetId("test-horizontal-description-list").Begin())
+    {
+        using (var list = Html.Bootstrap().DescriptionList().SetHorizontal().Begin())
+        {
+            @list.DescriptionTerm("Term")
+            @list.Description("Desc")
+            @list.DescriptionTerm("One")
+            @list.Description("Two")
+        }
+    }
+}
