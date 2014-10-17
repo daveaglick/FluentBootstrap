@@ -22,7 +22,7 @@ namespace FluentBootstrap
 
         public void Dispose()
         {
-            Component.Dispose();
+            Component.End();
         }
 
         public BootstrapHelper<TModel> GetHelper()
@@ -41,7 +41,7 @@ namespace FluentBootstrap
     // Generally, any members that need to be accessed after getting a component off the stack from another one should be put in the interface
     internal interface IComponent
     {
-        void Start(TextWriter writer, bool @implicit);
+        void Start(TextWriter writer, bool isImplicit = false);
         void Finish(TextWriter writer);
         void StartAndFinish(TextWriter writer);
         bool Implicit { get; }
@@ -69,13 +69,15 @@ namespace FluentBootstrap
             get { return Implicit; }
         }
 
-        internal abstract void Start(TextWriter writer, bool @implicit);
+        public abstract void End();
+
+        internal abstract void Start(TextWriter writer, bool isImplicit = false);
         internal abstract void Finish(TextWriter writer);
         internal abstract void StartAndFinish(TextWriter writer);
         internal abstract bool Implicit { get; }
         internal abstract void AddChild(IComponent component);
-        public abstract void End();
-        internal abstract void Dispose(TextWriter writer = null);
+        internal abstract void Begin(TextWriter writer);
+        internal abstract void End(TextWriter writer);
     }
 
     public abstract class Component<TModel> : Component
@@ -87,9 +89,8 @@ namespace FluentBootstrap
         where TThis : Component<TModel, TThis, TWrapper>
         where TWrapper : ComponentWrapper<TModel>, new()
     {
-        private bool _disposed;
         private bool _started;
-        private bool _ended;
+        private bool _finished;
         private readonly List<IComponent> _children = new List<IComponent>();
         private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
         private readonly BootstrapHelper<TModel> _helper;
@@ -115,6 +116,21 @@ namespace FluentBootstrap
             get { return _helper; }
         }
 
+        internal HtmlHelper<TModel> HtmlHelper
+        {
+            get { return Helper.HtmlHelper; }
+        }
+
+        internal ViewContext ViewContext
+        {
+            get { return HtmlHelper.ViewContext; }
+        }
+
+        internal TThis GetThis()
+        {
+            return (TThis)this;
+        }
+
         protected Component(IComponentCreator<TModel> creator)
         {
             // Sanity check
@@ -125,18 +141,11 @@ namespace FluentBootstrap
 
             _helper = creator.GetHelper();
             _parent = creator.GetParent();
-            PendingComponents.Add(HtmlHelper, this);
-        }
-
-        internal TThis GetThis()
-        {
-            return (TThis)this;
         }
 
         internal override void AddChild(IComponent component)
         {
             _children.Add(component);
-            PendingComponents.Remove(HtmlHelper, component); // Remove the pending child component because it's now associated with this one
         }
 
         internal TWrapper GetWrapper()
@@ -148,30 +157,34 @@ namespace FluentBootstrap
 
         public TWrapper Begin()
         {
-            PendingComponents.Start(HtmlHelper);
+            Begin(null);
             return GetWrapper();
+        }
+
+        internal override void Begin(TextWriter writer)
+        {
+            // If we have a parent, it needs to be started
+            if (_parent != null)
+            {
+                _parent.Begin(writer);
+            }
+
+            Start(writer ?? ViewContext.Writer);
         }
 
         public override void End()
         {
-            Dispose();
+            End(null);
         }
 
-        internal override void Dispose(TextWriter writer = null)
+        internal override void End(TextWriter writer)
         {
-            if (_disposed)
-            {
-                throw new ObjectDisposedException(GetType().Name);
-            }
-
-            _disposed = true;
-            PendingComponents.Start(HtmlHelper);
             Finish(writer ?? ViewContext.Writer);
 
             // If we have a parent, it needs to be finished
             if(_parent != null)
             {
-                _parent.Dispose(writer);
+                _parent.End(writer);
             }
         }
 
@@ -180,54 +193,44 @@ namespace FluentBootstrap
         // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
         public virtual string ToHtmlString()
         {
-            // Remove this component from the pending list since we're outputting it directly
-            // then output any remaining pending components so we have an accurate component stack
-            PendingComponents.Remove(HtmlHelper, this);
-            PendingComponents.Start(HtmlHelper);
-
             // Write this component out as a string
             using (StringWriter writer = new StringWriter())
             {
-                Start(writer, false);
-                Finish(writer);
+                // If we have a parent, it needs to be started
+                if (_parent != null)
+                {
+                    _parent.Begin(writer);
+                }
+
+                StartAndFinish(writer);
 
                 // If we have a parent, it needs to be finished
                 if (_parent != null)
                 {
-                    _parent.Dispose(writer);
+                    _parent.End(writer);
                 }
 
                 return writer.ToString();
             }
-
         }
 
-        internal HtmlHelper<TModel> HtmlHelper
-        {
-            get { return Helper.HtmlHelper; }
-        }
-
-        internal ViewContext ViewContext
-        {
-            get { return HtmlHelper.ViewContext; }
-        }
-
-        internal override void Start(TextWriter writer, bool isImplicit)
+        internal override void Start(TextWriter writer, bool isImplicit = false)
         {
             // Only write content once
             if (_started)
+            {
                 return;
+            }
             _started = true;
 
-            // Mark the implicit flag
+            // Set the implicit flag
             _implicit = isImplicit;
-
-            // Remove this component from the pending list
-            PendingComponents.Remove(HtmlHelper, this);
 
             // Stop now if not rendering
             if (!_render)
+            {
                 return;
+            }
 
             // Prepare this component
             PreStart(writer);
@@ -245,13 +248,17 @@ namespace FluentBootstrap
         internal override void Finish(TextWriter writer)
         {
             // Only write content once
-            if (_ended)
+            if (_finished)
+            {
                 return;
-            _ended = true;
+            }
+            _finished = true;
 
             // Stop now if not rendering
             if (!_render)
+            {
                 return;
+            }
 
             // Provide finishing prior to popping from the stack
             PreFinish(writer);
@@ -267,7 +274,7 @@ namespace FluentBootstrap
         // This is implicit by definition since it's only ever used inside another component to generate content for a child, etc.
         internal override void StartAndFinish(TextWriter writer)
         {
-            Start(writer, true);
+            Start(writer);
             Finish(writer);
         }
 
@@ -282,8 +289,7 @@ namespace FluentBootstrap
         {
             foreach (IComponent child in _children)
             {
-                child.Start(writer, false);
-                child.Finish(writer);
+                child.StartAndFinish(writer);
             }
         }
 
@@ -328,7 +334,7 @@ namespace FluentBootstrap
                 throw new InvalidOperationException("Popped a different Bootstrap component from the stack (you should never see this).");
         }
 
-        // This pops up the stack if (and only if) it is assignable to the specified type and it (and all intermediate components) are implicit
+        // This pops up the stack if (and only if) it is assignable to the specified type
         // Use this to clear arbitrary implicitly added components from the stack (see how Tables.Row works)
         internal void Pop<TComponent>(TextWriter writer)
             where TComponent : IComponent
