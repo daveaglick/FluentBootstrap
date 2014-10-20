@@ -11,56 +11,56 @@ namespace FluentBootstrap
     public enum Visibility
     {
         [Description(Css.VisibleXsBlock)]
-        VisibleXsBlock,
+        VisibleXsBlock = 1,
         [Description(Css.VisibleXsInline)]
-        VisibleXsInline,
+        VisibleXsInline = 1 << 1,
         [Description(Css.VisibleXsInlineBlock)]
-        VisibleXsInlineBlock,
+        VisibleXsInlineBlock = 1 << 2,
         [Description(Css.VisibleSmBlock)]
-        VisibleSmBlock,
+        VisibleSmBlock = 1 << 3,
         [Description(Css.VisibleSmInline)]
-        VisibleSmInline,
+        VisibleSmInline = 1 << 4,
         [Description(Css.VisibleSmInlineBlock)]
-        VisibleSmInlineBlock,
+        VisibleSmInlineBlock = 1 << 5,
         [Description(Css.VisibleMdBlock)]
-        VisibleMdBlock,
+        VisibleMdBlock = 1 << 6,
         [Description(Css.VisibleMdInline)]
-        VisibleMdInline,
+        VisibleMdInline = 1 << 7,
         [Description(Css.VisibleMdInlineBlock)]
-        VisibleMdInlineBlock,
+        VisibleMdInlineBlock = 1 << 8,
         [Description(Css.VisibleLgBlock)]
-        VisibleLgBlock,
+        VisibleLgBlock = 1 << 9,
         [Description(Css.VisibleLgInline)]
-        VisibleLgInline,
+        VisibleLgInline = 1 << 10,
         [Description(Css.VisibleLgInlineBlock)]
-        VisibleLgInlineBlock,
+        VisibleLgInlineBlock = 1 << 11,
         [Description(Css.HiddenXs)]
-        HiddenXs,
+        HiddenXs = 1 << 12,
         [Description(Css.HiddenSm)]
-        HiddenSm,
+        HiddenSm = 1 << 13,
         [Description(Css.HiddenMd)]
-        HiddenMd,
+        HiddenMd = 1 << 14,
         [Description(Css.HiddenLg)]
-        HiddenLg,
+        HiddenLg = 1 << 15,
         [Description(Css.VisiblePrintBlock)]
-        VisiblePrintBlock,
+        VisiblePrintBlock = 1 << 16,
         [Description(Css.VisiblePrintInline)]
-        VisiblePrintInline,
+        VisiblePrintInline = 1 << 17,
         [Description(Css.VisiblePrintInlineBlock)]
-        VisiblePrintInlineBlock,
+        VisiblePrintInlineBlock = 1 << 18,
         [Description(Css.HiddenPrint)]
-        HiddenPrint,
+        HiddenPrint = 1 << 19,
         [Description(Css.Show)]
-        Show,
+        Show = 1 << 20,
         [Description(Css.Hidden)]
-        Hidden,
+        Hidden = 1 << 21,
         [Description(Css.Invisible)]
-        Invisible,
+        Invisible = 1 << 22,
         [Description(Css.SrOnly)]
-        SrOnly,
+        SrOnly = 1 << 23,
         [Description(Css.SrOnlyFocusable)]
-        SrOnlyFocusable,
+        SrOnlyFocusable = 1 << 24,
         [Description(Css.TextHide)]
-        TextHide
+        TextHide = 1 << 25
     }
 }

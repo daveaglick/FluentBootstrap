@@ -8,23 +8,27 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Tables
 {
-    internal interface ITable : ITag
-    {
-    }
-
     public interface ITableCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class Table<TModel> : Tag<TModel, Table<TModel>>, ITable,
+    public class TableWrapper<TModel> : TagWrapper<TModel>,
         ITableSectionCreator<TModel>,
         ITableRowCreator<TModel>,
         ITableCellCreator<TModel>
     {
+    }
+
+    internal interface ITable : ITag
+    {
+    }
+
+    public class Table<TModel> : Tag<TModel, Table<TModel>, TableWrapper<TModel>>, ITable
+    {
         internal bool Responsive { get; set; }
 
-        internal Table(BootstrapHelper<TModel> helper)
-            : base(helper, "table", Css.Table)
+        internal Table(IComponentCreator<TModel> creator)
+            : base(creator, "table", Css.Table)
         {
         }
 

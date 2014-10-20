@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface IButtonCreator<TModel> : ITagCreator<TModel>
+    public interface IButtonCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
@@ -20,7 +20,7 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class Button<TModel> : Tag<TModel, Button<TModel>, ButtonWrapper<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStyleExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public class Button<TModel> : Tag<TModel, Button<TModel>, ButtonWrapper<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
     {
         private ButtonGroup<TModel> _buttonGroup;
 

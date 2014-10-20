@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public enum BackgroundColor
+    public enum BackgroundState
     {
         [Description(Css.BgPrimary)]
         Primary,

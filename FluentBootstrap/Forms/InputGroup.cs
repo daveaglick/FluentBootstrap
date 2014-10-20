@@ -6,18 +6,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    internal interface IInputGroup : ITag
-    {
-    }
-
     public interface IInputGroupCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class InputGroup<TModel> : Tag<TModel, InputGroup<TModel>>, IInputGroup, IInputGroupAddonCreator<TModel>, IInputGroupButtonCreator<TModel>
+    public class InputGroupWrapper<TModel> : TagWrapper<TModel>, 
+        IInputGroupAddonCreator<TModel>, 
+        IInputGroupButtonCreator<TModel>
     {
-        internal InputGroup(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.InputGroup)
+    }
+
+    internal interface IInputGroup : ITag
+    {
+    }
+
+    public class InputGroup<TModel> : Tag<TModel, InputGroup<TModel>, InputGroupWrapper<TModel>>, IInputGroup
+    {
+        internal InputGroup(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.InputGroup)
         {
         }
     }

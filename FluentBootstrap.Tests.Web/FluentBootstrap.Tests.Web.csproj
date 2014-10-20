@@ -124,13 +124,13 @@
       <LastGenOutput>_Layout.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Tests\Grids.cshtml" />
-    <None Include="Views\Home\Index.cshtml2" />
+    <None Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tests\Tags.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />
-    <None Include="Views\Tests\Forms.cshtml2" />
-    <None Include="Views\Tests\Icons.cshtml2" />
+    <None Include="Views\Tests\Forms.cshtml" />
+    <None Include="Views\Tests\Icons.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

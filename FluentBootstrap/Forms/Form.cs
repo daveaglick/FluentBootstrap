@@ -10,6 +10,20 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
+    public interface IFormCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class FormWrapper<TModel> : TagWrapper<TModel>,
+        IFieldSetCreator<TModel>,
+        IFormGroupCreator<TModel>,
+        ILabelCreator<TModel>,
+        IFormControlCreator<TModel>,
+        IHelpBlockCreator<TModel>,
+        IInputGroupCreator<TModel>
+    {
+    }
+
     internal interface IForm : ITag
     {
         int DefaultLabelWidth { get; }
@@ -17,17 +31,7 @@ namespace FluentBootstrap.Forms
         bool HideValidationSummary { set; }
     }
 
-    public interface IFormCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
-    public class Form<TModel> : Tag<TModel, Form<TModel>>, IForm,
-        IFieldSetCreator<TModel>,
-        IFormGroupCreator<TModel>,
-        ILabelCreator<TModel>,
-        IFormControlCreator<TModel>,
-        IHelpBlockCreator<TModel>,
-        IInputGroupCreator<TModel>
+    public class Form<TModel> : Tag<TModel, Form<TModel>, FormWrapper<TModel>>, IForm
     {        
         internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
 
@@ -43,8 +47,8 @@ namespace FluentBootstrap.Forms
             set { HideValidationSummary = value; }
         }
 
-        public Form(BootstrapHelper<TModel> helper)
-            : base(helper, "form")
+        public Form(IComponentCreator<TModel> creator)
+            : base(creator, "form")
         {
             DefaultLabelWidth = Bootstrap.DefaultFormLabelWidth;
             MergeAttribute("role", "form");

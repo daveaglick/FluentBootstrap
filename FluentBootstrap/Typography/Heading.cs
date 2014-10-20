@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IHeadingCreator<TModel> : ITagCreator<TModel>
+    public interface IHeadingCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

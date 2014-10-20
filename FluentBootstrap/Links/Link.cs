@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
-    public interface ILinkCreator<TModel> : ITagCreator<TModel>
+    public interface ILinkCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

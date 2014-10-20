@@ -138,18 +138,18 @@ namespace FluentBootstrap
             return component.GetThis().ToggleCss(visibility);
         }
 
-        public static TThis SetTextColor<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextColor textColor)
+        public static TThis SetState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextState state)
             where TThis : Tag<TModel, TThis, TWrapper>
             where TWrapper : TagWrapper<TModel>, new()
         {
-            return component.GetThis().ToggleCss(textColor);
+            return component.GetThis().ToggleCss(state);
         }
 
-        public static TThis SetBackgroundColor<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, BackgroundColor backgroundColor)
+        public static TThis SetBackgroundState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, BackgroundState backgroundState)
             where TThis : Tag<TModel, TThis, TWrapper>
             where TWrapper : TagWrapper<TModel>, new()
         {
-            return component.GetThis().ToggleCss(backgroundColor);
+            return component.GetThis().ToggleCss(backgroundState);
         }
     }
 }

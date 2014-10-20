@@ -1,7 +1,7 @@
-﻿@using(Html.Bootstrap().Container())
+﻿@using(Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("FluentBootstrap Tests")
-    using (var list = Html.Bootstrap().List())
+    using (var list = Html.Bootstrap().List().Begin())
     {
         @list.ListItem(Html.Bootstrap().Link("Buttons", "/Tests/Buttons"))
         @list.ListItem(Html.Bootstrap().Link("Dropdowns", "/Tests/Dropdowns"))

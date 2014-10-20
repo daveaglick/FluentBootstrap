@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public enum TextColor
+    public enum TextState
     {
         [Description()]
         Default,

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IBlockquoteCreator<TModel> : ITagCreator<TModel>
+    public interface IBlockquoteCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

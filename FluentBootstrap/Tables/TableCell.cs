@@ -7,19 +7,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    internal interface ITableCell : ITag
-    {
-    }
-
     public interface ITableCellCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public abstract class TableCell<TModel, TThis> : Tag<TModel, TThis>, ITableCell, IHasTableContextExtensions
-        where TThis : TableCell<TModel, TThis>
+    public class TableCellWrapper<TModel> : TagWrapper<TModel>
     {
-        internal TableCell(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
-            : base(helper, tagName, cssClasses)
+    }
+
+    internal interface ITableCell : ITag
+    {
+    }
+
+    public abstract class TableCell<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, ITableCell, IHasTableStateExtensions
+        where TThis : TableCell<TModel, TThis, TWrapper>
+        where TWrapper : TableCellWrapper<TModel>, new()
+    {
+        internal TableCell(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+            : base(creator, tagName, cssClasses)
         {
         }
 

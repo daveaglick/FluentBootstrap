@@ -52,12 +52,12 @@
     <Compile Include="Buttons\ButtonGroup.cs" />
     <Compile Include="Buttons\ButtonGroupSize.cs" />
     <Compile Include="Buttons\ButtonSize.cs" />
-    <Compile Include="Buttons\ButtonStyle.cs" />
+    <Compile Include="Buttons\ButtonState.cs" />
     <Compile Include="Buttons\ButtonToolbar.cs" />
     <Compile Include="Buttons\ButtonType.cs" />
     <Compile Include="Buttons\DropdownButton.cs" />
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
-    <Compile Include="Buttons\IHasButtonStyleExtensions.cs" />
+    <Compile Include="Buttons\IHasButtonStateExtensions.cs" />
     <Compile Include="Buttons\LinkButton.cs" />
     <Compile Include="ComponentExtensions.cs" />
     <Compile Include="Css.cs">
@@ -65,12 +65,40 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundColor.cs" />
+    <Compile Include="BackgroundState.cs" />
     <Compile Include="Dropdowns\Dropdown.cs" />
     <Compile Include="Dropdowns\DropdownDivider.cs" />
     <Compile Include="Dropdowns\DropdownExtensions.cs" />
     <Compile Include="Dropdowns\DropdownHeader.cs" />
     <Compile Include="Dropdowns\DropdownLink.cs" />
+    <Compile Include="Forms\CheckedControl.cs" />
+    <Compile Include="Forms\FieldSet.cs" />
+    <Compile Include="Forms\Form.cs" />
+    <Compile Include="Forms\FormButton.cs" />
+    <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\FormControlFor.cs" />
+    <Compile Include="Forms\FormControlForBase.cs" />
+    <Compile Include="Forms\FormControlListFor.cs" />
+    <Compile Include="Forms\FormExtensions.cs" />
+    <Compile Include="Forms\FormGroup.cs" />
+    <Compile Include="Forms\FormInputType.cs" />
+    <Compile Include="Forms\HelpBlock.cs" />
+    <Compile Include="Forms\Hidden.cs" />
+    <Compile Include="Forms\HiddenFor.cs" />
+    <Compile Include="Forms\IFormValidation.cs" />
+    <Compile Include="Forms\Input.cs" />
+    <Compile Include="Forms\InputButton.cs" />
+    <Compile Include="Forms\InputGroup.cs" />
+    <Compile Include="Forms\InputGroupAddon.cs" />
+    <Compile Include="Forms\InputGroupButton.cs" />
+    <Compile Include="Forms\InputGroupSize.cs" />
+    <Compile Include="Forms\InputSize.cs" />
+    <Compile Include="Forms\Label.cs" />
+    <Compile Include="Forms\Select.cs" />
+    <Compile Include="Forms\Static.cs" />
+    <Compile Include="Forms\TextArea.cs" />
+    <Compile Include="Forms\ValidationState.cs" />
+    <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="Grids\Container.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,11 +127,36 @@
     <Compile Include="Icons\IconExtensions.cs" />
     <Compile Include="Icons\IconSpan.cs" />
     <Compile Include="Icons\IHasIcon.cs" />
+    <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\ImageExtensions.cs" />
+    <Compile Include="Images\ImageStyle.cs" />
     <Compile Include="Links\IHasLinkExtensions.cs" />
     <Compile Include="Links\Link.cs" />
     <Compile Include="Links\LinkExtensions.cs" />
     <Compile Include="Misc\MiscExtensions.cs" />
-    <Compile Include="TextColor.cs" />
+    <Compile Include="Panels\Panel.cs" />
+    <Compile Include="Panels\PanelBody.cs" />
+    <Compile Include="Panels\PanelExtensions.cs" />
+    <Compile Include="Panels\PanelFooter.cs" />
+    <Compile Include="Panels\PanelHeading.cs" />
+    <Compile Include="Panels\PanelSection.cs" />
+    <Compile Include="Panels\PanelState.cs" />
+    <Compile Include="Panels\PanelTable.cs" />
+    <Compile Include="Panels\PanelTitle.cs" />
+    <Compile Include="Tables\IHasTableStateExtensions.cs" />
+    <Compile Include="Tables\Table.cs" />
+    <Compile Include="Tables\TableBodySection.cs" />
+    <Compile Include="Tables\TableCell.cs" />
+    <Compile Include="Tables\TableState.cs" />
+    <Compile Include="Tables\TableData.cs" />
+    <Compile Include="Tables\TableExtensions.cs" />
+    <Compile Include="Tables\TableFootSection.cs" />
+    <Compile Include="Tables\TableHeader.cs" />
+    <Compile Include="Tables\TableHeadSection.cs" />
+    <Compile Include="Tables\TableRow.cs" />
+    <Compile Include="Tables\TableSection.cs" />
+    <Compile Include="Tables\TableStyle.cs" />
+    <Compile Include="TextState.cs" />
     <Compile Include="Typography\Abbr.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -2,20 +2,25 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    internal interface ITableSection : ITag
-    {
-    }
-
     public interface ITableSectionCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public abstract class TableSection<TModel, TThis> : Tag<TModel, TThis>, ITableSection,
+    public class TableSectionWrapper<TModel> : TagWrapper<TModel>,
         ITableRowCreator<TModel>
-        where TThis : TableSection<TModel, TThis>
     {
-        protected TableSection(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses)
-            : base(helper, tagName, cssClasses)
+    }
+
+    internal interface ITableSection : ITag
+    {
+    }
+
+    public abstract class TableSection<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, ITableSection
+        where TThis : TableSection<TModel, TThis, TWrapper>
+        where TWrapper : TableSectionWrapper<TModel>, new()
+    {
+        protected TableSection(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+            : base(creator, tagName, cssClasses)
         {
         }
 

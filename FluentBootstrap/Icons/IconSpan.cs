@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Icons
 {
-    public interface IIconSpanCreator<TModel> : ITagCreator<TModel>
+    public interface IIconSpanCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

@@ -14,34 +14,15 @@ namespace FluentBootstrap
 
         public static Table<TModel> Table<TModel>(this ITableCreator<TModel> creator)
         {
-            return new Table<TModel>(creator.GetHelper());
+            return new Table<TModel>(creator);
         }
 
-        public static Table<TModel> Striped<TModel>(this Table<TModel> table, bool striped = true)
+        public static Table<TModel> SetStyle<TModel>(this Table<TModel> table, TableStyle style)
         {
-            table.ToggleCss(Css.TableStriped, striped);
-            return table;
+            return table.ToggleCss(style);
         }
 
-        public static Table<TModel> Bordered<TModel>(this Table<TModel> table, bool bordered = true)
-        {
-            table.ToggleCss(Css.TableBordered, bordered);
-            return table;
-        }
-
-        public static Table<TModel> Hover<TModel>(this Table<TModel> table, bool hover = true)
-        {
-            table.ToggleCss(Css.TableHover, hover);
-            return table;
-        }
-
-        public static Table<TModel> Condensed<TModel>(this Table<TModel> table, bool condensed = true)
-        {
-            table.ToggleCss(Css.TableCondensed, condensed);
-            return table;
-        }
-
-        public static Table<TModel> Responsive<TModel>(this Table<TModel> table, bool responsive = true)
+        public static Table<TModel> SetResponsive<TModel>(this Table<TModel> table, bool responsive = true)
         {
             table.Responsive = responsive;
             return table;
@@ -51,114 +32,81 @@ namespace FluentBootstrap
 
         public static TableHeadSection<TModel> TableHeadSection<TModel>(this ITableSectionCreator<TModel> creator)
         {
-            return new TableHeadSection<TModel>(creator.GetHelper());
+            return new TableHeadSection<TModel>(creator);
         }
 
         public static TableBodySection<TModel> TableBodySection<TModel>(this ITableSectionCreator<TModel> creator)
         {
-            return new TableBodySection<TModel>(creator.GetHelper());
+            return new TableBodySection<TModel>(creator);
         }
 
         public static TableFootSection<TModel> TableFootSection<TModel>(this ITableSectionCreator<TModel> creator)
         {
-            return new TableFootSection<TModel>(creator.GetHelper());
+            return new TableFootSection<TModel>(creator);
         }
 
         // TableRow
 
         public static TableRow<TModel> TableRow<TModel>(this ITableRowCreator<TModel> creator)
         {
-            return new TableRow<TModel>(creator.GetHelper());
+            return new TableRow<TModel>(creator);
         }
 
         // Cells
 
         public static TableHeader<TModel> TableHeader<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableHeader<TModel>(creator.GetHelper()).AddContent(content);
+            return new TableHeader<TModel>(creator).AddContent(content);
         }
 
         public static TableData<TModel> TableData<TModel>(this ITableCellCreator<TModel> creator, object content = null)
         {
-            return new TableData<TModel>(creator.GetHelper()).AddContent(content);
+            return new TableData<TModel>(creator).AddContent(content);
         }
 
         public static TableRow<TModel> TableHeaderRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
         {
-            TableRow<TModel> row = new TableRow<TModel>(creator.GetHelper()) { HeadRow = true };
+            TableRow<TModel> row = new TableRow<TModel>(creator) { HeadRow = true };
             foreach (object c in content)
             {
-                row.AddChild(new TableHeader<TModel>(creator.GetHelper()).AddContent(c));
+                row.AddChild(new TableHeader<TModel>(creator).AddContent(c));
             }
             return row;
         }
 
         public static TableRow<TModel> TableDataRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
         {
-            TableRow<TModel> row = new TableRow<TModel>(creator.GetHelper());
+            TableRow<TModel> row = new TableRow<TModel>(creator);
             foreach (object c in content)
             {
-                row.AddChild(new TableData<TModel>(creator.GetHelper()).AddContent(c));
+                row.AddChild(new TableData<TModel>(creator).AddContent(c));
             }
             return row;
         }
 
-        // IHasTableContextExtensions
+        // IHasTableStateExtensions
 
-        public static TThis Active<TModel, TThis>(this Component<TModel, TThis> component, bool active = true)
-            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
+        public static TThis SetState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TableState state)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasTableStateExtensions
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            return SetClass(component, Css.Active, active);
-        }
-
-        public static TThis Success<TModel, TThis>(this Component<TModel, TThis> component, bool success = true)
-            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
-        {
-            return SetClass(component, Css.Success, success);
-        }
-
-        public static TThis Warning<TModel, TThis>(this Component<TModel, TThis> component, bool warning = true)
-            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
-        {
-            return SetClass(component, Css.Warning, warning);
-        }
-
-        public static TThis Danger<TModel, TThis>(this Component<TModel, TThis> component, bool danger = true)
-            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
-        {
-            return SetClass(component, Css.Danger, danger);
-        }
-
-        public static TThis Info<TModel, TThis>(this Component<TModel, TThis> component, bool info = true)
-            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
-        {
-            return SetClass(component, Css.Info, info);
-        }
-
-        private static TThis SetClass<TThis, TModel>(Component<TModel, TThis> component, string cls, bool add)
-            where TThis : Tag<TModel, TThis>, IHasTableContextExtensions
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(cls, add, Css.Active, Css.Success, Css.Warning, Css.Danger, Css.Info);
-            return tag;
+            return component.GetThis().ToggleCss(state);
         }
 
         // TableCell
 
-        public static TThis ColSpan<TModel, TThis>(this Component<TModel, TThis> component, int? colSpan)
-            where TThis : TableCell<TModel, TThis>
+        public static TThis ColSpan<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, int? colSpan)
+            where TThis : TableCell<TModel, TThis, TWrapper>
+            where TWrapper : TableCellWrapper<TModel>, new()
         {
-            TThis cell = component.GetThis();
-            cell.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
-            return cell;
+            return component.GetThis().MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
         }
 
-        public static TThis RowSpan<TModel, TThis>(this Component<TModel, TThis> component, int? rowSpan)
-            where TThis : TableCell<TModel, TThis>
+        public static TThis RowSpan<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, int? rowSpan)
+            where TThis : TableCell<TModel, TThis, TWrapper>
+            where TWrapper : TableCellWrapper<TModel>, new()
         {
-            TThis cell = component.GetThis();
-            cell.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
-            return cell;
+            return component.GetThis().MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
         }
     }
 }

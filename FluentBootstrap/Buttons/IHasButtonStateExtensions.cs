@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentBootstrap.Tables
+namespace FluentBootstrap.Buttons
 {
-    public interface IHasTableContextExtensions
+    public interface IHasButtonStateExtensions
     {
     }
 }

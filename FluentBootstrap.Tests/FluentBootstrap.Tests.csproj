@@ -86,7 +86,9 @@
   <ItemGroup>
     <Compile Include="ButtonsFixture.cs" />
     <Compile Include="DropdownsFixture.cs" />
+    <Compile Include="FormsFixture.cs" />
     <Compile Include="GridsFixture.cs" />
+    <Compile Include="IconsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagsFixture.cs" />
     <Compile Include="TestHelper.cs" />

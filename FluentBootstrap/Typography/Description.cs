@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IDescriptionCreator<TModel> : ITagCreator<TModel>
+    public interface IDescriptionCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

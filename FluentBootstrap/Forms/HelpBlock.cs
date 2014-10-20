@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    internal interface IHelpBlock : ITag
-    {
-    }
-
     public interface IHelpBlockCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class HelpBlock<TModel> : Tag<TModel, HelpBlock<TModel>>, IHelpBlock, IHasTextAttribute
+    public class HelpBlockWrapper<TModel> : TagWrapper<TModel>
     {
-        internal HelpBlock(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.HelpBlock)
+    }
+
+    internal interface IHelpBlock : ITag
+    {
+    }
+
+    public class HelpBlock<TModel> : Tag<TModel, HelpBlock<TModel>, HelpBlockWrapper<TModel>>, IHelpBlock, IHasTextAttribute
+    {
+        internal HelpBlock(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.HelpBlock)
         {
         }
     }

@@ -6,15 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
+    public interface IPanelHeadingCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class PanelHeadingWrapper<TModel> : PanelSectionWrapper<TModel>, IPanelTitleCreator<TModel>
+    {
+    }
     internal interface IPanelHeading : IPanelSection
     {
     }
 
-    public class PanelHeading<TModel> : PanelSection<TModel, PanelHeading<TModel>>, IPanelHeading,
-        IPanelTitleCreator<TModel>
+    public class PanelHeading<TModel> : PanelSection<TModel, PanelHeading<TModel>, PanelHeadingWrapper<TModel>>, IPanelHeading
+        
     {
-        internal PanelHeading(BootstrapHelper<TModel> helper)
-            : base(helper, Css.PanelHeading)
+        internal PanelHeading(IComponentCreator<TModel> creator)
+            : base(creator, Css.PanelHeading)
         {
         }
     }

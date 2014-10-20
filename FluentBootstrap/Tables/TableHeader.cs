@@ -2,14 +2,22 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
+    public interface ITableHeaderCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class TableHeaderWrapper<TModel> : TableCellWrapper<TModel>
+    {
+    }
+
     internal interface ITableHeader : ITableCell
     {
     }
 
-    public class TableHeader<TModel> : TableCell<TModel, TableHeader<TModel>>, ITableHeader
+    public class TableHeader<TModel> : TableCell<TModel, TableHeader<TModel>, TableHeaderWrapper<TModel>>, ITableHeader
     {
-        internal TableHeader(BootstrapHelper<TModel> helper)
-            : base(helper, "th")
+        internal TableHeader(IComponentCreator<TModel> creator)
+            : base(creator, "th")
         {
         }
 

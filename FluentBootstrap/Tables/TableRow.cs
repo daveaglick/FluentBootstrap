@@ -2,21 +2,25 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    internal interface ITableRow : ITag
-    {
-    }
-
     public interface ITableRowCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class TableRow<TModel> : Tag<TModel, TableRow<TModel>>, ITableRow, IHasTableContextExtensions,
+    public class TableRowWrapper<TModel> : TagWrapper<TModel>,
         ITableCellCreator<TModel>
+    {
+    }
+
+    internal interface ITableRow : ITag
+    {
+    }
+
+    public class TableRow<TModel> : Tag<TModel, TableRow<TModel>, TableRowWrapper<TModel>>, ITableRow, IHasTableStateExtensions
     {
         internal bool HeadRow { get; set; }
 
-        internal TableRow(BootstrapHelper<TModel> helper)
-            : base(helper, "tr")
+        internal TableRow(IComponentCreator<TModel> creator)
+            : base(creator, "tr")
         {
         }
 

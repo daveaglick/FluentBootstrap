@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Html;
+﻿using FluentBootstrap.Grids;
+using FluentBootstrap.Html;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,19 +9,23 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
+    public interface IFormGroupCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class FormGroupWrapper<TModel> : TagWrapper<TModel>,
+        ILabelCreator<TModel>,
+        IFormControlCreator<TModel>,
+        IHelpBlockCreator<TModel>
+    {
+    }
+
     internal interface IFormGroup : ITag
     {
         ILabel Label { set; }
     }
 
-    public interface IFormGroupCreator<TModel> : IComponentCreator<TModel>
-    {
-    }
-
-    public class FormGroup<TModel> : Tag<TModel, FormGroup<TModel>>, IFormGroup, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation,
-        ILabelCreator<TModel>,
-        IFormControlCreator<TModel>,
-        IHelpBlockCreator<TModel>
+    public class FormGroup<TModel> : Tag<TModel, FormGroup<TModel>, FormGroupWrapper<TModel>>, IFormGroup, IHasGridColumnExtensions, IFormValidation
     {
         private ILabel _label = null;
         private Element<TModel> _columnWrapper;
@@ -28,11 +33,7 @@ namespace FluentBootstrap.Forms
 
         internal ILabel Label
         {
-            set
-            {
-                _label = value;                
-                PendingComponents.Remove(HtmlHelper, value);    // Need to remove this from the pending components since it's similar to a child and will be output from this form control
-            }
+            set { _label = value; }
         }
 
         ILabel IFormGroup.Label
@@ -47,8 +48,8 @@ namespace FluentBootstrap.Forms
 
         internal bool? Horizontal { get; set; }
 
-        internal FormGroup(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.FormGroup)
+        internal FormGroup(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.FormGroup)
         {
 
         }
@@ -72,19 +73,19 @@ namespace FluentBootstrap.Forms
                 // Add column classes to this (these will get moved to a wrapper later in this method)
                 if (!CssClasses.Any(x => x.StartsWith("col-")))
                 {
-                    this.Md(Bootstrap.GridColumns - labelWidth);
+                    this.SetMd(Bootstrap.GridColumns - labelWidth);
 
                     // Also need to add an offset if no label
                     if (_label == null)
                     {
-                        this.MdOffset(labelWidth);
+                        this.SetMdOffset(labelWidth);
                     }
                 }
             }
             else if (form != null && form.Horizontal)
             {
                 // If the form is horizontal but we requested not to be, create a full-width column wrapper
-                this.Md(Bootstrap.GridColumns);
+                this.SetMd(Bootstrap.GridColumns);
                 _columnWrapperBeforeLabel = true;
             }
 
@@ -92,7 +93,6 @@ namespace FluentBootstrap.Forms
             if (CssClasses.Any(x => x.StartsWith("col-")))
             {
                 _columnWrapper = new Element<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
-                PendingComponents.Remove(HtmlHelper, _columnWrapper);    // Need to remove this from the pending components since it'll be output during OnStart
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
         }

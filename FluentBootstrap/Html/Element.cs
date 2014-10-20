@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Html
 {
-    public interface IElementCreator<TModel> : ITagCreator<TModel>
+    public interface IElementCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

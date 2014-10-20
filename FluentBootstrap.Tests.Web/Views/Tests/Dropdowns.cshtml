@@ -28,7 +28,7 @@
     @Html.Bootstrap().Heading1("Button Styles")
     using (Html.Bootstrap().Div().SetId("test-button-styles").Begin())
     {
-        using (var dropdown = Html.Bootstrap().Dropdown("Button").SetSize(ButtonSize.Xs).SetStyle(ButtonStyle.Warning).Begin())
+        using (var dropdown = Html.Bootstrap().Dropdown("Button").SetSize(ButtonSize.Xs).SetState(ButtonState.Warning).Begin())
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
         }

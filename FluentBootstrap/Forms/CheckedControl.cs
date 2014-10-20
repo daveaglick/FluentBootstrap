@@ -9,11 +9,19 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
+    public interface ICheckedControlCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class CheckedControlWrapper<TModel> : FormControlWrapper<TModel>
+    {
+    }
+
     internal interface ICheckedControl : IFormControl
     {
     }
 
-    public class CheckedControl<TModel> : FormControl<TModel, CheckedControl<TModel>>, ICheckedControl, IHasValueAttribute, IHasNameAttribute
+    public class CheckedControl<TModel> : FormControl<TModel, CheckedControl<TModel>, CheckedControlWrapper<TModel>>, ICheckedControl, IHasValueAttribute, IHasNameAttribute
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }
@@ -22,8 +30,8 @@ namespace FluentBootstrap.Forms
         private Element<TModel> _wrapper = null;
         private Element<TModel> _label = null;
 
-        internal CheckedControl(BootstrapHelper<TModel> helper, string type)
-            : base(helper, "input")
+        internal CheckedControl(IComponentCreator<TModel> creator, string type)
+            : base(creator, "input")
         {
             MergeAttribute("type", type);
         }

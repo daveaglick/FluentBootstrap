@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownLinkCreator<TModel> : ITagCreator<TModel>
+    public interface IDropdownLinkCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

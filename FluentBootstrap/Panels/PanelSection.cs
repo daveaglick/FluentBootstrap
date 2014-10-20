@@ -7,19 +7,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    internal interface IPanelSection : ITag
-    {
-    }
-
     public interface IPanelSectionCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public abstract class PanelSection<TModel, TThis> : Tag<TModel, TThis>, IPanelSection
-        where TThis : PanelSection<TModel, TThis>
+    public class PanelSectionWrapper<TModel> : TagWrapper<TModel>
     {
-        protected PanelSection(BootstrapHelper<TModel> helper, params string[] cssClasses)
-            : base(helper, "div", cssClasses)
+    }
+
+    internal interface IPanelSection : ITag
+    {
+    }
+
+    public abstract class PanelSection<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IPanelSection
+        where TThis : PanelSection<TModel, TThis, TWrapper>
+        where TWrapper : PanelSectionWrapper<TModel>, new()
+    {
+        protected PanelSection(IComponentCreator<TModel> creator, params string[] cssClasses)
+            : base(creator, "div", cssClasses)
         {
         }
 

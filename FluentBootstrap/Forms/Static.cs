@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
+    public interface IStaticCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class StaticWrapper<TModel> : FormControlWrapper<TModel>
+    {
+    }
+
     internal interface IStatic : IFormControl
     {
     }
 
-    public class Static<TModel> : FormControl<TModel, Static<TModel>>, IStatic
+    public class Static<TModel> : FormControl<TModel, Static<TModel>, StaticWrapper<TModel>>, IStatic
     {
-        internal Static(BootstrapHelper<TModel> helper)
-            : base(helper, "p", Css.FormControlStatic)
+        internal Static(IComponentCreator<TModel> creator)
+            : base(creator, "p", Css.FormControlStatic)
         {
         }
     }

@@ -1,13 +1,21 @@
 namespace FluentBootstrap.Tables
 {
-    internal interface ITableFoot : ITableSection
+    public interface ITableFootSectionCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class TableFootSection<TModel> : TableSection<TModel, TableFootSection<TModel>>, ITableFoot
+    public class TableFootSectionWrapper<TModel> : TableSectionWrapper<TModel>
     {
-        internal TableFootSection(BootstrapHelper<TModel> helper)
-            : base(helper, "tfoot")
+    }
+
+    internal interface ITableFootSection : ITableSection
+    {
+    }
+
+    public class TableFootSection<TModel> : TableSection<TModel, TableFootSection<TModel>, TableFootSectionWrapper<TModel>>, ITableFootSection
+    {
+        internal TableFootSection(IComponentCreator<TModel> creator)
+            : base(creator, "tfoot")
         {
         }
     }

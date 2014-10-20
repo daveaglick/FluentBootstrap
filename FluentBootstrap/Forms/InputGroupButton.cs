@@ -8,18 +8,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    internal interface IInputGroupButton : ITag
-    {
-    }
-
     public interface IInputGroupButtonCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class InputGroupButton<TModel> : Tag<TModel, InputGroupButton<TModel>>, IInputGroupButton, IButtonCreator<TModel>, IDropdownCreator<TModel>
+    public class InputGroupButtonWrapper<TModel> : TagWrapper<TModel>, 
+        IButtonCreator<TModel>, 
+        IDropdownCreator<TModel>
     {
-        internal InputGroupButton(BootstrapHelper<TModel> helper)
-            : base(helper, "span", Css.InputGroupBtn)
+    }
+
+    internal interface IInputGroupButton : ITag
+    {
+    }
+
+    public class InputGroupButton<TModel> : Tag<TModel, InputGroupButton<TModel>, InputGroupButtonWrapper<TModel>>, IInputGroupButton
+    {
+        internal InputGroupButton(IComponentCreator<TModel> creator)
+            : base(creator, "span", Css.InputGroupBtn)
         {
         }
     }

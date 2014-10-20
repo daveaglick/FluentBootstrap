@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
+    public interface IHiddenCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class HiddenWrapper<TModel> : TagWrapper<TModel>
+    {
+    }
+
     internal interface IHidden : ITag
     {
     }
 
-    public class Hidden<TModel> : Tag<TModel, Hidden<TModel>>, IHidden, IHasValueAttribute
+    public class Hidden<TModel> : Tag<TModel, Hidden<TModel>, HiddenWrapper<TModel>>, IHidden, IHasValueAttribute
     {
-        internal Hidden(BootstrapHelper<TModel> helper)
-            : base(helper, "input")
+        internal Hidden(IComponentCreator<TModel> creator)
+            : base(creator, "input")
         {
             MergeAttribute("type", "hidden");
         }

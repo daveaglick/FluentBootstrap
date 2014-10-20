@@ -22,18 +22,18 @@ namespace FluentBootstrap
         // Dropdowns
         Dropdowns.IDropdownCreator<TModel>,
         // Forms
-        //Forms.IFormCreator<TModel>,
+        Forms.IFormCreator<TModel>,
         // Grids
         Grids.IContainerCreator<TModel>,
         Grids.IGridRowCreator<TModel>,
         // Images
-        //Images.IImageCreator<TModel>,
+        Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Panels
-        //Panels.IPanelCreator<TModel>,
+        Panels.IPanelCreator<TModel>,
         // Tables
-        //Tables.ITableCreator<TModel>,
+        Tables.ITableCreator<TModel>,
         // Typography
         Typography.IListCreator<TModel>,
         Typography.IDescriptionListCreator<TModel>
@@ -76,32 +76,32 @@ namespace FluentBootstrap
         Dropdowns.IDropdownHeaderCreator<TModel>,
         Dropdowns.IDropdownLinkCreator<TModel>,
         // Forms
-        //Forms.IFormCreator<TModel>,
-        //Forms.IFieldSetCreator<TModel>,
-        //Forms.IFormGroupCreator<TModel>,
-        //Forms.ILabelCreator<TModel>,
-        //Forms.IFormControlCreator<TModel>,
-        //Forms.IHelpBlockCreator<TModel>,
-        //Forms.IInputGroupCreator<TModel>,
-        //Forms.IInputGroupAddonCreator<TModel>,
-        //Forms.IInputGroupButtonCreator<TModel>,
+        Forms.IFormCreator<TModel>,
+        Forms.IFieldSetCreator<TModel>,
+        Forms.IFormGroupCreator<TModel>,
+        Forms.ILabelCreator<TModel>,
+        Forms.IFormControlCreator<TModel>,
+        Forms.IHelpBlockCreator<TModel>,
+        Forms.IInputGroupCreator<TModel>,
+        Forms.IInputGroupAddonCreator<TModel>,
+        Forms.IInputGroupButtonCreator<TModel>,
         // Grids
         Grids.IContainerCreator<TModel>,
         Grids.IGridColumnCreator<TModel>,
         Grids.IGridRowCreator<TModel>,
         // Images
-        //Images.IImageCreator<TModel>,
+        Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Panels
-        //Panels.IPanelCreator<TModel>,
-        //Panels.IPanelSectionCreator<TModel>,
-        //Panels.IPanelTitleCreator<TModel>,
+        Panels.IPanelCreator<TModel>,
+        Panels.IPanelSectionCreator<TModel>,
+        Panels.IPanelTitleCreator<TModel>,
         // Tables
-        //Tables.ITableCreator<TModel>,
-        //Tables.ITableSectionCreator<TModel>,
-        //Tables.ITableRowCreator<TModel>,
-        //Tables.ITableCellCreator<TModel>,
+        Tables.ITableCreator<TModel>,
+        Tables.ITableSectionCreator<TModel>,
+        Tables.ITableRowCreator<TModel>,
+        Tables.ITableCellCreator<TModel>,
         // Typography
         Typography.IListCreator<TModel>,
         Typography.IListItemCreator<TModel>,

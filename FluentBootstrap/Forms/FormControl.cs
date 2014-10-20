@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Grids;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,41 +9,37 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    internal interface IFormControl : ITag
-    {
-    }
-
     public interface IFormControlCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public abstract class FormControl<TModel, TThis> : Tag<TModel, TThis>, IFormControl, FluentBootstrap.Grids.IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
+    public class FormControlWrapper<TModel> : TagWrapper<TModel>,
         IHelpBlockCreator<TModel>
-        where TThis : FormControl<TModel, TThis>
+    {
+    }
+
+    internal interface IFormControl : ITag
+    {
+    }
+
+    public abstract class FormControl<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IFormControl, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
+        where TThis : FormControl<TModel, TThis, TWrapper>
+        where TWrapper : FormControlWrapper<TModel>, new()
     {
         private FormGroup<TModel> _formGroup = null;
         private ILabel _label = null;
         internal string Help { get; set; }
         internal bool EnsureFormGroup { get; set; }
 
-        protected FormControl(BootstrapHelper<TModel> helper, string tagName, params string[] cssClasses) 
-            : base(helper, tagName, cssClasses)
+        protected FormControl(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses) 
+            : base(creator, tagName, cssClasses)
         {
             EnsureFormGroup = true;
         }
 
         internal ILabel Label
         {
-            set
-            {
-                _label = value;
-
-                // Need to remove this from the pending components since it's similar to a child and will be output from this form control
-                if (value != null)
-                {
-                    PendingComponents.Remove(HtmlHelper, value);
-                }
-            }
+            set { _label = value; }
         }
 
         protected override void PreStart(TextWriter writer)
@@ -142,10 +139,10 @@ namespace FluentBootstrap.Forms
         }
     }
 
-    public class FormControl<TModel> : FormControl<TModel, FormControl<TModel>>, IFormControl
+    public class FormControl<TModel> : FormControl<TModel, FormControl<TModel>, FormControlWrapper<TModel>>, IFormControl
     {
-        internal FormControl(BootstrapHelper<TModel> helper)
-            : base(helper, "div")
+        internal FormControl(IComponentCreator<TModel> creator)
+            : base(creator, "div")
         {
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface IButtonToolbarCreator<TModel> : ITagCreator<TModel>
+    public interface IButtonToolbarCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

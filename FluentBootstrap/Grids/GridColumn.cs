@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
-    public interface IGridColumnCreator<TModel> : ITagCreator<TModel>
+    public interface IGridColumnCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public enum ButtonStyle
+    public enum ButtonState
     {
         [Description(Css.BtnDefault)]
         Default,

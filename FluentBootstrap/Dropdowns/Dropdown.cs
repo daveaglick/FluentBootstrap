@@ -1,5 +1,5 @@
 ﻿using FluentBootstrap.Buttons;
-//using FluentBootstrap.Forms;
+using FluentBootstrap.Forms;
 using FluentBootstrap.Html;
 using FluentBootstrap.Typography;
 using System;
@@ -11,10 +11,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    // TODO: REMOVE THIS!!
-    internal interface IInputGroupButton : ITag { }
-
-    public interface IDropdownCreator<TModel> : ITagCreator<TModel>
+    public interface IDropdownCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
@@ -26,7 +23,7 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>, DropdownWrapper<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStyleExtensions, IHasTextAttribute
+    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>, DropdownWrapper<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextAttribute
     {
         private bool _dropdownButton = false;
         private bool _caret = true;

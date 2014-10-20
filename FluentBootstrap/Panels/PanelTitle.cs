@@ -7,18 +7,22 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    internal interface IPanelTitle : ITag
-    {
-    }
-
     public interface IPanelTitleCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class PanelTitle<TModel> : Tag<TModel, PanelTitle<TModel>>, IPanelTitle, IHasTextAttribute
+    public class PanelTitleWrapper<TModel> : TagWrapper<TModel>
     {
-        internal PanelTitle(BootstrapHelper<TModel> helper, string text, int headingLevel)
-            : base(helper, "h" + headingLevel, Css.PanelTitle)
+    }
+
+    internal interface IPanelTitle : ITag
+    {
+    }
+
+    public class PanelTitle<TModel> : Tag<TModel, PanelTitle<TModel>, PanelTitleWrapper<TModel>>, IPanelTitle, IHasTextAttribute
+    {
+        internal PanelTitle(IComponentCreator<TModel> creator, string text, int headingLevel)
+            : base(creator, "h" + headingLevel, Css.PanelTitle)
         {
             if (headingLevel < 1 || headingLevel > 6)
             {

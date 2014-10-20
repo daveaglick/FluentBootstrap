@@ -2,14 +2,22 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
+    public interface ITableDataCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class TableDataWrapper<TModel> : TableCellWrapper<TModel>
+    {
+    }
+
     internal interface ITableData : ITableCell
     {
     }
 
-    public class TableData<TModel> : TableCell<TModel, TableData<TModel>>, ITableData
+    public class TableData<TModel> : TableCell<TModel, TableData<TModel>, TableDataWrapper<TModel>>, ITableData
     {
-        internal TableData(BootstrapHelper<TModel> helper)
-            : base(helper, "td")
+        internal TableData(IComponentCreator<TModel> creator)
+            : base(creator, "td")
         {
         }
 
@@ -21,7 +29,7 @@ namespace FluentBootstrap.Tables
             if (GetComponent<ITable>() != null)
             {
                 // If we're in a head section, exit out
-                Pop<ITableHead>(writer);
+                Pop<ITableHeadSection>(writer);
 
                 // Make sure we're in a row
                 if (GetComponent<ITableRow>() == null)

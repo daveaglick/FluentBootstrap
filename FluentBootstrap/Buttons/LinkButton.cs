@@ -8,7 +8,7 @@ using FluentBootstrap.Links;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface ILinkButtonCreator<TModel> : ITagCreator<TModel>
+    public interface ILinkButtonCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
@@ -20,7 +20,7 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>, ListButtonWrapper<TModel>>, ILinkButton, IHasIconExtensions, IHasLinkExtensions, IHasButtonExtensions, IHasButtonStyleExtensions, IHasTextAttribute
+    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>, ListButtonWrapper<TModel>>, ILinkButton, IHasIconExtensions, IHasLinkExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextAttribute
     {
         internal LinkButton(IComponentCreator<TModel> creator)
             : base(creator, "a", Css.Btn, Css.BtnDefault)

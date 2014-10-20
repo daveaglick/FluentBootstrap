@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    internal interface IFieldSet : IFormControl
-    {
-    }
-
     public interface IFieldSetCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class FieldSet<TModel> : Tag<TModel, FieldSet<TModel>>, IFieldSet, IHasDisabledAttribute,
+    public class FieldSetWrapper<TModel> : TagWrapper<TModel>,
         IFormGroupCreator<TModel>,
         ILabelCreator<TModel>,
         IFormControlCreator<TModel>,
         IHelpBlockCreator<TModel>
     {
-        internal FieldSet(BootstrapHelper<TModel> helper)
-            : base(helper, "fieldset")
+    }
+
+    internal interface IFieldSet : IFormControl
+    {
+    }
+
+    public class FieldSet<TModel> : Tag<TModel, FieldSet<TModel>, FieldSetWrapper<TModel>>, IFieldSet, IHasDisabledAttribute
+    {
+        internal FieldSet(IComponentCreator<TModel> creator)
+            : base(creator, "fieldset")
         {
         }
     }

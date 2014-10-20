@@ -9,11 +9,19 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
+    public interface IInputCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class InputWrapper<TModel> : FormControlWrapper<TModel>
+    {
+    }
+
     internal interface IInput : IFormControl
     {
     }
 
-    public class Input<TModel> : FormControl<TModel, Input<TModel>>, IInput, IHasValueAttribute, IHasNameAttribute
+    public class Input<TModel> : FormControl<TModel, Input<TModel>, InputWrapper<TModel>>, IInput, IHasValueAttribute, IHasNameAttribute
     {
         private Icon _icon = Icon.None;
 
@@ -22,8 +30,8 @@ namespace FluentBootstrap.Forms
             set { _icon = value; }
         }
 
-        internal Input(BootstrapHelper<TModel> helper, FormInputType inputType)
-            : base(helper, "input", Css.FormControl)
+        internal Input(IComponentCreator<TModel> creator, FormInputType inputType)
+            : base(creator, "input", Css.FormControl)
         {
             MergeAttribute("type", inputType.GetDescription());
         }

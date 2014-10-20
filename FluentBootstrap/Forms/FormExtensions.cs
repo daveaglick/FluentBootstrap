@@ -16,26 +16,25 @@ namespace FluentBootstrap
 
         public static Form<TModel> Form<TModel>(this IFormCreator<TModel> creator, FormMethod method = FormMethod.Post)
         {
-            return new Form<TModel>(creator.GetHelper()).Action(null).Method(method);
+            return new Form<TModel>(creator).SetAction(null).SetMethod(method);
         }
 
         public static Form<TModel> Form<TModel>(this IFormCreator<TModel> creator, string action, FormMethod method = FormMethod.Post)
         {
-            return new Form<TModel>(creator.GetHelper()).Action(action).Method(method);
+            return new Form<TModel>(creator).SetAction(action).SetMethod(method);
         }
 
         public static Form<TModel> Form<TModel>(this IFormCreator<TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post)
         {
-            return new Form<TModel>(creator.GetHelper()).Action(actionName, controllerName).Method(method);
+            return new Form<TModel>(creator).SetAction(actionName, controllerName).SetMethod(method);
         }
 
-        public static Form<TModel> Inline<TModel>(this Form<TModel> form, bool inline = true)
+        public static Form<TModel> SetInline<TModel>(this Form<TModel> form, bool inline = true)
         {
-            form.ToggleCss(Css.FormInline, inline, Css.FormHorizontal);
-            return form;
+            return form.ToggleCss(Css.FormInline, inline, Css.FormHorizontal);
         }
 
-        public static Form<TModel> Horizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = null, bool horizontal = true)
+        public static Form<TModel> SetHorizontal<TModel>(this Form<TModel> form, int? defaultLabelWidth = null, bool horizontal = true)
         {
             form.ToggleCss(Css.FormHorizontal, horizontal, Css.FormInline);
             if (defaultLabelWidth.HasValue)
@@ -46,33 +45,32 @@ namespace FluentBootstrap
         }
 
         // Use action = null to reset form action to current request url
-        public static Form<TModel> Action<TModel>(this Form<TModel> form, string action)
+        public static Form<TModel> SetAction<TModel>(this Form<TModel> form, string action)
         {
-            form.MergeAttribute("action", action == null ? form.ViewContext.HttpContext.Request.RawUrl : action);
-            return form;
+            return form.MergeAttribute("action", action == null ? form.ViewContext.HttpContext.Request.RawUrl : action);
         }
 
-        public static Form<TModel> Action<TModel>(this Form<TModel> form, string actionName, string controllerName, object routeValues = null)
+        public static Form<TModel> SetAction<TModel>(this Form<TModel> form, string actionName, string controllerName, object routeValues = null)
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if(routeValueDictionary == null)
                 new RouteValueDictionary(routeValues);
 
-            return form.Action(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary, 
+            return form.SetAction(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary, 
                 form.HtmlHelper.RouteCollection, form.ViewContext.RequestContext, true));
         }
 
-        public static Form<TModel> Route<TModel>(this Form<TModel> form, string routeName, object routeValues = null)
+        public static Form<TModel> SetRoute<TModel>(this Form<TModel> form, string routeName, object routeValues = null)
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
                 new RouteValueDictionary(routeValues);
 
-            return form.Action(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
+            return form.SetAction(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
                 form.HtmlHelper.RouteCollection, form.ViewContext.RequestContext, false));
         }
 
-        public static Form<TModel> Method<TModel>(this Form<TModel> form, FormMethod method)
+        public static Form<TModel> SetMethod<TModel>(this Form<TModel> form, FormMethod method)
         {
             form.MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
             return form;
@@ -88,7 +86,7 @@ namespace FluentBootstrap
 
         public static ValidationSummary<TModel> ValidationSummary<TModel>(this IFormControlCreator<TModel> creator, bool includePropertyErrors = false)
         {
-            return new ValidationSummary<TModel>(creator.GetHelper());
+            return new ValidationSummary<TModel>(creator);
         }
 
         public static ValidationSummary<TModel> IncludePropertyErrors<TModel>(this ValidationSummary<TModel> validationSummary, bool includePropertyErrors = false)
@@ -101,34 +99,34 @@ namespace FluentBootstrap
 
         public static FieldSet<TModel> FieldSet<TModel>(this IFieldSetCreator<TModel> creator)
         {
-            return new FieldSet<TModel>(creator.GetHelper());
+            return new FieldSet<TModel>(creator);
         }
 
         // FormGroup
 
         public static FormGroup<TModel> FormGroup<TModel>(this IFormGroupCreator<TModel> creator, string label = null, string labelFor = null)
         {
-            FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
+            FormGroup<TModel> formGroup = new FormGroup<TModel>(creator);
             if (label != null)
             {
-                formGroup.Label = formGroup.Label(label, labelFor);
+                formGroup.Label = formGroup.GetWrapper().Label(label, labelFor);
             }
             return formGroup;
         }
 
         public static FormGroup<TModel> FormGroup<TModel, TValue>(this IFormGroupCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
         {
-            FormGroup<TModel> formGroup = new FormGroup<TModel>(creator.GetHelper());
-            formGroup.Label = formGroup.Label(labelExpression);
+            FormGroup<TModel> formGroup = new FormGroup<TModel>(creator);
+            formGroup.Label = formGroup.GetWrapper().Label(labelExpression);
             return formGroup;
         }
 
-        public static FormGroup<TModel> GroupLabel<TModel, TThis>(this FormGroup<TModel> formGroup, string label, string labelFor = null, Action<Label<TModel>> labelAction = null)
+        public static FormGroup<TModel> SetGroupLabel<TModel, TThis>(this FormGroup<TModel> formGroup, string label, string labelFor = null, Action<Label<TModel>> labelAction = null)
         {
             if (label != null)
             {
                 Label<TModel> controlLabel = new Label<TModel>(formGroup.Helper, label).For(labelFor);
-                formGroup.Label = formGroup.Label(label, labelFor);
+                formGroup.Label = formGroup.GetWrapper().Label(label, labelFor);
                 if (labelAction != null)
                 {
                     labelAction(controlLabel);
@@ -137,7 +135,7 @@ namespace FluentBootstrap
             return formGroup;
         }
 
-        public static FormGroup<TModel> GroupLabel<TModel, TValue, TThis>(this FormGroup<TModel> formGroup, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
+        public static FormGroup<TModel> SetGroupLabel<TModel, TValue, TThis>(this FormGroup<TModel> formGroup, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
         {
             Label<TModel> controlLabel = GetLabel(formGroup.Helper, expression);
             formGroup.Label = controlLabel;
@@ -148,7 +146,7 @@ namespace FluentBootstrap
             return formGroup;
         }
 
-        public static FormGroup<TModel> Horizontal<TModel>(this FormGroup<TModel> formGroup, bool? horizontal = true)
+        public static FormGroup<TModel> SetHorizontal<TModel>(this FormGroup<TModel> formGroup, bool? horizontal = true)
         {
             formGroup.Horizontal = horizontal;
             return formGroup;
@@ -158,18 +156,18 @@ namespace FluentBootstrap
 
         public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string text, string labelFor = null)
         {
-            return new Label<TModel>(creator.GetHelper(), text).For(labelFor);
+            return new Label<TModel>(creator, text).For(labelFor);
         }
 
         public static Label<TModel> Label<TModel, TValue>(this ILabelCreator<TModel> creator, Expression<Func<TModel, TValue>> textExpression)
         {
-            return GetLabel(creator.GetHelper(), textExpression);
+            return GetLabel(creator, textExpression);
         }
 
-        private static Label<TModel> GetLabel<TModel, TValue>(BootstrapHelper<TModel> helper, Expression<Func<TModel, TValue>> expression)
+        private static Label<TModel> GetLabel<TModel, TValue>(IComponentCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
         {
             string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.HtmlHelper.ViewData);
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, creator.GetHelper().HtmlHelper.ViewData);
             string text = metadata.DisplayName;
             if (text == null)
             {
@@ -180,49 +178,45 @@ namespace FluentBootstrap
                     text = htmlFieldName.Split(chrArray).Last<string>();
                 }
             }
-            return new Label<TModel>(helper, text).For(TagBuilder.CreateSanitizedId(
-                helper.HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
+            return new Label<TModel>(creator, text).For(TagBuilder.CreateSanitizedId(
+                creator.GetHelper().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
         }
 
         public static Label<TModel> For<TModel>(this Label<TModel> label, string labelFor)
         {
-            label.MergeAttribute("for", labelFor);
-            return label;
+            return label.MergeAttribute("for", labelFor);
         }
 
         // Hidden
 
         public static Hidden<TModel> Hidden<TModel>(this IFormControlCreator<TModel> creator, string name = null, object value = null)
         {
-            return new Hidden<TModel>(creator.GetHelper()).Name(name).Value(value);
+            return new Hidden<TModel>(creator).SetName(name).SetValue(value);
         }
 
-        public static Hidden<TModel> Name<TModel>(this Hidden<TModel> hidden, string name)
+        public static Hidden<TModel> SetName<TModel>(this Hidden<TModel> hidden, string name)
         {
-            hidden.MergeAttribute("name", name == null ? null : hidden.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
-            return hidden;
+            return hidden.MergeAttribute("name", name == null ? null : hidden.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
         }
 
         // Input
 
         public static Input<TModel> Input<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
         {
-            return new Input<TModel>(creator.GetHelper(), inputType).Name(name).ControlLabel(label).Value(value, format);
+            return new Input<TModel>(creator, inputType).SetName(name).SetControlLabel(label).SetValue(value, format);
         }
 
-        public static Input<TModel> Placeholder<TModel>(this Input<TModel> input, string placeholder)
+        public static Input<TModel> SetPlaceholder<TModel>(this Input<TModel> input, string placeholder)
         {
-            input.MergeAttribute("placeholder", placeholder);
-            return input;
+            return input.MergeAttribute("placeholder", placeholder);
         }
 
-        public static Input<TModel> Readonly<TModel>(this Input<TModel> input, bool toggle = true)
+        public static Input<TModel> SetReadonly<TModel>(this Input<TModel> input, bool toggle = true)
         {
-            input.MergeAttribute("readonly", toggle ? string.Empty : null);
-            return input;
+            return input.MergeAttribute("readonly", toggle ? string.Empty : null);
         }
 
-        public static Input<TModel> HasFeedback<TModel>(this Input<TModel> input, Icon icon)
+        public static Input<TModel> SetFeedback<TModel>(this Input<TModel> input, Icon icon)
         {
             if (icon != Icon.None)
             {
@@ -236,81 +230,77 @@ namespace FluentBootstrap
 
         public static TextArea<TModel> TextArea<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
         {
-            return new TextArea<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Value(value, format).Rows(rows);
+            return new TextArea<TModel>(creator).SetName(name).SetControlLabel(label).SetValue(value, format).SetRows(rows);
         }
 
-        public static TextArea<TModel> Rows<TModel>(this TextArea<TModel> textArea, int? rows)
+        public static TextArea<TModel> SetRows<TModel>(this TextArea<TModel> textArea, int? rows)
         {
-            textArea.MergeAttribute("rows", rows == null ? null : rows.Value.ToString());
-            return textArea;
+            return textArea.MergeAttribute("rows", rows == null ? null : rows.Value.ToString());
         }
 
-        public static TextArea<TModel> Value<TModel>(this TextArea<TModel> textArea, object value, string format = null)
+        public static TextArea<TModel> SetValue<TModel>(this TextArea<TModel> textArea, object value, string format = null)
         {
             textArea.TextContent = value == null ? null : textArea.HtmlHelper.FormatValue(value, format);
             return textArea;
         }
 
-        public static TextArea<TModel> Placeholder<TModel>(this TextArea<TModel> textArea, string placeholder)
+        public static TextArea<TModel> SetPlaceholder<TModel>(this TextArea<TModel> textArea, string placeholder)
         {
-            textArea.MergeAttribute("placeholder", placeholder);
-            return textArea;
+            return textArea.MergeAttribute("placeholder", placeholder);
         }
 
         // CheckedControl
 
         public static CheckedControl<TModel> CheckBox<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, bool isChecked = false)
         {
-            return new CheckedControl<TModel>(creator.GetHelper(), Css.Checkbox).Name(name).ControlLabel(label).Description(description).IsChecked(isChecked);
+            return new CheckedControl<TModel>(creator, Css.Checkbox).SetName(name).SetControlLabel(label).SetDescription(description).SetChecked(isChecked);
         }
 
         public static CheckedControl<TModel> Radio<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
         {
-            return new CheckedControl<TModel>(creator.GetHelper(), Css.Radio).Name(name).ControlLabel(label).Description(description).Value(value).IsChecked(isChecked);
+            return new CheckedControl<TModel>(creator, Css.Radio).SetName(name).SetControlLabel(label).SetDescription(description).SetValue(value).SetChecked(isChecked);
         }
 
-        public static CheckedControl<TModel> Description<TModel>(this CheckedControl<TModel> checkedControl, string description)
+        public static CheckedControl<TModel> SetDescription<TModel>(this CheckedControl<TModel> checkedControl, string description)
         {
             checkedControl.Description = description;
             return checkedControl;
         }
 
-        public static CheckedControl<TModel> Inline<TModel>(this CheckedControl<TModel> checkedControl, bool inline = true)
+        public static CheckedControl<TModel> SetInline<TModel>(this CheckedControl<TModel> checkedControl, bool inline = true)
         {
             checkedControl.Inline = inline;
             return checkedControl;
         }
 
-        public static CheckedControl<TModel> IsChecked<TModel>(this CheckedControl<TModel> checkedControl, bool isChecked = true)
+        public static CheckedControl<TModel> SetChecked<TModel>(this CheckedControl<TModel> checkedControl, bool @checked = true)
         {
-            checkedControl.MergeAttribute("checked", isChecked ? "checked" : null);
-            return checkedControl;
+            return checkedControl.MergeAttribute("checked", @checked ? "checked" : null);
         }
 
         // Select
 
         public static Select<TModel> Select<TModel>(this IFormControlCreator<TModel> creator, string name = null, string label = null, params object[] options)
         {
-            return new Select<TModel>(creator.GetHelper()).Name(name).ControlLabel(label).Options(options);
+            return new Select<TModel>(creator).SetName(name).SetControlLabel(label).AddOptions(options);
         }
 
-        public static Select<TModel> Multiple<TModel>(this Select<TModel> select, bool multiple = true)
+        public static Select<TModel> SetMultiple<TModel>(this Select<TModel> select, bool multiple = true)
         {
-            select.MergeAttribute("multiple", multiple ? "multiple" : null);
-            return select;
+            return select.MergeAttribute("multiple", multiple ? "multiple" : null);
         }
 
-        public static Select<TModel> Options<TModel>(this Select<TModel> select, params object[] options)
+        public static Select<TModel> AddOptions<TModel>(this Select<TModel> select, params object[] options)
         {
             select.Options.Clear();
             foreach (object option in options)
             {
-                select.Option(option);
+                select.AddOption(option);
             }
             return select;
         }
 
-        public static Select<TModel> Option<TModel>(this Select<TModel> select, object option, string format = null)
+        public static Select<TModel> AddOption<TModel>(this Select<TModel> select, object option, string format = null)
         {
             if (option != null)
             {
@@ -323,10 +313,10 @@ namespace FluentBootstrap
 
         public static Static<TModel> Static<TModel>(this IFormControlCreator<TModel> creator, string label = null, object value = null, string format = null)
         {
-            return new Static<TModel>(creator.GetHelper()).ControlLabel(label).Value(value, format);
+            return new Static<TModel>(creator).SetControlLabel(label).SetValue(value, format);
         }
 
-        public static Static<TModel> Value<TModel>(this Static<TModel> @static, object value, string format = null)
+        public static Static<TModel> SetValue<TModel>(this Static<TModel> @static, object value, string format = null)
         {
             @static.TextContent = value == null ? null : @static.HtmlHelper.FormatValue(value, format);
             return @static;
@@ -336,22 +326,22 @@ namespace FluentBootstrap
 
         public static InputButton<TModel> InputButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
         {
-            return new InputButton<TModel>(creator.GetHelper(), buttonType).SetText(text).ControlLabel(label).Value(value);
+            return new InputButton<TModel>(creator, buttonType).SetText(text).SetControlLabel(label).SetValue(value);
         }
 
         public static FormButton<TModel> FormButton<TModel>(this IFormControlCreator<TModel> creator, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
         {
-            return new FormButton<TModel>(creator.GetHelper(), buttonType).SetText(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator, buttonType).SetText(text).SetControlLabel(label).SetValue(value);
         }
 
         public static FormButton<TModel> Submit<TModel>(this IFormControlCreator<TModel> creator, string text = "Submit", string label = null, object value = null)
         {
-            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Submit).SetText(text).ControlLabel(label).Value(value).BtnPrimary();
+            return new FormButton<TModel>(creator, ButtonType.Submit).SetText(text).SetControlLabel(label).SetValue(value).SetState(ButtonState.Primary);
         }
 
         public static FormButton<TModel> Reset<TModel>(this IFormControlCreator<TModel> creator, string text = "Reset", string label = null, object value = null)
         {
-            return new FormButton<TModel>(creator.GetHelper(), ButtonType.Reset).SetText(text).ControlLabel(label).Value(value);
+            return new FormButton<TModel>(creator, ButtonType.Reset).SetText(text).SetControlLabel(label).SetValue(value);
         }
 
         // FormControlFor
@@ -371,88 +361,92 @@ namespace FluentBootstrap
         public static FormControlFor<TModel, TValue> EditorOrDisplayFor<TModel, TValue>(this IFormControlCreator<TModel> creator, bool editor, Expression<Func<TModel, TValue>> expression,
             bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
         {
-            FormControlFor<TModel, TValue> formControl = new FormControlFor<TModel, TValue>(creator.GetHelper(), editor, expression)
+            FormControlFor<TModel, TValue> formControl = new FormControlFor<TModel, TValue>(creator, editor, expression)
                 .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
-                .TemplateName(templateName).AdditionalViewData(additionalViewData);
-            formControl.Label = GetLabel(creator.GetHelper(), expression);
+                .SetTemplateName(templateName).AddAdditionalViewData(additionalViewData);
+            formControl.Label = GetLabel(creator, expression);
             return formControl;
         }
 
         public static FormControlListFor<TModel, TValue> DisplayListFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression,
-            Typography.ListType listType = Typography.ListType.Unstyled, 
-            bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
+            ListType listType = ListType.Unstyled, bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
             return creator.EditorOrDisplayListFor(false, expression, listType, addDescription, addValidationMessage, templateName, additionalViewData, addHidden);
         }
 
         public static FormControlListFor<TModel, TValue> EditorListFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression,
-            Typography.ListType listType = Typography.ListType.Unstyled, 
-            bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
+            ListType listType = ListType.Unstyled, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
             return creator.EditorOrDisplayListFor(true, expression, listType, addDescription, addValidationMessage, templateName, additionalViewData);
         }
 
         public static FormControlListFor<TModel, TValue> EditorOrDisplayListFor<TModel, TValue>(this IFormControlCreator<TModel> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression,
-            Typography.ListType listType = Typography.ListType.Unstyled, 
-            bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
+            ListType listType = ListType.Unstyled, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
         {
-            FormControlListFor<TModel, TValue> formControl = new FormControlListFor<TModel, TValue>(creator.GetHelper(), editor, expression, listType)
+            FormControlListFor<TModel, TValue> formControl = new FormControlListFor<TModel, TValue>(creator, editor, expression, listType)
                 .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
-                .TemplateName(templateName).AdditionalViewData(additionalViewData);
-            formControl.Label = GetLabel(creator.GetHelper(), expression);
+                .SetTemplateName(templateName).AddAdditionalViewData(additionalViewData);
+            formControl.Label = GetLabel(creator, expression);
             return formControl;
         }
 
-        public static TThis AddHidden<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addHidden = true)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis AddHidden<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addHidden = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddHidden = addHidden;
             return formControl;
         }
 
-        public static TThis AddStaticClass<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addStaticClass = true)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis AddStaticClass<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addStaticClass = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.ToggleCss(Css.FormControlStatic, addStaticClass);
             return formControl;
         }
 
-        public static TThis AddFormControlClass<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addFormControlClass = true)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis AddFormControlClass<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addFormControlClass = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddFormControlClass = addFormControlClass;
             return formControl;
         }
 
-        public static TThis AddDescription<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addDescription = true)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis AddDescription<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addDescription = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddDescription = addDescription;
             return formControl;
         }
 
-        public static TThis AddValidationMessage<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, bool addValidationMessage = true)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis AddValidationMessage<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addValidationMessage = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddValidationMessage = addValidationMessage;
             return formControl;
         }
 
-        public static TThis TemplateName<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, string templateName)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis SetTemplateName<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, string templateName)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.TemplateName = templateName;
             return formControl;
         }
 
-        public static TThis AdditionalViewData<TModel, TValue, TThis>(this FormControlForBase<TModel, TValue, TThis> component, object additionalViewData)
-            where TThis : FormControlForBase<TModel, TValue, TThis>
+        public static TThis AddAdditionalViewData<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, object additionalViewData)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AdditionalViewData = additionalViewData;
@@ -463,21 +457,21 @@ namespace FluentBootstrap
 
         public static HiddenFor<TModel, TValue> HiddenFor<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
         {
-            return new HiddenFor<TModel, TValue>(creator.GetHelper(), expression);
+            return new HiddenFor<TModel, TValue>(creator, expression);
         }
 
         // FormControl (instance)
 
         public static FormControl<TModel> FormControl<TModel>(this IFormControlCreator<TModel> creator, string label = null, string labelFor = null)
         {
-            FormControl<TModel> formControl = new FormControl<TModel>(creator.GetHelper());
+            FormControl<TModel> formControl = new FormControl<TModel>(creator);
             formControl.Label = new Label<TModel>(formControl.Helper, label).For(labelFor);
             return formControl;
         }
 
         public static FormControl<TModel> FormControl<TModel, TValue>(this IFormControlCreator<TModel> creator, Expression<Func<TModel, TValue>> labelExpression)
         {
-            return new FormControl<TModel>(creator.GetHelper()).ControlLabel(labelExpression);
+            return new FormControl<TModel>(creator).SetControlLabel(labelExpression);
         }
 
         public static FormControl<TModel> AddStaticClass<TModel>(this FormControl<TModel> formControl, bool addStaticClass = true)
@@ -490,13 +484,14 @@ namespace FluentBootstrap
 
         public static HelpBlock<TModel> HelpBlock<TModel>(this IFormControlCreator<TModel> creator, string text = null)
         {
-            return new HelpBlock<TModel>(creator.GetHelper()).SetText(text);
+            return new HelpBlock<TModel>(creator).SetText(text);
         }
 
         // FormControl
 
-        public static TThis ControlLabel<TModel, TThis>(this Component<TModel, TThis> component, string label, Action<Label<TModel>> labelAction = null)
-            where TThis : FormControl<TModel, TThis>
+        public static TThis SetControlLabel<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string label, Action<Label<TModel>> labelAction = null)
+            where TThis : FormControl<TModel, TThis, TWrapper>
+            where TWrapper : FormControlWrapper<TModel>, new()
         {
             TThis control = component.GetThis();
             if (label != null)
@@ -515,8 +510,9 @@ namespace FluentBootstrap
             return control;
         }
 
-        public static TThis ControlLabel<TModel, TValue, TThis>(this Component<TModel, TThis> component, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
-            where TThis : FormControl<TModel, TThis>
+        public static TThis SetControlLabel<TModel, TValue, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, Expression<Func<TModel, TValue>> expression, Action<Label<TModel>> labelAction = null)
+            where TThis : FormControl<TModel, TThis, TWrapper>
+            where TWrapper : FormControlWrapper<TModel>, new()
         {
             TThis control = component.GetThis();
             Label<TModel> controlLabel = GetLabel(component.Helper, expression).For(control.GetName());
@@ -528,110 +524,79 @@ namespace FluentBootstrap
             return control;
         }
 
-        public static TThis Help<TModel, TThis>(this Component<TModel, TThis> component, string help)
-            where TThis : FormControl<TModel, TThis>
+        public static TThis SetHelp<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string help)
+            where TThis : FormControl<TModel, TThis, TWrapper>
+            where TWrapper : FormControlWrapper<TModel>, new()
         {
             TThis control = component.GetThis();
             control.Help = help;
             return control;
         }
 
-        public static TThis EnsureFormGroup<TModel, TThis>(this Component<TModel, TThis> component, bool ensureFormGroup = true)
-            where TThis : FormControl<TModel, TThis>
+        public static TThis EnsureFormGroup<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool ensureFormGroup = true)
+            where TThis : FormControl<TModel, TThis, TWrapper>
+            where TWrapper : FormControlWrapper<TModel>, new()
         {
             TThis control = component.GetThis();
             control.EnsureFormGroup = ensureFormGroup;
             return control;
         }
 
-        public static TThis InputLg<TModel, TThis>(this Component<TModel, TThis> component, bool lg = true)
-            where TThis : FormControl<TModel, TThis>
+        public static TThis SetSize<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, InputSize size)
+            where TThis : FormControl<TModel, TThis, TWrapper>
+            where TWrapper : FormControlWrapper<TModel>, new()
         {
-            TThis control = component.GetThis();
-            control.ToggleCss(Css.InputLg, lg, Css.InputSm);
-            return control;
-        }
-
-        public static TThis InputSm<TModel, TThis>(this Component<TModel, TThis> component, bool sm = true)
-            where TThis : FormControl<TModel, TThis>
-        {
-            TThis control = component.GetThis();
-            control.ToggleCss(Css.InputSm, sm, Css.InputLg);
-            return control;
+            return component.GetThis().ToggleCss(size);
         }
 
         // IFormValidation
 
-        public static TThis HasSuccess<TModel, TThis>(this Component<TModel, TThis> component, bool hasSuccess = true)
-            where TThis : Tag<TModel, TThis>, IFormValidation
+        public static TThis SetState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ValidationState state)
+            where TThis : Tag<TModel, TThis, TWrapper>, IFormValidation
+            where TWrapper : TagWrapper<TModel>, new()
         {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.HasSuccess, hasSuccess, Css.HasWarning, Css.HasError);
-            return tag;
-        }
-
-        public static TThis HasWarning<TModel, TThis>(this Component<TModel, TThis> component, bool hasSuccess = true)
-            where TThis : Tag<TModel, TThis>, IFormValidation
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.HasWarning, hasSuccess, Css.HasSuccess, Css.HasError);
-            return tag;
-        }
-
-        public static TThis HasError<TModel, TThis>(this Component<TModel, TThis> component, bool hasError = true)
-            where TThis : Tag<TModel, TThis>, IFormValidation
-        {
-            TThis tag = component.GetThis();
-            tag.ToggleCss(Css.HasError, hasError, Css.HasWarning, Css.HasSuccess);
-            return tag;
+            return component.GetThis().ToggleCss(state);
         }
 
         // InputGroup
 
         public static InputGroup<TModel> InputGroup<TModel>(this IInputGroupCreator<TModel> creator)
         {
-            return new InputGroup<TModel>(creator.GetHelper());
+            return new InputGroup<TModel>(creator);
         }
 
-        public static InputGroup<TModel> InputGroupLg<TModel>(this InputGroup<TModel> inputGroup, bool lg = true)
+        public static InputGroup<TModel> SetSize<TModel>(this InputGroup<TModel> inputGroup, InputGroupSize size)
         {
-            inputGroup.ToggleCss(Css.InputGroupLg, lg, Css.InputGroupSm);
-            return inputGroup;
-        }
-
-        public static InputGroup<TModel> InputGroupSm<TModel>(this InputGroup<TModel> inputGroup, bool sm = true)
-        {
-            inputGroup.ToggleCss(Css.InputGroupSm, sm, Css.InputGroupLg);
-            return inputGroup;
+            return inputGroup.ToggleCss(size);
         }
 
         public static InputGroupAddon<TModel> InputGroupAddon<TModel>(this IInputGroupAddonCreator<TModel> creator, object content = null)
         {
-            return new InputGroupAddon<TModel>(creator.GetHelper()).AddContent(content);
+            return new InputGroupAddon<TModel>(creator).AddContent(content);
         }
 
         public static InputGroupButton<TModel> InputGroupButton<TModel>(this IInputGroupButtonCreator<TModel> creator)
         {
-            return new InputGroupButton<TModel>(creator.GetHelper());
+            return new InputGroupButton<TModel>(creator);
         }
 
         // Use special creator extensions to create input group addons so we can control the output more closely (I.e., no labels, form groups, etc.)
 
-        public static Input<TModel> Input<TModel>(this InputGroup<TModel> inputGroup, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        public static Input<TModel> Input<TModel>(this InputGroupWrapper<TModel> inputGroup, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
         {
-            return new Input<TModel>(inputGroup.GetHelper(), inputType).Name(name).Value(value, format).EnsureFormGroup(false);
+            return new Input<TModel>(inputGroup, inputType).SetName(name).SetValue(value, format).EnsureFormGroup(false);
         }
 
-        public static CheckedControl<TModel> CheckBox<TModel>(this InputGroupAddon<TModel> inputGroupAddon, string name = null, bool isChecked = false)
+        public static CheckedControl<TModel> CheckBox<TModel>(this InputGroupAddonWrapper<TModel> inputGroupAddon, string name = null, bool isChecked = false)
         {
-            return new CheckedControl<TModel>(inputGroupAddon.GetHelper(), Css.Checkbox) { SuppressLabelWrapper = true }
-                .Name(name).IsChecked(isChecked).EnsureFormGroup(false).Inline(true);
+            return new CheckedControl<TModel>(inputGroupAddon, Css.Checkbox) { SuppressLabelWrapper = true }
+                .SetName(name).SetChecked(isChecked).EnsureFormGroup(false).SetInline(true);
         }
 
-        public static CheckedControl<TModel> Radio<TModel>(this InputGroupAddon<TModel> inputGroupAddon, string name = null, object value = null, bool isChecked = false)
+        public static CheckedControl<TModel> Radio<TModel>(this InputGroupAddonWrapper<TModel> inputGroupAddon, string name = null, object value = null, bool isChecked = false)
         {
-            return new CheckedControl<TModel>(inputGroupAddon.GetHelper(), Css.Radio) { SuppressLabelWrapper = true }
-                .Name(name).Value(value).IsChecked(isChecked).EnsureFormGroup(false).Inline(true);
+            return new CheckedControl<TModel>(inputGroupAddon, Css.Radio) { SuppressLabelWrapper = true }
+                .SetName(name).SetValue(value).SetChecked(isChecked).EnsureFormGroup(false).SetInline(true);
         }
     }
 }

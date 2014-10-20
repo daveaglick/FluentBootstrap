@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownDividerCreator<TModel> : ITagCreator<TModel>
+    public interface IDropdownDividerCreator<TModel> : IComponentCreator<TModel>
     {
     }
 

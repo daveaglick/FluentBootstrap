@@ -11,7 +11,7 @@
     @Html.Bootstrap().Heading1("Button Icon")
     using (Html.Bootstrap().Div().SetId("test-button-icon").Begin())
     {
-        @Html.Bootstrap().Button("Icon Button").Icon(Icon.Bell)
+        @Html.Bootstrap().Button("Icon Button").SetIcon(Icon.Bell)
     }
 
     <hr />
@@ -19,7 +19,7 @@
     @Html.Bootstrap().Heading1("Link Button Icon")
     using (Html.Bootstrap().Div().SetId("test-link-button-icon").Begin())
     {
-        @Html.Bootstrap().LinkButton("Link Button").Icon(Icon.Picture)
+        @Html.Bootstrap().LinkButton("Link Button").SetIcon(Icon.Picture)
     }
 
     <hr />
@@ -27,7 +27,7 @@
     @Html.Bootstrap().Heading1("Link Icon")
     using (Html.Bootstrap().Div().SetId("test-link-icon").Begin())
     {
-        @Html.Bootstrap().Link("Link").Icon(Icon.Road)
+        @Html.Bootstrap().Link("Link").SetIcon(Icon.Road)
     }
 
     <hr />
@@ -35,11 +35,11 @@
     @Html.Bootstrap().Heading1("Form Feedback")
     using (Html.Bootstrap().Div().SetId("test-form-feedback").Begin())
     {
-        using (var form = Html.Bootstrap().Form())
+        using (var form = Html.Bootstrap().Form().Begin())
         {
-            @form.Input("Normal", "Normal").HasFeedback(Icon.OkCircle)
-            @form.Input("Error", "Error").HasError().HasFeedback(Icon.RemoveCircle)
-            @form.Input("SrOnly").HasWarning().HasFeedback(Icon.Check).ControlLabel("SrOnly Label", x => x.SrOnly())
+            @form.Input("Normal", "Normal").SetFeedback(Icon.OkCircle)
+            @form.Input("Error", "Error").SetState(ValidationState.Error).SetFeedback(Icon.RemoveCircle)
+            @form.Input("SrOnly").SetState(ValidationState.Warning).SetFeedback(Icon.Check).SetControlLabel("SrOnly Label", x => x.SetVisibility(Visibility.SrOnly))
         }
     }
 }

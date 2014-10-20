@@ -8,16 +8,24 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
+    public interface IValidationSummaryCreator<TModel> : IComponentCreator<TModel>
+    {
+    }
+
+    public class ValidationSummaryWrapper<TModel> : FormControlWrapper<TModel>
+    {
+    }
+
     internal interface IValidationSummary : IFormControl
     {
     }
 
-    public class ValidationSummary<TModel> : FormControl<TModel, ValidationSummary<TModel>>, IValidationSummary
+    public class ValidationSummary<TModel> : FormControl<TModel, ValidationSummary<TModel>, ValidationSummaryWrapper<TModel>>, IValidationSummary
     {
         internal bool IncludePropertyErrors { get; set; }
 
-        internal ValidationSummary(BootstrapHelper<TModel> helper)
-            : base(helper, "div", Css.FormControlStatic, Css.TextDanger)
+        internal ValidationSummary(IComponentCreator<TModel> creator)
+            : base(creator, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }
 

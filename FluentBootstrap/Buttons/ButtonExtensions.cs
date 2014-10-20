@@ -100,13 +100,13 @@ namespace FluentBootstrap
             return component.GetThis().ToggleCss(Css.BtnBlock, block);
         }
 
-        // IHasButtonStyleExtensions
+        // IHasButtonStateExtensions
 
-        public static TThis SetStyle<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ButtonStyle style)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonStyleExtensions
+        public static TThis SetState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ButtonState state)
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonStateExtensions
             where TWrapper : TagWrapper<TModel>, new()
         {
-            return component.GetThis().ToggleCss(style);
+            return component.GetThis().ToggleCss(state);
         }
     }
 }
