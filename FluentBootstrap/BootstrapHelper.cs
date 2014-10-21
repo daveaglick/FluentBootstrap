@@ -30,6 +30,9 @@ namespace FluentBootstrap
         Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Navs
+        Navs.ITabsCreator<TModel>,
+        Navs.IPillsCreator<TModel>,
         // Panels
         Panels.IPanelCreator<TModel>,
         // Tables
@@ -93,6 +96,10 @@ namespace FluentBootstrap
         Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Navs
+        Navs.ITabsCreator<TModel>,
+        Navs.IPillsCreator<TModel>,
+        Navs.INavLinkCreator<TModel>,
         // Panels
         Panels.IPanelCreator<TModel>,
         Panels.IPanelSectionCreator<TModel>,

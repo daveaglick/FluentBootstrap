@@ -1,0 +1,114 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Tabs")
+    using (Html.Bootstrap().Div().SetId("test-tabs").Begin())
+    {
+        using(var tabs = Html.Bootstrap().Tabs().Begin())
+        {
+            @tabs.NavLink("Home").SetActive()
+            @tabs.NavLink("Profile", "http://www.google.com")
+            @tabs.NavLink("Messages")
+        }
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Pills")
+    using (Html.Bootstrap().Div().SetId("test-pills").Begin())
+    {
+        using (var pills = Html.Bootstrap().Pills().Begin())
+        {
+            @pills.NavLink("Home").SetActive()
+            @pills.NavLink("Profile", "http://www.google.com")
+            @pills.NavLink("Messages")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Stacked Pills")
+    using (Html.Bootstrap().Div().SetId("test-stacked-pills").Begin())
+    {
+        using (var pills = Html.Bootstrap().Pills().SetStacked().Begin())
+        {
+            @pills.NavLink("Home").SetActive()
+            @pills.NavLink("Profile", "http://www.google.com")
+            @pills.NavLink("Messages")
+        }
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Justified Tabs")
+    using (Html.Bootstrap().Div().SetId("test-justified-tabs").Begin())
+    {
+        using (var tabs = Html.Bootstrap().Tabs().SetJustified().Begin())
+        {
+            @tabs.NavLink("Home").SetActive()
+            @tabs.NavLink("Profile", "http://www.google.com")
+            @tabs.NavLink("Messages")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Justified Pills")
+    using (Html.Bootstrap().Div().SetId("test-justified-pills").Begin())
+    {
+        using (var pills = Html.Bootstrap().Pills().SetJustified().Begin())
+        {
+            @pills.NavLink("Home").SetActive()
+            @pills.NavLink("Profile", "http://www.google.com")
+            @pills.NavLink("Messages")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Disabled Pill")
+    using (Html.Bootstrap().Div().SetId("test-disabled-pill").Begin())
+    {
+        using (var pills = Html.Bootstrap().Pills().Begin())
+        {
+            @pills.NavLink("Home").SetActive()
+            @pills.NavLink("Profile", "http://www.google.com").SetDisabled()
+            @pills.NavLink("Messages")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Tabs Dropdown")
+    using (Html.Bootstrap().Div().SetId("test-tabs-dropdown").Begin())
+    {
+        using (var tabs = Html.Bootstrap().Tabs().Begin())
+        {
+            @tabs.NavLink("Home").SetActive()
+            @tabs.NavLink("Profile", "http://www.google.com").SetDisabled()
+            using(var dropdown = tabs.Dropdown("Dropdown").Begin())
+            {
+                @dropdown.DropdownLink("Item 1")
+                @dropdown.DropdownDivider()
+                @dropdown.DropdownLink("Item 2")
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Pills Dropdown")
+    using (Html.Bootstrap().Div().SetId("test-pills-dropdown").Begin())
+    {
+        using (var pills = Html.Bootstrap().Pills().Begin())
+        {
+            @pills.NavLink("Home").SetActive()
+            @pills.NavLink("Profile", "http://www.google.com").SetDisabled()
+            using (var dropdown = pills.Dropdown("Dropdown").Begin())
+            {
+                @dropdown.DropdownLink("Item 1")
+                @dropdown.DropdownDivider()
+                @dropdown.DropdownLink("Item 2")
+            }
+        }
+    }
+}

@@ -21,14 +21,9 @@ namespace FluentBootstrap.Dropdowns
 
     public class DropdownLink<TModel> : Tag<TModel, DropdownLink<TModel>, DropdownLinkWrapper<TModel>>, IDropdownLink, IHasLinkExtensions, IHasTextAttribute
     {
-        private bool _disabled;
+        internal bool Disabled { private get; set; }
         private Element<TModel> _listItem = null;
-
-        internal bool Disabled
-        {
-            set { _disabled = value; }
-        }
-
+        
         internal DropdownLink(IComponentCreator<TModel> creator)
             : base(creator, "a")
         {
@@ -41,7 +36,7 @@ namespace FluentBootstrap.Dropdowns
 
             _listItem = new Element<TModel>(Helper, "li");
             _listItem.MergeAttribute("role", "presentation");
-            if(_disabled)
+            if(Disabled)
             {
                 _listItem.AddCss(Css.Disabled);
             }

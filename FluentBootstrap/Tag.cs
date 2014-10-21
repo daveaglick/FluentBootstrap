@@ -31,6 +31,7 @@ namespace FluentBootstrap
     {
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
+        private bool _startTagOutput;
 
         HashSet<string> ITag.CssClasses
         {
@@ -47,6 +48,26 @@ namespace FluentBootstrap
             foreach (string cssClass in cssClasses.Where(x => !string.IsNullOrWhiteSpace(x)))
             {
                 CssClasses.Add(cssClass);
+            }
+        }
+
+        // Setting this will create a new TagBuilder and copy over all items in Attributes
+        // Note that you should not change this after OnStart has been called (otherwise you'll get different start and end tags)
+        internal string TagName
+        {
+            get { return TagBuilder.TagName; }
+            set
+            {
+                if(_startTagOutput)
+                {
+                    throw new InvalidOperationException("Can not change tag name after the start tag has been output.");
+                }
+                TagBuilder oldTagBuilder = TagBuilder;
+                TagBuilder = new TagBuilder(value);
+                foreach (KeyValuePair<string, string> attribute in oldTagBuilder.Attributes)
+                {
+                    TagBuilder.Attributes.Add(attribute);
+                }
             }
         }
 
@@ -156,6 +177,7 @@ namespace FluentBootstrap
 
             // Append the start tag
             writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
+            _startTagOutput = true;
         }
 
         protected virtual bool OutputEndTag

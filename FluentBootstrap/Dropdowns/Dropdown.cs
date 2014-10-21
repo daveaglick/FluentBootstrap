@@ -1,6 +1,8 @@
 ﻿using FluentBootstrap.Buttons;
 using FluentBootstrap.Forms;
 using FluentBootstrap.Html;
+using FluentBootstrap.Links;
+using FluentBootstrap.Navs;
 using FluentBootstrap.Typography;
 using System;
 using System.Collections.Generic;
@@ -29,7 +31,7 @@ namespace FluentBootstrap.Dropdowns
         private bool _caret = true;
         private bool _menuRight;
         private bool _menuLeft;
-        private Button<TModel> _button;
+        private Component _toggle;
         private Typography.List<TModel> _list;
 
         internal bool Caret
@@ -54,30 +56,45 @@ namespace FluentBootstrap.Dropdowns
 
         protected override void PreStart(TextWriter writer)
         {
-            // Create a button and copy over any button classes and text
-            _button = Helper.Button();
-            _button.RemoveCss(Css.BtnDefault);
-            _button.AddCss(Css.DropdownToggle);
-            _button.AddAttribute("data-toggle", "dropdown");
-            foreach (string buttonClass in CssClasses.Where(x => x.StartsWith("btn")))
+            // Check if we're in a nav
+            if (GetComponent<INav>(true) != null)
             {
-                _button.CssClasses.Add(buttonClass);
+                TagName = "li";
+                Link<TModel> link = Helper.Link(null);
+                link.AddCss(Css.DropdownToggle);
+                link.AddAttribute("data-toggle", "dropdown");
+                _toggle = link;
+            }
+            else
+            {
+                // Create a button and copy over any button classes and text
+                Button<TModel> button = Helper.Button();
+                button.RemoveCss(Css.BtnDefault);
+                button.AddCss(Css.DropdownToggle);
+                button.AddAttribute("data-toggle", "dropdown");
+                foreach (string buttonClass in CssClasses.Where(x => x.StartsWith("btn")))
+                {
+                    button.CssClasses.Add(buttonClass);
+                }
+                _toggle = button;
             }
             CssClasses.RemoveWhere(x => x.StartsWith("btn"));
+
+            // Add the text and caret
             if (!string.IsNullOrWhiteSpace(TextContent))
             {
-                _button.AddChild(new Content<TModel>(Helper, TextContent + " "));
+                _toggle.AddChild(new Content<TModel>(Helper, TextContent + " "));
             }
             else
             {
                 Element<TModel> element = new Element<TModel>(Helper, "span", Css.SrOnly);
                 element.AddChild(new Content<TModel>(Helper, "Toggle Dropdown"));
-                _button.AddChild(element);
+                _toggle.AddChild(element);
             }
             TextContent = null;
             if(_caret)
             {
-                _button.AddChild(Helper.Caret());
+                _toggle.AddChild(Helper.Caret());
             }
 
             // Check if we're in a IDropdownButton or IInputGroupButton, then
@@ -116,7 +133,7 @@ namespace FluentBootstrap.Dropdowns
             }
 
             // Output the button
-            _button.StartAndFinish(writer);
+            _toggle.StartAndFinish(writer);
 
             // Output the start of the list
             _list.Start(writer, true);

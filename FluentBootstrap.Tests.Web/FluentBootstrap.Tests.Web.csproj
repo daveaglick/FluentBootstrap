@@ -126,6 +126,7 @@
     <Content Include="Views\Tests\Grids.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tests\Tags.cshtml" />
+    <Content Include="Views\Tests\Navs.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />
