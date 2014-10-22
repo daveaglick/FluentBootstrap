@@ -58,7 +58,7 @@ namespace FluentBootstrap.Dropdowns
         {
         }
 
-        protected override void OnPrepare(TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
             if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
@@ -102,7 +102,7 @@ namespace FluentBootstrap.Dropdowns
                 _toggle.AddChild(element);
             }
             TextContent = null;
-            if(_caret)
+            if (_caret)
             {
                 _toggle.AddChild(Helper.Caret());
             }
@@ -123,24 +123,17 @@ namespace FluentBootstrap.Dropdowns
             _list = Helper.List(ListType.Unordered);
             _list.AddCss(Css.DropdownMenu);
             _list.MergeAttribute("role", "menu");
-            if(_menuRight)
+            if (_menuRight)
             {
                 _list.AddCss(Css.DropdownMenuRight);
             }
-            if(_menuLeft)
+            if (_menuLeft)
             {
                 _list.AddCss(Css.DropdownMenuLeft);
             }
 
-            base.OnPrepare(writer);
-        }
-
-        protected override void OnStart(TextWriter writer)
-        {
-            if (!_dropdownButton)
-            {
-                base.OnStart(writer);
-            }
+            // Start this component
+            base.OnStart(_dropdownButton ? new SuppressOutputWriter() : writer);
 
             // Output the button
             _toggle.StartAndFinish(writer);
@@ -151,12 +144,8 @@ namespace FluentBootstrap.Dropdowns
 
         protected override void OnFinish(TextWriter writer)
         {
-            if (!_dropdownButton)
-            {
-                base.OnFinish(writer);
-            }
-
             _list.Finish(writer);
+            base.OnFinish(_dropdownButton ? new SuppressOutputWriter() : writer);
         }
     }
 }

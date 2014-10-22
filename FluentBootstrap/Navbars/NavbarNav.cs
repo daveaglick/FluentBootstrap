@@ -26,16 +26,16 @@ namespace FluentBootstrap.Navbars
             : base(creator, Css.Nav, Css.NavbarNav)
         {
         }
-
-        protected override void OnPrepare(System.IO.TextWriter writer)
+        
+        protected override void OnStart(System.IO.TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Make sure we're in a collapse, but only if we're also in a navbar
             if (GetComponent<INavbar>() != null && GetComponent<INavbarCollapse>() == null)
             {
                 new NavbarCollapse<TModel>(Helper).Start(writer);
             }
+
+            base.OnStart(writer);
         }
     }
 }

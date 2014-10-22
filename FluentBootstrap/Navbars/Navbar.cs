@@ -43,16 +43,11 @@ namespace FluentBootstrap.Navbars
             this.SetId("navbar");
         }
 
-        protected override void OnPrepare(TextWriter writer)
-        {
-            _container = Helper.Container().SetFluid(Fluid);
-
-            base.OnPrepare(writer);
-        }
-
         protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
+
+            _container = Helper.Container().SetFluid(Fluid);
             _container.Start(writer);
         }
 

@@ -156,6 +156,7 @@
     <Compile Include="Panels\PanelState.cs" />
     <Compile Include="Panels\PanelTable.cs" />
     <Compile Include="Panels\PanelTitle.cs" />
+    <Compile Include="SuppressOutputWriter.cs" />
     <Compile Include="Tables\IHasTableStateExtensions.cs" />
     <Compile Include="Tables\Table.cs" />
     <Compile Include="Tables\TableBodySection.cs" />

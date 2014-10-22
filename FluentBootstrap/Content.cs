@@ -31,6 +31,7 @@ namespace FluentBootstrap
 
         protected override void OnStart(TextWriter writer)
         {
+            base.OnStart(writer);
             writer.Write(_content);
         }
     }

@@ -32,11 +32,9 @@ namespace FluentBootstrap.Navbars
             this.MergeAttribute("type", "button");
             this.MergeAttribute("data-toggle", "collapse");
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Set the data-target
             if (string.IsNullOrWhiteSpace(DataTarget))
             {
@@ -61,10 +59,7 @@ namespace FluentBootstrap.Navbars
             {
                 header.HasToggle = true;
             }
-        }
 
-        protected override void OnStart(TextWriter writer)
-        {
             base.OnStart(writer);
 
             Helper.Span(Css.SrOnly).SetText("Toggle Navigation").StartAndFinish(writer);

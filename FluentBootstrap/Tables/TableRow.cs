@@ -23,11 +23,9 @@ namespace FluentBootstrap.Tables
             : base(creator, "tr")
         {
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             Pop<ITableRow>(writer);
 
             // Make sure we're in a section, but only if we're also in a table
@@ -42,6 +40,8 @@ namespace FluentBootstrap.Tables
                     new TableBodySection<TModel>(Helper).Start(writer);
                 }
             }
+
+            base.OnStart(writer);
         }
     }
 }

@@ -27,11 +27,12 @@ namespace FluentBootstrap.Panels
             : base(creator, "div", cssClasses)
         {
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
             Pop<IPanelSection>(writer);
+
+            base.OnStart(writer);
         }
     }
 }

@@ -234,14 +234,8 @@ namespace FluentBootstrap
 
             // Note that this component is outputting
             GetStack(Bootstrap.OutputStackKey).Push(this);
-            
-            // Prepare the content
-            OnPrepare(writer);
 
-            // Add this component to the stack
-            Push();
-
-            // Get the content
+            // Output the content
             OnStart(writer);
 
             // Clear this component from the output stack
@@ -272,11 +266,7 @@ namespace FluentBootstrap
             // Note that this component is outputting
             GetStack(Bootstrap.OutputStackKey).Push(this);
 
-            // Remove this component from the stack
-            // This must be done before writing the end content in case there are pending components on the stack that need to be ended
-            Pop(writer);
-
-            // Get the content
+            // Output the content
             OnFinish(writer);
 
             // Clear this component from the output stack
@@ -293,13 +283,20 @@ namespace FluentBootstrap
             Start(writer);
             Finish(writer);
         }
-
-        // This gets called before this component is pushed to the stack
-        protected virtual void OnPrepare(TextWriter writer)
+        
+        // This must be called from overloads as it adds the component to the stack
+        // To suppress output, pass in SuppressOutputWriter
+        protected virtual void OnStart(TextWriter writer)
         {
+            Push();
         }
 
-        protected abstract void OnStart(TextWriter writer);
+        // This must be called from overloads as it removes the component from the stack
+        // To suppress output, pass in SuppressOutputWriter
+        protected virtual void OnFinish(TextWriter writer)
+        {
+            Pop(writer);
+        }
 
         private void WriteChildren(TextWriter writer)
         {
@@ -309,9 +306,6 @@ namespace FluentBootstrap
             }
         }
 
-        protected virtual void OnFinish(TextWriter writer)
-        {
-        }
 
         // The following code handles the stack of Bootstrap objects stored in the ViewContext
 

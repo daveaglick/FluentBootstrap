@@ -20,11 +20,9 @@ namespace FluentBootstrap.Tables
             : base(creator, "th")
         {
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Make sure we're in a row, but only if we're also in a table
             if (GetComponent<ITable>() != null && GetComponent<ITableRow>() == null)
             {
@@ -35,6 +33,8 @@ namespace FluentBootstrap.Tables
                 }
                 new TableRow<TModel>(Helper).Start(writer);
             }
+
+            base.OnStart(writer);
         }
     }
 }

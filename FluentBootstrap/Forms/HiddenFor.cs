@@ -33,6 +33,7 @@ namespace FluentBootstrap.Forms
 
         protected override void OnStart(TextWriter writer)
         {
+            base.OnStart(writer);
             writer.Write(HtmlHelper.HiddenFor(_expression));
         }
     }

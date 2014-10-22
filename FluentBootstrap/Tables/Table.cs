@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Html;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace FluentBootstrap.Tables
     public class Table<TModel> : Tag<TModel, Table<TModel>, TableWrapper<TModel>>, ITable
     {
         internal bool Responsive { get; set; }
+        private Element<TModel> _responsiveDiv;
 
         internal Table(IComponentCreator<TModel> creator)
             : base(creator, "table", Css.Table)
@@ -36,20 +38,20 @@ namespace FluentBootstrap.Tables
         {
             if (Responsive)
             {
-                TagBuilder tag = new TagBuilder("div");
-                tag.AddCssClass(Css.TableResponsive);
-                writer.Write(tag.ToString(TagRenderMode.StartTag));
+                _responsiveDiv = new Element<TModel>(Helper, "div", Css.TableResponsive);
+                _responsiveDiv.Start(writer);
             }
+
             base.OnStart(writer);
         }
 
         protected override void OnFinish(TextWriter writer)
         {
             base.OnFinish(writer);
-            if (Responsive)
+
+            if (_responsiveDiv != null)
             {
-                TagBuilder tag = new TagBuilder("div");
-                writer.Write(tag.ToString(TagRenderMode.EndTag));
+                _responsiveDiv.Finish(writer);
             }
         }
     }

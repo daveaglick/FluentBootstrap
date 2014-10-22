@@ -30,6 +30,7 @@ namespace FluentBootstrap.Forms
         private ILabel _label = null;
         internal string Help { get; set; }
         internal bool EnsureFormGroup { get; set; }
+        private bool _prepared = false;
 
         protected FormControl(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses) 
             : base(creator, tagName, cssClasses)
@@ -42,9 +43,16 @@ namespace FluentBootstrap.Forms
             set { _label = value; }
         }
 
-        protected override void OnPrepare(TextWriter writer)
+        // This prepares the outer form group if we need one
+        // Needs to be in a separate method so that derived classes can create the form group before outputting any wrappers of their own
+        protected void Prepare(TextWriter writer)
         {
-            base.OnPrepare(writer);
+            // Only prepare once
+            if(_prepared)
+            {
+                return;
+            }
+            _prepared = true;
 
             // Make sure we're in a form group
             IFormGroup formGroup = GetComponent<IFormGroup>();
@@ -100,10 +108,14 @@ namespace FluentBootstrap.Forms
             {
                 _formGroup.Start(writer);
             }
+
+            _prepared = true;
         }
 
         protected override void OnStart(TextWriter writer)
         {
+            Prepare(writer);
+
             // Add the validation data
             string name = null;
             if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))

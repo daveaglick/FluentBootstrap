@@ -29,11 +29,9 @@ namespace FluentBootstrap.Navbars
             : base(creator, "div", Css.NavbarCollapse, Css.Collapse)
         {
         }
-
-        protected override void OnPrepare(System.IO.TextWriter writer)
+        
+        protected override void OnStart(System.IO.TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Get the Navbar ID and use it to set this id
             if (string.IsNullOrWhiteSpace(((ITag)this).GetAttribute("id")))
             {
@@ -43,6 +41,8 @@ namespace FluentBootstrap.Navbars
                     this.SetId(navbar.GetAttribute("id") + "-collapse");
                 }
             }
+
+            base.OnStart(writer);
         }
     }
 }

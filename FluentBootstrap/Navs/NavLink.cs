@@ -3,6 +3,7 @@ using FluentBootstrap.Links;
 using FluentBootstrap.Navbars;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,11 +32,9 @@ namespace FluentBootstrap.Navs
             : base(creator, "a")
         {
         }
-
-        protected override void OnPrepare(System.IO.TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
             if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
             {
@@ -53,9 +52,11 @@ namespace FluentBootstrap.Navs
                 _listItem.AddCss(Css.Disabled);
             }
             _listItem.Start(writer);
+
+            base.OnStart(writer);
         }
 
-        protected override void OnFinish(System.IO.TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
             base.OnFinish(writer);
 

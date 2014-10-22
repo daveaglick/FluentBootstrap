@@ -28,12 +28,12 @@ namespace FluentBootstrap.Navbars
         {
         }
 
-        protected override void OnPrepare(TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Exit any existing navbar sections
             Pop<INavbarSection>(writer);
+
+            base.OnStart(writer);
         }
     }
 }

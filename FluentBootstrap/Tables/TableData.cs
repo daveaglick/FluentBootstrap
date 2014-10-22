@@ -20,11 +20,9 @@ namespace FluentBootstrap.Tables
             : base(creator, "td")
         {
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Only add implicit components if we're in a table
             if (GetComponent<ITable>() != null)
             {
@@ -37,6 +35,8 @@ namespace FluentBootstrap.Tables
                     new TableRow<TModel>(Helper).Start(writer);
                 }
             }
+
+            base.OnStart(writer);
         }
     }
 }

@@ -36,9 +36,14 @@ namespace FluentBootstrap.Forms
             MergeAttribute("type", type);
         }
 
-        protected override void OnPrepare(TextWriter writer)
+        protected override bool OutputEndTag
         {
-            base.OnPrepare(writer);
+            get { return false; }
+        }
+        
+        protected override void OnStart(TextWriter writer)
+        {
+            Prepare(writer);
 
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
@@ -59,6 +64,8 @@ namespace FluentBootstrap.Forms
                 _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
                 _label.Start(writer);
             }
+
+            base.OnStart(writer);
         }
 
         protected override void OnFinish(TextWriter writer)
@@ -74,11 +81,6 @@ namespace FluentBootstrap.Forms
             {
                 _wrapper.Finish(writer);
             }
-        }
-
-        protected override bool OutputEndTag
-        {
-            get { return false; }
         }
     }
 }

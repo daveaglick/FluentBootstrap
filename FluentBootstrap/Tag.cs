@@ -33,6 +33,7 @@ namespace FluentBootstrap
         internal TagBuilder TagBuilder { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
+        private bool _prettyPrint = Bootstrap.PrettyPrint;
 
         HashSet<string> ITag.CssClasses
         {
@@ -159,25 +160,31 @@ namespace FluentBootstrap
             return GetThis();
         }
 
-        protected override void OnPrepare(TextWriter writer)
+        protected virtual bool OutputEndTag
         {
-            base.OnPrepare(writer);
+            get { return true; }
+        }
 
+        protected override void OnStart(TextWriter writer)
+        {
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
             {
                 this.AddChild(new Content<TModel>(Helper, TextContent));
             }
-        }
 
-        protected override void OnStart(TextWriter writer)
-        {
+            base.OnStart(writer);
+
             // Pretty print
-            if (Bootstrap.PrettyPrint)
+            if (_prettyPrint && !(writer is SuppressOutputWriter))
             {
                 writer.WriteLine();
                 writer.Write(new String(' ', Bootstrap.TagIndent++));
                 Bootstrap.LastToWrite = this;
+            }
+            else
+            {
+                _prettyPrint = false;
             }
 
             // Set CSS classes
@@ -190,16 +197,11 @@ namespace FluentBootstrap
             writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
             _startTagOutput = true;
         }
-
-        protected virtual bool OutputEndTag
-        {
-            get { return true; }
-        }
         
         protected override void OnFinish(TextWriter writer)
         {
             // Pretty print
-            if (Bootstrap.PrettyPrint)
+            if (_prettyPrint)
             {
                 Bootstrap.TagIndent--;
                 if (Bootstrap.LastToWrite != this)
@@ -214,6 +216,8 @@ namespace FluentBootstrap
             {
                 writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
             }
+
+            base.OnFinish(writer);
         }
     }
 }

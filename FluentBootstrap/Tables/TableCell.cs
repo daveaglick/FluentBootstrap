@@ -27,11 +27,5 @@ namespace FluentBootstrap.Tables
             : base(creator, tagName, cssClasses)
         {
         }
-
-        protected override void OnPrepare(TextWriter writer)
-        {
-            Pop<ITableCell>(writer);
-            base.OnPrepare(writer);
-        }
     }
 }

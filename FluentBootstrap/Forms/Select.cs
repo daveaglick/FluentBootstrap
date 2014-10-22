@@ -29,11 +29,9 @@ namespace FluentBootstrap.Forms
         {
             Options = new List<string>();
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Add options as child tags
             foreach (string option in Options)
             {
@@ -41,6 +39,8 @@ namespace FluentBootstrap.Forms
                 element.AddChild(new Content<TModel>(Helper, option));
                 this.AddChild(element);
             }
+
+            base.OnStart(writer);
         }
     }
 }

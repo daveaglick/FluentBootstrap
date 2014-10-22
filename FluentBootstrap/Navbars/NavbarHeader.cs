@@ -33,15 +33,15 @@ namespace FluentBootstrap.Navbars
         {
         }
 
-        protected override void OnPrepare(TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             INavbar navbar = GetComponent<INavbar>();
-            if(navbar != null)
+            if (navbar != null)
             {
                 navbar.HasHeader = true;
             }
+
+            base.OnStart(writer);
         }
 
         protected override void OnFinish(TextWriter writer)

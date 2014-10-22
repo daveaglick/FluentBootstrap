@@ -30,10 +30,8 @@ namespace FluentBootstrap.Dropdowns
             MergeAttribute("role", "menuitem");
         }
 
-        protected override void OnPrepare(System.IO.TextWriter writer)
+        protected override void OnStart(System.IO.TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             _listItem = new Element<TModel>(Helper, "li");
             _listItem.MergeAttribute("role", "presentation");
             if(Disabled)
@@ -41,6 +39,8 @@ namespace FluentBootstrap.Dropdowns
                 _listItem.AddCss(Css.Disabled);
             }
             _listItem.Start(writer);
+
+            base.OnStart(writer);
         }
 
         protected override void OnFinish(System.IO.TextWriter writer)

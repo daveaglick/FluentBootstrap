@@ -23,13 +23,13 @@ namespace FluentBootstrap.Tables
             : base(creator, tagName, cssClasses)
         {
         }
-
-        protected override void OnPrepare(TextWriter writer)
+        
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnPrepare(writer);
-
             // Exit any existing table sections
             Pop<ITableSection>(writer);
+
+            base.OnStart(writer);
         }
     }
 }
