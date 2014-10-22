@@ -28,9 +28,9 @@ namespace FluentBootstrap.Panels
         {
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
             Pop<IPanelSection>(writer);
         }
     }

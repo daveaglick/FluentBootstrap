@@ -54,9 +54,9 @@ namespace FluentBootstrap.Forms
 
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Set column classes if we're horizontal          
             IForm form = GetComponent<IForm>();
@@ -104,7 +104,7 @@ namespace FluentBootstrap.Forms
             // Write the column wrapper first if needed
             if (_columnWrapperBeforeLabel && _columnWrapper != null)
             {
-                _columnWrapper.Start(writer, true);
+                _columnWrapper.Start(writer);
             }
 
             // Write the label
@@ -116,7 +116,7 @@ namespace FluentBootstrap.Forms
             // Write the column wrapper
             if (!_columnWrapperBeforeLabel && _columnWrapper != null)
             {
-                _columnWrapper.Start(writer, true);
+                _columnWrapper.Start(writer);
             }
         }
 

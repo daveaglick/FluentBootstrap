@@ -31,14 +31,14 @@ namespace FluentBootstrap.Panels
             TextContent = text;
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Make sure we're in a PanelHeading
             if (GetComponent<IPanelHeading>() == null)
             {
-                new PanelHeading<TModel>(Helper).Start(writer, true);
+                new PanelHeading<TModel>(Helper).Start(writer);
             }
         }
     }

@@ -54,7 +54,7 @@ namespace FluentBootstrap.Dropdowns
         {
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
             // Check if we're in a nav
             if (GetComponent<INav>(true) != null)
@@ -122,7 +122,7 @@ namespace FluentBootstrap.Dropdowns
                 _list.AddCss(Css.DropdownMenuLeft);
             }
 
-            base.PreStart(writer);
+            base.OnPrepare(writer);
         }
 
         protected override void OnStart(TextWriter writer)
@@ -136,7 +136,7 @@ namespace FluentBootstrap.Dropdowns
             _toggle.StartAndFinish(writer);
 
             // Output the start of the list
-            _list.Start(writer, true);
+            _list.Start(writer);
         }
 
         protected override void OnFinish(TextWriter writer)

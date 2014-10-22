@@ -30,7 +30,7 @@ namespace FluentBootstrap.Buttons
             MergeAttribute("type", buttonType.GetDescription());
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
             // Fix for justified buttons in a group (need to surround them with an extra button group)
             // See https://github.com/twbs/bootstrap/issues/12476
@@ -38,10 +38,10 @@ namespace FluentBootstrap.Buttons
             if (buttonGroup != null && buttonGroup.CssClasses.Contains(Css.BtnGroupJustified))
             {
                 _buttonGroup = Helper.ButtonGroup();
-                _buttonGroup.Start(writer, true);
+                _buttonGroup.Start(writer);
             }
 
-            base.PreStart(writer);
+            base.OnPrepare(writer);
         }
 
         protected override void OnFinish(TextWriter writer)

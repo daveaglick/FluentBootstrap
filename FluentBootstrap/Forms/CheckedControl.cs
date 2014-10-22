@@ -36,9 +36,9 @@ namespace FluentBootstrap.Forms
             MergeAttribute("type", type);
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
@@ -50,14 +50,14 @@ namespace FluentBootstrap.Forms
             if (!Inline)
             {
                 _wrapper = new Element<TModel>(Helper, "div", TagBuilder.Attributes["type"]);
-                _wrapper.Start(writer, true);
+                _wrapper.Start(writer);
             }
 
             // Add the label wrapper
             if (!SuppressLabelWrapper)
             {
                 _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
-                _label.Start(writer, true);
+                _label.Start(writer);
             }
         }
 

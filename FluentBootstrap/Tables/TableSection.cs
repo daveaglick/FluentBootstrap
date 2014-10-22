@@ -24,9 +24,9 @@ namespace FluentBootstrap.Tables
         {
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
             Pop<ITableSection>(writer);
         }
     }

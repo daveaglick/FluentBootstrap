@@ -84,17 +84,14 @@ namespace FluentBootstrap.Forms
             }
         }
 
-        protected override void PreFinish(TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
             // Validation summary if it's not hidden or one was not already output
             if (!HideValidationSummary)
             {
                 new ValidationSummary<TModel>(Helper).StartAndFinish(writer);
             }
-        }
 
-        protected override void OnFinish(TextWriter writer)
-        {
             base.OnFinish(writer);
 
             // Intercept the client validation (if there is any) and output on our own writer

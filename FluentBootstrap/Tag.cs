@@ -148,9 +148,9 @@ namespace FluentBootstrap
             return GetThis();
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))

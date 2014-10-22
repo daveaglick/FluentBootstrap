@@ -21,9 +21,9 @@ namespace FluentBootstrap.Tables
         {
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Only add implicit components if we're in a table
             if (GetComponent<ITable>() != null)
@@ -34,7 +34,7 @@ namespace FluentBootstrap.Tables
                 // Make sure we're in a row
                 if (GetComponent<ITableRow>() == null)
                 {
-                    new TableRow<TModel>(Helper).Start(writer, true);
+                    new TableRow<TModel>(Helper).Start(writer);
                 }
             }
         }

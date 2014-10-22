@@ -21,9 +21,9 @@ namespace FluentBootstrap.Tables
         {
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Make sure we're in a row, but only if we're also in a table
             if (GetComponent<ITable>() != null && GetComponent<ITableRow>() == null)
@@ -31,9 +31,9 @@ namespace FluentBootstrap.Tables
                 // ...and make sure the row is in a head section
                 if (GetComponent<ITableSection>() == null)
                 {
-                    new TableHeadSection<TModel>(Helper).Start(writer, true);
+                    new TableHeadSection<TModel>(Helper).Start(writer);
                 }
-                new TableRow<TModel>(Helper).Start(writer, true);
+                new TableRow<TModel>(Helper).Start(writer);
             }
         }
     }

@@ -42,9 +42,9 @@ namespace FluentBootstrap.Forms
             set { _label = value; }
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Make sure we're in a form group
             IFormGroup formGroup = GetComponent<IFormGroup>();
@@ -98,7 +98,7 @@ namespace FluentBootstrap.Forms
             // Start the new form group if we created one
             if (_formGroup != null)
             {
-                _formGroup.Start(writer, true);
+                _formGroup.Start(writer);
             }
         }
 

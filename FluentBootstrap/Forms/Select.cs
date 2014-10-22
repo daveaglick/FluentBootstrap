@@ -30,9 +30,9 @@ namespace FluentBootstrap.Forms
             Options = new List<string>();
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             // Add options as child tags
             foreach (string option in Options)

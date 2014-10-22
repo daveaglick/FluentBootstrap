@@ -8,8 +8,10 @@ namespace FluentBootstrap
 {
     public static class Bootstrap
     {
-        // This key has to be provided in a non-generic class, otherwise we'll end up with as many stacks as generic parameters
+        // These keys have to be provided in a non-generic class, otherwise we'll end up with as many values as generic parameters
         internal readonly static object ComponentStackKey = new object();
+        internal readonly static object OutputStackKey = new object();
+
 
         // Global settings
         public static int GridColumns = 12;

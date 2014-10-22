@@ -28,10 +28,10 @@ namespace FluentBootstrap.Tables
         {
         }
 
-        protected override void PreStart(TextWriter writer)
+        protected override void OnPrepare(TextWriter writer)
         {
             Pop<ITableCell>(writer);
-            base.PreStart(writer);
+            base.OnPrepare(writer);
         }
     }
 }

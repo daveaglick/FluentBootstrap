@@ -31,9 +31,9 @@ namespace FluentBootstrap.Navs
         {
         }
 
-        protected override void PreStart(System.IO.TextWriter writer)
+        protected override void OnPrepare(System.IO.TextWriter writer)
         {
-            base.PreStart(writer);
+            base.OnPrepare(writer);
 
             _listItem = new Element<TModel>(Helper, "li");
             if(Active)
@@ -44,7 +44,7 @@ namespace FluentBootstrap.Navs
             {
                 _listItem.AddCss(Css.Disabled);
             }
-            _listItem.Start(writer, true);
+            _listItem.Start(writer);
         }
 
         protected override void OnFinish(System.IO.TextWriter writer)

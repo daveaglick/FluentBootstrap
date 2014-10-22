@@ -134,6 +134,7 @@
     <Compile Include="Links\Link.cs" />
     <Compile Include="Links\LinkExtensions.cs" />
     <Compile Include="Misc\MiscExtensions.cs" />
+    <Compile Include="Navbars\Navbar.cs" />
     <Compile Include="Navs\Nav.cs" />
     <Compile Include="Navs\NavExtensions.cs" />
     <Compile Include="Navs\NavLink.cs" />
