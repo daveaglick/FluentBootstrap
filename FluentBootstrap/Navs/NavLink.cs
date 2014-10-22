@@ -1,5 +1,6 @@
 ﻿using FluentBootstrap.Html;
 using FluentBootstrap.Links;
+using FluentBootstrap.Navbars;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,13 @@ namespace FluentBootstrap.Navs
         {
             base.OnPrepare(writer);
 
+            // Check if we're in a navbar, and if so, make sure we're in a navbar nav
+            if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
+            {
+                new NavbarNav<TModel>(Helper).Start(writer);
+            }
+
+            // Create the list item wrapper
             _listItem = new Element<TModel>(Helper, "li");
             if(Active)
             {

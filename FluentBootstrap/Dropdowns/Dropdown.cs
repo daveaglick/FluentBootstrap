@@ -2,6 +2,7 @@
 using FluentBootstrap.Forms;
 using FluentBootstrap.Html;
 using FluentBootstrap.Links;
+using FluentBootstrap.Navbars;
 using FluentBootstrap.Navs;
 using FluentBootstrap.Typography;
 using System;
@@ -17,7 +18,10 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class DropdownWrapper<TModel> : TagWrapper<TModel>, IDropdownDividerCreator<TModel>, IDropdownHeaderCreator<TModel>, IDropdownLinkCreator<TModel>
+    public class DropdownWrapper<TModel> : TagWrapper<TModel>, 
+        IDropdownDividerCreator<TModel>, 
+        IDropdownHeaderCreator<TModel>, 
+        IDropdownLinkCreator<TModel>
     {
     }
 
@@ -56,6 +60,12 @@ namespace FluentBootstrap.Dropdowns
 
         protected override void OnPrepare(TextWriter writer)
         {
+            // Check if we're in a navbar, and if so, make sure we're in a navbar nav
+            if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
+            {
+                new NavbarNav<TModel>(Helper).Start(writer);
+            }
+
             // Check if we're in a nav
             if (GetComponent<INav>(true) != null)
             {

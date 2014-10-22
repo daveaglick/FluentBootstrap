@@ -30,6 +30,8 @@ namespace FluentBootstrap
         Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Navbars,
+        Navbars.INavbarCreator<TModel>,
         // Navs
         Navs.ITabsCreator<TModel>,
         Navs.IPillsCreator<TModel>,
@@ -96,6 +98,13 @@ namespace FluentBootstrap
         Images.IImageCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Navbars,
+        Navbars.INavbarCreator<TModel>,
+        Navbars.INavbarHeaderCreator<TModel>,
+        Navbars.INavbarToggleCreator<TModel>,
+        Navbars.IBrandCreator<TModel>,
+        Navbars.INavbarCollapseCreator<TModel>,
+        Navbars.INavbarNavCreator<TModel>,
         // Navs
         Navs.ITabsCreator<TModel>,
         Navs.IPillsCreator<TModel>,

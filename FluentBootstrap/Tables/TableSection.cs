@@ -27,6 +27,8 @@ namespace FluentBootstrap.Tables
         protected override void OnPrepare(TextWriter writer)
         {
             base.OnPrepare(writer);
+
+            // Exit any existing table sections
             Pop<ITableSection>(writer);
         }
     }

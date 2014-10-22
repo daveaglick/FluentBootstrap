@@ -1,4 +1,6 @@
-﻿using FluentBootstrap.Grids;
+﻿using FluentBootstrap.Dropdowns;
+using FluentBootstrap.Grids;
+using FluentBootstrap.Navs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,16 +14,25 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarWrapper<TModel> : TagWrapper<TModel>
+    public class NavbarWrapper<TModel> : TagWrapper<TModel>,
+        INavbarHeaderCreator<TModel>,
+        INavbarCollapseCreator<TModel>,
+        INavbarToggleCreator<TModel>,
+        IBrandCreator<TModel>,
+        INavbarNavCreator<TModel>,
+        INavLinkCreator<TModel>,
+        IDropdownCreator<TModel>
     {
     }
 
     internal interface INavbar : ITag
     {
+        bool HasHeader { get; set; }
     }
 
     public class Navbar<TModel> : Tag<TModel, Navbar<TModel>, NavbarWrapper<TModel>>, INavbar
     {
+        bool INavbar.HasHeader { get; set; }
         internal bool Fluid { private get; set; }
         private Container<TModel> _container;
 
@@ -29,6 +40,7 @@ namespace FluentBootstrap.Navbars
             : base(creator, "nav", Css.Navbar, Css.NavbarDefault)
         {
             this.MergeAttribute("role", "navigation");
+            this.SetId("navbar");
         }
 
         protected override void OnPrepare(TextWriter writer)
@@ -46,7 +58,13 @@ namespace FluentBootstrap.Navbars
 
         protected override void OnFinish(TextWriter writer)
         {
+            if (!((INavbar)this).HasHeader)
+            {
+                new NavbarHeader<TModel>(Helper).StartAndFinish(writer);
+            }
+
             _container.Finish(writer);
+
             base.OnFinish(writer);
         }
     }

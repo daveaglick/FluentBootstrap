@@ -101,7 +101,7 @@ namespace FluentBootstrap
         // The primary difference is that implicit components can be automatically cleaned up from the stack
         private readonly bool _implicit;
 
-        internal override bool Implicit
+        internal override sealed bool Implicit
         {
             get { return _implicit; }
         }
@@ -113,7 +113,7 @@ namespace FluentBootstrap
             set { _render = value; }
         }
 
-        internal override BootstrapHelper<TModel> Helper
+        internal override sealed BootstrapHelper<TModel> Helper
         {
             get { return _helper; }
         }
@@ -146,7 +146,7 @@ namespace FluentBootstrap
             _implicit = GetStack(Bootstrap.OutputStackKey).Count > 0;
         }
 
-        internal override void AddChild(IComponent component)
+        internal override sealed void AddChild(IComponent component)
         {
             _children.Add(component);
         }
@@ -164,7 +164,7 @@ namespace FluentBootstrap
             return GetWrapper();
         }
 
-        internal override void Begin(TextWriter writer)
+        internal override sealed void Begin(TextWriter writer)
         {
             // If we have a parent, it needs to be started
             if (_parent != null)
@@ -175,12 +175,12 @@ namespace FluentBootstrap
             Start(writer ?? ViewContext.Writer);
         }
 
-        public override void End()
+        public override sealed void End()
         {
             End(null);
         }
 
-        internal override void End(TextWriter writer)
+        internal override sealed void End(TextWriter writer)
         {
             Finish(writer ?? ViewContext.Writer);
 
@@ -194,7 +194,7 @@ namespace FluentBootstrap
         // Outputs the start and end portions together
         // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)
         // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
-        public virtual string ToHtmlString()
+        public string ToHtmlString()
         {
             // Write this component out as a string
             using (StringWriter writer = new StringWriter())
@@ -217,7 +217,7 @@ namespace FluentBootstrap
             }
         }
 
-        internal override void Start(TextWriter writer)
+        internal override sealed void Start(TextWriter writer)
         {
             // Only write content once
             if (_started)
@@ -254,7 +254,7 @@ namespace FluentBootstrap
             WriteChildren(writer);
         }
 
-        internal override void Finish(TextWriter writer)
+        internal override sealed void Finish(TextWriter writer)
         {
             // Only write content once
             if (_finished)
@@ -288,7 +288,7 @@ namespace FluentBootstrap
         }
 
         // This is implicit by definition since it's only ever used inside another component to generate content for a child, etc.
-        internal override void StartAndFinish(TextWriter writer)
+        internal override sealed void StartAndFinish(TextWriter writer)
         {
             Start(writer);
             Finish(writer);

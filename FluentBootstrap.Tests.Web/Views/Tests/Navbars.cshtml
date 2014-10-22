@@ -1,0 +1,55 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Standard Navbar")
+    using (Html.Bootstrap().Div().SetId("test-standard-navbar").Begin())
+    {
+        using(var navbar = Html.Bootstrap().Navbar().Begin())
+        {
+        }
+    }
+    
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Manual Navbar")
+    using (Html.Bootstrap().Div().SetId("test-manual-navbar").Begin())
+    {
+        using (var navbar = Html.Bootstrap().Navbar().SetId("nav2").Begin())
+        {
+            using(var navbarHeader = navbar.NavbarHeader().Begin())
+            {
+                @navbarHeader.Brand("MyApp")
+                @navbarHeader.NavbarToggle()
+            }
+            using (var navbarCollapse = navbar.NavbarCollapse().Begin())
+            {
+                using (var nav = navbarCollapse.NavbarNav().Begin())
+                {
+                    @nav.NavLink("A")
+                    using (var dropdown = nav.Dropdown("B").Begin())
+                    {
+                        @dropdown.DropdownLink("C")
+                        @dropdown.DropdownLink("D")
+                    }
+                }
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Implicit Sections")
+    using (Html.Bootstrap().Div().SetId("test-implicit-sections").Begin())
+    {
+        using (var navbar = Html.Bootstrap().Navbar().SetId("nav3").Begin())
+        {
+            @navbar.Brand("MyApp")
+            @navbar.NavbarToggle()
+            @navbar.NavLink("A")
+            using(var dropdown = navbar.Dropdown("B").Begin())
+            {
+                @dropdown.DropdownLink("C")
+                @dropdown.DropdownLink("D")
+            }
+        }
+    }
+}

@@ -23,6 +23,7 @@ namespace FluentBootstrap
     {
         HashSet<string> CssClasses { get; }
         void MergeAttribute(string key, string value, bool replaceExisting = true);
+        string GetAttribute(string key);
     }
 
     public abstract class Tag<TModel, TThis, TWrapper> : Component<TModel, TThis, TWrapper>, ITag
@@ -112,6 +113,16 @@ namespace FluentBootstrap
         void ITag.MergeAttribute(string key, string value, bool replaceExisting)
         {
             MergeAttribute(key, value, replaceExisting);
+        }
+
+        string ITag.GetAttribute(string key)
+        {
+            string value;
+            if(TagBuilder.Attributes.TryGetValue(key, out value))
+            {
+                return value;
+            }
+            return string.Empty;
         }
 
         internal TThis ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
