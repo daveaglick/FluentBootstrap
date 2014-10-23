@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="Breadcrumbs\Breadcrumb.cs" />
+    <Compile Include="Breadcrumbs\BreadcrumbExtensions.cs" />
+    <Compile Include="Breadcrumbs\Crumb.cs" />
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\ButtonExtensions.cs" />
     <Compile Include="Buttons\ButtonGroup.cs" />

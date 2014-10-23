@@ -3,6 +3,7 @@
     @Html.Bootstrap().Heading1("FluentBootstrap Tests")
     using (var list = Html.Bootstrap().List().Begin())
     {
+        @list.ListItem(Html.Bootstrap().Link("Breadcrumbs", "/Tests/Breadcrumbs"))
         @list.ListItem(Html.Bootstrap().Link("Buttons", "/Tests/Buttons"))
         @list.ListItem(Html.Bootstrap().Link("Dropdowns", "/Tests/Dropdowns"))
         @list.ListItem(Html.Bootstrap().Link("Forms", "/Tests/Forms"))

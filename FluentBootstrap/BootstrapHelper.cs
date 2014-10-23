@@ -13,6 +13,8 @@ namespace FluentBootstrap
     // This just provides access to top-level extensions
     public class BootstrapHelper<TModel> : 
         ITagCreator<TModel>,
+        // Breadcrumbs
+        Breadcrumbs.IBreadcrumbCreator<TModel>,
         // Buttons
         Buttons.IButtonToolbarCreator<TModel>,
         Buttons.IButtonGroupCreator<TModel>,
@@ -69,6 +71,9 @@ namespace FluentBootstrap
     // This provides expanded access to all extensions
     public class BootstrapHelperAll<TModel> : BootstrapHelper<TModel>,
         ITagCreator<TModel>,
+        // Breadcrumbs
+        Breadcrumbs.IBreadcrumbCreator<TModel>,
+        Breadcrumbs.ICrumbCreator<TModel>,
         // Buttons
         Buttons.IButtonToolbarCreator<TModel>,
         Buttons.IButtonGroupCreator<TModel>,

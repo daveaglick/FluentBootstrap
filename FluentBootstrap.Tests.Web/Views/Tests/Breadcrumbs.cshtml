@@ -1,0 +1,13 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Breadcrumb")
+    using (Html.Bootstrap().Div().SetId("test-breadcrumb").Begin())
+    {
+        using(var breadcrumb = Html.Bootstrap().Breadcrumb().Begin())
+        {
+            @breadcrumb.Crumb("First")
+            @breadcrumb.Crumb("Second")
+            @breadcrumb.Crumb("Third").SetActive()
+        }
+    }
+}
