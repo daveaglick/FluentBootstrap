@@ -135,11 +135,16 @@
     <Compile Include="Links\LinkExtensions.cs" />
     <Compile Include="Misc\MiscExtensions.cs" />
     <Compile Include="Navbars\Brand.cs" />
+    <Compile Include="Navbars\INavbarComponent.cs" />
     <Compile Include="Navbars\Navbar.cs" />
+    <Compile Include="Navbars\NavbarButton.cs" />
     <Compile Include="Navbars\NavbarExtensions.cs" />
+    <Compile Include="Navbars\NavbarForm.cs" />
     <Compile Include="Navbars\NavbarHeader.cs" />
     <Compile Include="Navbars\NavbarNav.cs" />
+    <Compile Include="Navbars\NavbarPosition.cs" />
     <Compile Include="Navbars\NavbarSection.cs" />
+    <Compile Include="Navbars\NavbarText.cs" />
     <Compile Include="Navbars\NavbarToggle.cs" />
     <Compile Include="Navs\Nav.cs" />
     <Compile Include="Navbars\NavbarCollapse.cs" />

@@ -31,7 +31,9 @@ namespace FluentBootstrap.Forms
         bool HideValidationSummary { set; }
     }
 
-    public class Form<TModel> : Tag<TModel, Form<TModel>, FormWrapper<TModel>>, IForm
+    public abstract class Form<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IForm
+        where TThis : Form<TModel, TThis, TWrapper>
+        where TWrapper : FormWrapper<TModel>, new()
     {        
         internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
 
@@ -47,8 +49,8 @@ namespace FluentBootstrap.Forms
             set { HideValidationSummary = value; }
         }
 
-        public Form(IComponentCreator<TModel> creator)
-            : base(creator, "form")
+        public Form(IComponentCreator<TModel> creator, params string[] cssClasses)
+            : base(creator, "form", cssClasses)
         {
             DefaultLabelWidth = Bootstrap.DefaultFormLabelWidth;
             MergeAttribute("role", "form");
@@ -114,6 +116,13 @@ namespace FluentBootstrap.Forms
             int num = (item != null ? (int)item + 1 : 0);
             items[_lastBootstrapFormNumKey] = num;
             return string.Format("bsform{0}", num);
+        }
+    }
+    
+    public class Form<TModel> : Form<TModel, Form<TModel>, FormWrapper<TModel>>, IForm
+    {
+        public Form(IComponentCreator<TModel> creator) : base(creator)
+        {
         }
     }
 }

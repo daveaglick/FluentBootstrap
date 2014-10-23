@@ -2,6 +2,7 @@
 using FluentBootstrap.Navs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,10 @@ namespace FluentBootstrap.Navbars
     public class NavbarCollapseWrapper<TModel> : NavbarSectionWrapper<TModel>,
         INavbarNavCreator<TModel>,
         INavLinkCreator<TModel>,
-        IDropdownCreator<TModel>
+        IDropdownCreator<TModel>,
+        INavbarFormCreator<TModel>,
+        INavbarButtonCreator<TModel>,
+        INavbarTextCreator<TModel>
     {
     }
 
@@ -30,7 +34,7 @@ namespace FluentBootstrap.Navbars
         {
         }
         
-        protected override void OnStart(System.IO.TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             // Get the Navbar ID and use it to set this id
             if (string.IsNullOrWhiteSpace(((ITag)this).GetAttribute("id")))

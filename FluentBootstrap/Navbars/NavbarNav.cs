@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-
     public interface INavbarNavCreator<TModel> : IComponentCreator<TModel>
     {
     }
@@ -20,10 +19,10 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarNav<TModel> : Nav<TModel, NavbarNav<TModel>, NavbarNavWrapper<TModel>>, INavbarNav
+    public class NavbarNav<TModel> : Nav<TModel, NavbarNav<TModel>, NavbarNavWrapper<TModel>>, INavbarNav, INavbarComponent
     {
         internal NavbarNav(IComponentCreator<TModel> creator)
-            : base(creator, Css.Nav, Css.NavbarNav)
+            : base(creator, Css.Nav, Css.NavbarNav, Css.NavbarLeft)
         {
         }
         

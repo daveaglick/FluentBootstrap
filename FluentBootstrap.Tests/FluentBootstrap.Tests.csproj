@@ -89,6 +89,7 @@
     <Compile Include="FormsFixture.cs" />
     <Compile Include="GridsFixture.cs" />
     <Compile Include="IconsFixture.cs" />
+    <Compile Include="NavbarsFixture.cs" />
     <Compile Include="NavsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagsFixture.cs" />

@@ -3,17 +3,67 @@
     @Html.Bootstrap().Heading1("Standard Navbar")
     using (Html.Bootstrap().Div().SetId("test-standard-navbar").Begin())
     {
-        using(var navbar = Html.Bootstrap().Navbar().Begin())
+        using (var navbar = Html.Bootstrap().Navbar("MyApp").Begin())
         {
+            @navbar.NavLink("A")
+            @navbar.NavLink("B")
         }
     }
-    
+
     <hr />
     
+    @Html.Bootstrap().Heading1("Non-fluid Navbar")
+    using (Html.Bootstrap().Div().SetId("test-nonfluid-navbar").Begin())
+    {
+        using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav2").Begin())
+        {
+            @navbar.NavLink("A")
+            @navbar.NavLink("B")
+        }
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Fixed Navbar")
+    using (Html.Bootstrap().Div().SetId("test-fixed-navbar").Begin())
+    {
+        using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav3").SetPosition(NavbarPosition.FixedBottm).Begin())
+        {
+            @navbar.NavLink("A")
+            @navbar.NavLink("B")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Static Navbar")
+    using (Html.Bootstrap().Div().SetId("test-static-navbar").Begin())
+    {
+        using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav4").SetPosition(NavbarPosition.StaticTop).Begin())
+        {
+            @navbar.NavLink("A")
+            @navbar.NavLink("B")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Inverse Navbar")
+    using (Html.Bootstrap().Div().SetId("test-inverse-navbar").Begin())
+    {
+        using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav5").SetInverse().Begin())
+        {
+            @navbar.NavLink("A")
+            @navbar.NavLink("B")
+        }
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Manual Navbar")
     using (Html.Bootstrap().Div().SetId("test-manual-navbar").Begin())
     {
-        using (var navbar = Html.Bootstrap().Navbar().SetId("nav2").Begin())
+        using (var navbar = Html.Bootstrap().Navbar().SetId("nav6").Begin())
         {
             using(var navbarHeader = navbar.NavbarHeader().Begin())
             {
@@ -31,6 +81,24 @@
                         @dropdown.DropdownLink("D")
                     }
                 }
+                using (var form = navbarCollapse.NavbarForm().Begin())
+                {
+                    @form.Input("Search").SetPlaceholder("Search")
+                    @form.Submit("Submit")
+                }
+                using (var nav = navbarCollapse.NavbarNav().Begin())
+                {
+                    @nav.NavLink("B")
+                }
+                @navbarCollapse.NavbarButton("Warn").SetState(ButtonState.Warning)
+                using(navbarCollapse.NavbarText().SetRight().Begin())
+                {
+                    <text>Logged in as @Html.Bootstrap().Link("Dave")</text>
+                }
+                using (var nav = navbarCollapse.NavbarNav().SetRight().Begin())
+                {
+                    @nav.NavLink("R")
+                }
             }
         }
     }
@@ -40,7 +108,7 @@
     @Html.Bootstrap().Heading1("Implicit Sections")
     using (Html.Bootstrap().Div().SetId("test-implicit-sections").Begin())
     {
-        using (var navbar = Html.Bootstrap().Navbar().SetId("nav3").Begin())
+        using (var navbar = Html.Bootstrap().Navbar().SetId("nav7").Begin())
         {
             @navbar.Brand("MyApp")
             @navbar.NavbarToggle()
@@ -49,6 +117,17 @@
             {
                 @dropdown.DropdownLink("C")
                 @dropdown.DropdownLink("D")
+            }
+            using(var form = navbar.NavbarForm().Begin())
+            {
+                @form.Input("Search").SetPlaceholder("Search")
+                @form.Submit("Submit")
+            }
+            @navbar.NavLink("B")
+            @navbar.NavbarButton("Warn").SetState(ButtonState.Warning)
+            using (navbar.NavbarText().SetRight().Begin())
+            {
+                <text>Logged in as @Html.Bootstrap().Link("Dave")</text>
             }
         }
     }

@@ -105,6 +105,9 @@ namespace FluentBootstrap
         Navbars.IBrandCreator<TModel>,
         Navbars.INavbarCollapseCreator<TModel>,
         Navbars.INavbarNavCreator<TModel>,
+        Navbars.INavbarFormCreator<TModel>,
+        Navbars.INavbarButtonCreator<TModel>,
+        Navbars.INavbarTextCreator<TModel>,
         // Navs
         Navs.ITabsCreator<TModel>,
         Navs.IPillsCreator<TModel>,
