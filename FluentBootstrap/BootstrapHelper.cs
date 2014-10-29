@@ -30,6 +30,8 @@ namespace FluentBootstrap
         Grids.IGridRowCreator<TModel>,
         // Images
         Images.IImageCreator<TModel>,
+        // Labels
+        Labels.ILabelCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Navbars,
@@ -46,6 +48,7 @@ namespace FluentBootstrap
         // Tables
         Tables.ITableCreator<TModel>,
         // Typography
+        Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,
         Typography.IDescriptionListCreator<TModel>
     {
@@ -105,6 +108,8 @@ namespace FluentBootstrap
         Grids.IGridRowCreator<TModel>,
         // Images
         Images.IImageCreator<TModel>,
+        // Labels
+        Labels.ILabelCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Navbars,
@@ -137,6 +142,7 @@ namespace FluentBootstrap
         Tables.ITableRowCreator<TModel>,
         Tables.ITableCellCreator<TModel>,
         // Typography
+        Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,
         Typography.IListItemCreator<TModel>,
         Typography.IDescriptionListCreator<TModel>,

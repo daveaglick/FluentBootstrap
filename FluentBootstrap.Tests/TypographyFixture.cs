@@ -34,6 +34,15 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void SmallChildProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-small-child",
+@"<h3>Heading 3
+   <small>This is also small</small>
+  </h3>");
+        }
+
+        [Test]
         public void AlignmentProducesCorrectHtml()
         {
             TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-alignment",

@@ -52,9 +52,9 @@ namespace FluentBootstrap
 
         // Body copy
 
-        public static Element<TModel> Small<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Small<TModel> Small<TModel>(this ISmallCreator<TModel> creator, string text = null, params string[] cssClasses)
         {
-            return new Element<TModel>(creator, "small", cssClasses).SetText(text);
+            return new Small<TModel>(creator, cssClasses).SetText(text);
         }
 
         public static TThis SetSmall<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool toggle = true)

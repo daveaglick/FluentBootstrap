@@ -1,4 +1,5 @@
 ﻿using FluentBootstrap.Html;
+using FluentBootstrap.Labels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,9 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class HeadingWrapper<TModel> : TagWrapper<TModel>
+    public class HeadingWrapper<TModel> : TagWrapper<TModel>,
+        ISmallCreator<TModel>,
+        ILabelCreator<TModel>
     {
     }
 
@@ -34,7 +37,7 @@ namespace FluentBootstrap.Typography
         {
             if (!string.IsNullOrWhiteSpace(SmallText))
             {
-                new Element<TModel>(Helper, "small").SetText(SmallText).StartAndFinish(writer);
+                new Small<TModel>(Helper).SetText(SmallText).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

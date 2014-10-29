@@ -90,6 +90,7 @@
     <Compile Include="FormsFixture.cs" />
     <Compile Include="GridsFixture.cs" />
     <Compile Include="IconsFixture.cs" />
+    <Compile Include="LabelsFixture.cs" />
     <Compile Include="NavbarsFixture.cs" />
     <Compile Include="NavsFixture.cs" />
     <Compile Include="PagersFixture.cs" />

@@ -131,6 +131,7 @@
     <Content Include="Views\Tests\Breadcrumbs.cshtml" />
     <Content Include="Views\Tests\Paginations.cshtml" />
     <Content Include="Views\Tests\Pagers.cshtml" />
+    <Content Include="Views\Tests\Labels.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />

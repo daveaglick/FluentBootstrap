@@ -1,0 +1,20 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Inline")
+    using (Html.Bootstrap().Div().SetId("test-inline").Begin())
+    {
+        <p>This is a @Html.Bootstrap().Label("inline") label.</p>
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Headers")
+    using (Html.Bootstrap().Div().SetId("test-headers").Begin())
+    {
+        @Html.Bootstrap().Heading1("A label in a ").WithChild().Label("heading")
+        using(var heading = Html.Bootstrap().Heading3(null).Begin())
+        {
+            <text>Another heading with a @Html.Bootstrap().Label("label").SetState(LabelState.Danger)</text>
+        }        
+    }
+}

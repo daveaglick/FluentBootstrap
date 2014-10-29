@@ -133,6 +133,9 @@
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\ImageExtensions.cs" />
     <Compile Include="Images\ImageStyle.cs" />
+    <Compile Include="Labels\Label.cs" />
+    <Compile Include="Labels\LabelExtensions.cs" />
+    <Compile Include="Labels\LabelState.cs" />
     <Compile Include="Links\IHasLinkExtensions.cs" />
     <Compile Include="Links\Link.cs" />
     <Compile Include="Links\LinkExtensions.cs" />
@@ -218,6 +221,7 @@
     <Compile Include="Typography\Pre.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Typography\Small.cs" />
     <Compile Include="Typography\TextAlignment.cs" />
     <Compile Include="Typography\TextTransformation.cs" />
     <Compile Include="Typography\TypographyExtensions.cs" />
