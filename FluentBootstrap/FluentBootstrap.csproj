@@ -155,6 +155,10 @@
     <Compile Include="Navs\NavLink.cs" />
     <Compile Include="Navs\Pills.cs" />
     <Compile Include="Navs\Tabs.cs" />
+    <Compile Include="Pagers\Page.cs" />
+    <Compile Include="Pagers\PageAlignment.cs" />
+    <Compile Include="Pagers\Pager.cs" />
+    <Compile Include="Pagers\PagerExtensions.cs" />
     <Compile Include="Paginations\PageNum.cs" />
     <Compile Include="Paginations\Pagination.cs" />
     <Compile Include="Paginations\PaginationExtensions.cs" />

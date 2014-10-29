@@ -1,0 +1,21 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Manual")
+    using (Html.Bootstrap().Div().SetId("test-manual").Begin())
+    {
+        using (var pager = Html.Bootstrap().Pager().Begin())
+        {
+            @pager.Page("Older", "http://google.com")
+            @pager.Page("Archive").SetDisabled()
+            @pager.Page("Newer")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Automatic")
+    using (Html.Bootstrap().Div().SetId("test-automatic").Begin())
+    {
+        @Html.Bootstrap().Pager().AddPrevious("Oldest").AddPrevious("Old", disabled: true).AddPage("Archive").AddNext("Newer")
+    }
+}

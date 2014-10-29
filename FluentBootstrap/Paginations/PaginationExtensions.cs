@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
         // Pagination
 
-        public static Pagination<TModel> Pagination<TModel>(this IPaginationCreator<TModel> creator, params string[] hrefs)
+        public static Pagination<TModel> Pagination<TModel>(this IPaginationCreator<TModel> creator)
         {
             return new Pagination<TModel>(creator);
         }
