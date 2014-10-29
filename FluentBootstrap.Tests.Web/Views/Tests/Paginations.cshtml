@@ -1,0 +1,31 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Manual")
+    using (Html.Bootstrap().Div().SetId("test-manual").Begin())
+    {
+        using (var pagination = Html.Bootstrap().Pagination().Begin())
+        {
+            @pagination.PageNum("1", "http://google.com")
+            @pagination.PageNum("2").SetActive()
+            @pagination.PageNum("3").SetDisabled()
+            @pagination.PageNum("4")
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Automatic")
+    using (Html.Bootstrap().Div().SetId("test-automatic").Begin())
+    {
+        @Html.Bootstrap().Pagination().AddPrevious().AddPage("http://google.com").AddPage(active: true).AddPage(disabled: true).AddPage().AddNext()
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Sizes")
+    using (Html.Bootstrap().Div().SetId("test-sizes").Begin())
+    {
+        @Html.Bootstrap().Pagination().AddPrevious().AddPage("http://google.com").AddPage(active: true).AddPage(disabled: true).AddPage().AddNext().SetSize(PaginationSize.Lg)
+        @Html.Bootstrap().Pagination().AddPrevious().AddPage("http://google.com").AddPage(active: true).AddPage(disabled: true).AddPage().AddNext().SetSize(PaginationSize.Sm)
+    }
+}

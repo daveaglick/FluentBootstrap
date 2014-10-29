@@ -155,6 +155,10 @@
     <Compile Include="Navs\NavLink.cs" />
     <Compile Include="Navs\Pills.cs" />
     <Compile Include="Navs\Tabs.cs" />
+    <Compile Include="Paginations\PageNum.cs" />
+    <Compile Include="Paginations\Pagination.cs" />
+    <Compile Include="Paginations\PaginationExtensions.cs" />
+    <Compile Include="Paginations\PaginationSize.cs" />
     <Compile Include="Panels\Panel.cs" />
     <Compile Include="Panels\PanelBody.cs" />
     <Compile Include="Panels\PanelExtensions.cs" />

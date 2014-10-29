@@ -37,6 +37,8 @@ namespace FluentBootstrap
         // Navs
         Navs.ITabsCreator<TModel>,
         Navs.IPillsCreator<TModel>,
+        // Pagination
+        Paginations.IPaginationCreator<TModel>,
         // Panels
         Panels.IPanelCreator<TModel>,
         // Tables
@@ -117,6 +119,9 @@ namespace FluentBootstrap
         Navs.ITabsCreator<TModel>,
         Navs.IPillsCreator<TModel>,
         Navs.INavLinkCreator<TModel>,
+        // Pagination
+        Paginations.IPaginationCreator<TModel>,
+        Paginations.IPageNumCreator<TModel>,
         // Panels
         Panels.IPanelCreator<TModel>,
         Panels.IPanelSectionCreator<TModel>,
