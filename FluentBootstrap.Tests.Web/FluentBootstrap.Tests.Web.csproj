@@ -132,6 +132,7 @@
     <Content Include="Views\Tests\Paginations.cshtml" />
     <Content Include="Views\Tests\Pagers.cshtml" />
     <Content Include="Views\Tests\Labels.cshtml" />
+    <Content Include="Views\Tests\Badges.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />

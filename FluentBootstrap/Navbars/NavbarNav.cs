@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Navs;
+﻿using FluentBootstrap.Dropdowns;
+using FluentBootstrap.Navs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,20 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarNavWrapper<TModel> : NavWrapper<TModel>
+    public class NavbarNavWrapper<TModel> : TagWrapper<TModel>,
+        INavbarLinkCreator<TModel>,
+        IDropdownCreator<TModel>
     {
     }
 
-    internal interface INavbarNav : INav
+    internal interface INavbarNav : ITag
     {
     }
 
-    public class NavbarNav<TModel> : Nav<TModel, NavbarNav<TModel>, NavbarNavWrapper<TModel>>, INavbarNav, INavbarComponent
+    public class NavbarNav<TModel> : Tag<TModel, NavbarNav<TModel>, NavbarNavWrapper<TModel>>, INavbarNav, INavbarComponent
     {
         internal NavbarNav(IComponentCreator<TModel> creator)
-            : base(creator, Css.Nav, Css.NavbarNav, Css.NavbarLeft)
+            : base(creator, "div", Css.Nav, Css.NavbarNav, Css.NavbarLeft)
         {
         }
         

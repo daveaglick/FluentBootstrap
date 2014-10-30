@@ -5,9 +5,9 @@
     {
         using(var tabs = Html.Bootstrap().Tabs().Begin())
         {
-            @tabs.NavLink("Home").SetActive()
-            @tabs.NavLink("Profile", "http://www.google.com")
-            @tabs.NavLink("Messages")
+            @tabs.Tab("Home").SetActive()
+            @tabs.Tab("Profile", "http://www.google.com")
+            @tabs.Tab("Messages")
         }
     }
 
@@ -18,9 +18,9 @@
     {
         using (var pills = Html.Bootstrap().Pills().Begin())
         {
-            @pills.NavLink("Home").SetActive()
-            @pills.NavLink("Profile", "http://www.google.com")
-            @pills.NavLink("Messages")
+            @pills.Pill("Home").SetActive()
+            @pills.Pill("Profile", "http://www.google.com")
+            @pills.Pill("Messages")
         }
     }
 
@@ -31,9 +31,9 @@
     {
         using (var pills = Html.Bootstrap().Pills().SetStacked().Begin())
         {
-            @pills.NavLink("Home").SetActive()
-            @pills.NavLink("Profile", "http://www.google.com")
-            @pills.NavLink("Messages")
+            @pills.Pill("Home").SetActive()
+            @pills.Pill("Profile", "http://www.google.com")
+            @pills.Pill("Messages")
         }
     }
 
@@ -44,9 +44,9 @@
     {
         using (var tabs = Html.Bootstrap().Tabs().SetJustified().Begin())
         {
-            @tabs.NavLink("Home").SetActive()
-            @tabs.NavLink("Profile", "http://www.google.com")
-            @tabs.NavLink("Messages")
+            @tabs.Tab("Home").SetActive()
+            @tabs.Tab("Profile", "http://www.google.com")
+            @tabs.Tab("Messages")
         }
     }
 
@@ -57,9 +57,9 @@
     {
         using (var pills = Html.Bootstrap().Pills().SetJustified().Begin())
         {
-            @pills.NavLink("Home").SetActive()
-            @pills.NavLink("Profile", "http://www.google.com")
-            @pills.NavLink("Messages")
+            @pills.Pill("Home").SetActive()
+            @pills.Pill("Profile", "http://www.google.com")
+            @pills.Pill("Messages")
         }
     }
 
@@ -70,9 +70,9 @@
     {
         using (var pills = Html.Bootstrap().Pills().Begin())
         {
-            @pills.NavLink("Home").SetActive()
-            @pills.NavLink("Profile", "http://www.google.com").SetDisabled()
-            @pills.NavLink("Messages")
+            @pills.Pill("Home").SetActive()
+            @pills.Pill("Profile", "http://www.google.com").SetDisabled()
+            @pills.Pill("Messages")
         }
     }
 
@@ -83,8 +83,8 @@
     {
         using (var tabs = Html.Bootstrap().Tabs().Begin())
         {
-            @tabs.NavLink("Home").SetActive()
-            @tabs.NavLink("Profile", "http://www.google.com").SetDisabled()
+            @tabs.Tab("Home").SetActive()
+            @tabs.Tab("Profile", "http://www.google.com").SetDisabled()
             using(var dropdown = tabs.Dropdown("Dropdown").Begin())
             {
                 @dropdown.DropdownLink("Item 1")
@@ -101,8 +101,8 @@
     {
         using (var pills = Html.Bootstrap().Pills().Begin())
         {
-            @pills.NavLink("Home").SetActive()
-            @pills.NavLink("Profile", "http://www.google.com").SetDisabled()
+            @pills.Pill("Home").SetActive()
+            @pills.Pill("Profile", "http://www.google.com").SetDisabled()
             using (var dropdown = pills.Dropdown("Dropdown").Begin())
             {
                 @dropdown.DropdownLink("Item 1")

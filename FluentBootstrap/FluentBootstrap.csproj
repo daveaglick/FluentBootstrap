@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Badges\Badge.cs" />
+    <Compile Include="Badges\BadgeExtensions.cs" />
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Breadcrumbs\Breadcrumb.cs" />
     <Compile Include="Breadcrumbs\BreadcrumbExtensions.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Navbars\NavbarExtensions.cs" />
     <Compile Include="Navbars\NavbarForm.cs" />
     <Compile Include="Navbars\NavbarHeader.cs" />
+    <Compile Include="Navbars\NavbarLink.cs" />
     <Compile Include="Navbars\NavbarNav.cs" />
     <Compile Include="Navbars\NavbarPosition.cs" />
     <Compile Include="Navbars\NavbarSection.cs" />
@@ -156,7 +159,9 @@
     <Compile Include="Navbars\NavbarCollapse.cs" />
     <Compile Include="Navs\NavExtensions.cs" />
     <Compile Include="Navs\NavLink.cs" />
+    <Compile Include="Navs\Pill.cs" />
     <Compile Include="Navs\Pills.cs" />
+    <Compile Include="Navs\Tab.cs" />
     <Compile Include="Navs\Tabs.cs" />
     <Compile Include="Pagers\Page.cs" />
     <Compile Include="Pagers\PageAlignment.cs" />

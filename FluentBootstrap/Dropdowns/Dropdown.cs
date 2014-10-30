@@ -67,7 +67,7 @@ namespace FluentBootstrap.Dropdowns
             }
 
             // Check if we're in a nav
-            if (GetComponent<INav>(true) != null)
+            if (GetComponent<INav>(true) != null || GetComponent<INavbarNav>(true) != null)
             {
                 TagName = "li";
                 Link<TModel> link = Helper.Link(null);

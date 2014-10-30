@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Badges;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public class PillsWrapper<TModel> : NavWrapper<TModel>
+    public class PillsWrapper<TModel> : NavWrapper<TModel>,
+        IPillCreator<TModel>
     {
     }
 

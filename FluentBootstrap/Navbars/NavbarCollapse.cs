@@ -15,7 +15,7 @@ namespace FluentBootstrap.Navbars
 
     public class NavbarCollapseWrapper<TModel> : NavbarSectionWrapper<TModel>,
         INavbarNavCreator<TModel>,
-        INavLinkCreator<TModel>,
+        INavbarLinkCreator<TModel>,
         IDropdownCreator<TModel>,
         INavbarFormCreator<TModel>,
         INavbarButtonCreator<TModel>,

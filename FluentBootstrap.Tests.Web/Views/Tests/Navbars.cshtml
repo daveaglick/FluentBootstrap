@@ -5,8 +5,8 @@
     {
         using (var navbar = Html.Bootstrap().Navbar("MyApp").Begin())
         {
-            @navbar.NavLink("A")
-            @navbar.NavLink("B")
+            @navbar.NavbarLink("A")
+            @navbar.NavbarLink("B")
         }
     }
 
@@ -17,8 +17,8 @@
     {
         using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav2").Begin())
         {
-            @navbar.NavLink("A")
-            @navbar.NavLink("B")
+            @navbar.NavbarLink("A")
+            @navbar.NavbarLink("B")
         }
     }
 
@@ -29,8 +29,8 @@
     {
         using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav3").SetPosition(NavbarPosition.FixedBottm).Begin())
         {
-            @navbar.NavLink("A")
-            @navbar.NavLink("B")
+            @navbar.NavbarLink("A")
+            @navbar.NavbarLink("B")
         }
     }
 
@@ -41,8 +41,8 @@
     {
         using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav4").SetPosition(NavbarPosition.StaticTop).Begin())
         {
-            @navbar.NavLink("A")
-            @navbar.NavLink("B")
+            @navbar.NavbarLink("A")
+            @navbar.NavbarLink("B")
         }
     }
 
@@ -53,8 +53,8 @@
     {
         using (var navbar = Html.Bootstrap().Navbar("MyApp").SetId("nav5").SetInverse().Begin())
         {
-            @navbar.NavLink("A")
-            @navbar.NavLink("B")
+            @navbar.NavbarLink("A")
+            @navbar.NavbarLink("B")
         }
     }
 
@@ -74,7 +74,7 @@
             {
                 using (var nav = navbarCollapse.NavbarNav().Begin())
                 {
-                    @nav.NavLink("A")
+                    @nav.NavbarLink("A")
                     using (var dropdown = nav.Dropdown("B").Begin())
                     {
                         @dropdown.DropdownLink("C")
@@ -88,7 +88,7 @@
                 }
                 using (var nav = navbarCollapse.NavbarNav().Begin())
                 {
-                    @nav.NavLink("B")
+                    @nav.NavbarLink("B")
                 }
                 @navbarCollapse.NavbarButton("Warn").SetState(ButtonState.Warning)
                 using(navbarCollapse.NavbarText().SetRight().Begin())
@@ -97,7 +97,7 @@
                 }
                 using (var nav = navbarCollapse.NavbarNav().SetRight().Begin())
                 {
-                    @nav.NavLink("R")
+                    @nav.NavbarLink("R")
                 }
             }
         }
@@ -112,7 +112,7 @@
         {
             @navbar.Brand("MyApp")
             @navbar.NavbarToggle()
-            @navbar.NavLink("A")
+            @navbar.NavbarLink("A")
             using(var dropdown = navbar.Dropdown("B").Begin())
             {
                 @dropdown.DropdownLink("C")
@@ -123,7 +123,7 @@
                 @form.Input("Search").SetPlaceholder("Search")
                 @form.Submit("Submit")
             }
-            @navbar.NavLink("B")
+            @navbar.NavbarLink("B")
             @navbar.NavbarButton("Warn").SetState(ButtonState.Warning)
             using (navbar.NavbarText().SetRight().Begin())
             {

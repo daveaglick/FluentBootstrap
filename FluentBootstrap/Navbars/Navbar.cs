@@ -20,7 +20,7 @@ namespace FluentBootstrap.Navbars
         INavbarToggleCreator<TModel>,
         IBrandCreator<TModel>,
         INavbarNavCreator<TModel>,
-        INavLinkCreator<TModel>,
+        INavbarLinkCreator<TModel>,
         IDropdownCreator<TModel>,
         INavbarFormCreator<TModel>,
         INavbarButtonCreator<TModel>,

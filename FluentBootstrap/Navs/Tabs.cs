@@ -10,7 +10,8 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public class TabsWrapper<TModel> : NavWrapper<TModel>
+    public class TabsWrapper<TModel> : NavWrapper<TModel>,
+        ITabCreator<TModel>
     {
     }
 

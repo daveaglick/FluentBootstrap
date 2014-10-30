@@ -13,6 +13,8 @@ namespace FluentBootstrap
     // This just provides access to top-level extensions
     public class BootstrapHelper<TModel> : 
         ITagCreator<TModel>,
+        // Badges
+        Badges.IBadgeCreator<TModel>,
         // Breadcrumbs
         Breadcrumbs.IBreadcrumbCreator<TModel>,
         // Buttons
@@ -78,6 +80,8 @@ namespace FluentBootstrap
     // This provides expanded access to all extensions
     public class BootstrapHelperAll<TModel> : BootstrapHelper<TModel>,
         ITagCreator<TModel>,
+        // Badges
+        Badges.IBadgeCreator<TModel>,
         // Breadcrumbs
         Breadcrumbs.IBreadcrumbCreator<TModel>,
         Breadcrumbs.ICrumbCreator<TModel>,
@@ -122,10 +126,12 @@ namespace FluentBootstrap
         Navbars.INavbarFormCreator<TModel>,
         Navbars.INavbarButtonCreator<TModel>,
         Navbars.INavbarTextCreator<TModel>,
+        Navbars.INavbarLinkCreator<TModel>,
         // Navs
         Navs.ITabsCreator<TModel>,
+        Navs.ITabCreator<TModel>,
         Navs.IPillsCreator<TModel>,
-        Navs.INavLinkCreator<TModel>,
+        Navs.IPillCreator<TModel>,
         // Pagers
         Pagers.IPagerCreator<TModel>,
         Pagers.IPageCreator<TModel>,

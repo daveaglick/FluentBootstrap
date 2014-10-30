@@ -1,7 +1,5 @@
-﻿using FluentBootstrap.Badges;
-using FluentBootstrap.Html;
+﻿using FluentBootstrap.Html;
 using FluentBootstrap.Links;
-using FluentBootstrap.Navbars;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,30 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentBootstrap.Navs
+namespace FluentBootstrap.Navbars
 {
-    public interface INavLinkCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarLinkCreator<TModel> : IComponentCreator<TModel>
     {
     }
 
-    public class NavLinkWrapper<TModel> : TagWrapper<TModel>,
-        IBadgeCreator<TModel>
+    public class NavbarLinkWrapper<TModel> : TagWrapper<TModel>
     {
     }
 
-    internal interface INavLink : ITag
+    internal interface INavbarLink : ITag
     {
     }
 
-    public abstract class NavLink<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions, IHasTextAttribute
-        where TThis : NavLink<TModel, TThis, TWrapper>
-        where TWrapper : NavLinkWrapper<TModel>, new()
+    public class NavbarLink<TModel> : Tag<TModel, NavbarLink<TModel>, NavbarLinkWrapper<TModel>>, INavbarLink, IHasLinkExtensions, IHasTextAttribute
     {
         internal bool Active { private get; set; }
         internal bool Disabled { private get; set; }
         private Element<TModel> _listItem = null;
 
-        protected NavLink(IComponentCreator<TModel> creator)
+        internal NavbarLink(IComponentCreator<TModel> creator)
             : base(creator, "a")
         {
         }

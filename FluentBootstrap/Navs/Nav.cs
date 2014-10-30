@@ -12,7 +12,6 @@ namespace FluentBootstrap.Navs
     }
 
     public class NavWrapper<TModel> : TagWrapper<TModel>,
-        INavLinkCreator<TModel>,
         IDropdownCreator<TModel>
     {
     }
@@ -26,7 +25,7 @@ namespace FluentBootstrap.Navs
         where TWrapper : NavWrapper<TModel>, new()
     {
         protected Nav(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "div", cssClasses)
+            : base(creator, "ul", cssClasses)
         {
         }
     }

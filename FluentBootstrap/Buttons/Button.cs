@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Icons;
+﻿using FluentBootstrap.Badges;
+using FluentBootstrap.Icons;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,8 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class ButtonWrapper<TModel> : TagWrapper<TModel>
+    public class ButtonWrapper<TModel> : TagWrapper<TModel>,
+        IBadgeCreator<TModel>
     {
     }
 

@@ -108,6 +108,30 @@ namespace FluentBootstrap
         public static NavbarText<TModel> NavbarText<TModel>(this INavbarButtonCreator<TModel> creator, string text = null)
         {
             return new NavbarText<TModel>(creator).SetText(text);
+        }        
+        
+        // NavbarLink
+
+        public static NavbarLink<TModel> NavbarLink<TModel>(this INavbarLinkCreator<TModel> creator, string text, string href = "#")
+        {
+            return new NavbarLink<TModel>(creator).SetHref(href).SetText(text);
+        }
+
+        public static NavbarLink<TModel> NavbarLink<TModel>(this INavbarLinkCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
+        {
+            return new NavbarLink<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
+        }
+
+        public static NavbarLink<TModel> SetActive<TModel>(this NavbarLink<TModel> navbarLink, bool active = true)
+        {
+            navbarLink.Active = active;
+            return navbarLink;
+        }
+
+        public static NavbarLink<TModel> SetDisabled<TModel>(this NavbarLink<TModel> navbarLink, bool disabled = true)
+        {
+            navbarLink.Disabled = disabled;
+            return navbarLink;
         }
 
         // INavbarComponent

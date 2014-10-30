@@ -1,4 +1,6 @@
-﻿using FluentBootstrap.Icons;
+﻿using FluentBootstrap.Badges;
+using FluentBootstrap.Forms;
+using FluentBootstrap.Icons;
 using FluentBootstrap.Navbars;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,8 @@ namespace FluentBootstrap.Links
     {
     }
 
-    public class LinkWrapper<TModel> : TagWrapper<TModel>
+    public class LinkWrapper<TModel> : TagWrapper<TModel>,
+        IBadgeCreator<TModel>
     {
     }
 
