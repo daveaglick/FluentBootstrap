@@ -20,8 +20,8 @@ namespace FluentBootstrap.Typography
 
     public class Small<TModel> : Tag<TModel, Small<TModel>, SmallWrapper<TModel>>, ISmall, IHasTextAttribute
     {
-        internal Small(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "small", cssClasses)
+        internal Small(IComponentCreator<TModel> creator)
+            : base(creator, "small")
         {
         }
     }

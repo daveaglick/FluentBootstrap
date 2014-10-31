@@ -26,8 +26,8 @@ namespace FluentBootstrap.Links
 
     public class Link<TModel> : Tag<TModel, Link<TModel>, LinkWrapper<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextAttribute
     {
-        internal Link(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "a", cssClasses)
+        internal Link(IComponentCreator<TModel> creator)
+            : base(creator, "a")
         {
         }
 

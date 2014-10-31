@@ -17,7 +17,7 @@ namespace FluentBootstrap.Forms
     public class FormWrapper<TModel> : TagWrapper<TModel>,
         IFieldSetCreator<TModel>,
         IFormGroupCreator<TModel>,
-        ILabelCreator<TModel>,
+        IControlLabelCreator<TModel>,
         IFormControlCreator<TModel>,
         IHelpBlockCreator<TModel>,
         IInputGroupCreator<TModel>

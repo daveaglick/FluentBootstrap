@@ -12,7 +12,7 @@ namespace FluentBootstrap.Forms
 
     public class FieldSetWrapper<TModel> : TagWrapper<TModel>,
         IFormGroupCreator<TModel>,
-        ILabelCreator<TModel>,
+        IControlLabelCreator<TModel>,
         IFormControlCreator<TModel>,
         IHelpBlockCreator<TModel>
     {

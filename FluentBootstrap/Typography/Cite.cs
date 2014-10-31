@@ -19,8 +19,8 @@ namespace FluentBootstrap.Typography
 
     public class Cite<TModel> : Tag<TModel, Cite<TModel>, CiteWrapper<TModel>>, ICite, IHasTextAttribute, IHasTitleAttribute
     {
-        internal Cite(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "cite", cssClasses)
+        internal Cite(IComponentCreator<TModel> creator)
+            : base(creator, "cite")
         {
         }
     }

@@ -21,8 +21,8 @@ namespace FluentBootstrap.Typography
 
     public class Blockquote<TModel> : Tag<TModel, Blockquote<TModel>, BlockquoteWrapper<TModel>>, IBlockquote
     {
-        internal Blockquote(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "blockquote", cssClasses)
+        internal Blockquote(IComponentCreator<TModel> creator)
+            : base(creator, "blockquote")
         {
         }
 

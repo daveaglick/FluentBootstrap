@@ -20,8 +20,8 @@ namespace FluentBootstrap.Typography
 
     public class Abbr<TModel> : Tag<TModel, Abbr<TModel>, AbbrWrapper<TModel>>, IAbbr, IHasTextAttribute, IHasTitleAttribute
     {
-        internal Abbr(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "abbr", cssClasses)
+        internal Abbr(IComponentCreator<TModel> creator)
+            : base(creator, "abbr")
         {
         }
     }

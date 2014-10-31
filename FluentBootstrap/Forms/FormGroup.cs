@@ -14,7 +14,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class FormGroupWrapper<TModel> : TagWrapper<TModel>,
-        ILabelCreator<TModel>,
+        IControlLabelCreator<TModel>,
         IFormControlCreator<TModel>,
         IHelpBlockCreator<TModel>
     {
@@ -22,23 +22,23 @@ namespace FluentBootstrap.Forms
 
     internal interface IFormGroup : ITag
     {
-        ILabel Label { set; }
+        IControlLabel Label { set; }
     }
 
     public class FormGroup<TModel> : Tag<TModel, FormGroup<TModel>, FormGroupWrapper<TModel>>, IFormGroup, IHasGridColumnExtensions, IFormValidation
     {
-        private ILabel _label = null;
+        private IControlLabel _label = null;
         private Element<TModel> _columnWrapper;
         private bool _columnWrapperBeforeLabel = false;
 
-        internal ILabel Label
+        internal IControlLabel ControlLabel
         {
             set { _label = value; }
         }
 
-        ILabel IFormGroup.Label
+        IControlLabel IFormGroup.Label
         {
-            set { Label = value; }
+            set { ControlLabel = value; }
         }
 
         internal bool HasLabel

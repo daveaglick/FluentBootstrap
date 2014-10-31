@@ -36,6 +36,9 @@ namespace FluentBootstrap
         Labels.ILabelCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Misc
+        Misc.IJumbotronCreator<TModel>,
+        Misc.IPageHeaderCreator<TModel>,
         // Navbars,
         Navbars.INavbarCreator<TModel>,
         // Navs
@@ -100,7 +103,7 @@ namespace FluentBootstrap
         Forms.IFormCreator<TModel>,
         Forms.IFieldSetCreator<TModel>,
         Forms.IFormGroupCreator<TModel>,
-        Forms.ILabelCreator<TModel>,
+        Forms.IControlLabelCreator<TModel>,
         Forms.IFormControlCreator<TModel>,
         Forms.IHelpBlockCreator<TModel>,
         Forms.IInputGroupCreator<TModel>,
@@ -116,6 +119,9 @@ namespace FluentBootstrap
         Labels.ILabelCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Misc
+        Misc.IJumbotronCreator<TModel>,
+        Misc.IPageHeaderCreator<TModel>,
         // Navbars,
         Navbars.INavbarCreator<TModel>,
         Navbars.INavbarHeaderCreator<TModel>,

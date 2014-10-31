@@ -27,7 +27,7 @@ namespace FluentBootstrap.Forms
         where TWrapper : FormControlWrapper<TModel>, new()
     {
         private FormGroup<TModel> _formGroup = null;
-        private ILabel _label = null;
+        private IControlLabel _label = null;
         internal string Help { get; set; }
         internal bool EnsureFormGroup { get; set; }
         private bool _prepared = false;
@@ -38,7 +38,7 @@ namespace FluentBootstrap.Forms
             EnsureFormGroup = true;
         }
 
-        internal ILabel Label
+        internal IControlLabel Label
         {
             set { _label = value; }
         }
@@ -95,7 +95,7 @@ namespace FluentBootstrap.Forms
                 // Add or write the label
                 if (_formGroup != null)
                 {
-                    _formGroup.Label = _label;
+                    _formGroup.ControlLabel = _label;
                 }
                 else
                 {

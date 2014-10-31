@@ -20,8 +20,8 @@ namespace FluentBootstrap.Images
 
     public class Image<TModel> : Tag<TModel, Image<TModel>, ImageWrapper<TModel>>, IImage
     {
-        internal Image(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "img", cssClasses)
+        internal Image(IComponentCreator<TModel> creator)
+            : base(creator, "img")
         {
         }
     }

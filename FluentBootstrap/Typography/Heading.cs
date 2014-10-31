@@ -23,12 +23,13 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class Heading<TModel> : Tag<TModel, Heading<TModel>, HeadingWrapper<TModel>>, IHeading, IHasTextAttribute
+    public abstract class Heading<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHeading, IHasTextAttribute
+        where TThis : Heading<TModel, TThis, TWrapper>
+        where TWrapper : HeadingWrapper<TModel>, new()
     {
-        internal Heading(IComponentCreator<TModel> creator, string tagName, string text, params string[] cssClasses)
-            : base(creator, tagName, cssClasses)
+        internal Heading(IComponentCreator<TModel> creator, string tagName)
+            : base(creator, tagName)
         {
-            TextContent = text;
         }
 
         internal string SmallText { get; set; }
@@ -41,6 +42,14 @@ namespace FluentBootstrap.Typography
             }
 
             base.OnFinish(writer);
+        }
+    }
+
+    public class Heading<TModel> : Heading<TModel, Heading<TModel>, HeadingWrapper<TModel>>
+    {
+        internal Heading(IComponentCreator<TModel> creator, string tagName)
+            : base(creator, tagName)
+        {
         }
     }
 }

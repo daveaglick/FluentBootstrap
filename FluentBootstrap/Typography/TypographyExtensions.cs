@@ -14,47 +14,50 @@ namespace FluentBootstrap
     {
         // Headings
 
-        public static Heading<TModel> Heading1<TModel>(this ITagCreator<TModel> creator, string text, params string[] cssClasses)
+        public static Heading<TModel> Heading1<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Heading<TModel>(creator, "h1", text, cssClasses);
+            return new Heading<TModel>(creator, "h1").SetText(text);
         }
 
-        public static Heading<TModel> Heading2<TModel>(this ITagCreator<TModel> creator, string text, params string[] cssClasses)
+        public static Heading<TModel> Heading2<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Heading<TModel>(creator, "h2", text, cssClasses);
+            return new Heading<TModel>(creator, "h2").SetText(text);
         }
 
-        public static Heading<TModel> Heading3<TModel>(this ITagCreator<TModel> creator, string text, params string[] cssClasses)
+        public static Heading<TModel> Heading3<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Heading<TModel>(creator, "h3", text, cssClasses);
+            return new Heading<TModel>(creator, "h3").SetText(text);
         }
 
-        public static Heading<TModel> Heading4<TModel>(this ITagCreator<TModel> creator, string text, params string[] cssClasses)
+        public static Heading<TModel> Heading4<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Heading<TModel>(creator, "h4", text, cssClasses);
+            return new Heading<TModel>(creator, "h4").SetText(text);
         }
 
-        public static Heading<TModel> Heading5<TModel>(this ITagCreator<TModel> creator, string text, params string[] cssClasses)
+        public static Heading<TModel> Heading5<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Heading<TModel>(creator, "h5", text, cssClasses);
+            return new Heading<TModel>(creator, "h5").SetText(text);
         }
 
-        public static Heading<TModel> Heading6<TModel>(this ITagCreator<TModel> creator, string text, params string[] cssClasses)
+        public static Heading<TModel> Heading6<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Heading<TModel>(creator, "h6", text, cssClasses);
+            return new Heading<TModel>(creator, "h6").SetText(text);
         }
 
-        public static Heading<TModel> SetSmallText<TModel>(this Heading<TModel> heading, string text)
+        public static TThis SetSmallText<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string text)
+            where TThis : Heading<TModel, TThis, TWrapper>
+            where TWrapper : HeadingWrapper<TModel>, new()
         {
+            TThis heading = component.GetThis();
             heading.SmallText = text;
             return heading;
         }
 
         // Body copy
 
-        public static Small<TModel> Small<TModel>(this ISmallCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Small<TModel> Small<TModel>(this ISmallCreator<TModel> creator, string text = null)
         {
-            return new Small<TModel>(creator, cssClasses).SetText(text);
+            return new Small<TModel>(creator).SetText(text);
         }
 
         public static TThis SetSmall<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool toggle = true)
@@ -64,54 +67,54 @@ namespace FluentBootstrap
             return component.GetThis().ToggleCss(Css.Small, toggle);
         }
 
-        public static Element<TModel> Lead<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Lead<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
             return new Element<TModel>(creator, "p", Css.Lead).SetText(text);
         }
 
-        public static Element<TModel> Marked<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Marked<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "mark", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "mark").SetText(text);
         }
 
-        public static Element<TModel> Deleted<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Deleted<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "del", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "del").SetText(text);
         }
 
-        public static Element<TModel> Strikethrough<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Strikethrough<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "s", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "s").SetText(text);
         }
 
-        public static Element<TModel> Inserted<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Inserted<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "ins", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "ins").SetText(text);
         }
 
-        public static Element<TModel> Underlined<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Underlined<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "u", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "u").SetText(text);
         }
 
-        public static Element<TModel> Strong<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Strong<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "strong", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "strong").SetText(text);
         }
 
-        public static Element<TModel> Bold<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Bold<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "b", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "b").SetText(text);
         }
 
-        public static Element<TModel> Emphasis<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Emphasis<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "em", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "em").SetText(text);
         }
 
-        public static Element<TModel> Italics<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Italics<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "i", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "i").SetText(text);
         }
 
         // Text alignment and transformation
@@ -132,9 +135,9 @@ namespace FluentBootstrap
 
         // Abbreviation
 
-        public static Abbr<TModel> Abbreviation<TModel>(this ITagCreator<TModel> creator, string title, string text, params string[] cssClasses)
+        public static Abbr<TModel> Abbreviation<TModel>(this ITagCreator<TModel> creator, string title, string text)
         {
-            return new Abbr<TModel>(creator, cssClasses).SetTitle(title).SetText(text);
+            return new Abbr<TModel>(creator).SetTitle(title).SetText(text);
         }
 
         public static Abbr<TModel> SetInitialism<TModel>(this Abbr<TModel> abbr, bool initialism = true)
@@ -144,16 +147,16 @@ namespace FluentBootstrap
 
         // Address
 
-        public static Element<TModel> Address<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Address<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "address", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "address").SetText(text);
         }
 
         // Blockquote
 
-        public static Blockquote<TModel> Blockquote<TModel>(this ITagCreator<TModel> creator, string quote = null, string footer = null, params string[] cssClasses)
+        public static Blockquote<TModel> Blockquote<TModel>(this ITagCreator<TModel> creator, string quote = null, string footer = null)
         {
-            return new Blockquote<TModel>(creator, cssClasses).SetQuote(quote).SetFooter(footer);
+            return new Blockquote<TModel>(creator).SetQuote(quote).SetFooter(footer);
         }
 
         public static Blockquote<TModel> SetQuote<TModel>(this Blockquote<TModel> blockquote, string quote)
@@ -173,14 +176,14 @@ namespace FluentBootstrap
             return blockquote.ToggleCss(Css.BlockquoteReverse, reverse);
         }
 
-        public static Element<TModel> Footer<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Footer<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "footer", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "footer").SetText(text);
         }
 
-        public static Cite<TModel> Cite<TModel>(this ITagCreator<TModel> creator, string title = null, string text = null, params string[] cssClasses)
+        public static Cite<TModel> Cite<TModel>(this ITagCreator<TModel> creator, string title = null, string text = null)
         {
-            return new Cite<TModel>(creator, cssClasses).SetTitle(title).SetText(text);
+            return new Cite<TModel>(creator).SetTitle(title).SetText(text);
         }
 
         // List
@@ -234,19 +237,19 @@ namespace FluentBootstrap
 
         // Code, etc.
 
-        public static Element<TModel> Code<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Code<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "code", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "code").SetText(text);
         }
 
-        public static Element<TModel> Keyboard<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Keyboard<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "kbd", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "kbd").SetText(text);
         }
 
-        public static Pre<TModel> Preformatted<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Pre<TModel> Preformatted<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Pre<TModel>(creator, cssClasses).SetText(text);
+            return new Pre<TModel>(creator).SetText(text);
         }
 
         public static Pre<TModel> SetScrollable<TModel>(this Pre<TModel> pre, bool scrollable = true)
@@ -254,14 +257,14 @@ namespace FluentBootstrap
             return pre.ToggleCss(Css.PreScrollable, scrollable);
         }
 
-        public static Element<TModel> Variable<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Variable<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "var", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "var").SetText(text);
         }
 
-        public static Element<TModel> Sample<TModel>(this ITagCreator<TModel> creator, string text = null, params string[] cssClasses)
+        public static Element<TModel> Sample<TModel>(this ITagCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "samp", cssClasses).SetText(text);
+            return new Element<TModel>(creator, "samp").SetText(text);
         }
     }
 }

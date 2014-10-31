@@ -1,0 +1,49 @@
+﻿@Html.Bootstrap().Heading1("Full Width Jumbotron")
+@using (Html.Bootstrap().Div().SetId("test-fullwidth-jumbotron").Begin())
+{
+    using (Html.Bootstrap().Jumbotron().Begin())
+    {
+        using (Html.Bootstrap().Container().Begin())
+        {
+            @Html.Bootstrap().Heading1("Heading")
+            @Html.Bootstrap().Paragraph("Some text.")
+        }
+    }
+}
+
+<hr />
+
+@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Jumbotron")
+    using (Html.Bootstrap().Div().SetId("test-jumbotron").Begin())
+    {
+        using(Html.Bootstrap().Jumbotron().Begin())
+        {
+            @Html.Bootstrap().Heading1("Heading")
+            @Html.Bootstrap().Paragraph("Some text.")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Simple Page Header")
+    using (Html.Bootstrap().Div().SetId("test-simple-pageheader").Begin())
+    {
+        @Html.Bootstrap().PageHeader("Header").SetSmallText("Small Text")
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Complex Page Header")
+    using (Html.Bootstrap().Div().SetId("test-complex-pageheader").Begin())
+    {
+        using (var pageHeader = Html.Bootstrap().PageHeader().Begin())
+        {
+            <text>Header</text>
+            @pageHeader.Small("Some small text")
+            @pageHeader.Label("A label")
+        }
+    }
+
+}

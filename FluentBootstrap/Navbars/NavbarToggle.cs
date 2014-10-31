@@ -62,12 +62,12 @@ namespace FluentBootstrap.Navbars
 
             base.OnStart(writer);
 
-            Helper.Span(Css.SrOnly).SetText("Toggle Navigation").StartAndFinish(writer);
+            Helper.Span().AddCss(Css.SrOnly).SetText("Toggle Navigation").StartAndFinish(writer);
             if (Hamburger)
             {
-                Helper.Span(Css.IconBar).StartAndFinish(writer);
-                Helper.Span(Css.IconBar).StartAndFinish(writer);
-                Helper.Span(Css.IconBar).StartAndFinish(writer);
+                Helper.Span().AddCss(Css.IconBar).StartAndFinish(writer);
+                Helper.Span().AddCss(Css.IconBar).StartAndFinish(writer);
+                Helper.Span().AddCss(Css.IconBar).StartAndFinish(writer);
             }
         }
     }

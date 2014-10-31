@@ -19,8 +19,8 @@ namespace FluentBootstrap.Typography
 
     public class Pre<TModel> : Tag<TModel, Pre<TModel>, PreWrapper<TModel>>, IPre, IHasTextAttribute
     {
-        internal Pre(IComponentCreator<TModel> creator, params string[] cssClasses)
-            : base(creator, "pre", cssClasses)
+        internal Pre(IComponentCreator<TModel> creator)
+            : base(creator, "pre")
         {
         }
     }

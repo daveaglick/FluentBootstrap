@@ -98,7 +98,7 @@
     <Compile Include="Forms\InputGroupButton.cs" />
     <Compile Include="Forms\InputGroupSize.cs" />
     <Compile Include="Forms\InputSize.cs" />
-    <Compile Include="Forms\Label.cs" />
+    <Compile Include="Forms\ControlLabel.cs" />
     <Compile Include="Forms\Select.cs" />
     <Compile Include="Forms\Static.cs" />
     <Compile Include="Forms\TextArea.cs" />
@@ -122,6 +122,7 @@
     <Compile Include="Grids\IHasGridColumnExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Misc\Jumbotron.cs" />
     <Compile Include="Html\Element.cs" />
     <Compile Include="Html\HtmlExtensions.cs" />
     <Compile Include="Icons\Icon.cs">
@@ -142,6 +143,7 @@
     <Compile Include="Links\Link.cs" />
     <Compile Include="Links\LinkExtensions.cs" />
     <Compile Include="Misc\MiscExtensions.cs" />
+    <Compile Include="Misc\PageHeader.cs" />
     <Compile Include="Navbars\Brand.cs" />
     <Compile Include="Navbars\INavbarComponent.cs" />
     <Compile Include="Navbars\Navbar.cs" />

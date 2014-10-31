@@ -1,4 +1,5 @@
 ﻿using FluentBootstrap.Html;
+using FluentBootstrap.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,22 @@ namespace FluentBootstrap
 {
     public static class MiscExtensions
     {
+        // Jumbotron
+
+        public static Jumbotron<TModel> Jumbotron<TModel>(this IJumbotronCreator<TModel> creator)
+        {
+            return new Jumbotron<TModel>(creator);
+        }
+
+        // PageHeader
+
+        public static PageHeader<TModel> PageHeader<TModel>(this IPageHeaderCreator<TModel> creator, string text = null)
+        {
+            return new PageHeader<TModel>(creator).SetText(text);
+        }
+
+        // Elements
+
         public static Element<TModel> Clearfix<TModel>(this ITagCreator<TModel> creator)
         {
             return new Element<TModel>(creator, "div", Css.Clearfix);
