@@ -197,6 +197,10 @@
     <Compile Include="Tables\TableSection.cs" />
     <Compile Include="Tables\TableStyle.cs" />
     <Compile Include="TextState.cs" />
+    <Compile Include="Thumbnails\Caption.cs" />
+    <Compile Include="Thumbnails\Thumbnail.cs" />
+    <Compile Include="Thumbnails\ThumbnailContainer.cs" />
+    <Compile Include="Thumbnails\ThumbnailExtensions.cs" />
     <Compile Include="Typography\Abbr.cs">
       <SubType>Code</SubType>
     </Compile>

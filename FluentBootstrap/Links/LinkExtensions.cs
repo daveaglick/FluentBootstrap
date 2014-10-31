@@ -31,7 +31,7 @@ namespace FluentBootstrap
         {
             if (string.IsNullOrWhiteSpace(href))
             {
-                href = "#";
+                return component.GetThis();
             }
             return component.GetThis().MergeAttribute("href", href);
         }

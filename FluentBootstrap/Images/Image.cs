@@ -24,5 +24,10 @@ namespace FluentBootstrap.Images
             : base(creator, "img")
         {
         }
+
+        protected override bool OutputEndTag
+        {
+            get { return false; }
+        }
     }
 }

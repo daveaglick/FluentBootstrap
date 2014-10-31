@@ -52,6 +52,9 @@ namespace FluentBootstrap
         Panels.IPanelCreator<TModel>,
         // Tables
         Tables.ITableCreator<TModel>,
+        // Thumbnails
+        Thumbnails.IThumbnailCreator<TModel>,
+        Thumbnails.IThumbnailContainerCreator<TModel>,
         // Typography
         Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,
@@ -153,6 +156,10 @@ namespace FluentBootstrap
         Tables.ITableSectionCreator<TModel>,
         Tables.ITableRowCreator<TModel>,
         Tables.ITableCellCreator<TModel>,
+        // Thumbnails
+        Thumbnails.IThumbnailCreator<TModel>,
+        Thumbnails.IThumbnailContainerCreator<TModel>,
+        Thumbnails.ICaptionCreator<TModel>,
         // Typography
         Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,

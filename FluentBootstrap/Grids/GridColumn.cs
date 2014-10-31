@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Thumbnails;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,9 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class GridColumnWrapper<TModel> : TagWrapper<TModel>
+    public class GridColumnWrapper<TModel> : TagWrapper<TModel>,
+        IThumbnailCreator<TModel>, 
+        IThumbnailContainerCreator<TModel>
     {
     }
 
