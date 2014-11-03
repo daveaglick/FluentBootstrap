@@ -50,11 +50,32 @@ namespace FluentBootstrap
             return component.GetThis().MergeAttributes(htmlAttributes);
         }
 
-        public static TThis AddAttribute<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string key, object value)
+        public static TThis AddAttribute<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string attributeName, object value)
             where TThis : Tag<TModel, TThis, TWrapper>
             where TWrapper : TagWrapper<TModel>, new()
         {
-            return component.GetThis().MergeAttribute(key, Convert.ToString(value, CultureInfo.InvariantCulture));
+            return component.GetThis().MergeAttribute(attributeName, Convert.ToString(value, CultureInfo.InvariantCulture));
+        }
+
+        public static TThis AddStyles<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, object inlineStyles)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
+        {
+            return component.GetThis().MergeStyles(inlineStyles);
+        }
+
+        public static TThis AddStyles<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, IDictionary<string, object> inlineStyles)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
+        {
+            return component.GetThis().MergeStyles(inlineStyles);
+        }
+
+        public static TThis AddStyle<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string inlineStyle, object value)
+            where TThis : Tag<TModel, TThis, TWrapper>
+            where TWrapper : TagWrapper<TModel>, new()
+        {
+            return component.GetThis().MergeStyle(inlineStyle, Convert.ToString(value, CultureInfo.InvariantCulture));
         }
 
         public static TThis SetId<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string id)

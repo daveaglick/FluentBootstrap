@@ -52,6 +52,9 @@ namespace FluentBootstrap
         Paginations.IPaginationCreator<TModel>,
         // Panels
         Panels.IPanelCreator<TModel>,
+        // Progress Bars
+        ProgressBars.IProgressCreator<TModel>,
+        ProgressBars.IProgressBarCreator<TModel>,
         // Tables
         Tables.ITableCreator<TModel>,
         // Thumbnails
@@ -155,6 +158,9 @@ namespace FluentBootstrap
         Panels.IPanelCreator<TModel>,
         Panels.IPanelSectionCreator<TModel>,
         Panels.IPanelTitleCreator<TModel>,
+        // Progress Bars
+        ProgressBars.IProgressCreator<TModel>,
+        ProgressBars.IProgressBarCreator<TModel>,
         // Tables
         Tables.ITableCreator<TModel>,
         Tables.ITableSectionCreator<TModel>,

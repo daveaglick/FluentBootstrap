@@ -24,6 +24,8 @@ namespace FluentBootstrap
         HashSet<string> CssClasses { get; }
         void MergeAttribute(string key, string value, bool replaceExisting = true);
         string GetAttribute(string key);
+        void MergeStyle(string key, string value, bool replaceExisting = true);
+        string GetStyle(string key);
     }
 
     public abstract class Tag<TModel, TThis, TWrapper> : Component<TModel, TThis, TWrapper>, ITag
@@ -31,6 +33,8 @@ namespace FluentBootstrap
         where TWrapper : TagWrapper<TModel>, new()
     {
         internal TagBuilder TagBuilder { get; private set; }
+        internal MergeableDictionary Attributes { get; private set; }
+        internal MergeableDictionary InlineStyles { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
         private bool _prettyPrint = Bootstrap.PrettyPrint;
@@ -47,6 +51,8 @@ namespace FluentBootstrap
         {
             TagBuilder = new TagBuilder(tagName);
             CssClasses = new HashSet<string>();
+            Attributes = new MergeableDictionary(TagBuilder.Attributes);
+            InlineStyles = new MergeableDictionary(null);
             foreach (string cssClass in cssClasses.Where(x => !string.IsNullOrWhiteSpace(x)))
             {
                 CssClasses.Add(cssClass);
@@ -62,7 +68,7 @@ namespace FluentBootstrap
             {
                 if(_startTagOutput)
                 {
-                    throw new InvalidOperationException("Can not change tag name after the start tag has been output.");
+                    throw new InvalidOperationException("Can't change tag name after the start tag has been output.");
                 }
                 TagBuilder oldTagBuilder = TagBuilder;
                 TagBuilder = new TagBuilder(value);
@@ -70,27 +76,19 @@ namespace FluentBootstrap
                 {
                     TagBuilder.Attributes.Add(attribute);
                 }
+                Attributes = new MergeableDictionary(TagBuilder.Attributes);
             }
         }
 
         internal TThis MergeAttributes(object attributes, bool replaceExisting = true)
         {
-            if (attributes == null)
-                return GetThis();
-            MergeAttributes(System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(attributes), replaceExisting);
+            Attributes.Merge(attributes, replaceExisting);
             return GetThis();
         }
 
         internal TThis MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
-            if (attributes == null)
-                return GetThis();
-            foreach (KeyValuePair<TKey, TValue> attribute in attributes)
-            {
-                string key = Convert.ToString(attribute.Key, CultureInfo.InvariantCulture);
-                string value = Convert.ToString(attribute.Value, CultureInfo.InvariantCulture);
-                MergeAttribute(key, value, replaceExisting);
-            }
+            Attributes.Merge(attributes, replaceExisting);
             return GetThis();
         }
 
@@ -98,32 +96,48 @@ namespace FluentBootstrap
         // This version does not throw on null or whitespace key and removes the attribute if value is null
         internal TThis MergeAttribute(string key, string value, bool replaceExisting = true)
         {
-            if (string.IsNullOrWhiteSpace(key))
-                return GetThis();
-            if (value == null && replaceExisting && TagBuilder.Attributes.ContainsKey(key))
-            {
-                TagBuilder.Attributes.Remove(key);
-            }
-            else if (value != null && (replaceExisting || !TagBuilder.Attributes.ContainsKey(key)))
-            {
-                TagBuilder.Attributes[key] = value;
-            }
+            Attributes.Merge(key, value, replaceExisting);
             return GetThis();
         }
 
         void ITag.MergeAttribute(string key, string value, bool replaceExisting)
         {
-            MergeAttribute(key, value, replaceExisting);
+            Attributes.Merge(key, value, replaceExisting);
         }
 
         string ITag.GetAttribute(string key)
         {
-            string value;
-            if(TagBuilder.Attributes.TryGetValue(key, out value))
-            {
-                return value;
-            }
-            return string.Empty;
+            return Attributes.GetValue(key);
+        }
+
+        internal TThis MergeStyles(object attributes, bool replaceExisting = true)
+        {
+            InlineStyles.Merge(attributes, replaceExisting);
+            return GetThis();
+        }
+
+        internal TThis MergeStyles<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        {
+            InlineStyles.Merge(attributes, replaceExisting);
+            return GetThis();
+        }
+
+        // This works a little bit differently then the TagBuilder.MergeAttribute() method
+        // This version does not throw on null or whitespace key and removes the attribute if value is null
+        internal TThis MergeStyle(string key, string value, bool replaceExisting = true)
+        {
+            InlineStyles.Merge(key, value, replaceExisting);
+            return GetThis();
+        }
+
+        void ITag.MergeStyle(string key, string value, bool replaceExisting)
+        {
+            InlineStyles.Merge(key, value, replaceExisting);
+        }
+
+        string ITag.GetStyle(string key)
+        {
+            return InlineStyles.GetValue(key);
         }
 
         internal TThis ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
@@ -191,6 +205,12 @@ namespace FluentBootstrap
             foreach (string cssClass in CssClasses)
             {
                 TagBuilder.AddCssClass(cssClass);
+            }
+
+            // Generate the inline CSS style
+            if(InlineStyles.Dictionary.Count > 0)
+            {
+                Attributes.Merge("style", string.Join(" ", InlineStyles.Dictionary.Select(x => x.Key + ": " + x.Value + ";")));
             }
 
             // Append the start tag

@@ -1,0 +1,74 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Basic")
+    using (Html.Bootstrap().Div().SetId("test-basic").Begin())
+    {
+        @Html.Bootstrap().ProgressBar(34)
+        @Html.Bootstrap().ProgressBar(790, 500, 1000)
+    }
+    
+    <hr/>
+
+    @Html.Bootstrap().Heading1("Show Percent")
+    using (Html.Bootstrap().Div().SetId("test-percent").Begin())
+    {
+        @Html.Bootstrap().ProgressBar(34).ShowPercent()
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("With Label")
+    using (Html.Bootstrap().Div().SetId("test-label").Begin())
+    {
+        @Html.Bootstrap().ProgressBar(78).SetText("Working On It")
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("States")
+    using (Html.Bootstrap().Div().SetId("test-states").Begin())
+    {
+        @Html.Bootstrap().ProgressBar(34).SetState(ProgressBarState.None)
+        @Html.Bootstrap().ProgressBar(69).SetState(ProgressBarState.Success)
+        @Html.Bootstrap().ProgressBar(58).SetState(ProgressBarState.Info)
+        @Html.Bootstrap().ProgressBar(600).SetState(ProgressBarState.Warning)
+        @Html.Bootstrap().ProgressBar(20).SetState(ProgressBarState.Danger)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Striped")
+    using (Html.Bootstrap().Div().SetId("test-striped").Begin())
+    {
+        @Html.Bootstrap().ProgressBar(34).SetStriped()
+        @Html.Bootstrap().ProgressBar(69).SetState(ProgressBarState.Success).SetStriped()
+        @Html.Bootstrap().ProgressBar(58).SetState(ProgressBarState.Info).SetStriped()
+        @Html.Bootstrap().ProgressBar(600).SetState(ProgressBarState.Warning).SetStriped()
+        @Html.Bootstrap().ProgressBar(20).SetState(ProgressBarState.Danger).SetStriped()
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Animated")
+    using (Html.Bootstrap().Div().SetId("test-animated").Begin())
+    {
+        @Html.Bootstrap().ProgressBar(34).SetAnimated()
+        @Html.Bootstrap().ProgressBar(69).SetState(ProgressBarState.Success).SetStriped().SetAnimated()
+        @Html.Bootstrap().ProgressBar(58).SetState(ProgressBarState.Info).SetAnimated()
+        @Html.Bootstrap().ProgressBar(600).SetState(ProgressBarState.Warning).SetStriped(false).SetAnimated()
+        @Html.Bootstrap().ProgressBar(20).SetState(ProgressBarState.Danger).SetAnimated(false)
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Stacked")
+    using (Html.Bootstrap().Div().SetId("test-stacked").Begin())
+    {
+        using(var progress = Html.Bootstrap().Progress().Begin())
+        {
+            @progress.ProgressBar(35).SetState(ProgressBarState.Success)
+            @progress.ProgressBar(20).SetState(ProgressBarState.Warning).SetStriped()
+            @progress.ProgressBar(10).SetState(ProgressBarState.Danger)            
+        }
+    }
+}

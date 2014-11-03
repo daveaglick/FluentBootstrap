@@ -136,6 +136,7 @@
     <Content Include="Views\Tests\Misc.cshtml" />
     <Content Include="Views\Tests\Thumbnails.cshtml" />
     <Content Include="Views\Tests\Alerts.cshtml" />
+    <Content Include="Views\Tests\ProgressBars.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />
