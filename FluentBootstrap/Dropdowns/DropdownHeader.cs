@@ -18,7 +18,7 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class DropdownHeader<TModel> : Tag<TModel, DropdownHeader<TModel>, DropdownHeaderWrapper<TModel>>, IDropdownHeader, IHasTextAttribute
+    public class DropdownHeader<TModel> : Tag<TModel, DropdownHeader<TModel>, DropdownHeaderWrapper<TModel>>, IDropdownHeader, IHasTextContent
     {
         internal DropdownHeader(IComponentCreator<TModel> creator)
             : base(creator, "li", Css.DropdownHeader)

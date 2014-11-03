@@ -18,7 +18,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class HelpBlock<TModel> : Tag<TModel, HelpBlock<TModel>, HelpBlockWrapper<TModel>>, IHelpBlock, IHasTextAttribute
+    public class HelpBlock<TModel> : Tag<TModel, HelpBlock<TModel>, HelpBlockWrapper<TModel>>, IHelpBlock, IHasTextContent
     {
         internal HelpBlock(IComponentCreator<TModel> creator)
             : base(creator, "div", Css.HelpBlock)

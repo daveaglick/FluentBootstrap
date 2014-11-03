@@ -24,7 +24,7 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public abstract class NavLink<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions, IHasTextAttribute
+    public abstract class NavLink<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions, IHasTextContent
         where TThis : NavLink<TModel, TThis, TWrapper>
         where TWrapper : NavLinkWrapper<TModel>, new()
     {

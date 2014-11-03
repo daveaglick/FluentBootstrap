@@ -22,7 +22,7 @@ namespace FluentBootstrap.Misc
     {
     }
 
-    public class PageHeader<TModel> : Heading<TModel, PageHeader<TModel>, PageHeaderWrapper<TModel>>, IPageHeader, IHasTextAttribute
+    public class PageHeader<TModel> : Heading<TModel, PageHeader<TModel>, PageHeaderWrapper<TModel>>, IPageHeader, IHasTextContent
     {
         private Element<TModel> _wrapper;
 

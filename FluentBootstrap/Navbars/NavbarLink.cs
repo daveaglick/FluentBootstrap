@@ -21,7 +21,7 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarLink<TModel> : Tag<TModel, NavbarLink<TModel>, NavbarLinkWrapper<TModel>>, INavbarLink, IHasLinkExtensions, IHasTextAttribute
+    public class NavbarLink<TModel> : Tag<TModel, NavbarLink<TModel>, NavbarLinkWrapper<TModel>>, INavbarLink, IHasLinkExtensions, IHasTextContent
     {
         internal bool Active { private get; set; }
         internal bool Disabled { private get; set; }

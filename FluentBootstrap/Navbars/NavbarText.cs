@@ -19,7 +19,7 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarText<TModel> : Tag<TModel, NavbarText<TModel>, NavbarTextWrapper<TModel>>, INavbarComponent, IHasTextAttribute
+    public class NavbarText<TModel> : Tag<TModel, NavbarText<TModel>, NavbarTextWrapper<TModel>>, INavbarComponent, IHasTextContent
     {
         internal NavbarText(IComponentCreator<TModel> creator)
             : base(creator, "p", Css.NavbarText, Css.NavbarLeft)

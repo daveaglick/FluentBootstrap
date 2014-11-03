@@ -23,7 +23,7 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public abstract class Heading<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHeading, IHasTextAttribute
+    public abstract class Heading<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHeading, IHasTextContent
         where TThis : Heading<TModel, TThis, TWrapper>
         where TWrapper : HeadingWrapper<TModel>, new()
     {

@@ -20,7 +20,7 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>, ListButtonWrapper<TModel>>, ILinkButton, IHasIconExtensions, IHasLinkExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextAttribute
+    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>, ListButtonWrapper<TModel>>, ILinkButton, IHasIconExtensions, IHasLinkExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
     {
         internal LinkButton(IComponentCreator<TModel> creator)
             : base(creator, "a", Css.Btn, Css.BtnDefault)

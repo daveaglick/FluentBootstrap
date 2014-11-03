@@ -20,7 +20,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class InputButton<TModel> : FormControl<TModel, InputButton<TModel>, InputButtonWrapper<TModel>>, 
-        IInputButton, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute, IHasNameAttribute
+        IInputButton, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, IHasNameAttribute
     {
         internal InputButton(IComponentCreator<TModel> creator, ButtonType buttonType)
             : base(creator, "input", Css.Btn, Css.BtnDefault)

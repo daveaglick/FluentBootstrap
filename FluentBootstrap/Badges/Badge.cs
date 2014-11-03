@@ -18,7 +18,7 @@ namespace FluentBootstrap.Badges
     {
     }
 
-    public class Badge<TModel> : Tag<TModel, Badge<TModel>, BadgeWrapper<TModel>>, IBadge, IHasTextAttribute
+    public class Badge<TModel> : Tag<TModel, Badge<TModel>, BadgeWrapper<TModel>>, IBadge, IHasTextContent
     {
         internal Badge(IComponentCreator<TModel> creator)
             : base(creator, "span", Css.Badge)

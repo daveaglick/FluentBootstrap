@@ -20,7 +20,7 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class Brand<TModel> : Tag<TModel, Brand<TModel>, BrandWrapper<TModel>>, IBrand, IHasIconExtensions, IHasLinkExtensions, IHasTextAttribute
+    public class Brand<TModel> : Tag<TModel, Brand<TModel>, BrandWrapper<TModel>>, IBrand, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
     {
         internal Brand(IComponentCreator<TModel> creator)
             : base(creator, "a", Css.NavbarBrand)

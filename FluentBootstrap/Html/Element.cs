@@ -18,7 +18,7 @@ namespace FluentBootstrap.Html
     {
     }
 
-    public class Element<TModel> : Tag<TModel, Element<TModel>, ElementWrapper<TModel>>, IElement, IHasTextAttribute
+    public class Element<TModel> : Tag<TModel, Element<TModel>, ElementWrapper<TModel>>, IElement, IHasTextContent
     {
         internal Element(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
             : base(creator, tagName, cssClasses)

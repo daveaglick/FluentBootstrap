@@ -22,7 +22,7 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class Button<TModel> : Tag<TModel, Button<TModel>, ButtonWrapper<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute
+    public class Button<TModel> : Tag<TModel, Button<TModel>, ButtonWrapper<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute
     {
         private ButtonGroup<TModel> _buttonGroup;
 

@@ -21,7 +21,7 @@ namespace FluentBootstrap.Paginations
     {
     }
 
-    public class PageNum<TModel> : Tag<TModel, PageNum<TModel>, PageNumWrapper<TModel>>, IPageNum, IHasLinkExtensions, IHasTextAttribute
+    public class PageNum<TModel> : Tag<TModel, PageNum<TModel>, PageNumWrapper<TModel>>, IPageNum, IHasLinkExtensions, IHasTextContent
     {
         internal bool Active { private get; set; }
         internal bool Disabled { private get; set; }

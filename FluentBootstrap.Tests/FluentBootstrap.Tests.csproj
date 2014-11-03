@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlertsFixture.cs" />
     <Compile Include="BadgesFixture.cs" />
     <Compile Include="BreadcrumbsFixture.cs" />
     <Compile Include="ButtonsFixture.cs" />

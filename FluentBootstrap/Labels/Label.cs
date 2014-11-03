@@ -18,7 +18,7 @@ namespace FluentBootstrap.Labels
     {
     }
 
-    public class Label<TModel> : Tag<TModel, Label<TModel>, LabelWrapper<TModel>>, ILabel, IHasTextAttribute
+    public class Label<TModel> : Tag<TModel, Label<TModel>, LabelWrapper<TModel>>, ILabel, IHasTextContent
     {
         internal Label(IComponentCreator<TModel> creator)
             : base(creator, "span", Css.Label, Css.LabelDefault)

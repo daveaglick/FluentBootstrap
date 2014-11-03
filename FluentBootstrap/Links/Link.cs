@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Badges;
+﻿using FluentBootstrap.Alerts;
+using FluentBootstrap.Badges;
 using FluentBootstrap.Forms;
 using FluentBootstrap.Icons;
 using FluentBootstrap.Navbars;
@@ -24,7 +25,7 @@ namespace FluentBootstrap.Links
     {
     }
 
-    public class Link<TModel> : Tag<TModel, Link<TModel>, LinkWrapper<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextAttribute
+    public class Link<TModel> : Tag<TModel, Link<TModel>, LinkWrapper<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
     {
         internal Link(IComponentCreator<TModel> creator)
             : base(creator, "a")
@@ -37,6 +38,12 @@ namespace FluentBootstrap.Links
             if(GetComponent<INavbar>() != null)
             {
                 CssClasses.Add(Css.NavbarLink);
+            }
+
+            // Adjust the link style if we're in an alert
+            if(GetComponent<IAlert>() != null)
+            {
+                CssClasses.Add(Css.AlertLink);
             }
 
             base.OnStart(writer);

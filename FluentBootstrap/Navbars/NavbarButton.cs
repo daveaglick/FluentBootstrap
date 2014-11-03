@@ -22,7 +22,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarButton<TModel> : Tag<TModel, NavbarButton<TModel>, NavbarButtonWrapper<TModel>>, 
-        IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextAttribute, IHasValueAttribute, INavbarComponent
+        IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, INavbarComponent
     {
         internal NavbarButton(IComponentCreator<TModel> creator)
             : base(creator, "button", Css.Btn, Css.BtnDefault, Css.NavbarBtn, Css.NavbarLeft)

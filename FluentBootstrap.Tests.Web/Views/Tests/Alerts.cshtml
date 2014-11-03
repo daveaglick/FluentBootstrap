@@ -1,0 +1,46 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("States")
+    using (Html.Bootstrap().Div().SetId("test-states").Begin())
+    {
+        @Html.Bootstrap().Alert(AlertState.Success, "Success")
+        @Html.Bootstrap().Alert(AlertState.Info, "Info")
+        @Html.Bootstrap().Alert(AlertState.Warning, "Warning")
+        @Html.Bootstrap().Alert(AlertState.Danger, "Danger")
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Heading")
+    using (Html.Bootstrap().Div().SetId("test-heading").Begin())
+    {
+        @Html.Bootstrap().Alert(AlertState.Warning, "Warning", "Yikes, this is a warning.")
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Dismissible")
+    using (Html.Bootstrap().Div().SetId("test-dismissible").Begin())
+    {
+        @Html.Bootstrap().Alert(AlertState.Warning, "Yikes, this is a warning.").SetDismissible()
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Dismissible With Heading")
+    using (Html.Bootstrap().Div().SetId("test-dismissible-with-heading").Begin())
+    {
+        @Html.Bootstrap().Alert(AlertState.Warning, "Warning", "Yikes, this is a warning.").SetDismissible()
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Links")
+    using (Html.Bootstrap().Div().SetId("test-links").Begin())
+    {
+        using(Html.Bootstrap().Alert(AlertState.Warning).SetHeading("Yikes!").Begin())
+        {
+            <text>This is @Html.Bootstrap().Link("link") inside the alert.</text>
+        }
+    }
+}

@@ -19,7 +19,7 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class DropdownLink<TModel> : Tag<TModel, DropdownLink<TModel>, DropdownLinkWrapper<TModel>>, IDropdownLink, IHasLinkExtensions, IHasTextAttribute
+    public class DropdownLink<TModel> : Tag<TModel, DropdownLink<TModel>, DropdownLinkWrapper<TModel>>, IDropdownLink, IHasLinkExtensions, IHasTextContent
     {
         internal bool Disabled { private get; set; }
         private Element<TModel> _listItem = null;

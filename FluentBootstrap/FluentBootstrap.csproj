@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alerts\Alert.cs" />
+    <Compile Include="Alerts\AlertExtensions.cs" />
+    <Compile Include="Alerts\AlertState.cs" />
     <Compile Include="Badges\Badge.cs" />
     <Compile Include="Badges\BadgeExtensions.cs" />
     <Compile Include="Bootstrap.cs" />
@@ -244,7 +247,7 @@
     <Compile Include="Content.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
     <Compile Include="InterfaceExtensions.cs" />
-    <Compile Include="IHasTextAttribute.cs" />
+    <Compile Include="IHasTextContent.cs" />
     <Compile Include="IHasValueAttribute.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="BootstrapHelper.cs" />

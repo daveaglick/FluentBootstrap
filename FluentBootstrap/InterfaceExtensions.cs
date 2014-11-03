@@ -18,10 +18,10 @@ namespace FluentBootstrap
             return component.GetThis().MergeAttribute("disabled", disable ? "disabled" : null);
         }
 
-        // IHasTextAttribute
+        // IHasTextContent
 
         public static TThis SetText<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string text)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasTextAttribute
+            where TThis : Tag<TModel, TThis, TWrapper>, IHasTextContent
             where TWrapper : TagWrapper<TModel>, new()
         {
             TThis tag = component.GetThis();

@@ -20,7 +20,7 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class ControlLabel<TModel> : Tag<TModel, ControlLabel<TModel>, ControlLabelWrapper<TModel>>, IControlLabel, IHasGridColumnExtensions, IHasTextAttribute
+    public class ControlLabel<TModel> : Tag<TModel, ControlLabel<TModel>, ControlLabelWrapper<TModel>>, IControlLabel, IHasGridColumnExtensions, IHasTextContent
     {
         internal ControlLabel(IComponentCreator<TModel> creator, string text)
             : base(creator, "label", Css.ControlLabel)

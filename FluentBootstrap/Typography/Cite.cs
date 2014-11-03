@@ -17,7 +17,7 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class Cite<TModel> : Tag<TModel, Cite<TModel>, CiteWrapper<TModel>>, ICite, IHasTextAttribute, IHasTitleAttribute
+    public class Cite<TModel> : Tag<TModel, Cite<TModel>, CiteWrapper<TModel>>, ICite, IHasTextContent, IHasTitleAttribute
     {
         internal Cite(IComponentCreator<TModel> creator)
             : base(creator, "cite")

@@ -29,7 +29,7 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>, DropdownWrapper<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextAttribute
+    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>, DropdownWrapper<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
     {
         private bool _dropdownButton = false;
         private bool _caret = true;

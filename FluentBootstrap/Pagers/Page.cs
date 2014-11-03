@@ -21,7 +21,7 @@ namespace FluentBootstrap.Pagers
     {
     }
 
-    public class Page<TModel> : Tag<TModel, Page<TModel>, PageWrapper<TModel>>, IPage, IHasLinkExtensions, IHasTextAttribute
+    public class Page<TModel> : Tag<TModel, Page<TModel>, PageWrapper<TModel>>, IPage, IHasLinkExtensions, IHasTextContent
     {
         internal bool Disabled { private get; set; }
         internal PageAlignment Alignment { private get; set; }

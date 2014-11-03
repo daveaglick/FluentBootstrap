@@ -19,7 +19,7 @@ namespace FluentBootstrap.Panels
     {
     }
 
-    public class PanelTitle<TModel> : Tag<TModel, PanelTitle<TModel>, PanelTitleWrapper<TModel>>, IPanelTitle, IHasTextAttribute
+    public class PanelTitle<TModel> : Tag<TModel, PanelTitle<TModel>, PanelTitleWrapper<TModel>>, IPanelTitle, IHasTextContent
     {
         internal PanelTitle(IComponentCreator<TModel> creator, string text, int headingLevel)
             : base(creator, "h" + headingLevel, Css.PanelTitle)

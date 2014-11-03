@@ -23,7 +23,7 @@ namespace FluentBootstrap.Forms
 
     // This is like Button except it's derived from FormControl so it includes the form wrapping elements
     public class FormButton<TModel> : FormControl<TModel, FormButton<TModel>, FormButtonWrapper<TModel>>, 
-        IFormButton, IHasButtonExtensions, IHasButtonStateExtensions, IHasValueAttribute, IHasDisabledAttribute, IHasTextAttribute, IHasNameAttribute
+        IFormButton, IHasButtonExtensions, IHasButtonStateExtensions, IHasValueAttribute, IHasDisabledAttribute, IHasTextContent, IHasNameAttribute
     {
         internal FormButton(IComponentCreator<TModel> creator, ButtonType buttonType)
             : base(creator, "button", Css.Btn, Css.BtnDefault)

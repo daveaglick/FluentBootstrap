@@ -13,6 +13,8 @@ namespace FluentBootstrap
     // This just provides access to top-level extensions
     public class BootstrapHelper<TModel> : 
         ITagCreator<TModel>,
+        // Alerts
+        Alerts.IAlertCreator<TModel>,
         // Badges
         Badges.IBadgeCreator<TModel>,
         // Breadcrumbs
@@ -86,6 +88,8 @@ namespace FluentBootstrap
     // This provides expanded access to all extensions
     public class BootstrapHelperAll<TModel> : BootstrapHelper<TModel>,
         ITagCreator<TModel>,
+        // Alerts
+        Alerts.IAlertCreator<TModel>,
         // Badges
         Badges.IBadgeCreator<TModel>,
         // Breadcrumbs

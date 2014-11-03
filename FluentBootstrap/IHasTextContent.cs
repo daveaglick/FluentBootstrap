@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public interface IHasTextAttribute
+    public interface IHasTextContent
     {
     }
 }
