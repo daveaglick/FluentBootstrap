@@ -49,6 +49,11 @@
     <Compile Include="Alerts\Alert.cs" />
     <Compile Include="Alerts\AlertExtensions.cs" />
     <Compile Include="Alerts\AlertState.cs" />
+    <Compile Include="MediaObjects\Media.cs" />
+    <Compile Include="MediaObjects\MediaBody.cs" />
+    <Compile Include="MediaObjects\MediaList.cs" />
+    <Compile Include="MediaObjects\MediaObject.cs" />
+    <Compile Include="MediaObjects\MediaObjectExtensions.cs" />
     <Compile Include="MergeableDictionary.cs" />
     <Compile Include="Badges\Badge.cs" />
     <Compile Include="Badges\BadgeExtensions.cs" />

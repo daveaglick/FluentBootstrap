@@ -38,6 +38,9 @@ namespace FluentBootstrap
         Labels.ILabelCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Media Objects
+        MediaObjects.IMediaCreator<TModel>,
+        MediaObjects.IMediaListCreator<TModel>,
         // Misc
         Misc.IJumbotronCreator<TModel>,
         Misc.IPageHeaderCreator<TModel>,
@@ -129,6 +132,11 @@ namespace FluentBootstrap
         Labels.ILabelCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
+        // Media Objects
+        MediaObjects.IMediaCreator<TModel>,
+        MediaObjects.IMediaListCreator<TModel>,
+        MediaObjects.IMediaObjectCreator<TModel>,
+        MediaObjects.IMediaBodyCreator<TModel>,
         // Misc
         Misc.IJumbotronCreator<TModel>,
         Misc.IPageHeaderCreator<TModel>,

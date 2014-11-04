@@ -1,0 +1,103 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Default")
+    using (Html.Bootstrap().Div().SetId("test-default").Begin())
+    {
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#")
+            using(media.MediaBody("Media With Link").Begin())
+            {
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+            }
+        }
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64")
+            @media.MediaBody("Media Without Link", "Text content.")
+        }
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Right")
+    using (Html.Bootstrap().Div().SetId("test-right").Begin())
+    {
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#").SetRight()
+            using (media.MediaBody("Media").Begin())
+            {
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Explicit Heading")
+    using (Html.Bootstrap().Div().SetId("test-explicit-heading").Begin())
+    {
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#")
+            using (media.MediaBody().Begin())
+            {
+                @Html.Bootstrap().Heading4("Heading")
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Nested")
+    using (Html.Bootstrap().Div().SetId("test-nested").Begin())
+    {
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#")
+            using (media.MediaBody().Begin())
+            {
+                @Html.Bootstrap().Heading3("Heading")
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+
+                using (var media2 = Html.Bootstrap().Media().Begin())
+                {
+                    @media2.MediaObject("http://placehold.it/64x64", "#")
+                    using (media2.MediaBody("Heading").Begin())
+                    {
+                        <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+                    }
+                }
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("List")
+    using (Html.Bootstrap().Div().SetId("test-list").Begin())
+    {
+        using (var list = Html.Bootstrap().MediaList().Begin())
+        {
+            using(var media = list.Media().Begin())
+            {
+                @media.MediaObject("http://placehold.it/64x64", "#")
+                @media.MediaBody("Heading", "Text content.")
+            }
+            using (var media = list.Media().Begin())
+            {
+                @media.MediaObject("http://placehold.it/64x64", "#")
+                using(media.MediaBody("Heading", "Text content.").Begin())
+                {    
+                    using(var media2 = Html.Bootstrap().Media().Begin())
+                    {
+                        @media2.MediaObject("http://placehold.it/64x64", "#")
+                        @media2.MediaBody("Nested Heading", "Text content.")
+                    }
+                }
+            }
+        }
+    }
+}

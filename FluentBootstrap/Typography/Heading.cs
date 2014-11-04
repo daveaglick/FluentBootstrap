@@ -1,5 +1,6 @@
 ﻿using FluentBootstrap.Html;
 using FluentBootstrap.Labels;
+using FluentBootstrap.MediaObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,12 +28,24 @@ namespace FluentBootstrap.Typography
         where TThis : Heading<TModel, TThis, TWrapper>
         where TWrapper : HeadingWrapper<TModel>, new()
     {
+        internal string SmallText { private get; set; }
+
         internal Heading(IComponentCreator<TModel> creator, string tagName)
             : base(creator, tagName)
         {
         }
 
-        internal string SmallText { get; set; }
+
+        protected override void OnStart(TextWriter writer)
+        {
+            // Add the appropriate CSS class if in a media object
+            if(GetComponent<IMediaBody>() != null)
+            {
+                this.AddCss(Css.MediaHeading);
+            }
+
+            base.OnStart(writer);
+        }
 
         protected override void OnFinish(TextWriter writer)
         {

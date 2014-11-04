@@ -63,7 +63,6 @@ namespace FluentBootstrap.Thumbnails
 
         protected override void OnFinish(TextWriter writer)
         {
-            // Don't output the end img tag
             _image.Finish(writer);
 
             base.OnFinish(_suppressOuterTag ? new SuppressOutputWriter() : writer);
