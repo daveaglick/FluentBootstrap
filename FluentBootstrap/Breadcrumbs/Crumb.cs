@@ -23,7 +23,7 @@ namespace FluentBootstrap.Breadcrumbs
 
     public class Crumb<TModel> : Tag<TModel, Crumb<TModel>, CrumbWrapper<TModel>>, ICrumb, IHasLinkExtensions, IHasTextContent
     {
-        internal bool Active { private get; set; }
+        internal bool Active { get; set; }
         private Element<TModel> _listItem = null;
 
         internal Crumb(IComponentCreator<TModel> creator)

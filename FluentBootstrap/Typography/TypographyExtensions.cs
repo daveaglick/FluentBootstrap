@@ -14,32 +14,32 @@ namespace FluentBootstrap
     {
         // Headings
 
-        public static Heading<TModel> Heading1<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Heading<TModel> Heading1<TModel>(this IHeadingCreator<TModel> creator, string text = null)
         {
             return new Heading<TModel>(creator, "h1").SetText(text);
         }
 
-        public static Heading<TModel> Heading2<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Heading<TModel> Heading2<TModel>(this IHeadingCreator<TModel> creator, string text = null)
         {
             return new Heading<TModel>(creator, "h2").SetText(text);
         }
 
-        public static Heading<TModel> Heading3<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Heading<TModel> Heading3<TModel>(this IHeadingCreator<TModel> creator, string text = null)
         {
             return new Heading<TModel>(creator, "h3").SetText(text);
         }
 
-        public static Heading<TModel> Heading4<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Heading<TModel> Heading4<TModel>(this IHeadingCreator<TModel> creator, string text = null)
         {
             return new Heading<TModel>(creator, "h4").SetText(text);
         }
 
-        public static Heading<TModel> Heading5<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Heading<TModel> Heading5<TModel>(this IHeadingCreator<TModel> creator, string text = null)
         {
             return new Heading<TModel>(creator, "h5").SetText(text);
         }
 
-        public static Heading<TModel> Heading6<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Heading<TModel> Heading6<TModel>(this IHeadingCreator<TModel> creator, string text = null)
         {
             return new Heading<TModel>(creator, "h6").SetText(text);
         }

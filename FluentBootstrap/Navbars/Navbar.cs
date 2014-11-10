@@ -36,7 +36,7 @@ namespace FluentBootstrap.Navbars
     public class Navbar<TModel> : Tag<TModel, Navbar<TModel>, NavbarWrapper<TModel>>, INavbar
     {
         bool INavbar.HasHeader { get; set; }
-        internal bool Fluid { private get; set; }
+        internal bool Fluid { get; set; }
         private Container<TModel> _container;
 
         internal Navbar(IComponentCreator<TModel> creator)

@@ -25,9 +25,9 @@ namespace FluentBootstrap
             return new Element<TModel>(creator, "span");
         }
 
-        public static Element<TModel> Paragraph<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Paragraph<TModel> Paragraph<TModel>(this IParagraphCreator<TModel> creator, string text = null)
         {
-            return new Element<TModel>(creator, "p").SetText(text);
+            return new Paragraph<TModel>(creator).SetText(text);
         }
     }
 }

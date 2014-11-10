@@ -21,8 +21,8 @@ namespace FluentBootstrap.Alerts
 
     public class Alert<TModel> : Tag<TModel, Alert<TModel>, AlertWrapper<TModel>>, IAlert, IHasTextContent
     {
-        internal bool Dismissible { set; private get; }
-        internal string Heading { set; private get; }
+        internal bool Dismissible { set; get; }
+        internal string Heading { set; get; }
 
         internal Alert(IComponentCreator<TModel> creator)
             : base(creator, "div", Css.Alert, Css.AlertInfo)

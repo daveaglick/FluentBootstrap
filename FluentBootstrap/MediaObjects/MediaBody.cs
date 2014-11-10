@@ -21,7 +21,7 @@ namespace FluentBootstrap.MediaObjects
 
     public class MediaBody<TModel> : Tag<TModel, MediaBody<TModel>, MediaBodyWrapper<TModel>>, IMediaBody, IHasTextContent
     {
-        internal string Heading { private get; set; }
+        internal string Heading { get; set; }
 
         internal MediaBody(IComponentCreator<TModel> creator)
             : base(creator, "div", Css.MediaBody)

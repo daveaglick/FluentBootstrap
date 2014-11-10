@@ -1,0 +1,106 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Basic")
+    using (Html.Bootstrap().Div().SetId("test-basic").Begin())
+    {
+        using(var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            @listGroup.ListGroupItem("Item one")
+            @listGroup.ListGroupItem("Item two")
+            @listGroup.ListGroupItem("Item three")
+        }
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Badges")
+    using (Html.Bootstrap().Div().SetId("test-badges").Begin())
+    {
+        using (var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            @listGroup.ListGroupItem("Item one").WithChild().Badge("14")
+            @listGroup.ListGroupItem("Item two").WithChild().Badge("Great!")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Links")
+    using (Html.Bootstrap().Div().SetId("test-links").Begin())
+    {
+        using (var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            @listGroup.ListGroupItem("Item one", "#")
+            @listGroup.ListGroupItem("Item two", "#")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Active and Disabled")
+    using (Html.Bootstrap().Div().SetId("test-active-disabled").Begin())
+    {
+        using (var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            @listGroup.ListGroupItem("Item one", "#").SetActive()
+            @listGroup.ListGroupItem("Item two", "#").SetDisabled()
+            @listGroup.ListGroupItem("Item three", "#")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("State")
+    using (Html.Bootstrap().Div().SetId("test-state").Begin())
+    {
+        using (var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            @listGroup.ListGroupItem("Success").SetState(ListGroupItemState.Success)
+            @listGroup.ListGroupItem("Info").SetState(ListGroupItemState.Info)
+            @listGroup.ListGroupItem("Warning").SetState(ListGroupItemState.Warning)
+            @listGroup.ListGroupItem("Danger").SetState(ListGroupItemState.Danger)
+            @listGroup.ListGroupItem("Success", "#").SetState(ListGroupItemState.Success)
+            @listGroup.ListGroupItem("Info", "#").SetState(ListGroupItemState.Info)
+            @listGroup.ListGroupItem("Warning", "#").SetState(ListGroupItemState.Warning)
+            @listGroup.ListGroupItem("Danger", "#").SetState(ListGroupItemState.Danger)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Implicit Custom")
+    using (Html.Bootstrap().Div().SetId("test-implicit-custom").Begin())
+    {
+        using (var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            @listGroup.ListGroupItem("Item one", "#").SetHeading("Heading").SetText("Some text.")
+            @listGroup.ListGroupItem("Item two").SetHeading("Heading").SetText("Some text.")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Explicit Custom")
+    using (Html.Bootstrap().Div().SetId("test-explicit-custom").Begin())
+    {
+        using (var listGroup = Html.Bootstrap().ListGroup().Begin())
+        {
+            using(var item = listGroup.ListGroupItem().Begin())
+            {
+                @item.Heading3("Heading")
+                using(item.Paragraph().Begin())
+                {
+                    <text>Some text.</text>
+                }
+            }
+            using (var item = listGroup.ListGroupItem(null, "#").Begin())
+            {
+                @item.Heading5("Heading")
+                using (item.Paragraph().Begin())
+                {
+                    <text>Some text.</text>
+                }
+            }
+        }
+    }
+}

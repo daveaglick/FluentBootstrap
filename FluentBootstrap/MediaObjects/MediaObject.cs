@@ -23,8 +23,8 @@ namespace FluentBootstrap.MediaObjects
 
     public class MediaObject<TModel> : Tag<TModel, MediaObject<TModel>, MediaObjectWrapper<TModel>>, IMediaObject, IHasLinkExtensions
     {
-        internal string Src { private get; set; }
-        internal string Alt { private get; set; }
+        internal string Src { get; set; }
+        internal string Alt { get; set; }
         private Image<TModel> _image;
 
         internal MediaObject(IComponentCreator<TModel> creator)

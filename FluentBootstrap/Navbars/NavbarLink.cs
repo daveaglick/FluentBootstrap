@@ -23,8 +23,8 @@ namespace FluentBootstrap.Navbars
 
     public class NavbarLink<TModel> : Tag<TModel, NavbarLink<TModel>, NavbarLinkWrapper<TModel>>, INavbarLink, IHasLinkExtensions, IHasTextContent
     {
-        internal bool Active { private get; set; }
-        internal bool Disabled { private get; set; }
+        internal bool Active { get; set; }
+        internal bool Disabled { get; set; }
         private Element<TModel> _listItem = null;
 
         internal NavbarLink(IComponentCreator<TModel> creator)

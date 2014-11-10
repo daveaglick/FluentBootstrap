@@ -32,10 +32,14 @@ namespace FluentBootstrap
         // Grids
         Grids.IContainerCreator<TModel>,
         Grids.IGridRowCreator<TModel>,
+        // Html
+        Html.IParagraphCreator<TModel>,
         // Images
         Images.IImageCreator<TModel>,
         // Labels
         Labels.ILabelCreator<TModel>,
+        // List Groups
+        ListGroups.IListGroupCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Media Objects
@@ -64,6 +68,7 @@ namespace FluentBootstrap
         Thumbnails.IThumbnailCreator<TModel>,
         Thumbnails.IThumbnailContainerCreator<TModel>,
         // Typography
+        Typography.IHeadingCreator<TModel>,
         Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,
         Typography.IDescriptionListCreator<TModel>
@@ -126,10 +131,15 @@ namespace FluentBootstrap
         Grids.IContainerCreator<TModel>,
         Grids.IGridColumnCreator<TModel>,
         Grids.IGridRowCreator<TModel>,
+        // Html
+        Html.IParagraphCreator<TModel>,
         // Images
         Images.IImageCreator<TModel>,
         // Labels
         Labels.ILabelCreator<TModel>,
+        // List Groups
+        ListGroups.IListGroupCreator<TModel>,
+        ListGroups.IListGroupItemCreator<TModel>,
         // Links
         Links.ILinkCreator<TModel>,
         // Media Objects
@@ -179,6 +189,7 @@ namespace FluentBootstrap
         Thumbnails.IThumbnailContainerCreator<TModel>,
         Thumbnails.ICaptionCreator<TModel>,
         // Typography
+        Typography.IHeadingCreator<TModel>,
         Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,
         Typography.IListItemCreator<TModel>,

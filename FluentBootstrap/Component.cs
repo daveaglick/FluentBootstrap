@@ -19,8 +19,8 @@ namespace FluentBootstrap
     // If the component does not create any other components, this base ComponentWrapper class can be used
     public abstract class ComponentWrapper<TModel> : IDisposable, IComponentCreator<TModel>
     {
-        internal Component<TModel> Component { private get; set; }
-        internal bool WithChild { private get; set; }
+        internal Component<TModel> Component { get; set; }
+        internal bool WithChild { get; set; }
 
         public void Dispose()
         {

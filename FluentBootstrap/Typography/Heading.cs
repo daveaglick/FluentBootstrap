@@ -1,5 +1,6 @@
 ﻿using FluentBootstrap.Html;
 using FluentBootstrap.Labels;
+using FluentBootstrap.ListGroups;
 using FluentBootstrap.MediaObjects;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace FluentBootstrap.Typography
         where TThis : Heading<TModel, TThis, TWrapper>
         where TWrapper : HeadingWrapper<TModel>, new()
     {
-        internal string SmallText { private get; set; }
+        internal string SmallText { get; set; }
 
         internal Heading(IComponentCreator<TModel> creator, string tagName)
             : base(creator, tagName)
@@ -42,6 +43,12 @@ namespace FluentBootstrap.Typography
             if(GetComponent<IMediaBody>() != null)
             {
                 this.AddCss(Css.MediaHeading);
+            }
+
+            // Add the appropriate CSS class if in a list group item
+            if(GetComponent<IListGroupItem>() != null)
+            {
+                this.AddCss(Css.ListGroupItemHeading);
             }
 
             base.OnStart(writer);

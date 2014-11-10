@@ -23,11 +23,11 @@ namespace FluentBootstrap.ProgressBars
     public class ProgressBar<TModel> : Tag<TModel, ProgressBar<TModel>, ProgressBarWrapper<TModel>>, IProgressBar, IHasTextContent
     {
         private Progress<TModel> _progress;
-        internal int Value { private get; set; }
-        internal int Min { private get; set; }
-        internal int Max { private get; set; }
-        internal bool ShowPercent { private get; set; }
-        internal bool Animated { private get; set; }
+        internal int Value { get; set; }
+        internal int Min { get; set; }
+        internal int Max { get; set; }
+        internal bool ShowPercent { get; set; }
+        internal bool Animated { get; set; }
 
         internal ProgressBar(IComponentCreator<TModel> creator)
             : base(creator, "div", Css.ProgressBar)

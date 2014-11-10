@@ -22,8 +22,8 @@ namespace FluentBootstrap.Navbars
 
     public class NavbarToggle<TModel> : Tag<TModel, NavbarToggle<TModel>, NavbarToggleWrapper<TModel>>, INavbarToggle
     {
-        internal string DataTarget { private get; set; }
-        internal bool Hamburger { private get; set; }
+        internal string DataTarget { get; set; }
+        internal bool Hamburger { get; set; }
 
         internal NavbarToggle(IComponentCreator<TModel> creator)
             : base(creator, "button", Css.NavbarToggle, "collapsed")

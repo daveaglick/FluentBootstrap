@@ -49,6 +49,11 @@
     <Compile Include="Alerts\Alert.cs" />
     <Compile Include="Alerts\AlertExtensions.cs" />
     <Compile Include="Alerts\AlertState.cs" />
+    <Compile Include="Html\Paragraph.cs" />
+    <Compile Include="ListGroups\ListGroup.cs" />
+    <Compile Include="ListGroups\ListGroupExtensions.cs" />
+    <Compile Include="ListGroups\ListGroupItem.cs" />
+    <Compile Include="ListGroups\ListGroupItemState.cs" />
     <Compile Include="MediaObjects\Media.cs" />
     <Compile Include="MediaObjects\MediaBody.cs" />
     <Compile Include="MediaObjects\MediaList.cs" />
@@ -297,6 +302,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

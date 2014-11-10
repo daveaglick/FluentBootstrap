@@ -28,8 +28,8 @@ namespace FluentBootstrap.Navs
         where TThis : NavLink<TModel, TThis, TWrapper>
         where TWrapper : NavLinkWrapper<TModel>, new()
     {
-        internal bool Active { private get; set; }
-        internal bool Disabled { private get; set; }
+        internal bool Active { get; set; }
+        internal bool Disabled { get; set; }
         private Element<TModel> _listItem = null;
 
         protected NavLink(IComponentCreator<TModel> creator)

@@ -24,8 +24,8 @@ namespace FluentBootstrap.Thumbnails
 
     public class Thumbnail<TModel> : Tag<TModel, Thumbnail<TModel>, ThumbnailWrapper<TModel>>, IThumbnail, IHasLinkExtensions
     {
-        internal string Src { private get; set; }
-        internal string Alt { private get; set; }
+        internal string Src { get; set; }
+        internal string Alt { get; set; }
         private Image<TModel> _image;
         private bool _suppressOuterTag;
 
