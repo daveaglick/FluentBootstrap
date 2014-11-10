@@ -18,7 +18,8 @@ before_build:
   
 build:
   project: FluentBootstrap.sln
-
+  publish_nuget: true
+  
 artifacts:
   - path: FluentBootstrap\bin\Release\FluentBootstrap.dll
     name: FluentBootstrap.dll
