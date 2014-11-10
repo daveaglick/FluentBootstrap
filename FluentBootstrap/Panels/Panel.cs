@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.ListGroups;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,10 @@ namespace FluentBootstrap.Panels
     {
     }
 
-    public class PanelWrapper<TModel> : TagWrapper<TModel>, IPanelSectionCreator<TModel>, IPanelTitleCreator<TModel>
+    public class PanelWrapper<TModel> : TagWrapper<TModel>, 
+        IPanelSectionCreator<TModel>, 
+        IPanelTitleCreator<TModel>,
+        IListGroupCreator<TModel>
     {
     }
 

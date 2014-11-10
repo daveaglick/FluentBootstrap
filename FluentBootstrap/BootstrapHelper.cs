@@ -71,7 +71,9 @@ namespace FluentBootstrap
         Typography.IHeadingCreator<TModel>,
         Typography.ISmallCreator<TModel>,
         Typography.IListCreator<TModel>,
-        Typography.IDescriptionListCreator<TModel>
+        Typography.IDescriptionListCreator<TModel>,
+        // Wells
+        Wells.IWellCreator<TModel>
     {
         public HtmlHelper<TModel> HtmlHelper { get; private set; }
 
@@ -195,7 +197,9 @@ namespace FluentBootstrap
         Typography.IListItemCreator<TModel>,
         Typography.IDescriptionListCreator<TModel>,
         Typography.IDescriptionCreator<TModel>,
-        Typography.IDescriptionTermCreator<TModel>
+        Typography.IDescriptionTermCreator<TModel>,
+        // Wells
+        Wells.IWellCreator<TModel>
     {
         public BootstrapHelperAll(HtmlHelper<TModel> htmlHelper) : base(htmlHelper)
         {
