@@ -19,6 +19,9 @@ before_build:
 build:
   project: FluentBootstrap.sln
 
+after_test:
+  - ps: .\nuget-pack.ps1
+
 artifacts:
   - path: FluentBootstrap\bin\Release\FluentBootstrap.dll
     name: FluentBootstrap.dll
