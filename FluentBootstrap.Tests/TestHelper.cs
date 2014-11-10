@@ -58,7 +58,7 @@ namespace FluentBootstrap.Tests
             where TView : WebViewPage, new()
         {
             HtmlDocument doc = Render<TView>();
-            Assert.AreEqual(expected, collapsed ? doc.GetElementbyId(containerId).CollapsedInnerHtml() : doc.GetElementbyId(containerId).InnerHtml.Trim());
+            Assert.AreEqual(expected.Replace("\r\n", "\n"), collapsed ? doc.GetElementbyId(containerId).CollapsedInnerHtml().Replace("\r\n", "\n") : doc.GetElementbyId(containerId).InnerHtml.Trim().Replace("\r\n", "\n"));
         }
     }
 }
