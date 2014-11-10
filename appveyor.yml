@@ -25,3 +25,4 @@ artifacts:
     name: FluentBootstrap.dll
   - path: '**\FluentBootstrap.*.nupkg'
   
+  
