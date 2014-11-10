@@ -14,6 +14,6 @@
     <tags>bootstrap mvc razor asp.net</tags>
   </metadata>
   <files>
-    <file src="Scripts\*.*" target="content\Scripts" exclude="**\*.*" />
+    <file src="Scripts\*.*" target="content\Scripts" exclude="*.*" />
   </files>
 </package>
