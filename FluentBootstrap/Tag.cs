@@ -162,7 +162,7 @@ namespace FluentBootstrap
         // The CSS class is specified as a DescriptionAttribute on each enum value (use description of null to indicate a default state)
         internal TThis ToggleCss(Enum css)
         {
-            bool flags = css.GetType().GetCustomAttributes<FlagsAttribute>().Any();
+            bool flags = css.GetType().GetCustomAttributes(typeof(FlagsAttribute), true).Any();
             foreach(Enum value in Enum.GetValues(css.GetType()))
             {
                 string description = value.GetDescription();

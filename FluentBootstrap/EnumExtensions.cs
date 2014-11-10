@@ -13,7 +13,7 @@ namespace FluentBootstrap
         public static string GetDescription(this Enum @enum)
         {
             FieldInfo fieldInfo = @enum.GetType().GetField(@enum.ToString());
-            DescriptionAttribute description = fieldInfo.GetCustomAttribute<DescriptionAttribute>(false);
+            DescriptionAttribute description = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false).OfType<DescriptionAttribute>().FirstOrDefault();
             return description == null ? @enum.ToString() : description.Description;
         }
     }
