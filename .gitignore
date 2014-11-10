@@ -2,6 +2,7 @@
 *.class
 *.dll
 *.exe
+!NuGet.exe
 *.o
 *.so
 *.user
@@ -21,3 +22,4 @@ ipch
 *.pdb
 /*.~vsd
 *UpgradeWizard*
+packages*/
