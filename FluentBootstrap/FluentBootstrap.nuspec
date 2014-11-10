@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FluentBootstrap</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <title>FluentBootstrap</title>
     <authors>Dave Glick</authors>
     <owners>Dave Glick</owners>
