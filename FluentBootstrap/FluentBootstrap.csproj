@@ -50,6 +50,7 @@
     <Compile Include="Alerts\AlertExtensions.cs" />
     <Compile Include="Alerts\AlertState.cs" />
     <Compile Include="Html\Paragraph.cs" />
+    <Compile Include="IOutputContext.cs" />
     <Compile Include="ListGroups\ListGroup.cs" />
     <Compile Include="ListGroups\ListGroupExtensions.cs" />
     <Compile Include="ListGroups\ListGroupItem.cs" />

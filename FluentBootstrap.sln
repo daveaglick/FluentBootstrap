@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Tests.Web",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Tests", "FluentBootstrap.Tests\FluentBootstrap.Tests.csproj", "{9F48127C-FE49-4456-9454-D32A5F332C98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Mvc", "FluentBootstrap.Mvc\FluentBootstrap.Mvc.csproj", "{DC78EF6D-B139-447E-989E-562AACB4F52F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.WebPages", "FluentBootstrap.WebPages\FluentBootstrap.WebPages.csproj", "{65741EA5-B5DA-4CD3-8A87-5873602DA30A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{9F48127C-FE49-4456-9454-D32A5F332C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F48127C-FE49-4456-9454-D32A5F332C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F48127C-FE49-4456-9454-D32A5F332C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC78EF6D-B139-447E-989E-562AACB4F52F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC78EF6D-B139-447E-989E-562AACB4F52F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC78EF6D-B139-447E-989E-562AACB4F52F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC78EF6D-B139-447E-989E-562AACB4F52F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

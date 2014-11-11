@@ -9,17 +9,19 @@ using System.Web.Mvc;
 namespace FluentBootstrap
 {
     // This is applied to wrappers to indicate that they can create a particular component
-    public interface IComponentCreator<TModel>
+    public interface IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
-        BootstrapHelper<TModel> GetHelper();
+        THelper GetHelper();
         Component GetParent();
-    }
+    }    
 
     // This wraps a component once it's been output and indicates the available child components
     // If the component does not create any other components, this base ComponentWrapper class can be used
-    public abstract class ComponentWrapper<TModel> : IDisposable, IComponentCreator<TModel>
+    public abstract class ComponentWrapper<THelper> : IDisposable, IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Component<TModel> Component { get; set; }
+        internal Component<THelper> Component { get; set; }
         internal bool WithChild { get; set; }
 
         public void Dispose()
@@ -27,7 +29,7 @@ namespace FluentBootstrap
             Component.End();
         }
 
-        public BootstrapHelper<TModel> GetHelper()
+        public THelper GetHelper()
         {
             return Component.Helper;
         }
@@ -37,11 +39,11 @@ namespace FluentBootstrap
             return WithChild ? Component : null;
         }
     }
-    
+
     // This (and derived) non-generic interfaces are needed for every component
     // They allow type comparisons of component references without worrying about all the generic stuff
     // Generally, any members that need to be accessed after getting a component off the stack from another one should be put in this interface
-    internal interface IComponent
+    internal interface IComponentInternals
     {
         void Start(TextWriter writer);
         void Finish(TextWriter writer);
@@ -49,24 +51,28 @@ namespace FluentBootstrap
         bool Implicit { get; }
     }
 
+    public interface IComponent : IComponentInternals
+    {
+    }
+
     public abstract class Component : IComponent
     {
-        void IComponent.Start(TextWriter writer)
+        void IComponentInternals.Start(TextWriter writer)
         {
             Start(writer);
         }
 
-        void IComponent.Finish(TextWriter writer)
+        void IComponentInternals.Finish(TextWriter writer)
         {
             Finish(writer);
         }
 
-        void IComponent.StartAndFinish(TextWriter writer)
+        void IComponentInternals.StartAndFinish(TextWriter writer)
         {
             StartAndFinish(writer);
         }
 
-        bool IComponent.Implicit
+        bool IComponentInternals.Implicit
         {
             get { return Implicit; }
         }
@@ -82,20 +88,22 @@ namespace FluentBootstrap
         internal abstract void End(TextWriter writer);
     }
 
-    public abstract class Component<TModel> : Component
+    public abstract class Component<THelper> : Component
+        where THelper : BootstrapHelper<THelper>
     {
-        internal abstract BootstrapHelper<TModel> Helper { get; }
+        internal abstract THelper Helper { get; }
     }
 
-    public abstract class Component<TModel, TThis, TWrapper> : Component<TModel>, IHtmlString
-        where TThis : Component<TModel, TThis, TWrapper>
-        where TWrapper : ComponentWrapper<TModel>, new()
+    public abstract class Component<THelper, TThis, TWrapper> : Component<THelper>, IHtmlString
+        where THelper : BootstrapHelper<THelper>
+        where TThis : Component<THelper, TThis, TWrapper>
+        where TWrapper : ComponentWrapper<THelper>, new()
     {
         private bool _started;
         private bool _finished;
         private readonly List<IComponent> _children = new List<IComponent>();
         private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
-        private readonly BootstrapHelper<TModel> _helper;
+        private readonly THelper _helper;
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
         // The primary difference is that implicit components can be automatically cleaned up from the stack
@@ -113,19 +121,9 @@ namespace FluentBootstrap
             set { _render = value; }
         }
 
-        internal override sealed BootstrapHelper<TModel> Helper
+        internal override sealed THelper Helper
         {
             get { return _helper; }
-        }
-
-        internal HtmlHelper<TModel> HtmlHelper
-        {
-            get { return Helper.HtmlHelper; }
-        }
-
-        internal ViewContext ViewContext
-        {
-            get { return HtmlHelper.ViewContext; }
         }
 
         internal TThis GetThis()
@@ -133,7 +131,7 @@ namespace FluentBootstrap
             return (TThis)this;
         }
 
-        protected Component(IComponentCreator<TModel> creator)
+        protected Component(IComponentCreator<THelper> creator)
         {
             // Sanity check
             if (typeof(TThis) != this.GetType())
@@ -143,7 +141,7 @@ namespace FluentBootstrap
 
             _helper = creator.GetHelper();
             _parent = creator.GetParent();
-            _implicit = GetStack(Bootstrap.OutputStackKey).Count > 0;
+            _implicit = Helper.OutputContext.GetOutputStack().Count > 0;
         }
 
         internal override sealed void AddChild(IComponent component)
@@ -172,7 +170,7 @@ namespace FluentBootstrap
                 _parent.Begin(writer);
             }
 
-            Start(writer ?? ViewContext.Writer);
+            Start(writer ?? Helper.OutputContext.GetWriter());
         }
 
         public override sealed void End()
@@ -182,7 +180,7 @@ namespace FluentBootstrap
 
         internal override sealed void End(TextWriter writer)
         {
-            Finish(writer ?? ViewContext.Writer);
+            Finish(writer ?? Helper.OutputContext.GetWriter());
 
             // If we have a parent, it needs to be finished
             if(_parent != null)
@@ -217,6 +215,11 @@ namespace FluentBootstrap
             }
         }
 
+        public override string ToString()
+        {
+            return ToHtmlString();
+        }
+
         internal override sealed void Start(TextWriter writer)
         {
             // Only write content once
@@ -233,13 +236,13 @@ namespace FluentBootstrap
             }
 
             // Note that this component is outputting
-            GetStack(Bootstrap.OutputStackKey).Push(this);
+            Helper.OutputContext.GetOutputStack().Push(this);
 
             // Output the content
             OnStart(writer);
 
             // Clear this component from the output stack
-            if(GetStack(Bootstrap.OutputStackKey).Pop() != this)
+            if (Helper.OutputContext.GetOutputStack().Pop() != this)
             {
                 throw new InvalidOperationException("Popped a different Bootstrap component from the output stack while starting (you should never see this).");
             }
@@ -264,13 +267,13 @@ namespace FluentBootstrap
             }
 
             // Note that this component is outputting
-            GetStack(Bootstrap.OutputStackKey).Push(this);
+            Helper.OutputContext.GetOutputStack().Push(this);
 
             // Output the content
             OnFinish(writer);
 
             // Clear this component from the output stack
-            if (GetStack(Bootstrap.OutputStackKey).Pop() != this)
+            if (Helper.OutputContext.GetOutputStack().Pop() != this)
             {
                 throw new InvalidOperationException("Popped a different Bootstrap component from the output stack while finishing (you should never see this).");
             }
@@ -311,14 +314,14 @@ namespace FluentBootstrap
 
         private void Push()
         {
-            GetStack(Bootstrap.ComponentStackKey).Push(this);
+            Helper.OutputContext.GetComponentStack().Push(this);
         }
 
         // This also writes end content from any components pending on the stack until this one
         private void Pop(TextWriter writer)
         {
             // Get the stack
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
 
             // Peek components until we get to this one - the call to Finish() will pop them
             IComponent peek = null;
@@ -348,7 +351,7 @@ namespace FluentBootstrap
         internal void Pop<TComponent>(TextWriter writer)
             where TComponent : IComponent
         {
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
             Queue<IComponent> finish = new Queue<IComponent>();
@@ -386,7 +389,7 @@ namespace FluentBootstrap
             {
                 return;
             }
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
             Queue<IComponent> finish = new Queue<IComponent>();
@@ -413,12 +416,12 @@ namespace FluentBootstrap
         }
 
         // Only the simple interface types should be used as generic type parameters here
-        // Using a type that has TModel will skip components with a different model (such as when run from inside a partial with a different model)
+        // Using a type that has THelper will skip components with a different model (such as when run from inside a partial with a different model)
         // onlyParent indicates that just the parent component in the stack should be searched (instead of all the way up)
         internal TComponent GetComponent<TComponent>(bool onlyParent = false)
             where TComponent : class, IComponent
         {
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
             if(onlyParent)
             {
                 // Need to account for if this component has been added to the stack or not
@@ -430,18 +433,6 @@ namespace FluentBootstrap
                 return parent as TComponent;
             }
             return stack.Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault() as TComponent;
-        }
-
-        private Stack<IComponent> GetStack(object key)
-        {
-            IDictionary items = ViewContext.HttpContext.Items;
-            Stack<IComponent> stack = items[key] as Stack<IComponent>;
-            if (stack == null)
-            {
-                stack = new Stack<IComponent>();
-                items[key] = stack;
-            }
-            return stack;
         }
     }
 }

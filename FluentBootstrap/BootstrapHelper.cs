@@ -11,80 +11,87 @@ using System.Web.Mvc;
 namespace FluentBootstrap
 {
     // This just provides access to top-level extensions
-    public class BootstrapHelper<TModel> : 
-        ITagCreator<TModel>,
+    public class BootstrapHelper<THelper> :
+        ITagCreator<THelper>,
         // Alerts
-        Alerts.IAlertCreator<TModel>,
+        Alerts.IAlertCreator<THelper>,
         // Badges
-        Badges.IBadgeCreator<TModel>,
+        Badges.IBadgeCreator<THelper>,
         // Breadcrumbs
-        Breadcrumbs.IBreadcrumbCreator<TModel>,
+        Breadcrumbs.IBreadcrumbCreator<THelper>,
         // Buttons
-        Buttons.IButtonToolbarCreator<TModel>,
-        Buttons.IButtonGroupCreator<TModel>,
-        Buttons.IDropdownButtonCreator<TModel>,
-        Buttons.IButtonCreator<TModel>,
-        Buttons.ILinkButtonCreator<TModel>,
+        Buttons.IButtonToolbarCreator<THelper>,
+        Buttons.IButtonGroupCreator<THelper>,
+        Buttons.IDropdownButtonCreator<THelper>,
+        Buttons.IButtonCreator<THelper>,
+        Buttons.ILinkButtonCreator<THelper>,
         // Dropdowns
-        Dropdowns.IDropdownCreator<TModel>,
+        Dropdowns.IDropdownCreator<THelper>,
         // Forms
-        Forms.IFormCreator<TModel>,
+        Forms.IFormCreator<THelper>,
         // Grids
-        Grids.IContainerCreator<TModel>,
-        Grids.IGridRowCreator<TModel>,
+        Grids.IContainerCreator<THelper>,
+        Grids.IGridRowCreator<THelper>,
         // Html
-        Html.IParagraphCreator<TModel>,
+        Html.IParagraphCreator<THelper>,
         // Images
-        Images.IImageCreator<TModel>,
+        Images.IImageCreator<THelper>,
         // Labels
-        Labels.ILabelCreator<TModel>,
+        Labels.ILabelCreator<THelper>,
         // List Groups
-        ListGroups.IListGroupCreator<TModel>,
+        ListGroups.IListGroupCreator<THelper>,
         // Links
-        Links.ILinkCreator<TModel>,
+        Links.ILinkCreator<THelper>,
         // Media Objects
-        MediaObjects.IMediaCreator<TModel>,
-        MediaObjects.IMediaListCreator<TModel>,
+        MediaObjects.IMediaCreator<THelper>,
+        MediaObjects.IMediaListCreator<THelper>,
         // Misc
-        Misc.IJumbotronCreator<TModel>,
-        Misc.IPageHeaderCreator<TModel>,
+        Misc.IJumbotronCreator<THelper>,
+        Misc.IPageHeaderCreator<THelper>,
         // Navbars,
-        Navbars.INavbarCreator<TModel>,
+        Navbars.INavbarCreator<THelper>,
         // Navs
-        Navs.ITabsCreator<TModel>,
-        Navs.IPillsCreator<TModel>,
+        Navs.ITabsCreator<THelper>,
+        Navs.IPillsCreator<THelper>,
         // Pagers
-        Pagers.IPagerCreator<TModel>,
+        Pagers.IPagerCreator<THelper>,
         // Pagination
-        Paginations.IPaginationCreator<TModel>,
+        Paginations.IPaginationCreator<THelper>,
         // Panels
-        Panels.IPanelCreator<TModel>,
+        Panels.IPanelCreator<THelper>,
         // Progress Bars
-        ProgressBars.IProgressCreator<TModel>,
-        ProgressBars.IProgressBarCreator<TModel>,
+        ProgressBars.IProgressCreator<THelper>,
+        ProgressBars.IProgressBarCreator<THelper>,
         // Tables
-        Tables.ITableCreator<TModel>,
+        Tables.ITableCreator<THelper>,
         // Thumbnails
-        Thumbnails.IThumbnailCreator<TModel>,
-        Thumbnails.IThumbnailContainerCreator<TModel>,
+        Thumbnails.IThumbnailCreator<THelper>,
+        Thumbnails.IThumbnailContainerCreator<THelper>,
         // Typography
-        Typography.IHeadingCreator<TModel>,
-        Typography.ISmallCreator<TModel>,
-        Typography.IListCreator<TModel>,
-        Typography.IDescriptionListCreator<TModel>,
+        Typography.IHeadingCreator<THelper>,
+        Typography.ISmallCreator<THelper>,
+        Typography.IListCreator<THelper>,
+        Typography.IDescriptionListCreator<THelper>,
         // Wells
-        Wells.IWellCreator<TModel>
+        Wells.IWellCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
-        public HtmlHelper<TModel> HtmlHelper { get; private set; }
+        public IOutputContext OutputContext { get; private set; }
 
-        internal BootstrapHelper(HtmlHelper<TModel> htmlHelper)
+        public BootstrapHelper(IOutputContext outputContext)
         {
-            HtmlHelper = htmlHelper;
+            // Sanity check
+            if (typeof(THelper) != this.GetType())
+            {
+                throw new Exception("Invalid THelper generic type parameter for " + this.GetType().Name + " (you should never see this).");
+            }
+
+            OutputContext = outputContext;
         }
 
-        public BootstrapHelper<TModel> GetHelper()
+        public THelper GetHelper()
         {
-            return this;
+            return (THelper)this;
         }
 
         public Component GetParent()
@@ -92,116 +99,117 @@ namespace FluentBootstrap
             return null;
         }
 
-        public BootstrapHelperAll<TModel> All()
+        public BootstrapHelperAll<THelper> All()
         {
-            return new BootstrapHelperAll<TModel>(HtmlHelper);
+            return new BootstrapHelperAll<THelper>(OutputContext);
         }
     }
 
     // This provides expanded access to all extensions
-    public class BootstrapHelperAll<TModel> : BootstrapHelper<TModel>,
-        ITagCreator<TModel>,
+    public class BootstrapHelperAll<THelper> : BootstrapHelper<THelper>,
+        ITagCreator<THelper>,
         // Alerts
-        Alerts.IAlertCreator<TModel>,
+        Alerts.IAlertCreator<THelper>,
         // Badges
-        Badges.IBadgeCreator<TModel>,
+        Badges.IBadgeCreator<THelper>,
         // Breadcrumbs
-        Breadcrumbs.IBreadcrumbCreator<TModel>,
-        Breadcrumbs.ICrumbCreator<TModel>,
+        Breadcrumbs.IBreadcrumbCreator<THelper>,
+        Breadcrumbs.ICrumbCreator<THelper>,
         // Buttons
-        Buttons.IButtonToolbarCreator<TModel>,
-        Buttons.IButtonGroupCreator<TModel>,
-        Buttons.IDropdownButtonCreator<TModel>,
-        Buttons.IButtonCreator<TModel>,
-        Buttons.ILinkButtonCreator<TModel>,
+        Buttons.IButtonToolbarCreator<THelper>,
+        Buttons.IButtonGroupCreator<THelper>,
+        Buttons.IDropdownButtonCreator<THelper>,
+        Buttons.IButtonCreator<THelper>,
+        Buttons.ILinkButtonCreator<THelper>,
         // Dropdowns
-        Dropdowns.IDropdownCreator<TModel>,
-        Dropdowns.IDropdownDividerCreator<TModel>,
-        Dropdowns.IDropdownHeaderCreator<TModel>,
-        Dropdowns.IDropdownLinkCreator<TModel>,
+        Dropdowns.IDropdownCreator<THelper>,
+        Dropdowns.IDropdownDividerCreator<THelper>,
+        Dropdowns.IDropdownHeaderCreator<THelper>,
+        Dropdowns.IDropdownLinkCreator<THelper>,
         // Forms
-        Forms.IFormCreator<TModel>,
-        Forms.IFieldSetCreator<TModel>,
-        Forms.IFormGroupCreator<TModel>,
-        Forms.IControlLabelCreator<TModel>,
-        Forms.IFormControlCreator<TModel>,
-        Forms.IHelpBlockCreator<TModel>,
-        Forms.IInputGroupCreator<TModel>,
-        Forms.IInputGroupAddonCreator<TModel>,
-        Forms.IInputGroupButtonCreator<TModel>,
+        Forms.IFormCreator<THelper>,
+        Forms.IFieldSetCreator<THelper>,
+        Forms.IFormGroupCreator<THelper>,
+        Forms.IControlLabelCreator<THelper>,
+        Forms.IFormControlCreator<THelper>,
+        Forms.IHelpBlockCreator<THelper>,
+        Forms.IInputGroupCreator<THelper>,
+        Forms.IInputGroupAddonCreator<THelper>,
+        Forms.IInputGroupButtonCreator<THelper>,
         // Grids
-        Grids.IContainerCreator<TModel>,
-        Grids.IGridColumnCreator<TModel>,
-        Grids.IGridRowCreator<TModel>,
+        Grids.IContainerCreator<THelper>,
+        Grids.IGridColumnCreator<THelper>,
+        Grids.IGridRowCreator<THelper>,
         // Html
-        Html.IParagraphCreator<TModel>,
+        Html.IParagraphCreator<THelper>,
         // Images
-        Images.IImageCreator<TModel>,
+        Images.IImageCreator<THelper>,
         // Labels
-        Labels.ILabelCreator<TModel>,
+        Labels.ILabelCreator<THelper>,
         // List Groups
-        ListGroups.IListGroupCreator<TModel>,
-        ListGroups.IListGroupItemCreator<TModel>,
+        ListGroups.IListGroupCreator<THelper>,
+        ListGroups.IListGroupItemCreator<THelper>,
         // Links
-        Links.ILinkCreator<TModel>,
+        Links.ILinkCreator<THelper>,
         // Media Objects
-        MediaObjects.IMediaCreator<TModel>,
-        MediaObjects.IMediaListCreator<TModel>,
-        MediaObjects.IMediaObjectCreator<TModel>,
-        MediaObjects.IMediaBodyCreator<TModel>,
+        MediaObjects.IMediaCreator<THelper>,
+        MediaObjects.IMediaListCreator<THelper>,
+        MediaObjects.IMediaObjectCreator<THelper>,
+        MediaObjects.IMediaBodyCreator<THelper>,
         // Misc
-        Misc.IJumbotronCreator<TModel>,
-        Misc.IPageHeaderCreator<TModel>,
+        Misc.IJumbotronCreator<THelper>,
+        Misc.IPageHeaderCreator<THelper>,
         // Navbars,
-        Navbars.INavbarCreator<TModel>,
-        Navbars.INavbarHeaderCreator<TModel>,
-        Navbars.INavbarToggleCreator<TModel>,
-        Navbars.IBrandCreator<TModel>,
-        Navbars.INavbarCollapseCreator<TModel>,
-        Navbars.INavbarNavCreator<TModel>,
-        Navbars.INavbarFormCreator<TModel>,
-        Navbars.INavbarButtonCreator<TModel>,
-        Navbars.INavbarTextCreator<TModel>,
-        Navbars.INavbarLinkCreator<TModel>,
+        Navbars.INavbarCreator<THelper>,
+        Navbars.INavbarHeaderCreator<THelper>,
+        Navbars.INavbarToggleCreator<THelper>,
+        Navbars.IBrandCreator<THelper>,
+        Navbars.INavbarCollapseCreator<THelper>,
+        Navbars.INavbarNavCreator<THelper>,
+        Navbars.INavbarFormCreator<THelper>,
+        Navbars.INavbarButtonCreator<THelper>,
+        Navbars.INavbarTextCreator<THelper>,
+        Navbars.INavbarLinkCreator<THelper>,
         // Navs
-        Navs.ITabsCreator<TModel>,
-        Navs.ITabCreator<TModel>,
-        Navs.IPillsCreator<TModel>,
-        Navs.IPillCreator<TModel>,
+        Navs.ITabsCreator<THelper>,
+        Navs.ITabCreator<THelper>,
+        Navs.IPillsCreator<THelper>,
+        Navs.IPillCreator<THelper>,
         // Pagers
-        Pagers.IPagerCreator<TModel>,
-        Pagers.IPageCreator<TModel>,
+        Pagers.IPagerCreator<THelper>,
+        Pagers.IPageCreator<THelper>,
         // Pagination
-        Paginations.IPaginationCreator<TModel>,
-        Paginations.IPageNumCreator<TModel>,
+        Paginations.IPaginationCreator<THelper>,
+        Paginations.IPageNumCreator<THelper>,
         // Panels
-        Panels.IPanelCreator<TModel>,
-        Panels.IPanelSectionCreator<TModel>,
-        Panels.IPanelTitleCreator<TModel>,
+        Panels.IPanelCreator<THelper>,
+        Panels.IPanelSectionCreator<THelper>,
+        Panels.IPanelTitleCreator<THelper>,
         // Progress Bars
-        ProgressBars.IProgressCreator<TModel>,
-        ProgressBars.IProgressBarCreator<TModel>,
+        ProgressBars.IProgressCreator<THelper>,
+        ProgressBars.IProgressBarCreator<THelper>,
         // Tables
-        Tables.ITableCreator<TModel>,
-        Tables.ITableSectionCreator<TModel>,
-        Tables.ITableRowCreator<TModel>,
-        Tables.ITableCellCreator<TModel>,
+        Tables.ITableCreator<THelper>,
+        Tables.ITableSectionCreator<THelper>,
+        Tables.ITableRowCreator<THelper>,
+        Tables.ITableCellCreator<THelper>,
         // Thumbnails
-        Thumbnails.IThumbnailCreator<TModel>,
-        Thumbnails.IThumbnailContainerCreator<TModel>,
-        Thumbnails.ICaptionCreator<TModel>,
+        Thumbnails.IThumbnailCreator<THelper>,
+        Thumbnails.IThumbnailContainerCreator<THelper>,
+        Thumbnails.ICaptionCreator<THelper>,
         // Typography
-        Typography.IHeadingCreator<TModel>,
-        Typography.ISmallCreator<TModel>,
-        Typography.IListCreator<TModel>,
-        Typography.IListItemCreator<TModel>,
-        Typography.IDescriptionListCreator<TModel>,
-        Typography.IDescriptionCreator<TModel>,
-        Typography.IDescriptionTermCreator<TModel>,
+        Typography.IHeadingCreator<THelper>,
+        Typography.ISmallCreator<THelper>,
+        Typography.IListCreator<THelper>,
+        Typography.IListItemCreator<THelper>,
+        Typography.IDescriptionListCreator<THelper>,
+        Typography.IDescriptionCreator<THelper>,
+        Typography.IDescriptionTermCreator<THelper>,
         // Wells
-        Wells.IWellCreator<TModel>
+        Wells.IWellCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
-        public BootstrapHelperAll(HtmlHelper<TModel> htmlHelper) : base(htmlHelper)
+        public BootstrapHelperAll(IOutputContext outputContext) : base(outputContext)
         {
         }
     }
