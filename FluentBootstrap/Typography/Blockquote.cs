@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Typography
 {
     public interface IBlockquoteCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class BlockquoteWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Typography
     }
 
     public class Blockquote<THelper> : Tag<THelper, Blockquote<THelper>, BlockquoteWrapper<THelper>>, IBlockquote
+        where THelper : BootstrapHelper<THelper>
     {
         internal Blockquote(IComponentCreator<THelper> creator)
             : base(creator, "blockquote")

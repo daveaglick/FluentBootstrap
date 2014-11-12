@@ -3,10 +3,12 @@ using System.IO;
 namespace FluentBootstrap.Tables
 {
     public interface ITableHeaderCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class TableHeaderWrapper<THelper> : TableCellWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -15,6 +17,7 @@ namespace FluentBootstrap.Tables
     }
 
     public class TableHeader<THelper> : TableCell<THelper, TableHeader<THelper>, TableHeaderWrapper<THelper>>, ITableHeader
+        where THelper : BootstrapHelper<THelper>
     {
         internal TableHeader(IComponentCreator<THelper> creator)
             : base(creator, "th")

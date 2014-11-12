@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Panels
 {
     public interface IPanelBodyCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PanelBodyWrapper<THelper> : PanelSectionWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,6 +21,7 @@ namespace FluentBootstrap.Panels
     }
 
     public class PanelBody<THelper> : PanelSection<THelper, PanelBody<THelper>, PanelBodyWrapper<THelper>>, IPanelBody
+        where THelper : BootstrapHelper<THelper>
     {
         internal PanelBody(IComponentCreator<THelper> creator)
             : base(creator, Css.PanelBody)

@@ -10,8 +10,7 @@ namespace FluentBootstrap
 {
     public static class MvcBreadcrumbExtensions
     {
-        public static Crumb<THelper> Crumb<THelper>(this ICrumbCreator<THelper> creator, string text, string actionName, string controllerName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
+        public static Crumb<MvcBootstrapHelper<TModel>> Crumb<TModel>(this ICrumbCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
             return creator.Crumb(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
         }

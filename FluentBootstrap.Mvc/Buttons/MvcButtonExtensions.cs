@@ -10,8 +10,7 @@ namespace FluentBootstrap
 {
     public static class MvcButtonExtensions
     {
-        public static LinkButton<THelper> LinkButton<THelper>(this ILinkButtonCreator<THelper> creator, string text, string actionName, string controllerName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
+        public static LinkButton<MvcBootstrapHelper<TModel>> LinkButton<TModel>(this ILinkButtonCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
             return creator.LinkButton(text, null).SetAction(actionName, controllerName, routeValues);
         }

@@ -10,8 +10,7 @@ namespace FluentBootstrap
 {
     public static class MvcListGroupExtensions
     {
-        public static ListGroupItem<THelper> ListGroupItem<THelper>(this IListGroupItemCreator<THelper> creator, string text, string actionName, string controllerName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
+        public static ListGroupItem<MvcBootstrapHelper<TModel>> ListGroupItem<TModel>(this IListGroupItemCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
             return creator.ListGroupItem(text, null).SetAction(actionName, controllerName, routeValues);
         }

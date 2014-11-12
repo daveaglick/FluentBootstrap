@@ -10,8 +10,7 @@ namespace FluentBootstrap
 {
     public static class MvcMediaObjectExtensions
     {
-        public static MediaObject<THelper> MediaObject<THelper>(this IMediaObjectCreator<THelper> creator, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
+        public static MediaObject<MvcBootstrapHelper<TModel>> MediaObject<TModel>(this IMediaObjectCreator<MvcBootstrapHelper<TModel>> creator, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
         {
             return creator.MediaObject(src, null, alt).SetAction(actionName, controllerName, routeValues);
         }

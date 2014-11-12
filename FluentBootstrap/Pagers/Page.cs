@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Pagers
 {
     public interface IPageCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PageWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.Pagers
     }
 
     public class Page<THelper> : Tag<THelper, Page<THelper>, PageWrapper<THelper>>, IPage, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Disabled { get; set; }
         internal PageAlignment Alignment { get; set; }

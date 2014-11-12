@@ -12,11 +12,13 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navs
 {
     public interface INavLinkCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavLinkWrapper<THelper> : TagWrapper<THelper>,
         IBadgeCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -25,6 +27,7 @@ namespace FluentBootstrap.Navs
     }
 
     public abstract class NavLink<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
         where TThis : NavLink<THelper, TThis, TWrapper>
         where TWrapper : NavLinkWrapper<THelper>, new()
     {

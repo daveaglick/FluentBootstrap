@@ -3,11 +3,13 @@ using System.IO;
 namespace FluentBootstrap.Tables
 {
     public interface ITableSectionCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class TableSectionWrapper<THelper> : TagWrapper<THelper>,
         ITableRowCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -16,6 +18,7 @@ namespace FluentBootstrap.Tables
     }
 
     public abstract class TableSection<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, ITableSection
+        where THelper : BootstrapHelper<THelper>
         where TThis : TableSection<THelper, TThis, TWrapper>
         where TWrapper : TableSectionWrapper<THelper>, new()
     {

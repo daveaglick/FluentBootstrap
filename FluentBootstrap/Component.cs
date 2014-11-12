@@ -110,9 +110,9 @@ namespace FluentBootstrap
             _implicit = Helper.OutputContext.GetOutputStack().Count > 0;
         }
 
-        internal override sealed void AddChild(IComponent component)
+        internal override sealed void AddChild(IComponent child)
         {
-            _children.Add(component);
+            _children.Add(child);
         }
 
         internal TWrapper GetWrapper()

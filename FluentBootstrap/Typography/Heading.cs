@@ -12,12 +12,14 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Typography
 {
     public interface IHeadingCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class HeadingWrapper<THelper> : TagWrapper<THelper>,
         ISmallCreator<THelper>,
         ILabelCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -26,6 +28,7 @@ namespace FluentBootstrap.Typography
     }
 
     public abstract class Heading<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IHeading, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
         where TThis : Heading<THelper, TThis, TWrapper>
         where TWrapper : HeadingWrapper<THelper>, new()
     {

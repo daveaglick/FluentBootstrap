@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Panels
 {
     public interface IPanelSectionCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PanelSectionWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,6 +22,7 @@ namespace FluentBootstrap.Panels
     }
 
     public abstract class PanelSection<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IPanelSection
+        where THelper : BootstrapHelper<THelper>
         where TThis : PanelSection<THelper, TThis, TWrapper>
         where TWrapper : PanelSectionWrapper<THelper>, new()
     {

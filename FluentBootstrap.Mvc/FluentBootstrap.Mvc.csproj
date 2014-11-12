@@ -54,7 +54,12 @@
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcOutputContext.cs" />
     <Compile Include="Navbars\MvcNavbarExtensions.cs" />
+    <Compile Include="Navs\MvcNavExtensions.cs" />
+    <Compile Include="Pagers\MvcPagerExtensions.cs" />
+    <Compile Include="Paginations\MvcPaginationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Thumbnails\MvcThumbnailExtensions.cs" />
+    <Compile Include="Typography\MvcTypographyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentBootstrap\FluentBootstrap.csproj">

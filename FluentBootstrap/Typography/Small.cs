@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Typography
 {
     public interface ISmallCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class SmallWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,6 +21,7 @@ namespace FluentBootstrap.Typography
     }
 
     public class Small<THelper> : Tag<THelper, Small<THelper>, SmallWrapper<THelper>>, ISmall, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal Small(IComponentCreator<THelper> creator)
             : base(creator, "small")

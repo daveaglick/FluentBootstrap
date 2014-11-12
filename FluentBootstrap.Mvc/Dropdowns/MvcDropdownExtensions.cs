@@ -10,8 +10,7 @@ namespace FluentBootstrap
 {
     public static class MvcDropdownExtensions
     {
-        public static DropdownLink<THelper> DropdownLink<THelper>(this IDropdownLinkCreator<THelper> creator, string text, string actionName, string controllerName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
+        public static DropdownLink<MvcBootstrapHelper<TModel>> DropdownLink<TModel>(this IDropdownLinkCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
             return creator.DropdownLink(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
         }

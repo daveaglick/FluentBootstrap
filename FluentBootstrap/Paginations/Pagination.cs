@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Paginations
 {
     public interface IPaginationCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PaginationWrapper<THelper> : TagWrapper<THelper>,
         IPageNumCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,8 +24,9 @@ namespace FluentBootstrap.Paginations
     }
 
     public class Pagination<THelper> : Tag<THelper, Pagination<THelper>, PaginationWrapper<THelper>>, IPagination
+        where THelper : BootstrapHelper<THelper>
     {
-        internal int AutoPageNumber { get; set; }
+        public int AutoPageNumber { get; set; }
         private Element<THelper> _nav = null;
 
         internal Pagination(IComponentCreator<THelper> creator)

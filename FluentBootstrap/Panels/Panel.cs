@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Panels
 {
     public interface IPanelCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -15,6 +16,7 @@ namespace FluentBootstrap.Panels
         IPanelSectionCreator<THelper>, 
         IPanelTitleCreator<THelper>,
         IListGroupCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,7 +24,8 @@ namespace FluentBootstrap.Panels
     {
     }
 
-    public class Panel<THelper> : Tag<THelper, Panel<THelper>, PanelWrapper<THelper>>, IPanel        
+    public class Panel<THelper> : Tag<THelper, Panel<THelper>, PanelWrapper<THelper>>, IPanel
+        where THelper : BootstrapHelper<THelper>
     {
         internal Panel(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Panel, Css.PanelDefault)

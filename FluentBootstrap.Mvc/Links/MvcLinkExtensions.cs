@@ -13,16 +13,14 @@ namespace FluentBootstrap
 {
     public static class MvcLinkExtensions
     {
-        public static Link<THelper> Link<THelper>(this ILinkCreator<THelper> creator, string text, string actionName, string controllerName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
+        public static Link<MvcBootstrapHelper<TModel>> Link<TModel>(this ILinkCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
             return creator.Link(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
         }
 
-        public static TThis SetAction<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string actionName, string controllerName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, IHasLinkExtensions
-            where TWrapper : TagWrapper<THelper>, new()
+        public static TThis SetAction<TModel, TThis, TWrapper>(this Component<MvcBootstrapHelper<TModel>, TThis, TWrapper> component, string actionName, string controllerName, object routeValues = null)
+            where TThis : Tag<MvcBootstrapHelper<TModel>, TThis, TWrapper>, IHasLinkExtensions
+            where TWrapper : TagWrapper<MvcBootstrapHelper<TModel>>, new()
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
@@ -33,10 +31,9 @@ namespace FluentBootstrap
                 component.GetHelper().HtmlHelper.RouteCollection, component.GetHelper().HtmlHelper.ViewContext.RequestContext, true));
         }
 
-        public static TThis SetRoute<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string routeName, object routeValues = null)
-            where THelper : MvcBootstrapHelper<THelper>, BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, IHasLinkExtensions
-            where TWrapper : TagWrapper<THelper>, new()
+        public static TThis SetRoute<TModel, TThis, TWrapper>(this Component<MvcBootstrapHelper<TModel>, TThis, TWrapper> component, string routeName, object routeValues = null)
+            where TThis : Tag<MvcBootstrapHelper<TModel>, TThis, TWrapper>, IHasLinkExtensions
+            where TWrapper : TagWrapper<MvcBootstrapHelper<TModel>>, new()
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)

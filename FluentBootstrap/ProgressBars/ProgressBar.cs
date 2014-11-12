@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.ProgressBars
 {
     public interface IProgressBarCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class ProgressBarWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
+
     }
 
     internal interface IProgressBar : ITag
@@ -21,6 +24,7 @@ namespace FluentBootstrap.ProgressBars
     }
 
     public class ProgressBar<THelper> : Tag<THelper, ProgressBar<THelper>, ProgressBarWrapper<THelper>>, IProgressBar, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         private Progress<THelper> _progress;
         internal int Value { get; set; }

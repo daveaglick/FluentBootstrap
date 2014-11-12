@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Paginations
 {
     public interface IPageNumCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PageNumWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.Paginations
     }
 
     public class PageNum<THelper> : Tag<THelper, PageNum<THelper>, PageNumWrapper<THelper>>, IPageNum, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }

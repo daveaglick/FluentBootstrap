@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace FluentBootstrap.Tables
 {
     public interface ITableCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -17,6 +18,7 @@ namespace FluentBootstrap.Tables
         ITableSectionCreator<THelper>,
         ITableRowCreator<THelper>,
         ITableCellCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -25,6 +27,7 @@ namespace FluentBootstrap.Tables
     }
 
     public class Table<THelper> : Tag<THelper, Table<THelper>, TableWrapper<THelper>>, ITable
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Responsive { get; set; }
         private Element<THelper> _responsiveDiv;

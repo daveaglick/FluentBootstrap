@@ -24,5 +24,21 @@ namespace FluentBootstrap.Internals
         {
             return component.Helper;
         }
+
+        public static TWrapper GetWrapper<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>
+            where TWrapper : TagWrapper<THelper>, new()
+        {
+            return component.GetWrapper();
+        }
+
+        public static void AddChild<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, IComponent child)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>
+            where TWrapper : TagWrapper<THelper>, new()
+        {
+            component.AddChild(child);
+        }
     }
 }

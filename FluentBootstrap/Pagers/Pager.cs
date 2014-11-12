@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Pagers
 {
     public interface IPagerCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PagerWrapper<THelper> : TagWrapper<THelper>,
         IPageCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.Pagers
     }
 
     public class Pager<THelper> : Tag<THelper, Pager<THelper>, PagerWrapper<THelper>>, IPager
+        where THelper : BootstrapHelper<THelper>
     {
         private Element<THelper> _nav = null;
 

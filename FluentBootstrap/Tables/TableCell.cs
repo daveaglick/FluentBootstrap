@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Tables
 {
     public interface ITableCellCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class TableCellWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,6 +22,7 @@ namespace FluentBootstrap.Tables
     }
 
     public abstract class TableCell<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, ITableCell, IHasTableStateExtensions
+        where THelper : BootstrapHelper<THelper>
         where TThis : TableCell<THelper, TThis, TWrapper>
         where TWrapper : TableCellWrapper<THelper>, new()
     {

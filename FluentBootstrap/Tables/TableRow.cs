@@ -3,11 +3,13 @@ using System.IO;
 namespace FluentBootstrap.Tables
 {
     public interface ITableRowCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class TableRowWrapper<THelper> : TagWrapper<THelper>,
         ITableCellCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -16,6 +18,7 @@ namespace FluentBootstrap.Tables
     }
 
     public class TableRow<THelper> : Tag<THelper, TableRow<THelper>, TableRowWrapper<THelper>>, ITableRow, IHasTableStateExtensions
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool HeadRow { get; set; }
 

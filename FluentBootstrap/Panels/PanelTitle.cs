@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Panels
 {
     public interface IPanelTitleCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PanelTitleWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,6 +22,7 @@ namespace FluentBootstrap.Panels
     }
 
     public class PanelTitle<THelper> : Tag<THelper, PanelTitle<THelper>, PanelTitleWrapper<THelper>>, IPanelTitle, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal PanelTitle(IComponentCreator<THelper> creator, string text, int headingLevel)
             : base(creator, "h" + headingLevel, Css.PanelTitle)

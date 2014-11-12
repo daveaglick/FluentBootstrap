@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Thumbnails
 {
     public interface IThumbnailCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class ThumbnailWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -23,6 +25,7 @@ namespace FluentBootstrap.Thumbnails
     }
 
     public class Thumbnail<THelper> : Tag<THelper, Thumbnail<THelper>, ThumbnailWrapper<THelper>>, IThumbnail, IHasLinkExtensions
+        where THelper : BootstrapHelper<THelper>
     {
         internal string Src { get; set; }
         internal string Alt { get; set; }
