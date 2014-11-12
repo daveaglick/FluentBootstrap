@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
     public static class GridColumnExtensions
     {
         public static TThis SetXs<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -17,6 +19,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetSm<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -24,6 +27,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetMd<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -31,6 +35,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetLg<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -38,6 +43,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetXsOffset<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -45,6 +51,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetSmOffset<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -52,6 +59,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetMdOffset<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -59,6 +67,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetLgOffset<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -66,6 +75,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetXsPush<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -73,6 +83,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetSmPush<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -80,6 +91,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetMdPush<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -87,6 +99,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetLgPush<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -94,6 +107,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetXsPull<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -101,6 +115,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetSmPull<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -108,6 +123,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetMdPull<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -115,6 +131,7 @@ namespace FluentBootstrap
         }
 
         public static TThis SetLgPull<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {
@@ -122,6 +139,7 @@ namespace FluentBootstrap
         }
 
         private static TThis SetColumnClass<THelper, TThis, TWrapper>(Component<THelper, TThis, TWrapper> component, string prefix, int? value)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasGridColumnExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {

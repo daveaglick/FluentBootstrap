@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Dropdowns
 {
     public interface IDropdownHeaderCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class DropdownHeaderWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,6 +21,7 @@ namespace FluentBootstrap.Dropdowns
     }
 
     public class DropdownHeader<THelper> : Tag<THelper, DropdownHeader<THelper>, DropdownHeaderWrapper<THelper>>, IDropdownHeader, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal DropdownHeader(IComponentCreator<THelper> creator)
             : base(creator, "li", Css.DropdownHeader)

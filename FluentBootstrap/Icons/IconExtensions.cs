@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
     public static class IconExtensions
     {
         public static IconSpan<THelper> Icon<THelper>(this ITagCreator<THelper> creator, Icon icon)
+            where THelper : BootstrapHelper<THelper>
         {
             return new IconSpan<THelper>(creator, icon);
         }
@@ -18,6 +20,7 @@ namespace FluentBootstrap
         // IHasIconExtensions
 
         public static TThis SetIcon<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, Icon icon)
+            where THelper : BootstrapHelper<THelper>
             where TThis : Tag<THelper, TThis, TWrapper>, IHasIconExtensions
             where TWrapper : TagWrapper<THelper>, new()
         {

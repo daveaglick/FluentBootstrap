@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.ListGroups
 {
     public interface IListGroupItemCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,6 +20,7 @@ namespace FluentBootstrap.ListGroups
         IBadgeCreator<THelper>,
         IHeadingCreator<THelper>,
         IParagraphCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -27,6 +29,7 @@ namespace FluentBootstrap.ListGroups
     }
 
     public class ListGroupItem<THelper> : Tag<THelper, ListGroupItem<THelper>, ListGroupItemWrapper<THelper>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }

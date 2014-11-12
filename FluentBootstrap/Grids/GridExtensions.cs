@@ -12,11 +12,13 @@ namespace FluentBootstrap
         // Container
 
         public static Container<THelper> Container<THelper>(this IContainerCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Container<THelper>(creator);
         }
 
         public static Container<THelper> SetFluid<THelper>(this Container<THelper> container, bool fluid = true)
+            where THelper : BootstrapHelper<THelper>
         {
             container.CssClasses.Remove(Css.Container);
             container.CssClasses.Remove(Css.ContainerFluid);
@@ -27,6 +29,7 @@ namespace FluentBootstrap
         // GridRow
 
         public static GridRow<THelper> GridRow<THelper>(this IGridRowCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new GridRow<THelper>(creator);
         }
@@ -34,6 +37,7 @@ namespace FluentBootstrap
         // GridColumn
 
         public static GridColumn<THelper> GridColumn<THelper>(this IGridColumnCreator<THelper> creator, int? md = null)
+            where THelper : BootstrapHelper<THelper>
         {
             return new GridColumn<THelper>(creator).SetMd(md);
         }

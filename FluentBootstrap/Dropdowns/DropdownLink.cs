@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Dropdowns
 {
     public interface IDropdownLinkCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class DropdownLinkWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Dropdowns
     }
 
     public class DropdownLink<THelper> : Tag<THelper, DropdownLink<THelper>, DropdownLinkWrapper<THelper>>, IDropdownLink, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Disabled { get; set; }
         private Element<THelper> _listItem = null;

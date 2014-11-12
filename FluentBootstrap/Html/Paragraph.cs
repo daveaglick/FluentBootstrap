@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Html
 {
     public interface IParagraphCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class ParagraphWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Html
     }
 
     public class Paragraph<THelper> : Tag<THelper, Paragraph<THelper>, ParagraphWrapper<THelper>>, IParagraph, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal Paragraph(IComponentCreator<THelper> creator)
             : base(creator, "p")

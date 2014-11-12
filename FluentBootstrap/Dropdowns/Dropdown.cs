@@ -15,13 +15,15 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Dropdowns
 {
     public interface IDropdownCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class DropdownWrapper<THelper> : TagWrapper<THelper>, 
         IDropdownDividerCreator<THelper>, 
-        IDropdownHeaderCreator<THelper>, 
+        IDropdownHeaderCreator<THelper>,
         IDropdownLinkCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -29,7 +31,9 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class Dropdown<THelper> : Tag<THelper, Dropdown<THelper>, DropdownWrapper<THelper>>, IDropdown, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
+    public class Dropdown<THelper> : Tag<THelper, Dropdown<THelper>, DropdownWrapper<THelper>>, IDropdown,
+        IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         private bool _dropdownButton = false;
         private bool _caret = true;

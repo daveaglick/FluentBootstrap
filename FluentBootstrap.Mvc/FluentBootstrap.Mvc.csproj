@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="Breadcrumbs\MvcBreadcrumbExtensions.cs" />
     <Compile Include="Buttons\MvcButtonExtensions.cs" />
+    <Compile Include="Dropdowns\MvcDropdownExtensions.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Links\MvcLinkExtensions.cs" />
+    <Compile Include="ListGroups\MvcListGroupExtensions.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcOutputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
