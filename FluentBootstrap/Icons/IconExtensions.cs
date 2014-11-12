@@ -10,16 +10,16 @@ namespace FluentBootstrap
 {
     public static class IconExtensions
     {
-        public static IconSpan<TModel> Icon<TModel>(this ITagCreator<TModel> creator, Icon icon)
+        public static IconSpan<THelper> Icon<THelper>(this ITagCreator<THelper> creator, Icon icon)
         {
-            return new IconSpan<TModel>(creator, icon);
+            return new IconSpan<THelper>(creator, icon);
         }
 
         // IHasIconExtensions
 
-        public static TThis SetIcon<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, Icon icon)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasIconExtensions
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetIcon<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, Icon icon)
+            where TThis : Tag<THelper, TThis, TWrapper>, IHasIconExtensions
+            where TWrapper : TagWrapper<THelper>, new()
         {
             TThis tag = component.GetThis();
             if (icon != FluentBootstrap.Icon.None)

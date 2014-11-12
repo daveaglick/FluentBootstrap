@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Paginations
 {
-    public interface IPaginationCreator<TModel> : IComponentCreator<TModel>
+    public interface IPaginationCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class PaginationWrapper<TModel> : TagWrapper<TModel>,
-        IPageNumCreator<TModel>
+    public class PaginationWrapper<THelper> : TagWrapper<THelper>,
+        IPageNumCreator<THelper>
     {
     }
 
@@ -21,19 +21,19 @@ namespace FluentBootstrap.Paginations
     {
     }
 
-    public class Pagination<TModel> : Tag<TModel, Pagination<TModel>, PaginationWrapper<TModel>>, IPagination
+    public class Pagination<THelper> : Tag<THelper, Pagination<THelper>, PaginationWrapper<THelper>>, IPagination
     {
         internal int AutoPageNumber { get; set; }
-        private Element<TModel> _nav = null;
+        private Element<THelper> _nav = null;
 
-        internal Pagination(IComponentCreator<TModel> creator)
+        internal Pagination(IComponentCreator<THelper> creator)
             : base(creator, "ul", Css.Pagination)
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
-            _nav = new Element<TModel>(Helper, "nav");
+            _nav = new Element<THelper>(Helper, "nav");
             _nav.Start(writer);
 
             base.OnStart(writer);

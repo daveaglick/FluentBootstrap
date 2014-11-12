@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ListGroups
 {
-    public interface IListGroupItemCreator<TModel> : IComponentCreator<TModel>
+    public interface IListGroupItemCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class ListGroupItemWrapper<TModel> : TagWrapper<TModel>,
-        IBadgeCreator<TModel>,
-        IHeadingCreator<TModel>,
-        IParagraphCreator<TModel>
+    public class ListGroupItemWrapper<THelper> : TagWrapper<THelper>,
+        IBadgeCreator<THelper>,
+        IHeadingCreator<THelper>,
+        IParagraphCreator<THelper>
     {
     }
 
@@ -26,13 +26,13 @@ namespace FluentBootstrap.ListGroups
     {
     }
 
-    public class ListGroupItem<TModel> : Tag<TModel, ListGroupItem<TModel>, ListGroupItemWrapper<TModel>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
+    public class ListGroupItem<THelper> : Tag<THelper, ListGroupItem<THelper>, ListGroupItemWrapper<THelper>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }
         internal string Heading { get; set; }
 
-        internal ListGroupItem(IComponentCreator<TModel> creator)
+        internal ListGroupItem(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.ListGroupItem)
         {
         }

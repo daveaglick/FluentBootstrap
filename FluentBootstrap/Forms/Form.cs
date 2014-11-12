@@ -10,17 +10,17 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormCreator<TModel> : IComponentCreator<TModel>
+    public interface IFormCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class FormWrapper<TModel> : TagWrapper<TModel>,
-        IFieldSetCreator<TModel>,
-        IFormGroupCreator<TModel>,
-        IControlLabelCreator<TModel>,
-        IFormControlCreator<TModel>,
-        IHelpBlockCreator<TModel>,
-        IInputGroupCreator<TModel>
+    public class FormWrapper<THelper> : TagWrapper<THelper>,
+        IFieldSetCreator<THelper>,
+        IFormGroupCreator<THelper>,
+        IControlLabelCreator<THelper>,
+        IFormControlCreator<THelper>,
+        IHelpBlockCreator<THelper>,
+        IInputGroupCreator<THelper>
     {
     }
 
@@ -31,9 +31,9 @@ namespace FluentBootstrap.Forms
         bool HideValidationSummary { set; }
     }
 
-    public abstract class Form<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IForm
-        where TThis : Form<TModel, TThis, TWrapper>
-        where TWrapper : FormWrapper<TModel>, new()
+    public abstract class Form<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IForm
+        where TThis : Form<THelper, TThis, TWrapper>
+        where TWrapper : FormWrapper<THelper>, new()
     {        
         internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
 
@@ -49,7 +49,7 @@ namespace FluentBootstrap.Forms
             set { HideValidationSummary = value; }
         }
 
-        public Form(IComponentCreator<TModel> creator, params string[] cssClasses)
+        public Form(IComponentCreator<THelper> creator, params string[] cssClasses)
             : base(creator, "form", cssClasses)
         {
             DefaultLabelWidth = Bootstrap.DefaultFormLabelWidth;
@@ -91,7 +91,7 @@ namespace FluentBootstrap.Forms
             // Validation summary if it's not hidden or one was not already output
             if (!HideValidationSummary)
             {
-                new ValidationSummary<TModel>(Helper).StartAndFinish(writer);
+                new ValidationSummary<THelper>(Helper).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);
@@ -119,9 +119,9 @@ namespace FluentBootstrap.Forms
         }
     }
     
-    public class Form<TModel> : Form<TModel, Form<TModel>, FormWrapper<TModel>>, IForm
+    public class Form<THelper> : Form<THelper, Form<THelper>, FormWrapper<THelper>>, IForm
     {
-        public Form(IComponentCreator<TModel> creator) : base(creator)
+        public Form(IComponentCreator<THelper> creator) : base(creator)
         {
         }
     }

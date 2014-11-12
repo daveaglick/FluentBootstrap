@@ -13,11 +13,11 @@ using FluentBootstrap.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlListForCreator<TModel> : IComponentCreator<TModel>
+    public interface IFormControlListForCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class FormControlListForWrapper<TModel> : FormControlForBaseWrapper<TModel>
+    public class FormControlListForWrapper<THelper> : FormControlForBaseWrapper<THelper>
     {
     }
 
@@ -25,11 +25,11 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class FormControlListFor<TModel, TValue> : FormControlForBase<TModel, IEnumerable<TValue>, FormControlListFor<TModel, TValue>, FormControlListForWrapper<TModel>>, IFormControlListFor
+    public class FormControlListFor<THelper, TValue> : FormControlForBase<THelper, IEnumerable<TValue>, FormControlListFor<THelper, TValue>, FormControlListForWrapper<THelper>>, IFormControlListFor
     {
         private readonly ListType _listType;
 
-        public FormControlListFor(IComponentCreator<TModel> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression, ListType listType)
+        public FormControlListFor(IComponentCreator<THelper> creator, bool editor, Expression<Func<THelper, IEnumerable<TValue>>> expression, ListType listType)
             : base(creator, editor, expression)
         {
             _listType = listType;
@@ -46,11 +46,11 @@ namespace FluentBootstrap.Forms
             }
 
             // Iterate
-            Typography.List<TModel> list = new Typography.List<TModel>(Helper, _listType);
+            Typography.List<THelper> list = new Typography.List<THelper>(Helper, _listType);
             foreach (TValue value in values)
             {
                 list.AddChild(x => x.ListItem(
-                    (AddHidden ? new HiddenFor<TModel, TValue>(Helper, _ => value).ToHtmlString() : string.Empty)
+                    (AddHidden ? new HiddenFor<THelper, TValue>(Helper, _ => value).ToHtmlString() : string.Empty)
                         + HtmlHelper.DisplayFor(_ => value, TemplateName, AdditionalViewData).ToString()));
             }
             list.StartAndFinish(writer);
@@ -67,7 +67,7 @@ namespace FluentBootstrap.Forms
             }
 
             // Iterate
-            Typography.List<TModel> list = new Typography.List<TModel>(Helper, _listType);
+            Typography.List<THelper> list = new Typography.List<THelper>(Helper, _listType);
             int c = 0;
             foreach (TValue value in values)
             {

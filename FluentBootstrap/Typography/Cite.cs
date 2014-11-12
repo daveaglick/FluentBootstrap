@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface ICiteCreator<TModel> : IComponentCreator<TModel>
+    public interface ICiteCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class CiteWrapper<TModel> : TagWrapper<TModel>
+    public class CiteWrapper<THelper> : TagWrapper<THelper>
     {
-    }
+    }
+
     internal interface ICite : ITag
     {
     }
 
-    public class Cite<TModel> : Tag<TModel, Cite<TModel>, CiteWrapper<TModel>>, ICite, IHasTextContent, IHasTitleAttribute
+    public class Cite<THelper> : Tag<THelper, Cite<THelper>, CiteWrapper<THelper>>, ICite, IHasTextContent, IHasTitleAttribute
     {
-        internal Cite(IComponentCreator<TModel> creator)
+        internal Cite(IComponentCreator<THelper> creator)
             : base(creator, "cite")
         {
         }

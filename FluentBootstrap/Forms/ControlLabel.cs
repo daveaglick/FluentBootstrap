@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IControlLabelCreator<TModel> : IComponentCreator<TModel>
+    public interface IControlLabelCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class ControlLabelWrapper<TModel> : TagWrapper<TModel>
+    public class ControlLabelWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -20,9 +20,9 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class ControlLabel<TModel> : Tag<TModel, ControlLabel<TModel>, ControlLabelWrapper<TModel>>, IControlLabel, IHasGridColumnExtensions, IHasTextContent
+    public class ControlLabel<THelper> : Tag<THelper, ControlLabel<THelper>, ControlLabelWrapper<THelper>>, IControlLabel, IHasGridColumnExtensions, IHasTextContent
     {
-        internal ControlLabel(IComponentCreator<TModel> creator, string text)
+        internal ControlLabel(IComponentCreator<THelper> creator, string text)
             : base(creator, "label", Css.ControlLabel)
         {
             TextContent = text;

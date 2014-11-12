@@ -10,24 +10,24 @@ namespace FluentBootstrap
     // Extensions for very general HTML elements
     public static class HtmlExtensions
     {
-        public static Element<TModel> Element<TModel>(this ITagCreator<TModel> creator, string name)
+        public static Element<THelper> Element<THelper>(this ITagCreator<THelper> creator, string name)
         {
-            return new Element<TModel>(creator, name);
+            return new Element<THelper>(creator, name);
         }
 
-        public static Element<TModel> Div<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> Div<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "div");
+            return new Element<THelper>(creator, "div");
         }
 
-        public static Element<TModel> Span<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> Span<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "span");
+            return new Element<THelper>(creator, "span");
         }
 
-        public static Paragraph<TModel> Paragraph<TModel>(this IParagraphCreator<TModel> creator, string text = null)
+        public static Paragraph<THelper> Paragraph<THelper>(this IParagraphCreator<THelper> creator, string text = null)
         {
-            return new Paragraph<TModel>(creator).SetText(text);
+            return new Paragraph<THelper>(creator).SetText(text);
         }
     }
 }

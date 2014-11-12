@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableCellCreator<TModel> : IComponentCreator<TModel>
+    public interface ITableCellCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class TableCellWrapper<TModel> : TagWrapper<TModel>
+    public class TableCellWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -19,11 +19,11 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public abstract class TableCell<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, ITableCell, IHasTableStateExtensions
-        where TThis : TableCell<TModel, TThis, TWrapper>
-        where TWrapper : TableCellWrapper<TModel>, new()
+    public abstract class TableCell<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, ITableCell, IHasTableStateExtensions
+        where TThis : TableCell<THelper, TThis, TWrapper>
+        where TWrapper : TableCellWrapper<THelper>, new()
     {
-        internal TableCell(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+        internal TableCell(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
             : base(creator, tagName, cssClasses)
         {
         }

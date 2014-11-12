@@ -42,41 +42,12 @@ namespace FluentBootstrap
 
     // This (and derived) non-generic interfaces are needed for every component
     // They allow type comparisons of component references without worrying about all the generic stuff
-    // Generally, any members that need to be accessed after getting a component off the stack from another one should be put in this interface
-    internal interface IComponentInternals
-    {
-        void Start(TextWriter writer);
-        void Finish(TextWriter writer);
-        void StartAndFinish(TextWriter writer);
-        bool Implicit { get; }
-    }
-
-    public interface IComponent : IComponentInternals
+    public interface IComponent
     {
     }
 
     public abstract class Component : IComponent
     {
-        void IComponentInternals.Start(TextWriter writer)
-        {
-            Start(writer);
-        }
-
-        void IComponentInternals.Finish(TextWriter writer)
-        {
-            Finish(writer);
-        }
-
-        void IComponentInternals.StartAndFinish(TextWriter writer)
-        {
-            StartAndFinish(writer);
-        }
-
-        bool IComponentInternals.Implicit
-        {
-            get { return Implicit; }
-        }
-
         public abstract void End();
 
         internal abstract void Start(TextWriter writer);
@@ -124,11 +95,6 @@ namespace FluentBootstrap
         internal override sealed THelper Helper
         {
             get { return _helper; }
-        }
-
-        internal TThis GetThis()
-        {
-            return (TThis)this;
         }
 
         protected Component(IComponentCreator<THelper> creator)
@@ -303,7 +269,7 @@ namespace FluentBootstrap
 
         private void WriteChildren(TextWriter writer)
         {
-            foreach (IComponent child in _children)
+            foreach (Component child in _children.Cast<Component>())
             {
                 child.StartAndFinish(writer);
             }
@@ -324,8 +290,8 @@ namespace FluentBootstrap
             Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
 
             // Peek components until we get to this one - the call to Finish() will pop them
-            IComponent peek = null;
-            while (stack.Count > 0 && (peek = stack.Peek()) != this && peek.Implicit)
+            Component peek = null;
+            while (stack.Count > 0 && (peek = (Component)stack.Peek()) != this && peek.Implicit)
             {
                 peek.Finish(writer);
             }
@@ -354,10 +320,10 @@ namespace FluentBootstrap
             Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
-            Queue<IComponent> finish = new Queue<IComponent>();
+            Queue<Component> finish = new Queue<Component>();
             if (stack.Count > 0)
             {
-                foreach (IComponent component in stack)
+                foreach (Component component in stack.Cast<Component>())
                 {
                     if(component == this)
                     {
@@ -383,7 +349,7 @@ namespace FluentBootstrap
 
         // This pops up the stack if (and only if) the requested component and all intermediate components are implicit
         // Use this to clear specific implicitly added components from the stack (see how Forms.Input works)
-        internal void Pop(IComponent pop, TextWriter writer)
+        internal void Pop(Component pop, TextWriter writer)
         {
             if (pop == null || !pop.Implicit)
             {
@@ -392,10 +358,10 @@ namespace FluentBootstrap
             Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
-            Queue<IComponent> finish = new Queue<IComponent>();
+            Queue<Component> finish = new Queue<Component>();
             if (stack.Count > 0)
             {
-                foreach (IComponent component in stack)
+                foreach (Component component in stack.Cast<Component>())
                 {
                     if (!component.Implicit)
                     {

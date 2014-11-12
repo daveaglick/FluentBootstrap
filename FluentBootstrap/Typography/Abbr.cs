@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IAbbrCreator<TModel> : IComponentCreator<TModel>
+    public interface IAbbrCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class AbbrWrapper<TModel> : TagWrapper<TModel>
+    public class AbbrWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class Abbr<TModel> : Tag<TModel, Abbr<TModel>, AbbrWrapper<TModel>>, IAbbr, IHasTextContent, IHasTitleAttribute
+    public class Abbr<THelper> : Tag<THelper, Abbr<THelper>, AbbrWrapper<THelper>>, IAbbr, IHasTextContent, IHasTitleAttribute
     {
-        internal Abbr(IComponentCreator<TModel> creator)
+        internal Abbr(IComponentCreator<THelper> creator)
             : base(creator, "abbr")
         {
         }

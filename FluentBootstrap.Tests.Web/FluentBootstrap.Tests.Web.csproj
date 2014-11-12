@@ -156,6 +156,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FluentBootstrap.Mvc\FluentBootstrap.Mvc.csproj">
+      <Project>{dc78ef6d-b139-447e-989e-562aacb4f52f}</Project>
+      <Name>FluentBootstrap.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FluentBootstrap\FluentBootstrap.csproj">
       <Project>{fe49cf3b-6563-447b-b94e-018b334096e4}</Project>
       <Name>FluentBootstrap</Name>

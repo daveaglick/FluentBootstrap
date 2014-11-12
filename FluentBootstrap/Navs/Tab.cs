@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface ITabCreator<TModel> : IComponentCreator<TModel>
+    public interface ITabCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class TabWrapper<TModel> : NavLinkWrapper<TModel>
+    public class TabWrapper<THelper> : NavLinkWrapper<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public class Tab<TModel> : NavLink<TModel, Tab<TModel>, TabWrapper<TModel>>, ITab
+    public class Tab<THelper> : NavLink<THelper, Tab<THelper>, TabWrapper<THelper>>, ITab
     {
-        internal Tab(IComponentCreator<TModel> creator)
+        internal Tab(IComponentCreator<THelper> creator)
             : base(creator)
         {
         }

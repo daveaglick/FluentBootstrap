@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownDividerCreator<TModel> : IComponentCreator<TModel>
+    public interface IDropdownDividerCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class DropdownDividerWrapper<TModel> : TagWrapper<TModel>
+    public class DropdownDividerWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class DropdownDivider<TModel> : Tag<TModel, DropdownDivider<TModel>, DropdownDividerWrapper<TModel>>, IDropdownDivider
+    public class DropdownDivider<THelper> : Tag<THelper, DropdownDivider<THelper>, DropdownDividerWrapper<THelper>>, IDropdownDivider
     {
-        internal DropdownDivider(IComponentCreator<TModel> creator)
+        internal DropdownDivider(IComponentCreator<THelper> creator)
             : base(creator, "li", Css.Divider)
         {
             MergeAttribute("role", "presentation");

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormGroupCreator<TModel> : IComponentCreator<TModel>
+    public interface IFormGroupCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class FormGroupWrapper<TModel> : TagWrapper<TModel>,
-        IControlLabelCreator<TModel>,
-        IFormControlCreator<TModel>,
-        IHelpBlockCreator<TModel>
+    public class FormGroupWrapper<THelper> : TagWrapper<THelper>,
+        IControlLabelCreator<THelper>,
+        IFormControlCreator<THelper>,
+        IHelpBlockCreator<THelper>
     {
     }
 
@@ -25,10 +25,10 @@ namespace FluentBootstrap.Forms
         IControlLabel Label { set; }
     }
 
-    public class FormGroup<TModel> : Tag<TModel, FormGroup<TModel>, FormGroupWrapper<TModel>>, IFormGroup, IHasGridColumnExtensions, IFormValidation
+    public class FormGroup<THelper> : Tag<THelper, FormGroup<THelper>, FormGroupWrapper<THelper>>, IFormGroup, IHasGridColumnExtensions, IFormValidation
     {
         private IControlLabel _label = null;
-        private Element<TModel> _columnWrapper;
+        private Element<THelper> _columnWrapper;
         private bool _columnWrapperBeforeLabel = false;
 
         internal IControlLabel ControlLabel
@@ -48,7 +48,7 @@ namespace FluentBootstrap.Forms
 
         internal bool? Horizontal { get; set; }
 
-        internal FormGroup(IComponentCreator<TModel> creator)
+        internal FormGroup(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.FormGroup)
         {
 
@@ -90,7 +90,7 @@ namespace FluentBootstrap.Forms
             // Move any grid column classes to a container class
             if (CssClasses.Any(x => x.StartsWith("col-")))
             {
-                _columnWrapper = new Element<TModel>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                _columnWrapper = new Element<THelper>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
 

@@ -2,11 +2,11 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableDataCreator<TModel> : IComponentCreator<TModel>
+    public interface ITableDataCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class TableDataWrapper<TModel> : TableCellWrapper<TModel>
+    public class TableDataWrapper<THelper> : TableCellWrapper<THelper>
     {
     }
 
@@ -14,9 +14,9 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public class TableData<TModel> : TableCell<TModel, TableData<TModel>, TableDataWrapper<TModel>>, ITableData
+    public class TableData<THelper> : TableCell<THelper, TableData<THelper>, TableDataWrapper<THelper>>, ITableData
     {
-        internal TableData(IComponentCreator<TModel> creator)
+        internal TableData(IComponentCreator<THelper> creator)
             : base(creator, "td")
         {
         }
@@ -32,7 +32,7 @@ namespace FluentBootstrap.Tables
                 // Make sure we're in a row
                 if (GetComponent<ITableRow>() == null)
                 {
-                    new TableRow<TModel>(Helper).Start(writer);
+                    new TableRow<THelper>(Helper).Start(writer);
                 }
             }
 

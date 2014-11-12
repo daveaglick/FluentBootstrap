@@ -8,23 +8,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownLinkCreator<TModel> : IComponentCreator<TModel>
+    public interface IDropdownLinkCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class DropdownLinkWrapper<TModel> : TagWrapper<TModel>
+    public class DropdownLinkWrapper<THelper> : TagWrapper<THelper>
     {
-    }
+    }
+
     internal interface IDropdownLink : ITag
     {
     }
 
-    public class DropdownLink<TModel> : Tag<TModel, DropdownLink<TModel>, DropdownLinkWrapper<TModel>>, IDropdownLink, IHasLinkExtensions, IHasTextContent
+    public class DropdownLink<THelper> : Tag<THelper, DropdownLink<THelper>, DropdownLinkWrapper<THelper>>, IDropdownLink, IHasLinkExtensions, IHasTextContent
     {
         internal bool Disabled { get; set; }
-        private Element<TModel> _listItem = null;
+        private Element<THelper> _listItem = null;
         
-        internal DropdownLink(IComponentCreator<TModel> creator)
+        internal DropdownLink(IComponentCreator<THelper> creator)
             : base(creator, "a")
         {
             MergeAttribute("role", "menuitem");
@@ -32,7 +33,7 @@ namespace FluentBootstrap.Dropdowns
 
         protected override void OnStart(System.IO.TextWriter writer)
         {
-            _listItem = new Element<TModel>(Helper, "li");
+            _listItem = new Element<THelper>(Helper, "li");
             _listItem.MergeAttribute("role", "presentation");
             if(Disabled)
             {

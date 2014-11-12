@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IInputButtonCreator<TModel> : IComponentCreator<TModel>
+    public interface IInputButtonCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class InputButtonWrapper<TModel> : FormControlWrapper<TModel>
+    public class InputButtonWrapper<THelper> : FormControlWrapper<THelper>
     {
     }
 
@@ -19,10 +19,10 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class InputButton<TModel> : FormControl<TModel, InputButton<TModel>, InputButtonWrapper<TModel>>, 
+    public class InputButton<THelper> : FormControl<THelper, InputButton<THelper>, InputButtonWrapper<THelper>>, 
         IInputButton, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, IHasNameAttribute
     {
-        internal InputButton(IComponentCreator<TModel> creator, ButtonType buttonType)
+        internal InputButton(IComponentCreator<THelper> creator, ButtonType buttonType)
             : base(creator, "input", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("type", buttonType.GetDescription());

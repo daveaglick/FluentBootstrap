@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IListCreator<TModel> : IComponentCreator<TModel>
+    public interface IListCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class ListWrapper<TModel> : TagWrapper<TModel>, IListItemCreator<TModel>
+    public class ListWrapper<THelper> : TagWrapper<THelper>, IListItemCreator<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class List<TModel> : Tag<TModel, List<TModel>, ListWrapper<TModel>>, IList
+    public class List<THelper> : Tag<THelper, List<THelper>, ListWrapper<THelper>>, IList
     {
-        internal List(IComponentCreator<TModel> creator, ListType listType)
+        internal List(IComponentCreator<THelper> creator, ListType listType)
             : base(creator, listType == ListType.Ordered ? "ol" : "ul", 
                 listType == ListType.Unstyled ? Css.ListUnstyled : null,
                 listType == ListType.Inline ? Css.ListInline : null)

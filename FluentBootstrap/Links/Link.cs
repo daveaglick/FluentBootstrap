@@ -12,12 +12,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
-    public interface ILinkCreator<TModel> : IComponentCreator<TModel>
+    public interface ILinkCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class LinkWrapper<TModel> : TagWrapper<TModel>,
-        IBadgeCreator<TModel>
+    public class LinkWrapper<THelper> : TagWrapper<THelper>,
+        IBadgeCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -25,9 +27,10 @@ namespace FluentBootstrap.Links
     {
     }
 
-    public class Link<TModel> : Tag<TModel, Link<TModel>, LinkWrapper<TModel>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
+    public class Link<THelper> : Tag<THelper, Link<THelper>, LinkWrapper<THelper>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Link(IComponentCreator<TModel> creator)
+        internal Link(IComponentCreator<THelper> creator)
             : base(creator, "a")
         {
         }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Thumbnails
 {
-    public interface ICaptionCreator<TModel> : IComponentCreator<TModel>
+    public interface ICaptionCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class CaptionWrapper<TModel> : TagWrapper<TModel>
+    public class CaptionWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Thumbnails
     {
     }
 
-    public class Caption<TModel> : Tag<TModel, Caption<TModel>, CaptionWrapper<TModel>>, ICaption
+    public class Caption<THelper> : Tag<THelper, Caption<THelper>, CaptionWrapper<THelper>>, ICaption
     {
-        internal Caption(IComponentCreator<TModel> creator)
+        internal Caption(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Caption)
         {
         }

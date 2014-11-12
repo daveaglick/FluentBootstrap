@@ -12,48 +12,48 @@ namespace FluentBootstrap
     {
         // Jumbotron
 
-        public static Jumbotron<TModel> Jumbotron<TModel>(this IJumbotronCreator<TModel> creator)
+        public static Jumbotron<THelper> Jumbotron<THelper>(this IJumbotronCreator<THelper> creator)
         {
-            return new Jumbotron<TModel>(creator);
+            return new Jumbotron<THelper>(creator);
         }
 
         // PageHeader
 
-        public static PageHeader<TModel> PageHeader<TModel>(this IPageHeaderCreator<TModel> creator, string text = null)
+        public static PageHeader<THelper> PageHeader<THelper>(this IPageHeaderCreator<THelper> creator, string text = null)
         {
-            return new PageHeader<TModel>(creator).SetText(text);
+            return new PageHeader<THelper>(creator).SetText(text);
         }
 
         // Elements
 
-        public static Element<TModel> Clearfix<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> Clearfix<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "div", Css.Clearfix);
+            return new Element<THelper>(creator, "div", Css.Clearfix);
         }
 
-        public static Element<TModel> CenterBlock<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> CenterBlock<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "div", Css.CenterBlock);
+            return new Element<THelper>(creator, "div", Css.CenterBlock);
         }
 
-        public static Element<TModel> PullLeft<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> PullLeft<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "div", Css.PullLeft);
+            return new Element<THelper>(creator, "div", Css.PullLeft);
         }
 
-        public static Element<TModel> PullRight<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> PullRight<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "div", Css.PullRight);
+            return new Element<THelper>(creator, "div", Css.PullRight);
         }
 
-        public static Element<TModel> Caret<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> Caret<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "span", Css.Caret);
+            return new Element<THelper>(creator, "span", Css.Caret);
         }
 
-        public static Element<TModel> Close<TModel>(this ITagCreator<TModel> creator)
+        public static Element<THelper> Close<THelper>(this ITagCreator<THelper> creator)
         {
-            return new Element<TModel>(creator, "button", Css.Close)
+            return new Element<THelper>(creator, "button", Css.Close)
                 .AddAttribute("type", "button")
                 .AddContent("<span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span>");
         }

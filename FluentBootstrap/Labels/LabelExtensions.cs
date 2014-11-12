@@ -9,12 +9,12 @@ namespace FluentBootstrap
 {
     public static class LabelExtensions
     {
-        public static Label<TModel> Label<TModel>(this ILabelCreator<TModel> creator, string text)
+        public static Label<THelper> Label<THelper>(this ILabelCreator<THelper> creator, string text)
         {
-            return new Label<TModel>(creator).SetText(text);
+            return new Label<THelper>(creator).SetText(text);
         }
 
-        public static Label<TModel> SetState<TModel>(this Label<TModel> label, LabelState state)
+        public static Label<THelper> SetState<THelper>(this Label<THelper> label, LabelState state)
         {
             label.ToggleCss(state);
             return label;

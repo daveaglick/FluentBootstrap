@@ -76,7 +76,7 @@ namespace FluentBootstrap
         Wells.IWellCreator<THelper>
         where THelper : BootstrapHelper<THelper>
     {
-        public IOutputContext OutputContext { get; private set; }
+        internal IOutputContext OutputContext { get; private set; }
 
         public BootstrapHelper(IOutputContext outputContext)
         {

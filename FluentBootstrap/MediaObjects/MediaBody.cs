@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaBodyCreator<TModel> : IComponentCreator<TModel>
+    public interface IMediaBodyCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class MediaBodyWrapper<TModel> : TagWrapper<TModel>
+    public class MediaBodyWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -19,11 +19,11 @@ namespace FluentBootstrap.MediaObjects
     {
     }
 
-    public class MediaBody<TModel> : Tag<TModel, MediaBody<TModel>, MediaBodyWrapper<TModel>>, IMediaBody, IHasTextContent
+    public class MediaBody<THelper> : Tag<THelper, MediaBody<THelper>, MediaBodyWrapper<THelper>>, IMediaBody, IHasTextContent
     {
         internal string Heading { get; set; }
 
-        internal MediaBody(IComponentCreator<TModel> creator)
+        internal MediaBody(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.MediaBody)
         {
         }

@@ -13,11 +13,11 @@ using FluentBootstrap.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlForBaseCreator<TModel> : IComponentCreator<TModel>
+    public interface IFormControlForBaseCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class FormControlForBaseWrapper<TModel> : FormControlWrapper<TModel>
+    public class FormControlForBaseWrapper<THelper> : FormControlWrapper<THelper>
     {
     }
 
@@ -25,12 +25,12 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public abstract class FormControlForBase<TModel, TValue, TThis, TWrapper> : FormControl<TModel, TThis, TWrapper>, IFormControlForBase
-        where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
-        where TWrapper : FormControlForBaseWrapper<TModel>, new()
+    public abstract class FormControlForBase<THelper, TValue, TThis, TWrapper> : FormControl<THelper, TThis, TWrapper>, IFormControlForBase
+        where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
+        where TWrapper : FormControlForBaseWrapper<THelper>, new()
     {
         private readonly bool _editor;
-        protected Expression<Func<TModel, TValue>> Expression { get; private set; }
+        protected Expression<Func<THelper, TValue>> Expression { get; private set; }
 
         internal bool AddDescription { get; set; }
         internal bool AddValidationMessage { get; set; }
@@ -39,7 +39,7 @@ namespace FluentBootstrap.Forms
         internal string TemplateName { get; set; }
         internal object AdditionalViewData { get; set; }
 
-        protected FormControlForBase(IComponentCreator<TModel> creator, bool editor, Expression<Func<TModel, TValue>> expression)
+        protected FormControlForBase(IComponentCreator<THelper> creator, bool editor, Expression<Func<THelper, TValue>> expression)
             : base(creator, "div", editor ? null : Css.FormControlStatic)
         {
             _editor = editor;
@@ -75,8 +75,8 @@ namespace FluentBootstrap.Forms
                 ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
                 if (!string.IsNullOrWhiteSpace(metadata.Description))
                 {
-                    Element<TModel> element = new Element<TModel>(Helper, "p", Css.HelpBlock);
-                    element.AddChild(new Content<TModel>(Helper, metadata.Description));
+                    Element<THelper> element = new Element<THelper>(Helper, "p", Css.HelpBlock);
+                    element.AddChild(new Content<THelper>(Helper, metadata.Description));
                     element.StartAndFinish(writer);
                 }
             }
@@ -89,7 +89,7 @@ namespace FluentBootstrap.Forms
             // Insert the hidden control if requested
             if (AddHidden)
             {
-                new HiddenFor<TModel, TValue>(Helper, Expression).StartAndFinish(writer);
+                new HiddenFor<THelper, TValue>(Helper, Expression).StartAndFinish(writer);
             }
 
             writer.Write(HtmlHelper.DisplayFor(Expression, TemplateName, AdditionalViewData));

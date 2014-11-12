@@ -11,53 +11,53 @@ namespace FluentBootstrap
     {
         // Media
 
-        public static Media<TModel> Media<TModel>(this IMediaCreator<TModel> creator)
+        public static Media<THelper> Media<THelper>(this IMediaCreator<THelper> creator)
         {
-            return new Media<TModel>(creator);
+            return new Media<THelper>(creator);
         }
 
         // Media Object
 
-        public static MediaObject<TModel> MediaObject<TModel>(this IMediaObjectCreator<TModel> creator, string src, string href = null, string alt = null)
+        public static MediaObject<THelper> MediaObject<THelper>(this IMediaObjectCreator<THelper> creator, string src, string href = null, string alt = null)
         {
-            return new MediaObject<TModel>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
+            return new MediaObject<THelper>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
         }
 
-        public static MediaObject<TModel> MediaObject<TModel>(this IMediaObjectCreator<TModel> creator, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
+        public static MediaObject<THelper> MediaObject<THelper>(this IMediaObjectCreator<THelper> creator, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
         {
-            return new MediaObject<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetSrc(src).SetAlt(alt);
+            return new MediaObject<THelper>(creator).SetAction(actionName, controllerName, routeValues).SetSrc(src).SetAlt(alt);
         }
 
-        public static MediaObject<TModel> SetSrc<TModel>(this MediaObject<TModel> mediaObject, string src)
+        public static MediaObject<THelper> SetSrc<THelper>(this MediaObject<THelper> mediaObject, string src)
         {
             mediaObject.Src = src;
             return mediaObject;
         }
 
-        public static MediaObject<TModel> SetAlt<TModel>(this MediaObject<TModel> mediaObject, string alt)
+        public static MediaObject<THelper> SetAlt<THelper>(this MediaObject<THelper> mediaObject, string alt)
         {
             mediaObject.Alt = alt;
             return mediaObject;
         }
 
-        public static MediaObject<TModel> SetLeft<TModel>(this MediaObject<TModel> mediaObject, bool left = true)
+        public static MediaObject<THelper> SetLeft<THelper>(this MediaObject<THelper> mediaObject, bool left = true)
         {
             return mediaObject.ToggleCss(Css.PullLeft, left, Css.PullRight);
         }
 
-        public static MediaObject<TModel> SetRight<TModel>(this MediaObject<TModel> mediaObject, bool right = true)
+        public static MediaObject<THelper> SetRight<THelper>(this MediaObject<THelper> mediaObject, bool right = true)
         {
             return mediaObject.ToggleCss(Css.PullRight, right, Css.PullLeft);
         }
 
         // Media Body
 
-        public static MediaBody<TModel> MediaBody<TModel>(this IMediaBodyCreator<TModel> creator, string heading = null, string text = null)
+        public static MediaBody<THelper> MediaBody<THelper>(this IMediaBodyCreator<THelper> creator, string heading = null, string text = null)
         {
-            return new MediaBody<TModel>(creator).SetHeading(heading).SetText(text);
+            return new MediaBody<THelper>(creator).SetHeading(heading).SetText(text);
         }
 
-        public static MediaBody<TModel> SetHeading<TModel>(this MediaBody<TModel> mediaBody, string heading)
+        public static MediaBody<THelper> SetHeading<THelper>(this MediaBody<THelper> mediaBody, string heading)
         {
             mediaBody.Heading = heading;
             return mediaBody;
@@ -65,9 +65,9 @@ namespace FluentBootstrap
 
         // Media List
 
-        public static MediaList<TModel> MediaList<TModel>(this IMediaListCreator<TModel> creator)
+        public static MediaList<THelper> MediaList<THelper>(this IMediaListCreator<THelper> creator)
         {
-            return new MediaList<TModel>(creator);
+            return new MediaList<THelper>(creator);
         }
 
     }

@@ -9,27 +9,27 @@ namespace FluentBootstrap
 {
     public static class ImageExtensions
     {
-        public static Image<TModel> Image<TModel>(this IImageCreator<TModel> creator, string src, string alt = null)
+        public static Image<THelper> Image<THelper>(this IImageCreator<THelper> creator, string src, string alt = null)
         {
-            return new Image<TModel>(creator.GetHelper()).SetSrc(src).SetAlt(alt);
+            return new Image<THelper>(creator.GetHelper()).SetSrc(src).SetAlt(alt);
         }
 
-        public static Image<TModel> SetSrc<TModel>(this Image<TModel> image, string src)
+        public static Image<THelper> SetSrc<THelper>(this Image<THelper> image, string src)
         {
             return image.MergeAttribute("src", src);
         }
 
-        public static Image<TModel> SetAlt<TModel>(this Image<TModel> image, string alt)
+        public static Image<THelper> SetAlt<THelper>(this Image<THelper> image, string alt)
         {
             return image.MergeAttribute("alt", alt);
         }
 
-        public static Image<TModel> SetResponsive<TModel>(this Image<TModel> image, bool responsive = true)
+        public static Image<THelper> SetResponsive<THelper>(this Image<THelper> image, bool responsive = true)
         {
             return image.ToggleCss(Css.ImgResponsive, responsive);
         }
 
-        public static Image<TModel> SetStyle<TModel>(this Image<TModel> image, ImageStyle style)
+        public static Image<THelper> SetStyle<THelper>(this Image<THelper> image, ImageStyle style)
         {
             return image.ToggleCss(style);
         }

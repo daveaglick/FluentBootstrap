@@ -11,30 +11,30 @@ namespace FluentBootstrap
     {
         // Dropdown
 
-        public static Dropdown<TModel> Dropdown<TModel>(this IDropdownCreator<TModel> creator, string text = null)
+        public static Dropdown<THelper> Dropdown<THelper>(this IDropdownCreator<THelper> creator, string text = null)
         {
-            return new Dropdown<TModel>(creator).SetText(text);
+            return new Dropdown<THelper>(creator).SetText(text);
         }
 
-        public static Dropdown<TModel> SetCaret<TModel>(this Dropdown<TModel> dropdown, bool caret = true)
+        public static Dropdown<THelper> SetCaret<THelper>(this Dropdown<THelper> dropdown, bool caret = true)
         {
             dropdown.Caret = caret;
             return dropdown;
         }
 
-        public static Dropdown<TModel> SetMenuRight<TModel>(this Dropdown<TModel> dropdown, bool menuRight = true)
+        public static Dropdown<THelper> SetMenuRight<THelper>(this Dropdown<THelper> dropdown, bool menuRight = true)
         {
             dropdown.MenuRight = menuRight;
             return dropdown;
         }
 
-        public static Dropdown<TModel> SetMenuLeft<TModel>(this Dropdown<TModel> dropdown, bool menuLeft = true)
+        public static Dropdown<THelper> SetMenuLeft<THelper>(this Dropdown<THelper> dropdown, bool menuLeft = true)
         {
             dropdown.MenuLeft = menuLeft;
             return dropdown;
         }
 
-        public static Dropdown<TModel> SetDropup<TModel>(this Dropdown<TModel> dropdown, bool dropup = true)
+        public static Dropdown<THelper> SetDropup<THelper>(this Dropdown<THelper> dropdown, bool dropup = true)
         {
             dropdown.ToggleCss(Css.Dropup, dropup);
             return dropdown;
@@ -42,30 +42,30 @@ namespace FluentBootstrap
 
         // Dropdown items
 
-        public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownLinkCreator<TModel> creator, string text, string href = "#")
+        public static DropdownLink<THelper> DropdownLink<THelper>(this IDropdownLinkCreator<THelper> creator, string text, string href = "#")
         {
-            return new DropdownLink<TModel>(creator).SetHref(href).SetText(text);
+            return new DropdownLink<THelper>(creator).SetHref(href).SetText(text);
         }
 
-        public static DropdownLink<TModel> DropdownLink<TModel>(this IDropdownLinkCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static DropdownLink<THelper> DropdownLink<THelper>(this IDropdownLinkCreator<THelper> creator, string text, string actionName, string controllerName, object routeValues = null)
         {
-            return new DropdownLink<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
+            return new DropdownLink<THelper>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
         }
 
-        public static DropdownLink<TModel> SetDisabled<TModel>(this DropdownLink<TModel> dropdownLink, bool disabled = true)
+        public static DropdownLink<THelper> SetDisabled<THelper>(this DropdownLink<THelper> dropdownLink, bool disabled = true)
         {
             dropdownLink.Disabled = disabled;
             return dropdownLink;
         }
 
-        public static DropdownHeader<TModel> DropdownHeader<TModel>(this IDropdownHeaderCreator<TModel> creator, string text = null)
+        public static DropdownHeader<THelper> DropdownHeader<THelper>(this IDropdownHeaderCreator<THelper> creator, string text = null)
         {
-            return new DropdownHeader<TModel>(creator).SetText(text);
+            return new DropdownHeader<THelper>(creator).SetText(text);
         }
 
-        public static DropdownDivider<TModel> DropdownDivider<TModel>(this IDropdownDividerCreator<TModel> creator)
+        public static DropdownDivider<THelper> DropdownDivider<THelper>(this IDropdownDividerCreator<THelper> creator)
         {
-            return new DropdownDivider<TModel>(creator);
+            return new DropdownDivider<THelper>(creator);
         }
     }
 }

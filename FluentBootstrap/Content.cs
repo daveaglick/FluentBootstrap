@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public interface IContentCreator<TModel> : IComponentCreator<TModel>
+    public interface IContentCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class ContentWrapper<TModel> : ComponentWrapper<TModel>
+    public class ContentWrapper<THelper> : ComponentWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,11 +21,12 @@ namespace FluentBootstrap
     {
     }
 
-    public class Content<TModel> : Component<TModel, Content<TModel>, ContentWrapper<TModel>>, IContent
+    public class Content<THelper> : Component<THelper, Content<THelper>, ContentWrapper<THelper>>, IContent
+        where THelper : BootstrapHelper<THelper>
     {
         private readonly string _content;
 
-        public Content(IComponentCreator<TModel> creator, string content)
+        public Content(IComponentCreator<THelper> creator, string content)
             : base(creator)
         {
             _content = content;

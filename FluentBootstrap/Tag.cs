@@ -11,11 +11,13 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
-    public interface ITagCreator<TModel> : IComponentCreator<TModel>
+    public interface ITagCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public abstract class TagWrapper<TModel> : ComponentWrapper<TModel>
+    public abstract class TagWrapper<THelper> : ComponentWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -28,9 +30,10 @@ namespace FluentBootstrap
         string GetStyle(string key);
     }
 
-    public abstract class Tag<TModel, TThis, TWrapper> : Component<TModel, TThis, TWrapper>, ITag
-        where TThis : Tag<TModel, TThis, TWrapper>
-        where TWrapper : TagWrapper<TModel>, new()
+    public abstract class Tag<THelper, TThis, TWrapper> : Component<THelper, TThis, TWrapper>, ITag
+        where THelper : BootstrapHelper<THelper>
+        where TThis : Tag<THelper, TThis, TWrapper>
+        where TWrapper : TagWrapper<THelper>, new()
     {
         internal TagBuilder TagBuilder { get; private set; }
         internal MergeableDictionary Attributes { get; private set; }
@@ -46,7 +49,7 @@ namespace FluentBootstrap
 
         internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
-        protected internal Tag(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+        protected internal Tag(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
             : base(creator)
         {
             TagBuilder = new TagBuilder(tagName);
@@ -184,7 +187,7 @@ namespace FluentBootstrap
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
             {
-                this.AddChild(new Content<TModel>(Helper, TextContent));
+                this.AddChild(new Content<THelper>(Helper, TextContent));
             }
 
             base.OnStart(writer);

@@ -9,28 +9,33 @@ namespace FluentBootstrap
 {
     public static class AlertExtensions
     {
-        public static Alert<TModel> Alert<TModel>(this IAlertCreator<TModel> creator, AlertState state, string text = null)
+        public static Alert<THelper> Alert<THelper>(this IAlertCreator<THelper> creator, AlertState state, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Alert<TModel>(creator).SetState(state).SetText(text);
+            return new Alert<THelper>(creator).SetState(state).SetText(text);
         }
 
-        public static Alert<TModel> Alert<TModel>(this IAlertCreator<TModel> creator, AlertState state, string heading, string text)
+        public static Alert<THelper> Alert<THelper>(this IAlertCreator<THelper> creator, AlertState state, string heading, string text)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Alert<TModel>(creator).SetState(state).SetHeading(heading).SetText(text);
+            return new Alert<THelper>(creator).SetState(state).SetHeading(heading).SetText(text);
         }
 
-        public static Alert<TModel> SetState<TModel>(this Alert<TModel> alert, AlertState state)
+        public static Alert<THelper> SetState<THelper>(this Alert<THelper> alert, AlertState state)
+            where THelper : BootstrapHelper<THelper>
         {
             return alert.ToggleCss(state);
         }
 
-        public static Alert<TModel> SetHeading<TModel>(this Alert<TModel> alert, string heading)
+        public static Alert<THelper> SetHeading<THelper>(this Alert<THelper> alert, string heading)
+            where THelper : BootstrapHelper<THelper>
         {
             alert.Heading = heading;
             return alert;
         }
 
-        public static Alert<TModel> SetDismissible<TModel>(this Alert<TModel> alert, bool dismissible = true)
+        public static Alert<THelper> SetDismissible<THelper>(this Alert<THelper> alert, bool dismissible = true)
+            where THelper : BootstrapHelper<THelper>
         {
             alert.Dismissible = dismissible;
             return alert;

@@ -32,6 +32,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FluentBootstrap.Tests.Web\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Breadcrumbs\MvcBreadcrumbExtensions.cs" />
+    <Compile Include="Buttons\MvcButtonExtensions.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="Links\MvcLinkExtensions.cs" />
+    <Compile Include="MvcBootstrapHelper.cs" />
+    <Compile Include="MvcOutputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentBootstrap\FluentBootstrap.csproj">
+      <Project>{fe49cf3b-6563-447b-b94e-018b334096e4}</Project>
+      <Name>FluentBootstrap</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

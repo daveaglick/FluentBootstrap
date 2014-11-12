@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface ISelectCreator<TModel> : IComponentCreator<TModel>
+    public interface ISelectCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class SelectWrapper<TModel> : FormControlWrapper<TModel>
+    public class SelectWrapper<THelper> : FormControlWrapper<THelper>
     {
     }
 
@@ -20,11 +20,11 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class Select<TModel> : FormControl<TModel, Select<TModel>, SelectWrapper<TModel>>, ISelect, IHasNameAttribute
+    public class Select<THelper> : FormControl<THelper, Select<THelper>, SelectWrapper<THelper>>, ISelect, IHasNameAttribute
     {
         internal List<string> Options { get; private set; }
 
-        internal Select(IComponentCreator<TModel> creator)
+        internal Select(IComponentCreator<THelper> creator)
             : base(creator, "select", Css.FormControl)
         {
             Options = new List<string>();
@@ -35,8 +35,8 @@ namespace FluentBootstrap.Forms
             // Add options as child tags
             foreach (string option in Options)
             {
-                Element<TModel> element = new Element<TModel>(Helper, "option");
-                element.AddChild(new Content<TModel>(Helper, option));
+                Element<THelper> element = new Element<THelper>(Helper, "option");
+                element.AddChild(new Content<THelper>(Helper, option));
                 this.AddChild(element);
             }
 

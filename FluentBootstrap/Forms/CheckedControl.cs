@@ -9,11 +9,11 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public interface ICheckedControlCreator<TModel> : IComponentCreator<TModel>
+    public interface ICheckedControlCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class CheckedControlWrapper<TModel> : FormControlWrapper<TModel>
+    public class CheckedControlWrapper<THelper> : FormControlWrapper<THelper>
     {
     }
 
@@ -21,16 +21,16 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class CheckedControl<TModel> : FormControl<TModel, CheckedControl<TModel>, CheckedControlWrapper<TModel>>, ICheckedControl, IHasValueAttribute, IHasNameAttribute
+    public class CheckedControl<THelper> : FormControl<THelper, CheckedControl<THelper>, CheckedControlWrapper<THelper>>, ICheckedControl, IHasValueAttribute, IHasNameAttribute
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }
         internal bool SuppressLabelWrapper { get; set; }
 
-        private Element<TModel> _wrapper = null;
-        private Element<TModel> _label = null;
+        private Element<THelper> _wrapper = null;
+        private Element<THelper> _label = null;
 
-        internal CheckedControl(IComponentCreator<TModel> creator, string type)
+        internal CheckedControl(IComponentCreator<THelper> creator, string type)
             : base(creator, "input")
         {
             MergeAttribute("type", type);
@@ -48,20 +48,20 @@ namespace FluentBootstrap.Forms
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
             {
-                this.AddChild(new Content<TModel>(Helper, Description));
+                this.AddChild(new Content<THelper>(Helper, Description));
             }
 
             // Add the wrapper
             if (!Inline)
             {
-                _wrapper = new Element<TModel>(Helper, "div", TagBuilder.Attributes["type"]);
+                _wrapper = new Element<THelper>(Helper, "div", TagBuilder.Attributes["type"]);
                 _wrapper.Start(writer);
             }
 
             // Add the label wrapper
             if (!SuppressLabelWrapper)
             {
-                _label = new Element<TModel>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
+                _label = new Element<THelper>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
                 _label.Start(writer);
             }
 

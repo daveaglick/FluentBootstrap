@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ListGroups
 {
-    public interface IListGroupCreator<TModel> : IComponentCreator<TModel>
+    public interface IListGroupCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class ListGroupWrapper<TModel> : TagWrapper<TModel>,
-        IListGroupItemCreator<TModel>
+    public class ListGroupWrapper<THelper> : TagWrapper<THelper>,
+        IListGroupItemCreator<THelper>
     {
     }
 
@@ -20,9 +20,9 @@ namespace FluentBootstrap.ListGroups
     {
     }
 
-    public class ListGroup<TModel> : Tag<TModel, ListGroup<TModel>, ListGroupWrapper<TModel>>, IListGroup
+    public class ListGroup<THelper> : Tag<THelper, ListGroup<THelper>, ListGroupWrapper<THelper>>, IListGroup
     {
-        internal ListGroup(IComponentCreator<TModel> creator)
+        internal ListGroup(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.ListGroup)
         {
         }

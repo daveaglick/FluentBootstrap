@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Pagers
 {
-    public interface IPagerCreator<TModel> : IComponentCreator<TModel>
+    public interface IPagerCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class PagerWrapper<TModel> : TagWrapper<TModel>,
-        IPageCreator<TModel>
+    public class PagerWrapper<THelper> : TagWrapper<THelper>,
+        IPageCreator<THelper>
     {
     }
 
@@ -21,18 +21,18 @@ namespace FluentBootstrap.Pagers
     {
     }
 
-    public class Pager<TModel> : Tag<TModel, Pager<TModel>, PagerWrapper<TModel>>, IPager
+    public class Pager<THelper> : Tag<THelper, Pager<THelper>, PagerWrapper<THelper>>, IPager
     {
-        private Element<TModel> _nav = null;
+        private Element<THelper> _nav = null;
 
-        internal Pager(IComponentCreator<TModel> creator)
+        internal Pager(IComponentCreator<THelper> creator)
             : base(creator, "ul", Css.Pager)
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
-            _nav = new Element<TModel>(Helper, "nav");
+            _nav = new Element<THelper>(Helper, "nav");
             _nav.Start(writer);
 
             base.OnStart(writer);

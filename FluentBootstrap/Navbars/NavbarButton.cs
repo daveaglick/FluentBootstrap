@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarButtonCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarButtonCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class NavbarButtonWrapper<TModel> : TagWrapper<TModel>
+    public class NavbarButtonWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -21,10 +21,10 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarButton<TModel> : Tag<TModel, NavbarButton<TModel>, NavbarButtonWrapper<TModel>>, 
+    public class NavbarButton<THelper> : Tag<THelper, NavbarButton<THelper>, NavbarButtonWrapper<THelper>>, 
         IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, INavbarComponent
     {
-        internal NavbarButton(IComponentCreator<TModel> creator)
+        internal NavbarButton(IComponentCreator<THelper> creator)
             : base(creator, "button", Css.Btn, Css.BtnDefault, Css.NavbarBtn, Css.NavbarLeft)
         {
             MergeAttribute("type", "button");
@@ -41,7 +41,7 @@ namespace FluentBootstrap.Navbars
                 // Make sure we're in a collapse
                 if (GetComponent<INavbarCollapse>() == null)
                 {
-                    new NavbarCollapse<TModel>(Helper).Start(writer);
+                    new NavbarCollapse<THelper>(Helper).Start(writer);
                 }
             }
 

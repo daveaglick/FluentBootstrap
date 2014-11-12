@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class NavbarWrapper<TModel> : TagWrapper<TModel>,
-        INavbarHeaderCreator<TModel>,
-        INavbarCollapseCreator<TModel>,
-        INavbarToggleCreator<TModel>,
-        IBrandCreator<TModel>,
-        INavbarNavCreator<TModel>,
-        INavbarLinkCreator<TModel>,
-        IDropdownCreator<TModel>,
-        INavbarFormCreator<TModel>,
-        INavbarButtonCreator<TModel>,
-        INavbarTextCreator<TModel>
+    public class NavbarWrapper<THelper> : TagWrapper<THelper>,
+        INavbarHeaderCreator<THelper>,
+        INavbarCollapseCreator<THelper>,
+        INavbarToggleCreator<THelper>,
+        IBrandCreator<THelper>,
+        INavbarNavCreator<THelper>,
+        INavbarLinkCreator<THelper>,
+        IDropdownCreator<THelper>,
+        INavbarFormCreator<THelper>,
+        INavbarButtonCreator<THelper>,
+        INavbarTextCreator<THelper>
     {
     }
 
@@ -33,13 +33,13 @@ namespace FluentBootstrap.Navbars
         bool HasHeader { get; set; }
     }
 
-    public class Navbar<TModel> : Tag<TModel, Navbar<TModel>, NavbarWrapper<TModel>>, INavbar
+    public class Navbar<THelper> : Tag<THelper, Navbar<THelper>, NavbarWrapper<THelper>>, INavbar
     {
         bool INavbar.HasHeader { get; set; }
         internal bool Fluid { get; set; }
-        private Container<TModel> _container;
+        private Container<THelper> _container;
 
-        internal Navbar(IComponentCreator<TModel> creator)
+        internal Navbar(IComponentCreator<THelper> creator)
             : base(creator, "nav", Css.Navbar, Css.NavbarDefault)
         {
             this.MergeAttribute("role", "navigation");
@@ -58,7 +58,7 @@ namespace FluentBootstrap.Navbars
         {
             if (!((INavbar)this).HasHeader)
             {
-                new NavbarHeader<TModel>(Helper).StartAndFinish(writer);
+                new NavbarHeader<THelper>(Helper).StartAndFinish(writer);
             }
 
             _container.Finish(writer);

@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaObjectCreator<TModel> : IComponentCreator<TModel>
+    public interface IMediaObjectCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class MediaObjectWrapper<TModel> : TagWrapper<TModel>
+    public class MediaObjectWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -21,13 +21,13 @@ namespace FluentBootstrap.MediaObjects
     {
     }
 
-    public class MediaObject<TModel> : Tag<TModel, MediaObject<TModel>, MediaObjectWrapper<TModel>>, IMediaObject, IHasLinkExtensions
+    public class MediaObject<THelper> : Tag<THelper, MediaObject<THelper>, MediaObjectWrapper<THelper>>, IMediaObject, IHasLinkExtensions
     {
         internal string Src { get; set; }
         internal string Alt { get; set; }
-        private Image<TModel> _image;
+        private Image<THelper> _image;
 
-        internal MediaObject(IComponentCreator<TModel> creator)
+        internal MediaObject(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.PullLeft)
         {
         }

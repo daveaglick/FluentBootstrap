@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface IButtonCreator<TModel> : IComponentCreator<TModel>
+    public interface IButtonCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class ButtonWrapper<TModel> : TagWrapper<TModel>,
-        IBadgeCreator<TModel>
+    public class ButtonWrapper<THelper> : TagWrapper<THelper>,
+        IBadgeCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,11 +24,13 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class Button<TModel> : Tag<TModel, Button<TModel>, ButtonWrapper<TModel>>, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute
+    public class Button<THelper> : Tag<THelper, Button<THelper>, ButtonWrapper<THelper>>, IButton,
+        IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute
+        where THelper : BootstrapHelper<THelper>
     {
-        private ButtonGroup<TModel> _buttonGroup;
+        private ButtonGroup<THelper> _buttonGroup;
 
-        internal Button(IComponentCreator<TModel> creator, ButtonType buttonType) 
+        internal Button(IComponentCreator<THelper> creator, ButtonType buttonType) 
             : base(creator, "button", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("type", buttonType.GetDescription());

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Html
 {
-    public interface IElementCreator<TModel> : IComponentCreator<TModel>
+    public interface IElementCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class ElementWrapper<TModel> : TagWrapper<TModel>
+    public class ElementWrapper<THelper> : TagWrapper<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Html
     {
     }
 
-    public class Element<TModel> : Tag<TModel, Element<TModel>, ElementWrapper<TModel>>, IElement, IHasTextContent
+    public class Element<THelper> : Tag<THelper, Element<THelper>, ElementWrapper<THelper>>, IElement, IHasTextContent
     {
-        internal Element(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses)
+        internal Element(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
             : base(creator, tagName, cssClasses)
         {
         }

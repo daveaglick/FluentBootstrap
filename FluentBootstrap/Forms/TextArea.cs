@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface TextAreaCreator<TModel> : IComponentCreator<TModel>
+    public interface TextAreaCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class TextAreaWrapper<TModel> : FormControlWrapper<TModel>
+    public class TextAreaWrapper<THelper> : FormControlWrapper<THelper>
     {
     }
 
@@ -18,9 +18,9 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class TextArea<TModel> : FormControl<TModel, TextArea<TModel>, TextAreaWrapper<TModel>>, ITextArea, IHasNameAttribute
+    public class TextArea<THelper> : FormControl<THelper, TextArea<THelper>, TextAreaWrapper<THelper>>, ITextArea, IHasNameAttribute
     {
-        internal TextArea(IComponentCreator<TModel> creator)
+        internal TextArea(IComponentCreator<THelper> creator)
             : base(creator, "textarea", Css.FormControl)
         {
         }

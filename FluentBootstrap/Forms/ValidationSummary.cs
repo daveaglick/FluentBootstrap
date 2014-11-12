@@ -8,11 +8,11 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IValidationSummaryCreator<TModel> : IComponentCreator<TModel>
+    public interface IValidationSummaryCreator<THelper> : IComponentCreator<THelper>
     {
     }
 
-    public class ValidationSummaryWrapper<TModel> : FormControlWrapper<TModel>
+    public class ValidationSummaryWrapper<THelper> : FormControlWrapper<THelper>
     {
     }
 
@@ -20,11 +20,11 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class ValidationSummary<TModel> : FormControl<TModel, ValidationSummary<TModel>, ValidationSummaryWrapper<TModel>>, IValidationSummary
+    public class ValidationSummary<THelper> : FormControl<THelper, ValidationSummary<THelper>, ValidationSummaryWrapper<THelper>>, IValidationSummary
     {
         internal bool IncludePropertyErrors { get; set; }
 
-        internal ValidationSummary(IComponentCreator<TModel> creator)
+        internal ValidationSummary(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }
