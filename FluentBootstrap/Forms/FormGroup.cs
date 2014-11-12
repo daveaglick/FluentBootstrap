@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Forms
 {
     public interface IFormGroupCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -17,6 +18,7 @@ namespace FluentBootstrap.Forms
         IControlLabelCreator<THelper>,
         IFormControlCreator<THelper>,
         IHelpBlockCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -26,6 +28,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class FormGroup<THelper> : Tag<THelper, FormGroup<THelper>, FormGroupWrapper<THelper>>, IFormGroup, IHasGridColumnExtensions, IFormValidation
+        where THelper : BootstrapHelper<THelper>
     {
         private IControlLabel _label = null;
         private Element<THelper> _columnWrapper;

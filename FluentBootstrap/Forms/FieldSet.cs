@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Forms
 {
     public interface IFieldSetCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -15,6 +16,7 @@ namespace FluentBootstrap.Forms
         IControlLabelCreator<THelper>,
         IFormControlCreator<THelper>,
         IHelpBlockCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -23,6 +25,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class FieldSet<THelper> : Tag<THelper, FieldSet<THelper>, FieldSetWrapper<THelper>>, IFieldSet, IHasDisabledAttribute
+        where THelper : BootstrapHelper<THelper>
     {
         internal FieldSet(IComponentCreator<THelper> creator)
             : base(creator, "fieldset")

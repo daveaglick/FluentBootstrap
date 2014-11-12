@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentBootstrap.Forms;
+using FluentBootstrap.Mvc.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,10 @@ namespace FluentBootstrap.Mvc
         {
             HtmlHelper = htmlHelper;
         }
-    }
 
-    //TODO: Figure out how to handle All()
+        protected override void RegisterComponentOverrides()
+        {
+            RegisterComponentOverride<FormOverride<TModel>>();
+        }
+    }
 }

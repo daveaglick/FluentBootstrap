@@ -13,11 +13,13 @@ using FluentBootstrap.Html;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlListForCreator<THelper> : IComponentCreator<THelper>
+    public interface IFormControlListForCreator<THelper> : IComponentCreator<THelper> 
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class FormControlListForWrapper<THelper> : FormControlForBaseWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -26,6 +28,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class FormControlListFor<THelper, TValue> : FormControlForBase<THelper, IEnumerable<TValue>, FormControlListFor<THelper, TValue>, FormControlListForWrapper<THelper>>, IFormControlListFor
+        where THelper : BootstrapHelper<THelper>
     {
         private readonly ListType _listType;
 

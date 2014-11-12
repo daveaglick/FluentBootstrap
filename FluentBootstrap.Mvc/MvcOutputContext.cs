@@ -11,9 +11,6 @@ namespace FluentBootstrap.Mvc
 {
     public class MvcOutputContext : IOutputContext
     {
-        private readonly static object _componentStackKey = new object();
-        private readonly static object _outputStackKey = new object();
-
         private readonly HtmlHelper _htmlHelper;
 
         public MvcOutputContext(HtmlHelper htmlHelper)
@@ -26,26 +23,14 @@ namespace FluentBootstrap.Mvc
             return _htmlHelper.ViewContext.Writer;
         }
 
-        public Stack<IComponent> GetComponentStack()
+        public object GetItem(object key)
         {
-            return GetStack(_componentStackKey);
+            return _htmlHelper.ViewContext.HttpContext.Items[key];
         }
 
-        public Stack<IComponent> GetOutputStack()
+        public void AddItem(object key, object value)
         {
-            return GetStack(_outputStackKey);
-        }
-
-        private Stack<IComponent> GetStack(object key)
-        {
-            IDictionary items = _htmlHelper.ViewContext.HttpContext.Items;
-            Stack<IComponent> stack = items[key] as Stack<IComponent>;
-            if (stack == null)
-            {
-                stack = new Stack<IComponent>();
-                items[key] = stack;
-            }
-            return stack;
+            _htmlHelper.ViewContext.HttpContext.Items[key] = value;
         }
     }
 }

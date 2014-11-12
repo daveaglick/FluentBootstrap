@@ -14,10 +14,12 @@ using FluentBootstrap.Html;
 namespace FluentBootstrap.Forms
 {
     public interface IFormControlForBaseCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class FormControlForBaseWrapper<THelper> : FormControlWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -26,6 +28,7 @@ namespace FluentBootstrap.Forms
     }
 
     public abstract class FormControlForBase<THelper, TValue, TThis, TWrapper> : FormControl<THelper, TThis, TWrapper>, IFormControlForBase
+        where THelper : BootstrapHelper<THelper>
         where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
         where TWrapper : FormControlForBaseWrapper<THelper>, new()
     {

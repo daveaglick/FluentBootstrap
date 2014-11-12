@@ -10,11 +10,13 @@ using System.Web.Mvc;
 namespace FluentBootstrap.Forms
 {
     public interface IFormControlCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class FormControlWrapper<THelper> : TagWrapper<THelper>,
         IHelpBlockCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -23,6 +25,7 @@ namespace FluentBootstrap.Forms
     }
 
     public abstract class FormControl<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IFormControl, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
+        where THelper : BootstrapHelper<THelper>
         where TThis : FormControl<THelper, TThis, TWrapper>
         where TWrapper : FormControlWrapper<THelper>, new()
     {
@@ -86,8 +89,8 @@ namespace FluentBootstrap.Forms
             if (_label != null)
             {
                 // Set the label's for attribute to the input name
-                string name = null;
-                if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
+                string name = Attributes.GetValue("name");
+                if (!string.IsNullOrWhiteSpace(name))
                 {
                     _label.MergeAttribute("for", name);
                 }
@@ -117,8 +120,8 @@ namespace FluentBootstrap.Forms
             Prepare(writer);
 
             // Add the validation data
-            string name = null;
-            if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
+            string name = Attributes.GetValue("name");
+            if (!string.IsNullOrWhiteSpace(name))
             {
                 // Set the id
                 TagBuilder.GenerateId(name);
@@ -152,6 +155,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class FormControl<THelper> : FormControl<THelper, FormControl<THelper>, FormControlWrapper<THelper>>, IFormControl
+        where THelper : BootstrapHelper<THelper>
     {
         internal FormControl(IComponentCreator<THelper> creator)
             : base(creator, "div")

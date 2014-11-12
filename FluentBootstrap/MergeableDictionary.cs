@@ -12,9 +12,9 @@ namespace FluentBootstrap
     {
         public IDictionary<string, string> Dictionary { get; private set; }
 
-        public MergeableDictionary(IDictionary<string, string> dictionary)
+        public MergeableDictionary()
         {
-            Dictionary = dictionary ?? new Dictionary<string, string>();
+            Dictionary = new Dictionary<string, string>();
         }
 
         public void Merge(object values, bool replaceExisting = true)

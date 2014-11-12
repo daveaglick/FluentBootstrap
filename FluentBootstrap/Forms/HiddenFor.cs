@@ -10,10 +10,12 @@ using System.Web.Mvc.Html;
 namespace FluentBootstrap.Forms
 {
     public interface IHiddenForCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class HiddenForWrapper<THelper> : ComponentWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class HiddenFor<THelper, TValue> : Component<THelper, HiddenFor<THelper, TValue>, HiddenForWrapper<THelper>>, IHiddenFor
+        where THelper : BootstrapHelper<THelper>
     {
         private readonly Expression<Func<THelper, TValue>> _expression;
 

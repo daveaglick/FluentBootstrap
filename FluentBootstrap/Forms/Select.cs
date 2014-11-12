@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Forms
 {
     public interface ISelectCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class SelectWrapper<THelper> : FormControlWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class Select<THelper> : FormControl<THelper, Select<THelper>, SelectWrapper<THelper>>, ISelect, IHasNameAttribute
+        where THelper : BootstrapHelper<THelper>
     {
         internal List<string> Options { get; private set; }
 

@@ -10,10 +10,12 @@ using System.Web.Mvc;
 namespace FluentBootstrap.Forms
 {
     public interface IInputCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class InputWrapper<THelper> : FormControlWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class Input<THelper> : FormControl<THelper, Input<THelper>, InputWrapper<THelper>>, IInput, IHasValueAttribute, IHasNameAttribute
+        where THelper : BootstrapHelper<THelper>
     {
         private Icon _icon = Icon.None;
 

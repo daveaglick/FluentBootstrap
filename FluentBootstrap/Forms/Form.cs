@@ -11,6 +11,7 @@ using System.Web.Mvc.Html;
 namespace FluentBootstrap.Forms
 {
     public interface IFormCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +22,7 @@ namespace FluentBootstrap.Forms
         IFormControlCreator<THelper>,
         IHelpBlockCreator<THelper>,
         IInputGroupCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -32,6 +34,7 @@ namespace FluentBootstrap.Forms
     }
 
     public abstract class Form<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IForm
+        where THelper : BootstrapHelper<THelper>
         where TThis : Form<THelper, TThis, TWrapper>
         where TWrapper : FormWrapper<THelper>, new()
     {        
@@ -66,26 +69,6 @@ namespace FluentBootstrap.Forms
             get { return Horizontal; }
         }
 
-        protected override void OnStart(TextWriter writer)
-        {
-            // Generate the form ID if one is needed (if one was already set in the htmlAttributes, this does nothing)
-            bool flag = ViewContext.ClientValidationEnabled
-                && !ViewContext.UnobtrusiveJavaScriptEnabled;
-            if (flag)
-            {
-                TagBuilder.GenerateId(FormIdGenerator());
-            }
-
-            base.OnStart(writer);
-
-            // Set a new form context, including a form ID if one was generated
-            ViewContext.FormContext = new FormContext();
-            if (flag)
-            {
-                ViewContext.FormContext.FormId = TagBuilder.Attributes["id"];
-            }
-        }
-
         protected override void OnFinish(TextWriter writer)
         {
             // Validation summary if it's not hidden or one was not already output
@@ -95,31 +78,11 @@ namespace FluentBootstrap.Forms
             }
 
             base.OnFinish(writer);
-
-            // Intercept the client validation (if there is any) and output on our own writer
-            TextWriter viewWriter = ViewContext.Writer;
-            ViewContext.Writer = writer;
-            ViewContext.OutputClientValidation();
-            ViewContext.Writer = viewWriter;
-
-            // Clear the form context
-            ViewContext.FormContext = null;
-        }
-
-        private readonly static object _lastBootstrapFormNumKey = new object();
-
-        // Get and increment a form id
-        private string FormIdGenerator()
-        {
-            IDictionary items = ViewContext.HttpContext.Items;
-            object item = items[_lastBootstrapFormNumKey];
-            int num = (item != null ? (int)item + 1 : 0);
-            items[_lastBootstrapFormNumKey] = num;
-            return string.Format("bsform{0}", num);
         }
     }
     
     public class Form<THelper> : Form<THelper, Form<THelper>, FormWrapper<THelper>>, IForm
+        where THelper : BootstrapHelper<THelper>
     {
         public Form(IComponentCreator<THelper> creator) : base(creator)
         {

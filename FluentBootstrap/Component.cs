@@ -42,12 +42,36 @@ namespace FluentBootstrap
 
     // This (and derived) non-generic interfaces are needed for every component
     // They allow type comparisons of component references without worrying about all the generic stuff
-    public interface IComponent
+    internal interface IComponent
     {
+        void Start(TextWriter writer);
+        void Finish(TextWriter writer);
+        void StartAndFinish(TextWriter writer);
+        bool Implicit { get; }
     }
 
     public abstract class Component : IComponent
     {
+        void IComponent.Start(TextWriter writer)
+        {
+            Start(writer);
+        }
+
+        void IComponent.Finish(TextWriter writer)
+        {
+            Finish(writer);
+        }
+
+        void IComponent.StartAndFinish(TextWriter writer)
+        {
+            StartAndFinish(writer);
+        }
+
+        bool IComponent.Implicit
+        {
+            get { return Implicit; }
+        }
+
         public abstract void End();
 
         internal abstract void Start(TextWriter writer);
@@ -75,6 +99,7 @@ namespace FluentBootstrap
         private readonly List<IComponent> _children = new List<IComponent>();
         private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
         private readonly THelper _helper;
+        private readonly Queue<ComponentOverride> _componentOverrides = new Queue<ComponentOverride>();
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
         // The primary difference is that implicit components can be automatically cleaned up from the stack
@@ -107,7 +132,31 @@ namespace FluentBootstrap
 
             _helper = creator.GetHelper();
             _parent = creator.GetParent();
-            _implicit = Helper.OutputContext.GetOutputStack().Count > 0;
+            _implicit = GetOutputStack().Count > 0;
+
+            // Get any component override(s)
+            Func<ComponentOverride> componentOverrideCtor;
+            Type checkType = typeof(TThis);
+            ComponentOverride componentOverride = null;
+            while(!checkType.Equals(typeof(Component<THelper>)))
+            {
+                if(Helper.ComponentOverrides.TryGetValue(checkType, out componentOverrideCtor))
+                {
+                    ComponentOverride lastComponentOverride = componentOverride;
+                    componentOverride = componentOverrideCtor();
+                    componentOverride.SetComponent(this);
+                    componentOverride.BaseStartAction = OnStart;
+                    componentOverride.BaseFinishAction = OnFinish;
+                    if(lastComponentOverride != null)
+                    {
+                        // If this is an override higher up the hierarchy, redirect the lower override to call this one
+                        lastComponentOverride.BaseStartAction = componentOverride.OnStart;
+                        lastComponentOverride.BaseFinishAction = componentOverride.OnFinish;
+                    }
+                    _componentOverrides.Enqueue(componentOverride);
+                }
+                checkType = checkType.BaseType;
+            }
         }
 
         internal override sealed void AddChild(IComponent child)
@@ -202,13 +251,20 @@ namespace FluentBootstrap
             }
 
             // Note that this component is outputting
-            Helper.OutputContext.GetOutputStack().Push(this);
+            GetOutputStack().Push(this);
 
             // Output the content
-            OnStart(writer);
+            if (_componentOverrides.Count > 0)
+            {
+                _componentOverrides.Peek().OnStart(writer);
+            }
+            else
+            {
+                OnStart(writer);
+            }
 
             // Clear this component from the output stack
-            if (Helper.OutputContext.GetOutputStack().Pop() != this)
+            if (GetOutputStack().Pop() != this)
             {
                 throw new InvalidOperationException("Popped a different Bootstrap component from the output stack while starting (you should never see this).");
             }
@@ -233,17 +289,23 @@ namespace FluentBootstrap
             }
 
             // Note that this component is outputting
-            Helper.OutputContext.GetOutputStack().Push(this);
+            GetOutputStack().Push(this);
 
             // Output the content
-            OnFinish(writer);
+            if (_componentOverrides.Count > 0)
+            {
+                _componentOverrides.Peek().OnFinish(writer);
+            }
+            else
+            {
+                OnFinish(writer);
+            }
 
             // Clear this component from the output stack
-            if (Helper.OutputContext.GetOutputStack().Pop() != this)
+            if (GetOutputStack().Pop() != this)
             {
                 throw new InvalidOperationException("Popped a different Bootstrap component from the output stack while finishing (you should never see this).");
             }
-
         }
 
         // This is implicit by definition since it's only ever used inside another component to generate content for a child, etc.
@@ -275,19 +337,18 @@ namespace FluentBootstrap
             }
         }
 
-
         // The following code handles the stack of Bootstrap objects stored in the ViewContext
 
         private void Push()
         {
-            Helper.OutputContext.GetComponentStack().Push(this);
+            GetComponentStack().Push(this);
         }
 
         // This also writes end content from any components pending on the stack until this one
         private void Pop(TextWriter writer)
         {
             // Get the stack
-            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
+            Stack<IComponent> stack = GetComponentStack();
 
             // Peek components until we get to this one - the call to Finish() will pop them
             Component peek = null;
@@ -317,7 +378,7 @@ namespace FluentBootstrap
         internal void Pop<TComponent>(TextWriter writer)
             where TComponent : IComponent
         {
-            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
+            Stack<IComponent> stack = GetComponentStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
             Queue<Component> finish = new Queue<Component>();
@@ -355,7 +416,7 @@ namespace FluentBootstrap
             {
                 return;
             }
-            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
+            Stack<IComponent> stack = GetComponentStack();
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
             Queue<Component> finish = new Queue<Component>();
@@ -387,7 +448,7 @@ namespace FluentBootstrap
         internal TComponent GetComponent<TComponent>(bool onlyParent = false)
             where TComponent : class, IComponent
         {
-            Stack<IComponent> stack = Helper.OutputContext.GetComponentStack();
+            Stack<IComponent> stack = GetComponentStack();
             if(onlyParent)
             {
                 // Need to account for if this component has been added to the stack or not
@@ -399,6 +460,31 @@ namespace FluentBootstrap
                 return parent as TComponent;
             }
             return stack.Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault() as TComponent;
+        }
+
+        private readonly static object _componentStackKey = new object();
+
+        private Stack<IComponent> GetComponentStack()
+        {
+            return GetStack(_componentStackKey);
+        }
+
+        private readonly static object _outputStackKey = new object();
+
+        private Stack<IComponent> GetOutputStack()
+        {
+            return GetStack(_outputStackKey);
+        }
+
+        private Stack<IComponent> GetStack(object key)
+        {
+            Stack<IComponent> stack = Helper.OutputContext.GetItem(key) as Stack<IComponent>;
+            if (stack == null)
+            {
+                stack = new Stack<IComponent>();
+                Helper.OutputContext.AddItem(key, stack);
+            }
+            return stack;
         }
     }
 }

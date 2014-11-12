@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
@@ -35,7 +36,7 @@ namespace FluentBootstrap
         where TThis : Tag<THelper, TThis, TWrapper>
         where TWrapper : TagWrapper<THelper>, new()
     {
-        internal TagBuilder TagBuilder { get; private set; }
+        private string _tagName;
         internal MergeableDictionary Attributes { get; private set; }
         internal MergeableDictionary InlineStyles { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
@@ -52,10 +53,10 @@ namespace FluentBootstrap
         protected internal Tag(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
             : base(creator)
         {
-            TagBuilder = new TagBuilder(tagName);
+            _tagName = tagName;
             CssClasses = new HashSet<string>();
-            Attributes = new MergeableDictionary(TagBuilder.Attributes);
-            InlineStyles = new MergeableDictionary(null);
+            Attributes = new MergeableDictionary();
+            InlineStyles = new MergeableDictionary();
             foreach (string cssClass in cssClasses.Where(x => !string.IsNullOrWhiteSpace(x)))
             {
                 CssClasses.Add(cssClass);
@@ -66,33 +67,27 @@ namespace FluentBootstrap
         // Note that you should not change this after OnStart has been called (otherwise you'll get different start and end tags)
         internal string TagName
         {
-            get { return TagBuilder.TagName; }
+            get { return _tagName; }
             set
             {
                 if(_startTagOutput)
                 {
                     throw new InvalidOperationException("Can't change tag name after the start tag has been output.");
                 }
-                TagBuilder oldTagBuilder = TagBuilder;
-                TagBuilder = new TagBuilder(value);
-                foreach (KeyValuePair<string, string> attribute in oldTagBuilder.Attributes)
-                {
-                    TagBuilder.Attributes.Add(attribute);
-                }
-                Attributes = new MergeableDictionary(TagBuilder.Attributes);
+                _tagName = value;
             }
         }
 
         internal TThis MergeAttributes(object attributes, bool replaceExisting = true)
         {
             Attributes.Merge(attributes, replaceExisting);
-            return GetThis();
+            return this.GetThis();
         }
 
         internal TThis MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             Attributes.Merge(attributes, replaceExisting);
-            return GetThis();
+            return this.GetThis();
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
@@ -100,7 +95,7 @@ namespace FluentBootstrap
         internal TThis MergeAttribute(string key, string value, bool replaceExisting = true)
         {
             Attributes.Merge(key, value, replaceExisting);
-            return GetThis();
+            return this.GetThis();
         }
 
         void ITag.MergeAttribute(string key, string value, bool replaceExisting)
@@ -116,13 +111,13 @@ namespace FluentBootstrap
         internal TThis MergeStyles(object attributes, bool replaceExisting = true)
         {
             InlineStyles.Merge(attributes, replaceExisting);
-            return GetThis();
+            return this.GetThis();
         }
 
         internal TThis MergeStyles<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             InlineStyles.Merge(attributes, replaceExisting);
-            return GetThis();
+            return this.GetThis();
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
@@ -130,7 +125,7 @@ namespace FluentBootstrap
         internal TThis MergeStyle(string key, string value, bool replaceExisting = true)
         {
             InlineStyles.Merge(key, value, replaceExisting);
-            return GetThis();
+            return this.GetThis();
         }
 
         void ITag.MergeStyle(string key, string value, bool replaceExisting)
@@ -157,7 +152,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Remove(cssClass);
             }
-            return GetThis();
+            return this.GetThis();
         }
 
         // This takes a flags enum and adds all css classes that are on and removes all that are off
@@ -174,7 +169,7 @@ namespace FluentBootstrap
                     ToggleCss(description, flags ? css.HasFlag(value) : css.Equals(value));
                 }
             }
-            return GetThis();
+            return this.GetThis();
         }
 
         protected virtual bool OutputEndTag
@@ -204,10 +199,12 @@ namespace FluentBootstrap
                 _prettyPrint = false;
             }
 
-            // Set CSS classes
-            foreach (string cssClass in CssClasses)
+            // Merge CSS classes
+            if(CssClasses.Count > 0)
             {
-                TagBuilder.AddCssClass(cssClass);
+                Attributes.Merge("class",
+                    (Attributes.Dictionary.ContainsKey("class") ? Attributes.GetValue("class") + " " : string.Empty)
+                    + string.Join(" ", CssClasses));
             }
 
             // Generate the inline CSS style
@@ -217,7 +214,18 @@ namespace FluentBootstrap
             }
 
             // Append the start tag
-            writer.Write(TagBuilder.ToString(TagRenderMode.StartTag));
+            StringBuilder startTag = new StringBuilder("<" + _tagName);
+            foreach (KeyValuePair<string, string> attribute in Attributes.Dictionary)
+            {
+                if (string.Equals(attribute.Key, "id", StringComparison.Ordinal) && string.IsNullOrEmpty(attribute.Value))
+                {
+                    continue;
+                }
+                string encoded = HttpUtility.HtmlAttributeEncode(attribute.Value);
+                startTag.Append(" " + attribute.Key + "=\"" + encoded + "\"");
+            }
+            startTag.Append(">");
+            writer.Write(startTag.ToString());
             _startTagOutput = true;
         }
         
@@ -237,7 +245,7 @@ namespace FluentBootstrap
             // Append the end tag
             if (OutputEndTag)
             {
-                writer.Write(TagBuilder.ToString(TagRenderMode.EndTag));
+                writer.Write("</" + _tagName + ">");
             }
 
             base.OnFinish(writer);

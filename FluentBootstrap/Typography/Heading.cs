@@ -69,6 +69,7 @@ namespace FluentBootstrap.Typography
     }
 
     public class Heading<THelper> : Heading<THelper, Heading<THelper>, HeadingWrapper<THelper>>
+        where THelper : BootstrapHelper<THelper>
     {
         internal Heading(IComponentCreator<THelper> creator, string tagName)
             : base(creator, tagName)

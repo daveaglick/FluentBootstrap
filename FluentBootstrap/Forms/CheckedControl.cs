@@ -10,10 +10,12 @@ using System.Web.Mvc;
 namespace FluentBootstrap.Forms
 {
     public interface ICheckedControlCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class CheckedControlWrapper<THelper> : FormControlWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class CheckedControl<THelper> : FormControl<THelper, CheckedControl<THelper>, CheckedControlWrapper<THelper>>, ICheckedControl, IHasValueAttribute, IHasNameAttribute
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Inline { get; set; }
         internal string Description { get; set; }

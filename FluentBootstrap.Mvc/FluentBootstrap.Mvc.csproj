@@ -37,6 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FluentBootstrap.Tests.Web\bin\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Webpages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\FluentBootstrap.Tests.Web\bin\System.Web.Webpages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +51,7 @@
     <Compile Include="Breadcrumbs\MvcBreadcrumbExtensions.cs" />
     <Compile Include="Buttons\MvcButtonExtensions.cs" />
     <Compile Include="Dropdowns\MvcDropdownExtensions.cs" />
+    <Compile Include="Forms\FormOverride.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Links\MvcLinkExtensions.cs" />
     <Compile Include="ListGroups\MvcListGroupExtensions.cs" />
@@ -67,6 +72,7 @@
       <Name>FluentBootstrap</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,10 +9,12 @@ using System.Web.Mvc.Html;
 namespace FluentBootstrap.Forms
 {
     public interface IValidationSummaryCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class ValidationSummaryWrapper<THelper> : FormControlWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Forms
     }
 
     public class ValidationSummary<THelper> : FormControl<THelper, ValidationSummary<THelper>, ValidationSummaryWrapper<THelper>>, IValidationSummary
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool IncludePropertyErrors { get; set; }
 
