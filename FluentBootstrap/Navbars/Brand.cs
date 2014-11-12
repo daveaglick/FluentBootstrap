@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface IBrandCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class BrandWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class Brand<THelper> : Tag<THelper, Brand<THelper>, BrandWrapper<THelper>>, IBrand, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal Brand(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.NavbarBrand)

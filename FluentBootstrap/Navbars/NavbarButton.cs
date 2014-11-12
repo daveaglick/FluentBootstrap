@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarButtonCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavbarButtonWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -23,6 +25,7 @@ namespace FluentBootstrap.Navbars
 
     public class NavbarButton<THelper> : Tag<THelper, NavbarButton<THelper>, NavbarButtonWrapper<THelper>>, 
         IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, INavbarComponent
+        where THelper : BootstrapHelper<THelper>
     {
         internal NavbarButton(IComponentCreator<THelper> creator)
             : base(creator, "button", Css.Btn, Css.BtnDefault, Css.NavbarBtn, Css.NavbarLeft)

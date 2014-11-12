@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.MediaObjects
 {
     public interface IMediaBodyCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class MediaBodyWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,6 +22,7 @@ namespace FluentBootstrap.MediaObjects
     }
 
     public class MediaBody<THelper> : Tag<THelper, MediaBody<THelper>, MediaBodyWrapper<THelper>>, IMediaBody, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal string Heading { get; set; }
 

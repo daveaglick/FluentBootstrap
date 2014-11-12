@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -25,6 +26,7 @@ namespace FluentBootstrap.Navbars
         INavbarFormCreator<THelper>,
         INavbarButtonCreator<THelper>,
         INavbarTextCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -34,6 +36,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class Navbar<THelper> : Tag<THelper, Navbar<THelper>, NavbarWrapper<THelper>>, INavbar
+        where THelper : BootstrapHelper<THelper>
     {
         bool INavbar.HasHeader { get; set; }
         internal bool Fluid { get; set; }

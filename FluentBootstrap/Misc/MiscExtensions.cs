@@ -13,6 +13,7 @@ namespace FluentBootstrap
         // Jumbotron
 
         public static Jumbotron<THelper> Jumbotron<THelper>(this IJumbotronCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Jumbotron<THelper>(creator);
         }
@@ -20,6 +21,7 @@ namespace FluentBootstrap
         // PageHeader
 
         public static PageHeader<THelper> PageHeader<THelper>(this IPageHeaderCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
             return new PageHeader<THelper>(creator).SetText(text);
         }
@@ -27,31 +29,37 @@ namespace FluentBootstrap
         // Elements
 
         public static Element<THelper> Clearfix<THelper>(this ITagCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Element<THelper>(creator, "div", Css.Clearfix);
         }
 
         public static Element<THelper> CenterBlock<THelper>(this ITagCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Element<THelper>(creator, "div", Css.CenterBlock);
         }
 
         public static Element<THelper> PullLeft<THelper>(this ITagCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Element<THelper>(creator, "div", Css.PullLeft);
         }
 
         public static Element<THelper> PullRight<THelper>(this ITagCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Element<THelper>(creator, "div", Css.PullRight);
         }
 
         public static Element<THelper> Caret<THelper>(this ITagCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Element<THelper>(creator, "span", Css.Caret);
         }
 
         public static Element<THelper> Close<THelper>(this ITagCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
             return new Element<THelper>(creator, "button", Css.Close)
                 .AddAttribute("type", "button")

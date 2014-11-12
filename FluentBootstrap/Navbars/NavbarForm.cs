@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarFormCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavbarFormWrapper<THelper> : FormWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarForm<THelper> : Form<THelper, NavbarForm<THelper>, NavbarFormWrapper<THelper>>, INavbarForm, INavbarComponent
+        where THelper : BootstrapHelper<THelper>
     {
         internal NavbarForm(IComponentCreator<THelper> creator)
             : base(creator, Css.NavbarForm, Css.NavbarLeft)

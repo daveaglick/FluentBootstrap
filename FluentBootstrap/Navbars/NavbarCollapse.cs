@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarCollapseCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,6 +21,7 @@ namespace FluentBootstrap.Navbars
         INavbarFormCreator<THelper>,
         INavbarButtonCreator<THelper>,
         INavbarTextCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -28,6 +30,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarCollapse<THelper> : NavbarSection<THelper, NavbarCollapse<THelper>, NavbarCollapseWrapper<THelper>>, INavbarCollapse
+        where THelper : BootstrapHelper<THelper>
     {
         internal NavbarCollapse(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.NavbarCollapse, Css.Collapse)

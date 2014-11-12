@@ -50,8 +50,10 @@
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Links\MvcLinkExtensions.cs" />
     <Compile Include="ListGroups\MvcListGroupExtensions.cs" />
+    <Compile Include="MediaObjects\MvcMediaObjectExtensions.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcOutputContext.cs" />
+    <Compile Include="Navbars\MvcNavbarExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarToggleCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavbarToggleWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,6 +23,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarToggle<THelper> : Tag<THelper, NavbarToggle<THelper>, NavbarToggleWrapper<THelper>>, INavbarToggle
+        where THelper : BootstrapHelper<THelper>
     {
         internal string DataTarget { get; set; }
         internal bool Hamburger { get; set; }

@@ -11,10 +11,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Misc
 {
     public interface IPageHeaderCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class PageHeaderWrapper<THelper> : HeadingWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -23,6 +25,7 @@ namespace FluentBootstrap.Misc
     }
 
     public class PageHeader<THelper> : Heading<THelper, PageHeader<THelper>, PageHeaderWrapper<THelper>>, IPageHeader, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         private Element<THelper> _wrapper;
 

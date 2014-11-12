@@ -10,12 +10,14 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarHeaderCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavbarHeaderWrapper<THelper> : NavbarSectionWrapper<THelper>,
         INavbarToggleCreator<THelper>,
         IBrandCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -25,6 +27,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarHeader<THelper> : NavbarSection<THelper, NavbarHeader<THelper>, NavbarHeaderWrapper<THelper>>, INavbarHeader
+        where THelper : BootstrapHelper<THelper>
     {
         bool INavbarHeader.HasToggle { get; set; }
 

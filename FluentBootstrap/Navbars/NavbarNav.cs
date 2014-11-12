@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarNavCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavbarNavWrapper<THelper> : TagWrapper<THelper>,
         INavbarLinkCreator<THelper>,
         IDropdownCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -23,6 +25,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarNav<THelper> : Tag<THelper, NavbarNav<THelper>, NavbarNavWrapper<THelper>>, INavbarNav, INavbarComponent
+        where THelper : BootstrapHelper<THelper>
     {
         internal NavbarNav(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Nav, Css.NavbarNav, Css.NavbarLeft)

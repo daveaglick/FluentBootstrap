@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.Navbars
 {
     public interface INavbarTextCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class NavbarTextWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,6 +22,7 @@ namespace FluentBootstrap.Navbars
     }
 
     public class NavbarText<THelper> : Tag<THelper, NavbarText<THelper>, NavbarTextWrapper<THelper>>, INavbarComponent, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal NavbarText(IComponentCreator<THelper> creator)
             : base(creator, "p", Css.NavbarText, Css.NavbarLeft)

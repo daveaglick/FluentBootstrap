@@ -10,10 +10,12 @@ using System.Threading.Tasks;
 namespace FluentBootstrap.MediaObjects
 {
     public interface IMediaObjectCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     public class MediaObjectWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,6 +24,7 @@ namespace FluentBootstrap.MediaObjects
     }
 
     public class MediaObject<THelper> : Tag<THelper, MediaObject<THelper>, MediaObjectWrapper<THelper>>, IMediaObject, IHasLinkExtensions
+        where THelper : BootstrapHelper<THelper>
     {
         internal string Src { get; set; }
         internal string Alt { get; set; }
