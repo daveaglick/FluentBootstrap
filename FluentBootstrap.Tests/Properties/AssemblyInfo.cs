@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FluentBootstrap.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard Company")]
+[assembly: AssemblyCompany("Dave Glick")]
 [assembly: AssemblyProduct("FluentBootstrap.Tests")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard Company 2014")]
+[assembly: AssemblyCopyright("Copyright © Dave Glick")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

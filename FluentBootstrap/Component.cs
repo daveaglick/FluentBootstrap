@@ -51,6 +51,10 @@ namespace FluentBootstrap
 
     public abstract class Component : IComponent
     {
+        // These keys have to be provided in a non-generic class, otherwise we'll end up with as many stacks as generic parameters
+        protected readonly static object ComponentStackKey = new object();
+        protected readonly static object OutputStackKey = new object();
+
         void IComponent.Start(TextWriter writer)
         {
             Start(writer);
@@ -143,7 +147,7 @@ namespace FluentBootstrap
 
             _helper = creator.GetHelper();
             _parent = creator.GetParent();
-            _implicit = GetStack(Bootstrap.OutputStackKey).Count > 0;
+            _implicit = GetStack(OutputStackKey).Count > 0;
         }
 
         internal override sealed void AddChild(IComponent component)
@@ -194,7 +198,7 @@ namespace FluentBootstrap
         // Outputs the start and end portions together
         // This should only be used implicitly in a view and not from within this library (because of the way pending components are handled)
         // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
-        public string ToHtmlString()
+        public override string ToString()
         {
             // Write this component out as a string
             using (StringWriter writer = new StringWriter())
@@ -217,6 +221,11 @@ namespace FluentBootstrap
             }
         }
 
+        public string ToHtmlString()
+        {
+            return ToString();
+        }
+
         internal override sealed void Start(TextWriter writer)
         {
             // Only write content once
@@ -233,13 +242,13 @@ namespace FluentBootstrap
             }
 
             // Note that this component is outputting
-            GetStack(Bootstrap.OutputStackKey).Push(this);
+            GetStack(OutputStackKey).Push(this);
 
             // Output the content
             OnStart(writer);
 
             // Clear this component from the output stack
-            if(GetStack(Bootstrap.OutputStackKey).Pop() != this)
+            if(GetStack(OutputStackKey).Pop() != this)
             {
                 throw new InvalidOperationException("Popped a different Bootstrap component from the output stack while starting (you should never see this).");
             }
@@ -264,13 +273,13 @@ namespace FluentBootstrap
             }
 
             // Note that this component is outputting
-            GetStack(Bootstrap.OutputStackKey).Push(this);
+            GetStack(OutputStackKey).Push(this);
 
             // Output the content
             OnFinish(writer);
 
             // Clear this component from the output stack
-            if (GetStack(Bootstrap.OutputStackKey).Pop() != this)
+            if (GetStack(OutputStackKey).Pop() != this)
             {
                 throw new InvalidOperationException("Popped a different Bootstrap component from the output stack while finishing (you should never see this).");
             }
@@ -311,14 +320,14 @@ namespace FluentBootstrap
 
         private void Push()
         {
-            GetStack(Bootstrap.ComponentStackKey).Push(this);
+            GetStack(ComponentStackKey).Push(this);
         }
 
         // This also writes end content from any components pending on the stack until this one
         private void Pop(TextWriter writer)
         {
             // Get the stack
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = GetStack(ComponentStackKey);
 
             // Peek components until we get to this one - the call to Finish() will pop them
             IComponent peek = null;
@@ -348,7 +357,7 @@ namespace FluentBootstrap
         internal void Pop<TComponent>(TextWriter writer)
             where TComponent : IComponent
         {
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = GetStack(ComponentStackKey);
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
             Queue<IComponent> finish = new Queue<IComponent>();
@@ -386,7 +395,7 @@ namespace FluentBootstrap
             {
                 return;
             }
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = GetStack(ComponentStackKey);
 
             // Crawl the stack and queue the components in case an intermediate is not implicit
             Queue<IComponent> finish = new Queue<IComponent>();
@@ -418,7 +427,7 @@ namespace FluentBootstrap
         internal TComponent GetComponent<TComponent>(bool onlyParent = false)
             where TComponent : class, IComponent
         {
-            Stack<IComponent> stack = GetStack(Bootstrap.ComponentStackKey);
+            Stack<IComponent> stack = GetStack(ComponentStackKey);
             if(onlyParent)
             {
                 // Need to account for if this component has been added to the stack or not

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace FluentBootstrap
 {
@@ -40,6 +42,40 @@ namespace FluentBootstrap
             {
                 ViewDataContainer = viewDataContainer;
                 ViewData = viewData;
+            }
+        }
+
+        // These extensions allow use with ASP.NET Web Pages (though FluentBootstrap still requires the MVC library since we're basically just faking an MVC HtmlHelper)
+        public static BootstrapHelper<object> Bootstrap(this System.Web.WebPages.Html.HtmlHelper htmlHelper, System.Web.WebPages.WebPageBase webPageBase)
+        {
+            RouteData routeDatum = new RouteData();
+            ControllerBase controller = new DummyController();
+            ControllerContext controllerContext = new ControllerContext(webPageBase.Context, routeDatum, controller);
+            controller.ControllerContext = controllerContext;
+            ViewContext viewContext = new ViewContext(controllerContext, new DummyView(), new ViewDataDictionary(), new TempDataDictionary(), webPageBase.Output);
+            BootstrapHelper<object> bootstrapHelper = (new HtmlHelper(viewContext, new ViewPage())).Bootstrap<object>(new object());
+            return bootstrapHelper;
+        }
+
+        private class DummyController : ControllerBase
+        {
+            public DummyController()
+            {
+            }
+
+            protected override void ExecuteCore()
+            {
+            }
+        }
+
+        private class DummyView : IView
+        {
+            public DummyView()
+            {
+            }
+
+            public void Render(ViewContext viewContext, TextWriter writer)
+            {
             }
         }
     }
