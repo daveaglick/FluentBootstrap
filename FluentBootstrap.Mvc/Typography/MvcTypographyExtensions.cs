@@ -1,5 +1,4 @@
-﻿using FluentBootstrap.Internals;
-using FluentBootstrap.Mvc;
+﻿using FluentBootstrap.Mvc;
 using FluentBootstrap.Typography;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace FluentBootstrap
             Expression<Func<TModel, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
         {
             Typography.List<MvcBootstrapHelper<TModel>> list = creator.List(listType);
-            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, list.GetHelper().HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, list.Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
             if (values != null)
             {
                 foreach (TValue value in values)

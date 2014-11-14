@@ -57,14 +57,14 @@ namespace FluentBootstrap.Forms
             // Add the wrapper
             if (!Inline)
             {
-                _wrapper = new Element<THelper>(Helper, "div", TagBuilder.Attributes["type"]);
+                _wrapper = new Element<THelper>(Helper, "div").AddCss(GetAttribute("type"));
                 _wrapper.Start(writer);
             }
 
             // Add the label wrapper
             if (!SuppressLabelWrapper)
             {
-                _label = new Element<THelper>(Helper, "label", Inline ? TagBuilder.Attributes["type"] + "-inline" : TagBuilder.Attributes["type"]);
+                _label = new Element<THelper>(Helper, "label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type"));
                 _label.Start(writer);
             }
 

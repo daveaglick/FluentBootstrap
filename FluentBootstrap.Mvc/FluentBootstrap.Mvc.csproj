@@ -51,6 +51,7 @@
     <Compile Include="Breadcrumbs\MvcBreadcrumbExtensions.cs" />
     <Compile Include="Buttons\MvcButtonExtensions.cs" />
     <Compile Include="Dropdowns\MvcDropdownExtensions.cs" />
+    <Compile Include="Forms\FormControlOverride.cs" />
     <Compile Include="Forms\FormOverride.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Links\MvcLinkExtensions.cs" />

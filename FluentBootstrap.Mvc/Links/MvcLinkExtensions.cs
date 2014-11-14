@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
-using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
@@ -28,7 +27,7 @@ namespace FluentBootstrap
                 new RouteValueDictionary(routeValues);
             }
             return component.GetThis().SetHref(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
-                component.GetHelper().HtmlHelper.RouteCollection, component.GetHelper().HtmlHelper.ViewContext.RequestContext, true));
+                component.Helper.HtmlHelper.RouteCollection, component.Helper.HtmlHelper.ViewContext.RequestContext, true));
         }
 
         public static TThis SetRoute<TModel, TThis, TWrapper>(this Component<MvcBootstrapHelper<TModel>, TThis, TWrapper> component, string routeName, object routeValues = null)
@@ -41,7 +40,7 @@ namespace FluentBootstrap
                 new RouteValueDictionary(routeValues);
             }
             return component.GetThis().SetHref(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
-                component.GetHelper().HtmlHelper.RouteCollection, component.GetHelper().HtmlHelper.ViewContext.RequestContext, false));
+                component.Helper.HtmlHelper.RouteCollection, component.Helper.HtmlHelper.ViewContext.RequestContext, false));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using FluentBootstrap.Internals;
-using FluentBootstrap.Mvc;
+﻿using FluentBootstrap.Mvc;
 using FluentBootstrap.Paginations;
 using System;
 using System.Collections.Generic;

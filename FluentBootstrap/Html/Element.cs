@@ -23,8 +23,8 @@ namespace FluentBootstrap.Html
     public class Element<THelper> : Tag<THelper, Element<THelper>, ElementWrapper<THelper>>, IElement, IHasTextContent
         where THelper : BootstrapHelper<THelper>
     {
-        internal Element(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
-            : base(creator, tagName, cssClasses)
+        internal Element(IComponentCreator<THelper> creator, string tagName)
+            : base(creator, tagName)
         {
         }
     }

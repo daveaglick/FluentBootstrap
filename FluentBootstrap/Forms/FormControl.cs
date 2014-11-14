@@ -48,7 +48,7 @@ namespace FluentBootstrap.Forms
 
         // This prepares the outer form group if we need one
         // Needs to be in a separate method so that derived classes can create the form group before outputting any wrappers of their own
-        protected void Prepare(TextWriter writer)
+        protected internal void Prepare(TextWriter writer)
         {
             // Only prepare once
             if(_prepared)
@@ -118,24 +118,6 @@ namespace FluentBootstrap.Forms
         protected override void OnStart(TextWriter writer)
         {
             Prepare(writer);
-
-            // Add the validation data
-            string name = Attributes.GetValue("name");
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                // Set the id
-                TagBuilder.GenerateId(name);
-
-                // Set the validation class
-                ModelState modelState;
-                if (HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
-                {
-                    CssClasses.Add(System.Web.Mvc.HtmlHelper.ValidationInputCssClassName);
-                }
-
-                // Add other validation attributes
-                TagBuilder.MergeAttributes<string, object>(HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
-            }
 
             base.OnStart(writer);
         }
