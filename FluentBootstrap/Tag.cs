@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
@@ -42,12 +41,7 @@ namespace FluentBootstrap
         internal HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
         private bool _prettyPrint = Bootstrap.PrettyPrint;
-
-        HashSet<string> ITag.CssClasses
-        {
-            get { return CssClasses; }
-        }
-
+        
         internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
         protected internal Tag(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
@@ -98,12 +92,7 @@ namespace FluentBootstrap
             return this.GetThis();
         }
 
-        void ITag.MergeAttribute(string key, string value, bool replaceExisting)
-        {
-            Attributes.Merge(key, value, replaceExisting);
-        }
-
-        string ITag.GetAttribute(string key)
+        internal string GetAttribute(string key)
         {
             return Attributes.GetValue(key);
         }
@@ -128,12 +117,7 @@ namespace FluentBootstrap
             return this.GetThis();
         }
 
-        void ITag.MergeStyle(string key, string value, bool replaceExisting)
-        {
-            InlineStyles.Merge(key, value, replaceExisting);
-        }
-
-        string ITag.GetStyle(string key)
+        internal string GetStyle(string key)
         {
             return InlineStyles.GetValue(key);
         }
@@ -170,6 +154,31 @@ namespace FluentBootstrap
                 }
             }
             return this.GetThis();
+        }
+
+        HashSet<string> ITag.CssClasses
+        {
+            get { return CssClasses; }
+        }
+
+        void ITag.MergeAttribute(string key, string value, bool replaceExisting)
+        {
+            MergeAttribute(key, value, replaceExisting);
+        }
+
+        string ITag.GetAttribute(string key)
+        {
+            return GetAttribute(key);
+        }
+
+        void ITag.MergeStyle(string key, string value, bool replaceExisting)
+        {
+            MergeStyle(key, value, replaceExisting);
+        }
+
+        string ITag.GetStyle(string key)
+        {
+            return GetStyle(key);
         }
 
         protected virtual bool OutputEndTag

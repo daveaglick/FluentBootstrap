@@ -159,6 +159,11 @@ namespace FluentBootstrap
             }
         }
 
+        internal TThis GetThis()
+        {
+            return (TThis)this;
+        }
+
         internal override sealed void AddChild(IComponent child)
         {
             _children.Add(child);
@@ -209,6 +214,11 @@ namespace FluentBootstrap
         // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
         public string ToHtmlString()
         {
+            return ToString();
+        }
+
+        public override string ToString()
+        {
             // Write this component out as a string
             using (StringWriter writer = new StringWriter())
             {
@@ -228,11 +238,6 @@ namespace FluentBootstrap
 
                 return writer.ToString();
             }
-        }
-
-        public override string ToString()
-        {
-            return ToHtmlString();
         }
 
         internal override sealed void Start(TextWriter writer)

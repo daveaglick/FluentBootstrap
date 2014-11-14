@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using FluentBootstrap.Internals;
 using FluentBootstrap.Typography;
 using System;
 using System.Collections.Generic;

@@ -22,6 +22,10 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("e436433b-06f7-404e-9fb1-c41f5f736063")]
 
+// Expose the internals to implementation-specific libraries
+[assembly: InternalsVisibleTo("FluentBootstrap.Mvc")]
+[assembly: InternalsVisibleTo("FluentBootstrap.WebPages")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version

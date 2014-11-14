@@ -1,5 +1,4 @@
-﻿using FluentBootstrap.Internals;
-using FluentBootstrap.Navbars;
+﻿using FluentBootstrap.Navbars;
 using System;
 using System.Collections.Generic;
 using System.Linq;

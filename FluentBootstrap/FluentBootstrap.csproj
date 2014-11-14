@@ -51,7 +51,6 @@
     <Compile Include="Alerts\AlertState.cs" />
     <Compile Include="ComponentOverride.cs" />
     <Compile Include="Html\Paragraph.cs" />
-    <Compile Include="InternalsExtensions.cs" />
     <Compile Include="IOutputContext.cs" />
     <Compile Include="ListGroups\ListGroup.cs" />
     <Compile Include="ListGroups\ListGroupExtensions.cs" />
