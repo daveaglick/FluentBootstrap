@@ -9,13 +9,11 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IHiddenForCreator<TModel, THelper> : IComponentCreator<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public interface IHiddenForCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class HiddenForWrapper<TModel, THelper> : ComponentWrapper<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class HiddenForWrapper<TModel> : ComponentWrapper<MvcBootstrapHelper<TModel>>
     {
     }
 
@@ -23,12 +21,11 @@ namespace FluentBootstrap.Mvc.Forms
     {
     }
 
-    public class HiddenFor<TModel, THelper, TValue> : Component<THelper, HiddenFor<TModel, THelper, TValue>, HiddenForWrapper<TModel, THelper>>, IHiddenFor
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class HiddenFor<TModel, TValue> : Component<MvcBootstrapHelper<TModel>, HiddenFor<TModel, TValue>, HiddenForWrapper<TModel>>, IHiddenFor
     {
         private readonly Expression<Func<TModel, TValue>> _expression;
 
-        internal HiddenFor(IComponentCreator<THelper> creator, Expression<Func<TModel, TValue>> expression)
+        internal HiddenFor(IComponentCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> expression)
             : base(creator)
         {
             _expression = expression;

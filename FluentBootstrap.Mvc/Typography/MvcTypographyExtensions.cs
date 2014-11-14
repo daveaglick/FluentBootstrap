@@ -27,7 +27,7 @@ namespace FluentBootstrap
             return list;
         }
 
-        public static Typography.List<MvcBootstrapHelper<TModel>> ListFor<TModel, THelper, TValue>(this IListCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
+        public static Typography.List<MvcBootstrapHelper<TModel>> ListFor<THelper, TModel, TValue>(this IListCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
             where THelper : BootstrapHelper<THelper>
         {
             Typography.List<MvcBootstrapHelper<TModel>> list = new Typography.List<MvcBootstrapHelper<TModel>>(creator, listType);

@@ -45,21 +45,20 @@ namespace FluentBootstrap
             return form;
         }
 
-        public static ValidationSummary<TModel, MvcBootstrapHelper<TModel>> ValidationSummary<TModel>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, bool includePropertyErrors = false)
+        public static ValidationSummary<TModel> ValidationSummary<TModel>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, bool includePropertyErrors = false)
         {
-            return new ValidationSummary<TModel, MvcBootstrapHelper<TModel>>(creator);
+            return new ValidationSummary<TModel>(creator);
         }
 
-        public static ValidationSummary<TModel, MvcBootstrapHelper<TModel>> IncludePropertyErrors<TModel>(this ValidationSummary<TModel, MvcBootstrapHelper<TModel>> validationSummary, bool includePropertyErrors = false)
+        public static ValidationSummary<TModel> IncludePropertyErrors<TModel>(this ValidationSummary<TModel> validationSummary, bool includePropertyErrors = false)
         {
             validationSummary.IncludePropertyErrors = includePropertyErrors;
             return validationSummary;
         }
 
-        public static FormGroup<THelper> FormGroup<THelper, TValue>(this IFormGroupCreator<THelper> creator, Expression<Func<THelper, TValue>> labelExpression)
-            where THelper : BootstrapHelper<THelper>
+        public static FormGroup<MvcBootstrapHelper<TModel>> FormGroup<TModel, TValue>(this IFormGroupCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> labelExpression)
         {
-            FormGroup<THelper> formGroup = new FormGroup<THelper>(creator);
+            FormGroup<MvcBootstrapHelper<TModel>> formGroup = new FormGroup<MvcBootstrapHelper<TModel>>(creator);
             formGroup.ControlLabel = formGroup.GetWrapper().ControlLabel(labelExpression);
             return formGroup;
         }
@@ -98,129 +97,129 @@ namespace FluentBootstrap
                 creator.GetHelper().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
         }
 
-        public static FormControlFor<THelper, TValue> DisplayFor<THelper, TValue>(this IFormControlCreator<THelper> creator, Expression<Func<THelper, TValue>> expression,
+        public static FormControlFor<TModel, TValue> DisplayFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> expression,
             bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
             return creator.EditorOrDisplayFor(false, expression, addDescription, addValidationMessage, templateName, additionalViewData, addHidden);
         }
 
-        public static FormControlFor<THelper, TValue> EditorFor<THelper, TValue>(this IFormControlCreator<THelper> creator, Expression<Func<THelper, TValue>> expression,
+        public static FormControlFor<TModel, TValue> EditorFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> expression,
             bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
             return creator.EditorOrDisplayFor(true, expression, addDescription, addValidationMessage, templateName, additionalViewData);
         }
 
-        public static FormControlFor<THelper, TValue> EditorOrDisplayFor<THelper, TValue>(this IFormControlCreator<THelper> creator, bool editor, Expression<Func<THelper, TValue>> expression,
+        public static FormControlFor<TModel, TValue> EditorOrDisplayFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, TValue>> expression,
             bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
         {
-            FormControlFor<THelper, TValue> formControl = new FormControlFor<THelper, TValue>(creator, editor, expression)
+            FormControlFor<TModel, TValue> formControl = new FormControlFor<TModel, TValue>(creator, editor, expression)
                 .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
                 .SetTemplateName(templateName).AddAdditionalViewData(additionalViewData);
             formControl.Label = GetControlLabel(creator, expression);
             return formControl;
         }
 
-        public static FormControlListFor<THelper, TValue> DisplayListFor<THelper, TValue>(this IFormControlCreator<THelper> creator, Expression<Func<THelper, IEnumerable<TValue>>> expression,
+        public static FormControlListFor<TModel, TValue> DisplayListFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression,
             ListType listType = ListType.Unstyled, bool addHidden = true, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
             return creator.EditorOrDisplayListFor(false, expression, listType, addDescription, addValidationMessage, templateName, additionalViewData, addHidden);
         }
 
-        public static FormControlListFor<THelper, TValue> EditorListFor<THelper, TValue>(this IFormControlCreator<THelper> creator, Expression<Func<THelper, IEnumerable<TValue>>> expression,
+        public static FormControlListFor<TModel, TValue> EditorListFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression,
             ListType listType = ListType.Unstyled, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null)
         {
             return creator.EditorOrDisplayListFor(true, expression, listType, addDescription, addValidationMessage, templateName, additionalViewData);
         }
 
-        public static FormControlListFor<THelper, TValue> EditorOrDisplayListFor<THelper, TValue>(this IFormControlCreator<THelper> creator, bool editor, Expression<Func<THelper, IEnumerable<TValue>>> expression,
+        public static FormControlListFor<TModel, TValue> EditorOrDisplayListFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression,
             ListType listType = ListType.Unstyled, bool addDescription = true, bool addValidationMessage = true, string templateName = null, object additionalViewData = null, bool addHidden = true)
         {
-            FormControlListFor<THelper, TValue> formControl = new FormControlListFor<THelper, TValue>(creator, editor, expression, listType)
+            FormControlListFor<TModel, TValue> formControl = new FormControlListFor<TModel, TValue>(creator, editor, expression, listType)
                 .AddHidden(addHidden).AddDescription(addDescription).AddValidationMessage(addValidationMessage)
                 .SetTemplateName(templateName).AddAdditionalViewData(additionalViewData);
             formControl.Label = GetControlLabel(creator, expression);
             return formControl;
         }
 
-        public static TThis AddHidden<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, bool addHidden = true)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis AddHidden<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addHidden = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddHidden = addHidden;
             return formControl;
         }
 
-        public static TThis AddStaticClass<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, bool addStaticClass = true)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis AddStaticClass<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addStaticClass = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.ToggleCss(Css.FormControlStatic, addStaticClass);
             return formControl;
         }
 
-        public static TThis AddFormControlClass<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, bool addFormControlClass = true)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis AddFormControlClass<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addFormControlClass = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddFormControlClass = addFormControlClass;
             return formControl;
         }
 
-        public static TThis AddDescription<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, bool addDescription = true)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis AddDescription<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addDescription = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddDescription = addDescription;
             return formControl;
         }
 
-        public static TThis AddValidationMessage<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, bool addValidationMessage = true)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis AddValidationMessage<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, bool addValidationMessage = true)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AddValidationMessage = addValidationMessage;
             return formControl;
         }
 
-        public static TThis SetTemplateName<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, string templateName)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis SetTemplateName<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, string templateName)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.TemplateName = templateName;
             return formControl;
         }
 
-        public static TThis AddAdditionalViewData<THelper, TValue, TThis, TWrapper>(this FormControlForBase<THelper, TValue, TThis, TWrapper> component, object additionalViewData)
-            where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-            where TWrapper : FormControlForBaseWrapper<THelper>, new()
+        public static TThis AddAdditionalViewData<TModel, TValue, TThis, TWrapper>(this FormControlForBase<TModel, TValue, TThis, TWrapper> component, object additionalViewData)
+            where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+            where TWrapper : FormControlForBaseWrapper<TModel>, new()
         {
             TThis formControl = component.GetThis();
             formControl.AdditionalViewData = additionalViewData;
             return formControl;
         }
 
-        public static HiddenFor<THelper, TValue> HiddenFor<THelper, TValue>(this IFormControlCreator<THelper> creator, Expression<Func<THelper, TValue>> expression)
+        public static HiddenFor<TModel, TValue> HiddenFor<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> expression)
         {
-            return new HiddenFor<THelper, TValue>(creator, expression);
+            return new HiddenFor<TModel, TValue>(creator, expression);
         }
 
-        public static FormControl<THelper> FormControl<THelper, TValue>(this IFormControlCreator<THelper> creator, Expression<Func<THelper, TValue>> labelExpression)
+        public static FormControl<MvcBootstrapHelper<TModel>> FormControl<TModel, TValue>(this IFormControlCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> labelExpression)
         {
-            return new FormControl<THelper>(creator).SetControlLabel(labelExpression);
+            return new FormControl<MvcBootstrapHelper<TModel>>(creator).SetControlLabel(labelExpression);
         }
 
-        public static TThis SetControlLabel<THelper, TValue, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, Expression<Func<THelper, TValue>> expression, Action<ControlLabel<THelper>> labelAction = null)
-            where TThis : FormControl<THelper, TThis, TWrapper>
-            where TWrapper : FormControlWrapper<THelper>, new()
+        public static TThis SetControlLabel<TModel, TValue, TThis, TWrapper>(this Component<MvcBootstrapHelper<TModel>, TThis, TWrapper> component, Expression<Func<TModel, TValue>> expression, Action<ControlLabel<MvcBootstrapHelper<TModel>>> labelAction = null)
+            where TThis : FormControl<MvcBootstrapHelper<TModel>, TThis, TWrapper>
+            where TWrapper : FormControlWrapper<MvcBootstrapHelper<TModel>>, new()
         {
             TThis control = component.GetThis();
-            ControlLabel<THelper> controlLabel = GetControlLabel(component.Helper, expression).For(control.GetName());
+            ControlLabel<MvcBootstrapHelper<TModel>> controlLabel = GetControlLabel(component.Helper, expression).For(control.GetName());
             control.Label = controlLabel;
             if (labelAction != null)
             {

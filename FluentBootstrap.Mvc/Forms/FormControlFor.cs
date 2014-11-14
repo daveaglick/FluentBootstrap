@@ -12,14 +12,12 @@ using FluentBootstrap.Html;
 using FluentBootstrap.Forms;
 
 namespace FluentBootstrap.Mvc.Forms
-{   
-    public interface IFormControlForCreator<TModel, THelper> : IComponentCreator<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+{
+    public interface IFormControlForCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class FormControlForWrapper<TModel, THelper> : FormControlForBaseWrapper<TModel, THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class FormControlForWrapper<TModel> : FormControlForBaseWrapper<TModel>
     {
     }
 
@@ -27,10 +25,9 @@ namespace FluentBootstrap.Mvc.Forms
     {
     }
 
-    public class FormControlFor<TModel, THelper, TValue> : FormControlForBase<TModel, THelper, TValue, FormControlFor<TModel, THelper, TValue>, FormControlForWrapper<TModel, THelper>>, IFormControlFor
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class FormControlFor<TModel, TValue> : FormControlForBase<TModel, TValue, FormControlFor<TModel, TValue>, FormControlForWrapper<TModel>>, IFormControlFor
     {
-        public FormControlFor(IComponentCreator<THelper> creator, bool editor, Expression<Func<TModel, TValue>> expression)
+        public FormControlFor(IComponentCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, TValue>> expression)
             : base(creator, editor, expression)
         {
         }

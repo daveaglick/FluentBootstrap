@@ -14,7 +14,7 @@ namespace FluentBootstrap.Mvc.Forms
     {
         internal bool HideValidationSummary { get; set; }
 
-        protected override void OnStart(TextWriter writer)
+        protected internal override void OnStart(TextWriter writer)
         {
             // Generate the form ID if one is needed (if one was already set in the htmlAttributes, this does nothing)
             ViewContext viewContext = Component.Helper.HtmlHelper.ViewContext;
@@ -43,7 +43,7 @@ namespace FluentBootstrap.Mvc.Forms
             }
         }
 
-        protected override void OnFinish(TextWriter writer)
+        protected internal override void OnFinish(TextWriter writer)
         {            
             // Validation summary if it's not hidden or one was not already output
             if (!HideValidationSummary)

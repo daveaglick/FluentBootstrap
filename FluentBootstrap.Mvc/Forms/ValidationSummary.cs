@@ -9,13 +9,11 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IValidationSummaryCreator<TModel, THelper> : IComponentCreator<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public interface IValidationSummaryCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class ValidationSummaryWrapper<TModel, THelper> : FormControlWrapper<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class ValidationSummaryWrapper<TModel> : FormControlWrapper<MvcBootstrapHelper<TModel>>
     {
     }
 
@@ -23,12 +21,11 @@ namespace FluentBootstrap.Mvc.Forms
     {
     }
 
-    public class ValidationSummary<TModel, THelper> : FormControl<THelper, ValidationSummary<TModel, THelper>, ValidationSummaryWrapper<TModel, THelper>>, IValidationSummary
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class ValidationSummary<TModel> : FormControl<MvcBootstrapHelper<TModel>, ValidationSummary<TModel>, ValidationSummaryWrapper<TModel>>, IValidationSummary
     {
         internal bool IncludePropertyErrors { get; set; }
 
-        internal ValidationSummary(IComponentCreator<THelper> creator)
+        internal ValidationSummary(IComponentCreator<MvcBootstrapHelper<TModel>> creator)
             : base(creator, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }

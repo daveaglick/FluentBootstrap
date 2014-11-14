@@ -14,13 +14,11 @@ using FluentBootstrap.Forms;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IFormControlForBaseCreator<TModel, THelper> : IComponentCreator<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public interface IFormControlForBaseCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class FormControlForBaseWrapper<TModel, THelper> : FormControlWrapper<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class FormControlForBaseWrapper<TModel> : FormControlWrapper<MvcBootstrapHelper<TModel>>
     {
     }
 
@@ -28,10 +26,9 @@ namespace FluentBootstrap.Mvc.Forms
     {
     }
 
-    public abstract class FormControlForBase<TModel, THelper, TValue, TThis, TWrapper> : FormControl<THelper, TThis, TWrapper>, IFormControlForBase
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
-        where TThis : FormControlForBase<TModel, THelper, TValue, TThis, TWrapper>
-        where TWrapper : FormControlForBaseWrapper<TModel, THelper>, new()
+    public abstract class FormControlForBase<TModel, TValue, TThis, TWrapper> : FormControl<MvcBootstrapHelper<TModel>, TThis, TWrapper>, IFormControlForBase
+        where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
+        where TWrapper : FormControlForBaseWrapper<TModel>, new()
     {
         private readonly bool _editor;
         protected Expression<Func<TModel, TValue>> Expression { get; private set; }
@@ -43,7 +40,7 @@ namespace FluentBootstrap.Mvc.Forms
         internal string TemplateName { get; set; }
         internal object AdditionalViewData { get; set; }
 
-        protected FormControlForBase(IComponentCreator<THelper> creator, bool editor, Expression<Func<TModel, TValue>> expression)
+        protected FormControlForBase(IComponentCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, TValue>> expression)
             : base(creator, "div", editor ? null : Css.FormControlStatic)
         {
             _editor = editor;
@@ -79,8 +76,8 @@ namespace FluentBootstrap.Mvc.Forms
                 ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
                 if (!string.IsNullOrWhiteSpace(metadata.Description))
                 {
-                    Element<THelper> element = (Element<THelper>)Helper.Element("p").AddCss(Css.HelpBlock);
-                    element.AddChild(new Content<THelper>(Helper, metadata.Description));
+                    Element<MvcBootstrapHelper<TModel>> element = Helper.Element("p").AddCss(Css.HelpBlock);
+                    element.AddChild(new Content<MvcBootstrapHelper<TModel>>(Helper, metadata.Description));
                     element.StartAndFinish(writer);
                 }
             }

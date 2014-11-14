@@ -14,13 +14,11 @@ using FluentBootstrap.Html;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IFormControlListForCreator<TModel, THelper> : IComponentCreator<THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public interface IFormControlListForCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class FormControlListForWrapper<TModel, THelper> : FormControlForBaseWrapper<TModel, THelper>
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class FormControlListForWrapper<TModel> : FormControlForBaseWrapper<TModel>
     {
     }
 
@@ -28,12 +26,11 @@ namespace FluentBootstrap.Mvc.Forms
     {
     }
 
-    public class FormControlListFor<TModel, THelper, TValue> : FormControlForBase<TModel, THelper, IEnumerable<TValue>, FormControlListFor<TModel, THelper, TValue>, FormControlListForWrapper<TModel, THelper>>, IFormControlListFor
-        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+    public class FormControlListFor<TModel, TValue> : FormControlForBase<TModel, IEnumerable<TValue>, FormControlListFor<TModel, TValue>, FormControlListForWrapper<TModel>>, IFormControlListFor
     {
         private readonly ListType _listType;
 
-        public FormControlListFor(IComponentCreator<THelper> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression, ListType listType)
+        public FormControlListFor(IComponentCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression, ListType listType)
             : base(creator, editor, expression)
         {
             _listType = listType;
@@ -50,7 +47,7 @@ namespace FluentBootstrap.Mvc.Forms
             }
 
             // Iterate
-            Typography.List<THelper> list = new Typography.List<THelper>(Helper, _listType);
+            Typography.List<MvcBootstrapHelper<TModel>> list = new Typography.List<MvcBootstrapHelper<TModel>>(Helper, _listType);
             foreach (TValue value in values)
             {
                 list.AddChild(x => x.ListItem(
@@ -71,7 +68,7 @@ namespace FluentBootstrap.Mvc.Forms
             }
 
             // Iterate
-            Typography.List<THelper> list = new Typography.List<THelper>(Helper, _listType);
+            Typography.List<MvcBootstrapHelper<TModel>> list = new Typography.List<MvcBootstrapHelper<TModel>>(Helper, _listType);
             int c = 0;
             foreach (TValue value in values)
             {
