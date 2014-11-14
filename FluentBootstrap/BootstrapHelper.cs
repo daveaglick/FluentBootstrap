@@ -171,6 +171,26 @@ namespace FluentBootstrap
             ComponentOverrides[componentOverride.GetComponentType()] = () => new TOverride();
         }
 
+        protected internal virtual string FormatValue(object value, string format)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+            if (string.IsNullOrEmpty(format))
+            {
+                return Convert.ToString(value, CultureInfo.CurrentCulture);
+            }
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            object[] objArray = new object[] { value };
+            return string.Format(currentCulture, format, objArray);
+        }
+
+        protected internal virtual string GetFullHtmlFieldName(string name)
+        {
+            return name;
+        }
+
         // Returns the current TextWriter for output
         protected internal abstract TextWriter GetWriter();
 

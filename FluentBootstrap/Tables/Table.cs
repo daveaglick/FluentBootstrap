@@ -41,7 +41,7 @@ namespace FluentBootstrap.Tables
         {
             if (Responsive)
             {
-                _responsiveDiv = new Element<THelper>(Helper, "div", Css.TableResponsive);
+                _responsiveDiv = new Element<THelper>(Helper, "div").AddCss(Css.TableResponsive);
                 _responsiveDiv.Start(writer);
             }
 

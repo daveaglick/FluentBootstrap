@@ -31,37 +31,37 @@ namespace FluentBootstrap
         public static Element<THelper> Clearfix<THelper>(this ITagCreator<THelper> creator)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "div", Css.Clearfix);
+            return new Element<THelper>(creator, "div").AddCss(Css.Clearfix);
         }
 
         public static Element<THelper> CenterBlock<THelper>(this ITagCreator<THelper> creator)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "div", Css.CenterBlock);
+            return new Element<THelper>(creator, "div").AddCss(Css.CenterBlock);
         }
 
         public static Element<THelper> PullLeft<THelper>(this ITagCreator<THelper> creator)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "div", Css.PullLeft);
+            return new Element<THelper>(creator, "div").AddCss(Css.PullLeft);
         }
 
         public static Element<THelper> PullRight<THelper>(this ITagCreator<THelper> creator)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "div", Css.PullRight);
+            return new Element<THelper>(creator, "div").AddCss(Css.PullRight);
         }
 
         public static Element<THelper> Caret<THelper>(this ITagCreator<THelper> creator)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "span", Css.Caret);
+            return new Element<THelper>(creator, "span").AddCss(Css.Caret);
         }
 
         public static Element<THelper> Close<THelper>(this ITagCreator<THelper> creator)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "button", Css.Close)
+            return new Element<THelper>(creator, "button").AddCss(Css.Close)
                 .AddAttribute("type", "button")
                 .AddContent("<span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span>");
         }

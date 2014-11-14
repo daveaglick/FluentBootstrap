@@ -79,7 +79,7 @@ namespace FluentBootstrap
         public static Element<THelper> Lead<THelper>(this ITagCreator<THelper> creator, string text = null)
             where THelper : BootstrapHelper<THelper>
         {
-            return new Element<THelper>(creator, "p", Css.Lead).SetText(text);
+            return new Element<THelper>(creator, "p").AddCss(Css.Lead).SetText(text);
         }
 
         public static Element<THelper> Marked<THelper>(this ITagCreator<THelper> creator, string text = null)
@@ -222,21 +222,6 @@ namespace FluentBootstrap
             where THelper : BootstrapHelper<THelper>
         {
             return new Typography.List<THelper>(creator, listType);
-        }
-
-        public static Typography.List<THelper> ListFor<THelper, TValue>(this IListCreator<THelper> creator, Expression<Func<THelper, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
-            where THelper : BootstrapHelper<THelper>
-        {
-            Typography.List<THelper> list = new Typography.List<THelper>(creator, listType);
-            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, list.Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
-            if (values != null)
-            {
-                foreach (TValue value in values)
-                {
-                    list.AddChild(x => x.ListItem(item(value)));
-                }
-            }
-            return list;
         }
 
         public static ListItem<THelper> ListItem<THelper>(this IListItemCreator<THelper> creator, object content = null)

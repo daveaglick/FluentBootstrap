@@ -12,6 +12,8 @@ namespace FluentBootstrap.Mvc.Forms
 {
     public class FormOverride<TModel> : ComponentOverride<Form<MvcBootstrapHelper<TModel>, Form<MvcBootstrapHelper<TModel>>, FormWrapper<MvcBootstrapHelper<TModel>>>, MvcBootstrapHelper<TModel>>
     {
+        internal bool HideValidationSummary { get; set; }
+
         protected override void OnStart(TextWriter writer)
         {
             // Generate the form ID if one is needed (if one was already set in the htmlAttributes, this does nothing)
@@ -42,7 +44,13 @@ namespace FluentBootstrap.Mvc.Forms
         }
 
         protected override void OnFinish(TextWriter writer)
-        {
+        {            
+            // Validation summary if it's not hidden or one was not already output
+            if (!HideValidationSummary)
+            {
+                Component.Helper.ValidationSummary().StartAndFinish(writer);
+            }
+
             base.OnFinish(writer);
 
             // Intercept the client validation (if there is any) and output on our own writer

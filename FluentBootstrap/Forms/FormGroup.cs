@@ -93,7 +93,7 @@ namespace FluentBootstrap.Forms
             // Move any grid column classes to a container class
             if (CssClasses.Any(x => x.StartsWith("col-")))
             {
-                _columnWrapper = new Element<THelper>(Helper, "div", CssClasses.Where(x => x.StartsWith("col-")).ToArray());
+                _columnWrapper = Helper.Element("div").AddCss(CssClasses.Where(x => x.StartsWith("col-")).ToArray());
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
 

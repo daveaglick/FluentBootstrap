@@ -38,8 +38,8 @@ namespace FluentBootstrap.MediaObjects
         protected override void OnStart(TextWriter writer)
         {
             // Change to a div if no link was provided
-            string href;
-            if (!TagBuilder.Attributes.TryGetValue("href", out href) || string.IsNullOrWhiteSpace(href))
+            string href = GetAttribute("href");
+            if (string.IsNullOrWhiteSpace(href))
             {
                 TagName = "div";
             }

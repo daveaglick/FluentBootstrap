@@ -24,6 +24,16 @@ namespace FluentBootstrap.Mvc
             RegisterComponentOverride<FormOverride<TModel>>();
         }
 
+        protected internal override string FormatValue(object value, string format)
+        {
+            return HtmlHelper.FormatValue(value, format);
+        }
+
+        protected internal override string GetFullHtmlFieldName(string name)
+        {
+            return HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+        }
+
         protected internal override TextWriter GetWriter()
         {
             return HtmlHelper.ViewContext.Writer;

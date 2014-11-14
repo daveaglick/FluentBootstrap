@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,15 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace FluentBootstrap.Forms
+namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IValidationSummaryCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IValidationSummaryCreator<TModel, THelper> : IComponentCreator<THelper>
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
     }
 
-    public class ValidationSummaryWrapper<THelper> : FormControlWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ValidationSummaryWrapper<TModel, THelper> : FormControlWrapper<THelper>
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
     }
 
@@ -22,8 +23,8 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class ValidationSummary<THelper> : FormControl<THelper, ValidationSummary<THelper>, ValidationSummaryWrapper<THelper>>, IValidationSummary
-        where THelper : BootstrapHelper<THelper>
+    public class ValidationSummary<TModel, THelper> : FormControl<THelper, ValidationSummary<TModel, THelper>, ValidationSummaryWrapper<TModel, THelper>>, IValidationSummary
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
         internal bool IncludePropertyErrors { get; set; }
 
@@ -47,7 +48,7 @@ namespace FluentBootstrap.Forms
             IForm form = GetComponent<IForm>();
             if (form != null)
             {
-                form.HideValidationSummary = true;
+                form.GetOverride<FormOverride<TModel>>().HideValidationSummary = true;
             }
         }
     }

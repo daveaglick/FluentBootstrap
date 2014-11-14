@@ -48,6 +48,8 @@ namespace FluentBootstrap
         void Finish(TextWriter writer);
         void StartAndFinish(TextWriter writer);
         bool Implicit { get; }
+        TOverride GetOverride<TOverride>() 
+            where TOverride : ComponentOverride;
     }
 
     public abstract class Component : IComponent
@@ -72,6 +74,11 @@ namespace FluentBootstrap
             get { return Implicit; }
         }
 
+        TOverride IComponent.GetOverride<TOverride>()
+        {
+            return GetOverride<TOverride>();
+        }
+
         public abstract void End();
 
         internal abstract void Start(TextWriter writer);
@@ -81,6 +88,7 @@ namespace FluentBootstrap
         internal abstract void AddChild(IComponent component);
         internal abstract void Begin(TextWriter writer);
         internal abstract void End(TextWriter writer);
+        internal abstract TOverride GetOverride<TOverride>();
     }
 
     public abstract class Component<THelper> : Component
@@ -157,6 +165,11 @@ namespace FluentBootstrap
                 }
                 checkType = checkType.BaseType;
             }
+        }
+
+        internal override TOverride GetOverride<TOverride>()
+        {
+            return _componentOverrides.OfType<TOverride>().FirstOrDefault();
         }
 
         internal TThis GetThis()

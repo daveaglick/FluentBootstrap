@@ -30,7 +30,6 @@ namespace FluentBootstrap.Forms
     {
         int DefaultLabelWidth { get; }
         bool Horizontal { get; }
-        bool HideValidationSummary { set; }
     }
 
     public abstract class Form<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IForm
@@ -43,13 +42,6 @@ namespace FluentBootstrap.Forms
         int IForm.DefaultLabelWidth
         {
             get { return DefaultLabelWidth; }
-        }
-
-        internal bool HideValidationSummary { get; set; }
-
-        bool IForm.HideValidationSummary
-        {
-            set { HideValidationSummary = value; }
         }
 
         public Form(IComponentCreator<THelper> creator, params string[] cssClasses)
@@ -67,17 +59,6 @@ namespace FluentBootstrap.Forms
         bool IForm.Horizontal
         {
             get { return Horizontal; }
-        }
-
-        protected override void OnFinish(TextWriter writer)
-        {
-            // Validation summary if it's not hidden or one was not already output
-            if (!HideValidationSummary)
-            {
-                new ValidationSummary<THelper>(Helper).StartAndFinish(writer);
-            }
-
-            base.OnFinish(writer);
         }
     }
     

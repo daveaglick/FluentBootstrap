@@ -101,7 +101,7 @@ namespace FluentBootstrap.Dropdowns
             }
             else
             {
-                Element<THelper> element = new Element<THelper>(Helper, "span", Css.SrOnly);
+                Element<THelper> element = new Element<THelper>(Helper, "span").AddCss(Css.SrOnly);
                 element.AddChild(new Content<THelper>(Helper, "Toggle Dropdown"));
                 _toggle.AddChild(element);
             }

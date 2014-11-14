@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using FluentBootstrap;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,15 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using FluentBootstrap.Html;
 
-namespace FluentBootstrap.Forms
+namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IFormControlListForCreator<THelper> : IComponentCreator<THelper> 
-        where THelper : BootstrapHelper<THelper>
+    public interface IFormControlListForCreator<TModel, THelper> : IComponentCreator<THelper>
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
     }
 
-    public class FormControlListForWrapper<THelper> : FormControlForBaseWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class FormControlListForWrapper<TModel, THelper> : FormControlForBaseWrapper<TModel, THelper>
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
     }
 
@@ -27,12 +28,12 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class FormControlListFor<THelper, TValue> : FormControlForBase<THelper, IEnumerable<TValue>, FormControlListFor<THelper, TValue>, FormControlListForWrapper<THelper>>, IFormControlListFor
-        where THelper : BootstrapHelper<THelper>
+    public class FormControlListFor<TModel, THelper, TValue> : FormControlForBase<TModel, THelper, IEnumerable<TValue>, FormControlListFor<TModel, THelper, TValue>, FormControlListForWrapper<TModel, THelper>>, IFormControlListFor
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
         private readonly ListType _listType;
 
-        public FormControlListFor(IComponentCreator<THelper> creator, bool editor, Expression<Func<THelper, IEnumerable<TValue>>> expression, ListType listType)
+        public FormControlListFor(IComponentCreator<THelper> creator, bool editor, Expression<Func<TModel, IEnumerable<TValue>>> expression, ListType listType)
             : base(creator, editor, expression)
         {
             _listType = listType;
@@ -41,7 +42,7 @@ namespace FluentBootstrap.Forms
         protected override void WriteDisplay(TextWriter writer)
         {
             // Get the values
-            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(Expression, HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
             if (values == null)
             {
                 base.WriteDisplay(writer);
@@ -53,8 +54,8 @@ namespace FluentBootstrap.Forms
             foreach (TValue value in values)
             {
                 list.AddChild(x => x.ListItem(
-                    (AddHidden ? new HiddenFor<THelper, TValue>(Helper, _ => value).ToHtmlString() : string.Empty)
-                        + HtmlHelper.DisplayFor(_ => value, TemplateName, AdditionalViewData).ToString()));
+                    (AddHidden ? Helper.HiddenFor(_ => value).ToHtmlString() : string.Empty)
+                        + Helper.HtmlHelper.DisplayFor(_ => value, TemplateName, AdditionalViewData).ToString()));
             }
             list.StartAndFinish(writer);
         }
@@ -62,7 +63,7 @@ namespace FluentBootstrap.Forms
         protected override void WriteEditor(TextWriter writer)
         {
             // Get the values
-            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(Expression, HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
             if (values == null)
             {
                 base.WriteEditor(writer);
@@ -74,7 +75,7 @@ namespace FluentBootstrap.Forms
             int c = 0;
             foreach (TValue value in values)
             {
-                list.AddChild(x => x.ListItem(GetEditor(HtmlHelper.EditorFor(_ => value, TemplateName, AdditionalViewData).ToString())));
+                list.AddChild(x => x.ListItem(GetEditor(Helper.HtmlHelper.EditorFor(_ => value, TemplateName, AdditionalViewData).ToString())));
                 c++;
             }
             list.StartAndFinish(writer);

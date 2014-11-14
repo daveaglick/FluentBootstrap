@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -51,8 +54,14 @@
     <Compile Include="Breadcrumbs\MvcBreadcrumbExtensions.cs" />
     <Compile Include="Buttons\MvcButtonExtensions.cs" />
     <Compile Include="Dropdowns\MvcDropdownExtensions.cs" />
+    <Compile Include="Forms\FormControlFor.cs" />
+    <Compile Include="Forms\FormControlForBase.cs" />
+    <Compile Include="Forms\FormControlListFor.cs" />
     <Compile Include="Forms\FormControlOverride.cs" />
     <Compile Include="Forms\FormOverride.cs" />
+    <Compile Include="Forms\HiddenFor.cs" />
+    <Compile Include="Forms\MvcFormExtensions.cs" />
+    <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Links\MvcLinkExtensions.cs" />
     <Compile Include="ListGroups\MvcListGroupExtensions.cs" />
@@ -72,7 +81,9 @@
       <Name>FluentBootstrap</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

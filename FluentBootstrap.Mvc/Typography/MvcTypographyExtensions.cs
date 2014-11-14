@@ -26,5 +26,20 @@ namespace FluentBootstrap
             }
             return list;
         }
+
+        public static Typography.List<MvcBootstrapHelper<TModel>> ListFor<TModel, THelper, TValue>(this IListCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
+            where THelper : BootstrapHelper<THelper>
+        {
+            Typography.List<MvcBootstrapHelper<TModel>> list = new Typography.List<MvcBootstrapHelper<TModel>>(creator, listType);
+            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, list.Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
+            if (values != null)
+            {
+                foreach (TValue value in values)
+                {
+                    list.AddChild(x => x.ListItem(item(value)));
+                }
+            }
+            return list;
+        }
     }
 }

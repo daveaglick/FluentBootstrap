@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net40\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -96,15 +93,11 @@
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormButton.cs" />
     <Compile Include="Forms\FormControl.cs" />
-    <Compile Include="Forms\FormControlFor.cs" />
-    <Compile Include="Forms\FormControlForBase.cs" />
-    <Compile Include="Forms\FormControlListFor.cs" />
     <Compile Include="Forms\FormExtensions.cs" />
     <Compile Include="Forms\FormGroup.cs" />
     <Compile Include="Forms\FormInputType.cs" />
     <Compile Include="Forms\HelpBlock.cs" />
     <Compile Include="Forms\Hidden.cs" />
-    <Compile Include="Forms\HiddenFor.cs" />
     <Compile Include="Forms\IFormValidation.cs" />
     <Compile Include="Forms\Input.cs" />
     <Compile Include="Forms\InputButton.cs" />
@@ -118,7 +111,6 @@
     <Compile Include="Forms\Static.cs" />
     <Compile Include="Forms\TextArea.cs" />
     <Compile Include="Forms\ValidationState.cs" />
-    <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="Grids\Container.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -10,16 +10,17 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using FluentBootstrap.Html;
+using FluentBootstrap.Forms;
 
-namespace FluentBootstrap.Forms
+namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IFormControlForBaseCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IFormControlForBaseCreator<TModel, THelper> : IComponentCreator<THelper>
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
     }
 
-    public class FormControlForBaseWrapper<THelper> : FormControlWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class FormControlForBaseWrapper<TModel, THelper> : FormControlWrapper<THelper>
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
     {
     }
 
@@ -27,13 +28,13 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public abstract class FormControlForBase<THelper, TValue, TThis, TWrapper> : FormControl<THelper, TThis, TWrapper>, IFormControlForBase
-        where THelper : BootstrapHelper<THelper>
-        where TThis : FormControlForBase<THelper, TValue, TThis, TWrapper>
-        where TWrapper : FormControlForBaseWrapper<THelper>, new()
+    public abstract class FormControlForBase<TModel, THelper, TValue, TThis, TWrapper> : FormControl<THelper, TThis, TWrapper>, IFormControlForBase
+        where THelper : MvcBootstrapHelper<TModel>, BootstrapHelper<THelper>
+        where TThis : FormControlForBase<TModel, THelper, TValue, TThis, TWrapper>
+        where TWrapper : FormControlForBaseWrapper<TModel, THelper>, new()
     {
         private readonly bool _editor;
-        protected Expression<Func<THelper, TValue>> Expression { get; private set; }
+        protected Expression<Func<TModel, TValue>> Expression { get; private set; }
 
         internal bool AddDescription { get; set; }
         internal bool AddValidationMessage { get; set; }
@@ -42,7 +43,7 @@ namespace FluentBootstrap.Forms
         internal string TemplateName { get; set; }
         internal object AdditionalViewData { get; set; }
 
-        protected FormControlForBase(IComponentCreator<THelper> creator, bool editor, Expression<Func<THelper, TValue>> expression)
+        protected FormControlForBase(IComponentCreator<THelper> creator, bool editor, Expression<Func<TModel, TValue>> expression)
             : base(creator, "div", editor ? null : Css.FormControlStatic)
         {
             _editor = editor;
@@ -66,7 +67,7 @@ namespace FluentBootstrap.Forms
             // Add the validation message if requested
             if (AddValidationMessage)
             {
-                writer.Write(HtmlHelper.ValidationMessageFor(Expression));
+                writer.Write(Helper.HtmlHelper.ValidationMessageFor(Expression));
             }
         }
 
@@ -78,7 +79,7 @@ namespace FluentBootstrap.Forms
                 ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
                 if (!string.IsNullOrWhiteSpace(metadata.Description))
                 {
-                    Element<THelper> element = new Element<THelper>(Helper, "p", Css.HelpBlock);
+                    Element<THelper> element = (Element<THelper>)Helper.Element("p").AddCss(Css.HelpBlock);
                     element.AddChild(new Content<THelper>(Helper, metadata.Description));
                     element.StartAndFinish(writer);
                 }
@@ -92,15 +93,15 @@ namespace FluentBootstrap.Forms
             // Insert the hidden control if requested
             if (AddHidden)
             {
-                new HiddenFor<THelper, TValue>(Helper, Expression).StartAndFinish(writer);
+                Helper.HiddenFor(Expression).StartAndFinish(writer);
             }
 
-            writer.Write(HtmlHelper.DisplayFor(Expression, TemplateName, AdditionalViewData));
+            writer.Write(Helper.HtmlHelper.DisplayFor(Expression, TemplateName, AdditionalViewData));
         }
 
         protected virtual void WriteEditor(TextWriter writer)
         {
-            writer.Write(GetEditor(HtmlHelper.EditorFor(Expression, TemplateName, AdditionalViewData).ToString()));
+            writer.Write(GetEditor(Helper.HtmlHelper.EditorFor(Expression, TemplateName, AdditionalViewData).ToString()));
         }
 
         protected string GetEditor(string html)

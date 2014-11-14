@@ -48,8 +48,8 @@ namespace FluentBootstrap.Thumbnails
             }
 
             // Change to a div if no link was provided (or don't output at all if in a container)
-            string href;
-            if(!TagBuilder.Attributes.TryGetValue("href", out href) || string.IsNullOrWhiteSpace(href))
+            string href = GetAttribute("href");
+            if(string.IsNullOrWhiteSpace(href))
             {
                 TagName = "div";
                 if(inContainer)

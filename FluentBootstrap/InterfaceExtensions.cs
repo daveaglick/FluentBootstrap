@@ -39,7 +39,7 @@ namespace FluentBootstrap
             where TWrapper : TagWrapper<THelper>, new()
         {
             TThis tag = component.GetThis();
-            tag.MergeAttribute("value", value == null ? null : component.HtmlHelper.FormatValue(value, format));
+            tag.MergeAttribute("value", value == null ? null : component.Helper.FormatValue(value, format));
             return tag;
         }
 
@@ -51,7 +51,7 @@ namespace FluentBootstrap
             where TWrapper : TagWrapper<THelper>, new()
         {
             TThis tag = component.GetThis();
-            tag.MergeAttribute("name", name == null ? null : tag.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name));
+            tag.MergeAttribute("name", name == null ? null : component.Helper.GetFullHtmlFieldName(name));
             return tag;
         }
 
@@ -60,13 +60,7 @@ namespace FluentBootstrap
             where TThis : Tag<THelper, TThis, TWrapper>
             where TWrapper : TagWrapper<THelper>, new()
         {
-            TThis tag = component.GetThis();
-            string name;
-            if (!tag.TagBuilder.Attributes.TryGetValue("name", out name))
-            {
-                name = null; 
-            }
-            return name;
+            return component.GetThis().GetAttribute("name");
         }
 
         // IHasTitleAttribute
@@ -77,7 +71,7 @@ namespace FluentBootstrap
             where TWrapper : TagWrapper<THelper>, new()
         {
             TThis tag = component.GetThis();
-            tag.MergeAttribute("title", title == null ? null : component.HtmlHelper.FormatValue(title, format));
+            tag.MergeAttribute("title", title == null ? null : component.Helper.FormatValue(title, format));
             return tag;
         }
     }
