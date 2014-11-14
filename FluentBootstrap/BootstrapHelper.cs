@@ -115,7 +115,6 @@ namespace FluentBootstrap
         Wells.IWellCreator<THelper>
         where THelper : BootstrapHelper<THelper>
     {
-        internal IOutputContext OutputContext { get; private set; }
         private readonly object _componentOverridesLock = new object();
         private static ConcurrentDictionary<Type, Func<ComponentOverride>> _componentOverrides;
         private readonly bool _registeringComponentOverrides;
@@ -126,15 +125,13 @@ namespace FluentBootstrap
             get { return _componentOverrides; }
         }
 
-        public BootstrapHelper(IOutputContext outputContext)
+        protected BootstrapHelper()
         {
             // Sanity check
             if (typeof(THelper) != this.GetType())
             {
                 throw new Exception("Invalid THelper generic type parameter for " + this.GetType().Name + " (you should never see this).");
             }
-
-            OutputContext = outputContext;
 
             if(_componentOverrides == null)
             {
@@ -173,5 +170,16 @@ namespace FluentBootstrap
             TOverride componentOverride = new TOverride();
             ComponentOverrides[componentOverride.GetComponentType()] = () => new TOverride();
         }
+
+        // Returns the current TextWriter for output
+        protected internal abstract TextWriter GetWriter();
+
+        // Gets an item from a persistent cache for the entire page/view
+        // Should return null if the key doesn't exist
+        protected internal abstract object GetItem(object key);
+
+        // Adds an item to a persistent cache for the entire page/view
+        // Should overwrite the previous value if the key already exists
+        protected internal abstract void AddItem(object key, object value);
     }
 }

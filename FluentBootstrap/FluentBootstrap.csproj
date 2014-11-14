@@ -51,7 +51,6 @@
     <Compile Include="Alerts\AlertState.cs" />
     <Compile Include="ComponentOverride.cs" />
     <Compile Include="Html\Paragraph.cs" />
-    <Compile Include="IOutputContext.cs" />
     <Compile Include="ListGroups\ListGroup.cs" />
     <Compile Include="ListGroups\ListGroupExtensions.cs" />
     <Compile Include="ListGroups\ListGroupItem.cs" />
@@ -203,7 +202,6 @@
     <Compile Include="ProgressBars\ProgressBarExtensions.cs" />
     <Compile Include="ProgressBars\ProgressBarState.cs" />
     <Compile Include="SimpleBootstrapHelper.cs" />
-    <Compile Include="SimpleOutputContext.cs" />
     <Compile Include="SuppressOutputWriter.cs" />
     <Compile Include="Tables\IHasTableStateExtensions.cs" />
     <Compile Include="Tables\Table.cs" />

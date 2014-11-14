@@ -190,7 +190,7 @@ namespace FluentBootstrap
                 _parent.Begin(writer);
             }
 
-            Start(writer ?? Helper.OutputContext.GetWriter());
+            Start(writer ?? Helper.GetWriter());
         }
 
         public override sealed void End()
@@ -200,7 +200,7 @@ namespace FluentBootstrap
 
         internal override sealed void End(TextWriter writer)
         {
-            Finish(writer ?? Helper.OutputContext.GetWriter());
+            Finish(writer ?? Helper.GetWriter());
 
             // If we have a parent, it needs to be finished
             if(_parent != null)
@@ -483,11 +483,11 @@ namespace FluentBootstrap
 
         private Stack<IComponent> GetStack(object key)
         {
-            Stack<IComponent> stack = Helper.OutputContext.GetItem(key) as Stack<IComponent>;
+            Stack<IComponent> stack = Helper.GetItem(key) as Stack<IComponent>;
             if (stack == null)
             {
                 stack = new Stack<IComponent>();
-                Helper.OutputContext.AddItem(key, stack);
+                Helper.AddItem(key, stack);
             }
             return stack;
         }

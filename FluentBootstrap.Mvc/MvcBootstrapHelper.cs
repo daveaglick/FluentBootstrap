@@ -2,6 +2,7 @@
 using FluentBootstrap.Mvc.Forms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,7 @@ namespace FluentBootstrap.Mvc
     {
         internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 
-        public MvcBootstrapHelper(HtmlHelper<TModel> htmlHelper) 
-            : base(new MvcOutputContext(htmlHelper))
+        public MvcBootstrapHelper(HtmlHelper<TModel> htmlHelper)
         {
             HtmlHelper = htmlHelper;
         }
@@ -22,6 +22,21 @@ namespace FluentBootstrap.Mvc
         protected override void RegisterComponentOverrides()
         {
             RegisterComponentOverride<FormOverride<TModel>>();
+        }
+
+        protected internal override TextWriter GetWriter()
+        {
+            return HtmlHelper.ViewContext.Writer;
+        }
+
+        protected internal override object GetItem(object key)
+        {
+            return HtmlHelper.ViewContext.HttpContext.Items[key];
+        }
+
+        protected internal override void AddItem(object key, object value)
+        {
+            HtmlHelper.ViewContext.HttpContext.Items[key] = value;
         }
     }
 }

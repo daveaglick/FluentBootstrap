@@ -57,7 +57,6 @@
     <Compile Include="ListGroups\MvcListGroupExtensions.cs" />
     <Compile Include="MediaObjects\MvcMediaObjectExtensions.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
-    <Compile Include="MvcOutputContext.cs" />
     <Compile Include="Navbars\MvcNavbarExtensions.cs" />
     <Compile Include="Navs\MvcNavExtensions.cs" />
     <Compile Include="Pagers\MvcPagerExtensions.cs" />
