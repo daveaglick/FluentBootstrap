@@ -54,6 +54,10 @@ namespace FluentBootstrap
 
     public abstract class Component : IComponent
     {
+        // These keys have to go in a non-generic class (otherwise they won't be unique)
+        protected readonly static object ComponentStackKey = new object();
+        protected readonly static object OutputStackKey = new object();
+
         void IComponent.Start(TextWriter writer)
         {
             Start(writer);
@@ -148,7 +152,7 @@ namespace FluentBootstrap
             ComponentOverride componentOverride = null;
             while(!checkType.Equals(typeof(Component<THelper>)))
             {
-                if(Helper.ComponentOverrides.TryGetValue(checkType, out componentOverrideCtor))
+                if (Helper.ComponentOverrides.TryGetValue(checkType.GetGenericTypeDefinition(), out componentOverrideCtor))
                 {
                     ComponentOverride lastComponentOverride = componentOverride;
                     componentOverride = componentOverrideCtor();
@@ -479,19 +483,16 @@ namespace FluentBootstrap
             }
             return stack.Where(x => typeof(TComponent).IsAssignableFrom(x.GetType())).FirstOrDefault() as TComponent;
         }
-
-        private readonly static object _componentStackKey = new object();
-
+        
         private Stack<IComponent> GetComponentStack()
         {
-            return GetStack(_componentStackKey);
+            return GetStack(ComponentStackKey);
         }
 
-        private readonly static object _outputStackKey = new object();
 
         private Stack<IComponent> GetOutputStack()
         {
-            return GetStack(_outputStackKey);
+            return GetStack(OutputStackKey);
         }
 
         private Stack<IComponent> GetStack(object key)

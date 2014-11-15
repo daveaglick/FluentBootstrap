@@ -213,7 +213,7 @@ namespace FluentBootstrap
             {
                 Attributes.Merge("class",
                     (Attributes.Dictionary.ContainsKey("class") ? Attributes.GetValue("class") + " " : string.Empty)
-                    + string.Join(" ", CssClasses));
+                    + string.Join(" ", CssClasses.Reverse()));  // TODO: Remove the reverse call
             }
 
             // Generate the inline CSS style
@@ -224,7 +224,7 @@ namespace FluentBootstrap
 
             // Append the start tag
             StringBuilder startTag = new StringBuilder("<" + _tagName);
-            foreach (KeyValuePair<string, string> attribute in Attributes.Dictionary)
+            foreach (KeyValuePair<string, string> attribute in Attributes.Dictionary.Reverse()) // TODO: Remove the reverse call
             {
                 if (string.Equals(attribute.Key, "id", StringComparison.Ordinal) && string.IsNullOrEmpty(attribute.Value))
                 {

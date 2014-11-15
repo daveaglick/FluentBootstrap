@@ -31,7 +31,7 @@ namespace FluentBootstrap
 
         internal override sealed Type GetComponentType()
         {
-            return typeof(TComponent);
+            return typeof(TComponent).GetGenericTypeDefinition();
         }
 
         internal override sealed void SetComponent(Component component)
