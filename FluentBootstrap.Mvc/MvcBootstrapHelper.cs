@@ -40,9 +40,13 @@ namespace FluentBootstrap.Mvc
             return HtmlHelper.ViewContext.Writer;
         }
 
-        protected internal override object GetItem(object key)
+        protected internal override object GetItem(object key, object defaultValue)
         {
-            return HtmlHelper.ViewContext.HttpContext.Items[key];
+            if (HtmlHelper.ViewContext.HttpContext.Items.Contains(key))
+            {
+                return HtmlHelper.ViewContext.HttpContext.Items[key];
+            }
+            return defaultValue;
         }
 
         protected internal override void AddItem(object key, object value)

@@ -56,6 +56,8 @@ namespace FluentBootstrap
         // These keys have to go in a non-generic class (otherwise they won't be unique)
         protected readonly static object ComponentStackKey = new object();
         protected readonly static object OutputStackKey = new object();
+        protected readonly static object TagIndentKey = new object();
+        protected readonly static object LastToWriteKey = new object();
 
         void IComponent.Start(TextWriter writer)
         {
@@ -490,7 +492,7 @@ namespace FluentBootstrap
 
         private Stack<IComponent> GetStack(object key)
         {
-            Stack<IComponent> stack = Helper.GetItem(key) as Stack<IComponent>;
+            Stack<IComponent> stack = Helper.GetItem(key, null) as Stack<IComponent>;
             if (stack == null)
             {
                 stack = new Stack<IComponent>();

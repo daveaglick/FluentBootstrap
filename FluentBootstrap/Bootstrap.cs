@@ -13,10 +13,5 @@ namespace FluentBootstrap
         public static int GridColumns = 12;
         public static bool PrettyPrint = true;
         public static int DefaultFormLabelWidth = 4;
-
-        // This keeps track of the nesting level for tags for pretty printing
-        // TODO: These need to be stored in a per-page structure - NOT as static
-        internal static int TagIndent = 0;
-        internal static ITag LastToWrite = null;
     }
 }

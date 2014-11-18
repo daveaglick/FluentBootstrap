@@ -211,8 +211,10 @@ namespace FluentBootstrap
             if (_prettyPrint && !(writer is SuppressOutputWriter))
             {
                 writer.WriteLine();
-                writer.Write(new String(' ', Bootstrap.TagIndent++));
-                Bootstrap.LastToWrite = this;
+                int tagIndent = (int)Helper.GetItem(TagIndentKey, 0);
+                writer.Write(new String(' ', tagIndent++));
+                Helper.AddItem(TagIndentKey, tagIndent);
+                Helper.AddItem(LastToWriteKey, this);
             }
             else
             {
@@ -254,11 +256,13 @@ namespace FluentBootstrap
             // Pretty print
             if (_prettyPrint)
             {
-                Bootstrap.TagIndent--;
-                if (Bootstrap.LastToWrite != this)
+                int tagIndent = ((int)Helper.GetItem(TagIndentKey, 0)) - 1;
+                Helper.AddItem(TagIndentKey, tagIndent);
+                ITag lastToWrite = Helper.GetItem(LastToWriteKey, null) as ITag;
+                if (lastToWrite != this)
                 {
                     writer.WriteLine();
-                    writer.Write(new String(' ', Bootstrap.TagIndent));
+                    writer.Write(new String(' ', tagIndent));
                 }
             }
 

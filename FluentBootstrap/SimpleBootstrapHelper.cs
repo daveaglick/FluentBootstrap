@@ -32,10 +32,10 @@ namespace FluentBootstrap
             return _textWriter;
         }
 
-        protected internal override object GetItem(object key)
+        protected internal override object GetItem(object key, object defaultValue)
         {
             object value;
-            return _cache.TryGetValue(key, out value) ? value : null;
+            return _cache.TryGetValue(key, out value) ? value : defaultValue;
         }
 
         protected internal override void AddItem(object key, object value)

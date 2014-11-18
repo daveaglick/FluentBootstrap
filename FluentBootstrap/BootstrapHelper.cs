@@ -195,7 +195,7 @@ namespace FluentBootstrap
 
         // Gets an item from a persistent cache for the entire page/view
         // Should return null if the key doesn't exist
-        protected internal abstract object GetItem(object key);
+        protected internal abstract object GetItem(object key, object defaultValue);
 
         // Adds an item to a persistent cache for the entire page/view
         // Should overwrite the previous value if the key already exists
