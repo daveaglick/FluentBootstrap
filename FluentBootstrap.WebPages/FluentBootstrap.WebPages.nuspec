@@ -13,7 +13,4 @@
     <copyright>Copyright 2014</copyright>
     <tags>bootstrap webpages razor asp.net</tags>
   </metadata>
-  <files>
-    <file src="Scripts\*.*" target="content" exclude="Scripts\*.*" />
-  </files>
 </package>
