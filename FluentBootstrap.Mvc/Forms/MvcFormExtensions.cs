@@ -16,7 +16,23 @@ namespace FluentBootstrap
     {
         public static Form<MvcBootstrapHelper<TModel>> Form<TModel>(this IFormCreator<MvcBootstrapHelper<TModel>> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post, object routeValues = null)
         {
-            return new Form<MvcBootstrapHelper<TModel>>(creator).SetAction(actionName, controllerName, routeValues).SetMethod(method);
+            return new Form<MvcBootstrapHelper<TModel>>(creator).SetAction(actionName, controllerName, routeValues).SetFormMethod(method);
+        }
+
+        public static Form<MvcBootstrapHelper<TModel>> Form<TModel>(this IFormCreator<MvcBootstrapHelper<TModel>> creator, FormMethod method)
+        {
+            return new Form<MvcBootstrapHelper<TModel>>(creator).SetAction(null).SetFormMethod(method);
+        }
+
+        public static Form<MvcBootstrapHelper<TModel>> Form<TModel>(this IFormCreator<MvcBootstrapHelper<TModel>> creator, string action, FormMethod method)
+        {
+            return new Form<MvcBootstrapHelper<TModel>>(creator).SetAction(action).SetFormMethod(method);
+        }
+
+        public static Form<MvcBootstrapHelper<TModel>> SetFormMethod<TModel>(this Form<MvcBootstrapHelper<TModel>> form, FormMethod method)
+        {
+            form.MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
+            return form;
         }
 
         public static Form<MvcBootstrapHelper<TModel>> SetAction<TModel>(this Form<MvcBootstrapHelper<TModel>> form, string actionName, string controllerName, object routeValues = null)

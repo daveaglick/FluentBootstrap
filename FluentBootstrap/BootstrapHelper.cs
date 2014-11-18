@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
@@ -116,11 +115,11 @@ namespace FluentBootstrap
         where THelper : BootstrapHelper<THelper>
     {
         private readonly object _componentOverridesLock = new object();
-        private static ConcurrentDictionary<Type, ComponentOverrideFactory<THelper>> _componentOverrides;
+        private static ConcurrentDictionary<Type, Func<THelper, IComponent, ComponentOverride>> _componentOverrides;
         private readonly bool _registeringComponentOverrides;
 
         // Only allow access through the instance to make sure the dictionary has been initialized
-        internal ConcurrentDictionary<Type, ComponentOverrideFactory<THelper>> ComponentOverrides
+        internal ConcurrentDictionary<Type, Func<THelper, IComponent, ComponentOverride>> ComponentOverrides
         {
             get { return _componentOverrides; }
         }
@@ -137,7 +136,7 @@ namespace FluentBootstrap
             {
                 lock(_componentOverridesLock)
                 {
-                    _componentOverrides = new ConcurrentDictionary<Type, ComponentOverrideFactory<THelper>>();
+                    _componentOverrides = new ConcurrentDictionary<Type, Func<THelper, IComponent, ComponentOverride>>();
                     _registeringComponentOverrides = true;
                     RegisterComponentOverrides();
                     _registeringComponentOverrides = false;
@@ -160,17 +159,15 @@ namespace FluentBootstrap
         {
         }
 
-        protected void RegisterComponentOverride(Type genericComponentType, ComponentOverrideFactory<THelper> factory)
+        internal void RegisterComponentOverride<TComponent, TOverride>(Func<THelper, IComponent, ComponentOverride> ctor)
+            where TComponent : IComponent
+            where TOverride : ComponentOverride<THelper, TComponent>
         {
             if (!_registeringComponentOverrides)
             {
                 throw new InvalidOperationException("You can only register component overrides from within the RegisterComponentOverrides method.");
             }
-            if (!genericComponentType.IsGenericTypeDefinition)
-            {
-                throw new ArgumentException("The genericComponentType must be a generic type definition.");
-            }
-            ComponentOverrides[genericComponentType] = factory;
+            ComponentOverrides[typeof(TComponent)] = ctor;
         }
 
         protected internal virtual string FormatValue(object value, string format)

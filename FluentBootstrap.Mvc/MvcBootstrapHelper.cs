@@ -21,8 +21,8 @@ namespace FluentBootstrap.Mvc
 
         protected override void RegisterComponentOverrides()
         {
-            RegisterComponentOverride(typeof(Form<,,>), new FormOverrideFactory<TModel>());
-            RegisterComponentOverride(typeof(FormControl<,,>), new FormControlOverrideFactory<TModel>());
+            RegisterComponentOverride<IForm, FormOverride<TModel>>((h, c) => new FormOverride<TModel>(h, (IForm)c));
+            RegisterComponentOverride<IFormControl, FormControlOverride<TModel>>((h, c) => new FormControlOverride<TModel>(h, (IFormControl)c));
         }
 
         protected internal override string FormatValue(object value, string format)

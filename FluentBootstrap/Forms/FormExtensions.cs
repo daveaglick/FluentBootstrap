@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Web.Routing;
 using FluentBootstrap.Forms;
 using System.Linq.Expressions;
@@ -15,13 +14,13 @@ namespace FluentBootstrap
     {
         // Form
 
-        public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, FormMethod method = FormMethod.Post)
+        public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, string method = "post")
             where THelper : BootstrapHelper<THelper>
         {
             return new Form<THelper>(creator).SetAction(null).SetMethod(method);
         }
 
-        public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, string action, FormMethod method = FormMethod.Post)
+        public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, string action, string method = "post")
             where THelper : BootstrapHelper<THelper>
         {
             return new Form<THelper>(creator).SetAction(action).SetMethod(method);
@@ -51,10 +50,10 @@ namespace FluentBootstrap
             return form.MergeAttribute("action", action);
         }
 
-        public static Form<THelper> SetMethod<THelper>(this Form<THelper> form, FormMethod method)
+        public static Form<THelper> SetMethod<THelper>(this Form<THelper> form, string method)
             where THelper : BootstrapHelper<THelper>
         {
-            form.MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
+            form.MergeAttribute("method", method);
             return form;
         }
 

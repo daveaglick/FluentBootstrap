@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace FluentBootstrap
             {
                 return;
             }
-            Merge(System.Web.Mvc.HtmlHelper.AnonymousObjectToHtmlAttributes(values), replaceExisting);
+            AnonymousObjectToHtmlAttributes(values, replaceExisting);
         }
 
         public void Merge<TKey, TValue>(IDictionary<TKey, TValue> dictionary, bool replaceExisting = true)
@@ -65,6 +66,17 @@ namespace FluentBootstrap
                 return value;
             }
             return string.Empty;
+        }
+
+        private void AnonymousObjectToHtmlAttributes(object htmlAttributes, bool replaceExisting)
+        {
+            if (htmlAttributes != null)
+            {
+                foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(htmlAttributes))
+                {
+                    Merge(property.Name.Replace('\u005F', '-'), Convert.ToString(property.GetValue(htmlAttributes), CultureInfo.InvariantCulture));
+                }
+            }
         }
     }
 }

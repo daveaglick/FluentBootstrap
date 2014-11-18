@@ -191,7 +191,7 @@ namespace FluentBootstrap.Tests
      </div>
      <form class=""navbar-left navbar-form"" role=""form"">
       <div class=""form-group"">
-       <input class=""form-control"" id=""Search"" name=""Search"" placeholder=""Search"" type=""text"">
+       <input class=""form-control"" id=""Search"" placeholder=""Search"" name=""Search"" type=""text"">
       </div>
       <div class=""form-group"">
        <button class=""btn-primary btn"" type=""submit"">Submit</button>
@@ -256,7 +256,7 @@ namespace FluentBootstrap.Tests
      </div>
      <form class=""navbar-left navbar-form"" role=""form"">
       <div class=""form-group"">
-       <input class=""form-control"" id=""Search"" name=""Search"" placeholder=""Search"" type=""text"">
+       <input class=""form-control"" id=""Search"" placeholder=""Search"" name=""Search"" type=""text"">
       </div>
       <div class=""form-group"">
        <button class=""btn-primary btn"" type=""submit"">Submit</button>

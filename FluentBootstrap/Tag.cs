@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
@@ -24,6 +23,8 @@ namespace FluentBootstrap
     internal interface ITag : IComponent
     {
         HashSet<string> CssClasses { get; }
+        void MergeAttributes(object attributes, bool replaceExisting = true);
+        void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true);
         void MergeAttribute(string key, string value, bool replaceExisting = true);
         string GetAttribute(string key);
         void MergeStyle(string key, string value, bool replaceExisting = true);
@@ -159,6 +160,16 @@ namespace FluentBootstrap
         HashSet<string> ITag.CssClasses
         {
             get { return CssClasses; }
+        }
+
+        void ITag.MergeAttributes(object attributes, bool replaceExisting)
+        {
+            MergeAttributes(attributes, replaceExisting);
+        }
+
+        void ITag.MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting)
+        {
+            MergeAttributes<TKey, TValue>(attributes, replaceExisting);
         }
 
         void ITag.MergeAttribute(string key, string value, bool replaceExisting)

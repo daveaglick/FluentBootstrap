@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace FluentBootstrap
 {
@@ -147,27 +146,21 @@ namespace FluentBootstrap
             _implicit = GetOutputStack().Count > 0;
 
             // Get any component override(s)
-            ComponentOverrideFactory<THelper> componentOverrideFactory;
-            Type checkType = typeof(TThis);
             ComponentOverride componentOverride = null;
-            while(!checkType.Equals(typeof(Component<THelper>)))
+            foreach(KeyValuePair<Type, Func<THelper, IComponent, ComponentOverride>> match 
+                in Helper.ComponentOverrides.Where(x => x.Key.IsAssignableFrom(typeof(TThis))))
             {
-                if (Helper.ComponentOverrides.TryGetValue(checkType.GetGenericTypeDefinition(), out componentOverrideFactory))
+                ComponentOverride lastComponentOverride = componentOverride;
+                componentOverride = match.Value(Helper, this);
+                componentOverride.BaseStartAction = OnStart;
+                componentOverride.BaseFinishAction = OnFinish;
+                if(lastComponentOverride != null)
                 {
-                    ComponentOverride lastComponentOverride = componentOverride;
-                    componentOverride = componentOverrideFactory.GetOverride<TThis, TWrapper>();
-                    componentOverride.SetComponent(this);
-                    componentOverride.BaseStartAction = OnStart;
-                    componentOverride.BaseFinishAction = OnFinish;
-                    if(lastComponentOverride != null)
-                    {
-                        // If this is an override higher up the hierarchy, redirect the lower override to call this one
-                        lastComponentOverride.BaseStartAction = componentOverride.OnStart;
-                        lastComponentOverride.BaseFinishAction = componentOverride.OnFinish;
-                    }
-                    _componentOverrides.Enqueue(componentOverride);
+                    // If this is an override higher up the hierarchy, redirect the lower override to call this one
+                    lastComponentOverride.BaseStartAction = componentOverride.OnStart;
+                    lastComponentOverride.BaseFinishAction = componentOverride.OnFinish;
                 }
-                checkType = checkType.BaseType;
+                _componentOverrides.Enqueue(componentOverride);
             }
         }
 

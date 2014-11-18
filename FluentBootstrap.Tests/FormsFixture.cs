@@ -20,11 +20,11 @@ namespace FluentBootstrap.Tests
 @"<form method=""post"" role=""form"">
    <div class=""form-group"">
     <label class=""control-label"" for=""readonly"">Readonly Input</label>
-    <input class=""form-control"" id=""readonly"" name=""readonly"" readonly="""" type=""text"" value=""Initial Value"">
+    <input class=""form-control"" id=""readonly"" readonly="""" value=""Initial Value"" name=""readonly"" type=""text"">
    </div>
    <div class=""form-group"">
     <label class=""control-label"" for=""readonly2"">Normal Input</label>
-    <input class=""form-control"" id=""readonly2"" name=""readonly2"" type=""text"" value=""Initial Value"">
+    <input class=""form-control"" id=""readonly2"" value=""Initial Value"" name=""readonly2"" type=""text"">
    </div>
    <div class=""form-group"">
     <div class=""text-danger form-control-static""></div>

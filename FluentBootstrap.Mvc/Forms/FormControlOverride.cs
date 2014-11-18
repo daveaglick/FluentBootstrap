@@ -9,20 +9,13 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public class FormControlOverrideFactory<TModel> : ComponentOverrideFactory<MvcBootstrapHelper<TModel>>
+    internal class FormControlOverride<TModel> : ComponentOverride<MvcBootstrapHelper<TModel>, IFormControl>
     {
-        public override ComponentOverride GetOverride<TComponent, TWrapper>()
-            where TComponent : FormControl<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
-            where TWrapper : FormControlWrapper<MvcBootstrapHelper<TModel>>, new()
+        public FormControlOverride(MvcBootstrapHelper<TModel> helper, IFormControl component)
+            : base(helper, component)
         {
-            return new FormControlOverride<TModel, TComponent, TWrapper>();
         }
-    }
 
-    public class FormControlOverride<TModel, TComponent, TWrapper> : ComponentOverride<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
-        where TComponent : FormControl<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
-        where TWrapper : FormControlWrapper<MvcBootstrapHelper<TModel>>, new()
-    {
         protected internal override void OnStart(TextWriter writer)
         {
             Component.Prepare(writer);
@@ -39,17 +32,17 @@ namespace FluentBootstrap.Mvc.Forms
                     tagBuilder.MergeAttribute("id", id);
                 }
                 tagBuilder.GenerateId(name);
-                Component.AddAttribute("id", tagBuilder.Attributes["id"]);
+                Component.MergeAttribute("id", tagBuilder.Attributes["id"]);
 
                 // Set the validation class
                 ModelState modelState;
-                if (Component.Helper.HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
+                if (Helper.HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
                 {
                     Component.CssClasses.Add(System.Web.Mvc.HtmlHelper.ValidationInputCssClassName);
                 }
 
                 // Add other validation attributes
-                Component.MergeAttributes<string, object>(Component.Helper.HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
+                Component.MergeAttributes<string, object>(Helper.HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
             }
 
             base.OnStart(writer);

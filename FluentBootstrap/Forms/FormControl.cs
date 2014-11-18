@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
@@ -22,6 +21,7 @@ namespace FluentBootstrap.Forms
 
     internal interface IFormControl : ITag
     {
+        void Prepare(TextWriter writer);
     }
 
     public abstract class FormControl<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IFormControl, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
@@ -46,9 +46,14 @@ namespace FluentBootstrap.Forms
             set { _label = value; }
         }
 
+        void IFormControl.Prepare(TextWriter writer)
+        {
+            Prepare(writer);
+        }
+
         // This prepares the outer form group if we need one
         // Needs to be in a separate method so that derived classes can create the form group before outputting any wrappers of their own
-        protected internal void Prepare(TextWriter writer)
+        protected void Prepare(TextWriter writer)
         {
             // Only prepare once
             if(_prepared)
