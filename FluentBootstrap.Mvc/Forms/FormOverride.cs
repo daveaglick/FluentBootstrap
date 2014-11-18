@@ -10,7 +10,19 @@ using System.Collections;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public class FormOverride<TModel> : ComponentOverride<Form<MvcBootstrapHelper<TModel>, Form<MvcBootstrapHelper<TModel>>, FormWrapper<MvcBootstrapHelper<TModel>>>, MvcBootstrapHelper<TModel>>
+    public class FormOverrideFactory<TModel> : ComponentOverrideFactory<MvcBootstrapHelper<TModel>>
+    {
+        public override ComponentOverride GetOverride<TComponent, TWrapper>()
+            where TComponent : Form<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
+            where TWrapper : FormWrapper<MvcBootstrapHelper<TModel>>, new()
+        {
+            return new FormOverride<TModel, TComponent, TWrapper>();
+        }
+    }
+
+    public class FormOverride<TModel, TComponent, TWrapper> : ComponentOverride<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
+        where TComponent : Form<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
+        where TWrapper : FormWrapper<MvcBootstrapHelper<TModel>>, new()
     {
         internal bool HideValidationSummary { get; set; }
 

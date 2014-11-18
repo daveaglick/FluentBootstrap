@@ -9,7 +9,19 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public class FormControlOverride<TModel> : ComponentOverride<FormControl<MvcBootstrapHelper<TModel>, FormControl<MvcBootstrapHelper<TModel>>, FormControlWrapper<MvcBootstrapHelper<TModel>>>, MvcBootstrapHelper<TModel>>
+    public class FormControlOverrideFactory<TModel> : ComponentOverrideFactory<MvcBootstrapHelper<TModel>>
+    {
+        public override ComponentOverride GetOverride<TComponent, TWrapper>()
+            where TComponent : FormControl<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
+            where TWrapper : FormControlWrapper<MvcBootstrapHelper<TModel>>, new()
+        {
+            return new FormControlOverride<TModel, TComponent, TWrapper>();
+        }
+    }
+
+    public class FormControlOverride<TModel, TComponent, TWrapper> : ComponentOverride<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
+        where TComponent : FormControl<MvcBootstrapHelper<TModel>, TComponent, TWrapper>
+        where TWrapper : FormControlWrapper<MvcBootstrapHelper<TModel>>, new()
     {
         protected internal override void OnStart(TextWriter writer)
         {

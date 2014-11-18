@@ -147,15 +147,15 @@ namespace FluentBootstrap
             _implicit = GetOutputStack().Count > 0;
 
             // Get any component override(s)
-            Func<ComponentOverride> componentOverrideCtor;
+            ComponentOverrideFactory<THelper> componentOverrideFactory;
             Type checkType = typeof(TThis);
             ComponentOverride componentOverride = null;
             while(!checkType.Equals(typeof(Component<THelper>)))
             {
-                if (Helper.ComponentOverrides.TryGetValue(checkType.GetGenericTypeDefinition(), out componentOverrideCtor))
+                if (Helper.ComponentOverrides.TryGetValue(checkType.GetGenericTypeDefinition(), out componentOverrideFactory))
                 {
                     ComponentOverride lastComponentOverride = componentOverride;
-                    componentOverride = componentOverrideCtor();
+                    componentOverride = componentOverrideFactory.GetOverride<TThis, TWrapper>();
                     componentOverride.SetComponent(this);
                     componentOverride.BaseStartAction = OnStart;
                     componentOverride.BaseFinishAction = OnFinish;

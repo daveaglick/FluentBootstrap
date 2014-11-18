@@ -116,11 +116,11 @@ namespace FluentBootstrap
         where THelper : BootstrapHelper<THelper>
     {
         private readonly object _componentOverridesLock = new object();
-        private static ConcurrentDictionary<Type, Func<ComponentOverride>> _componentOverrides;
+        private static ConcurrentDictionary<Type, ComponentOverrideFactory<THelper>> _componentOverrides;
         private readonly bool _registeringComponentOverrides;
 
         // Only allow access through the instance to make sure the dictionary has been initialized
-        internal ConcurrentDictionary<Type, Func<ComponentOverride>> ComponentOverrides
+        internal ConcurrentDictionary<Type, ComponentOverrideFactory<THelper>> ComponentOverrides
         {
             get { return _componentOverrides; }
         }
@@ -137,7 +137,7 @@ namespace FluentBootstrap
             {
                 lock(_componentOverridesLock)
                 {
-                    _componentOverrides = new ConcurrentDictionary<Type, Func<ComponentOverride>>();
+                    _componentOverrides = new ConcurrentDictionary<Type, ComponentOverrideFactory<THelper>>();
                     _registeringComponentOverrides = true;
                     RegisterComponentOverrides();
                     _registeringComponentOverrides = false;
@@ -160,15 +160,17 @@ namespace FluentBootstrap
         {
         }
 
-        protected void RegisterComponentOverride<TOverride>()
-            where TOverride : ComponentOverride, new()
+        protected void RegisterComponentOverride(Type genericComponentType, ComponentOverrideFactory<THelper> factory)
         {
             if (!_registeringComponentOverrides)
             {
                 throw new InvalidOperationException("You can only register component overrides from within the RegisterComponentOverrides method.");
             }
-            TOverride componentOverride = new TOverride();
-            ComponentOverrides[componentOverride.GetComponentType()] = () => new TOverride();
+            if (!genericComponentType.IsGenericTypeDefinition)
+            {
+                throw new ArgumentException("The genericComponentType must be a generic type definition.");
+            }
+            ComponentOverrides[genericComponentType] = factory;
         }
 
         protected internal virtual string FormatValue(object value, string format)
