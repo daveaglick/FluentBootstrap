@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>FluentBootstrap</id>
+    <id>FluentBootstrap.Mvc</id>
     <version>$version$</version>
-    <title>FluentBootstrap</title>
+    <title>FluentBootstrap.Mvc</title>
     <authors>Dave Glick</authors>
     <owners>Dave Glick</owners>
     <licenseUrl>https://github.com/somedave/FluentBootstrap/blob/master/license.txt</licenseUrl>
     <projectUrl>http://fluentbootstrap.org</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This provides programmatic control and helper classes for the Bootstrap CSS framework. This is the core library and only provides simple text output. You probably also want FluentBootstrap.Mvc or FluentBootstrap.WebPages, which provide the appropriate HtmlHelpers.</description>
+    <description>It's what happens when Bootstrap and ASP.NET MVC make sweet, sweet love. Provides HtmlHelpers for the Bootstrap CSS framework.</description>
     <copyright>Copyright 2014</copyright>
     <tags>bootstrap mvc razor asp.net</tags>
   </metadata>

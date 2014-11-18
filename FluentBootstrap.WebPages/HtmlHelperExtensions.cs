@@ -15,10 +15,5 @@ namespace FluentBootstrap
         {
             return new WebPagesBootstrapHelper(webPageBase);
         }
-
-        public static WebPagesBootstrapHelper Bootstrap(this WebPageBase webPageBase)
-        {
-            return new WebPagesBootstrapHelper(webPageBase);
-        }
     }
 }
