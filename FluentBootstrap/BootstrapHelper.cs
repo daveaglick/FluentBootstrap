@@ -114,6 +114,10 @@ namespace FluentBootstrap
         Wells.IWellCreator<THelper>
         where THelper : BootstrapHelper<THelper>
     {
+        internal int GridColumns { get; set; }
+        internal bool PrettyPrint { get; set; }
+        internal int DefaultFormLabelWidth { get; set; }
+
         private readonly object _componentOverridesLock = new object();
         private static ConcurrentDictionary<Type, Func<THelper, IComponent, ComponentOverride>> _componentOverrides;
         private readonly bool _registeringComponentOverrides;
@@ -131,6 +135,11 @@ namespace FluentBootstrap
             {
                 throw new Exception("Invalid THelper generic type parameter for " + this.GetType().Name + " (you should never see this).");
             }
+
+            // TODO: Get these from .config file or from helper ctor
+            GridColumns = 12;
+            PrettyPrint = true;
+            DefaultFormLabelWidth = 4;
 
             if(_componentOverrides == null)
             {

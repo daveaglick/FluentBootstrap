@@ -41,7 +41,7 @@ namespace FluentBootstrap
         internal MergeableDictionary InlineStyles { get; private set; }
         internal HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
-        private bool _prettyPrint = Bootstrap.PrettyPrint;
+        private bool _prettyPrint;
         
         internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
@@ -56,6 +56,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Add(cssClass);
             }
+            _prettyPrint = Helper.PrettyPrint;
         }
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes

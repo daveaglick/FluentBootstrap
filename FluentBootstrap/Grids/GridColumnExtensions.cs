@@ -143,11 +143,12 @@ namespace FluentBootstrap
             where TWrapper : TagWrapper<THelper>, new()
         {
             TThis tag = component.GetThis();
-            tag.SetColumnClass(prefix, value);
+            tag.SetColumnClass(component.Helper, prefix, value);
             return tag;
         }
 
-        internal static void SetColumnClass(this ITag tag, string prefix, int? value)
+        internal static void SetColumnClass<THelper>(this ITag tag, THelper helper, string prefix, int? value)
+            where THelper : BootstrapHelper<THelper>
         {
             tag.CssClasses.RemoveWhere(x => x.StartsWith(prefix));
             if (value != null)
@@ -156,9 +157,9 @@ namespace FluentBootstrap
                 {
                     value = 1;
                 }
-                if (value > Bootstrap.GridColumns)
+                if (value > helper.GridColumns)
                 {
-                    value = Bootstrap.GridColumns;
+                    value = helper.GridColumns;
                 }
                 tag.CssClasses.Add(prefix + value.Value);
             }
