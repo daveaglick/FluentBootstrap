@@ -5,15 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IInputCreator<TModel> : IComponentCreator<TModel>
+    public interface IInputCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class InputWrapper<TModel> : FormControlWrapper<TModel>
+    public class InputWrapper<THelper> : FormControlWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,7 +22,8 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class Input<TModel> : FormControl<TModel, Input<TModel>, InputWrapper<TModel>>, IInput, IHasValueAttribute, IHasNameAttribute
+    public class Input<THelper> : FormControl<THelper, Input<THelper>, InputWrapper<THelper>>, IInput, IHasValueAttribute, IHasNameAttribute
+        where THelper : BootstrapHelper<THelper>
     {
         private Icon _icon = Icon.None;
 
@@ -30,7 +32,7 @@ namespace FluentBootstrap.Forms
             set { _icon = value; }
         }
 
-        internal Input(IComponentCreator<TModel> creator, FormInputType inputType)
+        internal Input(IComponentCreator<THelper> creator, FormInputType inputType)
             : base(creator, "input", Css.FormControl)
         {
             MergeAttribute("type", inputType.GetDescription());
@@ -41,7 +43,7 @@ namespace FluentBootstrap.Forms
             // Add the feedback icon
             if (_icon != Icon.None)
             {
-                new IconSpan<TModel>(Helper, _icon).AddCss(Css.FormControlFeedback).StartAndFinish(writer);
+                new IconSpan<THelper>(Helper, _icon).AddCss(Css.FormControlFeedback).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

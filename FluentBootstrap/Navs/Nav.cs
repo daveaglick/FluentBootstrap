@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface INavCreator<TModel> : IComponentCreator<TModel>
+    public interface INavCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavWrapper<TModel> : TagWrapper<TModel>,
-        IDropdownCreator<TModel>
+    public class NavWrapper<THelper> : TagWrapper<THelper>,
+        IDropdownCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,11 +22,12 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public abstract class Nav<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, INav
-        where TThis : Nav<TModel, TThis, TWrapper>
-        where TWrapper : NavWrapper<TModel>, new()
+    public abstract class Nav<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, INav
+        where THelper : BootstrapHelper<THelper>
+        where TThis : Nav<THelper, TThis, TWrapper>
+        where TWrapper : NavWrapper<THelper>, new()
     {
-        protected Nav(IComponentCreator<TModel> creator, params string[] cssClasses)
+        protected Nav(IComponentCreator<THelper> creator, params string[] cssClasses)
             : base(creator, "ul", cssClasses)
         {
         }

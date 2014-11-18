@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarFormCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarFormCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavbarFormWrapper<TModel> : FormWrapper<TModel>
+    public class NavbarFormWrapper<THelper> : FormWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,9 +22,10 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarForm<TModel> : Form<TModel, NavbarForm<TModel>, NavbarFormWrapper<TModel>>, INavbarForm, INavbarComponent
+    public class NavbarForm<THelper> : Form<THelper, NavbarForm<THelper>, NavbarFormWrapper<THelper>>, INavbarForm, INavbarComponent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal NavbarForm(IComponentCreator<TModel> creator)
+        internal NavbarForm(IComponentCreator<THelper> creator)
             : base(creator, Css.NavbarForm, Css.NavbarLeft)
         {
         }
@@ -38,7 +41,7 @@ namespace FluentBootstrap.Navbars
                 // Make sure we're in a collapse
                 if (GetComponent<INavbarCollapse>() == null)
                 {
-                    new NavbarCollapse<TModel>(Helper).Start(writer);
+                    new NavbarCollapse<THelper>(Helper).Start(writer);
                 }
             }
 

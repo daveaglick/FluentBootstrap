@@ -11,13 +11,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IHeadingCreator<TModel> : IComponentCreator<TModel>
+    public interface IHeadingCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class HeadingWrapper<TModel> : TagWrapper<TModel>,
-        ISmallCreator<TModel>,
-        ILabelCreator<TModel>
+    public class HeadingWrapper<THelper> : TagWrapper<THelper>,
+        ISmallCreator<THelper>,
+        ILabelCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -25,13 +27,14 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public abstract class Heading<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHeading, IHasTextContent
-        where TThis : Heading<TModel, TThis, TWrapper>
-        where TWrapper : HeadingWrapper<TModel>, new()
+    public abstract class Heading<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IHeading, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
+        where TThis : Heading<THelper, TThis, TWrapper>
+        where TWrapper : HeadingWrapper<THelper>, new()
     {
         internal string SmallText { get; set; }
 
-        internal Heading(IComponentCreator<TModel> creator, string tagName)
+        internal Heading(IComponentCreator<THelper> creator, string tagName)
             : base(creator, tagName)
         {
         }
@@ -58,16 +61,17 @@ namespace FluentBootstrap.Typography
         {
             if (!string.IsNullOrWhiteSpace(SmallText))
             {
-                new Small<TModel>(Helper).SetText(SmallText).StartAndFinish(writer);
+                new Small<THelper>(Helper).SetText(SmallText).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);
         }
     }
 
-    public class Heading<TModel> : Heading<TModel, Heading<TModel>, HeadingWrapper<TModel>>
+    public class Heading<THelper> : Heading<THelper, Heading<THelper>, HeadingWrapper<THelper>>
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Heading(IComponentCreator<TModel> creator, string tagName)
+        internal Heading(IComponentCreator<THelper> creator, string tagName)
             : base(creator, tagName)
         {
         }

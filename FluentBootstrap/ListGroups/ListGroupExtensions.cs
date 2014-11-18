@@ -11,42 +11,43 @@ namespace FluentBootstrap
     {
         // ListGroup
 
-        public static ListGroup<TModel> ListGroup<TModel>(this IListGroupCreator<TModel> creator)
+        public static ListGroup<THelper> ListGroup<THelper>(this IListGroupCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new ListGroup<TModel>(creator);
+            return new ListGroup<THelper>(creator);
         }
 
         // ListGroupItem
 
-        public static ListGroupItem<TModel> ListGroupItem<TModel>(this IListGroupItemCreator<TModel> creator, string text = null, string href = null)
+        public static ListGroupItem<THelper> ListGroupItem<THelper>(this IListGroupItemCreator<THelper> creator, string text = null, string href = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new ListGroupItem<TModel>(creator).SetText(text).SetHref(href);
+            return new ListGroupItem<THelper>(creator).SetText(text).SetHref(href);
         }
 
-        public static ListGroupItem<TModel> ListGroupItem<TModel>(this IListGroupItemCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
-        {
-            return new ListGroupItem<TModel>(creator).SetText(text).SetAction(actionName, controllerName, routeValues);
-        }
-
-        public static ListGroupItem<TModel> SetActive<TModel>(this ListGroupItem<TModel> listGroupItem, bool active = true)
+        public static ListGroupItem<THelper> SetActive<THelper>(this ListGroupItem<THelper> listGroupItem, bool active = true)
+            where THelper : BootstrapHelper<THelper>
         {
             listGroupItem.Active = active;
             return listGroupItem;
         }
 
-        public static ListGroupItem<TModel> SetDisabled<TModel>(this ListGroupItem<TModel> listGroupItem, bool disabled = true)
+        public static ListGroupItem<THelper> SetDisabled<THelper>(this ListGroupItem<THelper> listGroupItem, bool disabled = true)
+            where THelper : BootstrapHelper<THelper>
         {
             listGroupItem.Disabled = disabled;
             return listGroupItem;
         }
 
-        public static ListGroupItem<TModel> SetHeading<TModel>(this ListGroupItem<TModel> listGroupItem, string heading)
+        public static ListGroupItem<THelper> SetHeading<THelper>(this ListGroupItem<THelper> listGroupItem, string heading)
+            where THelper : BootstrapHelper<THelper>
         {
             listGroupItem.Heading = heading;
             return listGroupItem;
         }
 
-        public static ListGroupItem<TModel> SetState<TModel>(this ListGroupItem<TModel> listGroupItem, ListGroupItemState state)
+        public static ListGroupItem<THelper> SetState<THelper>(this ListGroupItem<THelper> listGroupItem, ListGroupItemState state)
+            where THelper : BootstrapHelper<THelper>
         {
             return listGroupItem.ToggleCss(state);
         }

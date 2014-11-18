@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentBootstrap.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace FluentBootstrap.Forms
+namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IValidationSummaryCreator<TModel> : IComponentCreator<TModel>
+    public interface IValidationSummaryCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class ValidationSummaryWrapper<TModel> : FormControlWrapper<TModel>
+    public class ValidationSummaryWrapper<TModel> : FormControlWrapper<MvcBootstrapHelper<TModel>>
     {
     }
 
@@ -20,11 +21,11 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class ValidationSummary<TModel> : FormControl<TModel, ValidationSummary<TModel>, ValidationSummaryWrapper<TModel>>, IValidationSummary
+    public class ValidationSummary<TModel> : FormControl<MvcBootstrapHelper<TModel>, ValidationSummary<TModel>, ValidationSummaryWrapper<TModel>>, IValidationSummary
     {
         internal bool IncludePropertyErrors { get; set; }
 
-        internal ValidationSummary(IComponentCreator<TModel> creator)
+        internal ValidationSummary(IComponentCreator<MvcBootstrapHelper<TModel>> creator)
             : base(creator, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }
@@ -44,7 +45,7 @@ namespace FluentBootstrap.Forms
             IForm form = GetComponent<IForm>();
             if (form != null)
             {
-                form.HideValidationSummary = true;
+                form.GetOverride<FormOverride<TModel>>().HideValidationSummary = true;
             }
         }
     }

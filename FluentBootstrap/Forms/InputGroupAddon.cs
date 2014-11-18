@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IInputGroupAddonCreator<TModel> : IComponentCreator<TModel>
+    public interface IInputGroupAddonCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class InputGroupAddonWrapper<TModel> : TagWrapper<TModel>
+    public class InputGroupAddonWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -18,9 +20,10 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class InputGroupAddon<TModel> : Tag<TModel, InputGroupAddon<TModel>, InputGroupAddonWrapper<TModel>>, IInputGroupAddon
+    public class InputGroupAddon<THelper> : Tag<THelper, InputGroupAddon<THelper>, InputGroupAddonWrapper<THelper>>, IInputGroupAddon
+        where THelper : BootstrapHelper<THelper>
     {
-        internal InputGroupAddon(IComponentCreator<TModel> creator)
+        internal InputGroupAddon(IComponentCreator<THelper> creator)
             : base(creator, "span", Css.InputGroupAddon)
         {
         }

@@ -11,25 +11,29 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button<TModel> Button<TModel>(this IButtonCreator<TModel> creator, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
+        public static Button<THelper> Button<THelper>(this IButtonCreator<THelper> creator, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Button<TModel>(creator, buttonType).SetText(text).SetValue(value);
+            return new Button<THelper>(creator, buttonType).SetText(text).SetValue(value);
         }
         
         // Button groups
 
-        public static ButtonGroup<TModel> ButtonGroup<TModel>(this IButtonGroupCreator<TModel> creator)
+        public static ButtonGroup<THelper> ButtonGroup<THelper>(this IButtonGroupCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new ButtonGroup<TModel>(creator);
+            return new ButtonGroup<THelper>(creator);
         }
 
-        public static ButtonGroup<TModel> SetSize<TModel>(this ButtonGroup<TModel> buttonGroup, ButtonGroupSize size)
+        public static ButtonGroup<THelper> SetSize<THelper>(this ButtonGroup<THelper> buttonGroup, ButtonGroupSize size)
+            where THelper : BootstrapHelper<THelper>
         {
             buttonGroup.ToggleCss(size);
             return buttonGroup;
         }
 
-        public static ButtonGroup<TModel> SetVertical<TModel>(this ButtonGroup<TModel> buttonGroup, bool vertical = true)
+        public static ButtonGroup<THelper> SetVertical<THelper>(this ButtonGroup<THelper> buttonGroup, bool vertical = true)
+            where THelper : BootstrapHelper<THelper>
         {
             if (vertical)
             {
@@ -42,25 +46,29 @@ namespace FluentBootstrap
             return buttonGroup;
         }
 
-        public static ButtonGroup<TModel> SetJustified<TModel>(this ButtonGroup<TModel> buttonGroup, bool justified = true)
+        public static ButtonGroup<THelper> SetJustified<THelper>(this ButtonGroup<THelper> buttonGroup, bool justified = true)
+            where THelper : BootstrapHelper<THelper>
         {
             buttonGroup.ToggleCss(Css.BtnGroupJustified, justified);
             return buttonGroup;
         }
 
-        public static ButtonToolbar<TModel> ButtonToolbar<TModel>(this IButtonToolbarCreator<TModel> creator)
+        public static ButtonToolbar<THelper> ButtonToolbar<THelper>(this IButtonToolbarCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new ButtonToolbar<TModel>(creator);
+            return new ButtonToolbar<THelper>(creator);
         }
 
         // Dropdown buttons
 
-        public static DropdownButton<TModel> DropdownButton<TModel>(this IDropdownButtonCreator<TModel> creator)
+        public static DropdownButton<THelper> DropdownButton<THelper>(this IDropdownButtonCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new DropdownButton<TModel>(creator);
+            return new DropdownButton<THelper>(creator);
         }
 
-        public static DropdownButton<TModel> SetDropup<TModel>(this DropdownButton<TModel> dropdownButton, bool dropup = true)
+        public static DropdownButton<THelper> SetDropup<THelper>(this DropdownButton<THelper> dropdownButton, bool dropup = true)
+            where THelper : BootstrapHelper<THelper>
         {
             dropdownButton.ToggleCss(Css.Dropup, dropup);
             return dropdownButton;
@@ -68,17 +76,14 @@ namespace FluentBootstrap
 
         // LinkButton
 
-        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string href = "#")
+        public static LinkButton<THelper> LinkButton<THelper>(this ILinkButtonCreator<THelper> creator, string text, string href = "#")
+            where THelper : BootstrapHelper<THelper>
         {
-            return new LinkButton<TModel>(creator).SetText(text).SetHref(href);
+            return new LinkButton<THelper>(creator).SetText(text).SetHref(href);
         }
 
-        public static LinkButton<TModel> LinkButton<TModel>(this ILinkButtonCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
-        {
-            return new LinkButton<TModel>(creator).SetText(text).SetAction(actionName, controllerName, routeValues);
-        }
-
-        public static LinkButton<TModel> SetDisabled<TModel>(this LinkButton<TModel> linkButton, bool disabled = true)
+        public static LinkButton<THelper> SetDisabled<THelper>(this LinkButton<THelper> linkButton, bool disabled = true)
+            where THelper : BootstrapHelper<THelper>
         {
             linkButton.ToggleCss(Css.Disabled, disabled);
             return linkButton;
@@ -86,25 +91,28 @@ namespace FluentBootstrap
 
         // IHasButtonExtensions
 
-        public static TThis SetSize<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ButtonSize size)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonExtensions
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetSize<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, ButtonSize size)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>, IHasButtonExtensions
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(size);
         }
 
-        public static TThis SetBlock<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool block = true)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonExtensions
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetBlock<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool block = true)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>, IHasButtonExtensions
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(Css.BtnBlock, block);
         }
 
         // IHasButtonStateExtensions
 
-        public static TThis SetState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, ButtonState state)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasButtonStateExtensions
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetState<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, ButtonState state)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>, IHasButtonStateExtensions
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(state);
         }

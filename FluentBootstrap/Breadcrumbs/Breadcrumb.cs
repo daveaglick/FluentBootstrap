@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Breadcrumbs
 {
-    public interface IBreadcrumbCreator<TModel> : IComponentCreator<TModel>
+    public interface IBreadcrumbCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class BreadcrumbWrapper<TModel> : TagWrapper<TModel>,
-        ICrumbCreator<TModel>
+    public class BreadcrumbWrapper<THelper> : TagWrapper<THelper>,
+        ICrumbCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,9 +22,10 @@ namespace FluentBootstrap.Breadcrumbs
     {
     }
 
-    public class Breadcrumb<TModel> : Tag<TModel, Breadcrumb<TModel>, BreadcrumbWrapper<TModel>>, IBreadcrumb
+    public class Breadcrumb<THelper> : Tag<THelper, Breadcrumb<THelper>, BreadcrumbWrapper<THelper>>, IBreadcrumb
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Breadcrumb(IComponentCreator<TModel> creator)
+        internal Breadcrumb(IComponentCreator<THelper> creator)
             : base(creator, "ol", Css.Breadcrumb)
         {
         }

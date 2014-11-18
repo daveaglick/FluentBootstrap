@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IDescriptionCreator<TModel> : IComponentCreator<TModel>
+    public interface IDescriptionCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class DescriptionWrapper<TModel> : TagWrapper<TModel>
+    public class DescriptionWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
     
@@ -18,9 +20,10 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class Description<TModel> : Tag<TModel, Description<TModel>, DescriptionWrapper<TModel>>, IDescription
+    public class Description<THelper> : Tag<THelper, Description<THelper>, DescriptionWrapper<THelper>>, IDescription
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Description(IComponentCreator<TModel> creator)
+        internal Description(IComponentCreator<THelper> creator)
             : base(creator, "dd")
         {
         }

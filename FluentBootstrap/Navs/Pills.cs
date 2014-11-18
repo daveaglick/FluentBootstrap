@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface IPillsCreator<TModel> : IComponentCreator<TModel>
+    public interface IPillsCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class PillsWrapper<TModel> : NavWrapper<TModel>,
-        IPillCreator<TModel>
+    public class PillsWrapper<THelper> : NavWrapper<THelper>,
+        IPillCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,9 +23,10 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public class Pills<TModel> : Nav<TModel, Pills<TModel>, PillsWrapper<TModel>>, IPills
+    public class Pills<THelper> : Nav<THelper, Pills<THelper>, PillsWrapper<THelper>>, IPills
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Pills(IComponentCreator<TModel> creator)
+        internal Pills(IComponentCreator<THelper> creator)
             : base(creator, Css.Nav, Css.NavPills)
         {
         }

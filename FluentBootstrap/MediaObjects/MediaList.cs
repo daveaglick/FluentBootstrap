@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaListCreator<TModel> : IComponentCreator<TModel>
+    public interface IMediaListCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class MediaListWrapper<TModel> : TagWrapper<TModel>,
-        IMediaCreator<TModel>
+    public class MediaListWrapper<THelper> : TagWrapper<THelper>,
+        IMediaCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,9 +21,10 @@ namespace FluentBootstrap.MediaObjects
     {
     }
 
-    public class MediaList<TModel> : Tag<TModel, MediaList<TModel>, MediaListWrapper<TModel>>, IMediaList
+    public class MediaList<THelper> : Tag<THelper, MediaList<THelper>, MediaListWrapper<THelper>>, IMediaList
+        where THelper : BootstrapHelper<THelper>
     {
-        internal MediaList(IComponentCreator<TModel> creator)
+        internal MediaList(IComponentCreator<THelper> creator)
             : base(creator, "ul", Css.MediaList)
         {
         }

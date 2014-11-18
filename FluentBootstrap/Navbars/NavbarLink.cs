@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarLinkCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarLinkCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavbarLinkWrapper<TModel> : TagWrapper<TModel>
+    public class NavbarLinkWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,13 +23,14 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarLink<TModel> : Tag<TModel, NavbarLink<TModel>, NavbarLinkWrapper<TModel>>, INavbarLink, IHasLinkExtensions, IHasTextContent
+    public class NavbarLink<THelper> : Tag<THelper, NavbarLink<THelper>, NavbarLinkWrapper<THelper>>, INavbarLink, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }
-        private Element<TModel> _listItem = null;
+        private Element<THelper> _listItem = null;
 
-        internal NavbarLink(IComponentCreator<TModel> creator)
+        internal NavbarLink(IComponentCreator<THelper> creator)
             : base(creator, "a")
         {
         }
@@ -37,11 +40,11 @@ namespace FluentBootstrap.Navbars
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
             if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
             {
-                new NavbarNav<TModel>(Helper).Start(writer);
+                new NavbarNav<THelper>(Helper).Start(writer);
             }
 
             // Create the list item wrapper
-            _listItem = new Element<TModel>(Helper, "li");
+            _listItem = new Element<THelper>(Helper, "li");
             if (Active)
             {
                 _listItem.AddCss(Css.Active);

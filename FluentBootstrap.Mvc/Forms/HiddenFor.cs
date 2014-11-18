@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc.Html;
 
-namespace FluentBootstrap.Forms
+namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IHiddenForCreator<TModel> : IComponentCreator<TModel>
+    public interface IHiddenForCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
-    public class HiddenForWrapper<TModel> : ComponentWrapper<TModel>
+    public class HiddenForWrapper<TModel> : ComponentWrapper<MvcBootstrapHelper<TModel>>
     {
     }
 
@@ -21,11 +21,11 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class HiddenFor<TModel, TValue> : Component<TModel, HiddenFor<TModel, TValue>, HiddenForWrapper<TModel>>, IHiddenFor
+    public class HiddenFor<TModel, TValue> : Component<MvcBootstrapHelper<TModel>, HiddenFor<TModel, TValue>, HiddenForWrapper<TModel>>, IHiddenFor
     {
         private readonly Expression<Func<TModel, TValue>> _expression;
 
-        internal HiddenFor(IComponentCreator<TModel> creator, Expression<Func<TModel, TValue>> expression)
+        internal HiddenFor(IComponentCreator<MvcBootstrapHelper<TModel>> creator, Expression<Func<TModel, TValue>> expression)
             : base(creator)
         {
             _expression = expression;
@@ -34,7 +34,7 @@ namespace FluentBootstrap.Forms
         protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
-            writer.Write(HtmlHelper.HiddenFor(_expression));
+            writer.Write(Helper.HtmlHelper.HiddenFor(_expression));
         }
     }
 }

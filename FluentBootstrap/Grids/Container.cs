@@ -7,11 +7,13 @@ using FluentBootstrap;
 
 namespace FluentBootstrap.Grids
 {
-    public interface IContainerCreator<TModel> : IComponentCreator<TModel>
+    public interface IContainerCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class ContainerWrapper<TModel> : TagWrapper<TModel>, IGridRowCreator<TModel>
+    public class ContainerWrapper<THelper> : TagWrapper<THelper>, IGridRowCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,9 +21,10 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class Container<TModel> : Tag<TModel, Container<TModel>, ContainerWrapper<TModel>>, IContainer
+    public class Container<THelper> : Tag<THelper, Container<THelper>, ContainerWrapper<THelper>>, IContainer
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Container(IComponentCreator<TModel> creator)
+        internal Container(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Container)
         {
         }

@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
-    public interface IGridColumnCreator<TModel> : IComponentCreator<TModel>
+    public interface IGridColumnCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class GridColumnWrapper<TModel> : TagWrapper<TModel>,
-        IThumbnailCreator<TModel>, 
-        IThumbnailContainerCreator<TModel>
+    public class GridColumnWrapper<THelper> : TagWrapper<THelper>,
+        IThumbnailCreator<THelper>,
+        IThumbnailContainerCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,9 +23,10 @@ namespace FluentBootstrap.Grids
     {
     }
 
-    public class GridColumn<TModel> : Tag<TModel, GridColumn<TModel>, GridColumnWrapper<TModel>>, IGridColumn, IHasGridColumnExtensions
+    public class GridColumn<THelper> : Tag<THelper, GridColumn<THelper>, GridColumnWrapper<THelper>>, IGridColumn, IHasGridColumnExtensions
+        where THelper : BootstrapHelper<THelper>
     {
-        internal GridColumn(IComponentCreator<TModel> creator)
+        internal GridColumn(IComponentCreator<THelper> creator)
             : base(creator, "div")
         {
         }

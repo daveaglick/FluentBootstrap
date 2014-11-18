@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarNavCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarNavCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavbarNavWrapper<TModel> : TagWrapper<TModel>,
-        INavbarLinkCreator<TModel>,
-        IDropdownCreator<TModel>
+    public class NavbarNavWrapper<THelper> : TagWrapper<THelper>,
+        INavbarLinkCreator<THelper>,
+        IDropdownCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,9 +24,10 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarNav<TModel> : Tag<TModel, NavbarNav<TModel>, NavbarNavWrapper<TModel>>, INavbarNav, INavbarComponent
+    public class NavbarNav<THelper> : Tag<THelper, NavbarNav<THelper>, NavbarNavWrapper<THelper>>, INavbarNav, INavbarComponent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal NavbarNav(IComponentCreator<TModel> creator)
+        internal NavbarNav(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Nav, Css.NavbarNav, Css.NavbarLeft)
         {
         }
@@ -34,7 +37,7 @@ namespace FluentBootstrap.Navbars
             // Make sure we're in a collapse, but only if we're also in a navbar
             if (GetComponent<INavbar>() != null && GetComponent<INavbarCollapse>() == null)
             {
-                new NavbarCollapse<TModel>(Helper).Start(writer);
+                new NavbarCollapse<THelper>(Helper).Start(writer);
             }
 
             base.OnStart(writer);

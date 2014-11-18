@@ -8,20 +8,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IBlockquoteCreator<TModel> : IComponentCreator<TModel>
+    public interface IBlockquoteCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class BlockquoteWrapper<TModel> : TagWrapper<TModel>
+    public class BlockquoteWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
-    }
+    }
+
     internal interface IBlockquote : ITag
     {
     }
 
-    public class Blockquote<TModel> : Tag<TModel, Blockquote<TModel>, BlockquoteWrapper<TModel>>, IBlockquote
+    public class Blockquote<THelper> : Tag<THelper, Blockquote<THelper>, BlockquoteWrapper<THelper>>, IBlockquote
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Blockquote(IComponentCreator<TModel> creator)
+        internal Blockquote(IComponentCreator<THelper> creator)
             : base(creator, "blockquote")
         {
         }
@@ -35,12 +39,12 @@ namespace FluentBootstrap.Typography
 
             if (!string.IsNullOrWhiteSpace(Quote))
             {
-                new Element<TModel>(Helper, "p").SetText(Quote).StartAndFinish(writer);
+                new Element<THelper>(Helper, "p").SetText(Quote).StartAndFinish(writer);
             }
 
             if (!string.IsNullOrWhiteSpace(Footer))
             {
-                new Element<TModel>(Helper, "footer").SetText(Footer).StartAndFinish(writer);
+                new Element<THelper>(Helper, "footer").SetText(Footer).StartAndFinish(writer);
             }
         }
     }

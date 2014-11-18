@@ -11,23 +11,21 @@ namespace FluentBootstrap
     {
         // Thumbnail
 
-        public static Thumbnail<TModel> Thumbnail<TModel>(this IThumbnailCreator<TModel> creator, string src, string href = null, string alt = null)
+        public static Thumbnail<THelper> Thumbnail<THelper>(this IThumbnailCreator<THelper> creator, string src, string href = null, string alt = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Thumbnail<TModel>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
+            return new Thumbnail<THelper>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
         }
 
-        public static Thumbnail<TModel> Thumbnail<TModel>(this IThumbnailCreator<TModel> creator, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
-        {
-            return new Thumbnail<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetSrc(src).SetAlt(alt);
-        }
-
-        public static Thumbnail<TModel> SetSrc<TModel>(this Thumbnail<TModel> thumbnail, string src)
+        public static Thumbnail<THelper> SetSrc<THelper>(this Thumbnail<THelper> thumbnail, string src)
+            where THelper : BootstrapHelper<THelper>
         {
             thumbnail.Src = src;
             return thumbnail;
         }
 
-        public static Thumbnail<TModel> SetAlt<TModel>(this Thumbnail<TModel> thumbnail, string alt)
+        public static Thumbnail<THelper> SetAlt<THelper>(this Thumbnail<THelper> thumbnail, string alt)
+            where THelper : BootstrapHelper<THelper>
         {
             thumbnail.Alt = alt;
             return thumbnail;
@@ -35,14 +33,16 @@ namespace FluentBootstrap
 
         // ThumbnailContainer
 
-        public static ThumbnailContainer<TModel> ThumbnailContainer<TModel>(this IThumbnailContainerCreator<TModel> creator)
+        public static ThumbnailContainer<THelper> ThumbnailContainer<THelper>(this IThumbnailContainerCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new ThumbnailContainer<TModel>(creator);
+            return new ThumbnailContainer<THelper>(creator);
         }
 
-        public static Caption<TModel> Caption<TModel>(this ICaptionCreator<TModel> creator)
+        public static Caption<THelper> Caption<THelper>(this ICaptionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Caption<TModel>(creator);
+            return new Caption<THelper>(creator);
         }
     }
 }

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarTextCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarTextCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavbarTextWrapper<TModel> : TagWrapper<TModel>
+    public class NavbarTextWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,9 +21,10 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarText<TModel> : Tag<TModel, NavbarText<TModel>, NavbarTextWrapper<TModel>>, INavbarComponent, IHasTextContent
+    public class NavbarText<THelper> : Tag<THelper, NavbarText<THelper>, NavbarTextWrapper<THelper>>, INavbarComponent, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal NavbarText(IComponentCreator<TModel> creator)
+        internal NavbarText(IComponentCreator<THelper> creator)
             : base(creator, "p", Css.NavbarText, Css.NavbarLeft)
         {
         }
@@ -37,7 +40,7 @@ namespace FluentBootstrap.Navbars
                 // Make sure we're in a collapse
                 if (GetComponent<INavbarCollapse>() == null)
                 {
-                    new NavbarCollapse<TModel>(Helper).Start(writer);
+                    new NavbarCollapse<THelper>(Helper).Start(writer);
                 }
             }
 

@@ -5,18 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableCreator<TModel> : IComponentCreator<TModel>
+    public interface ITableCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class TableWrapper<TModel> : TagWrapper<TModel>,
-        ITableSectionCreator<TModel>,
-        ITableRowCreator<TModel>,
-        ITableCellCreator<TModel>
+    public class TableWrapper<THelper> : TagWrapper<THelper>,
+        ITableSectionCreator<THelper>,
+        ITableRowCreator<THelper>,
+        ITableCellCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -24,12 +25,13 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public class Table<TModel> : Tag<TModel, Table<TModel>, TableWrapper<TModel>>, ITable
+    public class Table<THelper> : Tag<THelper, Table<THelper>, TableWrapper<THelper>>, ITable
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Responsive { get; set; }
-        private Element<TModel> _responsiveDiv;
+        private Element<THelper> _responsiveDiv;
 
-        internal Table(IComponentCreator<TModel> creator)
+        internal Table(IComponentCreator<THelper> creator)
             : base(creator, "table", Css.Table)
         {
         }
@@ -38,7 +40,7 @@ namespace FluentBootstrap.Tables
         {
             if (Responsive)
             {
-                _responsiveDiv = new Element<TModel>(Helper, "div", Css.TableResponsive);
+                _responsiveDiv = new Element<THelper>(Helper, "div").AddCss(Css.TableResponsive);
                 _responsiveDiv.Start(writer);
             }
 

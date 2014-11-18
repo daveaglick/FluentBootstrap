@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarHeaderCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarHeaderCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavbarHeaderWrapper<TModel> : NavbarSectionWrapper<TModel>,
-        INavbarToggleCreator<TModel>,
-        IBrandCreator<TModel>
+    public class NavbarHeaderWrapper<THelper> : NavbarSectionWrapper<THelper>,
+        INavbarToggleCreator<THelper>,
+        IBrandCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -24,11 +26,12 @@ namespace FluentBootstrap.Navbars
         bool HasToggle { get; set; }
     }
 
-    public class NavbarHeader<TModel> : NavbarSection<TModel, NavbarHeader<TModel>, NavbarHeaderWrapper<TModel>>, INavbarHeader
+    public class NavbarHeader<THelper> : NavbarSection<THelper, NavbarHeader<THelper>, NavbarHeaderWrapper<THelper>>, INavbarHeader
+        where THelper : BootstrapHelper<THelper>
     {
         bool INavbarHeader.HasToggle { get; set; }
 
-        internal NavbarHeader(IComponentCreator<TModel> creator)
+        internal NavbarHeader(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.NavbarHeader)
         {
         }
@@ -48,7 +51,7 @@ namespace FluentBootstrap.Navbars
         {
             if(!((INavbarHeader)this).HasToggle)
             {
-                new NavbarToggle<TModel>(Helper).StartAndFinish(writer);
+                new NavbarToggle<THelper>(Helper).StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

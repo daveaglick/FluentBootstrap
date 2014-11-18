@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaObjectCreator<TModel> : IComponentCreator<TModel>
+    public interface IMediaObjectCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class MediaObjectWrapper<TModel> : TagWrapper<TModel>
+    public class MediaObjectWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,13 +23,14 @@ namespace FluentBootstrap.MediaObjects
     {
     }
 
-    public class MediaObject<TModel> : Tag<TModel, MediaObject<TModel>, MediaObjectWrapper<TModel>>, IMediaObject, IHasLinkExtensions
+    public class MediaObject<THelper> : Tag<THelper, MediaObject<THelper>, MediaObjectWrapper<THelper>>, IMediaObject, IHasLinkExtensions
+        where THelper : BootstrapHelper<THelper>
     {
         internal string Src { get; set; }
         internal string Alt { get; set; }
-        private Image<TModel> _image;
+        private Image<THelper> _image;
 
-        internal MediaObject(IComponentCreator<TModel> creator)
+        internal MediaObject(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.PullLeft)
         {
         }
@@ -35,8 +38,8 @@ namespace FluentBootstrap.MediaObjects
         protected override void OnStart(TextWriter writer)
         {
             // Change to a div if no link was provided
-            string href;
-            if (!TagBuilder.Attributes.TryGetValue("href", out href) || string.IsNullOrWhiteSpace(href))
+            string href = GetAttribute("href");
+            if (string.IsNullOrWhiteSpace(href))
             {
                 TagName = "div";
             }

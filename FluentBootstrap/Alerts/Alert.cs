@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Alerts
 {
-    public interface IAlertCreator<TModel> : IComponentCreator<TModel>
+    public interface IAlertCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class AlertWrapper<TModel> : TagWrapper<TModel>
+    public class AlertWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,12 +21,13 @@ namespace FluentBootstrap.Alerts
     {
     }
 
-    public class Alert<TModel> : Tag<TModel, Alert<TModel>, AlertWrapper<TModel>>, IAlert, IHasTextContent
+    public class Alert<THelper> : Tag<THelper, Alert<THelper>, AlertWrapper<THelper>>, IAlert, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Dismissible { set; get; }
         internal string Heading { set; get; }
 
-        internal Alert(IComponentCreator<TModel> creator)
+        internal Alert(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Alert, Css.AlertInfo)
         {
             this.MergeAttribute("role", "alert");

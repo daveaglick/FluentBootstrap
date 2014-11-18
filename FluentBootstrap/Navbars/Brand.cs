@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface IBrandCreator<TModel> : IComponentCreator<TModel>
+    public interface IBrandCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class BrandWrapper<TModel> : TagWrapper<TModel>
+    public class BrandWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,9 +22,10 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class Brand<TModel> : Tag<TModel, Brand<TModel>, BrandWrapper<TModel>>, IBrand, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
+    public class Brand<THelper> : Tag<THelper, Brand<THelper>, BrandWrapper<THelper>>, IBrand, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Brand(IComponentCreator<TModel> creator)
+        internal Brand(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.NavbarBrand)
         {
         }
@@ -32,7 +35,7 @@ namespace FluentBootstrap.Navbars
             // Make sure we're in a header, but only if we're also in a navbar
             if (GetComponent<INavbar>() != null && GetComponent<INavbarHeader>() == null)
             {
-                new NavbarHeader<TModel>(Helper).Start(writer);
+                new NavbarHeader<THelper>(Helper).Start(writer);
             }
 
             base.OnStart(writer);

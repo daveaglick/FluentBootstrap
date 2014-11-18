@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using FluentBootstrap.Typography;
+﻿using FluentBootstrap.Typography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,39 +13,46 @@ namespace FluentBootstrap
     {
         // Headings
 
-        public static Heading<TModel> Heading1<TModel>(this IHeadingCreator<TModel> creator, string text = null)
+        public static Heading<THelper> Heading1<THelper>(this IHeadingCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Heading<TModel>(creator, "h1").SetText(text);
+            return new Heading<THelper>(creator, "h1").SetText(text);
         }
 
-        public static Heading<TModel> Heading2<TModel>(this IHeadingCreator<TModel> creator, string text = null)
+        public static Heading<THelper> Heading2<THelper>(this IHeadingCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Heading<TModel>(creator, "h2").SetText(text);
+            return new Heading<THelper>(creator, "h2").SetText(text);
         }
 
-        public static Heading<TModel> Heading3<TModel>(this IHeadingCreator<TModel> creator, string text = null)
+        public static Heading<THelper> Heading3<THelper>(this IHeadingCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Heading<TModel>(creator, "h3").SetText(text);
+            return new Heading<THelper>(creator, "h3").SetText(text);
         }
 
-        public static Heading<TModel> Heading4<TModel>(this IHeadingCreator<TModel> creator, string text = null)
+        public static Heading<THelper> Heading4<THelper>(this IHeadingCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Heading<TModel>(creator, "h4").SetText(text);
+            return new Heading<THelper>(creator, "h4").SetText(text);
         }
 
-        public static Heading<TModel> Heading5<TModel>(this IHeadingCreator<TModel> creator, string text = null)
+        public static Heading<THelper> Heading5<THelper>(this IHeadingCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Heading<TModel>(creator, "h5").SetText(text);
+            return new Heading<THelper>(creator, "h5").SetText(text);
         }
 
-        public static Heading<TModel> Heading6<TModel>(this IHeadingCreator<TModel> creator, string text = null)
+        public static Heading<THelper> Heading6<THelper>(this IHeadingCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Heading<TModel>(creator, "h6").SetText(text);
+            return new Heading<THelper>(creator, "h6").SetText(text);
         }
 
-        public static TThis SetSmallText<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, string text)
-            where TThis : Heading<TModel, TThis, TWrapper>
-            where TWrapper : HeadingWrapper<TModel>, new()
+        public static TThis SetSmallText<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string text)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Heading<THelper, TThis, TWrapper>
+            where TWrapper : HeadingWrapper<THelper>, new()
         {
             TThis heading = component.GetThis();
             heading.SmallText = text;
@@ -55,216 +61,237 @@ namespace FluentBootstrap
 
         // Body copy
 
-        public static Small<TModel> Small<TModel>(this ISmallCreator<TModel> creator, string text = null)
+        public static Small<THelper> Small<THelper>(this ISmallCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Small<TModel>(creator).SetText(text);
+            return new Small<THelper>(creator).SetText(text);
         }
 
-        public static TThis SetSmall<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool toggle = true)
-            where TThis : Tag<TModel, TThis, TWrapper>
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetSmall<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool toggle = true)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(Css.Small, toggle);
         }
 
-        public static Element<TModel> Lead<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Lead<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "p", Css.Lead).SetText(text);
+            return new Element<THelper>(creator, "p").AddCss(Css.Lead).SetText(text);
         }
 
-        public static Element<TModel> Marked<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Marked<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "mark").SetText(text);
+            return new Element<THelper>(creator, "mark").SetText(text);
         }
 
-        public static Element<TModel> Deleted<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Deleted<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "del").SetText(text);
+            return new Element<THelper>(creator, "del").SetText(text);
         }
 
-        public static Element<TModel> Strikethrough<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Strikethrough<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "s").SetText(text);
+            return new Element<THelper>(creator, "s").SetText(text);
         }
 
-        public static Element<TModel> Inserted<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Inserted<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "ins").SetText(text);
+            return new Element<THelper>(creator, "ins").SetText(text);
         }
 
-        public static Element<TModel> Underlined<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Underlined<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "u").SetText(text);
+            return new Element<THelper>(creator, "u").SetText(text);
         }
 
-        public static Element<TModel> Strong<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Strong<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "strong").SetText(text);
+            return new Element<THelper>(creator, "strong").SetText(text);
         }
 
-        public static Element<TModel> Bold<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Bold<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "b").SetText(text);
+            return new Element<THelper>(creator, "b").SetText(text);
         }
 
-        public static Element<TModel> Emphasis<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Emphasis<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "em").SetText(text);
+            return new Element<THelper>(creator, "em").SetText(text);
         }
 
-        public static Element<TModel> Italics<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Italics<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "i").SetText(text);
+            return new Element<THelper>(creator, "i").SetText(text);
         }
 
         // Text alignment and transformation
 
-        public static TThis SetAlignment<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextAlignment alignment)
-            where TThis : Tag<TModel, TThis, TWrapper>
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetAlignment<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, TextAlignment alignment)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(alignment);
         }
 
-        public static TThis SetTransformation<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TextTransformation transformation)
-            where TThis : Tag<TModel, TThis, TWrapper>
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetTransformation<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, TextTransformation transformation)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(transformation);
         }
 
         // Abbreviation
 
-        public static Abbr<TModel> Abbreviation<TModel>(this ITagCreator<TModel> creator, string title, string text)
+        public static Abbr<THelper> Abbreviation<THelper>(this ITagCreator<THelper> creator, string title, string text)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Abbr<TModel>(creator).SetTitle(title).SetText(text);
+            return new Abbr<THelper>(creator).SetTitle(title).SetText(text);
         }
 
-        public static Abbr<TModel> SetInitialism<TModel>(this Abbr<TModel> abbr, bool initialism = true)
+        public static Abbr<THelper> SetInitialism<THelper>(this Abbr<THelper> abbr, bool initialism = true)
+            where THelper : BootstrapHelper<THelper>
         {
             return abbr.ToggleCss(Css.Initialism, initialism);
         }
 
         // Address
 
-        public static Element<TModel> Address<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Address<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "address").SetText(text);
+            return new Element<THelper>(creator, "address").SetText(text);
         }
 
         // Blockquote
 
-        public static Blockquote<TModel> Blockquote<TModel>(this ITagCreator<TModel> creator, string quote = null, string footer = null)
+        public static Blockquote<THelper> Blockquote<THelper>(this ITagCreator<THelper> creator, string quote = null, string footer = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Blockquote<TModel>(creator).SetQuote(quote).SetFooter(footer);
+            return new Blockquote<THelper>(creator).SetQuote(quote).SetFooter(footer);
         }
 
-        public static Blockquote<TModel> SetQuote<TModel>(this Blockquote<TModel> blockquote, string quote)
+        public static Blockquote<THelper> SetQuote<THelper>(this Blockquote<THelper> blockquote, string quote)
+            where THelper : BootstrapHelper<THelper>
         {
             blockquote.Quote = quote;
             return blockquote;
         }
 
-        public static Blockquote<TModel> SetFooter<TModel>(this Blockquote<TModel> blockquote, string footer)
+        public static Blockquote<THelper> SetFooter<THelper>(this Blockquote<THelper> blockquote, string footer)
+            where THelper : BootstrapHelper<THelper>
         {
             blockquote.Footer = footer;
             return blockquote;
         }
 
-        public static Blockquote<TModel> SetReverse<TModel>(this Blockquote<TModel> blockquote, bool reverse = true)
+        public static Blockquote<THelper> SetReverse<THelper>(this Blockquote<THelper> blockquote, bool reverse = true)
+            where THelper : BootstrapHelper<THelper>
         {
             return blockquote.ToggleCss(Css.BlockquoteReverse, reverse);
         }
 
-        public static Element<TModel> Footer<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Footer<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "footer").SetText(text);
+            return new Element<THelper>(creator, "footer").SetText(text);
         }
 
-        public static Cite<TModel> Cite<TModel>(this ITagCreator<TModel> creator, string title = null, string text = null)
+        public static Cite<THelper> Cite<THelper>(this ITagCreator<THelper> creator, string title = null, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Cite<TModel>(creator).SetTitle(title).SetText(text);
+            return new Cite<THelper>(creator).SetTitle(title).SetText(text);
         }
 
         // List
 
-        public static Typography.List<TModel> List<TModel>(this IListCreator<TModel> creator, ListType listType = ListType.Unstyled)
+        public static Typography.List<THelper> List<THelper>(this IListCreator<THelper> creator, ListType listType = ListType.Unstyled)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Typography.List<TModel>(creator, listType);
+            return new Typography.List<THelper>(creator, listType);
         }
 
-        public static Typography.List<TModel> ListFor<TModel, TValue>(this IListCreator<TModel> creator, Expression<Func<TModel, IEnumerable<TValue>>> expression, Func<TValue, object> item, ListType listType = ListType.Unstyled)
+        public static ListItem<THelper> ListItem<THelper>(this IListItemCreator<THelper> creator, object content = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            Typography.List<TModel> list = new Typography.List<TModel>(creator, listType);
-            IEnumerable<TValue> values = ModelMetadata.FromLambdaExpression(expression, list.Helper.HtmlHelper.ViewData).Model as IEnumerable<TValue>;
-            if (values != null)
-            {
-                foreach (TValue value in values)
-                {
-                    list.AddChild(x => x.ListItem(item(value)));
-                }
-            }
-            return list;
-        }
-
-        public static ListItem<TModel> ListItem<TModel>(this IListItemCreator<TModel> creator, object content = null)
-        {
-            return new ListItem<TModel>(creator).AddContent(content);
+            return new ListItem<THelper>(creator).AddContent(content);
         }
 
         // DescriptionList
 
-        public static DescriptionList<TModel> DescriptionList<TModel>(this IDescriptionListCreator<TModel> creator)
+        public static DescriptionList<THelper> DescriptionList<THelper>(this IDescriptionListCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new DescriptionList<TModel>(creator);
+            return new DescriptionList<THelper>(creator);
         }
 
-        public static DescriptionList<TModel> SetHorizontal<TModel>(this DescriptionList<TModel> descriptionList, bool horizontal = true)
+        public static DescriptionList<THelper> SetHorizontal<THelper>(this DescriptionList<THelper> descriptionList, bool horizontal = true)
+            where THelper : BootstrapHelper<THelper>
         {
             descriptionList.ToggleCss(Css.DlHorizontal, horizontal);
             return descriptionList;
         }
 
-        public static DescriptionTerm<TModel> DescriptionTerm<TModel>(this IDescriptionTermCreator<TModel> creator, object content = null)
+        public static DescriptionTerm<THelper> DescriptionTerm<THelper>(this IDescriptionTermCreator<THelper> creator, object content = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new DescriptionTerm<TModel>(creator).AddContent(content);
+            return new DescriptionTerm<THelper>(creator).AddContent(content);
         }
 
-        public static Description<TModel> Description<TModel>(this IDescriptionCreator<TModel> creator, object content = null)
+        public static Description<THelper> Description<THelper>(this IDescriptionCreator<THelper> creator, object content = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Description<TModel>(creator).AddContent(content);
+            return new Description<THelper>(creator).AddContent(content);
         }
 
         // Code, etc.
 
-        public static Element<TModel> Code<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Code<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "code").SetText(text);
+            return new Element<THelper>(creator, "code").SetText(text);
         }
 
-        public static Element<TModel> Keyboard<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Keyboard<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "kbd").SetText(text);
+            return new Element<THelper>(creator, "kbd").SetText(text);
         }
 
-        public static Pre<TModel> Preformatted<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Pre<THelper> Preformatted<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Pre<TModel>(creator).SetText(text);
+            return new Pre<THelper>(creator).SetText(text);
         }
 
-        public static Pre<TModel> SetScrollable<TModel>(this Pre<TModel> pre, bool scrollable = true)
+        public static Pre<THelper> SetScrollable<THelper>(this Pre<THelper> pre, bool scrollable = true)
+            where THelper : BootstrapHelper<THelper>
         {
             return pre.ToggleCss(Css.PreScrollable, scrollable);
         }
 
-        public static Element<TModel> Variable<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Variable<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "var").SetText(text);
+            return new Element<THelper>(creator, "var").SetText(text);
         }
 
-        public static Element<TModel> Sample<TModel>(this ITagCreator<TModel> creator, string text = null)
+        public static Element<THelper> Sample<THelper>(this ITagCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Element<TModel>(creator, "samp").SetText(text);
+            return new Element<THelper>(creator, "samp").SetText(text);
         }
     }
 }

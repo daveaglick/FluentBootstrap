@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Paginations
 {
-    public interface IPageNumCreator<TModel> : IComponentCreator<TModel>
+    public interface IPageNumCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class PageNumWrapper<TModel> : TagWrapper<TModel>
+    public class PageNumWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -21,14 +23,15 @@ namespace FluentBootstrap.Paginations
     {
     }
 
-    public class PageNum<TModel> : Tag<TModel, PageNum<TModel>, PageNumWrapper<TModel>>, IPageNum, IHasLinkExtensions, IHasTextContent
+    public class PageNum<THelper> : Tag<THelper, PageNum<THelper>, PageNumWrapper<THelper>>, IPageNum, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }
 
-        private Element<TModel> _listItem = null;
+        private Element<THelper> _listItem = null;
 
-        internal PageNum(IComponentCreator<TModel> creator)
+        internal PageNum(IComponentCreator<THelper> creator)
             : base(creator, "a")
         {
         }
@@ -36,7 +39,7 @@ namespace FluentBootstrap.Paginations
         protected override void OnStart(TextWriter writer)
         {
             // Create the list item wrapper
-            _listItem = new Element<TModel>(Helper, "li");
+            _listItem = new Element<THelper>(Helper, "li");
             if (Active)
             {
                 _listItem.AddCss(Css.Active);

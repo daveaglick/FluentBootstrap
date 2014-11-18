@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,10 +9,11 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using FluentBootstrap.Html;
+using FluentBootstrap.Forms;
 
-namespace FluentBootstrap.Forms
-{   
-    public interface IFormControlForCreator<TModel> : IComponentCreator<TModel>
+namespace FluentBootstrap.Mvc.Forms
+{
+    public interface IFormControlForCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
     {
     }
 
@@ -27,7 +27,7 @@ namespace FluentBootstrap.Forms
 
     public class FormControlFor<TModel, TValue> : FormControlForBase<TModel, TValue, FormControlFor<TModel, TValue>, FormControlForWrapper<TModel>>, IFormControlFor
     {
-        public FormControlFor(IComponentCreator<TModel> creator, bool editor, Expression<Func<TModel, TValue>> expression)
+        public FormControlFor(IComponentCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, TValue>> expression)
             : base(creator, editor, expression)
         {
         }

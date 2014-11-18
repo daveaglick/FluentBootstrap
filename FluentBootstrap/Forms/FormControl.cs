@@ -5,34 +5,37 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlCreator<TModel> : IComponentCreator<TModel>
+    public interface IFormControlCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class FormControlWrapper<TModel> : TagWrapper<TModel>,
-        IHelpBlockCreator<TModel>
+    public class FormControlWrapper<THelper> : TagWrapper<THelper>,
+        IHelpBlockCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
     internal interface IFormControl : ITag
     {
+        void Prepare(TextWriter writer);
     }
 
-    public abstract class FormControl<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IFormControl, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
-        where TThis : FormControl<TModel, TThis, TWrapper>
-        where TWrapper : FormControlWrapper<TModel>, new()
+    public abstract class FormControl<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IFormControl, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
+        where THelper : BootstrapHelper<THelper>
+        where TThis : FormControl<THelper, TThis, TWrapper>
+        where TWrapper : FormControlWrapper<THelper>, new()
     {
-        private FormGroup<TModel> _formGroup = null;
+        private FormGroup<THelper> _formGroup = null;
         private IControlLabel _label = null;
         internal string Help { get; set; }
         internal bool EnsureFormGroup { get; set; }
         private bool _prepared = false;
 
-        protected FormControl(IComponentCreator<TModel> creator, string tagName, params string[] cssClasses) 
+        protected FormControl(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses) 
             : base(creator, tagName, cssClasses)
         {
             EnsureFormGroup = true;
@@ -41,6 +44,11 @@ namespace FluentBootstrap.Forms
         internal IControlLabel Label
         {
             set { _label = value; }
+        }
+
+        void IFormControl.Prepare(TextWriter writer)
+        {
+            Prepare(writer);
         }
 
         // This prepares the outer form group if we need one
@@ -58,7 +66,7 @@ namespace FluentBootstrap.Forms
             IFormGroup formGroup = GetComponent<IFormGroup>();
             if (formGroup == null && EnsureFormGroup)
             {
-                _formGroup = new FormGroup<TModel>(Helper);
+                _formGroup = new FormGroup<THelper>(Helper);
                 formGroup = _formGroup;
             }
 
@@ -86,8 +94,8 @@ namespace FluentBootstrap.Forms
             if (_label != null)
             {
                 // Set the label's for attribute to the input name
-                string name = null;
-                if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
+                string name = Attributes.GetValue("name");
+                if (!string.IsNullOrWhiteSpace(name))
                 {
                     _label.MergeAttribute("for", name);
                 }
@@ -116,24 +124,6 @@ namespace FluentBootstrap.Forms
         {
             Prepare(writer);
 
-            // Add the validation data
-            string name = null;
-            if (TagBuilder.Attributes.TryGetValue("name", out name) && !string.IsNullOrWhiteSpace(name))
-            {
-                // Set the id
-                TagBuilder.GenerateId(name);
-
-                // Set the validation class
-                ModelState modelState;
-                if (HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
-                {
-                    CssClasses.Add(System.Web.Mvc.HtmlHelper.ValidationInputCssClassName);
-                }
-
-                // Add other validation attributes
-                TagBuilder.MergeAttributes<string, object>(HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
-            }
-
             base.OnStart(writer);
         }
 
@@ -144,16 +134,17 @@ namespace FluentBootstrap.Forms
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                new HelpBlock<TModel>(Helper).SetText(Help).StartAndFinish(writer);
+                new HelpBlock<THelper>(Helper).SetText(Help).StartAndFinish(writer);
             }
 
             Pop(_formGroup, writer);
         }
     }
 
-    public class FormControl<TModel> : FormControl<TModel, FormControl<TModel>, FormControlWrapper<TModel>>, IFormControl
+    public class FormControl<THelper> : FormControl<THelper, FormControl<THelper>, FormControlWrapper<THelper>>, IFormControl
+        where THelper : BootstrapHelper<THelper>
     {
-        internal FormControl(IComponentCreator<TModel> creator)
+        internal FormControl(IComponentCreator<THelper> creator)
             : base(creator, "div")
         {
         }

@@ -8,11 +8,13 @@ using FluentBootstrap.Links;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface ILinkButtonCreator<TModel> : IComponentCreator<TModel>
+    public interface ILinkButtonCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class ListButtonWrapper<TModel> : TagWrapper<TModel>
+    public class ListButtonWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,9 +22,11 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class LinkButton<TModel> : Tag<TModel, LinkButton<TModel>, ListButtonWrapper<TModel>>, ILinkButton, IHasIconExtensions, IHasLinkExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
+    public class LinkButton<THelper> : Tag<THelper, LinkButton<THelper>, ListButtonWrapper<THelper>>, ILinkButton,
+        IHasIconExtensions, IHasLinkExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal LinkButton(IComponentCreator<TModel> creator)
+        internal LinkButton(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("role", "button");

@@ -2,12 +2,14 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableRowCreator<TModel> : IComponentCreator<TModel>
+    public interface ITableRowCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class TableRowWrapper<TModel> : TagWrapper<TModel>,
-        ITableCellCreator<TModel>
+    public class TableRowWrapper<THelper> : TagWrapper<THelper>,
+        ITableCellCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -15,11 +17,12 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public class TableRow<TModel> : Tag<TModel, TableRow<TModel>, TableRowWrapper<TModel>>, ITableRow, IHasTableStateExtensions
+    public class TableRow<THelper> : Tag<THelper, TableRow<THelper>, TableRowWrapper<THelper>>, ITableRow, IHasTableStateExtensions
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool HeadRow { get; set; }
 
-        internal TableRow(IComponentCreator<TModel> creator)
+        internal TableRow(IComponentCreator<THelper> creator)
             : base(creator, "tr")
         {
         }
@@ -33,11 +36,11 @@ namespace FluentBootstrap.Tables
             {
                 if (HeadRow)
                 {
-                    new TableHeadSection<TModel>(Helper).Start(writer);
+                    new TableHeadSection<THelper>(Helper).Start(writer);
                 }
                 else
                 {
-                    new TableBodySection<TModel>(Helper).Start(writer);
+                    new TableBodySection<THelper>(Helper).Start(writer);
                 }
             }
 

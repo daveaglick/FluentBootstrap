@@ -9,9 +9,10 @@ namespace FluentBootstrap
 {
     public static class BadgeExtensions
     {
-        public static Badge<TModel> Badge<TModel>(this IBadgeCreator<TModel> creator, string text)
+        public static Badge<THelper> Badge<THelper>(this IBadgeCreator<THelper> creator, string text)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Badge<TModel>(creator).SetText(text);
+            return new Badge<THelper>(creator).SetText(text);
         }
     }
 }

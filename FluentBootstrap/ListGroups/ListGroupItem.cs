@@ -11,14 +11,16 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ListGroups
 {
-    public interface IListGroupItemCreator<TModel> : IComponentCreator<TModel>
+    public interface IListGroupItemCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class ListGroupItemWrapper<TModel> : TagWrapper<TModel>,
-        IBadgeCreator<TModel>,
-        IHeadingCreator<TModel>,
-        IParagraphCreator<TModel>
+    public class ListGroupItemWrapper<THelper> : TagWrapper<THelper>,
+        IBadgeCreator<THelper>,
+        IHeadingCreator<THelper>,
+        IParagraphCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -26,13 +28,14 @@ namespace FluentBootstrap.ListGroups
     {
     }
 
-    public class ListGroupItem<TModel> : Tag<TModel, ListGroupItem<TModel>, ListGroupItemWrapper<TModel>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
+    public class ListGroupItem<THelper> : Tag<THelper, ListGroupItem<THelper>, ListGroupItemWrapper<THelper>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }
         internal string Heading { get; set; }
 
-        internal ListGroupItem(IComponentCreator<TModel> creator)
+        internal ListGroupItem(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.ListGroupItem)
         {
         }
@@ -40,8 +43,8 @@ namespace FluentBootstrap.ListGroups
         protected override void OnStart(TextWriter writer)
         {
             // Change to a div if no link was provided
-            string href;
-            if (!TagBuilder.Attributes.TryGetValue("href", out href) || string.IsNullOrWhiteSpace(href))
+            string href = GetAttribute("href");
+            if (string.IsNullOrWhiteSpace(href))
             {
                 TagName = "div";
             }

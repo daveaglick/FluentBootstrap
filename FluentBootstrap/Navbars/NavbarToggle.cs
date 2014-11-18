@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarToggleCreator<TModel> : IComponentCreator<TModel>
+    public interface INavbarToggleCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavbarToggleWrapper<TModel> : TagWrapper<TModel>
+    public class NavbarToggleWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -20,12 +22,13 @@ namespace FluentBootstrap.Navbars
     {
     }
 
-    public class NavbarToggle<TModel> : Tag<TModel, NavbarToggle<TModel>, NavbarToggleWrapper<TModel>>, INavbarToggle
+    public class NavbarToggle<THelper> : Tag<THelper, NavbarToggle<THelper>, NavbarToggleWrapper<THelper>>, INavbarToggle
+        where THelper : BootstrapHelper<THelper>
     {
         internal string DataTarget { get; set; }
         internal bool Hamburger { get; set; }
 
-        internal NavbarToggle(IComponentCreator<TModel> creator)
+        internal NavbarToggle(IComponentCreator<THelper> creator)
             : base(creator, "button", Css.NavbarToggle, "collapsed")
         {
             Hamburger = true;
@@ -53,7 +56,7 @@ namespace FluentBootstrap.Navbars
             INavbarHeader header = GetComponent<INavbarHeader>();
             if (GetComponent<INavbar>() != null && header == null)
             {
-                new NavbarHeader<TModel>(Helper).Start(writer);
+                new NavbarHeader<THelper>(Helper).Start(writer);
             }
             else if(header != null)
             {

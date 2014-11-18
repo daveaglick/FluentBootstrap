@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface INavLinkCreator<TModel> : IComponentCreator<TModel>
+    public interface INavLinkCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class NavLinkWrapper<TModel> : TagWrapper<TModel>,
-        IBadgeCreator<TModel>
+    public class NavLinkWrapper<THelper> : TagWrapper<THelper>,
+        IBadgeCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -24,15 +26,16 @@ namespace FluentBootstrap.Navs
     {
     }
 
-    public abstract class NavLink<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IHasLinkExtensions, IHasTextContent
-        where TThis : NavLink<TModel, TThis, TWrapper>
-        where TWrapper : NavLinkWrapper<TModel>, new()
+    public abstract class NavLink<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IHasLinkExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
+        where TThis : NavLink<THelper, TThis, TWrapper>
+        where TWrapper : NavLinkWrapper<THelper>, new()
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }
-        private Element<TModel> _listItem = null;
+        private Element<THelper> _listItem = null;
 
-        protected NavLink(IComponentCreator<TModel> creator)
+        protected NavLink(IComponentCreator<THelper> creator)
             : base(creator, "a")
         {
         }
@@ -42,11 +45,11 @@ namespace FluentBootstrap.Navs
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
             if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
             {
-                new NavbarNav<TModel>(Helper).Start(writer);
+                new NavbarNav<THelper>(Helper).Start(writer);
             }
 
             // Create the list item wrapper
-            _listItem = new Element<TModel>(Helper, "li");
+            _listItem = new Element<THelper>(Helper, "li");
             if (Active)
             {
                 _listItem.AddCss(Css.Active);

@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface IDropdownButtonCreator<TModel> : IComponentCreator<TModel>
+    public interface IDropdownButtonCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class DropdownButtonWrapper<TModel> : TagWrapper<TModel>, IButtonCreator<TModel>, ILinkButtonCreator<TModel>, IDropdownCreator<TModel>
+    public class DropdownButtonWrapper<THelper> : TagWrapper<THelper>, 
+        IButtonCreator<THelper>, 
+        ILinkButtonCreator<THelper>,
+        IDropdownCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,9 +24,10 @@ namespace FluentBootstrap.Buttons
     {
     }
 
-    public class DropdownButton<TModel> : Tag<TModel, DropdownButton<TModel>, DropdownButtonWrapper<TModel>>, IDropdownButton
+    public class DropdownButton<THelper> : Tag<THelper, DropdownButton<THelper>, DropdownButtonWrapper<THelper>>, IDropdownButton
+        where THelper : BootstrapHelper<THelper>
     {
-        internal DropdownButton(IComponentCreator<TModel> creator)
+        internal DropdownButton(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.BtnGroup)
         {
         }

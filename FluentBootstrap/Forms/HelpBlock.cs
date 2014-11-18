@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IHelpBlockCreator<TModel> : IComponentCreator<TModel>
+    public interface IHelpBlockCreator<THelper> : IComponentCreator<THelper> 
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class HelpBlockWrapper<TModel> : TagWrapper<TModel>
+    public class HelpBlockWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -18,9 +20,10 @@ namespace FluentBootstrap.Forms
     {
     }
 
-    public class HelpBlock<TModel> : Tag<TModel, HelpBlock<TModel>, HelpBlockWrapper<TModel>>, IHelpBlock, IHasTextContent
+    public class HelpBlock<THelper> : Tag<THelper, HelpBlock<THelper>, HelpBlockWrapper<THelper>>, IHelpBlock, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal HelpBlock(IComponentCreator<TModel> creator)
+        internal HelpBlock(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.HelpBlock)
         {
         }

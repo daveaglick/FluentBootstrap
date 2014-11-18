@@ -12,17 +12,20 @@ namespace FluentBootstrap
     {
         // Table
 
-        public static Table<TModel> Table<TModel>(this ITableCreator<TModel> creator)
+        public static Table<THelper> Table<THelper>(this ITableCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Table<TModel>(creator);
+            return new Table<THelper>(creator);
         }
 
-        public static Table<TModel> SetStyle<TModel>(this Table<TModel> table, TableStyle style)
+        public static Table<THelper> SetStyle<THelper>(this Table<THelper> table, TableStyle style)
+            where THelper : BootstrapHelper<THelper>
         {
             return table.ToggleCss(style);
         }
 
-        public static Table<TModel> SetResponsive<TModel>(this Table<TModel> table, bool responsive = true)
+        public static Table<THelper> SetResponsive<THelper>(this Table<THelper> table, bool responsive = true)
+            where THelper : BootstrapHelper<THelper>
         {
             table.Responsive = responsive;
             return table;
@@ -30,81 +33,92 @@ namespace FluentBootstrap
 
         // Sections
 
-        public static TableHeadSection<TModel> TableHeadSection<TModel>(this ITableSectionCreator<TModel> creator)
+        public static TableHeadSection<THelper> TableHeadSection<THelper>(this ITableSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new TableHeadSection<TModel>(creator);
+            return new TableHeadSection<THelper>(creator);
         }
 
-        public static TableBodySection<TModel> TableBodySection<TModel>(this ITableSectionCreator<TModel> creator)
+        public static TableBodySection<THelper> TableBodySection<THelper>(this ITableSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new TableBodySection<TModel>(creator);
+            return new TableBodySection<THelper>(creator);
         }
 
-        public static TableFootSection<TModel> TableFootSection<TModel>(this ITableSectionCreator<TModel> creator)
+        public static TableFootSection<THelper> TableFootSection<THelper>(this ITableSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new TableFootSection<TModel>(creator);
+            return new TableFootSection<THelper>(creator);
         }
 
         // TableRow
 
-        public static TableRow<TModel> TableRow<TModel>(this ITableRowCreator<TModel> creator)
+        public static TableRow<THelper> TableRow<THelper>(this ITableRowCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new TableRow<TModel>(creator);
+            return new TableRow<THelper>(creator);
         }
 
         // Cells
 
-        public static TableHeader<TModel> TableHeader<TModel>(this ITableCellCreator<TModel> creator, object content = null)
+        public static TableHeader<THelper> TableHeader<THelper>(this ITableCellCreator<THelper> creator, object content = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new TableHeader<TModel>(creator).AddContent(content);
+            return new TableHeader<THelper>(creator).AddContent(content);
         }
 
-        public static TableData<TModel> TableData<TModel>(this ITableCellCreator<TModel> creator, object content = null)
+        public static TableData<THelper> TableData<THelper>(this ITableCellCreator<THelper> creator, object content = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new TableData<TModel>(creator).AddContent(content);
+            return new TableData<THelper>(creator).AddContent(content);
         }
 
-        public static TableRow<TModel> TableHeaderRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
+        public static TableRow<THelper> TableHeaderRow<THelper>(this ITableCellCreator<THelper> creator, params object[] content)
+            where THelper : BootstrapHelper<THelper>
         {
-            TableRow<TModel> row = new TableRow<TModel>(creator) { HeadRow = true };
+            TableRow<THelper> row = new TableRow<THelper>(creator) { HeadRow = true };
             foreach (object c in content)
             {
-                row.AddChild(new TableHeader<TModel>(creator).AddContent(c));
+                row.AddChild(new TableHeader<THelper>(creator).AddContent(c));
             }
             return row;
         }
 
-        public static TableRow<TModel> TableDataRow<TModel>(this ITableCellCreator<TModel> creator, params object[] content)
+        public static TableRow<THelper> TableDataRow<THelper>(this ITableCellCreator<THelper> creator, params object[] content)
+            where THelper : BootstrapHelper<THelper>
         {
-            TableRow<TModel> row = new TableRow<TModel>(creator);
+            TableRow<THelper> row = new TableRow<THelper>(creator);
             foreach (object c in content)
             {
-                row.AddChild(new TableData<TModel>(creator).AddContent(c));
+                row.AddChild(new TableData<THelper>(creator).AddContent(c));
             }
             return row;
         }
 
         // IHasTableStateExtensions
 
-        public static TThis SetState<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, TableState state)
-            where TThis : Tag<TModel, TThis, TWrapper>, IHasTableStateExtensions
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetState<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, TableState state)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>, IHasTableStateExtensions
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(state);
         }
 
         // TableCell
 
-        public static TThis ColSpan<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, int? colSpan)
-            where TThis : TableCell<TModel, TThis, TWrapper>
-            where TWrapper : TableCellWrapper<TModel>, new()
+        public static TThis ColSpan<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? colSpan)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : TableCell<THelper, TThis, TWrapper>
+            where TWrapper : TableCellWrapper<THelper>, new()
         {
             return component.GetThis().MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
         }
 
-        public static TThis RowSpan<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, int? rowSpan)
-            where TThis : TableCell<TModel, TThis, TWrapper>
-            where TWrapper : TableCellWrapper<TModel>, new()
+        public static TThis RowSpan<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, int? rowSpan)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : TableCell<THelper, TThis, TWrapper>
+            where TWrapper : TableCellWrapper<THelper>, new()
         {
             return component.GetThis().MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
         }

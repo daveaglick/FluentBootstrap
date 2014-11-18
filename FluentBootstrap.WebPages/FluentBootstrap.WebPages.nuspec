@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FluentBootstrap.WebPages</id>
+    <version>$version$</version>
+    <title>FluentBootstrap.WebPages</title>
+    <authors>Dave Glick</authors>
+    <owners>Dave Glick</owners>
+    <licenseUrl>https://github.com/somedave/FluentBootstrap/blob/master/license.txt</licenseUrl>
+    <projectUrl>http://fluentbootstrap.org</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides HtmlHelpers for the Bootstrap CSS framework in ASP.NET Web Pages.</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>bootstrap webpages razor asp.net</tags>
+  </metadata>
+  <files>
+    <file src="Scripts\*.*" target="content" exclude="Scripts\*.*" />
+  </files>
+</package>

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface ISmallCreator<TModel> : IComponentCreator<TModel>
+    public interface ISmallCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class SmallWrapper<TModel> : TagWrapper<TModel>
+    public class SmallWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -18,9 +20,10 @@ namespace FluentBootstrap.Typography
     {
     }
 
-    public class Small<TModel> : Tag<TModel, Small<TModel>, SmallWrapper<TModel>>, ISmall, IHasTextContent
+    public class Small<THelper> : Tag<THelper, Small<THelper>, SmallWrapper<THelper>>, ISmall, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Small(IComponentCreator<TModel> creator)
+        internal Small(IComponentCreator<THelper> creator)
             : base(creator, "small")
         {
         }

@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Misc
 {
-    public interface IPageHeaderCreator<TModel> : IComponentCreator<TModel>
+    public interface IPageHeaderCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class PageHeaderWrapper<TModel> : HeadingWrapper<TModel>
+    public class PageHeaderWrapper<THelper> : HeadingWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,18 +24,19 @@ namespace FluentBootstrap.Misc
     {
     }
 
-    public class PageHeader<TModel> : Heading<TModel, PageHeader<TModel>, PageHeaderWrapper<TModel>>, IPageHeader, IHasTextContent
+    public class PageHeader<THelper> : Heading<THelper, PageHeader<THelper>, PageHeaderWrapper<THelper>>, IPageHeader, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        private Element<TModel> _wrapper;
+        private Element<THelper> _wrapper;
 
-        internal PageHeader(IComponentCreator<TModel> creator)
+        internal PageHeader(IComponentCreator<THelper> creator)
             : base(creator, "h1")
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
-            _wrapper = new Element<TModel>(Helper, "div", Css.PageHeader);
+            _wrapper = new Element<THelper>(Helper, "div").AddCss(Css.PageHeader);
             _wrapper.Start(writer);
             base.OnStart(writer);
         }

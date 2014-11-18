@@ -1,30 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFieldSetCreator<TModel> : IComponentCreator<TModel>
+    public interface IFieldSetCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class FieldSetWrapper<TModel> : TagWrapper<TModel>,
-        IFormGroupCreator<TModel>,
-        IControlLabelCreator<TModel>,
-        IFormControlCreator<TModel>,
-        IHelpBlockCreator<TModel>
+    public class FieldSetWrapper<THelper> : TagWrapper<THelper>,
+        IFormGroupCreator<THelper>,
+        IControlLabelCreator<THelper>,
+        IFormControlCreator<THelper>,
+        IHelpBlockCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    internal interface IFieldSet : IFormControl
+    internal interface IFieldSet : ITag
     {
     }
 
-    public class FieldSet<TModel> : Tag<TModel, FieldSet<TModel>, FieldSetWrapper<TModel>>, IFieldSet, IHasDisabledAttribute
+    public class FieldSet<THelper> : Tag<THelper, FieldSet<THelper>, FieldSetWrapper<THelper>>, IFieldSet, IHasDisabledAttribute
+        where THelper : BootstrapHelper<THelper>
     {
-        internal FieldSet(IComponentCreator<TModel> creator)
+        internal FieldSet(IComponentCreator<THelper> creator)
             : base(creator, "fieldset")
         {
         }

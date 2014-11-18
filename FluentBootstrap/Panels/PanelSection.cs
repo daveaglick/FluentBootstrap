@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelSectionCreator<TModel> : IComponentCreator<TModel>
+    public interface IPanelSectionCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class PanelSectionWrapper<TModel> : TagWrapper<TModel>
+    public class PanelSectionWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -19,11 +21,12 @@ namespace FluentBootstrap.Panels
     {
     }
 
-    public abstract class PanelSection<TModel, TThis, TWrapper> : Tag<TModel, TThis, TWrapper>, IPanelSection
-        where TThis : PanelSection<TModel, TThis, TWrapper>
-        where TWrapper : PanelSectionWrapper<TModel>, new()
+    public abstract class PanelSection<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IPanelSection
+        where THelper : BootstrapHelper<THelper>
+        where TThis : PanelSection<THelper, TThis, TWrapper>
+        where TWrapper : PanelSectionWrapper<THelper>, new()
     {
-        protected PanelSection(IComponentCreator<TModel> creator, params string[] cssClasses)
+        protected PanelSection(IComponentCreator<THelper> creator, params string[] cssClasses)
             : base(creator, "div", cssClasses)
         {
         }

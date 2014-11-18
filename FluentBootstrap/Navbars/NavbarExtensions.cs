@@ -11,53 +11,62 @@ namespace FluentBootstrap
     {
         // Navbar
 
-        public static Navbar<TModel> Navbar<TModel>(this INavbarCreator<TModel> creator, bool fluid = true)
+        public static Navbar<THelper> Navbar<THelper>(this INavbarCreator<THelper> creator, bool fluid = true)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Navbar<TModel>(creator).SetFluid(fluid);
+            return new Navbar<THelper>(creator).SetFluid(fluid);
         }
 
-        public static Navbar<TModel> Navbar<TModel>(this INavbarCreator<TModel> creator, string brand, string href="#", bool fluid = true)
+        public static Navbar<THelper> Navbar<THelper>(this INavbarCreator<THelper> creator, string brand, string href="#", bool fluid = true)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Navbar<TModel>(creator).SetFluid(fluid).AddChild(x => x.Brand(brand, href));
+            return new Navbar<THelper>(creator).SetFluid(fluid).AddChild(x => x.Brand(brand, href));
         }
 
-        public static Navbar<TModel> SetFluid<TModel>(this Navbar<TModel> navbar, bool fluid = true)
+        public static Navbar<THelper> SetFluid<THelper>(this Navbar<THelper> navbar, bool fluid = true)
+            where THelper : BootstrapHelper<THelper>
         {
             navbar.Fluid = fluid;
             return navbar;
         }
 
-        public static Navbar<TModel> SetPosition<TModel>(this Navbar<TModel> navbar, NavbarPosition position)
+        public static Navbar<THelper> SetPosition<THelper>(this Navbar<THelper> navbar, NavbarPosition position)
+            where THelper : BootstrapHelper<THelper>
         {
             return navbar.ToggleCss(position);
         }
 
-        public static Navbar<TModel> SetInverse<TModel>(this Navbar<TModel> navbar, bool inverse = true)
+        public static Navbar<THelper> SetInverse<THelper>(this Navbar<THelper> navbar, bool inverse = true)
+            where THelper : BootstrapHelper<THelper>
         {
             return navbar.ToggleCss(Css.NavbarInverse, inverse);
         }
 
         // NavbarHeader
 
-        public static NavbarHeader<TModel> NavbarHeader<TModel>(this INavbarHeaderCreator<TModel> creator)
+        public static NavbarHeader<THelper> NavbarHeader<THelper>(this INavbarHeaderCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarHeader<TModel>(creator);
+            return new NavbarHeader<THelper>(creator);
         }
 
         // NavbarToggle
 
-        public static NavbarToggle<TModel> NavbarToggle<TModel>(this INavbarToggleCreator<TModel> creator)
+        public static NavbarToggle<THelper> NavbarToggle<THelper>(this INavbarToggleCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarToggle<TModel>(creator);
+            return new NavbarToggle<THelper>(creator);
         }
 
-        public static NavbarToggle<TModel> SetDataTarget<TModel>(this NavbarToggle<TModel> navbarToggle, string dataTarget)
+        public static NavbarToggle<THelper> SetDataTarget<THelper>(this NavbarToggle<THelper> navbarToggle, string dataTarget)
+            where THelper : BootstrapHelper<THelper>
         {
             navbarToggle.DataTarget = dataTarget;
             return navbarToggle;
         }
 
-        public static NavbarToggle<TModel> SetHamburger<TModel>(this NavbarToggle<TModel> navbarToggle, bool hamburger = true)
+        public static NavbarToggle<THelper> SetHamburger<THelper>(this NavbarToggle<THelper> navbarToggle, bool hamburger = true)
+            where THelper : BootstrapHelper<THelper>
         {
             navbarToggle.Hamburger = hamburger;
             return navbarToggle;
@@ -65,70 +74,69 @@ namespace FluentBootstrap
 
         // Brand
 
-        public static Brand<TModel> Brand<TModel>(this IBrandCreator<TModel> creator, string text, string href = "#")
+        public static Brand<THelper> Brand<THelper>(this IBrandCreator<THelper> creator, string text, string href = "#")
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Brand<TModel>(creator).SetHref(href).SetText(text);
-        }
-
-        public static Brand<TModel> Brand<TModel>(this IBrandCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
-        {
-            return new Brand<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
+            return new Brand<THelper>(creator).SetHref(href).SetText(text);
         }
 
         // NavbarCollapse
 
-        public static NavbarCollapse<TModel> NavbarCollapse<TModel>(this INavbarCollapseCreator<TModel> creator)
+        public static NavbarCollapse<THelper> NavbarCollapse<THelper>(this INavbarCollapseCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarCollapse<TModel>(creator);
+            return new NavbarCollapse<THelper>(creator);
         }
 
         // NavbarNav
 
-        public static NavbarNav<TModel> NavbarNav<TModel>(this INavbarNavCreator<TModel> creator)
+        public static NavbarNav<THelper> NavbarNav<THelper>(this INavbarNavCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarNav<TModel>(creator);
+            return new NavbarNav<THelper>(creator);
         }
 
         // NavbarForm
 
-        public static NavbarForm<TModel> NavbarForm<TModel>(this INavbarFormCreator<TModel> creator)
+        public static NavbarForm<THelper> NavbarForm<THelper>(this INavbarFormCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarForm<TModel>(creator);
+            return new NavbarForm<THelper>(creator);
         }
 
         // NavbarButton
 
-        public static NavbarButton<TModel> NavbarButton<TModel>(this INavbarButtonCreator<TModel> creator, string text = null, object value = null)
+        public static NavbarButton<THelper> NavbarButton<THelper>(this INavbarButtonCreator<THelper> creator, string text = null, object value = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarButton<TModel>(creator).SetText(text).SetValue(value);
+            return new NavbarButton<THelper>(creator).SetText(text).SetValue(value);
         }
 
         // NavbarText
 
-        public static NavbarText<TModel> NavbarText<TModel>(this INavbarButtonCreator<TModel> creator, string text = null)
+        public static NavbarText<THelper> NavbarText<THelper>(this INavbarButtonCreator<THelper> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarText<TModel>(creator).SetText(text);
+            return new NavbarText<THelper>(creator).SetText(text);
         }        
         
         // NavbarLink
 
-        public static NavbarLink<TModel> NavbarLink<TModel>(this INavbarLinkCreator<TModel> creator, string text, string href = "#")
+        public static NavbarLink<THelper> NavbarLink<THelper>(this INavbarLinkCreator<THelper> creator, string text, string href = "#")
+            where THelper : BootstrapHelper<THelper>
         {
-            return new NavbarLink<TModel>(creator).SetHref(href).SetText(text);
+            return new NavbarLink<THelper>(creator).SetHref(href).SetText(text);
         }
 
-        public static NavbarLink<TModel> NavbarLink<TModel>(this INavbarLinkCreator<TModel> creator, string text, string actionName, string controllerName, object routeValues = null)
-        {
-            return new NavbarLink<TModel>(creator).SetAction(actionName, controllerName, routeValues).SetText(text);
-        }
-
-        public static NavbarLink<TModel> SetActive<TModel>(this NavbarLink<TModel> navbarLink, bool active = true)
+        public static NavbarLink<THelper> SetActive<THelper>(this NavbarLink<THelper> navbarLink, bool active = true)
+            where THelper : BootstrapHelper<THelper>
         {
             navbarLink.Active = active;
             return navbarLink;
         }
 
-        public static NavbarLink<TModel> SetDisabled<TModel>(this NavbarLink<TModel> navbarLink, bool disabled = true)
+        public static NavbarLink<THelper> SetDisabled<THelper>(this NavbarLink<THelper> navbarLink, bool disabled = true)
+            where THelper : BootstrapHelper<THelper>
         {
             navbarLink.Disabled = disabled;
             return navbarLink;
@@ -136,16 +144,18 @@ namespace FluentBootstrap
 
         // INavbarComponent
 
-        public static TThis SetLeft<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool left = true)
-            where TThis : Tag<TModel, TThis, TWrapper>, INavbarComponent
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetLeft<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool left = true)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>, INavbarComponent
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(Css.NavbarLeft, left, Css.NavbarRight);
         }
 
-        public static TThis SetRight<TModel, TThis, TWrapper>(this Component<TModel, TThis, TWrapper> component, bool right = true)
-            where TThis : Tag<TModel, TThis, TWrapper>, INavbarComponent
-            where TWrapper : TagWrapper<TModel>, new()
+        public static TThis SetRight<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool right = true)
+            where THelper : BootstrapHelper<THelper>
+            where TThis : Tag<THelper, TThis, TWrapper>, INavbarComponent
+            where TWrapper : TagWrapper<THelper>, new()
         {
             return component.GetThis().ToggleCss(Css.NavbarRight, right, Css.NavbarLeft);
         }

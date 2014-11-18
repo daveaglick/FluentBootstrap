@@ -11,12 +11,14 @@ namespace FluentBootstrap
     {
         // Container
 
-        public static Container<TModel> Container<TModel>(this IContainerCreator<TModel> creator)
+        public static Container<THelper> Container<THelper>(this IContainerCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new Container<TModel>(creator);
+            return new Container<THelper>(creator);
         }
 
-        public static Container<TModel> SetFluid<TModel>(this Container<TModel> container, bool fluid = true)
+        public static Container<THelper> SetFluid<THelper>(this Container<THelper> container, bool fluid = true)
+            where THelper : BootstrapHelper<THelper>
         {
             container.CssClasses.Remove(Css.Container);
             container.CssClasses.Remove(Css.ContainerFluid);
@@ -26,16 +28,18 @@ namespace FluentBootstrap
 
         // GridRow
 
-        public static GridRow<TModel> GridRow<TModel>(this IGridRowCreator<TModel> creator)
+        public static GridRow<THelper> GridRow<THelper>(this IGridRowCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new GridRow<TModel>(creator);
+            return new GridRow<THelper>(creator);
         }
 
         // GridColumn
 
-        public static GridColumn<TModel> GridColumn<TModel>(this IGridColumnCreator<TModel> creator, int? md = null)
+        public static GridColumn<THelper> GridColumn<THelper>(this IGridColumnCreator<THelper> creator, int? md = null)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new GridColumn<TModel>(creator).SetMd(md);
+            return new GridColumn<THelper>(creator).SetMd(md);
         }
     }
 }

@@ -14,14 +14,16 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownCreator<TModel> : IComponentCreator<TModel>
+    public interface IDropdownCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class DropdownWrapper<TModel> : TagWrapper<TModel>, 
-        IDropdownDividerCreator<TModel>, 
-        IDropdownHeaderCreator<TModel>, 
-        IDropdownLinkCreator<TModel>
+    public class DropdownWrapper<THelper> : TagWrapper<THelper>, 
+        IDropdownDividerCreator<THelper>, 
+        IDropdownHeaderCreator<THelper>,
+        IDropdownLinkCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -29,14 +31,16 @@ namespace FluentBootstrap.Dropdowns
     {
     }
 
-    public class Dropdown<TModel> : Tag<TModel, Dropdown<TModel>, DropdownWrapper<TModel>>, IDropdown, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
+    public class Dropdown<THelper> : Tag<THelper, Dropdown<THelper>, DropdownWrapper<THelper>>, IDropdown,
+        IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
         private bool _dropdownButton = false;
         private bool _caret = true;
         private bool _menuRight;
         private bool _menuLeft;
         private Component _toggle;
-        private Typography.List<TModel> _list;
+        private Typography.List<THelper> _list;
 
         internal bool Caret
         {
@@ -53,7 +57,7 @@ namespace FluentBootstrap.Dropdowns
             set { _menuLeft = value; }
         }
 
-        internal Dropdown(IComponentCreator<TModel> creator)
+        internal Dropdown(IComponentCreator<THelper> creator)
             : base(creator, "div", Css.Dropdown, Css.BtnDefault)
         {
         }
@@ -63,14 +67,14 @@ namespace FluentBootstrap.Dropdowns
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
             if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
             {
-                new NavbarNav<TModel>(Helper).Start(writer);
+                new NavbarNav<THelper>(Helper).Start(writer);
             }
 
             // Check if we're in a nav
             if (GetComponent<INav>(true) != null || GetComponent<INavbarNav>(true) != null)
             {
                 TagName = "li";
-                Link<TModel> link = Helper.Link(null);
+                Link<THelper> link = Helper.Link(null);
                 link.AddCss(Css.DropdownToggle);
                 link.AddAttribute("data-toggle", "dropdown");
                 _toggle = link;
@@ -78,7 +82,7 @@ namespace FluentBootstrap.Dropdowns
             else
             {
                 // Create a button and copy over any button classes and text
-                Button<TModel> button = Helper.Button();
+                Button<THelper> button = Helper.Button();
                 button.RemoveCss(Css.BtnDefault);
                 button.AddCss(Css.DropdownToggle);
                 button.AddAttribute("data-toggle", "dropdown");
@@ -93,12 +97,12 @@ namespace FluentBootstrap.Dropdowns
             // Add the text and caret
             if (!string.IsNullOrWhiteSpace(TextContent))
             {
-                _toggle.AddChild(new Content<TModel>(Helper, TextContent + " "));
+                _toggle.AddChild(new Content<THelper>(Helper, TextContent + " "));
             }
             else
             {
-                Element<TModel> element = new Element<TModel>(Helper, "span", Css.SrOnly);
-                element.AddChild(new Content<TModel>(Helper, "Toggle Dropdown"));
+                Element<THelper> element = new Element<THelper>(Helper, "span").AddCss(Css.SrOnly);
+                element.AddChild(new Content<THelper>(Helper, "Toggle Dropdown"));
                 _toggle.AddChild(element);
             }
             TextContent = null;

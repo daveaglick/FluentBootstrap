@@ -11,9 +11,10 @@ namespace FluentBootstrap
     {
         // Panel
 
-        public static Panel<TModel> Panel<TModel>(this IPanelCreator<TModel> creator, string title = null, int titleHeadingLevel = 4)
+        public static Panel<THelper> Panel<THelper>(this IPanelCreator<THelper> creator, string title = null, int titleHeadingLevel = 4)
+            where THelper : BootstrapHelper<THelper>
         {
-            Panel<TModel> panel = new Panel<TModel>(creator);
+            Panel<THelper> panel = new Panel<THelper>(creator);
             if (!string.IsNullOrWhiteSpace(title))
             {
                 panel.AddChild(x => x.PanelHeading().AddChild(y => y.PanelTitle(title, titleHeadingLevel)));
@@ -21,38 +22,44 @@ namespace FluentBootstrap
             return panel;
         }
 
-        public static Panel<TModel> SetState<TModel>(this Panel<TModel> panel, PanelState state)
+        public static Panel<THelper> SetState<THelper>(this Panel<THelper> panel, PanelState state)
+            where THelper : BootstrapHelper<THelper>
         {
             return panel.ToggleCss(state);
         }
 
         // Sections
 
-        public static PanelHeading<TModel> PanelHeading<TModel>(this IPanelSectionCreator<TModel> creator)
+        public static PanelHeading<THelper> PanelHeading<THelper>(this IPanelSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new PanelHeading<TModel>(creator);
+            return new PanelHeading<THelper>(creator);
         }
 
-        public static PanelBody<TModel> PanelBody<TModel>(this IPanelSectionCreator<TModel> creator)
+        public static PanelBody<THelper> PanelBody<THelper>(this IPanelSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new PanelBody<TModel>(creator);
+            return new PanelBody<THelper>(creator);
         }
 
-        public static PanelFooter<TModel> PanelFooter<TModel>(this IPanelSectionCreator<TModel> creator)
+        public static PanelFooter<THelper> PanelFooter<THelper>(this IPanelSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new PanelFooter<TModel>(creator);
+            return new PanelFooter<THelper>(creator);
         }
 
-        public static PanelTable<TModel> PanelTable<TModel>(this IPanelSectionCreator<TModel> creator)
+        public static PanelTable<THelper> PanelTable<THelper>(this IPanelSectionCreator<THelper> creator)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new PanelTable<TModel>(creator);
+            return new PanelTable<THelper>(creator);
         }
 
         // PanelTitle
 
-        public static PanelTitle<TModel> PanelTitle<TModel>(this IPanelTitleCreator<TModel> creator, string text = null, int headingLevel = 4)
+        public static PanelTitle<THelper> PanelTitle<THelper>(this IPanelTitleCreator<THelper> creator, string text = null, int headingLevel = 4)
+            where THelper : BootstrapHelper<THelper>
         {
-            return new PanelTitle<TModel>(creator, text, headingLevel);
+            return new PanelTitle<THelper>(creator, text, headingLevel);
         }
     }
 }

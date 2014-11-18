@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Thumbnails
 {
-    public interface IThumbnailCreator<TModel> : IComponentCreator<TModel>
+    public interface IThumbnailCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class ThumbnailWrapper<TModel> : TagWrapper<TModel>
+    public class ThumbnailWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -22,14 +24,15 @@ namespace FluentBootstrap.Thumbnails
     {
     }
 
-    public class Thumbnail<TModel> : Tag<TModel, Thumbnail<TModel>, ThumbnailWrapper<TModel>>, IThumbnail, IHasLinkExtensions
+    public class Thumbnail<THelper> : Tag<THelper, Thumbnail<THelper>, ThumbnailWrapper<THelper>>, IThumbnail, IHasLinkExtensions
+        where THelper : BootstrapHelper<THelper>
     {
         internal string Src { get; set; }
         internal string Alt { get; set; }
-        private Image<TModel> _image;
+        private Image<THelper> _image;
         private bool _suppressOuterTag;
 
-        internal Thumbnail(IComponentCreator<TModel> creator)
+        internal Thumbnail(IComponentCreator<THelper> creator)
             : base(creator, "a", Css.Thumbnail)
         {
         }
@@ -45,8 +48,8 @@ namespace FluentBootstrap.Thumbnails
             }
 
             // Change to a div if no link was provided (or don't output at all if in a container)
-            string href;
-            if(!TagBuilder.Attributes.TryGetValue("href", out href) || string.IsNullOrWhiteSpace(href))
+            string href = GetAttribute("href");
+            if(string.IsNullOrWhiteSpace(href))
             {
                 TagName = "div";
                 if(inContainer)

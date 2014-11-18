@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Badges
 {
-    public interface IBadgeCreator<TModel> : IComponentCreator<TModel>
+    public interface IBadgeCreator<THelper> : IComponentCreator<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
-    public class BadgeWrapper<TModel> : TagWrapper<TModel>
+    public class BadgeWrapper<THelper> : TagWrapper<THelper>
+        where THelper : BootstrapHelper<THelper>
     {
     }
 
@@ -18,9 +20,10 @@ namespace FluentBootstrap.Badges
     {
     }
 
-    public class Badge<TModel> : Tag<TModel, Badge<TModel>, BadgeWrapper<TModel>>, IBadge, IHasTextContent
+    public class Badge<THelper> : Tag<THelper, Badge<THelper>, BadgeWrapper<THelper>>, IBadge, IHasTextContent
+        where THelper : BootstrapHelper<THelper>
     {
-        internal Badge(IComponentCreator<TModel> creator)
+        internal Badge(IComponentCreator<THelper> creator)
             : base(creator, "span", Css.Badge)
         {
         }
