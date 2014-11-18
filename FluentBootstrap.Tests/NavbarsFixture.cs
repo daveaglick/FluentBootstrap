@@ -17,7 +17,7 @@ namespace FluentBootstrap.Tests
 @"<nav class=""navbar-default navbar"" id=""navbar"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
-     <a class=""navbar-brand"" href=""#"">MyApp</a>
+     <a class=""navbar-brand"" href=""/"">MyApp</a>
      <button class=""collapsed navbar-toggle"" data-target=""#navbar-collapse"" data-toggle=""collapse"" type=""button"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
@@ -46,7 +46,7 @@ namespace FluentBootstrap.Tests
 @"<nav class=""navbar-default navbar"" id=""nav2"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
-     <a class=""navbar-brand"" href=""#"">MyApp</a>
+     <a class=""navbar-brand"" href=""/"">MyApp</a>
      <button class=""collapsed navbar-toggle"" data-target=""#nav2-collapse"" data-toggle=""collapse"" type=""button"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
@@ -75,7 +75,7 @@ namespace FluentBootstrap.Tests
 @"<nav class=""navbar-fixed-bottom navbar-default navbar"" id=""nav3"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
-     <a class=""navbar-brand"" href=""#"">MyApp</a>
+     <a class=""navbar-brand"" href=""/"">MyApp</a>
      <button class=""collapsed navbar-toggle"" data-target=""#nav3-collapse"" data-toggle=""collapse"" type=""button"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
@@ -104,7 +104,7 @@ namespace FluentBootstrap.Tests
 @"<nav class=""navbar-static-top navbar-default navbar"" id=""nav4"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
-     <a class=""navbar-brand"" href=""#"">MyApp</a>
+     <a class=""navbar-brand"" href=""/"">MyApp</a>
      <button class=""collapsed navbar-toggle"" data-target=""#nav4-collapse"" data-toggle=""collapse"" type=""button"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
@@ -133,7 +133,7 @@ namespace FluentBootstrap.Tests
 @"<nav class=""navbar-inverse navbar-default navbar"" id=""nav5"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
-     <a class=""navbar-brand"" href=""#"">MyApp</a>
+     <a class=""navbar-brand"" href=""/"">MyApp</a>
      <button class=""collapsed navbar-toggle"" data-target=""#nav5-collapse"" data-toggle=""collapse"" type=""button"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
