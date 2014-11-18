@@ -17,7 +17,7 @@ namespace FluentBootstrap
             return new Navbar<THelper>(creator).SetFluid(fluid);
         }
 
-        public static Navbar<THelper> Navbar<THelper>(this INavbarCreator<THelper> creator, string brand, string href="#", bool fluid = true)
+        public static Navbar<THelper> Navbar<THelper>(this INavbarCreator<THelper> creator, string brand, string href="/", bool fluid = true)
             where THelper : BootstrapHelper<THelper>
         {
             return new Navbar<THelper>(creator).SetFluid(fluid).AddChild(x => x.Brand(brand, href));

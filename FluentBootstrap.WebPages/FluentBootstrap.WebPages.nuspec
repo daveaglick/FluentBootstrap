@@ -11,6 +11,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides HtmlHelpers for the Bootstrap CSS framework in ASP.NET Web Pages.</description>
     <copyright>Copyright 2014</copyright>
-    <tags>bootstrap webpages razor asp.net</tags>
+    <tags>Bootstrap AspNet WebPages AspNetWebPages</tags>
+	<dependencies>
+      <dependency id="FluentBootstrap" version="$version$" />
+	</dependencies>
   </metadata>
 </package>
