@@ -7,7 +7,7 @@
     <authors>Dave Glick</authors>
     <owners>Dave Glick</owners>
     <licenseUrl>https://github.com/somedave/FluentBootstrap/blob/master/license.txt</licenseUrl>
-    <projectUrl>http://fluentbootstrap.org</projectUrl>
+    <projectUrl>http://fluentbootstrap.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides HtmlHelpers for the Bootstrap CSS framework in ASP.NET Web Pages.</description>
     <copyright>Copyright 2014</copyright>

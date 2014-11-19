@@ -1,0 +1,14 @@
+﻿@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Alternate Model")
+    using (Html.Bootstrap().Div().SetId("test-alternate-model").Begin())
+    {
+        var model = new { Foo = "Foo", Bar = true, Baz = 123 };
+        using(var form = Html.Bootstrap(model).Form().Begin())
+        {
+            @form.EditorFor(x => x.Foo)
+            @form.DisplayFor(x => x.Bar)
+            @form.EditorFor(x => x.Baz)
+        }
+    }
+}

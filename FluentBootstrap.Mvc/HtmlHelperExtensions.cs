@@ -20,8 +20,12 @@ namespace FluentBootstrap
         // Adapted from an answer to http://stackoverflow.com/questions/1321254/asp-net-mvc-typesafe-html-textboxfor-with-different-outpuTHelper
         public static MvcBootstrapHelper<TModel> Bootstrap<TModel>(this HtmlHelper htmlHelper, TModel model)
         {
+            // Create a dummy controller context if we need one (this might happen with RazorGenerator/RazorDatabase)
+            ControllerContext controllerContext = htmlHelper.ViewContext.Controller.ControllerContext 
+                ?? new ControllerContext(htmlHelper.ViewContext.HttpContext, htmlHelper.ViewContext.RouteData, htmlHelper.ViewContext.Controller);
+
             ViewContext newViewContext = new ViewContext(
-                htmlHelper.ViewContext.Controller.ControllerContext,
+                controllerContext,
                 htmlHelper.ViewContext.View,
                 new ViewDataDictionary(htmlHelper.ViewDataContainer.ViewData) { Model = model },
                 htmlHelper.ViewContext.TempData,

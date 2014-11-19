@@ -139,6 +139,7 @@
     <Content Include="Views\Tests\ProgressBars.cshtml" />
     <Content Include="Views\Tests\MediaObjects.cshtml" />
     <Content Include="Views\Tests\ListGroups.cshtml" />
+    <Content Include="Views\Tests\Architecture.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />
