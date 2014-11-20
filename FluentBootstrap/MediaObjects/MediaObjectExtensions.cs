@@ -42,13 +42,13 @@ namespace FluentBootstrap
         public static MediaObject<THelper> SetLeft<THelper>(this MediaObject<THelper> mediaObject, bool left = true)
             where THelper : BootstrapHelper<THelper>
         {
-            return mediaObject.ToggleCss(Css.PullLeft, left, Css.PullRight);
+            return mediaObject.ToggleCss(Css.MediaLeft, left, Css.MediaRight);
         }
 
         public static MediaObject<THelper> SetRight<THelper>(this MediaObject<THelper> mediaObject, bool right = true)
             where THelper : BootstrapHelper<THelper>
         {
-            return mediaObject.ToggleCss(Css.PullRight, right, Css.PullLeft);
+            return mediaObject.ToggleCss(Css.MediaRight, right, Css.MediaLeft);
         }
 
         // Media Body

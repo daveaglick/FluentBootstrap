@@ -13,8 +13,8 @@ namespace FluentBootstrap
 		Asterisk,
 		[Description("glyphicon-plus")]
 		Plus,
-		[Description("glyphicon-euro")]
-		Euro,
+		[Description("glyphicon-eur")]
+		Eur,
 		[Description("glyphicon-minus")]
 		Minus,
 		[Description("glyphicon-cloud")]

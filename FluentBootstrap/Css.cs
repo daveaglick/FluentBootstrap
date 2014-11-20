@@ -287,6 +287,7 @@ namespace FluentBootstrap
 		public const string EmbedResponsiveItem = "embed-responsive-item";
 		public const string Eot = "eot";
 		public const string Fade = "fade";
+		public const string Focus = "focus";
 		public const string FormControl = "form-control";
 		public const string FormControlFeedback = "form-control-feedback";
 		public const string FormControlStatic = "form-control-static";
@@ -357,9 +358,12 @@ namespace FluentBootstrap
 		public const string Mark = "mark";
 		public const string Media = "media";
 		public const string MediaBody = "media-body";
+		public const string MediaBottom = "media-bottom";
 		public const string MediaHeading = "media-heading";
+		public const string MediaLeft = "media-left";
 		public const string MediaList = "media-list";
-		public const string MediaObject = "media-object";
+		public const string MediaMiddle = "media-middle";
+		public const string MediaRight = "media-right";
 		public const string Microsoft = "Microsoft";
 		public const string Modal = "modal";
 		public const string ModalBackdrop = "modal-backdrop";

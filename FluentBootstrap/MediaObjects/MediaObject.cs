@@ -31,7 +31,7 @@ namespace FluentBootstrap.MediaObjects
         private Image<THelper> _image;
 
         internal MediaObject(IComponentCreator<THelper> creator)
-            : base(creator, "a", Css.PullLeft)
+            : base(creator, "a", Css.MediaLeft)
         {
         }
 
@@ -46,7 +46,7 @@ namespace FluentBootstrap.MediaObjects
 
             base.OnStart(writer);
 
-            _image = Helper.Image(Src, Alt).AddCss(Css.MediaObject);
+            _image = Helper.Image(Src, Alt);
             _image.Start(writer);
         }
 
