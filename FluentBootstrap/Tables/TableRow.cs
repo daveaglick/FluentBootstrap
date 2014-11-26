@@ -32,15 +32,32 @@ namespace FluentBootstrap.Tables
             Pop<ITableRow>(writer);
 
             // Make sure we're in a section, but only if we're also in a table
-            if (GetComponent<ITable>() != null && GetComponent<ITableSection>() == null)
+            if (GetComponent<ITable>() != null)
             {
+                ITableSection tableSection = GetComponent<ITableSection>();
                 if (HeadRow)
                 {
-                    new TableHeadSection<THelper>(Helper).Start(writer);
+                    if (tableSection != null && !(tableSection is ITableHeadSection) && tableSection.Implicit)
+                    {
+                        Pop(tableSection, writer);
+                        tableSection = null;
+                    }
+                    if (tableSection == null)
+                    {
+                        new TableHeadSection<THelper>(Helper).Start(writer);
+                    }
                 }
                 else
                 {
-                    new TableBodySection<THelper>(Helper).Start(writer);
+                    if (tableSection != null && !(tableSection is ITableBodySection) && tableSection.Implicit)
+                    {
+                        Pop(tableSection, writer);
+                        tableSection = null;
+                    }
+                    if (tableSection == null)
+                    {
+                        new TableBodySection<THelper>(Helper).Start(writer);
+                    }
                 }
             }
 

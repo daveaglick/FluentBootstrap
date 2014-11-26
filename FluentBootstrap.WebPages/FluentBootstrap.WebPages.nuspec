@@ -7,6 +7,7 @@
     <authors>Dave Glick</authors>
     <owners>Dave Glick</owners>
     <licenseUrl>https://github.com/somedave/FluentBootstrap/blob/master/license.txt</licenseUrl>
+	<iconUrl>http://fluentbootstrap.com/Content/fb-icon.png</iconUrl>
     <projectUrl>http://fluentbootstrap.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides HtmlHelpers for the Bootstrap CSS framework in ASP.NET Web Pages.</description>

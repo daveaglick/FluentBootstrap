@@ -305,6 +305,24 @@ namespace FluentBootstrap
                 return;
             }
 
+            // Get the stack
+            Stack<IComponent> stack = GetComponentStack();
+
+            // Peek components until we get to this one - the call to Finish() will pop them
+            Component peek = null;
+            while (stack.Count > 0 && (peek = (Component)stack.Peek()) != this && peek.Implicit)
+            {
+                peek.Finish(writer);
+            }
+
+            // Sanity check
+            if (peek != this)
+            {
+                throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, " +
+                    "which is usually an indication that a component has been disposed out of order " +
+                    "or that more than one component was created in a single using statement.");
+            }
+
             // Note that this component is outputting
             GetOutputStack().Push(this);
 
@@ -343,7 +361,15 @@ namespace FluentBootstrap
         // To suppress output, pass in SuppressOutputWriter
         protected virtual void OnFinish(TextWriter writer)
         {
-            Pop(writer);
+            // Get the stack
+            Stack<IComponent> stack = GetComponentStack();
+
+            // Pop the component from the stack
+            IComponent pop = stack.Pop();
+            if (pop != this)
+            {
+                throw new InvalidOperationException("Popped a different Bootstrap component from the component stack (you should never see this).");
+            }
         }
 
         private void WriteChildren(TextWriter writer)
@@ -359,35 +385,6 @@ namespace FluentBootstrap
         private void Push()
         {
             GetComponentStack().Push(this);
-        }
-
-        // This also writes end content from any components pending on the stack until this one
-        private void Pop(TextWriter writer)
-        {
-            // Get the stack
-            Stack<IComponent> stack = GetComponentStack();
-
-            // Peek components until we get to this one - the call to Finish() will pop them
-            Component peek = null;
-            while (stack.Count > 0 && (peek = (Component)stack.Peek()) != this && peek.Implicit)
-            {
-                peek.Finish(writer);
-            }
-
-            // Sanity check
-            if (peek != this)
-            {
-                throw new InvalidOperationException("A Bootstrap component is finishing but is not at the top of the stack, " +
-                    "which is usually an indication that a component has been disposed out of order " +
-                    "or that more than one component was created in a single using statement.");
-            }
-
-            // Pop the component from the stack
-            IComponent pop = stack.Pop();
-            if (pop != this)
-            {
-                throw new InvalidOperationException("Popped a different Bootstrap component from the component stack (you should never see this).");
-            }
         }
 
         // This pops up the stack if (and only if) it is assignable to the specified type
@@ -427,7 +424,7 @@ namespace FluentBootstrap
 
         // This pops up the stack if (and only if) the requested component and all intermediate components are implicit
         // Use this to clear specific implicitly added components from the stack (see how Forms.Input works)
-        internal void Pop(Component pop, TextWriter writer)
+        internal void Pop(IComponent pop, TextWriter writer)
         {
             if (pop == null || !pop.Implicit)
             {
