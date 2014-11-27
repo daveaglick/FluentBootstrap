@@ -6,8 +6,28 @@
         using (var table = Html.Bootstrap(this).Table().SetStyle(TableStyle.Striped).Begin())
         {
             @table.TableHeaderRow("#", "First Name", "Last Name", "Username")
-            @table.TableDataRow("1", "Mark", "Otto", "@mdo")
-            @table.TableDataRow("2", "Jacob", "Thornton", "@fat")
+            @table.TableDataRow("1", "Mark", "Otto", "mdo")
+            @table.TableDataRow("2", "Jacob", "Thornton", "fat")
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Explicit Sections")
+    using (Html.Bootstrap().Div().SetId("test-explicit-sections").Begin())
+    {
+        using (var table = Html.Bootstrap(this).Table().Begin())
+        {
+            using (table.TableHeadSection().Begin())
+            {
+                @table.TableHeaderRow("#", "First Name", "Last Name", "Username")
+                @table.TableDataRow("1", "Mark", "Otto", "mdo")
+            }
+            using (table.TableBodySection().Begin())
+            {
+                @table.TableHeaderRow("#", "First Name", "Last Name", "Username")
+                @table.TableDataRow("2", "Jacob", "Thornton", "fat")
+            }
         }
     }
 }
