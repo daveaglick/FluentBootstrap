@@ -365,6 +365,10 @@ namespace FluentBootstrap
             Stack<IComponent> stack = GetComponentStack();
 
             // Pop the component from the stack
+            if (stack.Count == 0)
+            {
+                throw new InvalidOperationException("Finishing a Bootstrap component with an empty stack (you should never see this).");
+            }
             IComponent pop = stack.Pop();
             if (pop != this)
             {
@@ -463,6 +467,10 @@ namespace FluentBootstrap
             where TComponent : class, IComponent
         {
             Stack<IComponent> stack = GetComponentStack();
+            if(stack.Count == 0)
+            {
+                return null;
+            }
             if(onlyParent)
             {
                 // Need to account for if this component has been added to the stack or not
@@ -480,7 +488,6 @@ namespace FluentBootstrap
         {
             return GetStack(ComponentStackKey);
         }
-
 
         private Stack<IComponent> GetOutputStack()
         {
