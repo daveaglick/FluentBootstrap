@@ -43,9 +43,9 @@
 				cssClasses.Add(match.Groups[0].Value.Substring(1));	
 			}
 		}
-
+		// Sepaprate alpha & numeric portions for ordering http://stackoverflow.com/a/19288352/3042939
 		// Generate the const strings
-		foreach(string cssClass in cssClasses.OrderBy(x => x))
+		foreach(string cssClass in cssClasses.OrderBy(x => new string(x.Where(char.IsLetter).ToArray()) + new string(x.Where(char.IsDigit).ToArray()).PadLeft(2, '0') ))
 		{
 			WriteLine("\t\tpublic const string " + String.Join(null, cssClass.Split(new char[]{'-'}, StringSplitOptions.RemoveEmptyEntries)
 				.Select(x => char.ToUpper(x[0]).ToString() + x.Substring(1))) + " = \"" + cssClass + "\";");		
