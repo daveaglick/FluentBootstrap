@@ -45,7 +45,7 @@
 				cssClasses.Add(match.Groups[0].Value.Substring(1));	
 			}
 		}
-		// Sepaprate alpha & numeric portions for ordering http://stackoverflow.com/a/19288352/3042939
+		// Separate alpha & numeric portions for ordering http://stackoverflow.com/a/19288352/3042939
 		// Generate the const strings
 		foreach(string cssClass in cssClasses.OrderBy(x => new string(x.Where(char.IsLetter).ToArray()) + new string(x.Where(char.IsDigit).ToArray()).PadLeft(2, '0') ))
 		{
