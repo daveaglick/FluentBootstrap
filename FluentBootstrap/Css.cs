@@ -278,8 +278,8 @@ namespace FluentBootstrap
 		public const string DropdownToggle = "dropdown-toggle";
 		public const string Dropup = "dropup";
 		public const string EmbedResponsive = "embed-responsive";
-		public const string EmbedResponsive16by9 = "embed-responsive-16by9";
-		public const string EmbedResponsive4by3 = "embed-responsive-4by3";
+		public const string EmbedResponsive16By9 = "embed-responsive-16by9";
+		public const string EmbedResponsive4By3 = "embed-responsive-4by3";
 		public const string EmbedResponsiveItem = "embed-responsive-item";
 		public const string Eot = "eot";
 		public const string Fade = "fade";

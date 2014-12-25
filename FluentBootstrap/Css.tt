@@ -1,6 +1,7 @@
 ﻿<#@ template language="C#" hostSpecific="true" #>
 <#@ assembly name="System.Core" #> 
 <#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Globalization" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <# Process(); #>
@@ -13,6 +14,7 @@
 	string lineComments = @"//(.*?)\r?\n";
 	string strings = @"""((\\[^\n]|[^""\n])*)""";
 	string verbatimStrings = @"@(""[^""]*"")+";
+	TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
 
 	public void Process()
 	{
@@ -48,7 +50,7 @@
 		foreach(string cssClass in cssClasses.OrderBy(x => new string(x.Where(char.IsLetter).ToArray()) + new string(x.Where(char.IsDigit).ToArray()).PadLeft(2, '0') ))
 		{
 			WriteLine("\t\tpublic const string " + String.Join(null, cssClass.Split(new char[]{'-'}, StringSplitOptions.RemoveEmptyEntries)
-				.Select(x => char.ToUpper(x[0]).ToString() + x.Substring(1))) + " = \"" + cssClass + "\";");		
+				.Select(x => textInfo.ToTitleCase(x))) + " = \"" + cssClass + "\";");		
 		}
 
 		WriteLine("\t}");
