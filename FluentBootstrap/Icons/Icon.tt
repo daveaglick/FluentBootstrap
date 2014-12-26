@@ -1,11 +1,13 @@
 ﻿<#@ template language="C#" hostSpecific="true" #>
 <#@ assembly name="System.Core" #> 
 <#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Globalization" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <# Process(); #>
 <#+
 	readonly Regex regex = new Regex(@"^\.glyphicon-(.*)\:before \{$", RegexOptions.Compiled | RegexOptions.Multiline);
+	TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
 
 	public void Process()
 	{
@@ -21,7 +23,7 @@
 		{
 			WriteLine("\t\t[Description(\"glyphicon-" + match.Groups[1].Value + "\")]");
 			WriteLine("\t\t" + String.Join(null, match.Groups[1].Value.Split(new char[]{'-'}, StringSplitOptions.RemoveEmptyEntries)
-				.Select(x => (char.IsDigit(x[0]) ? ("_" + x[0]) : char.ToUpper(x[0]).ToString()) + x.Substring(1))) + ",");			
+				.Select(x => (char.IsDigit(x[0]) ? ("_" + x[0]) + x.Substring(1) : textInfo.ToTitleCase(x)) )) + ",");			
 		}
 		WriteLine("\t\t[Description(\"\")]");
 		WriteLine("\t\tNone");

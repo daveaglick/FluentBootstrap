@@ -1,7 +1,3 @@
-﻿
- 
-
-
 
 namespace FluentBootstrap
 {
@@ -63,9 +59,6 @@ namespace FluentBootstrap
 		public const string Collapse = "collapse";
 		public const string Collapsing = "collapsing";
 		public const string ColLg1 = "col-lg-1";
-		public const string ColLg10 = "col-lg-10";
-		public const string ColLg11 = "col-lg-11";
-		public const string ColLg12 = "col-lg-12";
 		public const string ColLg2 = "col-lg-2";
 		public const string ColLg3 = "col-lg-3";
 		public const string ColLg4 = "col-lg-4";
@@ -74,11 +67,11 @@ namespace FluentBootstrap
 		public const string ColLg7 = "col-lg-7";
 		public const string ColLg8 = "col-lg-8";
 		public const string ColLg9 = "col-lg-9";
+		public const string ColLg10 = "col-lg-10";
+		public const string ColLg11 = "col-lg-11";
+		public const string ColLg12 = "col-lg-12";
 		public const string ColLgOffset0 = "col-lg-offset-0";
 		public const string ColLgOffset1 = "col-lg-offset-1";
-		public const string ColLgOffset10 = "col-lg-offset-10";
-		public const string ColLgOffset11 = "col-lg-offset-11";
-		public const string ColLgOffset12 = "col-lg-offset-12";
 		public const string ColLgOffset2 = "col-lg-offset-2";
 		public const string ColLgOffset3 = "col-lg-offset-3";
 		public const string ColLgOffset4 = "col-lg-offset-4";
@@ -87,11 +80,11 @@ namespace FluentBootstrap
 		public const string ColLgOffset7 = "col-lg-offset-7";
 		public const string ColLgOffset8 = "col-lg-offset-8";
 		public const string ColLgOffset9 = "col-lg-offset-9";
+		public const string ColLgOffset10 = "col-lg-offset-10";
+		public const string ColLgOffset11 = "col-lg-offset-11";
+		public const string ColLgOffset12 = "col-lg-offset-12";
 		public const string ColLgPull0 = "col-lg-pull-0";
 		public const string ColLgPull1 = "col-lg-pull-1";
-		public const string ColLgPull10 = "col-lg-pull-10";
-		public const string ColLgPull11 = "col-lg-pull-11";
-		public const string ColLgPull12 = "col-lg-pull-12";
 		public const string ColLgPull2 = "col-lg-pull-2";
 		public const string ColLgPull3 = "col-lg-pull-3";
 		public const string ColLgPull4 = "col-lg-pull-4";
@@ -100,11 +93,11 @@ namespace FluentBootstrap
 		public const string ColLgPull7 = "col-lg-pull-7";
 		public const string ColLgPull8 = "col-lg-pull-8";
 		public const string ColLgPull9 = "col-lg-pull-9";
+		public const string ColLgPull10 = "col-lg-pull-10";
+		public const string ColLgPull11 = "col-lg-pull-11";
+		public const string ColLgPull12 = "col-lg-pull-12";
 		public const string ColLgPush0 = "col-lg-push-0";
 		public const string ColLgPush1 = "col-lg-push-1";
-		public const string ColLgPush10 = "col-lg-push-10";
-		public const string ColLgPush11 = "col-lg-push-11";
-		public const string ColLgPush12 = "col-lg-push-12";
 		public const string ColLgPush2 = "col-lg-push-2";
 		public const string ColLgPush3 = "col-lg-push-3";
 		public const string ColLgPush4 = "col-lg-push-4";
@@ -113,10 +106,10 @@ namespace FluentBootstrap
 		public const string ColLgPush7 = "col-lg-push-7";
 		public const string ColLgPush8 = "col-lg-push-8";
 		public const string ColLgPush9 = "col-lg-push-9";
+		public const string ColLgPush10 = "col-lg-push-10";
+		public const string ColLgPush11 = "col-lg-push-11";
+		public const string ColLgPush12 = "col-lg-push-12";
 		public const string ColMd1 = "col-md-1";
-		public const string ColMd10 = "col-md-10";
-		public const string ColMd11 = "col-md-11";
-		public const string ColMd12 = "col-md-12";
 		public const string ColMd2 = "col-md-2";
 		public const string ColMd3 = "col-md-3";
 		public const string ColMd4 = "col-md-4";
@@ -125,11 +118,11 @@ namespace FluentBootstrap
 		public const string ColMd7 = "col-md-7";
 		public const string ColMd8 = "col-md-8";
 		public const string ColMd9 = "col-md-9";
+		public const string ColMd10 = "col-md-10";
+		public const string ColMd11 = "col-md-11";
+		public const string ColMd12 = "col-md-12";
 		public const string ColMdOffset0 = "col-md-offset-0";
 		public const string ColMdOffset1 = "col-md-offset-1";
-		public const string ColMdOffset10 = "col-md-offset-10";
-		public const string ColMdOffset11 = "col-md-offset-11";
-		public const string ColMdOffset12 = "col-md-offset-12";
 		public const string ColMdOffset2 = "col-md-offset-2";
 		public const string ColMdOffset3 = "col-md-offset-3";
 		public const string ColMdOffset4 = "col-md-offset-4";
@@ -138,11 +131,11 @@ namespace FluentBootstrap
 		public const string ColMdOffset7 = "col-md-offset-7";
 		public const string ColMdOffset8 = "col-md-offset-8";
 		public const string ColMdOffset9 = "col-md-offset-9";
+		public const string ColMdOffset10 = "col-md-offset-10";
+		public const string ColMdOffset11 = "col-md-offset-11";
+		public const string ColMdOffset12 = "col-md-offset-12";
 		public const string ColMdPull0 = "col-md-pull-0";
 		public const string ColMdPull1 = "col-md-pull-1";
-		public const string ColMdPull10 = "col-md-pull-10";
-		public const string ColMdPull11 = "col-md-pull-11";
-		public const string ColMdPull12 = "col-md-pull-12";
 		public const string ColMdPull2 = "col-md-pull-2";
 		public const string ColMdPull3 = "col-md-pull-3";
 		public const string ColMdPull4 = "col-md-pull-4";
@@ -151,11 +144,11 @@ namespace FluentBootstrap
 		public const string ColMdPull7 = "col-md-pull-7";
 		public const string ColMdPull8 = "col-md-pull-8";
 		public const string ColMdPull9 = "col-md-pull-9";
+		public const string ColMdPull10 = "col-md-pull-10";
+		public const string ColMdPull11 = "col-md-pull-11";
+		public const string ColMdPull12 = "col-md-pull-12";
 		public const string ColMdPush0 = "col-md-push-0";
 		public const string ColMdPush1 = "col-md-push-1";
-		public const string ColMdPush10 = "col-md-push-10";
-		public const string ColMdPush11 = "col-md-push-11";
-		public const string ColMdPush12 = "col-md-push-12";
 		public const string ColMdPush2 = "col-md-push-2";
 		public const string ColMdPush3 = "col-md-push-3";
 		public const string ColMdPush4 = "col-md-push-4";
@@ -164,10 +157,10 @@ namespace FluentBootstrap
 		public const string ColMdPush7 = "col-md-push-7";
 		public const string ColMdPush8 = "col-md-push-8";
 		public const string ColMdPush9 = "col-md-push-9";
+		public const string ColMdPush10 = "col-md-push-10";
+		public const string ColMdPush11 = "col-md-push-11";
+		public const string ColMdPush12 = "col-md-push-12";
 		public const string ColSm1 = "col-sm-1";
-		public const string ColSm10 = "col-sm-10";
-		public const string ColSm11 = "col-sm-11";
-		public const string ColSm12 = "col-sm-12";
 		public const string ColSm2 = "col-sm-2";
 		public const string ColSm3 = "col-sm-3";
 		public const string ColSm4 = "col-sm-4";
@@ -176,11 +169,11 @@ namespace FluentBootstrap
 		public const string ColSm7 = "col-sm-7";
 		public const string ColSm8 = "col-sm-8";
 		public const string ColSm9 = "col-sm-9";
+		public const string ColSm10 = "col-sm-10";
+		public const string ColSm11 = "col-sm-11";
+		public const string ColSm12 = "col-sm-12";
 		public const string ColSmOffset0 = "col-sm-offset-0";
 		public const string ColSmOffset1 = "col-sm-offset-1";
-		public const string ColSmOffset10 = "col-sm-offset-10";
-		public const string ColSmOffset11 = "col-sm-offset-11";
-		public const string ColSmOffset12 = "col-sm-offset-12";
 		public const string ColSmOffset2 = "col-sm-offset-2";
 		public const string ColSmOffset3 = "col-sm-offset-3";
 		public const string ColSmOffset4 = "col-sm-offset-4";
@@ -189,11 +182,11 @@ namespace FluentBootstrap
 		public const string ColSmOffset7 = "col-sm-offset-7";
 		public const string ColSmOffset8 = "col-sm-offset-8";
 		public const string ColSmOffset9 = "col-sm-offset-9";
+		public const string ColSmOffset10 = "col-sm-offset-10";
+		public const string ColSmOffset11 = "col-sm-offset-11";
+		public const string ColSmOffset12 = "col-sm-offset-12";
 		public const string ColSmPull0 = "col-sm-pull-0";
 		public const string ColSmPull1 = "col-sm-pull-1";
-		public const string ColSmPull10 = "col-sm-pull-10";
-		public const string ColSmPull11 = "col-sm-pull-11";
-		public const string ColSmPull12 = "col-sm-pull-12";
 		public const string ColSmPull2 = "col-sm-pull-2";
 		public const string ColSmPull3 = "col-sm-pull-3";
 		public const string ColSmPull4 = "col-sm-pull-4";
@@ -202,11 +195,11 @@ namespace FluentBootstrap
 		public const string ColSmPull7 = "col-sm-pull-7";
 		public const string ColSmPull8 = "col-sm-pull-8";
 		public const string ColSmPull9 = "col-sm-pull-9";
+		public const string ColSmPull10 = "col-sm-pull-10";
+		public const string ColSmPull11 = "col-sm-pull-11";
+		public const string ColSmPull12 = "col-sm-pull-12";
 		public const string ColSmPush0 = "col-sm-push-0";
 		public const string ColSmPush1 = "col-sm-push-1";
-		public const string ColSmPush10 = "col-sm-push-10";
-		public const string ColSmPush11 = "col-sm-push-11";
-		public const string ColSmPush12 = "col-sm-push-12";
 		public const string ColSmPush2 = "col-sm-push-2";
 		public const string ColSmPush3 = "col-sm-push-3";
 		public const string ColSmPush4 = "col-sm-push-4";
@@ -215,10 +208,10 @@ namespace FluentBootstrap
 		public const string ColSmPush7 = "col-sm-push-7";
 		public const string ColSmPush8 = "col-sm-push-8";
 		public const string ColSmPush9 = "col-sm-push-9";
+		public const string ColSmPush10 = "col-sm-push-10";
+		public const string ColSmPush11 = "col-sm-push-11";
+		public const string ColSmPush12 = "col-sm-push-12";
 		public const string ColXs1 = "col-xs-1";
-		public const string ColXs10 = "col-xs-10";
-		public const string ColXs11 = "col-xs-11";
-		public const string ColXs12 = "col-xs-12";
 		public const string ColXs2 = "col-xs-2";
 		public const string ColXs3 = "col-xs-3";
 		public const string ColXs4 = "col-xs-4";
@@ -227,11 +220,11 @@ namespace FluentBootstrap
 		public const string ColXs7 = "col-xs-7";
 		public const string ColXs8 = "col-xs-8";
 		public const string ColXs9 = "col-xs-9";
+		public const string ColXs10 = "col-xs-10";
+		public const string ColXs11 = "col-xs-11";
+		public const string ColXs12 = "col-xs-12";
 		public const string ColXsOffset0 = "col-xs-offset-0";
 		public const string ColXsOffset1 = "col-xs-offset-1";
-		public const string ColXsOffset10 = "col-xs-offset-10";
-		public const string ColXsOffset11 = "col-xs-offset-11";
-		public const string ColXsOffset12 = "col-xs-offset-12";
 		public const string ColXsOffset2 = "col-xs-offset-2";
 		public const string ColXsOffset3 = "col-xs-offset-3";
 		public const string ColXsOffset4 = "col-xs-offset-4";
@@ -240,11 +233,11 @@ namespace FluentBootstrap
 		public const string ColXsOffset7 = "col-xs-offset-7";
 		public const string ColXsOffset8 = "col-xs-offset-8";
 		public const string ColXsOffset9 = "col-xs-offset-9";
+		public const string ColXsOffset10 = "col-xs-offset-10";
+		public const string ColXsOffset11 = "col-xs-offset-11";
+		public const string ColXsOffset12 = "col-xs-offset-12";
 		public const string ColXsPull0 = "col-xs-pull-0";
 		public const string ColXsPull1 = "col-xs-pull-1";
-		public const string ColXsPull10 = "col-xs-pull-10";
-		public const string ColXsPull11 = "col-xs-pull-11";
-		public const string ColXsPull12 = "col-xs-pull-12";
 		public const string ColXsPull2 = "col-xs-pull-2";
 		public const string ColXsPull3 = "col-xs-pull-3";
 		public const string ColXsPull4 = "col-xs-pull-4";
@@ -253,11 +246,11 @@ namespace FluentBootstrap
 		public const string ColXsPull7 = "col-xs-pull-7";
 		public const string ColXsPull8 = "col-xs-pull-8";
 		public const string ColXsPull9 = "col-xs-pull-9";
+		public const string ColXsPull10 = "col-xs-pull-10";
+		public const string ColXsPull11 = "col-xs-pull-11";
+		public const string ColXsPull12 = "col-xs-pull-12";
 		public const string ColXsPush0 = "col-xs-push-0";
 		public const string ColXsPush1 = "col-xs-push-1";
-		public const string ColXsPush10 = "col-xs-push-10";
-		public const string ColXsPush11 = "col-xs-push-11";
-		public const string ColXsPush12 = "col-xs-push-12";
 		public const string ColXsPush2 = "col-xs-push-2";
 		public const string ColXsPush3 = "col-xs-push-3";
 		public const string ColXsPush4 = "col-xs-push-4";
@@ -266,6 +259,9 @@ namespace FluentBootstrap
 		public const string ColXsPush7 = "col-xs-push-7";
 		public const string ColXsPush8 = "col-xs-push-8";
 		public const string ColXsPush9 = "col-xs-push-9";
+		public const string ColXsPush10 = "col-xs-push-10";
+		public const string ColXsPush11 = "col-xs-push-11";
+		public const string ColXsPush12 = "col-xs-push-12";
 		public const string Container = "container";
 		public const string ContainerFluid = "container-fluid";
 		public const string ControlLabel = "control-label";
@@ -282,8 +278,8 @@ namespace FluentBootstrap
 		public const string DropdownToggle = "dropdown-toggle";
 		public const string Dropup = "dropup";
 		public const string EmbedResponsive = "embed-responsive";
-		public const string EmbedResponsive16by9 = "embed-responsive-16by9";
-		public const string EmbedResponsive4by3 = "embed-responsive-4by3";
+		public const string EmbedResponsive16By9 = "embed-responsive-16by9";
+		public const string EmbedResponsive4By3 = "embed-responsive-4by3";
 		public const string EmbedResponsiveItem = "embed-responsive-item";
 		public const string Eot = "eot";
 		public const string Fade = "fade";
