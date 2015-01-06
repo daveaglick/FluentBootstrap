@@ -1,4 +1,4 @@
-
+﻿ 
 namespace FluentBootstrap
 {
 	public static class Css
@@ -501,4 +501,3 @@ namespace FluentBootstrap
 		public const string Woff = "woff";
 	}
 }
-

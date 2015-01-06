@@ -1,8 +1,4 @@
-﻿
- 
-
-
-
+﻿ 
 using System.ComponentModel;
 
 namespace FluentBootstrap
@@ -413,4 +409,3 @@ namespace FluentBootstrap
 		None
 	}
 }
-
