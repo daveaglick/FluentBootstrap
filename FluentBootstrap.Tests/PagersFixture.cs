@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ManualPagerProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Pagers>("test-manual",
+            TestHelper.AssertHtml<ASP._Views_Tests_Pagers_cshtml>("test-manual",
 @"<nav>
    <ul class=""pager"">
     <li>
@@ -32,7 +32,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AutomaticPagerProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Pagers>("test-automatic",
+            TestHelper.AssertHtml<ASP._Views_Tests_Pagers_cshtml>("test-automatic",
 @"<nav>
    <ul class=""pager"">
     <li class=""previous"">

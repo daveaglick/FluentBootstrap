@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ManualPagerProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Labels>("test-inline",
+            TestHelper.AssertHtml<ASP._Views_Tests_Labels_cshtml>("test-inline",
 @"<p>This is a 
   <span class=""label-default label"">inline</span> label.</p>");
         }
@@ -21,7 +21,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AutomaticPagerProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Labels>("test-headers",
+            TestHelper.AssertHtml<ASP._Views_Tests_Labels_cshtml>("test-headers",
 @"<h1>A label in a 
    <span class=""label-default label"">heading</span>
   </h1>

@@ -14,7 +14,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AlternateModelProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Architecture>("test-alternate-model",
+            TestHelper.AssertHtml<ASP._Views_Tests_Architecture_cshtml>("test-alternate-model",
 @"<form method=""post"" role=""form"">
    <div class=""form-group"">
     <label class=""control-label"" for=""Foo"">Foo</label>
@@ -35,6 +35,18 @@ namespace FluentBootstrap.Tests
     <div class=""text-danger form-control-static""></div>
    </div>
   </form>");
+        }
+
+        [Test]
+        public void AlternateBeginSyntaxProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Architecture_cshtml>("test-alternate-begin",
+@"<div class=""btn-group"">
+   <button class=""btn-default btn"" type=""button"">
+    <span class=""glyphicon-music glyphicon""></span> A
+   </button>
+   <button class=""btn-default btn"" type=""button"">B</button>
+  </div>");
         }
     }
 }

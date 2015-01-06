@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void BreadcrumbProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Breadcrumbs>("test-breadcrumb",
+            TestHelper.AssertHtml<ASP._Views_Tests_Breadcrumbs_cshtml>("test-breadcrumb",
 @"<ol class=""breadcrumb"">
    <li>
     <a href=""#"">First</a>

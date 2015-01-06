@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StripedTableProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Tables>("test-striped",
+            TestHelper.AssertHtml<ASP._Views_Tests_Tables_cshtml>("test-striped",
 @"<table class=""table-striped table"">
    <thead>
     <tr>
@@ -43,7 +43,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void TableWithExplicitSectionsProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Tables>("test-explicit-sections",
+            TestHelper.AssertHtml<ASP._Views_Tests_Tables_cshtml>("test-explicit-sections",
 @"<table class=""table"">
    <thead>
     <tr>

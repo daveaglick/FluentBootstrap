@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void WithChildProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Tags>("test-with-child",
+            TestHelper.AssertHtml<ASP._Views_Tests_Tags_cshtml>("test-with-child",
 @"<div class=""row"">
    <div class=""col-md-12"">With Child</div>
   </div>");
@@ -22,7 +22,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void WithChildDisposableProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Tags>("test-with-child-disposable",
+            TestHelper.AssertHtml<ASP._Views_Tests_Tags_cshtml>("test-with-child-disposable",
 @"<div class=""row"">
    <div class=""col-md-12"">            With Child Disposable
 </div>
@@ -32,7 +32,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void WithChildNestedProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Tags>("test-with-child-nested",
+            TestHelper.AssertHtml<ASP._Views_Tests_Tags_cshtml>("test-with-child-nested",
 @"<div class=""container"">
    <div class=""row"">
     <div class=""col-md-8"">                A
@@ -45,7 +45,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AddChildProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Tags>("test-add-child",
+            TestHelper.AssertHtml<ASP._Views_Tests_Tags_cshtml>("test-add-child",
 @"<div class=""row"">
    <div class=""col-md-6"">A</div>
    <div class=""col-md-6"">B

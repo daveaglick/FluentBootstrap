@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-group",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-group",
 @"<div class=""btn-group"">
    <button class=""btn-default btn"" type=""button"">
     <span class=""glyphicon-music glyphicon""></span> A
@@ -26,7 +26,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonToolbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-toolbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-toolbar",
 @"<div class=""btn-toolbar"" role=""toolbar"">
    <div class=""btn-group"">
     <button class=""btn-default btn"" type=""button"">A</button>
@@ -45,7 +45,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonGroupSizingProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-group-sizing",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-group-sizing",
 @"<div class=""btn-group-lg btn-group"">
    <a class=""btn-default btn"" href=""#"" role=""button"">L</a>
    <button class=""btn-default btn"" type=""button"">A</button>
@@ -72,7 +72,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void NestedDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-nested-dropdown",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-nested-dropdown",
 @"<div class=""btn-group"">
    <button class=""btn-default btn"" type=""button"">A</button>
    <a class=""btn-default btn"" href=""#"" role=""button"">L</a>
@@ -108,7 +108,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void VerticalButtonGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-vertical",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-vertical",
 @"<div class=""btn-group-vertical"">
    <button class=""btn-default btn"" type=""button"">A</button>
    <a class=""btn-default btn"" href=""#"" role=""button"">L</a>
@@ -145,7 +145,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void JustifiedLinksProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-justified-links",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-justified-links",
 @"<div class=""btn-group-justified btn-group"">
    <a class=""btn-default btn"" href=""#"" role=""button"">A</a>
    <a class=""btn-default btn"" href=""#"" role=""button"">B</a>
@@ -156,7 +156,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void JustifiedButtonsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-justified-buttons",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-justified-buttons",
 @"<div class=""btn-group-justified btn-group"">
    <div class=""btn-group"">
     <button class=""btn-default btn"" type=""button"">A</button>
@@ -183,7 +183,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void JustifiedMixedProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-justified-mixed",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-justified-mixed",
 @"<div class=""btn-group-justified btn-group"">
    <div class=""btn-group"">
     <button class=""btn-default btn"" type=""button"">A</button>
@@ -212,7 +212,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SingleButtonDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-single-button-dropdown",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-single-button-dropdown",
 @"<div class=""btn-group"">
    <button class=""btn-success dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
     <span class=""caret""></span>
@@ -231,7 +231,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SplitButtonDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-split-button-dropdown",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-split-button-dropdown",
 @"<div class=""btn-group"">
    <button class=""btn-success btn"" type=""button"">A</button>
    <button class=""btn-success dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
@@ -252,7 +252,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonDropdownSizesProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-button-dropdown-sizes",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-button-dropdown-sizes",
 @"<div class=""btn-group"">
    <button class=""btn-lg btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Large 
     <span class=""caret""></span>
@@ -284,7 +284,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void DropupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Buttons>("test-dropup",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-dropup",
 @"<div class=""dropup btn-group"">
    <button class=""btn-success btn"" type=""button"">A</button>
    <button class=""btn-success dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">

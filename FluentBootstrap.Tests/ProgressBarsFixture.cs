@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void BasicProgressBarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-basic",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-basic",
 @"<div class=""progress"">
    <div style=""width: 34%;"" class=""progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""34"" role=""progressbar"">
     <span class=""sr-only"">34% Complete</span>
@@ -29,7 +29,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void PercentProgressBarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-percent",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-percent",
 @"<div class=""progress"">
    <div style=""width: 34%;"" class=""progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""34"" role=""progressbar"">34%</div>
   </div>");
@@ -38,7 +38,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void LabelProgressBarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-label",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-label",
 @"<div class=""progress"">
    <div style=""width: 78%;"" class=""progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""78"" role=""progressbar"">
     <span class=""sr-only"">78% Complete</span>Working On It
@@ -49,7 +49,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ProgressBarStatesProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-states",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-states",
 @"<div class=""progress"">
    <div style=""width: 34%;"" class=""progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""34"" role=""progressbar"">
     <span class=""sr-only"">34% Complete</span>
@@ -80,7 +80,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StripedProgressBarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-striped",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-striped",
 @"<div class=""progress"">
    <div style=""width: 34%;"" class=""progress-bar-striped progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""34"" role=""progressbar"">
     <span class=""sr-only"">34% Complete</span>
@@ -111,7 +111,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AnimatedProgressBarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-animated",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-animated",
 @"<div class=""progress"">
    <div style=""width: 34%;"" class=""active progress-bar-striped progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""34"" role=""progressbar"">
     <span class=""sr-only"">34% Complete</span>
@@ -142,7 +142,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StackedProgressBarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ProgressBars>("test-stacked",
+            TestHelper.AssertHtml<ASP._Views_Tests_ProgressBars_cshtml>("test-stacked",
 @"<div class=""progress"">
    <div style=""width: 35%;"" class=""progress-bar-success progress-bar"" aria-valuemax=""100"" aria-valuemin=""0"" aria-valuenow=""35"" role=""progressbar"">
     <span class=""sr-only"">35% Complete</span>

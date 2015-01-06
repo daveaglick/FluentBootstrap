@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void TabsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-tabs",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-tabs",
 @"<ul class=""nav-tabs nav"" role=""tablist"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -30,7 +30,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void PillsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-pills",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-pills",
 @"<ul class=""nav-pills nav"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -47,7 +47,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StackedPillsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-stacked-pills",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-stacked-pills",
 @"<ul class=""nav-stacked nav-pills nav"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -64,7 +64,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void JustifiedTabsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-justified-tabs",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-justified-tabs",
 @"<ul class=""nav-justified nav-tabs nav"" role=""tablist"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -81,7 +81,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void JustifiedPillsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-justified-pills",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-justified-pills",
 @"<ul class=""nav-justified nav-pills nav"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -98,7 +98,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void DisabledPillProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-disabled-pill",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-disabled-pill",
 @"<ul class=""nav-pills nav"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -115,7 +115,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void TabsDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-tabs-dropdown",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-tabs-dropdown",
 @"<ul class=""nav-tabs nav"" role=""tablist"">
    <li class=""active"">
     <a href=""#"">Home</a>
@@ -143,7 +143,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void PillsDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navs>("test-pills-dropdown",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-pills-dropdown",
 @"<ul class=""nav-pills nav"">
    <li class=""active"">
     <a href=""#"">Home</a>

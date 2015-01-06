@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void FullWidthJumbotronProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Misc>("test-fullwidth-jumbotron",
+            TestHelper.AssertHtml<ASP._Views_Tests_Misc_cshtml>("test-fullwidth-jumbotron",
 @"<div class=""jumbotron"">
   <div class=""container"">
    <h1>Heading</h1>
@@ -25,7 +25,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void JumbotronProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Misc>("test-jumbotron",
+            TestHelper.AssertHtml<ASP._Views_Tests_Misc_cshtml>("test-jumbotron",
 @"<div class=""jumbotron"">
    <h1>Heading</h1>
    <p>Some text.</p>
@@ -35,7 +35,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SimplePageHeaderProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Misc>("test-simple-pageheader",
+            TestHelper.AssertHtml<ASP._Views_Tests_Misc_cshtml>("test-simple-pageheader",
 @"<div class=""page-header"">
    <h1>Header
     <small>Small Text</small>
@@ -46,7 +46,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ComplexPageHeaderProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Misc>("test-complex-pageheader",
+            TestHelper.AssertHtml<ASP._Views_Tests_Misc_cshtml>("test-complex-pageheader",
 @"<div class=""page-header"">
    <h1>            Header
 

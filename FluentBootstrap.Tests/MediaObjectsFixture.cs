@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void DefaultMediaObjectsProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.MediaObjects>("test-default",
+            TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-default",
 @"<div class=""media"">
    <a class=""media-left"" href=""#"">
     <img src=""http://placehold.it/64x64"">
@@ -36,7 +36,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void RightMediaObjectProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.MediaObjects>("test-right",
+            TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-right",
 @"<div class=""media"">
    <div class=""media-body"">
     <h4 class=""media-heading"">Media</h4>                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
@@ -51,7 +51,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ExplicitHeadingMediaObjectProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.MediaObjects>("test-explicit-heading",
+            TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-explicit-heading",
 @"<div class=""media"">
    <a class=""media-left"" href=""#"">
     <img src=""http://placehold.it/64x64"">
@@ -66,7 +66,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void NestedMediaObjectsProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.MediaObjects>("test-nested",
+            TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-nested",
 @"<div class=""media"">
    <a class=""media-left"" href=""#"">
     <img src=""http://placehold.it/64x64"">
@@ -90,7 +90,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void MediaObjectListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.MediaObjects>("test-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-list",
 @"<ul class=""media-list"">
    <li class=""media"">
     <a class=""media-left"" href=""#"">

@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InlineBadgeProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Badges>("test-inline",
+            TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-inline",
 @"<p>Badge 
   <span class=""badge"">4</span></p>");
         }
@@ -21,7 +21,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void LinkBadgeProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Badges>("test-link",
+            TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-link",
 @"<p>
   <a href=""#"">Link
    <span class=""badge"">789</span>
@@ -31,7 +31,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonBadgeProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Badges>("test-button",
+            TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-button",
 @"<button class=""btn-default btn"" type=""button"">Button
    <span class=""badge"">4</span>
   </button>
@@ -43,7 +43,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void PillsBadgeProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Badges>("test-pills",
+            TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-pills",
 @"<ul class=""nav-pills nav"">
    <li>
     <a href=""#"">A

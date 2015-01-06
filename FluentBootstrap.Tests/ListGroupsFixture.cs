@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void BasicListGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-basic",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-basic",
 @"<div class=""list-group"">
    <div class=""list-group-item"">Item one</div>
    <div class=""list-group-item"">Item two</div>
@@ -24,7 +24,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ListGroupBadgesProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-badges",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-badges",
 @"<div class=""list-group"">
    <div class=""list-group-item"">Item one
     <span class=""badge"">14</span>
@@ -38,7 +38,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ListGroupLinksProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-links",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-links",
 @"<div class=""list-group"">
    <a class=""list-group-item"" href=""#"">Item one</a>
    <a class=""list-group-item"" href=""#"">Item two</a>
@@ -48,7 +48,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ActiveAndDisabledListGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-active-disabled",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-active-disabled",
 @"<div class=""list-group"">
    <a class=""active list-group-item"" href=""#"">Item one</a>
    <a class=""disabled list-group-item"" href=""#"">Item two</a>
@@ -59,7 +59,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ListGroupStatesProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-state",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-state",
 @"<div class=""list-group"">
    <div class=""list-group-item-success list-group-item"">Success</div>
    <div class=""list-group-item-info list-group-item"">Info</div>
@@ -75,7 +75,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ImplicitCustomListGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-implicit-custom",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-implicit-custom",
 @"<div class=""list-group"">
    <a class=""list-group-item"" href=""#"">
     <h4 class=""list-group-item-heading"">Heading</h4>
@@ -91,7 +91,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ExplicitCustomListGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.ListGroups>("test-explicit-custom",
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-explicit-custom",
 @"<div class=""list-group"">
    <div class=""list-group-item"">
     <h3 class=""list-group-item-heading"">Heading</h3>

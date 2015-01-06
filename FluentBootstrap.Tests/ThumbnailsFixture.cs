@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StandardThumbnailsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Thumbnails>("test-standard",
+            TestHelper.AssertHtml<ASP._Views_Tests_Thumbnails_cshtml>("test-standard",
 @"<div class=""row"">
    <div class=""col-md-4"">
     <a class=""thumbnail"" href=""#"">
@@ -36,7 +36,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ThumbnailContainersProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Thumbnails>("test-container",
+            TestHelper.AssertHtml<ASP._Views_Tests_Thumbnails_cshtml>("test-container",
 @"<div class=""row"">
    <div class=""col-md-3"">
     <div class=""thumbnail"">

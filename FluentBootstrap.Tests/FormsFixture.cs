@@ -16,7 +16,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ReadonlyProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-readonly",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-readonly",
 @"<form method=""post"" role=""form"">
    <div class=""form-group"">
     <label class=""control-label"" for=""readonly"">Readonly Input</label>
@@ -35,7 +35,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ValidationClassesProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-validation",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-validation",
 @"<form method=""post"" role=""form"">
    <div class=""has-error form-group"">
     <label class=""control-label"" for=""Error"">Error</label>
@@ -66,7 +66,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void BasicInputGroupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-basic-input-group",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-basic-input-group",
 @"<form method=""post"" role=""form"">
    <div class=""input-group"">
     <span class=""input-group-addon"">@</span>
@@ -90,7 +90,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InputGroupSizingProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-sizing",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-sizing",
 @"<form method=""post"" role=""form"">
    <div class=""input-group-lg input-group"">
     <span class=""input-group-addon"">@</span>
@@ -109,7 +109,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InputGroupCheckedProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-checked",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-checked",
 @"<form method=""post"" role=""form"">
    <div class=""input-group"">
     <span class=""input-group-addon"">
@@ -132,7 +132,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InputGroupButtonAddonsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-button-addons",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-button-addons",
 @"<form method=""post"" role=""form"">
    <div class=""input-group"">
     <span class=""input-group-btn"">
@@ -155,7 +155,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InputGroupButtonDropdownsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-button-dropdowns",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-button-dropdowns",
 @"<form method=""post"" role=""form"">
    <div class=""input-group"">
     <span class=""input-group-btn"">
@@ -198,7 +198,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InputGroupSegmentedButtonsProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Forms>("test-input-group-segmented-buttons",
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-segmented-buttons",
 @"<form method=""post"" role=""form"">
    <div class=""input-group"">
     <span class=""input-group-btn"">

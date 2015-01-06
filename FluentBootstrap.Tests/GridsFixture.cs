@@ -14,7 +14,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ContainerProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Grids>("test-container", 
+            TestHelper.AssertHtml<ASP._Views_Tests_Grids_cshtml>("test-container", 
 @"<div class=""container"">            Container
 </div>");
         }
@@ -22,7 +22,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void FluidContainerProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Grids>("test-fluid-container", 
+            TestHelper.AssertHtml<ASP._Views_Tests_Grids_cshtml>("test-fluid-container", 
 @"<div class=""container-fluid"">            Fluid Container
 </div>");
 
@@ -30,7 +30,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SimpleGridProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Grids>("test-simple-grid",
+            TestHelper.AssertHtml<ASP._Views_Tests_Grids_cshtml>("test-simple-grid",
 @"<div class=""row"">
    <div class=""col-md-3"">                3
 </div>
@@ -44,7 +44,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ComplexGridProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Grids>("test-complex-grid",
+            TestHelper.AssertHtml<ASP._Views_Tests_Grids_cshtml>("test-complex-grid",
 @"<div class=""row"">
    <div class=""col-xs-1"">                Xs1
 </div>
@@ -62,7 +62,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void OffsetPullPushGridProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Grids>("test-offset-pull-push-grid",
+            TestHelper.AssertHtml<ASP._Views_Tests_Grids_cshtml>("test-offset-pull-push-grid",
 @"<div class=""row"">
    <div class=""col-md-6 col-sm-5"">                A
 </div>

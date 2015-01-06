@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ManualPaginationProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Paginations>("test-manual",
+            TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-manual",
 @"<nav>
    <ul class=""pagination"">
     <li>
@@ -35,7 +35,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AutomaticPaginationProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Paginations>("test-automatic",
+            TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-automatic",
 @"<nav>
    <ul class=""pagination"">
     <li>
@@ -63,7 +63,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void PaginationSizesProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Paginations>("test-sizes",
+            TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-sizes",
 @"<nav>
    <ul class=""pagination-lg pagination"">
     <li>

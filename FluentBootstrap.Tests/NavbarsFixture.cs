@@ -13,7 +13,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StandardNavbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-standard-navbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-standard-navbar",
 @"<nav class=""navbar-default navbar"" id=""navbar"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
@@ -42,7 +42,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void NonFluidNavbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-nonfluid-navbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-nonfluid-navbar",
 @"<nav class=""navbar-default navbar"" id=""nav2"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
@@ -71,7 +71,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void FixedNavbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-fixed-navbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-fixed-navbar",
 @"<nav class=""navbar-fixed-bottom navbar-default navbar"" id=""nav3"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
@@ -100,7 +100,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void StaticNavbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-static-navbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-static-navbar",
 @"<nav class=""navbar-static-top navbar-default navbar"" id=""nav4"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
@@ -129,7 +129,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InverseNavbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-inverse-navbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-inverse-navbar",
 @"<nav class=""navbar-inverse navbar-default navbar"" id=""nav5"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
@@ -158,7 +158,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ManualNavbarProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-manual-navbar",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-manual-navbar",
 @"<nav class=""navbar-default navbar"" id=""nav6"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">
@@ -223,7 +223,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ImplicitSectionsProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Navbars>("test-implicit-sections",
+            TestHelper.AssertHtml<ASP._Views_Tests_Navbars_cshtml>("test-implicit-sections",
 @"<nav class=""navbar-default navbar"" id=""nav7"" role=""navigation"">
    <div class=""container-fluid"">
     <div class=""navbar-header"">

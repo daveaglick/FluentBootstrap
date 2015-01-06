@@ -14,7 +14,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SimpleDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-simple", 
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-simple", 
 @"<div class=""dropdown"">
    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
     <span class=""caret""></span>
@@ -35,7 +35,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void NoCaretDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-no-caret",
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-no-caret",
 @"<div class=""dropdown"">
    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">No Caret </button>
    <ul class=""dropdown-menu"" role=""menu"">
@@ -49,7 +49,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonStylesDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-button-styles",
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-button-styles",
 @"<div class=""dropdown"">
    <button class=""btn-xs btn-warning dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Button 
     <span class=""caret""></span>
@@ -65,7 +65,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void RightMenuDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-right-menu",
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-right-menu",
 @"<div class=""dropdown"">
    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Right 
     <span class=""caret""></span>
@@ -86,7 +86,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void DisabledDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-disabled",
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-disabled",
 @"<div class=""dropdown"">
    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Disabled 
     <span class=""caret""></span>
@@ -105,7 +105,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void DropupProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Dropdowns>("test-dropup",
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-dropup",
 @"<div class=""dropup dropdown"">
    <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropup 
     <span class=""caret""></span>

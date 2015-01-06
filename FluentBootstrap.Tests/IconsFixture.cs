@@ -14,7 +14,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InlineIconProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-inline-icon",
+            TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-inline-icon",
 @"This is an inline 
   <span class=""glyphicon-arrow-up glyphicon""></span> icon.");
         }
@@ -22,7 +22,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void ButtonIconProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-button-icon",
+            TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-button-icon",
 @"<button class=""btn-default btn"" type=""button"">
    <span class=""glyphicon-bell glyphicon""></span> Icon Button
   </button>");
@@ -31,7 +31,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void LinkButtonIconProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-link-button-icon",
+            TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-link-button-icon",
 @"<a class=""btn-default btn"" href=""#"" role=""button"">
    <span class=""glyphicon-picture glyphicon""></span> Link Button
   </a>");
@@ -40,7 +40,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void LinkIconProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-link-icon",
+            TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-link-icon",
 @"<a href=""#"">
    <span class=""glyphicon-road glyphicon""></span> Link
   </a>");
@@ -49,7 +49,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void FormFeedbackProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Icons>("test-form-feedback",
+            TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-form-feedback",
 @"<form method=""post"" role=""form"">
    <div class=""has-feedback form-group"">
     <label class=""control-label"" for=""Normal"">Normal</label>

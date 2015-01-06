@@ -15,7 +15,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void HeadingsProduceCorrectHtml()
         {
-            HtmlDocument doc = TestHelper.Render<FluentBootstrap.Tests.Web.Views.Tests.Typography>();
+            HtmlDocument doc = TestHelper.Render<ASP._Views_Tests_Typography_cshtml>();
             Assert.AreEqual(@"<h1>Heading 1</h1>", doc.GetElementbyId("test-heading-levels").ChildNodes["h1"].CollapsedOuterHtml());
             Assert.AreEqual(@"<h2>Heading 2</h2>", doc.GetElementbyId("test-heading-levels").ChildNodes["h2"].CollapsedOuterHtml());
             Assert.AreEqual(@"<h3>Heading 3</h3>", doc.GetElementbyId("test-heading-levels").ChildNodes["h3"].CollapsedOuterHtml());
@@ -27,7 +27,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SmallProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-small",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-small",
 @"<h3>Heading 3
    <small>This is small</small>
   </h3>");
@@ -36,7 +36,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void SmallChildProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-small-child",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-small-child",
 @"<h3>Heading 3
    <small>This is also small</small>
   </h3>");
@@ -45,7 +45,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void AlignmentProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-alignment",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-alignment",
 @"<p class=""text-left"">Left</p>
   <p class=""text-right"">            Right
 </p>
@@ -57,7 +57,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void TransformationProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-transformation",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-transformation",
 @"<p class=""text-lowercase"">Lowercase</p>
   <p class=""text-uppercase"">Uppercase</p>
   <p class=""text-capitalize"">capitalized text</p>");
@@ -66,14 +66,14 @@ namespace FluentBootstrap.Tests
         [Test]
         public void MultipleTextClassesProduceCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-multiple-text-classes",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-multiple-text-classes",
 @"<p class=""text-center text-uppercase"">Multiple</p>");
         }
 
         [Test]
         public void UnorderedListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-unordered-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-unordered-list",
 @"<ul>
    <li>One</li>
    <li>Two</li>
@@ -83,7 +83,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void OrderedListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-ordered-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-ordered-list",
 @"<ol>
    <li>One</li>
    <li>Two</li>
@@ -93,7 +93,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void UnstyledListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-unstyled-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-unstyled-list",
 @"<ul class=""list-unstyled"">
    <li>One</li>
    <li>Two</li>
@@ -103,7 +103,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void InlineListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-inline-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-inline-list",
 @"<ul class=""list-inline"">
    <li>One</li>
    <li>Two</li>
@@ -113,7 +113,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void DescriptionListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-description-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-description-list",
 @"<dl>
    <dt>Term</dt>
    <dd>Desc</dd>
@@ -125,7 +125,7 @@ namespace FluentBootstrap.Tests
         [Test]
         public void HorizontalDescriptionListProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<FluentBootstrap.Tests.Web.Views.Tests.Typography>("test-horizontal-description-list",
+            TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-horizontal-description-list",
 @"<dl class=""dl-horizontal"">
    <dt>Term</dt>
    <dd>Desc</dd>
