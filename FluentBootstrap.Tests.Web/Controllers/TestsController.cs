@@ -8,7 +8,6 @@ namespace FluentBootstrap.Tests.Web.Controllers
 {
     public class TestsController : Controller
     {
-        [Route("Tests/{*view}")]
         public virtual ActionResult Tests(string view)
         {
             return View(view);

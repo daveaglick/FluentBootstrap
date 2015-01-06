@@ -2,6 +2,7 @@
 using FluentBootstrap.Mvc.Forms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,19 @@ namespace FluentBootstrap.Mvc
 
         protected internal override string FormatValue(object value, string format)
         {
-            return HtmlHelper.FormatValue(value, format);
+            // From ViewDataDictionary.FormatValueInternal(), which is called from HtmlHelper.FormatValue()
+            // Reproduced here to remove dependency on ASP.NET MVC 4
+            if (value == null)
+            {
+                return string.Empty;
+            }
+            if (string.IsNullOrEmpty(format))
+            {
+                return Convert.ToString(value, CultureInfo.CurrentCulture);
+            }
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            object[] objArray = new object[] { value };
+            return string.Format(currentCulture, format, objArray);
         }
 
         protected internal override string GetFullHtmlFieldName(string name)

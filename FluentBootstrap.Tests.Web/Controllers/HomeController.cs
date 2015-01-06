@@ -8,7 +8,6 @@ namespace FluentBootstrap.Tests.Web.Controllers
 {
     public class HomeController : Controller
     {
-        [Route("")]
         public virtual ActionResult Index()
         {
             return View();
