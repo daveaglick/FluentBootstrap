@@ -163,6 +163,13 @@ namespace FluentBootstrap
             return null;
         }
 
+        public TWrapper Begin<TThis, TWrapper>(Func<THelper, Component<THelper, TThis, TWrapper>> component)
+            where TThis : Component<THelper, TThis, TWrapper>
+            where TWrapper : ComponentWrapper<THelper>, new()
+        {
+            return component(GetHelper()).Begin();
+        }
+
         // Derived helpers should override this method to register component overrides
         protected virtual void RegisterComponentOverrides()
         {
