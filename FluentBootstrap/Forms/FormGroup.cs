@@ -35,25 +35,25 @@ namespace FluentBootstrap.Forms
         {
         }
         
-        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             // Set column classes if we're horizontal          
-            ComponentBuilder<THelper, FormGroup> builder = GetBuilder(helper, this);
-            Form form = GetComponent<Form>(helper);
+            ComponentBuilder<FormGroup> builder = GetBuilder(this);
+            Form form = GetComponent<Form>();
             if ((form != null && form.Horizontal && (!Horizontal.HasValue || Horizontal.Value)) || (Horizontal.HasValue && Horizontal.Value))
             {
-                int labelWidth = form == null ? helper.DefaultFormLabelWidth : form.DefaultLabelWidth;
+                int labelWidth = form == null ? Helper.DefaultFormLabelWidth : form.DefaultLabelWidth;
 
                 // Set label column class
                 if (_label != null && !_label.CssClasses.Any(x => x.StartsWith("col-")))
                 {
-                    _label.SetColumnClass(helper, "col-md-", labelWidth);
+                    _label.SetColumnClass(Helper, "col-md-", labelWidth);
                 }
 
                 // Add column classes to this (these will get moved to a wrapper later in this method)
                 if (!CssClasses.Any(x => x.StartsWith("col-")))
                 {
-                    builder.SetMd(helper.GridColumns - labelWidth);
+                    builder.SetMd(Helper.GridColumns - labelWidth);
 
                     // Also need to add an offset if no label
                     if (_label == null)
@@ -65,42 +65,42 @@ namespace FluentBootstrap.Forms
             else if (form != null && form.Horizontal)
             {
                 // If the form is horizontal but we requested not to be, create a full-width column wrapper
-                builder.SetMd(helper.GridColumns);
+                builder.SetMd(Helper.GridColumns);
                 _columnWrapperBeforeLabel = true;
             }
 
             // Move any grid column classes to a container class
             if (CssClasses.Any(x => x.StartsWith("col-")))
             {
-                _columnWrapper = helper.Element("div").AddCss(CssClasses.Where(x => x.StartsWith("col-")).ToArray()).Component;
+                _columnWrapper = Helper.Element("div").AddCss(CssClasses.Where(x => x.StartsWith("col-")).ToArray()).Component;
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
 
-            base.OnStart(helper, writer);
+            base.OnStart(writer);
 
             // Write the column wrapper first if needed
             if (_columnWrapperBeforeLabel && _columnWrapper != null)
             {
-                _columnWrapper.Start(helper, writer);
+                _columnWrapper.Start(writer);
             }
 
             // Write the label
             if (_label != null)
             {
-                _label.StartAndFinish(helper, writer);
+                _label.StartAndFinish(writer);
             }
 
             // Write the column wrapper
             if (!_columnWrapperBeforeLabel && _columnWrapper != null)
             {
-                _columnWrapper.Start(helper, writer);
+                _columnWrapper.Start(writer);
             }
         }
 
-        protected override void OnFinish<THelper>(THelper helper, TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
-            Pop(helper, _columnWrapper, writer);
-            base.OnFinish(helper, writer);
+            Pop(_columnWrapper, writer);
+            base.OnFinish(writer);
         }
     }
 }

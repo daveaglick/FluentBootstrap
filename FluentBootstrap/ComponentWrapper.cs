@@ -5,14 +5,12 @@ using System.Text;
 
 namespace FluentBootstrap
 {
-    public class ComponentWrapper<THelper, TComponent> : IDisposable,
-            IComponentCreator<THelper, TComponent>
-        where THelper : BootstrapHelper<THelper>
+    public class ComponentWrapper<TComponent> : IDisposable, IComponentCreator<TComponent>
         where TComponent : Component
     {
-        private readonly ComponentBuilder<THelper, TComponent> _builder;
+        private readonly ComponentBuilder<TComponent> _builder;
 
-        internal ComponentWrapper(ComponentBuilder<THelper, TComponent> builder)
+        internal ComponentWrapper(ComponentBuilder<TComponent> builder)
         {
             _builder = builder;
         }
@@ -30,19 +28,14 @@ namespace FluentBootstrap
             _builder.End();
         }
 
-        BootstrapHelper IComponentCreator.GetHelper()
-        {
-            return _builder.Helper;
-        }
-
-        Component IComponentCreator.GetParent()
-        {
-            return WithChild ? _builder.Component : null;
-        }
-
-        THelper IComponentCreator<THelper, TComponent>.Helper
+        public BootstrapHelper Helper
         {
             get { return _builder.Helper; }
+        }
+
+        public Component Parent
+        {
+            get { return WithChild ? _builder.Component : null; }
         }
     }
 }

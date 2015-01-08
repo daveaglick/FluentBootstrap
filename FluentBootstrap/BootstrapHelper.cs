@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    public abstract class BootstrapHelper : IComponentCreator
+    public abstract class BootstrapHelper : IComponentCreator<CanCreate>
     {
         internal int GridColumns { get; set; }
         internal bool PrettyPrint { get; set; }
@@ -44,14 +44,14 @@ namespace FluentBootstrap
             return name;
         }
 
-        public BootstrapHelper GetHelper()
+        public BootstrapHelper Helper
         {
-            return this;
+            get { return this; }
         }
 
-        public Component GetParent()
+        public Component Parent
         {
-            return null;
+            get { return null; }
         }
 
         // Returns the current TextWriter for output
@@ -64,24 +64,5 @@ namespace FluentBootstrap
         // Adds an item to a persistent cache for the entire page/view
         // Should overwrite the previous value if the key already exists
         protected internal abstract void AddItem(object key, object value);
-    }
-
-    // Derive from this class
-    public abstract class BootstrapHelper<THelper> : BootstrapHelper, IComponentCreator<THelper, CanCreate>
-        where THelper : BootstrapHelper<THelper>
-    {
-        protected BootstrapHelper()
-        {
-            // Sanity check
-            if (typeof(THelper) != this.GetType())
-            {
-                throw new Exception("Invalid THelper generic type parameter for " + this.GetType().Name + " (you should never see this).");
-            }
-        }
-
-        THelper IComponentCreator<THelper, CanCreate>.Helper
-        {
-            get { return (THelper)this; }
-        }
     }
 }

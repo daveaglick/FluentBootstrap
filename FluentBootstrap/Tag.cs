@@ -10,6 +10,9 @@ namespace FluentBootstrap
 {
     public abstract class Tag : Component
     {
+        protected readonly static object TagIndentKey = new object();
+        protected readonly static object LastToWriteKey = new object();
+
         private string _tagName;
         public MergeableDictionary Attributes { get; private set; }
         public MergeableDictionary InlineStyles { get; private set; }
@@ -30,7 +33,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Add(cssClass);
             }
-            _prettyPrint = creator.GetHelper().PrettyPrint;
+            _prettyPrint = creator.Helper.PrettyPrint;
         }
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes
@@ -145,24 +148,24 @@ namespace FluentBootstrap
             get { return true; }
         }
 
-        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
             {
-                this.AddChild(new Content(helper, TextContent));
+                this.AddChild(new Content(Helper, TextContent));
             }
 
-            base.OnStart(helper, writer);
+            base.OnStart(writer);
 
             // Pretty print
             if (_prettyPrint && !(writer is SuppressOutputWriter))
             {
                 writer.WriteLine();
-                int tagIndent = (int)helper.GetItem(TagIndentKey, 0);
+                int tagIndent = (int)Helper.GetItem(TagIndentKey, 0);
                 writer.Write(new String(' ', tagIndent++));
-                helper.AddItem(TagIndentKey, tagIndent);
-                helper.AddItem(LastToWriteKey, this);
+                Helper.AddItem(TagIndentKey, tagIndent);
+                Helper.AddItem(LastToWriteKey, this);
             }
             else
             {
@@ -199,14 +202,14 @@ namespace FluentBootstrap
             _startTagOutput = true;
         }
 
-        protected override void OnFinish<THelper>(THelper helper, TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
             // Pretty print
             if (_prettyPrint)
             {
-                int tagIndent = ((int)helper.GetItem(TagIndentKey, 0)) - 1;
-                helper.AddItem(TagIndentKey, tagIndent);
-                Tag lastToWrite = helper.GetItem(LastToWriteKey, null) as Tag;
+                int tagIndent = ((int)Helper.GetItem(TagIndentKey, 0)) - 1;
+                Helper.AddItem(TagIndentKey, tagIndent);
+                Tag lastToWrite = Helper.GetItem(LastToWriteKey, null) as Tag;
                 if (lastToWrite != this)
                 {
                     writer.WriteLine();
@@ -220,7 +223,7 @@ namespace FluentBootstrap
                 writer.Write("</" + _tagName + ">");
             }
 
-            base.OnFinish(helper, writer);
+            base.OnFinish(writer);
         }
     }
 }

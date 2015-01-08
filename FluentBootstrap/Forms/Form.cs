@@ -19,7 +19,7 @@ namespace FluentBootstrap.Forms
         public Form(IComponentCreator creator, params string[] cssClasses)
             : base(creator, "form", cssClasses)
         {
-            DefaultLabelWidth = creator.GetHelper().DefaultFormLabelWidth;
+            DefaultLabelWidth = creator.Helper.DefaultFormLabelWidth;
             MergeAttribute("role", "form");
         }
 

@@ -10,22 +10,19 @@ namespace FluentBootstrap.Internals
     // InternalsVisibleTo and without also making those members visible to consuming applications
     public static class InternalsExtensions
     {
-        public static TComponent GetComponent<THelper, TComponent>(this ComponentBuilder<THelper, TComponent> builder)           
-            where THelper : BootstrapHelper<THelper>
+        public static TComponent GetComponent<TComponent>(this ComponentBuilder<TComponent> builder)   
             where TComponent : Component
         {
             return builder.Component;
         }
 
-        public static THelper GetHelper<THelper, TComponent>(this ComponentBuilder<THelper, TComponent> builder)
-            where THelper : BootstrapHelper<THelper>
+        public static BootstrapHelper GetHelper<TComponent>(this ComponentBuilder<TComponent> builder)
             where TComponent : Component
         {
             return builder.Helper;
         }
 
-        public static ComponentWrapper<THelper, TComponent> GetWrapper<THelper, TComponent>(this ComponentBuilder<THelper, TComponent> builder)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentWrapper<TComponent> GetWrapper<TComponent>(this ComponentBuilder<TComponent> builder)
             where TComponent : Component
         {
             return builder.GetWrapper();

@@ -11,15 +11,13 @@ namespace FluentBootstrap
     {
         // Container
 
-        public static ComponentBuilder<THelper, Container> Container<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<Container> Container<TComponent>(this IComponentCreator<TComponent> creator)
             where TComponent : Component, ICanCreate<Container>
         {
-            return new ComponentBuilder<THelper, Container>(creator.Helper, new Container(creator));
+            return new ComponentBuilder<Container>(creator.Helper, new Container(creator));
         }
 
-        public static ComponentBuilder<THelper, Container> SetFluid<THelper>(this ComponentBuilder<THelper, Container> builder, bool fluid = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<Container> SetFluid(this ComponentBuilder<Container> builder, bool fluid = true)
         {
             builder.Component.CssClasses.Remove(Css.Container);
             builder.Component.CssClasses.Remove(Css.ContainerFluid);
@@ -29,20 +27,18 @@ namespace FluentBootstrap
 
         // GridRow
 
-        public static ComponentBuilder<THelper, GridRow> GridRow<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<GridRow> GridRow<TComponent>(this IComponentCreator<TComponent> creator)
             where TComponent : Component, ICanCreate<GridRow>
         {
-            return new ComponentBuilder<THelper, GridRow>(creator.Helper, new GridRow(creator));
+            return new ComponentBuilder<GridRow>(creator.Helper, new GridRow(creator));
         }
 
         // GridColumn
 
-        public static ComponentBuilder<THelper, GridColumn> GridColumn<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, int? md = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<GridColumn> GridColumn<TComponent>(this IComponentCreator<TComponent> creator, int? md = null)
             where TComponent : Component, ICanCreate<GridColumn>
         {
-            return new ComponentBuilder<THelper, GridColumn>(creator.Helper, new GridColumn(creator))
+            return new ComponentBuilder<GridColumn>(creator.Helper, new GridColumn(creator))
                 .SetMd(md);
         }
     }

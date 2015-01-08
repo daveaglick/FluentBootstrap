@@ -11,20 +11,19 @@ namespace FluentBootstrap
         internal abstract Component GetComponent();
     }
 
-    public class ComponentBuilder<THelper, TComponent> : ComponentBuilder, IHtmlString
-        where THelper : BootstrapHelper<THelper>
+    public class ComponentBuilder<TComponent> : ComponentBuilder, IHtmlString
         where TComponent : Component
     {
-        private readonly THelper _helper;
+        private readonly BootstrapHelper _helper;
         private readonly TComponent _component;
 
-        internal ComponentBuilder(THelper helper, TComponent component)
+        internal ComponentBuilder(BootstrapHelper helper, TComponent component)
         {
             _component = component;
             _helper = helper;
         }
 
-        internal THelper Helper
+        internal BootstrapHelper Helper
         {
             get { return this._helper; }
         }
@@ -39,20 +38,20 @@ namespace FluentBootstrap
             return Component;
         }
 
-        internal ComponentWrapper<THelper, TComponent> GetWrapper()
+        internal ComponentWrapper<TComponent> GetWrapper()
         {
-            return new ComponentWrapper<THelper, TComponent>(this);
+            return new ComponentWrapper<TComponent>(this);
         }
 
-        public ComponentWrapper<THelper, TComponent> Begin()
+        public ComponentWrapper<TComponent> Begin()
         {
-            Component.Begin(Helper, null);
+            Component.Begin(null);
             return GetWrapper();
         }
 
         public void End()
         {
-            Component.End(Helper, null);
+            Component.End(null);
         }
 
         public string ToHtmlString()
@@ -62,7 +61,7 @@ namespace FluentBootstrap
 
         public override string ToString()
         {
-            return Component.ToString(Helper);
+            return Component.ToString();
         }
     }
 }

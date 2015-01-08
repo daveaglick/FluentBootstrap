@@ -10,8 +10,7 @@ namespace FluentBootstrap
 {
     public static class MvcTagExtensions
     {
-        public static ComponentBuilder<THelper, TTag> AddHtml<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, Func<dynamic, HelperResult> content)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> AddHtml<TTag>(this ComponentBuilder<TTag> builder, Func<dynamic, HelperResult> content)
             where TTag : Tag
         {
             builder.GetComponent().AddChild(new Content(builder.GetWrapper(),

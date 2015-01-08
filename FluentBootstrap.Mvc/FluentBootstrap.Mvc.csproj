@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\HiddenFor.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcTagExtensions.cs" />

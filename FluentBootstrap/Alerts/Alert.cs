@@ -18,26 +18,26 @@ namespace FluentBootstrap.Alerts
             MergeAttribute("role", "alert");
         }
 
-        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             if (Dismissible)
             {
                 AddCss(Css.AlertDismissible);
             }
 
-            base.OnStart(helper, writer);
+            base.OnStart(writer);
 
             if (Dismissible)
             {
-                helper.Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
-                    .AddChild(_ => helper.Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
-                    .AddChild(_ => helper.Span().AddCss(Css.SrOnly).SetText("Close"))
-                    .Component.StartAndFinish(helper, writer);
+                Helper.Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
+                    .AddChild(_ => Helper.Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
+                    .AddChild(_ => Helper.Span().AddCss(Css.SrOnly).SetText("Close"))
+                    .Component.StartAndFinish(writer);
             }
 
             if (!string.IsNullOrWhiteSpace(Heading))
             {
-                helper.Strong(Heading + " ").Component.StartAndFinish(helper, writer);
+                Helper.Strong(Heading + " ").Component.StartAndFinish(writer);
             }
         }
     }

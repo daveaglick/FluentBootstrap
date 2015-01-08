@@ -9,128 +9,110 @@ namespace FluentBootstrap
 {
     public static class GridColumnExtensions
     {
-        public static ComponentBuilder<THelper, TTag> SetXs<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetXs<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-xs-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetSm<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetSm<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-sm-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetMd<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetMd<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-md-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetLg<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetLg<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-lg-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetXsOffset<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetXsOffset<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-xs-offset-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetSmOffset<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetSmOffset<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-sm-offset-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetMdOffset<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetMdOffset<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-md-offset-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetLgOffset<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetLgOffset<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-lg-offset-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetXsPush<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetXsPush<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-xs-push-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetSmPush<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetSmPush<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-sm-push-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetMdPush<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetMdPush<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-md-push-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetLgPush<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetLgPush<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-lg-push-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetXsPull<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetXsPull<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-xs-pull-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetSmPull<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetSmPull<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-sm-pull-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetMdPull<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetMdPull<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-md-pull-", value);
         }
 
-        public static ComponentBuilder<THelper, TTag> SetLgPull<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, int? value)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetLgPull<TTag>(this ComponentBuilder<TTag> builder, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             return SetColumnClass(builder, "col-lg-pull-", value);
         }
 
-        private static ComponentBuilder<THelper, TTag> SetColumnClass<THelper, TTag>(ComponentBuilder<THelper, TTag> builder, string prefix, int? value)
-            where THelper : BootstrapHelper<THelper>
+        private static ComponentBuilder<TTag> SetColumnClass<TTag>(ComponentBuilder<TTag> builder, string prefix, int? value)
             where TTag : Tag, IHasGridColumnExtensions            
         {
             builder.Component.SetColumnClass(builder.Helper, prefix, value);
             return builder;
         }
 
-        internal static void SetColumnClass<THelper>(this Tag tag, THelper helper, string prefix, int? value)
-            where THelper : BootstrapHelper<THelper>
+        internal static void SetColumnClass(this Tag tag, BootstrapHelper helper, string prefix, int? value)
         {
             tag.CssClasses.RemoveWhere(x => x.StartsWith(prefix));
             if (value != null)

@@ -31,8 +31,7 @@ namespace FluentBootstrap.Forms
 
         // This prepares the outer form group if we need one
         // Needs to be in a separate method so that derived classes can create the form group before outputting any wrappers of their own
-        protected void Prepare<THelper>(THelper helper, TextWriter writer)
-            where THelper : BootstrapHelper<THelper>
+        protected void Prepare(TextWriter writer)
         {
             // Only prepare once
             if(_prepared)
@@ -42,10 +41,10 @@ namespace FluentBootstrap.Forms
             _prepared = true;
 
             // Make sure we're in a form group
-            FormGroup formGroup = GetComponent<FormGroup>(helper);
+            FormGroup formGroup = GetComponent<FormGroup>();
             if (formGroup == null && EnsureFormGroup)
             {
-                _formGroup = new FormGroup(helper);
+                _formGroup = new FormGroup(Helper);
                 formGroup = _formGroup;
             }
 
@@ -86,37 +85,37 @@ namespace FluentBootstrap.Forms
                 }
                 else
                 {
-                    _label.StartAndFinish(helper, writer);
+                    _label.StartAndFinish(writer);
                 }
             }
 
             // Start the new form group if we created one
             if (_formGroup != null)
             {
-                _formGroup.Start(helper, writer);
+                _formGroup.Start(writer);
             }
 
             _prepared = true;
         }
 
-        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
-            Prepare(helper, writer);
+            Prepare(writer);
 
-            base.OnStart(helper, writer);
+            base.OnStart(writer);
         }
 
-        protected override void OnFinish<THelper>(THelper helper, TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
-            base.OnFinish(helper, writer);
+            base.OnFinish(writer);
 
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                GetBuilder(helper, new HelpBlock(helper)).SetText(Help).Component.StartAndFinish(helper, writer);
+                GetBuilder(new HelpBlock(Helper)).SetText(Help).Component.StartAndFinish(writer);
             }
 
-            Pop(helper, _formGroup, writer);
+            Pop(_formGroup, writer);
         }
     }
 }

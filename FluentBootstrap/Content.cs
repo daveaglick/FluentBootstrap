@@ -17,9 +17,9 @@ namespace FluentBootstrap
             _content = content;
         }
 
-        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
-            base.OnStart<THelper>(helper, writer);
+            base.OnStart(writer);
             writer.Write(_content);
         }
     }

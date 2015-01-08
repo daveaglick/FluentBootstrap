@@ -9,7 +9,7 @@ using System.Web.WebPages;
 
 namespace FluentBootstrap.WebPages
 {
-    public class WebPagesBootstrapHelper : BootstrapHelper<WebPagesBootstrapHelper>
+    public class WebPagesBootstrapHelper : BootstrapHelper
     {
         internal WebPageBase WebPageBase { get; private set; }
 

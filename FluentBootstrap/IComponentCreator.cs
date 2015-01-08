@@ -5,17 +5,15 @@ using System.Text;
 
 namespace FluentBootstrap
 {
-    // TODO: Can this be made internal?
     public interface IComponentCreator
     {
-        BootstrapHelper GetHelper();
-        Component GetParent();
+        BootstrapHelper Helper { get; }
+        Component Parent { get; }
     }
 
-    public interface IComponentCreator<THelper, TComponent> : IComponentCreator
-        where THelper : BootstrapHelper<THelper>
+    // The TComponent generic type allows the extension methods to constrain to creators for components that implement specific ICanCreate<>
+    public interface IComponentCreator<TComponent> : IComponentCreator
         where TComponent : Component
     {
-        THelper Helper { get; }
     }
 }

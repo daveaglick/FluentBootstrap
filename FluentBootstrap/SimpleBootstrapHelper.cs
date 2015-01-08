@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap
 {
     // Instantiate this class to get a very simple BootstrapHelper that can be used for creating strings of Bootstrap HTML content
-    public class SimpleBootstrapHelper : BootstrapHelper<SimpleBootstrapHelper>
+    public class SimpleBootstrapHelper : BootstrapHelper
     {
         private readonly Dictionary<object, object> _cache = new Dictionary<object, object>();
         private readonly TextWriter _textWriter;

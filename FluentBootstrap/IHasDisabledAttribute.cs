@@ -12,8 +12,7 @@ namespace FluentBootstrap
 
     public static class DisabledAttributeExtensions
     {
-        public static ComponentBuilder<THelper, TTag> SetDisabled<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, bool disabled = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TTag> SetDisabled<TTag>(this ComponentBuilder<TTag> builder, bool disabled = true)
             where TTag : Tag, IHasDisabledAttribute
         {
             builder.Component.MergeAttribute("disabled", disabled ? "disabled" : null);

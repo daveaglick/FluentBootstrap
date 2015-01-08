@@ -15,7 +15,7 @@ namespace FluentBootstrap.Html
         {
         }
 
-        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             // TODO: Add the appropriate CSS class if in a list group item
             //if (GetComponent<IListGroupItem>() != null)
@@ -23,7 +23,7 @@ namespace FluentBootstrap.Html
             //    this.AddCss(Css.ListGroupItemText);
             //}
 
-            base.OnStart(helper, writer);
+            base.OnStart(writer);
         }
     }
 }

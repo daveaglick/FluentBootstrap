@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Mvc
 {
-    public class MvcBootstrapHelper<TModel> : BootstrapHelper<MvcBootstrapHelper<TModel>>
+    public class MvcBootstrapHelper<TModel> : BootstrapHelper
     {
         internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 
