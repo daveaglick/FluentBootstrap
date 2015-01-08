@@ -12,13 +12,15 @@ namespace FluentBootstrap
 {
     public static class FormExtensions
     {
-        //// Form
+        // Form
 
-        //public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, string method = "post")
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Form<THelper>(creator).SetAction(null).SetMethod(method);
-        //}
+        public static ComponentBuilder<Form> Form<TComponent>(this IComponentCreator<TComponent> creator, string method = "post")
+            where TComponent : Component, ICanCreate<Form>
+        {
+            return new ComponentBuilder<Form>(creator.Helper, new Form(creator))
+                .SetAction(null)
+                .SetMethod(method);
+        }
 
         //public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, string action, string method = "post")
         //    where THelper : BootstrapHelper<THelper>
@@ -43,19 +45,18 @@ namespace FluentBootstrap
         //    return form;
         //}
 
-        //// Use action = null to reset form action to current request url
-        //public static Form<THelper> SetAction<THelper>(this Form<THelper> form, string action)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return form.MergeAttribute("action", action);
-        //}
+        // Use action = null to reset form action to current request url
+        public static ComponentBuilder<Form> SetAction(this ComponentBuilder<Form> builder, string action)
+        {
+            builder.Component.MergeAttribute("action", action);
+            return builder;
+        }
 
-        //public static Form<THelper> SetMethod<THelper>(this Form<THelper> form, string method)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    form.MergeAttribute("method", method);
-        //    return form;
-        //}
+        public static ComponentBuilder<Form> SetMethod(this ComponentBuilder<Form> builder, string method)
+        {
+            builder.Component.MergeAttribute("method", method);
+            return builder;
+        }
 
         //// FieldSet
 

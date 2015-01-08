@@ -79,6 +79,7 @@
     <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="IMvcComponentCreator.cs" />
+    <Compile Include="InternalsExtensions.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcComponentBuilder.cs" />
     <Compile Include="MvcComponentWrapper.cs" />

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections;
 using FluentBootstrap.Internals;
+using FluentBootstrap.Mvc.Internals;
 
 namespace FluentBootstrap.Mvc.Forms
 {
