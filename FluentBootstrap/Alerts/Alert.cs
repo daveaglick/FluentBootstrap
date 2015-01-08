@@ -9,10 +9,10 @@ namespace FluentBootstrap.Alerts
 {
     public class Alert : Tag, IHasTextContent
     {
-        internal bool Dismissible { set; get; }
-        internal string Heading { set; get; }
+        public bool Dismissible { set; get; }
+        public string Heading { set; get; }
 
-        internal Alert(IComponentCreator creator)
+        public Alert(IComponentCreator creator)
             : base(creator, "div", Css.Alert, Css.AlertInfo)
         {
             MergeAttribute("role", "alert");

@@ -22,8 +22,10 @@ namespace FluentBootstrap
             DefaultFormLabelWidth = 4;
         }
 
-        protected internal virtual string FormatValue(object value, string format)
+        protected internal string FormatValue(object value, string format)
         {
+            // From ViewDataDictionary.FormatValueInternal(), which is called from HtmlHelper.FormatValue()
+            // Reproduced here to remove dependency on ASP.NET MVC 4
             if (value == null)
             {
                 return string.Empty;

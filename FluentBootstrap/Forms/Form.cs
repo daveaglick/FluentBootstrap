@@ -23,9 +23,9 @@ namespace FluentBootstrap.Forms
             MergeAttribute("role", "form");
         }
 
-        internal int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
+        public int DefaultLabelWidth { get; set; }    // This is only used for horizontal forms
 
-        internal bool Horizontal
+        public bool Horizontal
         {
             get { return CssClasses.Contains(Css.FormHorizontal); }
         }

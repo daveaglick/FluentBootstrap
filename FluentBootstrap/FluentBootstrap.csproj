@@ -47,7 +47,9 @@
     <Compile Include="BackgroundState.cs" />
     <Compile Include="BootstrapHelper.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="ComponentBuilder.cs" />
     <Compile Include="ComponentExtensions.cs" />
+    <Compile Include="ComponentWrapper.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Css.cs">
       <AutoGen>True</AutoGen>
@@ -85,8 +87,10 @@
     <Compile Include="Html\HtmlExtensions.cs" />
     <Compile Include="Html\Paragraph.cs" />
     <Compile Include="ICanCreate.cs" />
+    <Compile Include="IComponentCreator.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
     <Compile Include="IHasTextContent.cs" />
+    <Compile Include="InternalsExtensions.cs" />
     <Compile Include="MergeableDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleBootstrapHelper.cs" />

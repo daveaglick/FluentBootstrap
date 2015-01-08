@@ -11,7 +11,7 @@ namespace FluentBootstrap.Grids
         // IThumbnailCreator<THelper>,
         // IThumbnailContainerCreator<THelper>
     {
-        internal GridColumn(IComponentCreator creator)
+        public GridColumn(IComponentCreator creator)
             : base(creator, "div")
         {
         }

@@ -18,19 +18,19 @@ namespace FluentBootstrap.Forms
         private Tag _columnWrapper;
         private bool _columnWrapperBeforeLabel = false;
 
-        internal ControlLabel ControlLabel
+        public ControlLabel ControlLabel
         {
             set { _label = value; }
         }
 
-        internal bool HasLabel
+        public bool HasLabel
         {
             get { return _label != null; }
         }
 
-        internal bool? Horizontal { get; set; }
+        public bool? Horizontal { get; set; }
 
-        internal FormGroup(IComponentCreator creator)
+        public FormGroup(IComponentCreator creator)
             : base(creator, "div", Css.FormGroup)
         {
         }

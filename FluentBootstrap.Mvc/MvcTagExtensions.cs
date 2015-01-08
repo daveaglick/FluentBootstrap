@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.WebPages;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
     public static class MvcTagExtensions
     {
-        public static TThis AddHtml<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, Func<dynamic, HelperResult> content)
+        public static ComponentBuilder<THelper, TTag> AddHtml<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, Func<dynamic, HelperResult> content)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            TThis tag = component.GetThis();
-            tag.AddChild(new Content<THelper>(tag.Helper,
+            builder.GetComponent().AddChild(new Content(builder.GetWrapper(),
                 content(null).ToHtmlString()));
-            return tag;
+            return builder;
         }
     }
 }

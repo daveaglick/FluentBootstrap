@@ -7,122 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace FluentBootstrap
-{
-    // TODO: Can this be made internal?
-    public interface IComponentCreator
-    {
-        BootstrapHelper GetHelper();
-        Component GetParent();
-    }
-
-    public interface IComponentCreator<THelper, TComponent> : IComponentCreator
-        where THelper : BootstrapHelper<THelper>
-        where TComponent : Component
-    {
-        THelper Helper { get; }
-    }
-
-    public abstract class ComponentBuilder
-    {
-        internal abstract Component GetComponent();
-    }
-
-    public class ComponentBuilder<THelper, TComponent> : ComponentBuilder, IHtmlString
-        where THelper : BootstrapHelper<THelper>
-        where TComponent : Component
-    {
-        private readonly THelper _helper;
-        private readonly TComponent _component;
-
-        internal ComponentBuilder(THelper helper, TComponent component)
-        {
-            _component = component;
-            _helper = helper;
-        }
-
-        internal THelper Helper
-        {
-            get { return this._helper; }
-        }
-
-        internal TComponent Component
-        {
-            get { return this._component; }
-        }
-
-        internal override Component GetComponent()
-        {
-            return Component;
-        }
-
-        internal ComponentWrapper<THelper, TComponent> GetWrapper()
-        {
-            return new ComponentWrapper<THelper, TComponent>(this);
-        }
-
-        public ComponentWrapper<THelper, TComponent> Begin()
-        {
-            Component.Begin(Helper, null);
-            return GetWrapper();
-        }
-
-        public void End()
-        {
-            Component.End(Helper, null);
-        }
-
-        public string ToHtmlString()
-        {
-            return ToString();
-        }
-
-        public override string ToString()
-        {
-            return Component.ToString(Helper);
-        }
-    }
-
-    public class ComponentWrapper<THelper, TComponent> : IDisposable,
-        IComponentCreator<THelper, TComponent>
-        where THelper : BootstrapHelper<THelper>
-        where TComponent : Component
-    {
-        private readonly ComponentBuilder<THelper, TComponent> _builder;
-
-        internal ComponentWrapper(ComponentBuilder<THelper, TComponent> builder)
-        {
-            _builder = builder;
-        }
-
-        internal bool WithChild { get; set; }
-
-
-        public void Dispose()
-        {
-            End();
-        }
-
-        public void End()
-        {
-            _builder.End();
-        }
-
-        BootstrapHelper IComponentCreator.GetHelper()
-        {
-            return _builder.Helper;
-        }
-
-        Component IComponentCreator.GetParent()
-        {
-            return WithChild ? _builder.Component : null;
-        }
-
-        THelper IComponentCreator<THelper, TComponent>.Helper
-        {
-            get { return _builder.Helper; }
-        }
-    }
-
+{  
     public abstract class Component
     {
         protected readonly static object ComponentStackKey = new object();
@@ -139,14 +24,14 @@ namespace FluentBootstrap
         // The primary difference is that implicit components can be automatically cleaned up from the stack
         private readonly bool _implicit;
 
-        internal bool Implicit
+        public bool Implicit
         {
             get { return _implicit; }
         }
 
         private bool _render = true;
 
-        internal bool Render
+        public bool Render
         {
             set { _render = value; }
         }
@@ -167,7 +52,7 @@ namespace FluentBootstrap
             return new ComponentBuilder<THelper, TComponent>(helper, component);
         }
 
-        internal void AddChild(Component child)
+        public void AddChild(Component child)
         {
             _children.Add(child);
         }

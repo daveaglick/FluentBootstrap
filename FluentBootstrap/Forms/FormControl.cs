@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class FormControl : Tag, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
+    public abstract class FormControl : Tag, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
         ICanCreate<HelpBlock>
     {
         private FormGroup _formGroup = null;
         private ControlLabel _label = null;
-        internal string Help { get; set; }
-        internal bool EnsureFormGroup { get; set; }
         private bool _prepared = false;
+
+        public string Help { get; set; }
+        public bool EnsureFormGroup { get; set; }
 
         protected FormControl(IComponentCreator creator, string tagName, params string[] cssClasses) 
             : base(creator, tagName, cssClasses)
@@ -23,7 +24,7 @@ namespace FluentBootstrap.Forms
             EnsureFormGroup = true;
         }
 
-        internal ControlLabel Label
+        public ControlLabel Label
         {
             set { _label = value; }
         }

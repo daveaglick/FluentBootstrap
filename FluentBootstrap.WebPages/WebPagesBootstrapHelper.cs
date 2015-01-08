@@ -18,12 +18,12 @@ namespace FluentBootstrap.WebPages
             WebPageBase = webPageBase;
         }
 
-        protected internal override TextWriter GetWriter()
+        protected override TextWriter GetWriter()
         {
             return WebPageBase.Output;
         }
 
-        protected internal override object GetItem(object key, object defaultValue)
+        protected override object GetItem(object key, object defaultValue)
         {
             if (WebPageBase.Context.Items.Contains(key))
             {
@@ -32,7 +32,7 @@ namespace FluentBootstrap.WebPages
             return defaultValue;
         }
 
-        protected internal override void AddItem(object key, object value)
+        protected override void AddItem(object key, object value)
         {
             WebPageBase.Context.Items[key] = value;
         }

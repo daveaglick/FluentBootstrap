@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FluentBootstrap
 {
     // This class wraps an IDictionary<string, string> and allows merging key/value pairs
-    internal class MergeableDictionary
+    public class MergeableDictionary
     {
         public IDictionary<string, string> Dictionary { get; private set; }
 

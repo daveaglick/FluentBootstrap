@@ -10,7 +10,7 @@ namespace FluentBootstrap.Html
 {
     public class Paragraph : Tag, IHasTextContent
     {
-        internal Paragraph(IComponentCreator creator)
+        public Paragraph(IComponentCreator creator)
             : base(creator, "p")
         {
         }

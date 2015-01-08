@@ -11,15 +11,15 @@ namespace FluentBootstrap
     public abstract class Tag : Component
     {
         private string _tagName;
-        internal MergeableDictionary Attributes { get; private set; }
-        internal MergeableDictionary InlineStyles { get; private set; }
-        internal HashSet<string> CssClasses { get; private set; }
+        public MergeableDictionary Attributes { get; private set; }
+        public MergeableDictionary InlineStyles { get; private set; }
+        public HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
         private bool _prettyPrint;
 
-        internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
+        public string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
-        protected internal Tag(IComponentCreator creator, string tagName, params string[] cssClasses)
+        protected Tag(IComponentCreator creator, string tagName, params string[] cssClasses)
             : base(creator)
         {
             _tagName = tagName;
@@ -35,7 +35,7 @@ namespace FluentBootstrap
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes
         // Note that you should not change this after OnStart has been called (otherwise you'll get different start and end tags)
-        internal string TagName
+        public string TagName
         {
             get { return _tagName; }
             set
@@ -48,7 +48,7 @@ namespace FluentBootstrap
             }
         }
 
-        internal void AddCss(params string[] cssClasses)
+        public void AddCss(params string[] cssClasses)
         {
             foreach (string cssClass in cssClasses)
             {
@@ -56,7 +56,7 @@ namespace FluentBootstrap
             }
         }
 
-        internal void RemoveCss(params string[] cssClasses)
+        public void RemoveCss(params string[] cssClasses)
         {
             foreach (string cssClass in cssClasses)
             {
@@ -64,51 +64,51 @@ namespace FluentBootstrap
             }
         }
 
-        internal void MergeAttributes(object attributes, bool replaceExisting = true)
+        public void MergeAttributes(object attributes, bool replaceExisting = true)
         {
             Attributes.Merge(attributes, replaceExisting);
         }
 
-        internal void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        public void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             Attributes.Merge(attributes, replaceExisting);
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
         // This version does not throw on null or whitespace key and removes the attribute if value is null
-        internal void MergeAttribute(string key, string value, bool replaceExisting = true)
+        public void MergeAttribute(string key, string value, bool replaceExisting = true)
         {
             Attributes.Merge(key, value, replaceExisting);
         }
 
-        internal string GetAttribute(string key)
+        public string GetAttribute(string key)
         {
             return Attributes.GetValue(key);
         }
 
-        internal void MergeStyles(object attributes, bool replaceExisting = true)
+        public void MergeStyles(object attributes, bool replaceExisting = true)
         {
             InlineStyles.Merge(attributes, replaceExisting);
         }
 
-        internal void MergeStyles<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        public void MergeStyles<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             InlineStyles.Merge(attributes, replaceExisting);
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
         // This version does not throw on null or whitespace key and removes the attribute if value is null
-        internal void MergeStyle(string key, string value, bool replaceExisting = true)
+        public void MergeStyle(string key, string value, bool replaceExisting = true)
         {
             InlineStyles.Merge(key, value, replaceExisting);
         }
 
-        internal string GetStyle(string key)
+        public string GetStyle(string key)
         {
             return InlineStyles.GetValue(key);
         }
 
-        internal void ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
+        public void ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
         {
             if (add)
             {
@@ -127,7 +127,7 @@ namespace FluentBootstrap
         // This takes a flags enum and adds all css classes that are on and removes all that are off
         // Or if not flags, adds the current enum description and turns all others off
         // The CSS class is specified as a DescriptionAttribute on each enum value (use description of null to indicate a default state)
-        internal void ToggleCss(Enum css)
+        public void ToggleCss(Enum css)
         {
             bool flags = css.GetType().GetCustomAttributes(typeof(FlagsAttribute), true).Any();
             foreach (Enum value in Enum.GetValues(css.GetType()))
