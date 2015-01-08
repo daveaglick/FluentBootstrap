@@ -322,7 +322,7 @@ namespace FluentBootstrap
         }
 
         // onlyParent indicates that just the parent component in the stack should be searched (instead of all the way up)
-        internal TComponent GetComponent<TComponent>(bool onlyParent = false)
+        protected TComponent GetComponent<TComponent>(bool onlyParent = false)
             where TComponent : Component
         {
             Stack<Component> stack = GetComponentStack();

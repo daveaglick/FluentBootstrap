@@ -44,6 +44,12 @@ namespace FluentBootstrap
                 ViewDataContainer = viewDataContainer;
                 ViewData = viewData;
             }
+        }        
+
+        // Convenience method to get a strongly-typed MvcBootstrapHelper from a component by casting
+        internal static MvcBootstrapHelper<TModel> GetHelper<TModel>(this Component component)
+        {
+            return (MvcBootstrapHelper<TModel>)component.Helper;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace FluentBootstrap.Mvc.Forms
         protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
-            writer.Write(((MvcBootstrapHelper<TModel>)Helper).HtmlHelper.HiddenFor(_expression));
+            writer.Write(this.GetHelper<TModel>().HtmlHelper.HiddenFor(_expression));
         }
     }
 }

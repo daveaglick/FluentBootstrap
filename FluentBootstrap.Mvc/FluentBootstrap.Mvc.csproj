@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\HiddenFor.cs" />
+    <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcTagExtensions.cs" />

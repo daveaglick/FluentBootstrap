@@ -1,6 +1,7 @@
 ﻿using FluentBootstrap.Forms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,43 +10,31 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IValidationSummaryCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
+    public class ValidationSummary<TModel> : FormControl
     {
-    }
+        public bool IncludePropertyErrors { get; set; }
 
-    public class ValidationSummaryWrapper<TModel> : FormControlWrapper<MvcBootstrapHelper<TModel>>
-    {
-    }
-
-    internal interface IValidationSummary : IFormControl
-    {
-    }
-
-    public class ValidationSummary<TModel> : FormControl<MvcBootstrapHelper<TModel>, ValidationSummary<TModel>, ValidationSummaryWrapper<TModel>>, IValidationSummary
-    {
-        internal bool IncludePropertyErrors { get; set; }
-
-        internal ValidationSummary(IComponentCreator<MvcBootstrapHelper<TModel>> creator)
+        internal ValidationSummary(IComponentCreator creator)
             : base(creator, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }
 
-        protected override void OnStart(System.IO.TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
 
             // Output the summary
-            MvcHtmlString validationSummary = Helper.HtmlHelper.ValidationSummary(!IncludePropertyErrors);
+            MvcHtmlString validationSummary = this.GetHelper<TModel>().HtmlHelper.ValidationSummary(!IncludePropertyErrors);
             if (validationSummary != null)
             {
                 writer.Write(validationSummary.ToString());
             }
 
             // Indicate to the form that it's been written
-            IForm form = GetComponent<IForm>();
+            Form form = GetComponent<Form>();
             if (form != null)
             {
-                form.GetOverride<FormOverride<TModel>>().HideValidationSummary = true;
+                //form.GetOverride<FormOverride<TModel>>().HideValidationSummary = true;
             }
         }
     }
