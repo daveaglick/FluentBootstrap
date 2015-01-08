@@ -7,28 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFieldSetCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class FieldSet : Tag, IHasDisabledAttribute,
+        ICanCreate<FormGroup>,
+        ICanCreate<ControlLabel>,
+        ICanCreate<FormControl>,
+        ICanCreate<HelpBlock>
     {
-    }
-
-    public class FieldSetWrapper<THelper> : TagWrapper<THelper>,
-        IFormGroupCreator<THelper>,
-        IControlLabelCreator<THelper>,
-        IFormControlCreator<THelper>,
-        IHelpBlockCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IFieldSet : ITag
-    {
-    }
-
-    public class FieldSet<THelper> : Tag<THelper, FieldSet<THelper>, FieldSetWrapper<THelper>>, IFieldSet, IHasDisabledAttribute
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal FieldSet(IComponentCreator<THelper> creator)
+        internal FieldSet(IComponentCreator creator)
             : base(creator, "fieldset")
         {
         }

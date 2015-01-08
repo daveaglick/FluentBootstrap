@@ -10,7 +10,7 @@ namespace FluentBootstrap.Grids
     public class Container : Tag,
         ICanCreate<GridRow>
     {
-        public Container(IComponentCreator creator)
+        internal Container(IComponentCreator creator)
             : base(creator, "div", Css.Container)
         {
         }

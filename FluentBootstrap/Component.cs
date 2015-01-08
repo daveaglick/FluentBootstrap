@@ -61,6 +61,11 @@ namespace FluentBootstrap
             _children.Add(child);
         }
 
+        public void AddChild(ComponentBuilder builder)
+        {
+            _children.Add(builder.GetComponent());
+        }
+
         internal void Begin(TextWriter writer)
         {
             // If we have a parent, it needs to be started

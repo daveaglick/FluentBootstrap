@@ -15,8 +15,8 @@ namespace FluentBootstrap.Forms
         ICanCreate<HelpBlock>
         //IFieldSetCreator<THelper>,
         //IInputGroupCreator<THelper>
-    {        
-        public Form(IComponentCreator creator, params string[] cssClasses)
+    {
+        internal Form(IComponentCreator creator, params string[] cssClasses)
             : base(creator, "form", cssClasses)
         {
             DefaultLabelWidth = creator.Helper.DefaultFormLabelWidth;

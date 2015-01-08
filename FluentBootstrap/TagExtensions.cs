@@ -114,6 +114,14 @@ namespace FluentBootstrap
             return builder;
         }
 
+        public static ComponentBuilder<TTag> AddChild<TTag, TChild>(this ComponentBuilder<TTag> builder, ComponentBuilder<TChild> child)
+            where TTag : Tag
+            where TChild : Component
+        {
+            builder.Component.AddChild(child);
+            return builder;
+        }
+
         // This is a very special extension - it allows adding a child using fluent style and switches the current chaining object to the child
         // behind the scenes the parent start is immediately output and the child ends the parent when it ends (so that the while hierarchy gets output)
         public static ComponentWrapper<TTag> WithChild<TTag>(this ComponentBuilder<TTag> builder)

@@ -13,7 +13,7 @@ namespace FluentBootstrap.Mvc.Forms
     {
         private readonly Expression<Func<TModel, TValue>> _expression;
 
-        public HiddenFor(IComponentCreator creator, Expression<Func<TModel, TValue>> expression)
+        internal HiddenFor(IComponentCreator creator, Expression<Func<TModel, TValue>> expression)
             : base(creator)
         {
             _expression = expression;

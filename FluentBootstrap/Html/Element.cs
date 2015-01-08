@@ -9,7 +9,7 @@ namespace FluentBootstrap.Html
     // Like Tag but implements IHasTextContent (we don't want all Tags to have text content)
     public class Element : Tag, IHasTextContent
     {
-        public Element(IComponentCreator creator, string tagName)
+        internal Element(IComponentCreator creator, string tagName)
             : base(creator, tagName)
         {
         }

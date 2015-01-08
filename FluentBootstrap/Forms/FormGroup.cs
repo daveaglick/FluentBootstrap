@@ -30,7 +30,7 @@ namespace FluentBootstrap.Forms
 
         public bool? Horizontal { get; set; }
 
-        public FormGroup(IComponentCreator creator)
+        internal FormGroup(IComponentCreator creator)
             : base(creator, "div", Css.FormGroup)
         {
         }

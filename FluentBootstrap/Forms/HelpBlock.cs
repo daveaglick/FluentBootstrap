@@ -8,7 +8,7 @@ namespace FluentBootstrap.Forms
 {
     public class HelpBlock : Tag, IHasTextContent
     {
-        public HelpBlock(IComponentCreator creator)
+        internal HelpBlock(IComponentCreator creator)
             : base(creator, "div", Css.HelpBlock)
         {
         }

@@ -51,18 +51,49 @@
     <Compile Include="ComponentExtensions.cs" />
     <Compile Include="ComponentWrapper.cs" />
     <Compile Include="Content.cs" />
+    <Compile Include="ContentExtensions.cs" />
     <Compile Include="Css.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="Forms\CheckedControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Forms\ControlLabel.cs" />
+    <Compile Include="Forms\FieldSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormControl.cs" />
     <Compile Include="Forms\FormGroup.cs" />
+    <Compile Include="Forms\FormInputType.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Forms\HelpBlock.cs" />
+    <Compile Include="Forms\Hidden.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Forms\IFormValidation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Input.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\InputSize.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Select.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Static.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\TextArea.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\ValidationState.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Grids\Container.cs">
@@ -88,8 +119,19 @@
     <Compile Include="Html\Paragraph.cs" />
     <Compile Include="ICanCreate.cs" />
     <Compile Include="IComponentCreator.cs" />
+    <Compile Include="Icons\Icon.cs">
+      <DependentUpon>Icon.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Icons\IconExtensions.cs" />
+    <Compile Include="Icons\IconSpan.cs" />
+    <Compile Include="Icons\IHasIcon.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
+    <Compile Include="IHasNameAttribute.cs" />
     <Compile Include="IHasTextContent.cs" />
+    <Compile Include="IHasTitleAttribute.cs" />
+    <Compile Include="IHasValueAttribute.cs" />
     <Compile Include="InternalsExtensions.cs" />
     <Compile Include="MergeableDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +147,10 @@
     <None Include="Css.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Css.cs</LastGenOutput>
+    </None>
+    <None Include="Icons\Icon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Icon.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

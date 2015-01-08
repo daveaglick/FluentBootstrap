@@ -12,7 +12,7 @@ namespace FluentBootstrap.Alerts
         public bool Dismissible { set; get; }
         public string Heading { set; get; }
 
-        public Alert(IComponentCreator creator)
+        internal Alert(IComponentCreator creator)
             : base(creator, "div", Css.Alert, Css.AlertInfo)
         {
             MergeAttribute("role", "alert");

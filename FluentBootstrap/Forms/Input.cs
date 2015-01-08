@@ -8,31 +8,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IInputCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Input<THelper> : FormControl, IHasValueAttribute, IHasNameAttribute
     {
-    }
+        public Icon Icon { get; set; }
 
-    public class InputWrapper<THelper> : FormControlWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IInput : IFormControl
-    {
-    }
-
-    public class Input<THelper> : FormControl<THelper, Input<THelper>, InputWrapper<THelper>>, IInput, IHasValueAttribute, IHasNameAttribute
-        where THelper : BootstrapHelper<THelper>
-    {
-        private Icon _icon = Icon.None;
-
-        internal Icon Icon
-        {
-            set { _icon = value; }
-        }
-
-        internal Input(IComponentCreator<THelper> creator, FormInputType inputType)
+        internal Input(IComponentCreator creator, FormInputType inputType)
             : base(creator, "input", Css.FormControl)
         {
             MergeAttribute("type", inputType.GetDescription());
@@ -41,9 +21,9 @@ namespace FluentBootstrap.Forms
         protected override void OnFinish(TextWriter writer)
         {
             // Add the feedback icon
-            if (_icon != Icon.None)
+            if (Icon != Icon.None)
             {
-                new IconSpan<THelper>(Helper, _icon).AddCss(Css.FormControlFeedback).StartAndFinish(writer);
+                Helper.Icon(Icon).AddCss(Css.FormControlFeedback).Component.StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

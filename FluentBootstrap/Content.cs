@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
         private readonly string _content;
 
-        public Content(IComponentCreator creator, string content)
+        internal Content(IComponentCreator creator, string content)
             : base(creator)
         {
             _content = content;

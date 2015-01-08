@@ -13,8 +13,7 @@ namespace FluentBootstrap
         public static ComponentBuilder<TTag> AddHtml<TTag>(this ComponentBuilder<TTag> builder, Func<dynamic, HelperResult> content)
             where TTag : Tag
         {
-            builder.GetComponent().AddChild(new Content(builder.GetWrapper(),
-                content(null).ToHtmlString()));
+            builder.GetComponent().AddChild(builder.GetHelper().Content(content(null).ToHtmlString()).GetComponent());
             return builder;
         }
     }
