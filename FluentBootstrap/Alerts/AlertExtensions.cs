@@ -9,36 +9,41 @@ namespace FluentBootstrap
 {
     public static class AlertExtensions
     {
-        public static Alert<THelper> Alert<THelper>(this IAlertCreator<THelper> creator, AlertState state, string text = null)
+        public static ComponentBuilder<THelper, Alert> Alert<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, AlertState state, string text = null)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Alert>
         {
-            return new Alert<THelper>(creator).SetState(state).SetText(text);
+            return new ComponentBuilder<THelper, Alert>(creator.Helper, new Alert(creator))
+                .SetState(state).SetText(text);
         }
 
-        public static Alert<THelper> Alert<THelper>(this IAlertCreator<THelper> creator, AlertState state, string heading, string text)
+        public static ComponentBuilder<THelper, Alert> Alert<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, AlertState state, string heading, string text)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Alert>
         {
-            return new Alert<THelper>(creator).SetState(state).SetHeading(heading).SetText(text);
+            return new ComponentBuilder<THelper, Alert>(creator.Helper, new Alert(creator))
+                .SetState(state).SetHeading(heading).SetText(text);
         }
 
-        public static Alert<THelper> SetState<THelper>(this Alert<THelper> alert, AlertState state)
+        public static ComponentBuilder<THelper, Alert> SetState<THelper>(this ComponentBuilder<THelper, Alert> builder, AlertState state)
             where THelper : BootstrapHelper<THelper>
         {
-            return alert.ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
 
-        public static Alert<THelper> SetHeading<THelper>(this Alert<THelper> alert, string heading)
+        public static ComponentBuilder<THelper, Alert> SetHeading<THelper>(this ComponentBuilder<THelper, Alert> builder, string heading)
             where THelper : BootstrapHelper<THelper>
         {
-            alert.Heading = heading;
-            return alert;
+            builder.Component.Heading = heading;
+            return builder;
         }
 
-        public static Alert<THelper> SetDismissible<THelper>(this Alert<THelper> alert, bool dismissible = true)
+        public static ComponentBuilder<THelper, Alert> SetDismissible<THelper>(this ComponentBuilder<THelper, Alert> builder, bool dismissible = true)
             where THelper : BootstrapHelper<THelper>
         {
-            alert.Dismissible = dismissible;
-            return alert;
+            builder.Component.Dismissible = dismissible;
+            return builder;
         }
     }
 }

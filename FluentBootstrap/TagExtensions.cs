@@ -10,102 +10,89 @@ namespace FluentBootstrap
 {
     public static class TagExtensions
     {
-        // Tag extensions
-        public static TThis AddCss<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, params string[] cssClasses)
+        public static ComponentBuilder<THelper, TTag> AddCss<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, params string[] cssClasses)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            TThis tag = component.GetThis();
-            foreach (string cssClass in cssClasses)
-            {
-                tag.CssClasses.Add(cssClass);
-            }
-            return tag;
+            builder.Component.AddCss(cssClasses);
+            return builder;
         }
 
-        public static TThis RemoveCss<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, params string[] cssClasses)
+        public static ComponentBuilder<THelper, TTag> RemoveCss<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, params string[] cssClasses)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            TThis tag = component.GetThis();
-            foreach (string cssClass in cssClasses)
-            {
-                tag.CssClasses.Remove(cssClass);
-            }
-            return tag;
+            builder.Component.RemoveCss(cssClasses);
+            return builder;
         }
 
-        public static TThis AddAttributes<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, object htmlAttributes)
+        public static ComponentBuilder<THelper, TTag> AddAttributes<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, object htmlAttributes)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeAttributes(htmlAttributes);
+            builder.Component.MergeAttributes(htmlAttributes);
+            return builder;
         }
 
-        public static TThis AddAttributes<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, IDictionary<string, object> htmlAttributes)
+        public static ComponentBuilder<THelper, TTag> AddAttributes<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, IDictionary<string, object> htmlAttributes)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeAttributes(htmlAttributes);
+            builder.Component.MergeAttributes(htmlAttributes);
+            return builder;
         }
 
-        public static TThis AddAttribute<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string attributeName, object value)
+        public static ComponentBuilder<THelper, TTag> AddAttribute<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, string attributeName, object value)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeAttribute(attributeName, Convert.ToString(value, CultureInfo.InvariantCulture));
+            builder.Component.MergeAttribute(attributeName, Convert.ToString(value, CultureInfo.InvariantCulture));
+            return builder;
         }
 
-        public static TThis AddStyles<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, object inlineStyles)
+        public static ComponentBuilder<THelper, TTag> AddStyles<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, object inlineStyles)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeStyles(inlineStyles);
+            builder.Component.MergeStyles(inlineStyles);
+            return builder;
         }
 
-        public static TThis AddStyles<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, IDictionary<string, object> inlineStyles)
+        public static ComponentBuilder<THelper, TTag> AddStyles<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, IDictionary<string, object> inlineStyles)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeStyles(inlineStyles);
+            builder.Component.MergeStyles(inlineStyles);
+            return builder;
         }
 
-        public static TThis AddStyle<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string inlineStyle, object value)
+        public static ComponentBuilder<THelper, TTag> AddStyle<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, string inlineStyle, object value)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeStyle(inlineStyle, Convert.ToString(value, CultureInfo.InvariantCulture));
+            builder.Component.MergeStyle(inlineStyle, Convert.ToString(value, CultureInfo.InvariantCulture));
+            return builder;
         }
 
-        public static TThis SetId<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string id)
+        public static ComponentBuilder<THelper, TTag> SetId<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, string id)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().MergeAttribute("id", id);
+            builder.Component.MergeAttribute("id", id);
+            return builder;
         }
 
-        public static TThis AddContent<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, object content)
+        public static ComponentBuilder<THelper, TTag> AddContent<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, object content)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            TThis tag = component.GetThis();
             if (content != null)
             {
                 // Make sure that this isn't a component
-                Component contentComponent = content as Component;
-                if (contentComponent != null)
+                ComponentBuilder contentBuilder = content as ComponentBuilder;
+                if (contentBuilder != null)
                 {
-                    return AddChild(component, x => contentComponent);
+                    builder.Component.AddChild(contentBuilder.GetComponent());
                 }
 
                 // Now check if it's an IHtmlString
@@ -123,58 +110,54 @@ namespace FluentBootstrap
 
                 if (!string.IsNullOrEmpty(str))
                 {
-                    tag.AddChild(new Content<THelper>(tag.Helper, str));
+                    builder.Component.AddChild(new Content(builder.GetWrapper(), str));
                 }
             }
-            return tag;
+            return builder;
         }
 
-        public static TThis AddChild<THelper, TThis, TChild, TWrapper>(this Component<THelper, TThis, TWrapper> component, Func<TWrapper, TChild> childFunc)
+        public static ComponentBuilder<THelper, TTag> AddChild<THelper, TTag, TChild>(this ComponentBuilder<THelper, TTag> builder, Func<ComponentWrapper<THelper, TTag>, ComponentBuilder<THelper, TChild>> childFunc)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
             where TChild : Component
         {
-            TThis tag = component.GetThis();
-            tag.AddChild(childFunc(tag.GetWrapper()));
-            return tag;
+            builder.Component.AddChild(childFunc(builder.GetWrapper()).Component);
+            return builder;
         }
 
         // This is a very special extension - it allows adding a child using fluent style and switches the current chaining object to the child
         // behind the scenes the parent start is immediately output and the child ends the parent when it ends (so that the while hierarchy gets output)
-        public static TWrapper WithChild<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component)
+        public static ComponentWrapper<THelper, TTag> WithChild<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            TThis tag = component.GetThis();
-            TWrapper wrapper = tag.Begin();
+            ComponentWrapper<THelper, TTag> wrapper = builder.Begin();
             wrapper.WithChild = true;
             return wrapper;
         }
 
-        public static TThis SetVisibility<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, Visibility visibility)
+        public static ComponentBuilder<THelper, TTag> SetVisibility<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, Visibility visibility)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().ToggleCss(visibility);
+            builder.Component.ToggleCss(visibility);
+            return builder;
         }
 
-        public static TThis SetState<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, TextState state)
+        public static ComponentBuilder<THelper, TTag> SetState<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, TextState state)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
 
-        public static TThis SetBackgroundState<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, BackgroundState backgroundState)
+        public static ComponentBuilder<THelper, TTag> SetBackgroundState<THelper, TTag>(this ComponentBuilder<THelper, TTag> builder, BackgroundState backgroundState)
             where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+            where TTag : Tag
         {
-            return component.GetThis().ToggleCss(backgroundState);
+            builder.Component.ToggleCss(backgroundState);
+            return builder;
         }
     }
 }

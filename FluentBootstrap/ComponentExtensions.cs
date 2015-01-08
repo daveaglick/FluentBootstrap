@@ -8,14 +8,11 @@ namespace FluentBootstrap
 {
     public static class ComponentExtensions
     {
-        public static TThis RenderIf<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool condition)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Component<THelper, TThis, TWrapper>
-            where TWrapper : ComponentWrapper<THelper>, new()
+        public static TComponent RenderIf<TComponent>(this TComponent component, bool condition)
+            where TComponent : Component
         {
-            TThis tag = component.GetThis();
-            tag.Render = condition;
-            return tag;
+            component.Render = condition;
+            return component;
         }
     }
 }

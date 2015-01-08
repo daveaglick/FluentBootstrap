@@ -7,52 +7,37 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Alerts
 {
-    public interface IAlertCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    public class AlertWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IAlert : ITag
-    {
-    }
-
-    public class Alert<THelper> : Tag<THelper, Alert<THelper>, AlertWrapper<THelper>>, IAlert, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
+    public class Alert : Tag, IHasTextContent
     {
         internal bool Dismissible { set; get; }
         internal string Heading { set; get; }
 
-        internal Alert(IComponentCreator<THelper> creator)
+        internal Alert(IComponentCreator creator)
             : base(creator, "div", Css.Alert, Css.AlertInfo)
         {
-            this.MergeAttribute("role", "alert");
+            MergeAttribute("role", "alert");
         }
 
-        protected override void OnStart(TextWriter writer)
+        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
         {
-            if(Dismissible)
+            if (Dismissible)
             {
-                this.AddCss(Css.AlertDismissible);
+                AddCss(Css.AlertDismissible);
             }
 
-            base.OnStart(writer);
+            base.OnStart(helper, writer);
 
-            if(Dismissible)
+            if (Dismissible)
             {
-                Helper.Element("button").MergeAttribute("type", "button").AddCss(Css.Close).MergeAttribute("data-dismiss", "alert")
-                    .AddChild(_ => Helper.Span().MergeAttribute("aria-hidden", "true").SetText("&times;"))
-                    .AddChild(_ => Helper.Span().AddCss(Css.SrOnly).SetText("Close"))
-                    .StartAndFinish(writer);                    
+                helper.Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
+                    .AddChild(_ => helper.Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
+                    .AddChild(_ => helper.Span().AddCss(Css.SrOnly).SetText("Close"))
+                    .Component.StartAndFinish(helper, writer);
             }
 
-            if(!string.IsNullOrWhiteSpace(Heading))
+            if (!string.IsNullOrWhiteSpace(Heading))
             {
-                Helper.Strong(Heading + " ").StartAndFinish(writer);
+                helper.Strong(Heading + " ").Component.StartAndFinish(helper, writer);
             }
         }
     }

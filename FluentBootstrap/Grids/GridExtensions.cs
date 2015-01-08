@@ -11,35 +11,39 @@ namespace FluentBootstrap
     {
         // Container
 
-        public static Container<THelper> Container<THelper>(this IContainerCreator<THelper> creator)
+        public static ComponentBuilder<THelper, Container> Container<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Container>
         {
-            return new Container<THelper>(creator);
+            return new ComponentBuilder<THelper, Container>(creator.Helper, new Container(creator));
         }
 
-        public static Container<THelper> SetFluid<THelper>(this Container<THelper> container, bool fluid = true)
+        public static ComponentBuilder<THelper, Container> SetFluid<THelper>(this ComponentBuilder<THelper, Container> builder, bool fluid = true)
             where THelper : BootstrapHelper<THelper>
         {
-            container.CssClasses.Remove(Css.Container);
-            container.CssClasses.Remove(Css.ContainerFluid);
-            container.CssClasses.Add(fluid ? Css.ContainerFluid : Css.Container);
-            return container;
+            builder.Component.CssClasses.Remove(Css.Container);
+            builder.Component.CssClasses.Remove(Css.ContainerFluid);
+            builder.Component.CssClasses.Add(fluid ? Css.ContainerFluid : Css.Container);
+            return builder;
         }
 
         // GridRow
 
-        public static GridRow<THelper> GridRow<THelper>(this IGridRowCreator<THelper> creator)
+        public static ComponentBuilder<THelper, GridRow> GridRow<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<GridRow>
         {
-            return new GridRow<THelper>(creator);
+            return new ComponentBuilder<THelper, GridRow>(creator.Helper, new GridRow(creator));
         }
 
         // GridColumn
 
-        public static GridColumn<THelper> GridColumn<THelper>(this IGridColumnCreator<THelper> creator, int? md = null)
+        public static ComponentBuilder<THelper, GridColumn> GridColumn<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, int? md = null)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<GridColumn>
         {
-            return new GridColumn<THelper>(creator).SetMd(md);
+            return new ComponentBuilder<THelper, GridColumn>(creator.Helper, new GridColumn(creator))
+                .SetMd(md);
         }
     }
 }

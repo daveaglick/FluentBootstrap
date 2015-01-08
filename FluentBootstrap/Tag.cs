@@ -1,40 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
 namespace FluentBootstrap
 {
-    public interface ITagCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    public abstract class TagWrapper<THelper> : ComponentWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface ITag : IComponent
-    {
-        HashSet<string> CssClasses { get; }
-        void MergeAttributes(object attributes, bool replaceExisting = true);
-        void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true);
-        void MergeAttribute(string key, string value, bool replaceExisting = true);
-        string GetAttribute(string key);
-        void MergeStyle(string key, string value, bool replaceExisting = true);
-        string GetStyle(string key);
-    }
-
-    public abstract class Tag<THelper, TThis, TWrapper> : Component<THelper, TThis, TWrapper>, ITag
-        where THelper : BootstrapHelper<THelper>
-        where TThis : Tag<THelper, TThis, TWrapper>
-        where TWrapper : TagWrapper<THelper>, new()
+    public abstract class Tag : Component
     {
         private string _tagName;
         internal MergeableDictionary Attributes { get; private set; }
@@ -42,10 +16,10 @@ namespace FluentBootstrap
         internal HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
         private bool _prettyPrint;
-        
+
         internal string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
-        protected internal Tag(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
+        protected internal Tag(IComponentCreator creator, string tagName, params string[] cssClasses)
             : base(creator)
         {
             _tagName = tagName;
@@ -56,7 +30,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Add(cssClass);
             }
-            _prettyPrint = Helper.PrettyPrint;
+            _prettyPrint = creator.GetHelper().PrettyPrint;
         }
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes
@@ -66,7 +40,7 @@ namespace FluentBootstrap
             get { return _tagName; }
             set
             {
-                if(_startTagOutput)
+                if (_startTagOutput)
                 {
                     throw new InvalidOperationException("Can't change tag name after the start tag has been output.");
                 }
@@ -74,24 +48,37 @@ namespace FluentBootstrap
             }
         }
 
-        internal TThis MergeAttributes(object attributes, bool replaceExisting = true)
+        internal void AddCss(params string[] cssClasses)
         {
-            Attributes.Merge(attributes, replaceExisting);
-            return this.GetThis();
+            foreach (string cssClass in cssClasses)
+            {
+                CssClasses.Add(cssClass);
+            }
         }
 
-        internal TThis MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        internal void RemoveCss(params string[] cssClasses)
+        {
+            foreach (string cssClass in cssClasses)
+            {
+                CssClasses.Remove(cssClass);
+            }
+        }
+
+        internal void MergeAttributes(object attributes, bool replaceExisting = true)
         {
             Attributes.Merge(attributes, replaceExisting);
-            return this.GetThis();
+        }
+
+        internal void MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        {
+            Attributes.Merge(attributes, replaceExisting);
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
         // This version does not throw on null or whitespace key and removes the attribute if value is null
-        internal TThis MergeAttribute(string key, string value, bool replaceExisting = true)
+        internal void MergeAttribute(string key, string value, bool replaceExisting = true)
         {
             Attributes.Merge(key, value, replaceExisting);
-            return this.GetThis();
         }
 
         internal string GetAttribute(string key)
@@ -99,24 +86,21 @@ namespace FluentBootstrap
             return Attributes.GetValue(key);
         }
 
-        internal TThis MergeStyles(object attributes, bool replaceExisting = true)
+        internal void MergeStyles(object attributes, bool replaceExisting = true)
         {
             InlineStyles.Merge(attributes, replaceExisting);
-            return this.GetThis();
         }
 
-        internal TThis MergeStyles<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
+        internal void MergeStyles<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting = true)
         {
             InlineStyles.Merge(attributes, replaceExisting);
-            return this.GetThis();
         }
 
         // This works a little bit differently then the TagBuilder.MergeAttribute() method
         // This version does not throw on null or whitespace key and removes the attribute if value is null
-        internal TThis MergeStyle(string key, string value, bool replaceExisting = true)
+        internal void MergeStyle(string key, string value, bool replaceExisting = true)
         {
             InlineStyles.Merge(key, value, replaceExisting);
-            return this.GetThis();
         }
 
         internal string GetStyle(string key)
@@ -124,7 +108,7 @@ namespace FluentBootstrap
             return InlineStyles.GetValue(key);
         }
 
-        internal TThis ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
+        internal void ToggleCss(string cssClass, bool add, params string[] removeIfAdding)
         {
             if (add)
             {
@@ -138,16 +122,15 @@ namespace FluentBootstrap
             {
                 CssClasses.Remove(cssClass);
             }
-            return this.GetThis();
         }
 
         // This takes a flags enum and adds all css classes that are on and removes all that are off
         // Or if not flags, adds the current enum description and turns all others off
         // The CSS class is specified as a DescriptionAttribute on each enum value (use description of null to indicate a default state)
-        internal TThis ToggleCss(Enum css)
+        internal void ToggleCss(Enum css)
         {
             bool flags = css.GetType().GetCustomAttributes(typeof(FlagsAttribute), true).Any();
-            foreach(Enum value in Enum.GetValues(css.GetType()))
+            foreach (Enum value in Enum.GetValues(css.GetType()))
             {
                 string description = value.GetDescription();
                 if (!string.IsNullOrWhiteSpace(description))
@@ -155,42 +138,6 @@ namespace FluentBootstrap
                     ToggleCss(description, flags ? css.HasFlag(value) : css.Equals(value));
                 }
             }
-            return this.GetThis();
-        }
-
-        HashSet<string> ITag.CssClasses
-        {
-            get { return CssClasses; }
-        }
-
-        void ITag.MergeAttributes(object attributes, bool replaceExisting)
-        {
-            MergeAttributes(attributes, replaceExisting);
-        }
-
-        void ITag.MergeAttributes<TKey, TValue>(IDictionary<TKey, TValue> attributes, bool replaceExisting)
-        {
-            MergeAttributes<TKey, TValue>(attributes, replaceExisting);
-        }
-
-        void ITag.MergeAttribute(string key, string value, bool replaceExisting)
-        {
-            MergeAttribute(key, value, replaceExisting);
-        }
-
-        string ITag.GetAttribute(string key)
-        {
-            return GetAttribute(key);
-        }
-
-        void ITag.MergeStyle(string key, string value, bool replaceExisting)
-        {
-            MergeStyle(key, value, replaceExisting);
-        }
-
-        string ITag.GetStyle(string key)
-        {
-            return GetStyle(key);
         }
 
         protected virtual bool OutputEndTag
@@ -198,24 +145,24 @@ namespace FluentBootstrap
             get { return true; }
         }
 
-        protected override void OnStart(TextWriter writer)
+        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
         {
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
             {
-                this.AddChild(new Content<THelper>(Helper, TextContent));
+                this.AddChild(new Content(helper, TextContent));
             }
 
-            base.OnStart(writer);
+            base.OnStart(helper, writer);
 
             // Pretty print
             if (_prettyPrint && !(writer is SuppressOutputWriter))
             {
                 writer.WriteLine();
-                int tagIndent = (int)Helper.GetItem(TagIndentKey, 0);
+                int tagIndent = (int)helper.GetItem(TagIndentKey, 0);
                 writer.Write(new String(' ', tagIndent++));
-                Helper.AddItem(TagIndentKey, tagIndent);
-                Helper.AddItem(LastToWriteKey, this);
+                helper.AddItem(TagIndentKey, tagIndent);
+                helper.AddItem(LastToWriteKey, this);
             }
             else
             {
@@ -223,7 +170,7 @@ namespace FluentBootstrap
             }
 
             // Merge CSS classes
-            if(CssClasses.Count > 0)
+            if (CssClasses.Count > 0)
             {
                 Attributes.Merge("class",
                     (Attributes.Dictionary.ContainsKey("class") ? Attributes.GetValue("class") + " " : string.Empty)
@@ -231,7 +178,7 @@ namespace FluentBootstrap
             }
 
             // Generate the inline CSS style
-            if(InlineStyles.Dictionary.Count > 0)
+            if (InlineStyles.Dictionary.Count > 0)
             {
                 Attributes.Merge("style", string.Join(" ", InlineStyles.Dictionary.Select(x => x.Key + ": " + x.Value + ";")));
             }
@@ -251,15 +198,15 @@ namespace FluentBootstrap
             writer.Write(startTag.ToString());
             _startTagOutput = true;
         }
-        
-        protected override void OnFinish(TextWriter writer)
+
+        protected override void OnFinish<THelper>(THelper helper, TextWriter writer)
         {
             // Pretty print
             if (_prettyPrint)
             {
-                int tagIndent = ((int)Helper.GetItem(TagIndentKey, 0)) - 1;
-                Helper.AddItem(TagIndentKey, tagIndent);
-                ITag lastToWrite = Helper.GetItem(LastToWriteKey, null) as ITag;
+                int tagIndent = ((int)helper.GetItem(TagIndentKey, 0)) - 1;
+                helper.AddItem(TagIndentKey, tagIndent);
+                Tag lastToWrite = helper.GetItem(LastToWriteKey, null) as Tag;
                 if (lastToWrite != this)
                 {
                     writer.WriteLine();
@@ -273,7 +220,7 @@ namespace FluentBootstrap
                 writer.Write("</" + _tagName + ">");
             }
 
-            base.OnFinish(writer);
+            base.OnFinish(helper, writer);
         }
     }
 }

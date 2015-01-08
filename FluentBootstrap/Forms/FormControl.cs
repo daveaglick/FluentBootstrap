@@ -8,52 +8,30 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public interface IFormControlCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class FormControl : Tag, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
+        ICanCreate<HelpBlock>
     {
-    }
-
-    public class FormControlWrapper<THelper> : TagWrapper<THelper>,
-        IHelpBlockCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IFormControl : ITag
-    {
-        void Prepare(TextWriter writer);
-    }
-
-    public abstract class FormControl<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IFormControl, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute
-        where THelper : BootstrapHelper<THelper>
-        where TThis : FormControl<THelper, TThis, TWrapper>
-        where TWrapper : FormControlWrapper<THelper>, new()
-    {
-        private FormGroup<THelper> _formGroup = null;
-        private IControlLabel _label = null;
+        private FormGroup _formGroup = null;
+        private ControlLabel _label = null;
         internal string Help { get; set; }
         internal bool EnsureFormGroup { get; set; }
         private bool _prepared = false;
 
-        protected FormControl(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses) 
+        protected FormControl(IComponentCreator creator, string tagName, params string[] cssClasses) 
             : base(creator, tagName, cssClasses)
         {
             EnsureFormGroup = true;
         }
 
-        internal IControlLabel Label
+        internal ControlLabel Label
         {
             set { _label = value; }
         }
 
-        void IFormControl.Prepare(TextWriter writer)
-        {
-            Prepare(writer);
-        }
-
         // This prepares the outer form group if we need one
         // Needs to be in a separate method so that derived classes can create the form group before outputting any wrappers of their own
-        protected void Prepare(TextWriter writer)
+        protected void Prepare<THelper>(THelper helper, TextWriter writer)
+            where THelper : BootstrapHelper<THelper>
         {
             // Only prepare once
             if(_prepared)
@@ -63,10 +41,10 @@ namespace FluentBootstrap.Forms
             _prepared = true;
 
             // Make sure we're in a form group
-            IFormGroup formGroup = GetComponent<IFormGroup>();
+            FormGroup formGroup = GetComponent<FormGroup>(helper);
             if (formGroup == null && EnsureFormGroup)
             {
-                _formGroup = new FormGroup<THelper>(Helper);
+                _formGroup = new FormGroup(helper);
                 formGroup = _formGroup;
             }
 
@@ -107,46 +85,37 @@ namespace FluentBootstrap.Forms
                 }
                 else
                 {
-                    _label.StartAndFinish(writer);
+                    _label.StartAndFinish(helper, writer);
                 }
             }
 
             // Start the new form group if we created one
             if (_formGroup != null)
             {
-                _formGroup.Start(writer);
+                _formGroup.Start(helper, writer);
             }
 
             _prepared = true;
         }
 
-        protected override void OnStart(TextWriter writer)
+        protected override void OnStart<THelper>(THelper helper, TextWriter writer)
         {
-            Prepare(writer);
+            Prepare(helper, writer);
 
-            base.OnStart(writer);
+            base.OnStart(helper, writer);
         }
 
-        protected override void OnFinish(TextWriter writer)
+        protected override void OnFinish<THelper>(THelper helper, TextWriter writer)
         {
-            base.OnFinish(writer);
+            base.OnFinish(helper, writer);
 
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                new HelpBlock<THelper>(Helper).SetText(Help).StartAndFinish(writer);
+                GetBuilder(helper, new HelpBlock(helper)).SetText(Help).Component.StartAndFinish(helper, writer);
             }
 
-            Pop(_formGroup, writer);
-        }
-    }
-
-    public class FormControl<THelper> : FormControl<THelper, FormControl<THelper>, FormControlWrapper<THelper>>, IFormControl
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal FormControl(IComponentCreator<THelper> creator)
-            : base(creator, "div")
-        {
+            Pop(helper, _formGroup, writer);
         }
     }
 }

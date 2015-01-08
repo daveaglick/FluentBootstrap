@@ -56,7 +56,7 @@ namespace FluentBootstrap
                 Dictionary[key] = value;
             }
         }
-        
+
         // This returns string.Empty if not found
         public string GetValue(string key)
         {

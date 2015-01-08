@@ -44,70 +44,25 @@
     <Compile Include="Alerts\Alert.cs" />
     <Compile Include="Alerts\AlertExtensions.cs" />
     <Compile Include="Alerts\AlertState.cs" />
-    <Compile Include="ComponentOverride.cs" />
-    <Compile Include="Html\Paragraph.cs" />
-    <Compile Include="ListGroups\ListGroup.cs" />
-    <Compile Include="ListGroups\ListGroupExtensions.cs" />
-    <Compile Include="ListGroups\ListGroupItem.cs" />
-    <Compile Include="ListGroups\ListGroupItemState.cs" />
-    <Compile Include="MediaObjects\Media.cs" />
-    <Compile Include="MediaObjects\MediaBody.cs" />
-    <Compile Include="MediaObjects\MediaList.cs" />
-    <Compile Include="MediaObjects\MediaObject.cs" />
-    <Compile Include="MediaObjects\MediaObjectExtensions.cs" />
-    <Compile Include="MergeableDictionary.cs" />
-    <Compile Include="Badges\Badge.cs" />
-    <Compile Include="Badges\BadgeExtensions.cs" />
-    <Compile Include="Breadcrumbs\Breadcrumb.cs" />
-    <Compile Include="Breadcrumbs\BreadcrumbExtensions.cs" />
-    <Compile Include="Breadcrumbs\Crumb.cs" />
-    <Compile Include="Buttons\Button.cs" />
-    <Compile Include="Buttons\ButtonExtensions.cs" />
-    <Compile Include="Buttons\ButtonGroup.cs" />
-    <Compile Include="Buttons\ButtonGroupSize.cs" />
-    <Compile Include="Buttons\ButtonSize.cs" />
-    <Compile Include="Buttons\ButtonState.cs" />
-    <Compile Include="Buttons\ButtonToolbar.cs" />
-    <Compile Include="Buttons\ButtonType.cs" />
-    <Compile Include="Buttons\DropdownButton.cs" />
-    <Compile Include="Buttons\IHasButtonExtensions.cs" />
-    <Compile Include="Buttons\IHasButtonStateExtensions.cs" />
-    <Compile Include="Buttons\LinkButton.cs" />
+    <Compile Include="BackgroundState.cs" />
+    <Compile Include="BootstrapHelper.cs" />
+    <Compile Include="Component.cs" />
     <Compile Include="ComponentExtensions.cs" />
+    <Compile Include="Content.cs" />
     <Compile Include="Css.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
-    <Compile Include="BackgroundState.cs" />
-    <Compile Include="Dropdowns\Dropdown.cs" />
-    <Compile Include="Dropdowns\DropdownDivider.cs" />
-    <Compile Include="Dropdowns\DropdownExtensions.cs" />
-    <Compile Include="Dropdowns\DropdownHeader.cs" />
-    <Compile Include="Dropdowns\DropdownLink.cs" />
-    <Compile Include="Forms\CheckedControl.cs" />
-    <Compile Include="Forms\FieldSet.cs" />
-    <Compile Include="Forms\Form.cs" />
-    <Compile Include="Forms\FormButton.cs" />
-    <Compile Include="Forms\FormControl.cs" />
-    <Compile Include="Forms\FormExtensions.cs" />
-    <Compile Include="Forms\FormGroup.cs" />
-    <Compile Include="Forms\FormInputType.cs" />
-    <Compile Include="Forms\HelpBlock.cs" />
-    <Compile Include="Forms\Hidden.cs" />
-    <Compile Include="Forms\IFormValidation.cs" />
-    <Compile Include="Forms\Input.cs" />
-    <Compile Include="Forms\InputButton.cs" />
-    <Compile Include="Forms\InputGroup.cs" />
-    <Compile Include="Forms\InputGroupAddon.cs" />
-    <Compile Include="Forms\InputGroupButton.cs" />
-    <Compile Include="Forms\InputGroupSize.cs" />
-    <Compile Include="Forms\InputSize.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Forms\ControlLabel.cs" />
-    <Compile Include="Forms\Select.cs" />
-    <Compile Include="Forms\Static.cs" />
-    <Compile Include="Forms\TextArea.cs" />
-    <Compile Include="Forms\ValidationState.cs" />
+    <Compile Include="Forms\Form.cs" />
+    <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\FormGroup.cs" />
+    <Compile Include="Forms\HelpBlock.cs" />
+    <Compile Include="Forms\IFormValidation.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Grids\Container.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -126,172 +81,28 @@
     <Compile Include="Grids\IHasGridColumnExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Misc\Jumbotron.cs" />
     <Compile Include="Html\Element.cs" />
     <Compile Include="Html\HtmlExtensions.cs" />
-    <Compile Include="Icons\Icon.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Icon.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Icons\IconExtensions.cs" />
-    <Compile Include="Icons\IconSpan.cs" />
-    <Compile Include="Icons\IHasIcon.cs" />
-    <Compile Include="Images\Image.cs" />
-    <Compile Include="Images\ImageExtensions.cs" />
-    <Compile Include="Images\ImageStyle.cs" />
-    <Compile Include="Labels\Label.cs" />
-    <Compile Include="Labels\LabelExtensions.cs" />
-    <Compile Include="Labels\LabelState.cs" />
-    <Compile Include="Links\IHasLinkExtensions.cs" />
-    <Compile Include="Links\Link.cs" />
-    <Compile Include="Links\LinkExtensions.cs" />
-    <Compile Include="Misc\MiscExtensions.cs" />
-    <Compile Include="Misc\PageHeader.cs" />
-    <Compile Include="Navbars\Brand.cs" />
-    <Compile Include="Navbars\INavbarComponent.cs" />
-    <Compile Include="Navbars\Navbar.cs" />
-    <Compile Include="Navbars\NavbarButton.cs" />
-    <Compile Include="Navbars\NavbarExtensions.cs" />
-    <Compile Include="Navbars\NavbarForm.cs" />
-    <Compile Include="Navbars\NavbarHeader.cs" />
-    <Compile Include="Navbars\NavbarLink.cs" />
-    <Compile Include="Navbars\NavbarNav.cs" />
-    <Compile Include="Navbars\NavbarPosition.cs" />
-    <Compile Include="Navbars\NavbarSection.cs" />
-    <Compile Include="Navbars\NavbarText.cs" />
-    <Compile Include="Navbars\NavbarToggle.cs" />
-    <Compile Include="Navs\Nav.cs" />
-    <Compile Include="Navbars\NavbarCollapse.cs" />
-    <Compile Include="Navs\NavExtensions.cs" />
-    <Compile Include="Navs\NavLink.cs" />
-    <Compile Include="Navs\Pill.cs" />
-    <Compile Include="Navs\Pills.cs" />
-    <Compile Include="Navs\Tab.cs" />
-    <Compile Include="Navs\Tabs.cs" />
-    <Compile Include="Pagers\Page.cs" />
-    <Compile Include="Pagers\PageAlignment.cs" />
-    <Compile Include="Pagers\Pager.cs" />
-    <Compile Include="Pagers\PagerExtensions.cs" />
-    <Compile Include="Paginations\PageNum.cs" />
-    <Compile Include="Paginations\Pagination.cs" />
-    <Compile Include="Paginations\PaginationExtensions.cs" />
-    <Compile Include="Paginations\PaginationSize.cs" />
-    <Compile Include="Panels\Panel.cs" />
-    <Compile Include="Panels\PanelBody.cs" />
-    <Compile Include="Panels\PanelExtensions.cs" />
-    <Compile Include="Panels\PanelFooter.cs" />
-    <Compile Include="Panels\PanelHeading.cs" />
-    <Compile Include="Panels\PanelSection.cs" />
-    <Compile Include="Panels\PanelState.cs" />
-    <Compile Include="Panels\PanelTable.cs" />
-    <Compile Include="Panels\PanelTitle.cs" />
-    <Compile Include="ProgressBars\Progress.cs" />
-    <Compile Include="ProgressBars\ProgressBar.cs" />
-    <Compile Include="ProgressBars\ProgressBarExtensions.cs" />
-    <Compile Include="ProgressBars\ProgressBarState.cs" />
+    <Compile Include="Html\Paragraph.cs" />
+    <Compile Include="ICanCreate.cs" />
+    <Compile Include="IHasDisabledAttribute.cs" />
+    <Compile Include="IHasTextContent.cs" />
+    <Compile Include="MergeableDictionary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleBootstrapHelper.cs" />
     <Compile Include="SuppressOutputWriter.cs" />
-    <Compile Include="Tables\IHasTableStateExtensions.cs" />
-    <Compile Include="Tables\Table.cs" />
-    <Compile Include="Tables\TableBodySection.cs" />
-    <Compile Include="Tables\TableCell.cs" />
-    <Compile Include="Tables\TableState.cs" />
-    <Compile Include="Tables\TableData.cs" />
-    <Compile Include="Tables\TableExtensions.cs" />
-    <Compile Include="Tables\TableFootSection.cs" />
-    <Compile Include="Tables\TableHeader.cs" />
-    <Compile Include="Tables\TableHeadSection.cs" />
-    <Compile Include="Tables\TableRow.cs" />
-    <Compile Include="Tables\TableSection.cs" />
-    <Compile Include="Tables\TableStyle.cs" />
-    <Compile Include="TextState.cs" />
-    <Compile Include="Thumbnails\Caption.cs" />
-    <Compile Include="Thumbnails\Thumbnail.cs" />
-    <Compile Include="Thumbnails\ThumbnailContainer.cs" />
-    <Compile Include="Thumbnails\ThumbnailExtensions.cs" />
-    <Compile Include="Typography\Abbr.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\Blockquote.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\Cite.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\Description.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\DescriptionList.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\DescriptionTerm.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\Heading.cs" />
-    <Compile Include="Typography\List.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\ListItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\ListType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\Pre.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Typography\Small.cs" />
-    <Compile Include="Typography\TextAlignment.cs" />
-    <Compile Include="Typography\TextTransformation.cs" />
-    <Compile Include="Typography\TypographyExtensions.cs" />
-    <Compile Include="Visibility.cs" />
-    <Compile Include="IHasTitleAttribute.cs" />
-    <Compile Include="EnumExtensions.cs" />
-    <Compile Include="IHasNameAttribute.cs" />
-    <Compile Include="Component.cs" />
-    <Compile Include="Content.cs" />
-    <Compile Include="IHasDisabledAttribute.cs" />
-    <Compile Include="InterfaceExtensions.cs" />
-    <Compile Include="IHasTextContent.cs" />
-    <Compile Include="IHasValueAttribute.cs" />
     <Compile Include="Tag.cs" />
-    <Compile Include="BootstrapHelper.cs" />
     <Compile Include="TagExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wells\Well.cs" />
-    <Compile Include="Wells\WellExtensions.cs" />
-    <Compile Include="Wells\WellSize.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="TextState.cs" />
+    <Compile Include="Visibility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\bootstrap-theme.css.map" />
-    <None Include="Content\bootstrap.css.map" />
     <None Include="Css.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Css.cs</LastGenOutput>
     </None>
-    <None Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Icons\Icon.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Icon.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-2.1.3.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js" />
-    <Content Include="Scripts\npm.js" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

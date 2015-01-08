@@ -6,24 +6,10 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Html
 {
-    public interface IElementCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    // Like Tag but implements IHasTextContent (we don't want all Tags to have text content)
+    public class Element : Tag, IHasTextContent
     {
-    }
-
-    public class ElementWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IElement : ITag
-    {
-    }
-
-    public class Element<THelper> : Tag<THelper, Element<THelper>, ElementWrapper<THelper>>, IElement, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal Element(IComponentCreator<THelper> creator, string tagName)
+        internal Element(IComponentCreator creator, string tagName)
             : base(creator, tagName)
         {
         }

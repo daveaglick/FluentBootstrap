@@ -7,31 +7,41 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap
 {
-    // Extensions for very general HTML elements
     public static class HtmlExtensions
     {
-        public static Element<THelper> Element<THelper>(this ITagCreator<THelper> creator, string name)
+        public static ComponentBuilder<THelper, Element> Element<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, string name)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, name);
+            return new ComponentBuilder<THelper, Element>(creator.Helper, new Element(creator, name));
         }
 
-        public static Element<THelper> Div<THelper>(this ITagCreator<THelper> creator)
+        public static ComponentBuilder<THelper, Element> Div<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, string text = null)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "div");
+            return new ComponentBuilder<THelper, Element>(creator.Helper, new Element(creator, "div")).SetText(text);
         }
 
-        public static Element<THelper> Span<THelper>(this ITagCreator<THelper> creator)
+        public static ComponentBuilder<THelper, Element> Span<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, string text = null)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "span");
+            return new ComponentBuilder<THelper, Element>(creator.Helper, new Element(creator, "span")).SetText(text);
         }
 
-        public static Paragraph<THelper> Paragraph<THelper>(this IParagraphCreator<THelper> creator, string text = null)
+        public static ComponentBuilder<THelper, Paragraph> Paragraph<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, string text = null)
             where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Paragraph>
         {
-            return new Paragraph<THelper>(creator).SetText(text);
+            return new ComponentBuilder<THelper, Paragraph>(creator.Helper, new Paragraph(creator)).SetText(text);
+        }
+
+        public static ComponentBuilder<THelper, Element> Strong<THelper, TComponent>(this IComponentCreator<THelper, TComponent> creator, string text = null)
+            where THelper : BootstrapHelper<THelper>
+            where TComponent : Component, ICanCreate<Tag>
+        {
+            return new ComponentBuilder<THelper, Element>(creator.Helper, new Element(creator, "strong")).SetText(text);
         }
     }
 }
