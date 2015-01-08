@@ -10,7 +10,7 @@ using System.Web.Mvc.Html;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public class ValidationSummary<TModel> : FormControl
+    public class ValidationSummary<TModel> : FormControl, ICanCreate<ValidationSummary<TModel>>
     {
         public bool IncludePropertyErrors { get; set; }
 
@@ -34,7 +34,7 @@ namespace FluentBootstrap.Mvc.Forms
             Form form = GetComponent<Form>();
             if (form != null)
             {
-                //form.GetOverride<FormOverride<TModel>>().HideValidationSummary = true;
+                form.GetOverride<FormOverride<TModel>>().HideValidationSummary = true;
             }
         }
     }

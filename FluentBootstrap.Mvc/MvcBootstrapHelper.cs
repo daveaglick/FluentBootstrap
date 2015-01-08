@@ -1,5 +1,5 @@
 ﻿using FluentBootstrap.Forms;
-//using FluentBootstrap.Mvc.Forms;
+using FluentBootstrap.Mvc.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Mvc
 {
-    public class MvcBootstrapHelper<TModel> : BootstrapHelper
+    public class MvcBootstrapHelper<TModel> : BootstrapHelper, IMvcComponentCreator<CanCreate, TModel>
     {
         internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 
@@ -20,11 +20,11 @@ namespace FluentBootstrap.Mvc
             HtmlHelper = htmlHelper;
         }
 
-        //protected override void RegisterComponentOverrides()
-        //{
-        //    RegisterComponentOverride<IForm, FormOverride<TModel>>((h, c) => new FormOverride<TModel>(h, (IForm)c));
-        //    RegisterComponentOverride<IFormControl, FormControlOverride<TModel>>((h, c) => new FormControlOverride<TModel>(h, (IFormControl)c));
-        //}
+        protected override void RegisterComponentOverrides()
+        {
+            RegisterComponentOverride<Form, FormOverride<TModel>>();
+            //RegisterComponentOverride<IFormControl, FormControlOverride<TModel>>((h, c) => new FormControlOverride<TModel>(h, (IFormControl)c));
+        }
 
         protected override string GetFullHtmlFieldName(string name)
         {

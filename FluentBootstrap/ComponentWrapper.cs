@@ -8,15 +8,14 @@ namespace FluentBootstrap
     public class ComponentWrapper<TComponent> : IDisposable, IComponentCreator<TComponent>
         where TComponent : Component
     {
-        private readonly ComponentBuilder<TComponent> _builder;
+        private readonly ComponentBuilder _builder;
 
-        internal ComponentWrapper(ComponentBuilder<TComponent> builder)
+        protected internal ComponentWrapper(ComponentBuilder builder)
         {
             _builder = builder;
         }
 
         internal bool WithChild { get; set; }
-
 
         public void Dispose()
         {
@@ -35,7 +34,7 @@ namespace FluentBootstrap
 
         public Component Parent
         {
-            get { return WithChild ? _builder.Component : null; }
+            get { return WithChild ? _builder.GetComponent() : null; }
         }
     }
 }

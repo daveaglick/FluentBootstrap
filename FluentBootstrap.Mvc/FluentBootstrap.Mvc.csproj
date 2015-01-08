@@ -71,12 +71,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FormOverride.cs" />
     <Compile Include="Forms\HiddenFor.cs" />
+    <Compile Include="Forms\MvcFormExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="IMvcComponentCreator.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
+    <Compile Include="MvcComponentBuilder.cs" />
+    <Compile Include="MvcComponentWrapper.cs" />
     <Compile Include="MvcTagExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentBootstrap\FluentBootstrap.csproj">

@@ -46,10 +46,16 @@ namespace FluentBootstrap
             }
         }        
 
-        // Convenience method to get a strongly-typed MvcBootstrapHelper from a component by casting
+        // Convenience methods to get a strongly-typed MvcBootstrapHelper by casting
+
         internal static MvcBootstrapHelper<TModel> GetHelper<TModel>(this Component component)
         {
             return (MvcBootstrapHelper<TModel>)component.Helper;
+        }
+
+        internal static MvcBootstrapHelper<TModel> GetHelper<TModel>(this ComponentOverride componentOverride)
+        {
+            return (MvcBootstrapHelper<TModel>)componentOverride.Helper;
         }
     }
 }

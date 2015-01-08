@@ -7,22 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    internal class FormOverride<TModel> : ComponentOverride<MvcBootstrapHelper<TModel>, IForm>
+    internal class FormOverride<TModel> : ComponentOverride<Form>
     {
-        internal bool HideValidationSummary { get; set; }
+        public bool HideValidationSummary { get; set; }
 
-        public FormOverride(MvcBootstrapHelper<TModel> helper, IForm component)
-            : base(helper, component)
-        {
-        }
-
-        protected internal override void OnStart(TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             // Generate the form ID if one is needed (if one was already set in the htmlAttributes, this does nothing)
-            ViewContext viewContext = Helper.HtmlHelper.ViewContext;
+            ViewContext viewContext = this.GetHelper<TModel>().HtmlHelper.ViewContext;
             bool flag = viewContext.ClientValidationEnabled
                 && !viewContext.UnobtrusiveJavaScriptEnabled;
             if (flag)
@@ -48,18 +44,18 @@ namespace FluentBootstrap.Mvc.Forms
             }
         }
 
-        protected internal override void OnFinish(TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {            
             // Validation summary if it's not hidden or one was not already output
             if (!HideValidationSummary)
             {
-                Helper.ValidationSummary().StartAndFinish(writer);
+                this.GetHelper<TModel>().ValidationSummary().GetComponent().StartAndFinish(writer);
             }
 
             base.OnFinish(writer);
 
             // Intercept the client validation (if there is any) and output on our own writer
-            ViewContext viewContext = Helper.HtmlHelper.ViewContext;
+            ViewContext viewContext = this.GetHelper<TModel>().HtmlHelper.ViewContext;
             TextWriter viewWriter = viewContext.Writer;
             viewContext.Writer = writer;
             viewContext.OutputClientValidation();
@@ -74,7 +70,7 @@ namespace FluentBootstrap.Mvc.Forms
         // Get and increment a form id
         private string FormIdGenerator()
         {
-            IDictionary items = Helper.HtmlHelper.ViewContext.HttpContext.Items;
+            IDictionary items = this.GetHelper<TModel>().HtmlHelper.ViewContext.HttpContext.Items;
             object item = items[_lastBootstrapFormNumKey];
             int num = (item != null ? (int)item + 1 : 0);
             items[_lastBootstrapFormNumKey] = num;

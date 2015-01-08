@@ -8,22 +8,26 @@ namespace FluentBootstrap
 {
     public abstract class ComponentBuilder
     {
+        internal abstract BootstrapHelper Helper { get; }
         internal abstract Component GetComponent();
+        public abstract void End();
     }
 
-    public class ComponentBuilder<TComponent> : ComponentBuilder, IHtmlString
+    // This base class allows extension libraries to override the builder/wrapper classes (for example, to pass around a model)
+    public abstract class ComponentBuilder<TWrapper, TComponent> : ComponentBuilder, IHtmlString
+        where TWrapper : ComponentWrapper<TComponent>
         where TComponent : Component
     {
         private readonly BootstrapHelper _helper;
         private readonly TComponent _component;
 
-        internal ComponentBuilder(BootstrapHelper helper, TComponent component)
+        public ComponentBuilder(BootstrapHelper helper, TComponent component)
         {
             _component = component;
             _helper = helper;
         }
 
-        internal BootstrapHelper Helper
+        internal override BootstrapHelper Helper
         {
             get { return this._helper; }
         }
@@ -38,18 +42,13 @@ namespace FluentBootstrap
             return Component;
         }
 
-        internal ComponentWrapper<TComponent> GetWrapper()
-        {
-            return new ComponentWrapper<TComponent>(this);
-        }
-
-        public ComponentWrapper<TComponent> Begin()
+        public TWrapper Begin()
         {
             Component.Begin(null);
             return GetWrapper();
         }
 
-        public void End()
+        public override void End()
         {
             Component.End(null);
         }
@@ -62,6 +61,22 @@ namespace FluentBootstrap
         public override string ToString()
         {
             return Component.ToString();
+        }
+
+        protected internal abstract TWrapper GetWrapper();
+    }
+
+    public class ComponentBuilder<TComponent> : ComponentBuilder<ComponentWrapper<TComponent>, TComponent>
+        where TComponent : Component
+    {
+        public ComponentBuilder(BootstrapHelper helper, TComponent component)
+            : base(helper, component)
+        {
+        }
+
+        protected internal override ComponentWrapper<TComponent> GetWrapper()
+        {
+            return new ComponentWrapper<TComponent>(this);
         }
     }
 }

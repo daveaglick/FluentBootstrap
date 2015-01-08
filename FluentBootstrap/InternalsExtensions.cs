@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -16,6 +17,11 @@ namespace FluentBootstrap.Internals
             return builder.Component;
         }
 
+        public static Component GetComponent(this ComponentBuilder builder)
+        {
+            return builder.GetComponent();
+        }
+
         public static BootstrapHelper GetHelper<TComponent>(this ComponentBuilder<TComponent> builder)
             where TComponent : Component
         {
@@ -26,6 +32,21 @@ namespace FluentBootstrap.Internals
             where TComponent : Component
         {
             return builder.GetWrapper();
+        }
+
+        public static void Start(this Component component, TextWriter writer)
+        {
+            component.Start(writer);
+        }
+
+        public static void Finish(this Component component, TextWriter writer)
+        {
+            component.Start(writer);
+        }
+
+        public static void StartAndFinish(this Component component, TextWriter writer)
+        {
+            component.StartAndFinish(writer);
         }
     }
 }

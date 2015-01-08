@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -14,12 +15,33 @@ namespace FluentBootstrap
         internal bool PrettyPrint { get; set; }
         internal int DefaultFormLabelWidth { get; set; }
 
+        private readonly object _componentOverridesLock = new object();
+        private static ConcurrentDictionary<Type, Func<BootstrapHelper, Component, ComponentOverride>> _componentOverrides;
+        private readonly bool _registeringComponentOverrides;
+
+        // Only allow access through the instance to make sure the dictionary has been initialized
+        internal ConcurrentDictionary<Type, Func<BootstrapHelper, Component, ComponentOverride>> ComponentOverrides
+        {
+            get { return _componentOverrides; }
+        }
+
         protected BootstrapHelper()
         {
             // TODO: Get these from .config file or from helper ctor
             GridColumns = 12;
             PrettyPrint = true;
             DefaultFormLabelWidth = 4;
+
+            if (_componentOverrides == null)
+            {
+                lock (_componentOverridesLock)
+                {
+                    _componentOverrides = new ConcurrentDictionary<Type, Func<BootstrapHelper, Component, ComponentOverride>>();
+                    _registeringComponentOverrides = true;
+                    RegisterComponentOverrides();
+                    _registeringComponentOverrides = false;
+                }
+            }
         }
 
         protected internal string FormatValue(object value, string format)
@@ -52,6 +74,28 @@ namespace FluentBootstrap
         public Component Parent
         {
             get { return null; }
+        }
+
+        // Derived helpers should override this method to register component overrides
+        protected virtual void RegisterComponentOverrides()
+        {
+        }
+
+        protected void RegisterComponentOverride<TComponent, TOverride>()
+            where TComponent : Component
+            where TOverride : ComponentOverride<TComponent>, new()
+        {
+            if (!_registeringComponentOverrides)
+            {
+                throw new InvalidOperationException("You can only register component overrides from within the RegisterComponentOverrides method.");
+            }
+            ComponentOverrides[typeof(TComponent)] = (helper, component) =>
+            {
+                TOverride componentOverride = new TOverride();
+                componentOverride.Helper = helper;
+                componentOverride.Component = (TComponent)component;
+                return componentOverride;
+            };
         }
 
         // Returns the current TextWriter for output

@@ -18,6 +18,7 @@ namespace FluentBootstrap
         private readonly BootstrapHelper _helper;
         private readonly List<Component> _children = new List<Component>();
         private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
+        private readonly Queue<ComponentOverride> _componentOverrides = new Queue<ComponentOverride>();
 
         public BootstrapHelper Helper
         {
@@ -45,6 +46,31 @@ namespace FluentBootstrap
             _helper = creator.Helper;
             _parent = creator.Parent;
             _implicit = GetOutputStack().Count > 0;
+
+            // Get any component override(s)
+            ComponentOverride componentOverride = null;
+            Type thisType = GetType();
+            foreach (KeyValuePair<Type, Func<BootstrapHelper, Component, ComponentOverride>> match
+                in Helper.ComponentOverrides.Where(x => x.Key.IsAssignableFrom(thisType)))
+            {
+                ComponentOverride lastComponentOverride = componentOverride;
+                componentOverride = match.Value(Helper, this);
+                componentOverride.BaseStartAction = OnStart;
+                componentOverride.BaseFinishAction = OnFinish;
+                if (lastComponentOverride != null)
+                {
+                    // If this is an override higher up the hierarchy, redirect the lower override to call this one
+                    lastComponentOverride.BaseStartAction = componentOverride.OnStart;
+                    lastComponentOverride.BaseFinishAction = componentOverride.OnFinish;
+                }
+                _componentOverrides.Enqueue(componentOverride);
+            }
+        }
+
+        public TOverride GetOverride<TOverride>()
+            where TOverride : ComponentOverride
+        {
+            return _componentOverrides.OfType<TOverride>().FirstOrDefault();
         }
 
         // Gets a temporary ComponentBuilder that can be used to access extension methods from overrides
@@ -132,11 +158,11 @@ namespace FluentBootstrap
             GetOutputStack().Push(this);
 
             // Output the content
-            //if (_componentOverrides.Count > 0)
-            //{
-            //    _componentOverrides.Peek().OnStart(writer);
-            //}
-            //else
+            if (_componentOverrides.Count > 0)
+            {
+                _componentOverrides.Peek().OnStart(writer);
+            }
+            else
             {
                 OnStart(writer);
             }
@@ -188,11 +214,11 @@ namespace FluentBootstrap
             GetOutputStack().Push(this);
 
             // Output the content
-            //if (_componentOverrides.Count > 0)
-            //{
-            //    _componentOverrides.Peek().OnFinish(writer);
-            //}
-            //else
+            if (_componentOverrides.Count > 0)
+            {
+                _componentOverrides.Peek().OnFinish(writer);
+            }
+            else
             {
                 OnFinish(writer);
             }

@@ -49,6 +49,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="ComponentBuilder.cs" />
     <Compile Include="ComponentExtensions.cs" />
+    <Compile Include="ComponentOverride.cs" />
     <Compile Include="ComponentWrapper.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="ContentExtensions.cs" />
@@ -67,6 +68,9 @@
     </Compile>
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\FormExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Forms\FormGroup.cs" />
     <Compile Include="Forms\FormInputType.cs">
       <SubType>Code</SubType>
