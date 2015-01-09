@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Mvc
 {
-    public class MvcBootstrapHelper<TModel> : BootstrapHelper, IMvcComponentCreator<CanCreate, TModel>
+    public class MvcBootstrapHelper<TModel> : BootstrapHelper
     {
         internal HtmlHelper<TModel> HtmlHelper { get; private set; }
 
@@ -23,7 +23,7 @@ namespace FluentBootstrap.Mvc
         protected override void RegisterComponentOverrides()
         {
             RegisterComponentOverride<Form, FormOverride<TModel>>();
-            //RegisterComponentOverride<IFormControl, FormControlOverride<TModel>>((h, c) => new FormControlOverride<TModel>(h, (IFormControl)c));
+        //    RegisterComponentOverride<IFormControl, FormControlOverride<TModel>>((h, c) => new FormControlOverride<TModel>(h, (IFormControl)c));
         }
 
         protected override string GetFullHtmlFieldName(string name)

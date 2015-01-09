@@ -16,13 +16,14 @@ namespace FluentBootstrap
 {
     public static class MvcFormExtensions
     {
-        public static MvcComponentBuilder<Form, TModel> Form<TComponent, TModel>(this IMvcComponentCreator<TComponent, TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post, object routeValues = null)
-            where TComponent : Component, ICanCreate<Form>
-        {
-            return new MvcComponentBuilder<Form, TModel>(creator.Helper, creator.Helper.Form().GetComponent())
-                .SetAction(actionName, controllerName, routeValues)
-                .SetFormMethod(method);
-        }
+        // !!
+        //public static MvcComponentBuilder<Form, TModel> Form<TComponent, TModel>(this IMvcComponentCreator<TComponent, TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post, object routeValues = null)
+        //    where TComponent : Component, ICanCreate<Form>
+        //{
+        //    return new MvcComponentBuilder<Form, TModel>(creator.Helper, creator.Helper.Form().GetComponent())
+        //        .SetAction(actionName, controllerName, routeValues)
+        //        .SetFormMethod(method);
+        //}
 
         //public static Form<MvcBootstrapHelper<TModel>> Form<TModel>(this IFormCreator<MvcBootstrapHelper<TModel>> creator, FormMethod method)
         //{
@@ -34,25 +35,27 @@ namespace FluentBootstrap
         //    return new Form<MvcBootstrapHelper<TModel>>(creator).SetAction(action).SetFormMethod(method);
         //}
 
-        public static MvcComponentBuilder<Form, TModel> SetFormMethod<TModel>(this MvcComponentBuilder<Form, TModel> builder, FormMethod method)
-        {
-            // TODO: This isn't working because the FluentBootstrap.Internals extension is for ComponentBuilder<Form> and we have a MvcComponentBuilder<Form, TModel>
-            //builder.GetComponent().MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
-            return builder;
-        }
+        // !!
+        //public static MvcComponentBuilder<Form, TModel> SetFormMethod<TModel>(this MvcComponentBuilder<Form, TModel> builder, FormMethod method)
+        //{
+        //    // TODO: This isn't working because the FluentBootstrap.Internals extension is for ComponentBuilder<Form> and we have a MvcComponentBuilder<Form, TModel>
+        //    builder.GetComponent().MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
+        //    return builder;
+        //}
 
-        public static MvcComponentBuilder<Form, TModel> SetAction<TModel>(this MvcComponentBuilder<Form, TModel> builder, string actionName, string controllerName, object routeValues = null)
-        {
-            RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
-            if (routeValueDictionary == null)
-                new RouteValueDictionary(routeValues);
+        // !!
+        //public static MvcComponentBuilder<Form, TModel> SetAction<TModel>(this MvcComponentBuilder<Form, TModel> builder, string actionName, string controllerName, object routeValues = null)
+        //{
+        //    RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
+        //    if (routeValueDictionary == null)
+        //        new RouteValueDictionary(routeValues);
 
-            // TODO: This is a problem because the .SetAction() extension expects a ComponentBuilder<Form> and we have a MvcComponentBuilder<Form, TModel>
-            // Might need to use some kind of interface for builders/wrappers - ugh.
-            //builder.SetAction(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
-            //    builder.Helper.GetHtmlHelper<TModel>().RouteCollection, builder.Helper.GetHtmlHelper<TModel>().ViewContext.RequestContext, true));
-            return builder;
-        }
+        //    // TODO: This is a problem because the .SetAction() extension expects a ComponentBuilder<Form> and we have a MvcComponentBuilder<Form, TModel>
+        //    // Might need to use some kind of interface for builders/wrappers - ugh.
+        //    builder.SetAction(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
+        //        builder.Helper.GetHtmlHelper<TModel>().RouteCollection, builder.Helper.GetHtmlHelper<TModel>().ViewContext.RequestContext, true));
+        //    return builder;
+        //}
 
         //public static Form<MvcBootstrapHelper<TModel>> SetRoute<TModel>(this Form<MvcBootstrapHelper<TModel>> form, string routeName, object routeValues = null)
         //{

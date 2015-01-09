@@ -13,15 +13,13 @@ namespace FluentBootstrap
         public abstract void End();
     }
 
-    // This base class allows extension libraries to override the builder/wrapper classes (for example, to pass around a model)
-    public abstract class ComponentBuilder<TWrapper, TComponent> : ComponentBuilder, IHtmlString
-        where TWrapper : ComponentWrapper<TComponent>
+    public class ComponentBuilder<TComponent> : ComponentBuilder, IHtmlString
         where TComponent : Component
     {
         private readonly BootstrapHelper _helper;
         private readonly TComponent _component;
 
-        public ComponentBuilder(BootstrapHelper helper, TComponent component)
+        internal ComponentBuilder(BootstrapHelper helper, TComponent component)
         {
             _component = component;
             _helper = helper;
@@ -42,7 +40,12 @@ namespace FluentBootstrap
             return Component;
         }
 
-        public TWrapper Begin()
+        internal ComponentWrapper<TComponent> GetWrapper()
+        {
+            return new ComponentWrapper<TComponent>(this);
+        }
+
+        public ComponentWrapper<TComponent> Begin()
         {
             Component.Begin(null);
             return GetWrapper();
@@ -61,22 +64,6 @@ namespace FluentBootstrap
         public override string ToString()
         {
             return Component.ToString();
-        }
-
-        protected internal abstract TWrapper GetWrapper();
-    }
-
-    public class ComponentBuilder<TComponent> : ComponentBuilder<ComponentWrapper<TComponent>, TComponent>
-        where TComponent : Component
-    {
-        public ComponentBuilder(BootstrapHelper helper, TComponent component)
-            : base(helper, component)
-        {
-        }
-
-        protected internal override ComponentWrapper<TComponent> GetWrapper()
-        {
-            return new ComponentWrapper<TComponent>(this);
         }
     }
 }
