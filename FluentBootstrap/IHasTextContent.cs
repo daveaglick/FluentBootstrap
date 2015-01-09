@@ -12,7 +12,8 @@ namespace FluentBootstrap
 
     public static class TextContentExtensions
     {
-        public static ComponentBuilder<TTag> SetText<TTag>(this ComponentBuilder<TTag> builder, string text)
+        public static ComponentBuilder<TConfig, TTag> SetText<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, string text)
+            where TConfig : BootstrapConfig
             where TTag : Tag, IHasTextContent
         {
             builder.Component.TextContent = text;

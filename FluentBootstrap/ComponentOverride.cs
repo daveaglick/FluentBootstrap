@@ -1,5 +1,4 @@
-﻿using FluentBootstrap.Forms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,7 +8,7 @@ namespace FluentBootstrap
 {
     public abstract class ComponentOverride
     {
-        public BootstrapHelper Helper { get; internal set; }
+        public BootstrapConfig Config { get; internal set; }
 
         internal Action<TextWriter> BaseStartAction { get; set; }
         internal Action<TextWriter> BaseFinishAction { get; set; }

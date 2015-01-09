@@ -22,8 +22,8 @@ namespace FluentBootstrap
 
         public string TextContent { get; set; }   // Can be used to set simple text content for the tag
 
-        protected Tag(IComponentCreator creator, string tagName, params string[] cssClasses)
-            : base(creator)
+        protected Tag(BootstrapHelper helper, string tagName, params string[] cssClasses)
+            : base(helper)
         {
             _tagName = tagName;
             CssClasses = new HashSet<string>();
@@ -33,7 +33,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Add(cssClass);
             }
-            _prettyPrint = creator.Helper.PrettyPrint;
+            _prettyPrint = helper.GetConfig().PrettyPrint;
         }
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes
@@ -153,7 +153,7 @@ namespace FluentBootstrap
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
             {
-                this.AddChild(new Content(Helper, TextContent));
+                this.AddChild(new Content(GetHelper(), TextContent));
             }
 
             base.OnStart(writer);
@@ -162,10 +162,10 @@ namespace FluentBootstrap
             if (_prettyPrint && !(writer is SuppressOutputWriter))
             {
                 writer.WriteLine();
-                int tagIndent = (int)Helper.GetItem(TagIndentKey, 0);
+                int tagIndent = (int)Config.GetItem(TagIndentKey, 0);
                 writer.Write(new String(' ', tagIndent++));
-                Helper.AddItem(TagIndentKey, tagIndent);
-                Helper.AddItem(LastToWriteKey, this);
+                Config.AddItem(TagIndentKey, tagIndent);
+                Config.AddItem(LastToWriteKey, this);
             }
             else
             {
@@ -207,9 +207,9 @@ namespace FluentBootstrap
             // Pretty print
             if (_prettyPrint)
             {
-                int tagIndent = ((int)Helper.GetItem(TagIndentKey, 0)) - 1;
-                Helper.AddItem(TagIndentKey, tagIndent);
-                Tag lastToWrite = Helper.GetItem(LastToWriteKey, null) as Tag;
+                int tagIndent = ((int)Config.GetItem(TagIndentKey, 0)) - 1;
+                Config.AddItem(TagIndentKey, tagIndent);
+                Tag lastToWrite = Config.GetItem(LastToWriteKey, null) as Tag;
                 if (lastToWrite != this)
                 {
                     writer.WriteLine();

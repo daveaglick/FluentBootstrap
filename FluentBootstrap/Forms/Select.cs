@@ -23,7 +23,7 @@ namespace FluentBootstrap.Forms
             // Add options as child tags
             foreach (string option in Options)
             {
-                AddChild(Helper.Element("option").AddChild(Helper.Content(option)));
+                AddChild(Config.Element("option").AddChild(Config.Content(option)));
             }
 
             base.OnStart(writer);

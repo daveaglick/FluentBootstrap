@@ -44,7 +44,7 @@ namespace FluentBootstrap.Forms
             FormGroup formGroup = GetComponent<FormGroup>();
             if (formGroup == null && EnsureFormGroup)
             {
-                _formGroup = new FormGroup(Helper);
+                _formGroup = new FormGroup(Config);
                 formGroup = _formGroup;
             }
 
@@ -112,7 +112,7 @@ namespace FluentBootstrap.Forms
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                GetBuilder(new HelpBlock(Helper)).SetText(Help).Component.StartAndFinish(writer);
+                GetBuilder(new HelpBlock(Config)).SetText(Help).Component.StartAndFinish(writer);
             }
 
             Pop(_formGroup, writer);

@@ -12,8 +12,8 @@ namespace FluentBootstrap.Alerts
         public bool Dismissible { set; get; }
         public string Heading { set; get; }
 
-        internal Alert(IComponentCreator creator)
-            : base(creator, "div", Css.Alert, Css.AlertInfo)
+        internal Alert(BootstrapHelper helper)
+            : base(helper, "div", Css.Alert, Css.AlertInfo)
         {
             MergeAttribute("role", "alert");
         }
@@ -29,15 +29,15 @@ namespace FluentBootstrap.Alerts
 
             if (Dismissible)
             {
-                Helper.Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
-                    .AddChild(_ => Helper.Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
-                    .AddChild(_ => Helper.Span().AddCss(Css.SrOnly).SetText("Close"))
-                    .Component.StartAndFinish(writer);
+                //Config.Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
+                //    .AddChild(_ => Config.Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
+                //    .AddChild(_ => Config.Span().AddCss(Css.SrOnly).SetText("Close"))
+                //    .Component.StartAndFinish(writer);
             }
 
             if (!string.IsNullOrWhiteSpace(Heading))
             {
-                Helper.Strong(Heading + " ").Component.StartAndFinish(writer);
+                //Config.Strong(Heading + " ").Component.StartAndFinish(writer);
             }
         }
     }

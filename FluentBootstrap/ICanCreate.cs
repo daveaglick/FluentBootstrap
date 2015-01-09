@@ -16,8 +16,8 @@ namespace FluentBootstrap
     public abstract class CanCreate : Component,
         ICanCreate<Component>
     {
-        private CanCreate(IComponentCreator creator)
-            : base(creator)
+        private CanCreate(BootstrapHelper helper)
+            : base(helper)
         {
         }
     }

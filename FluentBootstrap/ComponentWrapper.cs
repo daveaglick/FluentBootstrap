@@ -5,17 +5,17 @@ using System.Text;
 
 namespace FluentBootstrap
 {
-    public class ComponentWrapper<TComponent> : IDisposable, IComponentCreator<TComponent>
+    public class ComponentWrapper<TConfig, TComponent> : BootstrapHelper<TConfig, TComponent>, IDisposable
+        where TConfig : BootstrapConfig
         where TComponent : Component
     {
-        private readonly ComponentBuilder _builder;
+        private readonly TComponent _component;
 
-        protected internal ComponentWrapper(ComponentBuilder builder)
+        protected internal ComponentWrapper(TConfig config, TComponent component)
+            : base(config)
         {
-            _builder = builder;
+            _component = component;
         }
-
-        internal bool WithChild { get; set; }
 
         public void Dispose()
         {
@@ -24,17 +24,14 @@ namespace FluentBootstrap
 
         public void End()
         {
-            _builder.End();
+            _component.End(null);
         }
 
-        public BootstrapHelper Helper
-        {
-            get { return _builder.Helper; }
-        }
+        internal bool WithChild { get; set; }
 
-        public Component Parent
+        internal override Component GetParent()
         {
-            get { return WithChild ? _builder.GetComponent() : null; }
+            return WithChild ? _component : null;
         }
     }
 }

@@ -35,20 +35,20 @@ namespace FluentBootstrap.Forms
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
             {
-                AddChild(Helper.Content(Description));
+                AddChild(Config.Content(Description));
             }
 
             // Add the wrapper
             if (!Inline)
             {
-                _wrapper = Helper.Element("div").AddCss(GetAttribute("type")).Component;
+                _wrapper = Config.Element("div").AddCss(GetAttribute("type")).Component;
                 _wrapper.Start(writer);
             }
 
             // Add the label wrapper
             if (!SuppressLabelWrapper)
             {
-                _label = Helper.Element("label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type")).Component;
+                _label = Config.Element("label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type")).Component;
                 _label.Start(writer);
             }
 

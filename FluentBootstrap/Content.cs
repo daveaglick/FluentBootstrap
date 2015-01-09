@@ -11,8 +11,8 @@ namespace FluentBootstrap
     {
         private readonly string _content;
 
-        internal Content(IComponentCreator creator, string content)
-            : base(creator)
+        internal Content(BootstrapHelper helper, string content)
+            : base(helper)
         {
             _content = content;
         }

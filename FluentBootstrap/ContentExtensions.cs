@@ -7,10 +7,11 @@ namespace FluentBootstrap
 {
     public static class ContentExtensions
     {
-        public static ComponentBuilder<Content> Content<TComponent>(this IComponentCreator<TComponent> creator, string content)
+        public static ComponentBuilder<TConfig, Content> Content<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string content)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Content>
         {
-            return new ComponentBuilder<Content>(creator.Helper, new Content(creator, content));
+            return new ComponentBuilder<TConfig, Content>(helper.Config, new Content(helper, content));
         }
     }
 }

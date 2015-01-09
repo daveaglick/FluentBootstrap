@@ -8,31 +8,36 @@ namespace FluentBootstrap
 {
     public abstract class ComponentBuilder
     {
-        internal abstract BootstrapHelper Helper { get; }
+        internal abstract BootstrapConfig GetConfig();
         internal abstract Component GetComponent();
-        public abstract void End();
     }
 
-    public class ComponentBuilder<TComponent> : ComponentBuilder, IHtmlString
+    public class ComponentBuilder<TConfig, TComponent> : ComponentBuilder, IHtmlString
+        where TConfig : BootstrapConfig
         where TComponent : Component
     {
-        private readonly BootstrapHelper _helper;
+        private readonly TConfig _config;
         private readonly TComponent _component;
 
-        internal ComponentBuilder(BootstrapHelper helper, TComponent component)
+        internal ComponentBuilder(TConfig config, TComponent component)
         {
             _component = component;
-            _helper = helper;
+            _config = config;
         }
 
-        internal override BootstrapHelper Helper
+        internal TConfig Config
         {
-            get { return this._helper; }
+            get { return _config; }
+        }
+
+        internal override BootstrapConfig GetConfig()
+        {
+            return Config;
         }
 
         internal TComponent Component
         {
-            get { return this._component; }
+            get { return _component; }
         }
 
         internal override Component GetComponent()
@@ -40,20 +45,15 @@ namespace FluentBootstrap
             return Component;
         }
 
-        internal ComponentWrapper<TComponent> GetWrapper()
+        internal ComponentWrapper<TConfig, TComponent> GetWrapper()
         {
-            return new ComponentWrapper<TComponent>(this);
+            return new ComponentWrapper<TConfig, TComponent>(_config, _component);
         }
 
-        public ComponentWrapper<TComponent> Begin()
+        public ComponentWrapper<TConfig, TComponent> Begin()
         {
             Component.Begin(null);
             return GetWrapper();
-        }
-
-        public override void End()
-        {
-            Component.End(null);
         }
 
         public string ToHtmlString()

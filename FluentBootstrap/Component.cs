@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {  
@@ -15,14 +16,14 @@ namespace FluentBootstrap
 
         private bool _started;
         private bool _finished;
-        private readonly BootstrapHelper _helper;
+        private readonly BootstrapConfig _config;
         private readonly List<Component> _children = new List<Component>();
         private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
         private readonly Queue<ComponentOverride> _componentOverrides = new Queue<ComponentOverride>();
 
-        public BootstrapHelper Helper
+        public BootstrapConfig Config
         {
-            get { return _helper; }
+            get { return _config; }
         }
 
         // Implicit components are created by the library as wrappers, missing tags, etc.
@@ -41,20 +42,20 @@ namespace FluentBootstrap
             set { _render = value; }
         }
 
-        protected Component(IComponentCreator creator)
+        protected Component(BootstrapHelper helper)
         {
-            _helper = creator.Helper;
-            _parent = creator.Parent;
+            _config = helper.GetConfig();
+            _parent = helper.GetParent();
             _implicit = GetOutputStack().Count > 0;
 
             // Get any component override(s)
             ComponentOverride componentOverride = null;
             Type thisType = GetType();
-            foreach (KeyValuePair<Type, Func<BootstrapHelper, Component, ComponentOverride>> match
-                in Helper.ComponentOverrides.Where(x => x.Key.IsAssignableFrom(thisType)))
+            foreach (KeyValuePair<Type, Func<BootstrapConfig, Component, ComponentOverride>> match
+                in Config.ComponentOverrides.Where(x => x.Key.IsAssignableFrom(thisType)))
             {
                 ComponentOverride lastComponentOverride = componentOverride;
-                componentOverride = match.Value(Helper, this);
+                componentOverride = match.Value(Config, this);
                 componentOverride.BaseStartAction = OnStart;
                 componentOverride.BaseFinishAction = OnFinish;
                 if (lastComponentOverride != null)
@@ -76,10 +77,31 @@ namespace FluentBootstrap
         // Gets a temporary ComponentBuilder that can be used to access extension methods from overrides
         // Needs to be static since it can't know the current component type unless passed in
         // Generally you'll pass in "this" for the component argument
-        protected ComponentBuilder<TComponent> GetBuilder<TComponent>(TComponent component)
+        protected ComponentBuilder<BootstrapConfig, TComponent> GetBuilder<TComponent>(TComponent component)
             where TComponent : Component
         {
-            return new ComponentBuilder<TComponent>(Helper, component);
+            return new ComponentBuilder<BootstrapConfig, TComponent>(Config, component);
+        }
+
+        // This gets a dummy BootstrapHelper that can be used to create new components with the same config as this one
+        protected BootstrapHelper GetHelper()
+        {
+            return new DummyBootstrapHelper(Config);
+        }
+
+        private class DummyBootstrapHelper : BootstrapHelper
+        {
+            private readonly BootstrapConfig _config;
+
+            public DummyBootstrapHelper(BootstrapConfig config)
+            {
+                _config = config;
+            }
+
+            internal override BootstrapConfig GetConfig()
+            {
+                return _config;
+            }
         }
 
         public void AddChild(Component child)
@@ -100,12 +122,12 @@ namespace FluentBootstrap
                 _parent.Begin(writer);
             }
 
-            Start(writer ?? Helper.GetWriter());
+            Start(writer ?? Config.GetWriter());
         }
 
         internal void End(TextWriter writer)
         {
-            Finish(writer ?? Helper.GetWriter());
+            Finish(writer ?? Config.GetWriter());
 
             // If we have a parent, it needs to be finished
             if (_parent != null)
@@ -381,11 +403,11 @@ namespace FluentBootstrap
 
         private Stack<Component> GetStack(object key)
         {
-            Stack<Component> stack = Helper.GetItem(key, null) as Stack<Component>;
+            Stack<Component> stack = Config.GetItem(key, null) as Stack<Component>;
             if (stack == null)
             {
                 stack = new Stack<Component>();
-                Helper.AddItem(key, stack);
+                Config.AddItem(key, stack);
             }
             return stack;
         }

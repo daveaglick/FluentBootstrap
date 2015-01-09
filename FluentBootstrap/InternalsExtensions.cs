@@ -11,28 +11,38 @@ namespace FluentBootstrap.Internals
     // InternalsVisibleTo and without also making those members visible to consuming applications
     public static class InternalsExtensions
     {
-        public static TComponent GetComponent<TComponent>(this ComponentBuilder<TComponent> builder)   
-            where TComponent : Component
-        {
-            return builder.Component;
-        }
+        //public static BootstrapHelper GetHelper(this IComponentCreator creator)
+        //{
+        //    return ((IComponentCreatorInternal)creator).GetHelper();
+        //}
 
-        public static Component GetComponent(this ComponentBuilder builder)
-        {
-            return builder.GetComponent();
-        }
+        //public static Component GetParent(this IComponentCreator creator)
+        //{
+        //    return ((IComponentCreatorInternal)creator).GetParent();
+        //}
 
-        public static BootstrapHelper GetHelper<TComponent>(this ComponentBuilder<TComponent> builder)
-            where TComponent : Component
-        {
-            return builder.Helper;
-        }
+        //public static TComponent GetComponent<TComponent>(this ComponentBuilder<TComponent> builder)   
+        //    where TComponent : Component
+        //{
+        //    return builder.Component;
+        //}
 
-        public static ComponentWrapper<TComponent> GetWrapper<TComponent>(this ComponentBuilder<TComponent> builder)
-            where TComponent : Component
-        {
-            return builder.GetWrapper();
-        }
+        //public static Component GetComponent(this ComponentBuilder builder)
+        //{
+        //    return builder.GetComponent();
+        //}
+
+        //public static BootstrapHelper GetHelper<TComponent>(this ComponentBuilder<TComponent> builder)
+        //    where TComponent : Component
+        //{
+        //    return builder.Helper;
+        //}
+
+        //public static ComponentWrapper<TComponent> GetWrapper<TComponent>(this ComponentBuilder<TComponent> builder)
+        //    where TComponent : Component
+        //{
+        //    return builder.GetWrapper();
+        //}
 
         public static void Start(this Component component, TextWriter writer)
         {
