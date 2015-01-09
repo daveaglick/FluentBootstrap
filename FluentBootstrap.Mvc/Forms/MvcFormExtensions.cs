@@ -78,10 +78,11 @@ namespace FluentBootstrap
         //    return new ValidationSummary<TModel>(creator);
         //}
 
-        public static MvcComponentBuilder<ValidationSummary<TModel>, TModel> ValidationSummary<TComponent, TModel>(this IMvcComponentCreator<TComponent, TModel> creator, bool includePropertyErrors = false)
+        public static ComponentBuilder<TConfig, ValidationSummary<TModel>> ValidationSummary<TConfig, TComponent, TModel>(this BootstrapHelper<TConfig, TComponent> helper, bool includePropertyErrors = false)
+            where TConfig : MvcBootstrapConfig<TModel>
             where TComponent : Component, ICanCreate<ValidationSummary<TModel>>
         {
-            return new MvcComponentBuilder<ValidationSummary<TModel>, TModel>(creator.Helper, new ValidationSummary<TModel>(creator));
+            return new ComponentBuilder<TConfig, ValidationSummary<TModel>>(helper.GetConfig(), new ValidationSummary<TModel>(helper));
         }
 
         //public static ValidationSummary<TModel> IncludePropertyErrors<TModel>(this ValidationSummary<TModel> validationSummary, bool includePropertyErrors = false)

@@ -11,38 +11,31 @@ namespace FluentBootstrap.Internals
     // InternalsVisibleTo and without also making those members visible to consuming applications
     public static class InternalsExtensions
     {
-        //public static BootstrapHelper GetHelper(this IComponentCreator creator)
-        //{
-        //    return ((IComponentCreatorInternal)creator).GetHelper();
-        //}
+        public static TConfig GetConfig<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component
+        {
+            return helper.Config;
+        }
 
-        //public static Component GetParent(this IComponentCreator creator)
-        //{
-        //    return ((IComponentCreatorInternal)creator).GetParent();
-        //}
+        public static TComponent GetComponent<TConfig, TComponent>(this ComponentBuilder<TConfig, TComponent> builder)
+            where TConfig : BootstrapConfig
+            where TComponent : Component
+        {
+            return builder.Component;
+        }
 
-        //public static TComponent GetComponent<TComponent>(this ComponentBuilder<TComponent> builder)   
-        //    where TComponent : Component
-        //{
-        //    return builder.Component;
-        //}
+        public static Component GetComponent(this ComponentBuilder builder)
+        {
+            return builder.GetComponent();
+        }
 
-        //public static Component GetComponent(this ComponentBuilder builder)
-        //{
-        //    return builder.GetComponent();
-        //}
-
-        //public static BootstrapHelper GetHelper<TComponent>(this ComponentBuilder<TComponent> builder)
-        //    where TComponent : Component
-        //{
-        //    return builder.Helper;
-        //}
-
-        //public static ComponentWrapper<TComponent> GetWrapper<TComponent>(this ComponentBuilder<TComponent> builder)
-        //    where TComponent : Component
-        //{
-        //    return builder.GetWrapper();
-        //}
+        public static BootstrapHelper<BootstrapConfig, CanCreate> GetHelper<TConfig, TComponent>(this ComponentBuilder<TConfig, TComponent> builder)
+            where TConfig : BootstrapConfig
+            where TComponent : Component
+        {
+            return builder.GetHelper();
+        }
 
         public static void Start(this Component component, TextWriter writer)
         {

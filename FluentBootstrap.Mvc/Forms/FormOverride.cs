@@ -19,7 +19,7 @@ namespace FluentBootstrap.Mvc.Forms
         protected override void OnStart(TextWriter writer)
         {
             // Generate the form ID if one is needed (if one was already set in the htmlAttributes, this does nothing)
-            ViewContext viewContext = this.GetHelper<TModel>().HtmlHelper.ViewContext;
+            ViewContext viewContext = this.GetHtmlHelper<TModel>().ViewContext;
             bool flag = viewContext.ClientValidationEnabled
                 && !viewContext.UnobtrusiveJavaScriptEnabled;
             if (flag)
@@ -56,7 +56,7 @@ namespace FluentBootstrap.Mvc.Forms
             base.OnFinish(writer);
 
             // Intercept the client validation (if there is any) and output on our own writer
-            ViewContext viewContext = this.GetHelper<TModel>().HtmlHelper.ViewContext;
+            ViewContext viewContext = this.GetHtmlHelper<TModel>().ViewContext;
             TextWriter viewWriter = viewContext.Writer;
             viewContext.Writer = writer;
             viewContext.OutputClientValidation();
@@ -71,7 +71,7 @@ namespace FluentBootstrap.Mvc.Forms
         // Get and increment a form id
         private string FormIdGenerator()
         {
-            IDictionary items = this.GetHelper<TModel>().HtmlHelper.ViewContext.HttpContext.Items;
+            IDictionary items = this.GetHtmlHelper<TModel>().ViewContext.HttpContext.Items;
             object item = items[_lastBootstrapFormNumKey];
             int num = (item != null ? (int)item + 1 : 0);
             items[_lastBootstrapFormNumKey] = num;

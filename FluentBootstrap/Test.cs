@@ -11,8 +11,9 @@ namespace FluentBootstrap
         public static void Testing()
         {
             SimpleBootstrapHelper helper = new SimpleBootstrapHelper();
-            using(var alert = helper.Alert(AlertState.Danger).Begin())
+            using(var row = helper.GridRow().Begin())
             {
+                row.GridColumn(4);
             }
         }
     }

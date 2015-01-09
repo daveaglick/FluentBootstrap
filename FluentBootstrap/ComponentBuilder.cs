@@ -19,7 +19,7 @@ namespace FluentBootstrap
         private readonly TConfig _config;
         private readonly TComponent _component;
 
-        internal ComponentBuilder(TConfig config, TComponent component)
+        public ComponentBuilder(TConfig config, TComponent component)
         {
             _component = component;
             _config = config;

@@ -79,6 +79,7 @@
     <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="InternalsExtensions.cs" />
+    <Compile Include="MvcBootstrapConfig.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcTagExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

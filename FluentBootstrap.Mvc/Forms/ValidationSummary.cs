@@ -15,8 +15,8 @@ namespace FluentBootstrap.Mvc.Forms
     {
         public bool IncludePropertyErrors { get; set; }
 
-        internal ValidationSummary(IComponentCreator creator)
-            : base(creator, "div", Css.FormControlStatic, Css.TextDanger)
+        internal ValidationSummary(BootstrapHelper helper)
+            : base(helper, "div", Css.FormControlStatic, Css.TextDanger)
         {
         }
 
@@ -25,7 +25,7 @@ namespace FluentBootstrap.Mvc.Forms
             base.OnStart(writer);
 
             // Output the summary
-            MvcHtmlString validationSummary = this.GetHelper<TModel>().HtmlHelper.ValidationSummary(!IncludePropertyErrors);
+            MvcHtmlString validationSummary = this.GetHtmlHelper<TModel>().ValidationSummary(!IncludePropertyErrors);
             if (validationSummary != null)
             {
                 writer.Write(validationSummary.ToString());

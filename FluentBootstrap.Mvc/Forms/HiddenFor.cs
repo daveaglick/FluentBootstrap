@@ -14,8 +14,8 @@ namespace FluentBootstrap.Mvc.Forms
     {
         private readonly Expression<Func<TModel, TValue>> _expression;
 
-        internal HiddenFor(IComponentCreator creator, Expression<Func<TModel, TValue>> expression)
-            : base(creator)
+        internal HiddenFor(BootstrapHelper helper, Expression<Func<TModel, TValue>> expression)
+            : base(helper)
         {
             _expression = expression;
         }
@@ -23,7 +23,7 @@ namespace FluentBootstrap.Mvc.Forms
         protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
-            writer.Write(this.GetHelper<TModel>().HtmlHelper.HiddenFor(_expression));
+            writer.Write(this.GetHtmlHelper<TModel>().HiddenFor(_expression));
         }
     }
 }
