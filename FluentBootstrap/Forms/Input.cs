@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Input<THelper> : FormControl, IHasValueAttribute, IHasNameAttribute
+    public class Input : FormControl, IHasValueAttribute, IHasNameAttribute
     {
         public Icon Icon { get; set; }
 
-        internal Input(IComponentCreator creator, FormInputType inputType)
-            : base(creator, "input", Css.FormControl)
+        internal Input(BootstrapHelper helper, FormInputType inputType)
+            : base(helper, "input", Css.FormControl)
         {
             MergeAttribute("type", inputType.GetDescription());
         }
@@ -23,7 +23,7 @@ namespace FluentBootstrap.Forms
             // Add the feedback icon
             if (Icon != Icon.None)
             {
-                Config.Icon(Icon).AddCss(Css.FormControlFeedback).Component.StartAndFinish(writer);
+                GetHelper().Icon(Icon).AddCss(Css.FormControlFeedback).Component.StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

@@ -10,8 +10,8 @@ namespace FluentBootstrap.Forms
 {
     public class ControlLabel : Tag, IHasGridColumnExtensions, IHasTextContent
     {
-        internal ControlLabel(IComponentCreator creator, string text)
-            : base(creator, "label", Css.ControlLabel)
+        internal ControlLabel(BootstrapHelper helper, string text)
+            : base(helper, "label", Css.ControlLabel)
         {
             TextContent = text;
         }

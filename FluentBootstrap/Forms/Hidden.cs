@@ -8,8 +8,8 @@ namespace FluentBootstrap.Forms
 {
     public class Hidden : Tag, IHasValueAttribute
     {
-        internal Hidden(IComponentCreator creator)
-            : base(creator, "input")
+        internal Hidden(BootstrapHelper helper)
+            : base(helper, "input")
         {
             MergeAttribute("type", "hidden");
         }

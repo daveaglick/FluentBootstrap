@@ -10,21 +10,23 @@ namespace FluentBootstrap
 {
     public static class IconExtensions
     {
-        public static ComponentBuilder<IconSpan> Icon<TComponent>(this IComponentCreator<TComponent> creator, Icon icon)
+        public static ComponentBuilder<TConfig, IconSpan> Icon<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, Icon icon)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<IconSpan>
         {
-            return new ComponentBuilder<IconSpan>(creator.Helper, new IconSpan(creator, icon));
+            return new ComponentBuilder<TConfig, IconSpan>(helper.Config, new IconSpan(helper, icon));
         }
 
         // IHasIconExtensions
 
-        public static ComponentBuilder<TTag> SetIcon<TTag>(this ComponentBuilder<TTag> builder, Icon icon)
+        public static ComponentBuilder<TConfig, TTag> SetIcon<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, Icon icon)
+            where TConfig : BootstrapConfig
             where TTag : Tag, IHasIconExtensions
         {
             if (icon != FluentBootstrap.Icon.None)
             {
-                builder.Component.AddChild(builder.Helper.Icon(icon));
-                builder.Component.AddChild(builder.Helper.Content(" ")); // Add a space to give a little separation to the icon
+                builder.Component.AddChild(builder.GetHelper().Icon(icon));
+                builder.Component.AddChild(builder.GetHelper().Content(" ")); // Add a space to give a little separation to the icon
             }
             return builder;
         }

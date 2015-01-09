@@ -17,8 +17,8 @@ namespace FluentBootstrap.Forms
         private Element _wrapper = null;
         private Element _label = null;
 
-        internal CheckedControl(IComponentCreator creator, string type)
-            : base(creator, "input")
+        internal CheckedControl(BootstrapHelper helper, string type)
+            : base(helper, "input")
         {
             MergeAttribute("type", type);
         }
@@ -35,20 +35,20 @@ namespace FluentBootstrap.Forms
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
             {
-                AddChild(Config.Content(Description));
+                AddChild(GetHelper().Content(Description));
             }
 
             // Add the wrapper
             if (!Inline)
             {
-                _wrapper = Config.Element("div").AddCss(GetAttribute("type")).Component;
+                _wrapper = GetHelper().Element("div").AddCss(GetAttribute("type")).Component;
                 _wrapper.Start(writer);
             }
 
             // Add the label wrapper
             if (!SuppressLabelWrapper)
             {
-                _label = Config.Element("label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type")).Component;
+                _label = GetHelper().Element("label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type")).Component;
                 _label.Start(writer);
             }
 

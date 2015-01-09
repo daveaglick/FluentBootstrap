@@ -9,8 +9,8 @@ namespace FluentBootstrap.Grids
     public class GridRow : Tag,
         ICanCreate<GridColumn>
     {
-        internal GridRow(IComponentCreator creator)
-            : base(creator, "div", Css.Row)
+        internal GridRow(BootstrapHelper helper)
+            : base(helper, "div", Css.Row)
         {
         }
     }

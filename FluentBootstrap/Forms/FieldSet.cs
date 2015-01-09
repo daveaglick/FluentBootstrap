@@ -13,8 +13,8 @@ namespace FluentBootstrap.Forms
         ICanCreate<FormControl>,
         ICanCreate<HelpBlock>
     {
-        internal FieldSet(IComponentCreator creator)
-            : base(creator, "fieldset")
+        internal FieldSet(BootstrapHelper helper)
+            : base(helper, "fieldset")
         {
         }
     }

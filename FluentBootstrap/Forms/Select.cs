@@ -12,8 +12,8 @@ namespace FluentBootstrap.Forms
     {
         public List<string> Options { get; private set; }
 
-        internal Select(IComponentCreator creator)
-            : base(creator, "select", Css.FormControl)
+        internal Select(BootstrapHelper helper)
+            : base(helper, "select", Css.FormControl)
         {
             Options = new List<string>();
         }
@@ -23,7 +23,7 @@ namespace FluentBootstrap.Forms
             // Add options as child tags
             foreach (string option in Options)
             {
-                AddChild(Config.Element("option").AddChild(Config.Content(option)));
+                AddChild(GetHelper().Element("option").AddChild(GetHelper().Content(option)));
             }
 
             base.OnStart(writer);

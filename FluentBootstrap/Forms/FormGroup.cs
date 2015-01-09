@@ -30,15 +30,15 @@ namespace FluentBootstrap.Forms
 
         public bool? Horizontal { get; set; }
 
-        internal FormGroup(IComponentCreator creator)
-            : base(creator, "div", Css.FormGroup)
+        internal FormGroup(BootstrapHelper helper)
+            : base(helper, "div", Css.FormGroup)
         {
         }
         
         protected override void OnStart(TextWriter writer)
         {
             // Set column classes if we're horizontal          
-            ComponentBuilder<FormGroup> builder = GetBuilder(this);
+            ComponentBuilder<BootstrapConfig, FormGroup> builder = GetBuilder(this);
             Form form = GetComponent<Form>();
             if ((form != null && form.Horizontal && (!Horizontal.HasValue || Horizontal.Value)) || (Horizontal.HasValue && Horizontal.Value))
             {
@@ -72,7 +72,7 @@ namespace FluentBootstrap.Forms
             // Move any grid column classes to a container class
             if (CssClasses.Any(x => x.StartsWith("col-")))
             {
-                _columnWrapper = Config.Element("div").AddCss(CssClasses.Where(x => x.StartsWith("col-")).ToArray()).Component;
+                _columnWrapper = GetHelper().Element("div").AddCss(CssClasses.Where(x => x.StartsWith("col-")).ToArray()).Component;
             }
             CssClasses.RemoveWhere(x => x.StartsWith("col-"));
 

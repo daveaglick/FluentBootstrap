@@ -84,23 +84,16 @@ namespace FluentBootstrap
         }
 
         // This gets a dummy BootstrapHelper that can be used to create new components with the same config as this one
-        protected BootstrapHelper GetHelper()
+        public BootstrapHelper<BootstrapConfig, CanCreate> GetHelper()
         {
             return new DummyBootstrapHelper(Config);
         }
 
-        private class DummyBootstrapHelper : BootstrapHelper
+        private class DummyBootstrapHelper : BootstrapHelper<BootstrapConfig, CanCreate>
         {
-            private readonly BootstrapConfig _config;
-
             public DummyBootstrapHelper(BootstrapConfig config)
+                : base(config)
             {
-                _config = config;
-            }
-
-            internal override BootstrapConfig GetConfig()
-            {
-                return _config;
             }
         }
 

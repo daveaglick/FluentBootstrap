@@ -18,8 +18,8 @@ namespace FluentBootstrap.Forms
         public string Help { get; set; }
         public bool EnsureFormGroup { get; set; }
 
-        protected FormControl(IComponentCreator creator, string tagName, params string[] cssClasses) 
-            : base(creator, tagName, cssClasses)
+        protected FormControl(BootstrapHelper helper, string tagName, params string[] cssClasses) 
+            : base(helper, tagName, cssClasses)
         {
             EnsureFormGroup = true;
         }
@@ -44,7 +44,7 @@ namespace FluentBootstrap.Forms
             FormGroup formGroup = GetComponent<FormGroup>();
             if (formGroup == null && EnsureFormGroup)
             {
-                _formGroup = new FormGroup(Config);
+                _formGroup = new FormGroup(GetHelper());
                 formGroup = _formGroup;
             }
 
@@ -112,7 +112,7 @@ namespace FluentBootstrap.Forms
             // Add the help text
             if (!string.IsNullOrEmpty(Help))
             {
-                GetBuilder(new HelpBlock(Config)).SetText(Help).Component.StartAndFinish(writer);
+                GetBuilder(new HelpBlock(GetHelper())).SetText(Help).Component.StartAndFinish(writer);
             }
 
             Pop(_formGroup, writer);

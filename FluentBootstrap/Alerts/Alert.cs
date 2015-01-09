@@ -29,15 +29,15 @@ namespace FluentBootstrap.Alerts
 
             if (Dismissible)
             {
-                //Config.Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
-                //    .AddChild(_ => Config.Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
-                //    .AddChild(_ => Config.Span().AddCss(Css.SrOnly).SetText("Close"))
-                //    .Component.StartAndFinish(writer);
+                GetHelper().Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
+                    .AddChild(_ => GetHelper().Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
+                    .AddChild(_ => GetHelper().Span().AddCss(Css.SrOnly).SetText("Close"))
+                    .Component.StartAndFinish(writer);
             }
 
             if (!string.IsNullOrWhiteSpace(Heading))
             {
-                //Config.Strong(Heading + " ").Component.StartAndFinish(writer);
+                GetHelper().Strong(Heading + " ").Component.StartAndFinish(writer);
             }
         }
     }

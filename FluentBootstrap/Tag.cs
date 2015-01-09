@@ -153,7 +153,7 @@ namespace FluentBootstrap
             // Add the text content as a child
             if (!string.IsNullOrEmpty(TextContent))
             {
-                this.AddChild(new Content(GetHelper(), TextContent));
+                this.AddChild(GetHelper().Content(TextContent));
             }
 
             base.OnStart(writer);

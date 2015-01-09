@@ -8,8 +8,8 @@ namespace FluentBootstrap.Icons
 {
     public class IconSpan : Tag
     {
-        internal IconSpan(IComponentCreator creator, Icon icon)
-            : base(creator, "span", Css.Glyphicon, icon.GetDescription())
+        internal IconSpan(BootstrapHelper helper, Icon icon)
+            : base(helper, "span", Css.Glyphicon, icon.GetDescription())
         {
         }
     }

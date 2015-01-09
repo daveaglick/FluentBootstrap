@@ -50,6 +50,11 @@ namespace FluentBootstrap
             return new ComponentWrapper<TConfig, TComponent>(_config, _component);
         }
 
+        internal BootstrapHelper<BootstrapConfig, CanCreate> GetHelper()
+        {
+            return Component.GetHelper();
+        }
+
         public ComponentWrapper<TConfig, TComponent> Begin()
         {
             Component.Begin(null);

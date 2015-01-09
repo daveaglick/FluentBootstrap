@@ -60,7 +60,40 @@
       <DependentUpon>Css.tt</DependentUpon>
     </Compile>
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="Forms\CheckedControl.cs" />
+    <Compile Include="Forms\ControlLabel.cs" />
+    <Compile Include="Forms\FieldSet.cs" />
+    <Compile Include="Forms\Form.cs" />
+    <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\FormGroup.cs" />
+    <Compile Include="Forms\FormInputType.cs" />
+    <Compile Include="Forms\HelpBlock.cs" />
+    <Compile Include="Forms\Hidden.cs" />
+    <Compile Include="Forms\IFormValidation.cs" />
+    <Compile Include="Forms\Input.cs" />
+    <Compile Include="Forms\InputSize.cs" />
+    <Compile Include="Forms\Select.cs" />
+    <Compile Include="Forms\Static.cs" />
+    <Compile Include="Forms\TextArea.cs" />
+    <Compile Include="Forms\ValidationState.cs" />
+    <Compile Include="Grids\Container.cs" />
+    <Compile Include="Grids\GridColumn.cs" />
+    <Compile Include="Grids\GridColumnExtensions.cs" />
+    <Compile Include="Grids\GridExtensions.cs" />
+    <Compile Include="Grids\GridRow.cs" />
+    <Compile Include="Grids\IHasGridColumnExtensions.cs" />
+    <Compile Include="Html\Element.cs" />
+    <Compile Include="Html\HtmlExtensions.cs" />
+    <Compile Include="Html\Paragraph.cs" />
     <Compile Include="ICanCreate.cs" />
+    <Compile Include="Icons\Icon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Icons\IconExtensions.cs" />
+    <Compile Include="Icons\IconSpan.cs" />
+    <Compile Include="Icons\IHasIcon.cs" />
     <Compile Include="IHasDisabledAttribute.cs" />
     <Compile Include="IHasNameAttribute.cs" />
     <Compile Include="IHasTextContent.cs" />
@@ -82,6 +115,10 @@
     <None Include="Css.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Css.cs</LastGenOutput>
+    </None>
+    <None Include="Icons\Icon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Icon.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

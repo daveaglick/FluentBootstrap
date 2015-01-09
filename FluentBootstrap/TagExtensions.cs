@@ -110,7 +110,7 @@ namespace FluentBootstrap
 
                 if (!string.IsNullOrEmpty(str))
                 {
-                    builder.Component.AddChild(new Content(builder.GetWrapper(), str));
+                    builder.Component.AddChild(builder.GetHelper().Content(str));
                 }
             }
             return builder;

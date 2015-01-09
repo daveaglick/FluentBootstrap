@@ -8,8 +8,8 @@ namespace FluentBootstrap.Forms
 {
     public class Static : FormControl
     {
-        internal Static(IComponentCreator creator)
-            : base(creator, "p", Css.FormControlStatic)
+        internal Static(BootstrapHelper helper)
+            : base(helper, "p", Css.FormControlStatic)
         {
         }
     }

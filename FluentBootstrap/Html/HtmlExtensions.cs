@@ -9,34 +9,39 @@ namespace FluentBootstrap
 {
     public static class HtmlExtensions
     {
-        public static ComponentBuilder<Element> Element<TComponent>(this IComponentCreator<TComponent> creator, string name)
+        public static ComponentBuilder<TConfig, Element> Element<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
-            return new ComponentBuilder<Element>(creator.Helper, new Element(creator, name));
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, name));
         }
 
-        public static ComponentBuilder<Element> Div<TComponent>(this IComponentCreator<TComponent> creator, string text = null)
+        public static ComponentBuilder<TConfig, Element> Div<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
-            return new ComponentBuilder<Element>(creator.Helper, new Element(creator, "div")).SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "div")).SetText(text);
         }
 
-        public static ComponentBuilder<Element> Span<TComponent>(this IComponentCreator<TComponent> creator, string text = null)
+        public static ComponentBuilder<TConfig, Element> Span<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
-            return new ComponentBuilder<Element>(creator.Helper, new Element(creator, "span")).SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "span")).SetText(text);
         }
 
-        public static ComponentBuilder<Paragraph> Paragraph<TComponent>(this IComponentCreator<TComponent> creator, string text = null)
+        public static ComponentBuilder<TConfig, Paragraph> Paragraph<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Paragraph>
         {
-            return new ComponentBuilder<Paragraph>(creator.Helper, new Paragraph(creator)).SetText(text);
+            return new ComponentBuilder<TConfig, Paragraph>(helper.Config, new Paragraph(helper)).SetText(text);
         }
 
-        public static ComponentBuilder<Element> Strong<TComponent>(this IComponentCreator<TComponent> creator, string text = null)
+        public static ComponentBuilder<TConfig, Element> Strong<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
-            return new ComponentBuilder<Element>(creator.Helper, new Element(creator, "strong")).SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "strong")).SetText(text);
         }
     }
 }

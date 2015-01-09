@@ -16,10 +16,10 @@ namespace FluentBootstrap.Forms
         //IFieldSetCreator<THelper>,
         //IInputGroupCreator<THelper>
     {
-        internal Form(IComponentCreator creator, params string[] cssClasses)
-            : base(creator, "form", cssClasses)
+        internal Form(BootstrapHelper helper, params string[] cssClasses)
+            : base(helper, "form", cssClasses)
         {
-            DefaultLabelWidth = creator.Helper.DefaultFormLabelWidth;
+            DefaultLabelWidth = helper.GetConfig().DefaultFormLabelWidth;
             MergeAttribute("role", "form");
         }
 

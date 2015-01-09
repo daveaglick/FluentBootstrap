@@ -8,8 +8,8 @@ namespace FluentBootstrap.Forms
 {
     public class TextArea : FormControl, IHasNameAttribute
     {
-        internal TextArea(IComponentCreator creator)
-            : base(creator, "textarea", Css.FormControl)
+        internal TextArea(BootstrapHelper helper)
+            : base(helper, "textarea", Css.FormControl)
         {
         }
     }
