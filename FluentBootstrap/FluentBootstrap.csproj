@@ -65,6 +65,7 @@
     <Compile Include="Forms\FieldSet.cs" />
     <Compile Include="Forms\Form.cs" />
     <Compile Include="Forms\FormControl.cs" />
+    <Compile Include="Forms\FormExtensions.cs" />
     <Compile Include="Forms\FormGroup.cs" />
     <Compile Include="Forms\FormInputType.cs" />
     <Compile Include="Forms\HelpBlock.cs" />

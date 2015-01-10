@@ -16,14 +16,13 @@ namespace FluentBootstrap
 {
     public static class MvcFormExtensions
     {
-        // !!
-        //public static MvcComponentBuilder<Form, TModel> Form<TComponent, TModel>(this IMvcComponentCreator<TComponent, TModel> creator, string actionName, string controllerName, FormMethod method = FormMethod.Post, object routeValues = null)
-        //    where TComponent : Component, ICanCreate<Form>
-        //{
-        //    return new MvcComponentBuilder<Form, TModel>(creator.Helper, creator.Helper.Form().GetComponent())
-        //        .SetAction(actionName, controllerName, routeValues)
-        //        .SetFormMethod(method);
-        //}
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> Form<TComponent, TModel>(this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string actionName, string controllerName, FormMethod method = FormMethod.Post, object routeValues = null)
+            where TComponent : Component, ICanCreate<Form>
+        {
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Form>(helper.GetConfig(), helper.Form().GetComponent())
+                .SetAction(actionName, controllerName, routeValues)
+                .SetFormMethod(method);
+        }
 
         //public static Form<MvcBootstrapHelper<TModel>> Form<TModel>(this IFormCreator<MvcBootstrapHelper<TModel>> creator, FormMethod method)
         //{
@@ -36,26 +35,23 @@ namespace FluentBootstrap
         //}
 
         // !!
-        //public static MvcComponentBuilder<Form, TModel> SetFormMethod<TModel>(this MvcComponentBuilder<Form, TModel> builder, FormMethod method)
-        //{
-        //    // TODO: This isn't working because the FluentBootstrap.Internals extension is for ComponentBuilder<Form> and we have a MvcComponentBuilder<Form, TModel>
-        //    builder.GetComponent().MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
-        //    return builder;
-        //}
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetFormMethod<TModel>(this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, FormMethod method)
+        {
+            builder.GetComponent().MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
+            return builder;
+        }
 
-        // !!
-        //public static MvcComponentBuilder<Form, TModel> SetAction<TModel>(this MvcComponentBuilder<Form, TModel> builder, string actionName, string controllerName, object routeValues = null)
-        //{
-        //    RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
-        //    if (routeValueDictionary == null)
-        //        new RouteValueDictionary(routeValues);
-
-        //    // TODO: This is a problem because the .SetAction() extension expects a ComponentBuilder<Form> and we have a MvcComponentBuilder<Form, TModel>
-        //    // Might need to use some kind of interface for builders/wrappers - ugh.
-        //    builder.SetAction(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
-        //        builder.Helper.GetHtmlHelper<TModel>().RouteCollection, builder.Helper.GetHtmlHelper<TModel>().ViewContext.RequestContext, true));
-        //    return builder;
-        //}
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetAction<TModel>(this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, string actionName, string controllerName, object routeValues = null)
+        {
+            RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
+            if (routeValueDictionary == null)
+            {
+                new RouteValueDictionary(routeValues);
+            }
+            builder.SetAction(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
+                builder.GetConfig().HtmlHelper.RouteCollection, builder.GetConfig().HtmlHelper.ViewContext.RequestContext, true));
+            return builder;
+        }
 
         //public static Form<MvcBootstrapHelper<TModel>> SetRoute<TModel>(this Form<MvcBootstrapHelper<TModel>> form, string routeName, object routeValues = null)
         //{
@@ -78,11 +74,10 @@ namespace FluentBootstrap
         //    return new ValidationSummary<TModel>(creator);
         //}
 
-        public static ComponentBuilder<TConfig, ValidationSummary<TModel>> ValidationSummary<TConfig, TComponent, TModel>(this BootstrapHelper<TConfig, TComponent> helper, bool includePropertyErrors = false)
-            where TConfig : MvcBootstrapConfig<TModel>
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, ValidationSummary<TModel>> ValidationSummary<TComponent, TModel>(this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, bool includePropertyErrors = false)
             where TComponent : Component, ICanCreate<ValidationSummary<TModel>>
         {
-            return new ComponentBuilder<TConfig, ValidationSummary<TModel>>(helper.GetConfig(), new ValidationSummary<TModel>(helper));
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, ValidationSummary<TModel>>(helper.GetConfig(), new ValidationSummary<TModel>(helper));
         }
 
         //public static ValidationSummary<TModel> IncludePropertyErrors<TModel>(this ValidationSummary<TModel> validationSummary, bool includePropertyErrors = false)

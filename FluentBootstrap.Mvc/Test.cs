@@ -14,6 +14,7 @@ namespace FluentBootstrap.Mvc
             MvcBootstrapHelper<object> helper = new MvcBootstrapHelper<object>(new HtmlHelper<object>(null, null, null));
             var validation = helper.ValidationSummary(false);
             validation.Begin().ValidationSummary(false);
+            validation.Begin().Alert(AlertState.Danger);
             validation.Begin().HelpBlock();
         }
     }

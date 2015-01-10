@@ -14,10 +14,11 @@ namespace FluentBootstrap
     {
         // Form
 
-        public static ComponentBuilder<Form> Form<TComponent>(this IComponentCreator<TComponent> creator, string method = "post")
+        public static ComponentBuilder<TConfig, Form> Form<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string method = "post")
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Form>
         {
-            return new ComponentBuilder<Form>(creator.Helper, new Form(creator))
+            return new ComponentBuilder<TConfig, Form>(helper.Config, new Form(helper))
                 .SetAction(null)
                 .SetMethod(method);
         }
@@ -46,13 +47,15 @@ namespace FluentBootstrap
         //}
 
         // Use action = null to reset form action to current request url
-        public static ComponentBuilder<Form> SetAction(this ComponentBuilder<Form> builder, string action)
+        public static ComponentBuilder<TConfig, Form> SetAction<TConfig>(this ComponentBuilder<TConfig, Form> builder, string action)
+            where TConfig : BootstrapConfig
         {
             builder.Component.MergeAttribute("action", action);
             return builder;
         }
 
-        public static ComponentBuilder<Form> SetMethod(this ComponentBuilder<Form> builder, string method)
+        public static ComponentBuilder<TConfig, Form> SetMethod<TConfig>(this ComponentBuilder<TConfig, Form> builder, string method)
+            where TConfig : BootstrapConfig
         {
             builder.Component.MergeAttribute("method", method);
             return builder;
@@ -316,10 +319,11 @@ namespace FluentBootstrap
 
         // Help
 
-        public static ComponentBuilder<HelpBlock> HelpBlock<TComponent>(this IComponentCreator<TComponent> creator, string text = null)
+        public static ComponentBuilder<TConfig, HelpBlock> HelpBlock<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<HelpBlock>
         {
-            return new ComponentBuilder<HelpBlock>(creator.Helper, new HelpBlock(creator)).SetText(text);
+            return new ComponentBuilder<TConfig, HelpBlock>(helper.Config, new HelpBlock(helper)).SetText(text);
         }
 
         //// FormControl

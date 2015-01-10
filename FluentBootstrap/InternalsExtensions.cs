@@ -25,6 +25,13 @@ namespace FluentBootstrap.Internals
             return builder.Component;
         }
 
+        public static TConfig GetConfig<TConfig, TComponent>(this ComponentBuilder<TConfig, TComponent> builder)
+            where TConfig : BootstrapConfig
+            where TComponent : Component
+        {
+            return builder.Config;
+        }
+
         public static Component GetComponent(this ComponentBuilder builder)
         {
             return builder.GetComponent();

@@ -11,7 +11,7 @@ using FluentBootstrap.Mvc.Internals;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public class ValidationSummary<TModel> : FormControl, ICanCreate<ValidationSummary<TModel>>
+    public class ValidationSummary<TModel> : FormControl, ICanCreate<ValidationSummary<TModel>>, ICanCreate<Alerts.Alert>
     {
         public bool IncludePropertyErrors { get; set; }
 
