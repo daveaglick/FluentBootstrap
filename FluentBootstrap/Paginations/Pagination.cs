@@ -8,26 +8,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Paginations
 {
-    public interface IPaginationCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class Pagination : Tag,
+        ICanCreate<PageNum>
     {
-    }
+        private Element _nav = null;
 
-    public class PaginationWrapper<TConfig> : TagWrapper<TConfig>,
-        IPageNumCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IPagination : ITag
-    {
-    }
-
-    public class Pagination<TConfig> : Tag<TConfig, Pagination<TConfig>, PaginationWrapper<TConfig>>, IPagination
-        where TConfig : BootstrapConfig
-    {
         public int AutoPageNumber { get; set; }
-        private Element<TConfig> _nav = null;
 
         internal Pagination(BootstrapHelper helper)
             : base(helper, "ul", Css.Pagination)
@@ -36,7 +22,7 @@ namespace FluentBootstrap.Paginations
 
         protected override void OnStart(TextWriter writer)
         {
-            _nav = new Element<TConfig>(Helper, "nav");
+            _nav = GetHelper().Element("nav").Component;
             _nav.Start(writer);
 
             base.OnStart(writer);

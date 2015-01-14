@@ -11,60 +11,64 @@ namespace FluentBootstrap
     {
         // Pagination
 
-        public static Pagination<TConfig> Pagination<TConfig>(this IPaginationCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Pagination> Pagination<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pagination>
         {
-            return new Pagination<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper));
         }
 
-        public static Pagination<TConfig> SetSize<TConfig>(this Pagination<TConfig> pagination, PaginationSize size)
+        public static ComponentBuilder<TConfig, Pagination> SetSize<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, PaginationSize size)
             where TConfig : BootstrapConfig
         {
-            pagination.ToggleCss(size);
-            return pagination;
+            builder.Component.ToggleCss(size);
+            return builder;
         }
 
-        public static Pagination<TConfig> AddPrevious<TConfig>(this Pagination<TConfig> pagination, string href = "#", bool active = false, bool disabled = false)
+        public static ComponentBuilder<TConfig, Pagination> AddPrevious<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, string href = "#", bool active = false, bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            pagination.AddChild(pagination.GetWrapper().PageNum("&laquo;", href).SetActive(active).SetDisabled(disabled));
-            return pagination;
+            builder.AddChild(builder.GetWrapper().PageNum("&laquo;", href).SetActive(active).SetDisabled(disabled));
+            return builder;
         }
 
-        public static Pagination<TConfig> AddNext<TConfig>(this Pagination<TConfig> pagination, string href = "#", bool active = false, bool disabled = false)
+        public static ComponentBuilder<TConfig, Pagination> AddNext<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, string href = "#", bool active = false, bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            pagination.AddChild(pagination.GetWrapper().PageNum("&raquo;", href).SetActive(active).SetDisabled(disabled));
-            return pagination;
+            builder.AddChild(builder.GetWrapper().PageNum("&raquo;", href).SetActive(active).SetDisabled(disabled));
+            return builder;
         }
 
-        public static Pagination<TConfig> AddPage<TConfig>(this Pagination<TConfig> pagination, string href = "#", bool active = false, bool disabled = false)
+        public static ComponentBuilder<TConfig, Pagination> AddPage<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, string href = "#", bool active = false, bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            pagination.AddChild(pagination.GetWrapper().PageNum((++pagination.AutoPageNumber).ToString(), href).SetActive(active).SetDisabled(disabled));
-            return pagination;
+            builder.AddChild(builder.GetWrapper().PageNum((++builder.Component.AutoPageNumber).ToString(), href).SetActive(active).SetDisabled(disabled));
+            return builder;
         }
         
         // PageNum
 
-        public static PageNum<TConfig> PageNum<TConfig>(this IPageNumCreator<TConfig> creator, string text, string href = "#")
+        public static ComponentBuilder<TConfig, PageNum> PageNum<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PageNum>
         {
-            return new PageNum<TConfig>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, PageNum>(helper.Config, new PageNum(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
-        public static PageNum<TConfig> SetActive<TConfig>(this PageNum<TConfig> pageNum, bool active = true)
+        public static ComponentBuilder<TConfig, PageNum> SetActive<TConfig>(this ComponentBuilder<TConfig, PageNum> builder, bool active = true)
             where TConfig : BootstrapConfig
         {
-            pageNum.Active = active;
-            return pageNum;
+            builder.Component.Active = active;
+            return builder;
         }
 
-        public static PageNum<TConfig> SetDisabled<TConfig>(this PageNum<TConfig> pageNum, bool disabled = true)
+        public static ComponentBuilder<TConfig, PageNum> SetDisabled<TConfig>(this ComponentBuilder<TConfig, PageNum> builder, bool disabled = true)
             where TConfig : BootstrapConfig
         {
-            pageNum.Disabled = disabled;
-            return pageNum;
+            builder.Component.Disabled = disabled;
+            return builder;
         }
     }
 }

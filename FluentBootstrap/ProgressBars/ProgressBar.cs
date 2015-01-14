@@ -8,35 +8,20 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ProgressBars
 {
-    public interface IProgressBarCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class ProgressBar : Tag, IHasTextContent
     {
-    }
+        private Progress _progress;
 
-    public class ProgressBarWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-
-    }
-
-    internal interface IProgressBar : ITag
-    {
-    }
-
-    public class ProgressBar<TConfig> : Tag<TConfig, ProgressBar<TConfig>, ProgressBarWrapper<TConfig>>, IProgressBar, IHasTextContent
-        where TConfig : BootstrapConfig
-    {
-        private Progress<TConfig> _progress;
-        internal int Value { get; set; }
-        internal int Min { get; set; }
-        internal int Max { get; set; }
-        internal bool ShowPercent { get; set; }
-        internal bool Animated { get; set; }
+        public int Value { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
+        public bool ShowPercent { get; set; }
+        public bool Animated { get; set; }
 
         internal ProgressBar(BootstrapHelper helper)
             : base(helper, "div", Css.ProgressBar)
         {
-            this.MergeAttribute("role", "progressbar");
+            MergeAttribute("role", "progressbar");
             Value = 50;
             Min = 0;
             Max = 100;
@@ -48,9 +33,9 @@ namespace FluentBootstrap.ProgressBars
             int percent = (int)(((double)(Value - Min) / (double)(Max - Min)) * 100.0);
             percent = Math.Max(0, percent);
             percent = Math.Min(100, percent);
-            this.MergeAttribute("aria-valuenow", Value.ToString());
-            this.MergeAttribute("aria-valuemin", Min.ToString());
-            this.MergeAttribute("aria-valuemax", Max.ToString());
+            MergeAttribute("aria-valuenow", Value.ToString());
+            MergeAttribute("aria-valuemin", Min.ToString());
+            MergeAttribute("aria-valuemax", Max.ToString());
             if (percent != 0)
             {
                 this.MergeStyle("width", percent + "%");
@@ -63,9 +48,9 @@ namespace FluentBootstrap.ProgressBars
                 ToggleCss(Css.Active, true);
             }
 
-            if (this.GetComponent<IProgress>(true) == null)
+            if (GetComponent<Progress>(true) == null)
             {
-                _progress = Helper.Progress();
+                _progress = GetHelper().Progress().Component;
                 _progress.Start(writer);
             }
 
@@ -73,11 +58,11 @@ namespace FluentBootstrap.ProgressBars
 
             if(ShowPercent)
             {
-                new Content<TConfig>(Helper, percent + "%").StartAndFinish(writer);
+                GetHelper().Content(percent + "%").Component.StartAndFinish(writer);
             }
             else
             {
-                Helper.Element("span").AddCss(Css.SrOnly).SetText(percent + "% Complete").StartAndFinish(writer);
+                GetHelper().Element("span").AddCss(Css.SrOnly).SetText(percent + "% Complete").Component.StartAndFinish(writer);
             }
         }
 

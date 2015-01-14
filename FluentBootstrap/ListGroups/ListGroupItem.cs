@@ -11,29 +11,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ListGroups
 {
-    public interface IListGroupItemCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class ListGroupItem : Tag, IHasLinkExtensions, IHasTextContent,
+        ICanCreate<Badge>,
+        ICanCreate<Heading>,
+        ICanCreate<Paragraph>
     {
-    }
-
-    public class ListGroupItemWrapper<TConfig> : TagWrapper<TConfig>,
-        IBadgeCreator<TConfig>,
-        IHeadingCreator<TConfig>,
-        IParagraphCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IListGroupItem : ITag
-    {
-    }
-
-    public class ListGroupItem<TConfig> : Tag<TConfig, ListGroupItem<TConfig>, ListGroupItemWrapper<TConfig>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
-        where TConfig : BootstrapConfig
-    {
-        internal bool Active { get; set; }
-        internal bool Disabled { get; set; }
-        internal string Heading { get; set; }
+        public bool Active { get; set; }
+        public bool Disabled { get; set; }
+        public string Heading { get; set; }
 
         internal ListGroupItem(BootstrapHelper helper)
             : base(helper, "a", Css.ListGroupItem)
@@ -71,12 +56,12 @@ namespace FluentBootstrap.ListGroups
             // Add the heading
             if(!string.IsNullOrWhiteSpace(Heading))
             {
-                Helper.Heading4(Heading).StartAndFinish(writer);
+                GetHelper().Heading4(Heading).Component.StartAndFinish(writer);
 
                 // Put text in a paragraph, but only if there's also a heading
                 if(!string.IsNullOrWhiteSpace(textContent))
                 {
-                    Helper.Paragraph(textContent).StartAndFinish(writer);
+                    GetHelper().Paragraph(textContent).Component.StartAndFinish(writer);
                 }
             }
 

@@ -11,38 +11,46 @@ namespace FluentBootstrap
     {
         // Thumbnail
 
-        public static Thumbnail<TConfig> Thumbnail<TConfig>(this IThumbnailCreator<TConfig> creator, string src, string href = null, string alt = null)
+        public static ComponentBuilder<TConfig, Thumbnail> Thumbnail<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string src, string href = null, string alt = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Thumbnail>
         {
-            return new Thumbnail<TConfig>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
+            return new ComponentBuilder<TConfig, Thumbnail>(helper.Config, new Thumbnail(helper))
+                .SetHref(href)
+                .SetSrc(src)
+                .SetAlt(alt);
         }
 
-        public static Thumbnail<TConfig> SetSrc<TConfig>(this Thumbnail<TConfig> thumbnail, string src)
+        public static ComponentBuilder<TConfig, Thumbnail> SetSrc<TConfig>(this ComponentBuilder<TConfig, Thumbnail> builder, string src)
             where TConfig : BootstrapConfig
         {
-            thumbnail.Src = src;
-            return thumbnail;
+            builder.Component.Src = src;
+            return builder;
         }
 
-        public static Thumbnail<TConfig> SetAlt<TConfig>(this Thumbnail<TConfig> thumbnail, string alt)
+        public static ComponentBuilder<TConfig, Thumbnail> SetAlt<TConfig>(this ComponentBuilder<TConfig, Thumbnail> builder, string alt)
             where TConfig : BootstrapConfig
         {
-            thumbnail.Alt = alt;
-            return thumbnail;
+            builder.Component.Alt = alt;
+            return builder;
         }
 
         // ThumbnailContainer
 
-        public static ThumbnailContainer<TConfig> ThumbnailContainer<TConfig>(this IThumbnailContainerCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, ThumbnailContainer> ThumbnailContainer<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ThumbnailContainer>
         {
-            return new ThumbnailContainer<TConfig>(creator);
+            return new ComponentBuilder<TConfig, ThumbnailContainer>(helper.Config, new ThumbnailContainer(helper));
         }
 
-        public static Caption<TConfig> Caption<TConfig>(this ICaptionCreator<TConfig> creator)
+        // Caption
+
+        public static ComponentBuilder<TConfig, Caption> Caption<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Caption>
         {
-            return new Caption<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Caption>(helper.Config, new Caption(helper));
         }
     }
 }

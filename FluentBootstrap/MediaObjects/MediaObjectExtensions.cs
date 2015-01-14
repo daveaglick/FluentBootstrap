@@ -11,67 +11,78 @@ namespace FluentBootstrap
     {
         // Media
 
-        public static Media<TConfig> Media<TConfig>(this IMediaCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Media> Media<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Media>
         {
-            return new Media<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Media>(helper.Config, new Media(helper));
         }
 
         // Media Object
 
-        public static MediaObject<TConfig> MediaObject<TConfig>(this IMediaObjectCreator<TConfig> creator, string src, string href = null, string alt = null)
+        public static ComponentBuilder<TConfig, MediaObject> MediaObject<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string src, string href = null, string alt = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<MediaObject>
         {
-            return new MediaObject<TConfig>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
+            return new ComponentBuilder<TConfig, MediaObject>(helper.Config, new MediaObject(helper))
+                .SetHref(href)
+                .SetSrc(src)
+                .SetAlt(alt);
         }
 
-        public static MediaObject<TConfig> SetSrc<TConfig>(this MediaObject<TConfig> mediaObject, string src)
+        public static ComponentBuilder<TConfig, MediaObject> SetSrc<TConfig>(this ComponentBuilder<TConfig, MediaObject> builder, string src)
             where TConfig : BootstrapConfig
         {
-            mediaObject.Src = src;
-            return mediaObject;
+            builder.Component.Src = src;
+            return builder;
         }
 
-        public static MediaObject<TConfig> SetAlt<TConfig>(this MediaObject<TConfig> mediaObject, string alt)
+        public static ComponentBuilder<TConfig, MediaObject> SetAlt<TConfig>(this ComponentBuilder<TConfig, MediaObject> builder, string alt)
             where TConfig : BootstrapConfig
         {
-            mediaObject.Alt = alt;
-            return mediaObject;
+            builder.Component.Alt = alt;
+            return builder;
         }
 
-        public static MediaObject<TConfig> SetLeft<TConfig>(this MediaObject<TConfig> mediaObject, bool left = true)
+        public static ComponentBuilder<TConfig, MediaObject> SetLeft<TConfig>(this ComponentBuilder<TConfig, MediaObject> builder, bool left = true)
             where TConfig : BootstrapConfig
         {
-            return mediaObject.ToggleCss(Css.MediaLeft, left, Css.MediaRight);
+            builder.Component.ToggleCss(Css.MediaLeft, left, Css.MediaRight);
+            return builder;
         }
 
-        public static MediaObject<TConfig> SetRight<TConfig>(this MediaObject<TConfig> mediaObject, bool right = true)
+        public static ComponentBuilder<TConfig, MediaObject> SetRight<TConfig>(this ComponentBuilder<TConfig, MediaObject> builder, bool right = true)
             where TConfig : BootstrapConfig
         {
-            return mediaObject.ToggleCss(Css.MediaRight, right, Css.MediaLeft);
+            builder.Component.ToggleCss(Css.MediaRight, right, Css.MediaLeft);
+            return builder;
         }
 
         // Media Body
 
-        public static MediaBody<TConfig> MediaBody<TConfig>(this IMediaBodyCreator<TConfig> creator, string heading = null, string text = null)
+        public static ComponentBuilder<TConfig, MediaBody> MediaBody<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string heading = null, string text = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<MediaBody>
         {
-            return new MediaBody<TConfig>(creator).SetHeading(heading).SetText(text);
+            return new ComponentBuilder<TConfig, MediaBody>(helper.Config, new MediaBody(helper))
+                .SetHeading(heading)
+                .SetText(text);
         }
 
-        public static MediaBody<TConfig> SetHeading<TConfig>(this MediaBody<TConfig> mediaBody, string heading)
+        public static ComponentBuilder<TConfig, MediaBody> SetHeading<TConfig>(this ComponentBuilder<TConfig, MediaBody> builder, string heading)
             where TConfig : BootstrapConfig
         {
-            mediaBody.Heading = heading;
-            return mediaBody;
+            builder.Component.Heading = heading;
+            return builder;
         }
 
         // Media List
 
-        public static MediaList<TConfig> MediaList<TConfig>(this IMediaListCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, MediaList> MediaList<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<MediaList>
         {
-            return new MediaList<TConfig>(creator);
+            return new ComponentBuilder<TConfig, MediaList>(helper.Config, new MediaList(helper));
         }
 
     }

@@ -9,26 +9,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaObjectCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class MediaObject : Tag, IHasLinkExtensions
     {
-    }
+        private Image _image;
 
-    public class MediaObjectWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IMediaObject : ITag
-    {
-    }
-
-    public class MediaObject<TConfig> : Tag<TConfig, MediaObject<TConfig>, MediaObjectWrapper<TConfig>>, IMediaObject, IHasLinkExtensions
-        where TConfig : BootstrapConfig
-    {
-        internal string Src { get; set; }
-        internal string Alt { get; set; }
-        private Image<TConfig> _image;
+        public string Src { get; set; }
+        public string Alt { get; set; }
 
         internal MediaObject(BootstrapHelper helper)
             : base(helper, "a", Css.MediaLeft)
@@ -46,7 +32,7 @@ namespace FluentBootstrap.MediaObjects
 
             base.OnStart(writer);
 
-            _image = Helper.Image(Src, Alt);
+            _image = GetHelper().Image(Src, Alt).Component;
             _image.Start(writer);
         }
 

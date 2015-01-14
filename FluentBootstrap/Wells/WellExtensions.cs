@@ -9,16 +9,18 @@ namespace FluentBootstrap
 {
     public static class WellExtensions
     {
-        public static Well<TConfig> Well<TConfig>(this IWellCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Well> Well<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Well>
         {
-            return new Well<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Well>(helper.Config, new Well(helper));
         }
 
-        public static Well<TConfig> SetSize<TConfig>(this Well<TConfig> well, WellSize size)
+        public static ComponentBuilder<TConfig, Well> SetSize<TConfig>(this ComponentBuilder<TConfig, Well> builder, WellSize size)
             where TConfig : BootstrapConfig
         {
-            return well.ToggleCss(size);
+            builder.Component.ToggleCss(size);
+            return builder;
         }
     }
 }

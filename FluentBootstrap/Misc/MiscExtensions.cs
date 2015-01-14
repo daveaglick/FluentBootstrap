@@ -12,56 +12,71 @@ namespace FluentBootstrap
     {
         // Jumbotron
 
-        public static Jumbotron<TConfig> Jumbotron<TConfig>(this IJumbotronCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Jumbotron> Jumbotron<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Jumbotron>
         {
-            return new Jumbotron<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Jumbotron>(helper.Config, new Jumbotron(helper));
         }
 
         // PageHeader
 
-        public static PageHeader<TConfig> PageHeader<TConfig>(this IPageHeaderCreator<TConfig> creator, string text = null)
+        public static ComponentBuilder<TConfig, PageHeader> PageHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PageHeader>
         {
-            return new PageHeader<TConfig>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, PageHeader>(helper.Config, new PageHeader(helper))
+                .SetText(text);
         }
 
         // Elements
 
-        public static Element<TConfig> Clearfix<TConfig>(this ITagCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Element> Clearfix<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<TConfig>(creator, "div").AddCss(Css.Clearfix);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "div"))
+                .AddCss(Css.Clearfix);
         }
 
-        public static Element<TConfig> CenterBlock<TConfig>(this ITagCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Element> CenterBlock<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<TConfig>(creator, "div").AddCss(Css.CenterBlock);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "div"))
+                .AddCss(Css.CenterBlock);
         }
 
-        public static Element<TConfig> PullLeft<TConfig>(this ITagCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Element> PullLeft<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<TConfig>(creator, "div").AddCss(Css.PullLeft);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "div"))
+                .AddCss(Css.PullLeft);
         }
 
-        public static Element<TConfig> PullRight<TConfig>(this ITagCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Element> PullRight<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<TConfig>(creator, "div").AddCss(Css.PullRight);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "div"))
+                .AddCss(Css.PullRight);
         }
 
-        public static Element<TConfig> Caret<TConfig>(this ITagCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Element> Caret<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<TConfig>(creator, "span").AddCss(Css.Caret);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "span"))
+                .AddCss(Css.Caret);
         }
 
-        public static Element<TConfig> Close<TConfig>(this ITagCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Element> Close<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<TConfig>(creator, "button").AddCss(Css.Close)
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "button"))
+                .AddCss(Css.Close)
                 .AddAttribute("type", "button")
                 .AddContent("<span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span>");
         }

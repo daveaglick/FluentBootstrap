@@ -6,22 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Misc
 {
-    public interface IJumbotronCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class JumbotronWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IJumbotron : ITag
-    {
-    }
-
-    public class Jumbotron<TConfig> : Tag<TConfig, Jumbotron<TConfig>, JumbotronWrapper<TConfig>>, IJumbotron
-        where TConfig : BootstrapConfig
+    public class Jumbotron : Tag
     {
         internal Jumbotron(BootstrapHelper helper)
             : base(helper, "div", Css.Jumbotron)

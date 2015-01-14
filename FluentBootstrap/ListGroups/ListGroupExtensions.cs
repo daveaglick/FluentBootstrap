@@ -11,45 +11,50 @@ namespace FluentBootstrap
     {
         // ListGroup
 
-        public static ListGroup<TConfig> ListGroup<TConfig>(this IListGroupCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, ListGroup> ListGroup<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ListGroup>
         {
-            return new ListGroup<TConfig>(creator);
+            return new ComponentBuilder<TConfig, ListGroup>(helper.Config, new ListGroup(helper));
         }
 
         // ListGroupItem
 
-        public static ListGroupItem<TConfig> ListGroupItem<TConfig>(this IListGroupItemCreator<TConfig> creator, string text = null, string href = null)
+        public static ComponentBuilder<TConfig, ListGroupItem> ListGroupItem<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, string href = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ListGroupItem>
         {
-            return new ListGroupItem<TConfig>(creator).SetText(text).SetHref(href);
+            return new ComponentBuilder<TConfig, ListGroupItem>(helper.Config, new ListGroupItem(helper))
+                .SetText(text)
+                .SetHref(href);
         }
 
-        public static ListGroupItem<TConfig> SetActive<TConfig>(this ListGroupItem<TConfig> listGroupItem, bool active = true)
+        public static ComponentBuilder<TConfig, ListGroupItem> SetActive<TConfig>(this ComponentBuilder<TConfig, ListGroupItem> builder, bool active = true)
             where TConfig : BootstrapConfig
         {
-            listGroupItem.Active = active;
-            return listGroupItem;
+            builder.Component.Active = active;
+            return builder;
         }
 
-        public static ListGroupItem<TConfig> SetDisabled<TConfig>(this ListGroupItem<TConfig> listGroupItem, bool disabled = true)
+        public static ComponentBuilder<TConfig, ListGroupItem> SetDisabled<TConfig>(this ComponentBuilder<TConfig, ListGroupItem> builder, bool disabled = true)
             where TConfig : BootstrapConfig
         {
-            listGroupItem.Disabled = disabled;
-            return listGroupItem;
+            builder.Component.Disabled = disabled;
+            return builder;
         }
 
-        public static ListGroupItem<TConfig> SetHeading<TConfig>(this ListGroupItem<TConfig> listGroupItem, string heading)
+        public static ComponentBuilder<TConfig, ListGroupItem> SetHeading<TConfig>(this ComponentBuilder<TConfig, ListGroupItem> builder, string heading)
             where TConfig : BootstrapConfig
         {
-            listGroupItem.Heading = heading;
-            return listGroupItem;
+            builder.Component.Heading = heading;
+            return builder;
         }
 
-        public static ListGroupItem<TConfig> SetState<TConfig>(this ListGroupItem<TConfig> listGroupItem, ListGroupItemState state)
+        public static ComponentBuilder<TConfig, ListGroupItem> SetState<TConfig>(this ComponentBuilder<TConfig, ListGroupItem> builder, ListGroupItemState state)
             where TConfig : BootstrapConfig
         {
-            return listGroupItem.ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
     }
 }

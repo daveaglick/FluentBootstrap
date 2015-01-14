@@ -7,24 +7,9 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class MediaWrapper<TConfig> : TagWrapper<TConfig>,
-        IMediaObjectCreator<TConfig>,
-        IMediaBodyCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IMedia : ITag
-    {
-    }
-
-    public class Media<TConfig> : Tag<TConfig, Media<TConfig>, MediaWrapper<TConfig>>, IMedia
-        where TConfig : BootstrapConfig
+    public class Media : Tag,
+        ICanCreate<MediaObject>,
+        ICanCreate<MediaBody>
     {
         internal Media(BootstrapHelper helper)
             : base(helper, "div", Css.Media)
@@ -34,7 +19,7 @@ namespace FluentBootstrap.MediaObjects
         protected override void OnStart(TextWriter writer)
         {
             // Change to a list item if inside a MediaList
-            if(GetComponent<IMediaList>(true) != null)
+            if(GetComponent<MediaList>(true) != null)
             {
                 TagName = "li";
             }

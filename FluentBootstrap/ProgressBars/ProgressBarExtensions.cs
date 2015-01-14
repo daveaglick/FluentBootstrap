@@ -9,72 +9,79 @@ namespace FluentBootstrap
 {
     public static class ProgressBarExtensions
     {
-        public static ProgressBars.Progress<TConfig> Progress<TConfig>(this IProgressCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, ProgressBars.Progress> Progress<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ProgressBars.Progress>
         {
-            return new ProgressBars.Progress<TConfig>(creator);
+            return new ComponentBuilder<TConfig, ProgressBars.Progress>(helper.Config, new ProgressBars.Progress(helper));
         }
 
-        public static ProgressBar<TConfig> ProgressBar<TConfig>(this IProgressBarCreator<TConfig> creator, int value, int min = 0, int max = 100)
+        public static ComponentBuilder<TConfig, ProgressBar> ProgressBar<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, int value, int min = 0, int max = 100)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ProgressBar>
         {
-            return new ProgressBar<TConfig>(creator).SetValue(value).SetMin(min).SetMax(max);
+            return new ComponentBuilder<TConfig, ProgressBar>(helper.Config, new ProgressBar(helper))
+                .SetValue(value)
+                .SetMin(min)
+                .SetMax(max);
         }
 
-        public static ProgressBar<TConfig> SetMin<TConfig>(this ProgressBar<TConfig> progressBar, int min)
+        public static ComponentBuilder<TConfig, ProgressBar> SetMin<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, int min)
             where TConfig : BootstrapConfig
         {
-            progressBar.Min = min;
-            return progressBar;
+            builder.Component.Min = min;
+            return builder;
         }
 
-        public static ProgressBar<TConfig> SetMax<TConfig>(this ProgressBar<TConfig> progressBar, int max)
+        public static ComponentBuilder<TConfig, ProgressBar> SetMax<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, int max)
             where TConfig : BootstrapConfig
         {
-            progressBar.Max = max;
-            return progressBar;
+            builder.Component.Max = max;
+            return builder;
         }
 
-        public static ProgressBar<TConfig> SetValue<TConfig>(this ProgressBar<TConfig> progressBar, int value)
+        public static ComponentBuilder<TConfig, ProgressBar> SetValue<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, int value)
             where TConfig : BootstrapConfig
         {
-            progressBar.Value = value;
-            return progressBar;
+            builder.Component.Value = value;
+            return builder;
         }
 
-        public static ProgressBar<TConfig> SetPercent<TConfig>(this ProgressBar<TConfig> progressBar, int percent)
+        public static ComponentBuilder<TConfig, ProgressBar> SetPercent<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, int percent)
             where TConfig : BootstrapConfig
         {
-            progressBar.Min = 0;
-            progressBar.Max = 100;
-            progressBar.Value = percent;
-            return progressBar;
+            builder.Component.Min = 0;
+            builder.Component.Max = 100;
+            builder.Component.Value = percent;
+            return builder;
         }
 
-        public static ProgressBar<TConfig> ShowPercent<TConfig>(this ProgressBar<TConfig> progressBar, bool showPercent = true)
+        public static ComponentBuilder<TConfig, ProgressBar> ShowPercent<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, bool showPercent = true)
             where TConfig : BootstrapConfig
         {
-            progressBar.ShowPercent = showPercent;
-            return progressBar;
+            builder.Component.ShowPercent = showPercent;
+            return builder;
         }
 
-        public static ProgressBar<TConfig> SetState<TConfig>(this ProgressBar<TConfig> progressBar, ProgressBarState state)
+        public static ComponentBuilder<TConfig, ProgressBar> SetState<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, ProgressBarState state)
             where TConfig : BootstrapConfig
         {
-            return progressBar.ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
 
-        public static ProgressBar<TConfig> SetStriped<TConfig>(this ProgressBar<TConfig> progressBar, bool striped = true)
+        public static ComponentBuilder<TConfig, ProgressBar> SetStriped<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, bool striped = true)
             where TConfig : BootstrapConfig
         {
-            return progressBar.ToggleCss(Css.ProgressBarStriped, striped);
+            builder.Component.ToggleCss(Css.ProgressBarStriped, striped);
+            return builder;
         }
 
-        public static ProgressBar<TConfig> SetAnimated<TConfig>(this ProgressBar<TConfig> progressBar, bool animated = true)
+        public static ComponentBuilder<TConfig, ProgressBar> SetAnimated<TConfig>(this ComponentBuilder<TConfig, ProgressBar> builder, bool animated = true)
             where TConfig : BootstrapConfig
         {
-            progressBar.Animated = animated;
-            return progressBar;
+            builder.Component.Animated = animated;
+            return builder;
         }
     }
 }

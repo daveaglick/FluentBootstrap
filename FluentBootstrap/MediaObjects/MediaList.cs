@@ -6,23 +6,8 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaListCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class MediaListWrapper<TConfig> : TagWrapper<TConfig>,
-        IMediaCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IMediaList : ITag
-    {
-    }
-
-    public class MediaList<TConfig> : Tag<TConfig, MediaList<TConfig>, MediaListWrapper<TConfig>>, IMediaList
-        where TConfig : BootstrapConfig
+    public class MediaList : Tag,
+        ICanCreate<Media>
     {
         internal MediaList(BootstrapHelper helper)
             : base(helper, "ul", Css.MediaList)

@@ -7,24 +7,9 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaBodyCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class MediaBody : Tag, IHasTextContent
     {
-    }
-
-    public class MediaBodyWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IMediaBody : ITag
-    {
-    }
-
-    public class MediaBody<TConfig> : Tag<TConfig, MediaBody<TConfig>, MediaBodyWrapper<TConfig>>, IMediaBody, IHasTextContent
-        where TConfig : BootstrapConfig
-    {
-        internal string Heading { get; set; }
+        public string Heading { get; set; }
 
         internal MediaBody(BootstrapHelper helper)
             : base(helper, "div", Css.MediaBody)
@@ -37,7 +22,7 @@ namespace FluentBootstrap.MediaObjects
 
             if(!string.IsNullOrWhiteSpace(Heading))
             {
-                Helper.Heading4(Heading).StartAndFinish(writer);
+                GetHelper().Heading4(Heading).Component.StartAndFinish(writer);
             }
         }
     }

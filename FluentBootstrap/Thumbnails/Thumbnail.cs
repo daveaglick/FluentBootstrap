@@ -10,27 +10,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Thumbnails
 {
-    public interface IThumbnailCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class Thumbnail : Tag, IHasLinkExtensions
     {
-    }
-
-    public class ThumbnailWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IThumbnail : ITag
-    {
-    }
-
-    public class Thumbnail<TConfig> : Tag<TConfig, Thumbnail<TConfig>, ThumbnailWrapper<TConfig>>, IThumbnail, IHasLinkExtensions
-        where TConfig : BootstrapConfig
-    {
-        internal string Src { get; set; }
-        internal string Alt { get; set; }
-        private Image<TConfig> _image;
+        private Image _image;
         private bool _suppressOuterTag;
+
+        public string Src { get; set; }
+        public string Alt { get; set; }
 
         internal Thumbnail(BootstrapHelper helper)
             : base(helper, "a", Css.Thumbnail)
@@ -41,9 +27,9 @@ namespace FluentBootstrap.Thumbnails
         {
             // Remove the thumbnail class if in a ThumbnailContainer
             bool inContainer = false;
-            if(GetComponent<IThumbnailContainer>(true) != null)
+            if(GetComponent<ThumbnailContainer>(true) != null)
             {
-                this.RemoveCss(Css.Thumbnail);
+                RemoveCss(Css.Thumbnail);
                 inContainer = true;
             }
 
@@ -60,7 +46,7 @@ namespace FluentBootstrap.Thumbnails
 
             base.OnStart(_suppressOuterTag ? new SuppressOutputWriter() : writer);
 
-            _image = Helper.Image(Src, Alt);
+            _image = GetHelper().Image(Src, Alt).Component;
             _image.Start(writer);
         }
 

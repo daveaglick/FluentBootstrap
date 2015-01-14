@@ -11,53 +11,57 @@ namespace FluentBootstrap
     {
         // Pager
 
-        public static Pager<TConfig> Pager<TConfig>(this IPagerCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Pager> Pager<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pager>
         {
-            return new Pager<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Pager>(helper.Config, new Pager(helper));
         }
 
-        public static Pager<TConfig> AddPrevious<TConfig>(this Pager<TConfig> pager, string text, string href = "#", bool disabled = false)
+        public static ComponentBuilder<TConfig, Pager> AddPrevious<TConfig>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            pager.AddChild(pager.GetWrapper().Page(text, href).SetAlignment(PageAlignment.Previous).SetDisabled(disabled));
-            return pager;
+            builder.AddChild(builder.GetWrapper().Page(text, href).SetAlignment(PageAlignment.Previous).SetDisabled(disabled));
+            return builder;
         }
 
-        public static Pager<TConfig> AddNext<TConfig>(this Pager<TConfig> pager, string text, string href = "#", bool disabled = false)
+        public static ComponentBuilder<TConfig, Pager> AddNext<TConfig>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            pager.AddChild(pager.GetWrapper().Page(text, href).SetAlignment(PageAlignment.Next).SetDisabled(disabled));
-            return pager;
+            builder.AddChild(builder.GetWrapper().Page(text, href).SetAlignment(PageAlignment.Next).SetDisabled(disabled));
+            return builder;
         }
 
-        public static Pager<TConfig> AddPage<TConfig>(this Pager<TConfig> pager, string text, string href = "#", bool disabled = false)
+        public static ComponentBuilder<TConfig, Pager> AddComponentBuilder<TConfig, Page>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            pager.AddChild(pager.GetWrapper().Page(text, href).SetDisabled(disabled));
-            return pager;
+            builder.AddChild(builder.GetWrapper().Page(text, href).SetDisabled(disabled));
+            return builder;
         }
         
         // Page
 
-        public static Page<TConfig> Page<TConfig>(this IPageCreator<TConfig> creator, string text, string href = "#")
+        public static ComponentBuilder<TConfig, Page> Page<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Page>
         {
-            return new Page<TConfig>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, Page>(helper.Config, new Page(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
-        public static Page<TConfig> SetDisabled<TConfig>(this Page<TConfig> pageNum, bool disabled = true)
+        public static ComponentBuilder<TConfig, Page> SetDisabled<TConfig>(this ComponentBuilder<TConfig, Page> builder, bool disabled = true)
             where TConfig : BootstrapConfig
         {
-            pageNum.Disabled = disabled;
-            return pageNum;
+            builder.Component.Disabled = disabled;
+            return builder;
         }
 
-        public static Page<TConfig> SetAlignment<TConfig>(this Page<TConfig> page, PageAlignment alignment)
+        public static ComponentBuilder<TConfig, Page> SetAlignment<TConfig>(this ComponentBuilder<TConfig, Page> builder, PageAlignment alignment)
             where TConfig : BootstrapConfig
         {
-            page.Alignment = alignment;
-            return page;
+            builder.Component.Alignment = alignment;
+            return builder;
         }
     }
 }
