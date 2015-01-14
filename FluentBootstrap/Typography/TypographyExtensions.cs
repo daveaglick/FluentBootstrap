@@ -13,285 +13,351 @@ namespace FluentBootstrap
     {
         // Headings
 
-        public static Heading<THelper> Heading1<THelper>(this IHeadingCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Heading> Heading1<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
         {
-            return new Heading<THelper>(creator, "h1").SetText(text);
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h1"))
+                .SetText(text);
         }
 
-        public static Heading<THelper> Heading2<THelper>(this IHeadingCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Heading> Heading2<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
         {
-            return new Heading<THelper>(creator, "h2").SetText(text);
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h2"))
+                .SetText(text);
         }
 
-        public static Heading<THelper> Heading3<THelper>(this IHeadingCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Heading> Heading3<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
         {
-            return new Heading<THelper>(creator, "h3").SetText(text);
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h3"))
+                .SetText(text);
         }
 
-        public static Heading<THelper> Heading4<THelper>(this IHeadingCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Heading> Heading4<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
         {
-            return new Heading<THelper>(creator, "h4").SetText(text);
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h4"))
+                .SetText(text);
         }
 
-        public static Heading<THelper> Heading5<THelper>(this IHeadingCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Heading> Heading5<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
         {
-            return new Heading<THelper>(creator, "h5").SetText(text);
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h5"))
+                .SetText(text);
         }
 
-        public static Heading<THelper> Heading6<THelper>(this IHeadingCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Heading> Heading6<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
         {
-            return new Heading<THelper>(creator, "h6").SetText(text);
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h6"))
+                .SetText(text);
         }
 
-        public static TThis SetSmallText<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string text)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Heading<THelper, TThis, TWrapper>
-            where TWrapper : HeadingWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, THeading> SetSmallText<TConfig, THeading>(this ComponentBuilder<TConfig, THeading> builder, string text)
+            where TConfig : BootstrapConfig
+            where THeading : Heading
         {
-            TThis heading = component.GetThis();
-            heading.SmallText = text;
-            return heading;
+            builder.Component.SmallText = text;
+            return builder;
         }
 
         // Body copy
 
-        public static Small<THelper> Small<THelper>(this ISmallCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Small> Small<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Small>
+
         {
-            return new Small<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, Small>(helper.Config, new Small(helper))
+                .SetText(text);
         }
 
-        public static TThis SetSmall<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool toggle = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> MakeSmall<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool toggle = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag
         {
-            return component.GetThis().ToggleCss(Css.Small, toggle);
+            builder.Component.ToggleCss(Css.Small, toggle);
+            return builder;
         }
 
-        public static Element<THelper> Lead<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Lead<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "p").AddCss(Css.Lead).SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "p"))
+                .AddCss(Css.Lead)
+                .SetText(text);
         }
 
-        public static Element<THelper> Marked<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Marked<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "mark").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "mark"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Deleted<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Deleted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "del").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "del"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Strikethrough<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Strikethrough<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "s").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "s"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Inserted<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Inserted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "ins").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "ins"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Underlined<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Underlined<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "u").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "u"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Strong<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Strong<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "strong").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "strong"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Bold<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Bold<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "b").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "b"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Emphasis<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Emphasis<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "em").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "em"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Italics<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Italics<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "i").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "i"))
+                .SetText(text);
         }
 
         // Text alignment and transformation
 
-        public static TThis SetAlignment<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, TextAlignment alignment)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetAlignment<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, TextAlignment alignment)
+            where TConfig : BootstrapConfig
+            where TTag : Tag
         {
-            return component.GetThis().ToggleCss(alignment);
+            builder.Component.ToggleCss(alignment);
+            return builder;
         }
 
-        public static TThis SetTransformation<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, TextTransformation transformation)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetTransformation<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, TextTransformation transformation)
+            where TConfig : BootstrapConfig
+            where TTag : Tag
         {
-            return component.GetThis().ToggleCss(transformation);
+            builder.Component.ToggleCss(transformation);
+            return builder;
         }
 
         // Abbreviation
 
-        public static Abbr<THelper> Abbreviation<THelper>(this ITagCreator<THelper> creator, string title, string text)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Abbr> Abbreviation<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title, string text)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Abbr>
         {
-            return new Abbr<THelper>(creator).SetTitle(title).SetText(text);
+            return new ComponentBuilder<TConfig, Abbr>(helper.Config, new Abbr(helper))
+                .SetTitle(title)
+                .SetText(text);
         }
 
-        public static Abbr<THelper> SetInitialism<THelper>(this Abbr<THelper> abbr, bool initialism = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Abbr> SetInitialism<TConfig>(this ComponentBuilder<TConfig, Abbr> builder, bool initialism = true)
+            where TConfig : BootstrapConfig
         {
-            return abbr.ToggleCss(Css.Initialism, initialism);
+            builder.Component.ToggleCss(Css.Initialism, initialism);
+            return builder;
         }
 
         // Address
 
-        public static Element<THelper> Address<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Address<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "address").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "address"))
+                .SetText(text);
         }
 
         // Blockquote
 
-        public static Blockquote<THelper> Blockquote<THelper>(this ITagCreator<THelper> creator, string quote = null, string footer = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Blockquote> Blockquote<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string quote = null, string footer = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Blockquote>
         {
-            return new Blockquote<THelper>(creator).SetQuote(quote).SetFooter(footer);
+            return new ComponentBuilder<TConfig, Blockquote>(helper.Config, new Blockquote(helper))
+                .SetQuote(quote)
+                .SetFooter(footer);
         }
 
-        public static Blockquote<THelper> SetQuote<THelper>(this Blockquote<THelper> blockquote, string quote)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Blockquote> SetQuote<TConfig>(this ComponentBuilder<TConfig, Blockquote> builder, string quote)
+            where TConfig : BootstrapConfig
         {
-            blockquote.Quote = quote;
-            return blockquote;
+            builder.Component.Quote = quote;
+            return builder;
         }
 
-        public static Blockquote<THelper> SetFooter<THelper>(this Blockquote<THelper> blockquote, string footer)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Blockquote> SetFooter<TConfig>(this ComponentBuilder<TConfig, Blockquote> builder, string footer)
+            where TConfig : BootstrapConfig
         {
-            blockquote.Footer = footer;
-            return blockquote;
+            builder.Component.Footer = footer;
+            return builder;
         }
 
-        public static Blockquote<THelper> SetReverse<THelper>(this Blockquote<THelper> blockquote, bool reverse = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Blockquote> SetReverse<TConfig>(this ComponentBuilder<TConfig, Blockquote> builder, bool reverse = true)
+            where TConfig : BootstrapConfig
         {
-            return blockquote.ToggleCss(Css.BlockquoteReverse, reverse);
+            builder.Component.ToggleCss(Css.BlockquoteReverse, reverse);
+            return builder;
         }
 
-        public static Element<THelper> Footer<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Footer<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "footer").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "footer"))
+                .SetText(text);
         }
 
-        public static Cite<THelper> Cite<THelper>(this ITagCreator<THelper> creator, string title = null, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Cite> Cite<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title = null, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Cite>
         {
-            return new Cite<THelper>(creator).SetTitle(title).SetText(text);
+            return new ComponentBuilder<TConfig, Cite>(helper.Config, new Cite(helper))
+                .SetTitle(title)
+                .SetText(text);
         }
 
         // List
 
-        public static Typography.List<THelper> List<THelper>(this IListCreator<THelper> creator, ListType listType = ListType.Unstyled)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Typography.List> List<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, ListType listType = ListType.Unstyled)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Typography.List>
         {
-            return new Typography.List<THelper>(creator, listType);
+            return new ComponentBuilder<TConfig, Typography.List>(helper.Config, new Typography.List(helper, listType));
         }
 
-        public static ListItem<THelper> ListItem<THelper>(this IListItemCreator<THelper> creator, object content = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, ListItem> ListItem<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ListItem>
         {
-            return new ListItem<THelper>(creator).AddContent(content);
+            return new ComponentBuilder<TConfig, ListItem>(helper.Config, new ListItem(helper))
+                .AddContent(content);
         }
 
         // DescriptionList
 
-        public static DescriptionList<THelper> DescriptionList<THelper>(this IDescriptionListCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DescriptionList> DescriptionList<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<DescriptionList>
         {
-            return new DescriptionList<THelper>(creator);
+            return new ComponentBuilder<TConfig, DescriptionList>(helper.Config, new DescriptionList(helper));
         }
 
-        public static DescriptionList<THelper> SetHorizontal<THelper>(this DescriptionList<THelper> descriptionList, bool horizontal = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DescriptionList> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, DescriptionList> builder, bool horizontal = true)
+            where TConfig : BootstrapConfig
         {
-            descriptionList.ToggleCss(Css.DlHorizontal, horizontal);
-            return descriptionList;
+            builder.Component.ToggleCss(Css.DlHorizontal, horizontal);
+            return builder;
         }
 
-        public static DescriptionTerm<THelper> DescriptionTerm<THelper>(this IDescriptionTermCreator<THelper> creator, object content = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DescriptionTerm> DescriptionTerm<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<DescriptionTerm>
         {
-            return new DescriptionTerm<THelper>(creator).AddContent(content);
+            return new ComponentBuilder<TConfig, DescriptionTerm>(helper.Config, new DescriptionTerm(helper));
         }
 
-        public static Description<THelper> Description<THelper>(this IDescriptionCreator<THelper> creator, object content = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Description> Description<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Description>
         {
-            return new Description<THelper>(creator).AddContent(content);
+            return new ComponentBuilder<TConfig, Description>(helper.Config, new Description(helper));
         }
 
         // Code, etc.
 
-        public static Element<THelper> Code<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Code<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "code").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "code"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Keyboard<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Keyboard<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "kbd").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "kbd"))
+                .SetText(text);
         }
 
-        public static Pre<THelper> Preformatted<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Pre> Preformatted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pre>
         {
-            return new Pre<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, Pre>(helper.Config, new Pre(helper))
+                .SetText(text);
         }
 
-        public static Pre<THelper> SetScrollable<THelper>(this Pre<THelper> pre, bool scrollable = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Pre> SetScrollable<TConfig>(this ComponentBuilder<TConfig, Pre> builder, bool scrollable = true)
+            where TConfig : BootstrapConfig
         {
-            return pre.ToggleCss(Css.PreScrollable, scrollable);
+            builder.Component.ToggleCss(Css.PreScrollable, scrollable);
+            return builder;
         }
 
-        public static Element<THelper> Variable<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Variable<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "var").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "var"))
+                .SetText(text);
         }
 
-        public static Element<THelper> Sample<THelper>(this ITagCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Element> Sample<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tag>
         {
-            return new Element<THelper>(creator, "samp").SetText(text);
+            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "samp"))
+                .SetText(text);
         }
     }
 }

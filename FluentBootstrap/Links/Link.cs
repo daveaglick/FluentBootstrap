@@ -12,39 +12,24 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Links
 {
-    public interface ILinkCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Link : Tag, IHasIconExtensions, IHasLinkExtensions, IHasTextContent,
+        ICanCreate<Badge>
     {
-    }
-
-    public class LinkWrapper<THelper> : TagWrapper<THelper>,
-        IBadgeCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface ILink : ITag
-    {
-    }
-
-    public class Link<THelper> : Tag<THelper, Link<THelper>, LinkWrapper<THelper>>, ILink, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal Link(IComponentCreator<THelper> creator)
-            : base(creator, "a")
+        internal Link(BootstrapHelper helper)
+            : base(helper, "a")
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
             // Adjust the link style if we're in a navbar
-            if(GetComponent<INavbar>() != null)
+            if(GetComponent<Navbar>() != null)
             {
                 CssClasses.Add(Css.NavbarLink);
             }
 
             // Adjust the link style if we're in an alert
-            if(GetComponent<IAlert>() != null)
+            if(GetComponent<Alert>() != null)
             {
                 CssClasses.Add(Css.AlertLink);
             }

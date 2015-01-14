@@ -1,5 +1,4 @@
-﻿using FluentBootstrap.Dropdowns;
-using FluentBootstrap.Navs;
+﻿using FluentBootstrap.Navs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,36 +8,20 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarHeaderCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class NavbarHeader : NavbarSection,
+        ICanCreate<NavbarToggle>,
+        ICanCreate<Brand>
     {
-    }
+        public bool HasToggle { get; set; }
 
-    public class NavbarHeaderWrapper<THelper> : NavbarSectionWrapper<THelper>,
-        INavbarToggleCreator<THelper>,
-        IBrandCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INavbarHeader : INavbarSection
-    {
-        bool HasToggle { get; set; }
-    }
-
-    public class NavbarHeader<THelper> : NavbarSection<THelper, NavbarHeader<THelper>, NavbarHeaderWrapper<THelper>>, INavbarHeader
-        where THelper : BootstrapHelper<THelper>
-    {
-        bool INavbarHeader.HasToggle { get; set; }
-
-        internal NavbarHeader(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.NavbarHeader)
+        internal NavbarHeader(BootstrapHelper helper)
+            : base(helper, "div", Css.NavbarHeader)
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
-            INavbar navbar = GetComponent<INavbar>();
+            Navbar navbar = GetComponent<Navbar>();
             if (navbar != null)
             {
                 navbar.HasHeader = true;
@@ -49,9 +32,9 @@ namespace FluentBootstrap.Navbars
 
         protected override void OnFinish(TextWriter writer)
         {
-            if(!((INavbarHeader)this).HasToggle)
+            if(!HasToggle)
             {
-                new NavbarToggle<THelper>(Helper).StartAndFinish(writer);
+                GetHelper().NavbarToggle().Component.StartAndFinish(writer);
             }
 
             base.OnFinish(writer);

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Misc
 {
-    public interface IJumbotronCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IJumbotronCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class JumbotronWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class JumbotronWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -20,11 +20,11 @@ namespace FluentBootstrap.Misc
     {
     }
 
-    public class Jumbotron<THelper> : Tag<THelper, Jumbotron<THelper>, JumbotronWrapper<THelper>>, IJumbotron
-        where THelper : BootstrapHelper<THelper>
+    public class Jumbotron<TConfig> : Tag<TConfig, Jumbotron<TConfig>, JumbotronWrapper<TConfig>>, IJumbotron
+        where TConfig : BootstrapConfig
     {
-        internal Jumbotron(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.Jumbotron)
+        internal Jumbotron(BootstrapHelper helper)
+            : base(helper, "div", Css.Jumbotron)
         {
         }
     }

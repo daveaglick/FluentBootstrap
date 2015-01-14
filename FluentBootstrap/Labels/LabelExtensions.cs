@@ -9,17 +9,19 @@ namespace FluentBootstrap
 {
     public static class LabelExtensions
     {
-        public static Label<THelper> Label<THelper>(this ILabelCreator<THelper> creator, string text)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Label> Label<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Label>
         {
-            return new Label<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, Label>(helper.Config, new Label(helper))
+                .SetText(text);
         }
 
-        public static Label<THelper> SetState<THelper>(this Label<THelper> label, LabelState state)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Label> SetState<TConfig>(this ComponentBuilder<TConfig, Label> builder, LabelState state)
+            where TConfig : BootstrapConfig
         {
-            label.ToggleCss(state);
-            return label;
+            builder.Component.ToggleCss(state);
+            return builder;
         }
     }
 }

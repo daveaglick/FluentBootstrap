@@ -7,28 +7,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface INavCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public abstract class Nav : Tag,
+        ICanCreate<Dropdown>
     {
-    }
-
-    public class NavWrapper<THelper> : TagWrapper<THelper>,
-        IDropdownCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INav : ITag
-    {
-    }
-
-    public abstract class Nav<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, INav
-        where THelper : BootstrapHelper<THelper>
-        where TThis : Nav<THelper, TThis, TWrapper>
-        where TWrapper : NavWrapper<THelper>, new()
-    {
-        protected Nav(IComponentCreator<THelper> creator, params string[] cssClasses)
-            : base(creator, "ul", cssClasses)
+        protected Nav(BootstrapHelper helper, params string[] cssClasses)
+            : base(helper, "ul", cssClasses)
         {
         }
     }

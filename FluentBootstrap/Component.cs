@@ -83,7 +83,7 @@ namespace FluentBootstrap
             return new ComponentBuilder<BootstrapConfig, TComponent>(Config, component);
         }
 
-        // This gets a dummy BootstrapHelper that can be used to create new components with the same config as this one
+        // This gets a dummy BootstrapHelper that can be used to create new components with the same config (though untyped) as this one
         public BootstrapHelper<BootstrapConfig, CanCreate> GetHelper()
         {
             return new DummyBootstrapHelper(Config);

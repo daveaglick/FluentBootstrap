@@ -9,26 +9,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarButtonCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class NavbarButton : Tag, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, 
+        IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, INavbarComponent
     {
-    }
-
-    public class NavbarButtonWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INavbarButton : ITag
-    {
-    }
-
-    public class NavbarButton<THelper> : Tag<THelper, NavbarButton<THelper>, NavbarButtonWrapper<THelper>>, 
-        IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, INavbarComponent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal NavbarButton(IComponentCreator<THelper> creator)
-            : base(creator, "button", Css.Btn, Css.BtnDefault, Css.NavbarBtn, Css.NavbarLeft)
+        internal NavbarButton(BootstrapHelper helper)
+            : base(helper, "button", Css.Btn, Css.BtnDefault, Css.NavbarBtn, Css.NavbarLeft)
         {
             MergeAttribute("type", "button");
         }
@@ -36,15 +21,15 @@ namespace FluentBootstrap.Navbars
         protected override void OnStart(TextWriter writer)
         {
             // See if we're in a navbar
-            if (GetComponent<INavbar>() != null)
+            if (GetComponent<Navbar>() != null)
             {
                 // Make sure we're not in a NavbarNav (close it if we are)
-                Pop<INavbarNav>(writer);
+                Pop<NavbarNav>(writer);
 
                 // Make sure we're in a collapse
-                if (GetComponent<INavbarCollapse>() == null)
+                if (GetComponent<NavbarCollapse>() == null)
                 {
-                    new NavbarCollapse<THelper>(Helper).Start(writer);
+                    GetHelper().NavbarCollapse().Component.Start(writer);
                 }
             }
 

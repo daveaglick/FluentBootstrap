@@ -11,56 +11,56 @@ namespace FluentBootstrap
     {
         // Media
 
-        public static Media<THelper> Media<THelper>(this IMediaCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Media<TConfig> Media<TConfig>(this IMediaCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Media<THelper>(creator);
+            return new Media<TConfig>(creator);
         }
 
         // Media Object
 
-        public static MediaObject<THelper> MediaObject<THelper>(this IMediaObjectCreator<THelper> creator, string src, string href = null, string alt = null)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaObject<TConfig> MediaObject<TConfig>(this IMediaObjectCreator<TConfig> creator, string src, string href = null, string alt = null)
+            where TConfig : BootstrapConfig
         {
-            return new MediaObject<THelper>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
+            return new MediaObject<TConfig>(creator).SetHref(href).SetSrc(src).SetAlt(alt);
         }
 
-        public static MediaObject<THelper> SetSrc<THelper>(this MediaObject<THelper> mediaObject, string src)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaObject<TConfig> SetSrc<TConfig>(this MediaObject<TConfig> mediaObject, string src)
+            where TConfig : BootstrapConfig
         {
             mediaObject.Src = src;
             return mediaObject;
         }
 
-        public static MediaObject<THelper> SetAlt<THelper>(this MediaObject<THelper> mediaObject, string alt)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaObject<TConfig> SetAlt<TConfig>(this MediaObject<TConfig> mediaObject, string alt)
+            where TConfig : BootstrapConfig
         {
             mediaObject.Alt = alt;
             return mediaObject;
         }
 
-        public static MediaObject<THelper> SetLeft<THelper>(this MediaObject<THelper> mediaObject, bool left = true)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaObject<TConfig> SetLeft<TConfig>(this MediaObject<TConfig> mediaObject, bool left = true)
+            where TConfig : BootstrapConfig
         {
             return mediaObject.ToggleCss(Css.MediaLeft, left, Css.MediaRight);
         }
 
-        public static MediaObject<THelper> SetRight<THelper>(this MediaObject<THelper> mediaObject, bool right = true)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaObject<TConfig> SetRight<TConfig>(this MediaObject<TConfig> mediaObject, bool right = true)
+            where TConfig : BootstrapConfig
         {
             return mediaObject.ToggleCss(Css.MediaRight, right, Css.MediaLeft);
         }
 
         // Media Body
 
-        public static MediaBody<THelper> MediaBody<THelper>(this IMediaBodyCreator<THelper> creator, string heading = null, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaBody<TConfig> MediaBody<TConfig>(this IMediaBodyCreator<TConfig> creator, string heading = null, string text = null)
+            where TConfig : BootstrapConfig
         {
-            return new MediaBody<THelper>(creator).SetHeading(heading).SetText(text);
+            return new MediaBody<TConfig>(creator).SetHeading(heading).SetText(text);
         }
 
-        public static MediaBody<THelper> SetHeading<THelper>(this MediaBody<THelper> mediaBody, string heading)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaBody<TConfig> SetHeading<TConfig>(this MediaBody<TConfig> mediaBody, string heading)
+            where TConfig : BootstrapConfig
         {
             mediaBody.Heading = heading;
             return mediaBody;
@@ -68,10 +68,10 @@ namespace FluentBootstrap
 
         // Media List
 
-        public static MediaList<THelper> MediaList<THelper>(this IMediaListCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static MediaList<TConfig> MediaList<TConfig>(this IMediaListCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new MediaList<THelper>(creator);
+            return new MediaList<TConfig>(creator);
         }
 
     }

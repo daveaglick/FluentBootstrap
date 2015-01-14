@@ -8,32 +8,17 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarToggleCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class NavbarToggle : Tag
     {
-    }
+        public string DataTarget { get; set; }
+        public bool Hamburger { get; set; }
 
-    public class NavbarToggleWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INavbarToggle : ITag
-    {
-    }
-
-    public class NavbarToggle<THelper> : Tag<THelper, NavbarToggle<THelper>, NavbarToggleWrapper<THelper>>, INavbarToggle
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal string DataTarget { get; set; }
-        internal bool Hamburger { get; set; }
-
-        internal NavbarToggle(IComponentCreator<THelper> creator)
-            : base(creator, "button", Css.NavbarToggle, "collapsed")
+        internal NavbarToggle(BootstrapHelper helper)
+            : base(helper, "button", Css.NavbarToggle, "collapsed")
         {
             Hamburger = true;
-            this.MergeAttribute("type", "button");
-            this.MergeAttribute("data-toggle", "collapse");
+            MergeAttribute("type", "button");
+            MergeAttribute("data-toggle", "collapse");
         }
         
         protected override void OnStart(TextWriter writer)
@@ -43,20 +28,20 @@ namespace FluentBootstrap.Navbars
             {
                 // Get the Navbar ID and use it to set the data-target
                 string navbarId = string.Empty;
-                INavbar navbar = GetComponent<INavbar>();
+                Navbar navbar = GetComponent<Navbar>();
                 if (navbar != null)
                 {
                     navbarId = navbar.GetAttribute("id");
                 }
                 DataTarget = "#" + navbarId + "-collapse";
             }
-            this.MergeAttribute("data-target", DataTarget);
+            MergeAttribute("data-target", DataTarget);
 
             // Make sure we're in a header, but only if we're also in a navbar
-            INavbarHeader header = GetComponent<INavbarHeader>();
-            if (GetComponent<INavbar>() != null && header == null)
+            NavbarHeader header = GetComponent<NavbarHeader>();
+            if (GetComponent<Navbar>() != null && header == null)
             {
-                new NavbarHeader<THelper>(Helper).Start(writer);
+                GetHelper().NavbarHeader().Component.Start(writer);
             }
             else if(header != null)
             {
@@ -65,12 +50,12 @@ namespace FluentBootstrap.Navbars
 
             base.OnStart(writer);
 
-            Helper.Span().AddCss(Css.SrOnly).SetText("Toggle Navigation").StartAndFinish(writer);
+            GetHelper().Span().AddCss(Css.SrOnly).SetText("Toggle Navigation").Component.StartAndFinish(writer);
             if (Hamburger)
             {
-                Helper.Span().AddCss(Css.IconBar).StartAndFinish(writer);
-                Helper.Span().AddCss(Css.IconBar).StartAndFinish(writer);
-                Helper.Span().AddCss(Css.IconBar).StartAndFinish(writer);
+                GetHelper().Span().AddCss(Css.IconBar).Component.StartAndFinish(writer);
+                GetHelper().Span().AddCss(Css.IconBar).Component.StartAndFinish(writer);
+                GetHelper().Span().AddCss(Css.IconBar).Component.StartAndFinish(writer);
             }
         }
     }

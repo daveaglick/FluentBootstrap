@@ -6,29 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface ITabsCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Tabs : Nav,
+        ICanCreate<Tab>
     {
-    }
-
-    public class TabsWrapper<THelper> : NavWrapper<THelper>,
-        ITabCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-
-    internal interface ITabs : INav
-    {
-    }
-
-    public class Tabs<THelper> : Nav<THelper, Tabs<THelper>, TabsWrapper<THelper>>, ITabs
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal Tabs(IComponentCreator<THelper> creator)
-            : base(creator, Css.Nav, Css.NavTabs)
+        internal Tabs(BootstrapHelper helper)
+            : base(helper, Css.Nav, Css.NavTabs)
         {
-            this.MergeAttribute("role", "tablist");
+            MergeAttribute("role", "tablist");
         }
     }
 }

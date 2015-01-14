@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ProgressBars
 {
-    public interface IProgressCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IProgressCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class ProgressWrapper<THelper> : TagWrapper<THelper>,
-        IProgressBarCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ProgressWrapper<TConfig> : TagWrapper<TConfig>,
+        IProgressBarCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -21,11 +21,11 @@ namespace FluentBootstrap.ProgressBars
     {
     }
 
-    public class Progress<THelper> : Tag<THelper, Progress<THelper>, ProgressWrapper<THelper>>, IProgress
-        where THelper : BootstrapHelper<THelper>
+    public class Progress<TConfig> : Tag<TConfig, Progress<TConfig>, ProgressWrapper<TConfig>>, IProgress
+        where TConfig : BootstrapConfig
     {
-        internal Progress(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.Progress)
+        internal Progress(BootstrapHelper helper)
+            : base(helper, "div", Css.Progress)
         {
         }
     }

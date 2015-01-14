@@ -12,9 +12,9 @@ namespace FluentBootstrap.Forms
         ICanCreate<FormGroup>,
         ICanCreate<ControlLabel>,
         ICanCreate<FormControl>,
-        ICanCreate<HelpBlock>
-        //IFieldSetCreator<THelper>,
-        //IInputGroupCreator<THelper>
+        ICanCreate<HelpBlock>,
+        ICanCreate<FieldSet>,
+        ICanCreate<InputGroup>
     {
         internal Form(BootstrapHelper helper, params string[] cssClasses)
             : base(helper, "form", cssClasses)

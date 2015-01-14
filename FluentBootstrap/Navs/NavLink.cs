@@ -11,45 +11,29 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navs
 {
-    public interface INavLinkCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public abstract class NavLink : Tag, IHasLinkExtensions, IHasTextContent,
+        ICanCreate<Badge>
     {
-    }
+        private Element _listItem = null;
 
-    public class NavLinkWrapper<THelper> : TagWrapper<THelper>,
-        IBadgeCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
+        public bool Active { get; set; }
+        public bool Disabled { get; set; }
 
-    internal interface INavLink : ITag
-    {
-    }
-
-    public abstract class NavLink<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-        where TThis : NavLink<THelper, TThis, TWrapper>
-        where TWrapper : NavLinkWrapper<THelper>, new()
-    {
-        internal bool Active { get; set; }
-        internal bool Disabled { get; set; }
-        private Element<THelper> _listItem = null;
-
-        protected NavLink(IComponentCreator<THelper> creator)
-            : base(creator, "a")
+        protected NavLink(BootstrapHelper helper)
+            : base(helper, "a")
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
-            if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
+            if (GetComponent<Navbar>() != null && GetComponent<NavbarNav>() == null)
             {
-                new NavbarNav<THelper>(Helper).Start(writer);
+                GetHelper().NavbarNav().Component.Start(writer);
             }
 
             // Create the list item wrapper
-            _listItem = new Element<THelper>(Helper, "li");
+            _listItem = GetHelper().Element("li").Component;
             if (Active)
             {
                 _listItem.AddCss(Css.Active);

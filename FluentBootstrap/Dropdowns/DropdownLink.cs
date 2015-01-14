@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Html;
+﻿using System.IO;
+using FluentBootstrap.Html;
 using FluentBootstrap.Links;
 using System;
 using System.Collections.Generic;
@@ -8,35 +9,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownLinkCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class DropdownLink : Tag, IHasLinkExtensions, IHasTextContent
     {
-    }
+        private Element _listItem = null;
 
-    public class DropdownLinkWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IDropdownLink : ITag
-    {
-    }
-
-    public class DropdownLink<THelper> : Tag<THelper, DropdownLink<THelper>, DropdownLinkWrapper<THelper>>, IDropdownLink, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal bool Disabled { get; set; }
-        private Element<THelper> _listItem = null;
+        public bool Disabled { get; set; }
         
-        internal DropdownLink(IComponentCreator<THelper> creator)
-            : base(creator, "a")
+        internal DropdownLink(BootstrapHelper helper)
+            : base(helper, "a")
         {
             MergeAttribute("role", "menuitem");
         }
 
-        protected override void OnStart(System.IO.TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
-            _listItem = new Element<THelper>(Helper, "li");
+            _listItem = GetHelper().Element("li").Component;
             _listItem.MergeAttribute("role", "presentation");
             if(Disabled)
             {
@@ -47,7 +34,7 @@ namespace FluentBootstrap.Dropdowns
             base.OnStart(writer);
         }
 
-        protected override void OnFinish(System.IO.TextWriter writer)
+        protected override void OnFinish(TextWriter writer)
         {
             base.OnFinish(writer);
 

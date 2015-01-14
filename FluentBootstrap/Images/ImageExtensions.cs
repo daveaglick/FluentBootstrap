@@ -9,34 +9,41 @@ namespace FluentBootstrap
 {
     public static class ImageExtensions
     {
-        public static Image<THelper> Image<THelper>(this IImageCreator<THelper> creator, string src, string alt = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Image> Image<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string src, string alt = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Image>
         {
-            return new Image<THelper>(creator.GetHelper()).SetSrc(src).SetAlt(alt);
+            return new ComponentBuilder<TConfig, Image>(helper.Config, new Image(helper))
+                .SetSrc(src)
+                .SetAlt(alt);
         }
 
-        public static Image<THelper> SetSrc<THelper>(this Image<THelper> image, string src)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Image> SetSrc<TConfig>(this ComponentBuilder<TConfig, Image> builder, string src)
+            where TConfig : BootstrapConfig
         {
-            return image.MergeAttribute("src", src);
+            builder.Component.MergeAttribute("src", src);
+            return builder;
         }
 
-        public static Image<THelper> SetAlt<THelper>(this Image<THelper> image, string alt)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Image> SetAlt<TConfig>(this ComponentBuilder<TConfig, Image> builder, string alt)
+            where TConfig : BootstrapConfig
         {
-            return image.MergeAttribute("alt", alt);
+            builder.Component.MergeAttribute("alt", alt);
+            return builder;
         }
 
-        public static Image<THelper> SetResponsive<THelper>(this Image<THelper> image, bool responsive = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Image> SetResponsive<TConfig>(this ComponentBuilder<TConfig, Image> builder, bool responsive = true)
+            where TConfig : BootstrapConfig
         {
-            return image.ToggleCss(Css.ImgResponsive, responsive);
+            builder.Component.ToggleCss(Css.ImgResponsive, responsive);
+            return builder;
         }
 
-        public static Image<THelper> SetStyle<THelper>(this Image<THelper> image, ImageStyle style)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Image> SetStyle<TConfig>(this ComponentBuilder<TConfig, Image> builder, ImageStyle style)
+            where TConfig : BootstrapConfig
         {
-            return image.ToggleCss(style);
+            builder.Component.ToggleCss(style);
+            return builder;
         }
     }
 }

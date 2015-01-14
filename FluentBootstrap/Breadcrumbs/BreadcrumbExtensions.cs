@@ -9,23 +9,26 @@ namespace FluentBootstrap
 {
     public static class BreadcrumbExtensions
     {
-        public static Breadcrumb<THelper> Breadcrumb<THelper>(this IBreadcrumbCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Breadcrumb> Breadcrumb<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Breadcrumb>
         {
-            return new Breadcrumb<THelper>(creator);
+            return new ComponentBuilder<TConfig, Breadcrumb>(helper.Config, new Breadcrumb(helper));
         }
 
-        public static Crumb<THelper> Crumb<THelper>(this ICrumbCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Crumb> Crumb<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Breadcrumb>
         {
-            return new Crumb<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, Crumb>(helper.Config, new Crumb(helper))
+                .SetHref(href).SetText(text);
         }
 
-        public static Crumb<THelper> SetActive<THelper>(this Crumb<THelper> crumb, bool active = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Crumb> SetActive<TConfig>(this ComponentBuilder<TConfig, Crumb> builder, bool active = true)
+            where TConfig : BootstrapConfig
         {
-            crumb.Active = active;
-            return crumb;
+            builder.Component.Active = active;
+            return builder;
         }
     }
 }

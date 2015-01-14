@@ -9,29 +9,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface IButtonCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Button : Tag,
+        IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, 
+        IHasDisabledAttribute, IHasTextContent, IHasValueAttribute,
+        ICanCreate<Badge>
     {
-    }
+        private ButtonGroup _buttonGroup;
 
-    public class ButtonWrapper<THelper> : TagWrapper<THelper>,
-        IBadgeCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IButton : ITag
-    {
-    }
-
-    public class Button<THelper> : Tag<THelper, Button<THelper>, ButtonWrapper<THelper>>, IButton,
-        IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, IHasTextContent, IHasValueAttribute
-        where THelper : BootstrapHelper<THelper>
-    {
-        private ButtonGroup<THelper> _buttonGroup;
-
-        internal Button(IComponentCreator<THelper> creator, ButtonType buttonType) 
-            : base(creator, "button", Css.Btn, Css.BtnDefault)
+        internal Button(BootstrapHelper helper, ButtonType buttonType) 
+            : base(helper, "button", Css.Btn, Css.BtnDefault)
         {
             MergeAttribute("type", buttonType.GetDescription());
         }
@@ -40,10 +26,10 @@ namespace FluentBootstrap.Buttons
         {
             // Fix for justified buttons in a group (need to surround them with an extra button group)
             // See https://github.com/twbs/bootstrap/issues/12476
-            IButtonGroup buttonGroup = GetComponent<IButtonGroup>(true);
+            ButtonGroup buttonGroup = GetComponent<ButtonGroup>(true);
             if (buttonGroup != null && buttonGroup.CssClasses.Contains(Css.BtnGroupJustified))
             {
-                _buttonGroup = Helper.ButtonGroup();
+                _buttonGroup = GetHelper().ButtonGroup().Component;
                 _buttonGroup.Start(writer);
             }
 

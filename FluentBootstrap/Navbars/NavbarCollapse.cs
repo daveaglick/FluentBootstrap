@@ -9,43 +9,28 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarCollapseCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class NavbarCollapse : NavbarSection,
+        ICanCreate<NavbarNav>,
+        ICanCreate<NavbarLink>,
+        ICanCreate<Dropdown>,
+        ICanCreate<NavbarForm>,
+        ICanCreate<NavbarButton>,
+        ICanCreate<NavbarText>
     {
-    }
-
-    public class NavbarCollapseWrapper<THelper> : NavbarSectionWrapper<THelper>,
-        INavbarNavCreator<THelper>,
-        INavbarLinkCreator<THelper>,
-        IDropdownCreator<THelper>,
-        INavbarFormCreator<THelper>,
-        INavbarButtonCreator<THelper>,
-        INavbarTextCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INavbarCollapse : INavbarSection
-    {
-    }
-
-    public class NavbarCollapse<THelper> : NavbarSection<THelper, NavbarCollapse<THelper>, NavbarCollapseWrapper<THelper>>, INavbarCollapse
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal NavbarCollapse(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.NavbarCollapse, Css.Collapse)
+        internal NavbarCollapse(BootstrapHelper helper)
+            : base(helper, "div", Css.NavbarCollapse, Css.Collapse)
         {
         }
         
         protected override void OnStart(TextWriter writer)
         {
             // Get the Navbar ID and use it to set this id
-            if (string.IsNullOrWhiteSpace(((ITag)this).GetAttribute("id")))
+            if (string.IsNullOrWhiteSpace(GetAttribute("id")))
             {
-                INavbar navbar = GetComponent<INavbar>();
+                Navbar navbar = GetComponent<Navbar>();
                 if (navbar != null)
                 {
-                    this.SetId(navbar.GetAttribute("id") + "-collapse");
+                    GetBuilder(this).SetId(navbar.GetAttribute("id") + "-collapse");
                 }
             }
 

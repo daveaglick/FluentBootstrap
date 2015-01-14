@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Thumbnails
 {
-    public interface IThumbnailCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IThumbnailCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class ThumbnailWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ThumbnailWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -24,16 +24,16 @@ namespace FluentBootstrap.Thumbnails
     {
     }
 
-    public class Thumbnail<THelper> : Tag<THelper, Thumbnail<THelper>, ThumbnailWrapper<THelper>>, IThumbnail, IHasLinkExtensions
-        where THelper : BootstrapHelper<THelper>
+    public class Thumbnail<TConfig> : Tag<TConfig, Thumbnail<TConfig>, ThumbnailWrapper<TConfig>>, IThumbnail, IHasLinkExtensions
+        where TConfig : BootstrapConfig
     {
         internal string Src { get; set; }
         internal string Alt { get; set; }
-        private Image<THelper> _image;
+        private Image<TConfig> _image;
         private bool _suppressOuterTag;
 
-        internal Thumbnail(IComponentCreator<THelper> creator)
-            : base(creator, "a", Css.Thumbnail)
+        internal Thumbnail(BootstrapHelper helper)
+            : base(helper, "a", Css.Thumbnail)
         {
         }
 

@@ -11,66 +11,71 @@ namespace FluentBootstrap
     {  
         // Pills
 
-        public static Pills<THelper> Pills<THelper>(this IPillsCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Pills> Pills<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pills>
         {
-            return new Pills<THelper>(creator);
+            return new ComponentBuilder<TConfig, Pills>(helper.Config, new Pills(helper));
         }
 
-        public static Pills<THelper> SetStacked<THelper>(this Pills<THelper> pills, bool stacked = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Pills> SetStacked<TConfig>(this ComponentBuilder<TConfig, Pills> builder, bool stacked = true)
+            where TConfig : BootstrapConfig
         {
-            return pills.ToggleCss(Css.NavStacked, stacked);
+            builder.Component.ToggleCss(Css.NavStacked, stacked);
+            return builder;
         }
 
-        public static Pill<THelper> Pill<THelper>(this IPillCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Pill> Pill<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pill>
         {
-            return new Pill<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, Pill>(helper.Config, new Pill(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
         // Tabs
 
-        public static Tabs<THelper> Tabs<THelper>(this ITabsCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Tabs> Tabs<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tabs>
         {
-            return new Tabs<THelper>(creator);
+            return new ComponentBuilder<TConfig, Tabs>(helper.Config, new Tabs(helper));
         }
 
-        public static Tab<THelper> Tab<THelper>(this ITabCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Tab> Tab<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Tab>
         {
-            return new Tab<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, Tab>(helper.Config, new Tab(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
         // Nav/NavLink
 
-        public static TThis SetActive<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool active = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : NavLink<THelper, TThis, TWrapper>
-            where TWrapper : NavLinkWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TNavLink> SetActive<TConfig, TNavLink>(this ComponentBuilder<TConfig, TNavLink> builder, bool active = true)
+            where TConfig : BootstrapConfig
+            where TNavLink : NavLink
         {
-            TThis navLink = component.GetThis();
-            navLink.Active = active;
-            return navLink;
+            builder.Component.Active = active;
+            return builder;
         }
 
-        public static TThis SetDisabled<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool disabled = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : NavLink<THelper, TThis, TWrapper>
-            where TWrapper : NavLinkWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TNavLink> SetDisabled<TConfig, TNavLink>(this ComponentBuilder<TConfig, TNavLink> builder, bool disabled = true)
+            where TConfig : BootstrapConfig
+            where TNavLink : NavLink
         {
-            TThis navLink = component.GetThis();
-            navLink.Disabled = disabled;
-            return navLink;
+            builder.Component.Disabled = disabled;
+            return builder;
         }
 
-        public static TThis SetJustified<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool justified = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Nav<THelper, TThis, TWrapper>
-            where TWrapper : NavWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TNav> SetJustified<TConfig, TNav>(this ComponentBuilder<TConfig, TNav> builder, bool justified = true)
+            where TConfig : BootstrapConfig
+            where TNav : Nav
         {
-            return component.GetThis().ToggleCss(Css.NavJustified, justified);
+            builder.Component.ToggleCss(Css.NavJustified, justified);
+            return builder;
         }
     }
 }

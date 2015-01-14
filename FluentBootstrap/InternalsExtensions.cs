@@ -37,7 +37,7 @@ namespace FluentBootstrap.Internals
             return builder.GetComponent();
         }
 
-        public static BootstrapHelper<BootstrapConfig, CanCreate> GetHelper<TConfig, TComponent>(this ComponentBuilder<TConfig, TComponent> builder)
+        public static BootstrapHelper<TConfig, CanCreate> GetHelper<TConfig, TComponent>(this ComponentBuilder<TConfig, TComponent> builder)
             where TConfig : BootstrapConfig
             where TComponent : Component
         {

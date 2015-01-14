@@ -11,35 +11,35 @@ namespace FluentBootstrap
     {
         // Pagination
 
-        public static Pagination<THelper> Pagination<THelper>(this IPaginationCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Pagination<TConfig> Pagination<TConfig>(this IPaginationCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Pagination<THelper>(creator);
+            return new Pagination<TConfig>(creator);
         }
 
-        public static Pagination<THelper> SetSize<THelper>(this Pagination<THelper> pagination, PaginationSize size)
-            where THelper : BootstrapHelper<THelper>
+        public static Pagination<TConfig> SetSize<TConfig>(this Pagination<TConfig> pagination, PaginationSize size)
+            where TConfig : BootstrapConfig
         {
             pagination.ToggleCss(size);
             return pagination;
         }
 
-        public static Pagination<THelper> AddPrevious<THelper>(this Pagination<THelper> pagination, string href = "#", bool active = false, bool disabled = false)
-            where THelper : BootstrapHelper<THelper>
+        public static Pagination<TConfig> AddPrevious<TConfig>(this Pagination<TConfig> pagination, string href = "#", bool active = false, bool disabled = false)
+            where TConfig : BootstrapConfig
         {
             pagination.AddChild(pagination.GetWrapper().PageNum("&laquo;", href).SetActive(active).SetDisabled(disabled));
             return pagination;
         }
 
-        public static Pagination<THelper> AddNext<THelper>(this Pagination<THelper> pagination, string href = "#", bool active = false, bool disabled = false)
-            where THelper : BootstrapHelper<THelper>
+        public static Pagination<TConfig> AddNext<TConfig>(this Pagination<TConfig> pagination, string href = "#", bool active = false, bool disabled = false)
+            where TConfig : BootstrapConfig
         {
             pagination.AddChild(pagination.GetWrapper().PageNum("&raquo;", href).SetActive(active).SetDisabled(disabled));
             return pagination;
         }
 
-        public static Pagination<THelper> AddPage<THelper>(this Pagination<THelper> pagination, string href = "#", bool active = false, bool disabled = false)
-            where THelper : BootstrapHelper<THelper>
+        public static Pagination<TConfig> AddPage<TConfig>(this Pagination<TConfig> pagination, string href = "#", bool active = false, bool disabled = false)
+            where TConfig : BootstrapConfig
         {
             pagination.AddChild(pagination.GetWrapper().PageNum((++pagination.AutoPageNumber).ToString(), href).SetActive(active).SetDisabled(disabled));
             return pagination;
@@ -47,21 +47,21 @@ namespace FluentBootstrap
         
         // PageNum
 
-        public static PageNum<THelper> PageNum<THelper>(this IPageNumCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static PageNum<TConfig> PageNum<TConfig>(this IPageNumCreator<TConfig> creator, string text, string href = "#")
+            where TConfig : BootstrapConfig
         {
-            return new PageNum<THelper>(creator).SetHref(href).SetText(text);
+            return new PageNum<TConfig>(creator).SetHref(href).SetText(text);
         }
 
-        public static PageNum<THelper> SetActive<THelper>(this PageNum<THelper> pageNum, bool active = true)
-            where THelper : BootstrapHelper<THelper>
+        public static PageNum<TConfig> SetActive<TConfig>(this PageNum<TConfig> pageNum, bool active = true)
+            where TConfig : BootstrapConfig
         {
             pageNum.Active = active;
             return pageNum;
         }
 
-        public static PageNum<THelper> SetDisabled<THelper>(this PageNum<THelper> pageNum, bool disabled = true)
-            where THelper : BootstrapHelper<THelper>
+        public static PageNum<TConfig> SetDisabled<TConfig>(this PageNum<TConfig> pageNum, bool disabled = true)
+            where TConfig : BootstrapConfig
         {
             pageNum.Disabled = disabled;
             return pageNum;

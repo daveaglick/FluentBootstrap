@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Grids
 {
-    public class GridColumn : Tag, IHasGridColumnExtensions
-        // IThumbnailCreator<THelper>,
-        // IThumbnailContainerCreator<THelper>
+    public class GridColumn : Tag, IHasGridColumnExtensions,
+        ICanCreate<Thumbnail>,
+        ICanCreate<ThumbnailContainer>
     {
         internal GridColumn(BootstrapHelper helper)
             : base(helper, "div")

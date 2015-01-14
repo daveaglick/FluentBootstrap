@@ -11,47 +11,29 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Typography
 {
-    public interface IHeadingCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Heading : Tag, IHasTextContent,
+        ICanCreate<Small>,
+        ICanCreate<Label>
     {
-    }
+        public string SmallText { get; set; }
 
-    public class HeadingWrapper<THelper> : TagWrapper<THelper>,
-        ISmallCreator<THelper>,
-        ILabelCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IHeading : ITag
-    {
-    }
-
-    public abstract class Heading<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, IHeading, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-        where TThis : Heading<THelper, TThis, TWrapper>
-        where TWrapper : HeadingWrapper<THelper>, new()
-    {
-        internal string SmallText { get; set; }
-
-        internal Heading(IComponentCreator<THelper> creator, string tagName)
-            : base(creator, tagName)
+        internal Heading(BootstrapHelper helper, string tagName)
+            : base(helper, tagName)
         {
         }
-
 
         protected override void OnStart(TextWriter writer)
         {
             // Add the appropriate CSS class if in a media object
-            if(GetComponent<IMediaBody>() != null)
+            if(GetComponent<MediaBody>() != null)
             {
-                this.AddCss(Css.MediaHeading);
+                AddCss(Css.MediaHeading);
             }
 
             // Add the appropriate CSS class if in a list group item
-            if(GetComponent<IListGroupItem>() != null)
+            if(GetComponent<ListGroupItem>() != null)
             {
-                this.AddCss(Css.ListGroupItemHeading);
+                AddCss(Css.ListGroupItemHeading);
             }
 
             base.OnStart(writer);
@@ -61,19 +43,10 @@ namespace FluentBootstrap.Typography
         {
             if (!string.IsNullOrWhiteSpace(SmallText))
             {
-                new Small<THelper>(Helper).SetText(SmallText).StartAndFinish(writer);
+                GetHelper().Small().SetText(SmallText).Component.StartAndFinish(writer);
             }
 
             base.OnFinish(writer);
-        }
-    }
-
-    public class Heading<THelper> : Heading<THelper, Heading<THelper>, HeadingWrapper<THelper>>
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal Heading(IComponentCreator<THelper> creator, string tagName)
-            : base(creator, tagName)
-        {
         }
     }
 }

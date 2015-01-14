@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ListGroups
 {
-    public interface IListGroupItemCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IListGroupItemCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class ListGroupItemWrapper<THelper> : TagWrapper<THelper>,
-        IBadgeCreator<THelper>,
-        IHeadingCreator<THelper>,
-        IParagraphCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ListGroupItemWrapper<TConfig> : TagWrapper<TConfig>,
+        IBadgeCreator<TConfig>,
+        IHeadingCreator<TConfig>,
+        IParagraphCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -28,15 +28,15 @@ namespace FluentBootstrap.ListGroups
     {
     }
 
-    public class ListGroupItem<THelper> : Tag<THelper, ListGroupItem<THelper>, ListGroupItemWrapper<THelper>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
+    public class ListGroupItem<TConfig> : Tag<TConfig, ListGroupItem<TConfig>, ListGroupItemWrapper<TConfig>>, IListGroupItem, IHasLinkExtensions, IHasTextContent
+        where TConfig : BootstrapConfig
     {
         internal bool Active { get; set; }
         internal bool Disabled { get; set; }
         internal string Heading { get; set; }
 
-        internal ListGroupItem(IComponentCreator<THelper> creator)
-            : base(creator, "a", Css.ListGroupItem)
+        internal ListGroupItem(BootstrapHelper helper)
+            : base(helper, "a", Css.ListGroupItem)
         {
         }
 

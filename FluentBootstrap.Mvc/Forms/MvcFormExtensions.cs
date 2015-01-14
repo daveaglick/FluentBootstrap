@@ -34,7 +34,6 @@ namespace FluentBootstrap
         //    return new Form<MvcBootstrapHelper<TModel>>(creator).SetAction(action).SetFormMethod(method);
         //}
 
-        // !!
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetFormMethod<TModel>(this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, FormMethod method)
         {
             builder.GetComponent().MergeAttribute("method", HtmlHelper.GetFormMethodString(method));

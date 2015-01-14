@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Wells
 {
-    public interface IWellCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IWellCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class WellWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class WellWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -20,11 +20,11 @@ namespace FluentBootstrap.Wells
     {
     }
 
-    public class Well<THelper> : Tag<THelper, Well<THelper>, WellWrapper<THelper>>, IWell
-        where THelper : BootstrapHelper<THelper>
+    public class Well<TConfig> : Tag<TConfig, Well<TConfig>, WellWrapper<TConfig>>, IWell
+        where TConfig : BootstrapConfig
     {
-        internal Well(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.Well)
+        internal Well(BootstrapHelper helper)
+            : base(helper, "div", Css.Well)
         {
         }
     }

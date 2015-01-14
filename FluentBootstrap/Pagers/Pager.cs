@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Pagers
 {
-    public interface IPagerCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IPagerCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class PagerWrapper<THelper> : TagWrapper<THelper>,
-        IPageCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class PagerWrapper<TConfig> : TagWrapper<TConfig>,
+        IPageCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -23,19 +23,19 @@ namespace FluentBootstrap.Pagers
     {
     }
 
-    public class Pager<THelper> : Tag<THelper, Pager<THelper>, PagerWrapper<THelper>>, IPager
-        where THelper : BootstrapHelper<THelper>
+    public class Pager<TConfig> : Tag<TConfig, Pager<TConfig>, PagerWrapper<TConfig>>, IPager
+        where TConfig : BootstrapConfig
     {
-        private Element<THelper> _nav = null;
+        private Element<TConfig> _nav = null;
 
-        internal Pager(IComponentCreator<THelper> creator)
-            : base(creator, "ul", Css.Pager)
+        internal Pager(BootstrapHelper helper)
+            : base(helper, "ul", Css.Pager)
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
-            _nav = new Element<THelper>(Helper, "nav");
+            _nav = new Element<TConfig>(Helper, "nav");
             _nav.Start(writer);
 
             base.OnStart(writer);

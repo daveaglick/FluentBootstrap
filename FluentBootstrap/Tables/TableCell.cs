@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableCellCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface ITableCellCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class TableCellWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class TableCellWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -21,13 +21,13 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public abstract class TableCell<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, ITableCell, IHasTableStateExtensions
-        where THelper : BootstrapHelper<THelper>
-        where TThis : TableCell<THelper, TThis, TWrapper>
-        where TWrapper : TableCellWrapper<THelper>, new()
+    public abstract class TableCell<TConfig, TThis, TWrapper> : Tag<TConfig, TThis, TWrapper>, ITableCell, IHasTableStateExtensions
+        where TConfig : BootstrapConfig
+        where TThis : TableCell<TConfig, TThis, TWrapper>
+        where TWrapper : TableCellWrapper<TConfig>, new()
     {
-        internal TableCell(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
-            : base(creator, tagName, cssClasses)
+        internal TableCell(BootstrapHelper helper, string tagName, params string[] cssClasses)
+            : base(helper, tagName, cssClasses)
         {
         }
     }

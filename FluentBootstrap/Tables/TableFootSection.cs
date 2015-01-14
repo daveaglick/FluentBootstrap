@@ -1,12 +1,12 @@
 namespace FluentBootstrap.Tables
 {
-    public interface ITableFootSectionCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface ITableFootSectionCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class TableFootSectionWrapper<THelper> : TableSectionWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class TableFootSectionWrapper<TConfig> : TableSectionWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -14,11 +14,11 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public class TableFootSection<THelper> : TableSection<THelper, TableFootSection<THelper>, TableFootSectionWrapper<THelper>>, ITableFootSection
-        where THelper : BootstrapHelper<THelper>
+    public class TableFootSection<TConfig> : TableSection<TConfig, TableFootSection<TConfig>, TableFootSectionWrapper<TConfig>>, ITableFootSection
+        where TConfig : BootstrapConfig
     {
-        internal TableFootSection(IComponentCreator<THelper> creator)
-            : base(creator, "tfoot")
+        internal TableFootSection(BootstrapHelper helper)
+            : base(helper, "tfoot")
         {
         }
     }

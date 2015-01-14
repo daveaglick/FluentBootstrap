@@ -7,6 +7,7 @@ using System.Web.Routing;
 using FluentBootstrap.Forms;
 using System.Linq.Expressions;
 using System.Globalization;
+using FluentBootstrap.Internals;
 
 namespace FluentBootstrap
 {
@@ -23,28 +24,32 @@ namespace FluentBootstrap
                 .SetMethod(method);
         }
 
-        //public static Form<THelper> Form<THelper>(this IFormCreator<THelper> creator, string action, string method = "post")
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Form<THelper>(creator).SetAction(action).SetMethod(method);
-        //}
+        public static ComponentBuilder<TConfig, Form> Form<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string action, string method = "post")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Form>
+        {
+            return new ComponentBuilder<TConfig, Form>(helper.Config, new Form(helper))
+                .SetAction(action)
+                .SetMethod(method);
+        }
 
-        //public static Form<THelper> SetInline<THelper>(this Form<THelper> form, bool inline = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return form.ToggleCss(Css.FormInline, inline, Css.FormHorizontal);
-        //}
+        public static ComponentBuilder<TConfig, Form> SetInline<TConfig>(this ComponentBuilder<TConfig, Form> builder, bool inline = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.FormInline, inline, Css.FormHorizontal);
+            return builder;
+        }
 
-        //public static Form<THelper> SetHorizontal<THelper>(this Form<THelper> form, int? defaultlabelWidth = null, bool horizontal = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    form.ToggleCss(Css.FormHorizontal, horizontal, Css.FormInline);
-        //    if (defaultlabelWidth.HasValue)
-        //    {
-        //        form.DefaultLabelWidth = defaultlabelWidth.Value;
-        //    }
-        //    return form;
-        //}
+        public static ComponentBuilder<TConfig, Form> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, Form> builder, int? defaultlabelWidth = null, bool horizontal = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.FormHorizontal, horizontal, Css.FormInline);
+            if (defaultlabelWidth.HasValue)
+            {
+                builder.Component.DefaultLabelWidth = defaultlabelWidth.Value;
+            }
+            return builder;
+        }
 
         // Use action = null to reset form action to current request url
         public static ComponentBuilder<TConfig, Form> SetAction<TConfig>(this ComponentBuilder<TConfig, Form> builder, string action)
@@ -61,261 +66,321 @@ namespace FluentBootstrap
             return builder;
         }
 
-        //// FieldSet
+        // FieldSet
 
-        //public static FieldSet<THelper> FieldSet<THelper>(this IFieldSetCreator<THelper> creator)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new FieldSet<THelper>(creator);
-        //}
+        public static ComponentBuilder<TConfig, FieldSet> FieldSet<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<FieldSet>
+        {
+            return new ComponentBuilder<TConfig, FieldSet>(helper.Config, new FieldSet(helper));
+        }
 
-        //// FormGroup
+        // FormGroup
 
-        //public static FormGroup<THelper> FormGroup<THelper>(this IFormGroupCreator<THelper> creator, string label = null, string labelFor = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    FormGroup<THelper> formGroup = new FormGroup<THelper>(creator);
-        //    if (label != null)
-        //    {
-        //        formGroup.ControlLabel = formGroup.GetWrapper().ControlLabel(label, labelFor);
-        //    }
-        //    return formGroup;
-        //}
+        public static ComponentBuilder<TConfig, FormGroup> FormGroup<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string label = null, string labelFor = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<FormGroup>
+        {
+            ComponentBuilder<TConfig, FormGroup> builder = new ComponentBuilder<TConfig, FormGroup>(helper.Config, new FormGroup(helper));
+            if (label != null)
+            {
+                builder.Component.ControlLabel = builder.GetHelper().ControlLabel(label, labelFor).Component;
+            }
+            return builder;
+        }
 
-        //public static FormGroup<THelper> SetGroupLabel<THelper, TThis>(this FormGroup<THelper> formGroup, string label, string labelFor = null, Action<ControlLabel<THelper>> labelAction = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    if (label != null)
-        //    {
-        //        ControlLabel<THelper> controlLabel = new ControlLabel<THelper>(formGroup.Helper, label).For(labelFor);
-        //        formGroup.ControlLabel = formGroup.GetWrapper().ControlLabel(label, labelFor);
-        //        if (labelAction != null)
-        //        {
-        //            labelAction(controlLabel);
-        //        }
-        //    }
-        //    return formGroup;
-        //}
+        public static ComponentBuilder<TConfig, FormGroup> SetGroupLabel<TConfig, TThis>(this ComponentBuilder<TConfig, FormGroup> builder, string label, string labelFor = null, Action<ComponentBuilder<TConfig, ControlLabel>> labelAction = null)
+            where TConfig : BootstrapConfig
+        {
+            if (label != null)
+            {
+                ComponentBuilder<TConfig, ControlLabel> controlLabelBuilder = builder.GetHelper().ControlLabel(label, labelFor);
+                if (labelAction != null)
+                {
+                    labelAction(controlLabelBuilder);
+                }
+                builder.Component.ControlLabel = controlLabelBuilder.Component;
+            }
+            return builder;
+        }
 
-        //public static FormGroup<THelper> SetHorizontal<THelper>(this FormGroup<THelper> formGroup, bool? horizontal = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    formGroup.Horizontal = horizontal;
-        //    return formGroup;
-        //}
+        public static ComponentBuilder<TConfig, FormGroup> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, FormGroup> builder, bool? horizontal = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Horizontal = horizontal;
+            return builder;
+        }
 
-        //// ControlLabel
+        // ControlLabel
 
-        //public static ControlLabel<THelper> ControlLabel<THelper>(this IControlLabelCreator<THelper> creator, string text, string labelFor = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new ControlLabel<THelper>(creator, text).For(labelFor);
-        //}
+        public static ComponentBuilder<TConfig, ControlLabel> ControlLabel<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string labelFor = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ControlLabel>
+        {
+            return new ComponentBuilder<TConfig, ControlLabel>(helper.Config, new ControlLabel(helper, text))
+                .For(labelFor);
+        }
 
-        //public static ControlLabel<THelper> For<THelper>(this ControlLabel<THelper> label, string labelFor)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return label.MergeAttribute("for", labelFor);
-        //}
+        public static ComponentBuilder<TConfig, ControlLabel> For<TConfig>(this ComponentBuilder<TConfig, ControlLabel> builder, string labelFor)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("for", labelFor);
+            return builder;
+        }
 
-        //// Hidden
+        // Hidden
 
-        //public static Hidden<THelper> Hidden<THelper>(this IFormControlCreator<THelper> creator, string name = null, object value = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Hidden<THelper>(creator).SetName(name).SetValue(value);
-        //}
+        public static ComponentBuilder<TConfig, Hidden> Hidden<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Hidden>
+        {
+            return new ComponentBuilder<TConfig, Hidden>(helper.Config, new Hidden(helper))
+                .SetName(name)
+                .SetValue(value);
+        }
 
-        //public static Hidden<THelper> SetName<THelper>(this Hidden<THelper> hidden, string name)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return hidden.MergeAttribute("name", name == null ? null : hidden.Helper.GetFullHtmlFieldName(name));
-        //}
+        public static ComponentBuilder<TConfig, Hidden> SetName<TConfig>(this ComponentBuilder<TConfig, Hidden> builder, string name)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("name", name == null ? null : builder.Config.GetFullHtmlFieldName(name));
+            return builder;
+        }
 
-        //// Input
+        // Input
 
-        //public static Input<THelper> Input<THelper>(this IFormControlCreator<THelper> creator, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Input<THelper>(creator, inputType).SetName(name).SetControlLabel(label).SetValue(value, format);
-        //}
+        public static ComponentBuilder<TConfig, Input> Input<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Input>
+        {
+            return new ComponentBuilder<TConfig, Input>(helper.Config, new Input(helper, inputType))
+                .SetName(name)
+                .SetControlLabel(label)
+                .SetValue(value, format);
+        }
 
-        //public static Input<THelper> SetPlaceholder<THelper>(this Input<THelper> input, string placeholder)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return input.MergeAttribute("placeholder", placeholder);
-        //}
+        public static ComponentBuilder<TConfig, Input> SetPlaceholder<TConfig>(this ComponentBuilder<TConfig, Input> builder, string placeholder)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("placeholder", placeholder);
+            return builder;
+        }
 
-        //public static Input<THelper> SetReadonly<THelper>(this Input<THelper> input, bool toggle = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return input.MergeAttribute("readonly", toggle ? string.Empty : null);
-        //}
+        public static ComponentBuilder<TConfig, Input> SetReadonly<TConfig>(this ComponentBuilder<TConfig, Input> builder, bool toggle = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("readonly", toggle ? string.Empty : null);
+            return builder;
+        }
 
-        //public static Input<THelper> SetFeedback<THelper>(this Input<THelper> input, Icon icon)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    if (icon != Icon.None)
-        //    {
-        //        input.ToggleCss(Css.HasFeedback, true);
-        //        input.Icon = icon;
-        //    }
-        //    return input;
-        //}
+        public static ComponentBuilder<TConfig, Input> SetFeedback<TConfig>(this ComponentBuilder<TConfig, Input> builder, Icon icon)
+            where TConfig : BootstrapConfig
+        {
+            if (icon != Icon.None)
+            {
+                builder.Component.ToggleCss(Css.HasFeedback, true);
+                builder.Component.Icon = icon;
+            }
+            return builder;
+        }
 
-        //// TextArea
+        // TextArea
 
-        //public static TextArea<THelper> TextArea<THelper>(this IFormControlCreator<THelper> creator, string name = null, string label = null, object value = null, string format = null, int? rows = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new TextArea<THelper>(creator).SetName(name).SetControlLabel(label).SetValue(value, format).SetRows(rows);
-        //}
+        public static ComponentBuilder<TConfig, TextArea> TextArea<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TextArea>
+        {
+            return new ComponentBuilder<TConfig, TextArea>(helper.Config, new TextArea(helper))
+                .SetName(name)
+                .SetControlLabel(label)
+                .SetValue(value, format)
+                .SetRows(rows);
+        }
 
-        //public static TextArea<THelper> SetRows<THelper>(this TextArea<THelper> textArea, int? rows)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return textArea.MergeAttribute("rows", rows == null ? null : rows.Value.ToString());
-        //}
+        public static ComponentBuilder<TConfig, TextArea> SetRows<TConfig>(this ComponentBuilder<TConfig, TextArea> builder, int? rows)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("rows", rows == null ? null : rows.Value.ToString());
+            return builder;
+        }
 
-        //public static TextArea<THelper> SetValue<THelper>(this TextArea<THelper> textArea, object value, string format = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    textArea.TextContent = value == null ? null : textArea.Helper.FormatValue(value, format);
-        //    return textArea;
-        //}
+        public static ComponentBuilder<TConfig, TextArea> SetValue<TConfig>(this ComponentBuilder<TConfig, TextArea> builder, object value, string format = null)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.TextContent = value == null ? null : builder.Config.FormatValue(value, format);
+            return builder;
+        }
 
-        //public static TextArea<THelper> SetPlaceholder<THelper>(this TextArea<THelper> textArea, string placeholder)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return textArea.MergeAttribute("placeholder", placeholder);
-        //}
+        public static ComponentBuilder<TConfig, TextArea> SetPlaceholder<TConfig>(this ComponentBuilder<TConfig, TextArea> builder, string placeholder)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("placeholder", placeholder);
+            return builder;
+        }
 
-        //// CheckedControl
+        // CheckedControl
 
-        //public static CheckedControl<THelper> CheckBox<THelper>(this IFormControlCreator<THelper> creator, string name = null, string label = null, string description = null, bool isChecked = false)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new CheckedControl<THelper>(creator, Css.Checkbox).SetName(name).SetControlLabel(label).SetDescription(description).SetChecked(isChecked);
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> CheckBox<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, string description = null, bool isChecked = false)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<CheckedControl>
+        {
+            return new ComponentBuilder<TConfig, CheckedControl>(helper.Config, new CheckedControl(helper, Css.Checkbox))
+                .SetName(name)
+                .SetControlLabel(label)
+                .SetDescription(description)
+                .SetChecked(isChecked);
+        }
 
-        //public static CheckedControl<THelper> Radio<THelper>(this IFormControlCreator<THelper> creator, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new CheckedControl<THelper>(creator, Css.Radio).SetName(name).SetControlLabel(label).SetDescription(description).SetValue(value).SetChecked(isChecked);
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> Radio<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, string description = null, object value = null, bool isChecked = false)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<CheckedControl>
+        {
+            return new ComponentBuilder<TConfig, CheckedControl>(helper.Config, new CheckedControl(helper, Css.Radio))
+                .SetName(name)
+                .SetControlLabel(label)
+                .SetDescription(description)
+                .SetValue(value)
+                .SetChecked(isChecked);
+        }
 
-        //public static CheckedControl<THelper> SetDescription<THelper>(this CheckedControl<THelper> checkedControl, string description)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    checkedControl.Description = description;
-        //    return checkedControl;
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> SetDescription<TConfig>(this ComponentBuilder<TConfig, CheckedControl> builder, string description)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Description = description;
+            return builder;
+        }
 
-        //public static CheckedControl<THelper> SetInline<THelper>(this CheckedControl<THelper> checkedControl, bool inline = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    checkedControl.Inline = inline;
-        //    return checkedControl;
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> SetInline<TConfig>(this ComponentBuilder<TConfig, CheckedControl> builder, bool inline = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Inline = inline;
+            return builder;
+        }
 
-        //public static CheckedControl<THelper> SetChecked<THelper>(this CheckedControl<THelper> checkedControl, bool @checked = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return checkedControl.MergeAttribute("checked", @checked ? "checked" : null);
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> SetChecked<TConfig>(this ComponentBuilder<TConfig, CheckedControl> builder, bool @checked = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("checked", @checked ? "checked" : null);
+            return builder;
+        }
 
-        //// Select
+        // Select
 
-        //public static Select<THelper> Select<THelper>(this IFormControlCreator<THelper> creator, string name = null, string label = null, params object[] options)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Select<THelper>(creator).SetName(name).SetControlLabel(label).AddOptions(options);
-        //}
+        public static ComponentBuilder<TConfig, Select> Select<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, params object[] options)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Select>
+        {
+            return new ComponentBuilder<TConfig, Select>(helper.Config, new Select(helper))
+                .SetName(name)
+                .SetControlLabel(label)
+                .AddOptions(options);
+        }
 
-        //public static Select<THelper> SetMultiple<THelper>(this Select<THelper> select, bool multiple = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return select.MergeAttribute("multiple", multiple ? "multiple" : null);
-        //}
+        public static ComponentBuilder<TConfig, Select> SetMultiple<TConfig>(this ComponentBuilder<TConfig, Select> builder, bool multiple = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.MergeAttribute("multiple", multiple ? "multiple" : null);
+            return builder;
+        }
 
-        //public static Select<THelper> AddOptions<THelper>(this Select<THelper> select, params object[] options)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    select.Options.Clear();
-        //    foreach (object option in options)
-        //    {
-        //        select.AddOption(option);
-        //    }
-        //    return select;
-        //}
+        public static ComponentBuilder<TConfig, Select> AddOptions<TConfig>(this ComponentBuilder<TConfig, Select> builder, params object[] options)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Options.Clear();
+            foreach (object option in options)
+            {
+                builder.AddOption(option);
+            }
+            return builder;
+        }
 
-        //public static Select<THelper> AddOption<THelper>(this Select<THelper> select, object option, string format = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    if (option != null)
-        //    {
-        //        select.Options.Add(select.Helper.FormatValue(option, format));
-        //    }
-        //    return select;
-        //}
+        public static ComponentBuilder<TConfig, Select> AddOption<TConfig>(this ComponentBuilder<TConfig, Select> builder, object option, string format = null)
+            where TConfig : BootstrapConfig
+        {
+            if (option != null)
+            {
+                builder.Component.Options.Add(builder.Config.FormatValue(option, format));
+            }
+            return builder;
+        }
 
-        //// Static
+        // Static
 
-        //public static Static<THelper> Static<THelper>(this IFormControlCreator<THelper> creator, string label = null, object value = null, string format = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Static<THelper>(creator).SetControlLabel(label).SetValue(value, format);
-        //}
+        public static ComponentBuilder<TConfig, Static> Static<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string label = null, object value = null, string format = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Static>
+        {
+            return new ComponentBuilder<TConfig, Static>(helper.Config, new Static(helper))
+                .SetControlLabel(label)
+                .SetValue(value, format);
+        }
 
-        //public static Static<THelper> SetValue<THelper>(this Static<THelper> st, object value, string format = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    st.TextContent = value == null ? null : st.Helper.FormatValue(value, format);
-        //    return st;
-        //}
+        public static ComponentBuilder<TConfig, Static> SetValue<TConfig>(this ComponentBuilder<TConfig, Static> builder, object value, string format = null)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.TextContent = value == null ? null : builder.Config.FormatValue(value, format);
+            return builder;
+        }
 
-        //// Buttons
+        // Buttons
 
-        //public static InputButton<THelper> InputButton<THelper>(this IFormControlCreator<THelper> creator, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new InputButton<THelper>(creator, buttonType).SetText(text).SetControlLabel(label).SetValue(value);
-        //}
+        public static ComponentBuilder<TConfig, InputButton> InputButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<InputButton>
+        {
+            return new ComponentBuilder<TConfig, InputButton>(helper.Config, new InputButton(helper, buttonType))
+                .SetText(text)
+                .SetControlLabel(label)
+                .SetValue(value);
+        }
 
-        //public static FormButton<THelper> FormButton<THelper>(this IFormControlCreator<THelper> creator, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new FormButton<THelper>(creator, buttonType).SetText(text).SetControlLabel(label).SetValue(value);
-        //}
+        public static ComponentBuilder<TConfig, FormButton> FormButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<FormButton>
+        {
+            return new ComponentBuilder<TConfig, FormButton>(helper.Config, new FormButton(helper, buttonType))
+                .SetText(text)
+                .SetControlLabel(label)
+                .SetValue(value);
+        }
 
-        //public static FormButton<THelper> Submit<THelper>(this IFormControlCreator<THelper> creator, string text = "Submit", string label = null, object value = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new FormButton<THelper>(creator, ButtonType.Submit).SetText(text).SetControlLabel(label).SetValue(value).SetState(ButtonState.Primary);
-        //}
+        public static ComponentBuilder<TConfig, FormButton> Submit<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = "Submit", string label = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<FormButton>
+        {
+            return new ComponentBuilder<TConfig, FormButton>(helper.Config, new FormButton(helper, ButtonType.Submit))
+                .SetText(text)
+                .SetControlLabel(label)
+                .SetValue(value)
+                .SetState(ButtonState.Primary);
+        }
 
-        //public static FormButton<THelper> Reset<THelper>(this IFormControlCreator<THelper> creator, string text = "Reset", string label = null, object value = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new FormButton<THelper>(creator, ButtonType.Reset).SetText(text).SetControlLabel(label).SetValue(value);
-        //}
-        
-        //// FormControl (instance)
+        public static ComponentBuilder<TConfig, FormButton> Reset<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = "Reset", string label = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<FormButton>
+        {
+            return new ComponentBuilder<TConfig, FormButton>(helper.Config, new FormButton(helper, ButtonType.Reset))
+                .SetText(text)
+                .SetControlLabel(label)
+                .SetValue(value);
+        }
 
-        //public static FormControl<THelper> FormControl<THelper>(this IFormControlCreator<THelper> creator, string label = null, string labelFor = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    FormControl<THelper> formControl = new FormControl<THelper>(creator);
-        //    formControl.Label = new ControlLabel<THelper>(formControl.Helper, label).For(labelFor);
-        //    return formControl;
-        //}
+        // FormControl (instance)
 
-        //public static FormControl<THelper> AddStaticClass<THelper>(this FormControl<THelper> formControl, bool addStaticClass = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    formControl.ToggleCss(Css.FormControlStatic, addStaticClass);
-        //    return formControl;
-        //}
+        public static ComponentBuilder<TConfig, FormControl> FormControl<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string label = null, string labelFor = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<FormControl>
+        {
+            ComponentBuilder<TConfig, FormControl> builder = new ComponentBuilder<TConfig, FormControl>(helper.Config, new FormControl(helper));
+            builder.Component.Label = builder.GetHelper().ControlLabel(label).For(labelFor).Component;
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, FormControl> AddStaticClass<TConfig>(this ComponentBuilder<TConfig, FormControl> builder, bool addStaticClass = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.FormControlStatic, addStaticClass);
+            return builder;
+        }
 
         // Help
 
@@ -326,114 +391,120 @@ namespace FluentBootstrap
             return new ComponentBuilder<TConfig, HelpBlock>(helper.Config, new HelpBlock(helper)).SetText(text);
         }
 
-        //// FormControl
+        // FormControl
 
-        //public static TThis SetControlLabel<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string label, Action<ControlLabel<THelper>> labelAction = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //    where TThis : FormControl<THelper, TThis, TWrapper>
-        //    where TWrapper : FormControlWrapper<THelper>, new()
-        //{
-        //    TThis control = component.GetThis();
-        //    if (label != null)
-        //    {
-        //        ControlLabel<THelper> controlLabel = new ControlLabel<THelper>(control.Helper, label).For(control.GetName());
-        //        control.Label = controlLabel;
-        //        if (labelAction != null)
-        //        {
-        //            labelAction(controlLabel);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        control.Label = null;
-        //    }
-        //    return control;
-        //}
+        public static ComponentBuilder<TConfig, TFormControl> SetControlLabel<TConfig, TFormControl>(this ComponentBuilder<TConfig, TFormControl> builder, string label, Action<ComponentBuilder<TConfig, ControlLabel>> labelAction = null)
+            where TConfig : BootstrapConfig
+            where TFormControl : FormControl
+        {
+            if (label != null)
+            {
+                ComponentBuilder<TConfig, ControlLabel> controlLabelBuilder = builder.GetHelper().ControlLabel(label).For(builder.Component.GetAttribute("name"));
+                if (labelAction != null)
+                {
+                    labelAction(controlLabelBuilder);
+                }
+                builder.Component.Label = controlLabelBuilder.Component;
+            }
+            else
+            {
+                builder.Component.Label = null;
+            }
+            return builder;
+        }
 
-        //public static TThis SetHelp<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string help)
-        //    where THelper : BootstrapHelper<THelper>
-        //    where TThis : FormControl<THelper, TThis, TWrapper>
-        //    where TWrapper : FormControlWrapper<THelper>, new()
-        //{
-        //    TThis control = component.GetThis();
-        //    control.Help = help;
-        //    return control;
-        //}
+        public static ComponentBuilder<TConfig, TFormControl> SetHelp<TConfig, TFormControl>(this ComponentBuilder<TConfig, TFormControl> builder, string help)
+            where TConfig : BootstrapConfig
+            where TFormControl : FormControl
+        {
+            builder.Component.Help = help;
+            return builder;
+        }
 
-        //public static TThis EnsureFormGroup<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool ensureFormGroup = true)
-        //    where THelper : BootstrapHelper<THelper>
-        //    where TThis : FormControl<THelper, TThis, TWrapper>
-        //    where TWrapper : FormControlWrapper<THelper>, new()
-        //{
-        //    TThis control = component.GetThis();
-        //    control.EnsureFormGroup = ensureFormGroup;
-        //    return control;
-        //}
+        public static ComponentBuilder<TConfig, TFormControl> EnsureFormGroup<TConfig, TFormControl>(this ComponentBuilder<TConfig, TFormControl> builder, bool ensureFormGroup = true)
+            where TConfig : BootstrapConfig
+            where TFormControl : FormControl
+        {
+            builder.Component.EnsureFormGroup = ensureFormGroup;
+            return builder;
+        }
 
-        //public static TThis SetSize<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, InputSize size)
-        //    where THelper : BootstrapHelper<THelper>
-        //    where TThis : FormControl<THelper, TThis, TWrapper>
-        //    where TWrapper : FormControlWrapper<THelper>, new()
-        //{
-        //    return component.GetThis().ToggleCss(size);
-        //}
+        public static ComponentBuilder<TConfig, TFormControl> SetSize<TConfig, TFormControl>(this ComponentBuilder<TConfig, TFormControl> builder, InputSize size)
+            where TConfig : BootstrapConfig
+            where TFormControl : FormControl
+        {
+            builder.Component.ToggleCss(size);
+            return builder;
+        }
 
-        //// IFormValidation
+        // IFormValidation
 
-        //public static TThis SetState<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, ValidationState state)
-        //    where THelper : BootstrapHelper<THelper>
-        //    where TThis : Tag<THelper, TThis, TWrapper>, IFormValidation
-        //    where TWrapper : TagWrapper<THelper>, new()
-        //{
-        //    return component.GetThis().ToggleCss(state);
-        //}
+        public static ComponentBuilder<TConfig, TTag> SetState<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, ValidationState state)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, IFormValidation
+        {
+            builder.Component.ToggleCss(state);
+            return builder;
+        }
 
-        //// InputGroup
+        // InputGroup
 
-        //public static InputGroup<THelper> InputGroup<THelper>(this IInputGroupCreator<THelper> creator)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new InputGroup<THelper>(creator);
-        //}
+        public static ComponentBuilder<TConfig, InputGroup> InputGroup<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<InputGroup>
+        {
+            return new ComponentBuilder<TConfig, InputGroup>(helper.Config, new InputGroup(helper));
+        }
 
-        //public static InputGroup<THelper> SetSize<THelper>(this InputGroup<THelper> inputGroup, InputGroupSize size)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return inputGroup.ToggleCss(size);
-        //}
+        public static ComponentBuilder<TConfig, InputGroup> SetSize<TConfig>(this ComponentBuilder<TConfig, InputGroup> builder, InputGroupSize size)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(size);
+            return builder;
+        }
 
-        //public static InputGroupAddon<THelper> InputGroupAddon<THelper>(this IInputGroupAddonCreator<THelper> creator, object content = null)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new InputGroupAddon<THelper>(creator).AddContent(content);
-        //}
+        public static ComponentBuilder<TConfig, InputGroupAddon> InputGroupAddon<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<InputGroupAddon>
+        {
+            return new ComponentBuilder<TConfig, InputGroupAddon>(helper.Config, new InputGroupAddon(helper))
+                .AddContent(content);
+        }
 
-        //public static InputGroupButton<THelper> InputGroupButton<THelper>(this IInputGroupButtonCreator<THelper> creator)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new InputGroupButton<THelper>(creator);
-        //}
+        public static ComponentBuilder<TConfig, InputGroupButton> InputGroupButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<InputGroupButton>
+        {
+            return new ComponentBuilder<TConfig, InputGroupButton>(helper.Config, new InputGroupButton(helper));
+        }
 
-        //// Use special creator extensions to create input group addons so we can control the output more closely (I.e., no labels, form groups, etc.)
+        // Use special creator extensions to create input group addons so we can control the output more closely (I.e., no labels, form groups, etc.)
 
-        //public static Input<THelper> Input<THelper>(this InputGroupWrapper<THelper> inputGroup, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new Input<THelper>(inputGroup, inputType).SetName(name).SetValue(value, format).EnsureFormGroup(false);
-        //}
+        public static ComponentBuilder<TConfig, Input> Input<TConfig>(this ComponentWrapper<TConfig, InputGroup> wrapper, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+            where TConfig : BootstrapConfig
+        {
+            return wrapper.Input(name, value, format, inputType)
+                .EnsureFormGroup(false);
+        }
 
-        //public static CheckedControl<THelper> CheckBox<THelper>(this InputGroupAddonWrapper<THelper> inputGroupAddon, string name = null, bool isChecked = false)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new CheckedControl<THelper>(inputGroupAddon, Css.Checkbox) { SuppressLabelWrapper = true }
-        //        .SetName(name).SetChecked(isChecked).EnsureFormGroup(false).SetInline(true);
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> CheckBox<TConfig>(this ComponentWrapper<TConfig, InputGroupAddon> wrapper, string name = null, bool isChecked = false)
+            where TConfig : BootstrapConfig
+        {
+            ComponentBuilder<TConfig, CheckedControl> builder = wrapper.CheckBox(name, isChecked)
+                .EnsureFormGroup(false)
+                .SetInline(true);
+            builder.Component.SuppressLabelWrapper = true;
+            return builder;
+        }
 
-        //public static CheckedControl<THelper> Radio<THelper>(this InputGroupAddonWrapper<THelper> inputGroupAddon, string name = null, object value = null, bool isChecked = false)
-        //    where THelper : BootstrapHelper<THelper>
-        //{
-        //    return new CheckedControl<THelper>(inputGroupAddon, Css.Radio) { SuppressLabelWrapper = true }
-        //        .SetName(name).SetValue(value).SetChecked(isChecked).EnsureFormGroup(false).SetInline(true);
-        //}
+        public static ComponentBuilder<TConfig, CheckedControl> Radio<TConfig>(this ComponentWrapper<TConfig, InputGroupAddon> wrapper, string name = null, object value = null, bool isChecked = false)
+            where TConfig : BootstrapConfig
+        {
+            ComponentBuilder<TConfig, CheckedControl> builder = wrapper.Radio(name, value, isChecked)
+                .EnsureFormGroup(false)
+                .SetInline(true);
+            builder.Component.SuppressLabelWrapper = true;
+            return builder;
+        }
     }
 }

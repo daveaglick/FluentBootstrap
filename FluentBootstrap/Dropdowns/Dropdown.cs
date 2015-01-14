@@ -14,78 +14,49 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Dropdowns
 {
-    public interface IDropdownCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    public class DropdownWrapper<THelper> : TagWrapper<THelper>, 
-        IDropdownDividerCreator<THelper>, 
-        IDropdownHeaderCreator<THelper>,
-        IDropdownLinkCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IDropdown : IButton
-    {
-    }
-
-    public class Dropdown<THelper> : Tag<THelper, Dropdown<THelper>, DropdownWrapper<THelper>>, IDropdown,
-        IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
+    public class Dropdown : Tag, IHasButtonExtensions, IHasButtonStateExtensions, IHasTextContent,
+        ICanCreate<DropdownDivider>,
+        ICanCreate<DropdownHeader>,
+        ICanCreate<DropdownLink>
     {
         private bool _dropdownButton = false;
-        private bool _caret = true;
-        private bool _menuRight;
-        private bool _menuLeft;
         private Component _toggle;
-        private Typography.List<THelper> _list;
+        private Typography.List _list;
 
-        internal bool Caret
-        {
-            set { _caret = value; }
-        }
+        public bool Caret { get; set; }
+        public bool MenuRight { get; set; }
+        public bool MenuLeft { get; set; }
 
-        internal bool MenuRight
+        internal Dropdown(BootstrapHelper helper)
+            : base(helper, "div", Css.Dropdown, Css.BtnDefault)
         {
-            set { _menuRight = value; }
-        }
-
-        internal bool MenuLeft
-        {
-            set { _menuLeft = value; }
-        }
-
-        internal Dropdown(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.Dropdown, Css.BtnDefault)
-        {
+            Caret = true;
         }
 
         protected override void OnStart(TextWriter writer)
         {
             // Check if we're in a navbar, and if so, make sure we're in a navbar nav
-            if (GetComponent<INavbar>() != null && GetComponent<INavbarNav>() == null)
+            if (GetComponent<Navbar>() != null && GetComponent<NavbarNav>() == null)
             {
-                new NavbarNav<THelper>(Helper).Start(writer);
+                GetHelper().NavbarNav().Component.Start(writer);
             }
 
             // Check if we're in a nav
-            if (GetComponent<INav>(true) != null || GetComponent<INavbarNav>(true) != null)
+            if (GetComponent<Nav>(true) != null || GetComponent<NavbarNav>(true) != null)
             {
                 TagName = "li";
-                Link<THelper> link = Helper.Link(null);
+                Link link = GetHelper().Link(null).Component;
                 link.AddCss(Css.DropdownToggle);
-                link.AddAttribute("data-toggle", "dropdown");
+                link.MergeAttribute("data-toggle", "dropdown");
                 _toggle = link;
             }
             else
             {
                 // Create a button and copy over any button classes and text
-                Button<THelper> button = Helper.Button();
+                Button button = GetHelper().Button().Component;
                 button.RemoveCss(Css.BtnDefault);
                 button.AddCss(Css.DropdownToggle);
-                button.AddAttribute("data-toggle", "dropdown");
+                button.MergeAttribute("data-toggle", "dropdown");
                 foreach (string buttonClass in CssClasses.Where(x => x.StartsWith("btn")))
                 {
                     button.CssClasses.Add(buttonClass);
@@ -97,41 +68,41 @@ namespace FluentBootstrap.Dropdowns
             // Add the text and caret
             if (!string.IsNullOrWhiteSpace(TextContent))
             {
-                _toggle.AddChild(new Content<THelper>(Helper, TextContent + " "));
+                _toggle.AddChild(GetHelper().Content(TextContent + " "));
             }
             else
             {
-                Element<THelper> element = new Element<THelper>(Helper, "span").AddCss(Css.SrOnly);
-                element.AddChild(new Content<THelper>(Helper, "Toggle Dropdown"));
+                Element element = GetHelper().Element("span").AddCss(Css.SrOnly).Component;
+                element.AddChild(GetHelper().Content("Toggle Dropdown"));
                 _toggle.AddChild(element);
             }
             TextContent = null;
-            if (_caret)
+            if (Caret)
             {
-                _toggle.AddChild(Helper.Caret());
+                _toggle.AddChild(GetHelper().Caret());
             }
 
             // Check if we're in a IDropdownButton or IInputGroupButton, then
             // Check if we're in a button group, and if so change the outer CSS class
             // Do this after copying over the btn classes so this doesn't get copied
-            if (GetComponent<IDropdownButton>(true) != null || GetComponent<IInputGroupButton>(true) != null)
+            if (GetComponent<DropdownButton>(true) != null || GetComponent<InputGroupButton>(true) != null)
             {
                 _dropdownButton = true;
             }
-            else if (GetComponent<IButtonGroup>(true) != null)
+            else if (GetComponent<ButtonGroup>(true) != null)
             {
                 ToggleCss(Css.BtnGroup, true, Css.Dropdown);
             }
 
             // Create the list
-            _list = Helper.List(ListType.Unordered);
+            _list = GetHelper().List(ListType.Unordered).Component;
             _list.AddCss(Css.DropdownMenu);
             _list.MergeAttribute("role", "menu");
-            if (_menuRight)
+            if (MenuRight)
             {
                 _list.AddCss(Css.DropdownMenuRight);
             }
-            if (_menuLeft)
+            if (MenuLeft)
             {
                 _list.AddCss(Css.DropdownMenuLeft);
             }

@@ -12,56 +12,56 @@ namespace FluentBootstrap
     {
         // Jumbotron
 
-        public static Jumbotron<THelper> Jumbotron<THelper>(this IJumbotronCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Jumbotron<TConfig> Jumbotron<TConfig>(this IJumbotronCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Jumbotron<THelper>(creator);
+            return new Jumbotron<TConfig>(creator);
         }
 
         // PageHeader
 
-        public static PageHeader<THelper> PageHeader<THelper>(this IPageHeaderCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static PageHeader<TConfig> PageHeader<TConfig>(this IPageHeaderCreator<TConfig> creator, string text = null)
+            where TConfig : BootstrapConfig
         {
-            return new PageHeader<THelper>(creator).SetText(text);
+            return new PageHeader<TConfig>(creator).SetText(text);
         }
 
         // Elements
 
-        public static Element<THelper> Clearfix<THelper>(this ITagCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Element<TConfig> Clearfix<TConfig>(this ITagCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Element<THelper>(creator, "div").AddCss(Css.Clearfix);
+            return new Element<TConfig>(creator, "div").AddCss(Css.Clearfix);
         }
 
-        public static Element<THelper> CenterBlock<THelper>(this ITagCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Element<TConfig> CenterBlock<TConfig>(this ITagCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Element<THelper>(creator, "div").AddCss(Css.CenterBlock);
+            return new Element<TConfig>(creator, "div").AddCss(Css.CenterBlock);
         }
 
-        public static Element<THelper> PullLeft<THelper>(this ITagCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Element<TConfig> PullLeft<TConfig>(this ITagCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Element<THelper>(creator, "div").AddCss(Css.PullLeft);
+            return new Element<TConfig>(creator, "div").AddCss(Css.PullLeft);
         }
 
-        public static Element<THelper> PullRight<THelper>(this ITagCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Element<TConfig> PullRight<TConfig>(this ITagCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Element<THelper>(creator, "div").AddCss(Css.PullRight);
+            return new Element<TConfig>(creator, "div").AddCss(Css.PullRight);
         }
 
-        public static Element<THelper> Caret<THelper>(this ITagCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Element<TConfig> Caret<TConfig>(this ITagCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Element<THelper>(creator, "span").AddCss(Css.Caret);
+            return new Element<TConfig>(creator, "span").AddCss(Css.Caret);
         }
 
-        public static Element<THelper> Close<THelper>(this ITagCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static Element<TConfig> Close<TConfig>(this ITagCreator<TConfig> creator)
+            where TConfig : BootstrapConfig
         {
-            return new Element<THelper>(creator, "button").AddCss(Css.Close)
+            return new Element<TConfig>(creator, "button").AddCss(Css.Close)
                 .AddAttribute("type", "button")
                 .AddContent("<span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span>");
         }

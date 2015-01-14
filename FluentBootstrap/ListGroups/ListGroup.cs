@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ListGroups
 {
-    public interface IListGroupCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IListGroupCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class ListGroupWrapper<THelper> : TagWrapper<THelper>,
-        IListGroupItemCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ListGroupWrapper<TConfig> : TagWrapper<TConfig>,
+        IListGroupItemCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -22,11 +22,11 @@ namespace FluentBootstrap.ListGroups
     {
     }
 
-    public class ListGroup<THelper> : Tag<THelper, ListGroup<THelper>, ListGroupWrapper<THelper>>, IListGroup
-        where THelper : BootstrapHelper<THelper>
+    public class ListGroup<TConfig> : Tag<TConfig, ListGroup<TConfig>, ListGroupWrapper<TConfig>>, IListGroup
+        where TConfig : BootstrapConfig
     {
-        internal ListGroup(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.ListGroup)
+        internal ListGroup(BootstrapHelper helper)
+            : base(helper, "div", Css.ListGroup)
         {
         }
     }

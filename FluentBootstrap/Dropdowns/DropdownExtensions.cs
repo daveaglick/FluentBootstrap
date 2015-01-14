@@ -11,65 +11,73 @@ namespace FluentBootstrap
     {
         // Dropdown
 
-        public static Dropdown<THelper> Dropdown<THelper>(this IDropdownCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Dropdown> Dropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Dropdown>
         {
-            return new Dropdown<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, Dropdown>(helper.Config, new Dropdown(helper))
+                .SetText(text);
         }
 
-        public static Dropdown<THelper> SetCaret<THelper>(this Dropdown<THelper> dropdown, bool caret = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Dropdown> SetCaret<TConfig>(this ComponentBuilder<TConfig, Dropdown> builder, bool caret = true)
+            where TConfig : BootstrapConfig
         {
-            dropdown.Caret = caret;
-            return dropdown;
+            builder.Component.Caret = caret;
+            return builder;
         }
 
-        public static Dropdown<THelper> SetMenuRight<THelper>(this Dropdown<THelper> dropdown, bool menuRight = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Dropdown> SetMenuRight<TConfig>(this ComponentBuilder<TConfig, Dropdown> builder, bool menuRight = true)
+            where TConfig : BootstrapConfig
         {
-            dropdown.MenuRight = menuRight;
-            return dropdown;
+            builder.Component.MenuRight = menuRight;
+            return builder;
         }
 
-        public static Dropdown<THelper> SetMenuLeft<THelper>(this Dropdown<THelper> dropdown, bool menuLeft = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Dropdown> SetMenuLeft<TConfig>(this ComponentBuilder<TConfig, Dropdown> builder, bool menuLeft = true)
+            where TConfig : BootstrapConfig
         {
-            dropdown.MenuLeft = menuLeft;
-            return dropdown;
+            builder.Component.MenuLeft = menuLeft;
+            return builder;
         }
 
-        public static Dropdown<THelper> SetDropup<THelper>(this Dropdown<THelper> dropdown, bool dropup = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Dropdown> SetDropup<TConfig>(this ComponentBuilder<TConfig, Dropdown> builder, bool dropup = true)
+            where TConfig : BootstrapConfig
         {
-            dropdown.ToggleCss(Css.Dropup, dropup);
-            return dropdown;
+            builder.Component.ToggleCss(Css.Dropup, dropup);
+            return builder;
         }
 
         // Dropdown items
 
-        public static DropdownLink<THelper> DropdownLink<THelper>(this IDropdownLinkCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DropdownLink> DropdownLink<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<DropdownLink>
         {
-            return new DropdownLink<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, DropdownLink>(helper.Config, new DropdownLink(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
-        public static DropdownLink<THelper> SetDisabled<THelper>(this DropdownLink<THelper> dropdownLink, bool disabled = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DropdownLink> SetDisabled<TConfig>(this ComponentBuilder<TConfig, DropdownLink> dropdownLink, bool disabled = true)
+            where TConfig : BootstrapConfig
         {
-            dropdownLink.Disabled = disabled;
+            dropdownLink.Component.Disabled = disabled;
             return dropdownLink;
         }
 
-        public static DropdownHeader<THelper> DropdownHeader<THelper>(this IDropdownHeaderCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DropdownHeader> DropdownHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<DropdownHeader>
         {
-            return new DropdownHeader<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, DropdownHeader>(helper.Config, new DropdownHeader(helper))
+                .SetText(text);
         }
 
-        public static DropdownDivider<THelper> DropdownDivider<THelper>(this IDropdownDividerCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DropdownDivider> DropdownDivider<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TComponent : Component, ICanCreate<DropdownDivider>
+            where TConfig : BootstrapConfig
         {
-            return new DropdownDivider<THelper>(creator);
+            return new ComponentBuilder<TConfig, DropdownDivider>(helper.Config, new DropdownDivider(helper));
         }
     }
 }

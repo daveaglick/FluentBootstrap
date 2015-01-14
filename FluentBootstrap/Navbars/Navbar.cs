@@ -10,58 +10,42 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Navbar : Tag,
+        ICanCreate<NavbarHeader>,
+        ICanCreate<NavbarCollapse>,
+        ICanCreate<NavbarToggle>,
+        ICanCreate<Brand>,
+        ICanCreate<NavbarNav>,
+        ICanCreate<Dropdown>,
+        ICanCreate<NavbarForm>,
+        ICanCreate<NavbarButton>,
+        ICanCreate<NavbarText>
     {
-    }
+        private Container _container;
 
-    public class NavbarWrapper<THelper> : TagWrapper<THelper>,
-        INavbarHeaderCreator<THelper>,
-        INavbarCollapseCreator<THelper>,
-        INavbarToggleCreator<THelper>,
-        IBrandCreator<THelper>,
-        INavbarNavCreator<THelper>,
-        INavbarLinkCreator<THelper>,
-        IDropdownCreator<THelper>,
-        INavbarFormCreator<THelper>,
-        INavbarButtonCreator<THelper>,
-        INavbarTextCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
+        public bool HasHeader { get; set; }
+        public bool Fluid { get; set; }
 
-    internal interface INavbar : ITag
-    {
-        bool HasHeader { get; set; }
-    }
-
-    public class Navbar<THelper> : Tag<THelper, Navbar<THelper>, NavbarWrapper<THelper>>, INavbar
-        where THelper : BootstrapHelper<THelper>
-    {
-        bool INavbar.HasHeader { get; set; }
-        internal bool Fluid { get; set; }
-        private Container<THelper> _container;
-
-        internal Navbar(IComponentCreator<THelper> creator)
-            : base(creator, "nav", Css.Navbar, Css.NavbarDefault)
+        internal Navbar(BootstrapHelper helper)
+            : base(helper, "nav", Css.Navbar, Css.NavbarDefault)
         {
-            this.MergeAttribute("role", "navigation");
-            this.SetId("navbar");
+            MergeAttribute("role", "navigation");
+            GetBuilder(this).SetId("navbar");
         }
 
         protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
 
-            _container = Helper.Container().SetFluid(Fluid);
+            _container = GetHelper().Container().SetFluid(Fluid).Component;
             _container.Start(writer);
         }
 
         protected override void OnFinish(TextWriter writer)
         {
-            if (!((INavbar)this).HasHeader)
+            if (!HasHeader)
             {
-                new NavbarHeader<THelper>(Helper).StartAndFinish(writer);
+                GetHelper().NavbarHeader().Component.StartAndFinish(writer);
             }
 
             _container.Finish(writer);

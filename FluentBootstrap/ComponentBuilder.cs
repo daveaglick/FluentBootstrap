@@ -50,9 +50,18 @@ namespace FluentBootstrap
             return new ComponentWrapper<TConfig, TComponent>(_config, _component);
         }
 
-        internal BootstrapHelper<BootstrapConfig, CanCreate> GetHelper()
+        // This gets a dummy BootstrapHelper that can be used to create new components with the same config as this one
+        public BootstrapHelper<TConfig, CanCreate> GetHelper()
         {
-            return Component.GetHelper();
+            return new DummyBootstrapHelper(Config);
+        }
+
+        private class DummyBootstrapHelper : BootstrapHelper<TConfig, CanCreate>
+        {
+            public DummyBootstrapHelper(TConfig config)
+                : base(config)
+            {
+            }
         }
 
         public ComponentWrapper<TConfig, TComponent> Begin()

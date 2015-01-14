@@ -9,10 +9,11 @@ namespace FluentBootstrap
 {
     public static class BadgeExtensions
     {
-        public static Badge<THelper> Badge<THelper>(this IBadgeCreator<THelper> creator, string text)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Badge> Badge<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Badge>
         {
-            return new Badge<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, Badge>(helper.Config, new Badge(helper)).SetText(text);
         }
     }
 }

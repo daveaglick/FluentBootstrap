@@ -6,25 +6,10 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Images
 {
-    public interface IImageCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Image : Tag
     {
-    }
-
-    public class ImageWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IImage : ITag
-    {
-    }
-
-    public class Image<THelper> : Tag<THelper, Image<THelper>, ImageWrapper<THelper>>, IImage
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal Image(IComponentCreator<THelper> creator)
-            : base(creator, "img")
+        internal Image(BootstrapHelper helper)
+            : base(helper, "img")
         {
         }
 

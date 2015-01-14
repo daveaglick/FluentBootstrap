@@ -8,34 +8,19 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface IBrandCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Brand : Tag, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
     {
-    }
-
-    public class BrandWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IBrand : ITag
-    {
-    }
-
-    public class Brand<THelper> : Tag<THelper, Brand<THelper>, BrandWrapper<THelper>>, IBrand, IHasIconExtensions, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal Brand(IComponentCreator<THelper> creator)
-            : base(creator, "a", Css.NavbarBrand)
+        internal Brand(BootstrapHelper helper)
+            : base(helper, "a", Css.NavbarBrand)
         {
         }
         
         protected override void OnStart(System.IO.TextWriter writer)
         {
             // Make sure we're in a header, but only if we're also in a navbar
-            if (GetComponent<INavbar>() != null && GetComponent<INavbarHeader>() == null)
+            if (GetComponent<Navbar>() != null && GetComponent<NavbarHeader>() == null)
             {
-                new NavbarHeader<THelper>(Helper).Start(writer);
+                GetHelper().NavbarHeader().Component.Start(writer);
             }
 
             base.OnStart(writer);

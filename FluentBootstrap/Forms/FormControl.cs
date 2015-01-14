@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public abstract class FormControl : Tag, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
+    public class FormControl : Tag, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
         ICanCreate<HelpBlock>
     {
         private FormGroup _formGroup = null;
@@ -22,6 +22,11 @@ namespace FluentBootstrap.Forms
             : base(helper, tagName, cssClasses)
         {
             EnsureFormGroup = true;
+        }
+
+        internal FormControl(BootstrapHelper helper)
+            : this(helper, "div")
+        {
         }
 
         public ControlLabel Label

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.ProgressBars
 {
-    public interface IProgressBarCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IProgressBarCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class ProgressBarWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ProgressBarWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
 
     }
@@ -23,18 +23,18 @@ namespace FluentBootstrap.ProgressBars
     {
     }
 
-    public class ProgressBar<THelper> : Tag<THelper, ProgressBar<THelper>, ProgressBarWrapper<THelper>>, IProgressBar, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
+    public class ProgressBar<TConfig> : Tag<TConfig, ProgressBar<TConfig>, ProgressBarWrapper<TConfig>>, IProgressBar, IHasTextContent
+        where TConfig : BootstrapConfig
     {
-        private Progress<THelper> _progress;
+        private Progress<TConfig> _progress;
         internal int Value { get; set; }
         internal int Min { get; set; }
         internal int Max { get; set; }
         internal bool ShowPercent { get; set; }
         internal bool Animated { get; set; }
 
-        internal ProgressBar(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.ProgressBar)
+        internal ProgressBar(BootstrapHelper helper)
+            : base(helper, "div", Css.ProgressBar)
         {
             this.MergeAttribute("role", "progressbar");
             Value = 50;
@@ -73,7 +73,7 @@ namespace FluentBootstrap.ProgressBars
 
             if(ShowPercent)
             {
-                new Content<THelper>(Helper, percent + "%").StartAndFinish(writer);
+                new Content<TConfig>(Helper, percent + "%").StartAndFinish(writer);
             }
             else
             {

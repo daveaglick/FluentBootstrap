@@ -11,110 +11,121 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static Button<THelper> Button<THelper>(this IButtonCreator<THelper> creator, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Button> Button<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Button>
         {
-            return new Button<THelper>(creator, buttonType).SetText(text).SetValue(value);
+            return new ComponentBuilder<TConfig, Button>(helper.Config, new Button(helper, buttonType))
+                .SetText(text)
+                .SetValue(value);
         }
         
         // Button groups
 
-        public static ButtonGroup<THelper> ButtonGroup<THelper>(this IButtonGroupCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, ButtonGroup> ButtonGroup<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ButtonGroup>
         {
-            return new ButtonGroup<THelper>(creator);
+            return new ComponentBuilder<TConfig, ButtonGroup>(helper.Config, new ButtonGroup(helper));
         }
 
-        public static ButtonGroup<THelper> SetSize<THelper>(this ButtonGroup<THelper> buttonGroup, ButtonGroupSize size)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, ButtonGroup> SetSize<TConfig>(this ComponentBuilder<TConfig, ButtonGroup> builder, ButtonGroupSize size)
+            where TConfig : BootstrapConfig
         {
-            buttonGroup.ToggleCss(size);
-            return buttonGroup;
+            builder.Component.ToggleCss(size);
+            return builder;
         }
 
-        public static ButtonGroup<THelper> SetVertical<THelper>(this ButtonGroup<THelper> buttonGroup, bool vertical = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, ButtonGroup> SetVertical<TConfig>(this ComponentBuilder<TConfig, ButtonGroup> builder, bool vertical = true)
+            where TConfig : BootstrapConfig
         {
             if (vertical)
             {
-                buttonGroup.ToggleCss(Css.BtnGroupVertical, true, Css.BtnGroup);
+                builder.Component.ToggleCss(Css.BtnGroupVertical, true, Css.BtnGroup);
             }
             else
             {
-                buttonGroup.ToggleCss(Css.BtnGroup, true, Css.BtnGroupVertical);
+                builder.Component.ToggleCss(Css.BtnGroup, true, Css.BtnGroupVertical);
             }
-            return buttonGroup;
+            return builder;
         }
 
-        public static ButtonGroup<THelper> SetJustified<THelper>(this ButtonGroup<THelper> buttonGroup, bool justified = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, ButtonGroup> SetJustified<TConfig>(this ComponentBuilder<TConfig, ButtonGroup> builder, bool justified = true)
+            where TConfig : BootstrapConfig
         {
-            buttonGroup.ToggleCss(Css.BtnGroupJustified, justified);
-            return buttonGroup;
+            builder.Component.ToggleCss(Css.BtnGroupJustified, justified);
+            return builder;
         }
 
-        public static ButtonToolbar<THelper> ButtonToolbar<THelper>(this IButtonToolbarCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        // Button toolbar
+
+        public static ComponentBuilder<TConfig, ButtonToolbar> ButtonToolbar<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ButtonToolbar>
         {
-            return new ButtonToolbar<THelper>(creator);
+            return new ComponentBuilder<TConfig, ButtonToolbar>(helper.Config, new ButtonToolbar(helper));
         }
 
         // Dropdown buttons
 
-        public static DropdownButton<THelper> DropdownButton<THelper>(this IDropdownButtonCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DropdownButton> DropdownButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<DropdownButton>
         {
-            return new DropdownButton<THelper>(creator);
+            return new ComponentBuilder<TConfig, DropdownButton>(helper.Config, new DropdownButton(helper));
         }
 
-        public static DropdownButton<THelper> SetDropup<THelper>(this DropdownButton<THelper> dropdownButton, bool dropup = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, DropdownButton> SetDropup<TConfig>(this ComponentBuilder<TConfig, DropdownButton> builder, bool dropup = true)
+            where TConfig : BootstrapConfig
         {
-            dropdownButton.ToggleCss(Css.Dropup, dropup);
-            return dropdownButton;
+            builder.Component.ToggleCss(Css.Dropup, dropup);
+            return builder;
         }
 
         // LinkButton
 
-        public static LinkButton<THelper> LinkButton<THelper>(this ILinkButtonCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, LinkButton> LinkButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<LinkButton>
         {
-            return new LinkButton<THelper>(creator).SetText(text).SetHref(href);
+            return new ComponentBuilder<TConfig, LinkButton>(helper.Config, new LinkButton(helper))
+                .SetText(text)
+                .SetHref(href);
         }
 
-        public static LinkButton<THelper> SetDisabled<THelper>(this LinkButton<THelper> linkButton, bool disabled = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, LinkButton> SetDisabled<TConfig>(this ComponentBuilder<TConfig, LinkButton> builder, bool disabled = true)
+            where TConfig : BootstrapConfig
         {
-            linkButton.ToggleCss(Css.Disabled, disabled);
-            return linkButton;
+            builder.Component.ToggleCss(Css.Disabled, disabled);
+            return builder;
         }
 
         // IHasButtonExtensions
 
-        public static TThis SetSize<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, ButtonSize size)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, IHasButtonExtensions
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetSize<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, ButtonSize size)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, IHasButtonExtensions
         {
-            return component.GetThis().ToggleCss(size);
+            builder.Component.ToggleCss(size);
+            return builder;
         }
 
-        public static TThis SetBlock<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool block = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, IHasButtonExtensions
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetBlock<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool block = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, IHasButtonExtensions
         {
-            return component.GetThis().ToggleCss(Css.BtnBlock, block);
+            builder.Component.ToggleCss(Css.BtnBlock, block);
+            return builder;
         }
 
         // IHasButtonStateExtensions
 
-        public static TThis SetState<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, ButtonState state)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, IHasButtonStateExtensions
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetState<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, ButtonState state)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, IHasButtonStateExtensions
         {
-            return component.GetThis().ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
     }
 }

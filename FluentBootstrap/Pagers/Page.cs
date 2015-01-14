@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Pagers
 {
-    public interface IPageCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IPageCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class PageWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class PageWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -23,23 +23,23 @@ namespace FluentBootstrap.Pagers
     {
     }
 
-    public class Page<THelper> : Tag<THelper, Page<THelper>, PageWrapper<THelper>>, IPage, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
+    public class Page<TConfig> : Tag<TConfig, Page<TConfig>, PageWrapper<TConfig>>, IPage, IHasLinkExtensions, IHasTextContent
+        where TConfig : BootstrapConfig
     {
         internal bool Disabled { get; set; }
         internal PageAlignment Alignment { get; set; }
 
-        private Element<THelper> _listItem = null;
+        private Element<TConfig> _listItem = null;
 
-        internal Page(IComponentCreator<THelper> creator)
-            : base(creator, "a")
+        internal Page(BootstrapHelper helper)
+            : base(helper, "a")
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
             // Create the list item wrapper
-            _listItem = new Element<THelper>(Helper, "li");
+            _listItem = new Element<TConfig>(Helper, "li");
             if (Disabled)
             {
                 _listItem.AddCss(Css.Disabled);

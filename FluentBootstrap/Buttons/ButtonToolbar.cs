@@ -6,25 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public interface IButtonToolbarCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class ButtonToolbar : Tag,
+        ICanCreate<ButtonGroup>
     {
-    }
-
-    public class ButtonToolbarWrapper<THelper> : TagWrapper<THelper>, IButtonGroupCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface IButtonToolbar : ITag
-    {
-    }
-
-    public class ButtonToolbar<THelper> : Tag<THelper, ButtonToolbar<THelper>, ButtonToolbarWrapper<THelper>>, IButtonToolbar
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal ButtonToolbar(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.BtnToolbar)
+        internal ButtonToolbar(BootstrapHelper helper)
+            : base(helper, "div", Css.BtnToolbar)
         {
             MergeAttribute("role", "toolbar");
         }

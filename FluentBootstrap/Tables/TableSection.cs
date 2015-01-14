@@ -2,14 +2,14 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableSectionCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface ITableSectionCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class TableSectionWrapper<THelper> : TagWrapper<THelper>,
-        ITableRowCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class TableSectionWrapper<TConfig> : TagWrapper<TConfig>,
+        ITableRowCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -17,13 +17,13 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public abstract class TableSection<THelper, TThis, TWrapper> : Tag<THelper, TThis, TWrapper>, ITableSection
-        where THelper : BootstrapHelper<THelper>
-        where TThis : TableSection<THelper, TThis, TWrapper>
-        where TWrapper : TableSectionWrapper<THelper>, new()
+    public abstract class TableSection<TConfig, TThis, TWrapper> : Tag<TConfig, TThis, TWrapper>, ITableSection
+        where TConfig : BootstrapConfig
+        where TThis : TableSection<TConfig, TThis, TWrapper>
+        where TWrapper : TableSectionWrapper<TConfig>, new()
     {
-        protected TableSection(IComponentCreator<THelper> creator, string tagName, params string[] cssClasses)
-            : base(creator, tagName, cssClasses)
+        protected TableSection(BootstrapHelper helper, string tagName, params string[] cssClasses)
+            : base(helper, tagName, cssClasses)
         {
         }
         

@@ -12,24 +12,24 @@ namespace FluentBootstrap
     {
         // Link
 
-        public static Link<THelper> Link<THelper>(this ILinkCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Link> Link<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Link>
         {
-            return new Link<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, Link>(helper.Config, new Link(helper)).SetHref(href).SetText(text);
         }
 
         // IHasLinkExtensions
 
-        public static TThis SetHref<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, string href)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, IHasLinkExtensions
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetHref<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, string href)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, IHasLinkExtensions
         {
-            if (string.IsNullOrWhiteSpace(href))
+            if (!string.IsNullOrWhiteSpace(href))
             {
-                return component.GetThis();
+                builder.Component.MergeAttribute("href", href)
             }
-            return component.GetThis().MergeAttribute("href", href);
+            return builder;
         }
     }
 }

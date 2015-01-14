@@ -83,7 +83,6 @@
     <Compile Include="MvcBootstrapHelper.cs" />
     <Compile Include="MvcTagExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentBootstrap\FluentBootstrap.csproj">

@@ -11,153 +11,176 @@ namespace FluentBootstrap
     {
         // Navbar
 
-        public static Navbar<THelper> Navbar<THelper>(this INavbarCreator<THelper> creator, bool fluid = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Navbar> Navbar<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, bool fluid = true)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Navbar>
         {
-            return new Navbar<THelper>(creator).SetFluid(fluid);
+            return new ComponentBuilder<TConfig, Navbar>(helper.Config, new Navbar(helper))
+                .SetFluid(fluid);
         }
 
-        public static Navbar<THelper> Navbar<THelper>(this INavbarCreator<THelper> creator, string brand, string href="/", bool fluid = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Navbar> Navbar<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string brand, string href = "/", bool fluid = true)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Navbar>
         {
-            return new Navbar<THelper>(creator).SetFluid(fluid).AddChild(x => x.Brand(brand, href));
+            return new ComponentBuilder<TConfig, Navbar>(helper.Config, new Navbar(helper))
+                .SetFluid(fluid)
+                .AddChild(x => x.Brand(brand, href));
         }
 
-        public static Navbar<THelper> SetFluid<THelper>(this Navbar<THelper> navbar, bool fluid = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Navbar> SetFluid<TConfig>(this ComponentBuilder<TConfig, Navbar> builder, bool fluid = true)
+            where TConfig : BootstrapConfig
         {
-            navbar.Fluid = fluid;
-            return navbar;
+            builder.Component.Fluid = fluid;
+            return builder;
         }
 
-        public static Navbar<THelper> SetPosition<THelper>(this Navbar<THelper> navbar, NavbarPosition position)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Navbar> SetPosition<TConfig>(this ComponentBuilder<TConfig, Navbar> builder, NavbarPosition position)
+            where TConfig : BootstrapConfig
         {
-            return navbar.ToggleCss(position);
+            builder.Component.ToggleCss(position);
+            return builder;
         }
 
-        public static Navbar<THelper> SetInverse<THelper>(this Navbar<THelper> navbar, bool inverse = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Navbar> SetInverse<TConfig>(this ComponentBuilder<TConfig, Navbar> builder, bool inverse = true)
+            where TConfig : BootstrapConfig
         {
-            return navbar.ToggleCss(Css.NavbarInverse, inverse);
+            builder.Component.ToggleCss(Css.NavbarInverse, inverse);
+            return builder;
         }
 
         // NavbarHeader
 
-        public static NavbarHeader<THelper> NavbarHeader<THelper>(this INavbarHeaderCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarHeader> NavbarHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarHeader>
         {
-            return new NavbarHeader<THelper>(creator);
+            return new ComponentBuilder<TConfig, NavbarHeader>(helper.Config, new NavbarHeader(helper));
         }
 
         // NavbarToggle
 
-        public static NavbarToggle<THelper> NavbarToggle<THelper>(this INavbarToggleCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarToggle> NavbarToggle<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarToggle>
         {
-            return new NavbarToggle<THelper>(creator);
+            return new ComponentBuilder<TConfig, NavbarToggle>(helper.Config, new NavbarToggle(helper));
         }
 
-        public static NavbarToggle<THelper> SetDataTarget<THelper>(this NavbarToggle<THelper> navbarToggle, string dataTarget)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarToggle> SetDataTarget<TConfig>(this ComponentBuilder<TConfig, NavbarToggle> builder, string dataTarget)
+            where TConfig : BootstrapConfig
         {
-            navbarToggle.DataTarget = dataTarget;
-            return navbarToggle;
+            builder.Component.DataTarget = dataTarget;
+            return builder;
         }
 
-        public static NavbarToggle<THelper> SetHamburger<THelper>(this NavbarToggle<THelper> navbarToggle, bool hamburger = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarToggle> SetHamburger<TConfig>(this ComponentBuilder<TConfig, NavbarToggle> builder, bool hamburger = true)
+            where TConfig : BootstrapConfig
         {
-            navbarToggle.Hamburger = hamburger;
-            return navbarToggle;
+            builder.Component.Hamburger = hamburger;
+            return builder;
         }
 
         // Brand
 
-        public static Brand<THelper> Brand<THelper>(this IBrandCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, Brand> Brand<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Brand>
         {
-            return new Brand<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, Brand>(helper.Config, new Brand(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
         // NavbarCollapse
 
-        public static NavbarCollapse<THelper> NavbarCollapse<THelper>(this INavbarCollapseCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarCollapse> NavbarCollapse<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarCollapse>
         {
-            return new NavbarCollapse<THelper>(creator);
+            return new ComponentBuilder<TConfig, NavbarCollapse>(helper.Config, new NavbarCollapse(helper));
         }
 
         // NavbarNav
 
-        public static NavbarNav<THelper> NavbarNav<THelper>(this INavbarNavCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarNav> NavbarNav<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarNav>
         {
-            return new NavbarNav<THelper>(creator);
+            return new ComponentBuilder<TConfig, NavbarNav>(helper.Config, new NavbarNav(helper));
         }
 
         // NavbarForm
 
-        public static NavbarForm<THelper> NavbarForm<THelper>(this INavbarFormCreator<THelper> creator)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarForm> NavbarForm<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarForm>
         {
-            return new NavbarForm<THelper>(creator);
+            return new ComponentBuilder<TConfig, NavbarForm>(helper.Config, new NavbarForm(helper));
         }
 
         // NavbarButton
 
-        public static NavbarButton<THelper> NavbarButton<THelper>(this INavbarButtonCreator<THelper> creator, string text = null, object value = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarButton> NavbarButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarButton>
         {
-            return new NavbarButton<THelper>(creator).SetText(text).SetValue(value);
+            return new ComponentBuilder<TConfig, NavbarButton>(helper.Config, new NavbarButton(helper))
+                .SetText(text)
+                .SetValue(value);
         }
 
         // NavbarText
 
-        public static NavbarText<THelper> NavbarText<THelper>(this INavbarButtonCreator<THelper> creator, string text = null)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarText> NavbarText<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarText>
         {
-            return new NavbarText<THelper>(creator).SetText(text);
+            return new ComponentBuilder<TConfig, NavbarText>(helper.Config, new NavbarText(helper))
+                .SetText(text);
         }        
         
         // NavbarLink
 
-        public static NavbarLink<THelper> NavbarLink<THelper>(this INavbarLinkCreator<THelper> creator, string text, string href = "#")
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarLink> NavbarLink<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<NavbarLink>
         {
-            return new NavbarLink<THelper>(creator).SetHref(href).SetText(text);
+            return new ComponentBuilder<TConfig, NavbarLink>(helper.Config, new NavbarLink(helper))
+                .SetHref(href)
+                .SetText(text);
         }
 
-        public static NavbarLink<THelper> SetActive<THelper>(this NavbarLink<THelper> navbarLink, bool active = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarLink> SetActive<TConfig>(this ComponentBuilder<TConfig, NavbarLink> builder, bool active = true)
+            where TConfig : BootstrapConfig
         {
-            navbarLink.Active = active;
-            return navbarLink;
+            builder.Component.Active = active;
+            return builder;
         }
 
-        public static NavbarLink<THelper> SetDisabled<THelper>(this NavbarLink<THelper> navbarLink, bool disabled = true)
-            where THelper : BootstrapHelper<THelper>
+        public static ComponentBuilder<TConfig, NavbarLink> SetDisabled<TConfig>(this ComponentBuilder<TConfig, NavbarLink> builder, bool disabled = true)
+            where TConfig : BootstrapConfig
         {
-            navbarLink.Disabled = disabled;
-            return navbarLink;
+            builder.Component.Disabled = disabled;
+            return builder;
         }
 
         // INavbarComponent
 
-        public static TThis SetLeft<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool left = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, INavbarComponent
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetLeft<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool left = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, INavbarComponent
         {
-            return component.GetThis().ToggleCss(Css.NavbarLeft, left, Css.NavbarRight);
+            builder.Component.ToggleCss(Css.NavbarLeft, left, Css.NavbarRight);
+            return builder;
         }
 
-        public static TThis SetRight<THelper, TThis, TWrapper>(this Component<THelper, TThis, TWrapper> component, bool right = true)
-            where THelper : BootstrapHelper<THelper>
-            where TThis : Tag<THelper, TThis, TWrapper>, INavbarComponent
-            where TWrapper : TagWrapper<THelper>, new()
+        public static ComponentBuilder<TConfig, TTag> SetRight<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool right = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, INavbarComponent
         {
-            return component.GetThis().ToggleCss(Css.NavbarRight, right, Css.NavbarLeft);
+            builder.Component.ToggleCss(Css.NavbarRight, right, Css.NavbarLeft);
+            return builder;
         }
     }
 }

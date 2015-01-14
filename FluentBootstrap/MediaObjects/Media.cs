@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.MediaObjects
 {
-    public interface IMediaCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IMediaCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class MediaWrapper<THelper> : TagWrapper<THelper>,
-        IMediaObjectCreator<THelper>,
-        IMediaBodyCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class MediaWrapper<TConfig> : TagWrapper<TConfig>,
+        IMediaObjectCreator<TConfig>,
+        IMediaBodyCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -23,11 +23,11 @@ namespace FluentBootstrap.MediaObjects
     {
     }
 
-    public class Media<THelper> : Tag<THelper, Media<THelper>, MediaWrapper<THelper>>, IMedia
-        where THelper : BootstrapHelper<THelper>
+    public class Media<TConfig> : Tag<TConfig, Media<TConfig>, MediaWrapper<TConfig>>, IMedia
+        where TConfig : BootstrapConfig
     {
-        internal Media(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.Media)
+        internal Media(BootstrapHelper helper)
+            : base(helper, "div", Css.Media)
         {
         }
 

@@ -2,14 +2,14 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableRowCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface ITableRowCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class TableRowWrapper<THelper> : TagWrapper<THelper>,
-        ITableCellCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class TableRowWrapper<TConfig> : TagWrapper<TConfig>,
+        ITableCellCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -17,13 +17,13 @@ namespace FluentBootstrap.Tables
     {
     }
 
-    public class TableRow<THelper> : Tag<THelper, TableRow<THelper>, TableRowWrapper<THelper>>, ITableRow, IHasTableStateExtensions
-        where THelper : BootstrapHelper<THelper>
+    public class TableRow<TConfig> : Tag<TConfig, TableRow<TConfig>, TableRowWrapper<TConfig>>, ITableRow, IHasTableStateExtensions
+        where TConfig : BootstrapConfig
     {
         internal bool HeadRow { get; set; }
 
-        internal TableRow(IComponentCreator<THelper> creator)
-            : base(creator, "tr")
+        internal TableRow(BootstrapHelper helper)
+            : base(helper, "tr")
         {
         }
         
@@ -44,7 +44,7 @@ namespace FluentBootstrap.Tables
                     }
                     if (tableSection == null)
                     {
-                        new TableHeadSection<THelper>(Helper).Start(writer);
+                        new TableHeadSection<TConfig>(Helper).Start(writer);
                     }
                 }
                 else
@@ -56,7 +56,7 @@ namespace FluentBootstrap.Tables
                     }
                     if (tableSection == null)
                     {
-                        new TableBodySection<THelper>(Helper).Start(writer);
+                        new TableBodySection<TConfig>(Helper).Start(writer);
                     }
                 }
             }

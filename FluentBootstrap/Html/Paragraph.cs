@@ -1,4 +1,4 @@
-﻿//using FluentBootstrap.ListGroups;
+﻿using FluentBootstrap.ListGroups;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,11 +17,11 @@ namespace FluentBootstrap.Html
 
         protected override void OnStart(TextWriter writer)
         {
-            // TODO: Add the appropriate CSS class if in a list group item
-            //if (GetComponent<IListGroupItem>() != null)
-            //{
-            //    this.AddCss(Css.ListGroupItemText);
-            //}
+            // Add the appropriate CSS class if in a list group item
+            if (GetComponent<ListGroupItem>() != null)
+            {
+                AddCss(Css.ListGroupItemText);
+            }
 
             base.OnStart(writer);
         }

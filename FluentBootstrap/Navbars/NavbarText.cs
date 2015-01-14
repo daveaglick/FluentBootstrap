@@ -7,40 +7,25 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarTextCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class NavbarText : Tag, INavbarComponent, IHasTextContent
     {
-    }
-
-    public class NavbarTextWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INavbarText : ITag
-    {
-    }
-
-    public class NavbarText<THelper> : Tag<THelper, NavbarText<THelper>, NavbarTextWrapper<THelper>>, INavbarComponent, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal NavbarText(IComponentCreator<THelper> creator)
-            : base(creator, "p", Css.NavbarText, Css.NavbarLeft)
+        internal NavbarText(BootstrapHelper helper)
+            : base(helper, "p", Css.NavbarText, Css.NavbarLeft)
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
             // See if we're in a navbar
-            if (GetComponent<INavbar>() != null)
+            if (GetComponent<Navbar>() != null)
             {
                 // Make sure we're not in a NavbarNav (close it if we are)
-                Pop<INavbarNav>(writer);
+                Pop<NavbarNav>(writer);
 
                 // Make sure we're in a collapse
-                if (GetComponent<INavbarCollapse>() == null)
+                if (GetComponent<NavbarCollapse>() == null)
                 {
-                    new NavbarCollapse<THelper>(Helper).Start(writer);
+                    GetHelper().NavbarCollapse().Component.Start(writer);
                 }
             }
 

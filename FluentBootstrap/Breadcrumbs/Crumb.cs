@@ -9,35 +9,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Breadcrumbs
 {
-    public interface ICrumbCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class Crumb : Tag, IHasLinkExtensions, IHasTextContent
     {
-    }
+        private Element _listItem = null;
 
-    public class CrumbWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
+        public bool Active { get; set; }
 
-    internal interface ICrumb : ITag
-    {
-    }
-
-    public class Crumb<THelper> : Tag<THelper, Crumb<THelper>, CrumbWrapper<THelper>>, ICrumb, IHasLinkExtensions, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal bool Active { get; set; }
-        private Element<THelper> _listItem = null;
-
-        internal Crumb(IComponentCreator<THelper> creator)
-            : base(creator, "a")
+        internal Crumb(BootstrapHelper helper)
+            : base(helper, "a")
         {
         }
 
         protected override void OnStart(TextWriter writer)
         {
             // Create the list item wrapper
-            _listItem = new Element<THelper>(Helper, "li");
+            _listItem = this.GetHelper().Element("li").Component;
             if (Active)
             {
                 _listItem.AddCss(Css.Active);

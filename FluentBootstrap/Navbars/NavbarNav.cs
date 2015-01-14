@@ -8,36 +8,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public interface INavbarNavCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class NavbarNav : Tag, INavbarComponent,
+        ICanCreate<NavbarLink>,
+        ICanCreate<Dropdown>
     {
-    }
-
-    public class NavbarNavWrapper<THelper> : TagWrapper<THelper>,
-        INavbarLinkCreator<THelper>,
-        IDropdownCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
-    {
-    }
-
-    internal interface INavbarNav : ITag
-    {
-    }
-
-    public class NavbarNav<THelper> : Tag<THelper, NavbarNav<THelper>, NavbarNavWrapper<THelper>>, INavbarNav, INavbarComponent
-        where THelper : BootstrapHelper<THelper>
-    {
-        internal NavbarNav(IComponentCreator<THelper> creator)
-            : base(creator, "div", Css.Nav, Css.NavbarNav, Css.NavbarLeft)
+        internal NavbarNav(BootstrapHelper helper)
+            : base(helper, "div", Css.Nav, Css.NavbarNav, Css.NavbarLeft)
         {
         }
         
         protected override void OnStart(System.IO.TextWriter writer)
         {
             // Make sure we're in a collapse, but only if we're also in a navbar
-            if (GetComponent<INavbar>() != null && GetComponent<INavbarCollapse>() == null)
+            if (GetComponent<Navbar>() != null && GetComponent<NavbarCollapse>() == null)
             {
-                new NavbarCollapse<THelper>(Helper).Start(writer);
+                GetHelper().NavbarCollapse().Component.Start(writer);
             }
 
             base.OnStart(writer);

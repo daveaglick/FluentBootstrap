@@ -14,7 +14,8 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Alert>
         {
             return new ComponentBuilder<TConfig, Alert>(helper.Config, new Alert(helper))
-                .SetState(state).SetText(text);
+                .SetState(state)
+                .SetText(text);
         }
 
         public static ComponentBuilder<TConfig, Alert> Alert<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, AlertState state, string heading, string text)
@@ -22,7 +23,9 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Alert>
         {
             return new ComponentBuilder<TConfig, Alert>(helper.Config, new Alert(helper))
-                .SetState(state).SetHeading(heading).SetText(text);
+                .SetState(state)
+                .SetHeading(heading)
+                .SetText(text);
         }
 
         public static ComponentBuilder<TConfig, Alert> SetState<TConfig>(this ComponentBuilder<TConfig, Alert> builder, AlertState state)

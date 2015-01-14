@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelTitleCreator<THelper> : IComponentCreator<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public interface IPanelTitleCreator<TConfig> : IComponentCreator<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
-    public class PanelTitleWrapper<THelper> : TagWrapper<THelper>
-        where THelper : BootstrapHelper<THelper>
+    public class PanelTitleWrapper<TConfig> : TagWrapper<TConfig>
+        where TConfig : BootstrapConfig
     {
     }
 
@@ -21,11 +21,11 @@ namespace FluentBootstrap.Panels
     {
     }
 
-    public class PanelTitle<THelper> : Tag<THelper, PanelTitle<THelper>, PanelTitleWrapper<THelper>>, IPanelTitle, IHasTextContent
-        where THelper : BootstrapHelper<THelper>
+    public class PanelTitle<TConfig> : Tag<TConfig, PanelTitle<TConfig>, PanelTitleWrapper<TConfig>>, IPanelTitle, IHasTextContent
+        where TConfig : BootstrapConfig
     {
-        internal PanelTitle(IComponentCreator<THelper> creator, string text, int headingLevel)
-            : base(creator, "h" + headingLevel, Css.PanelTitle)
+        internal PanelTitle(BootstrapHelper helper, string text, int headingLevel)
+            : base(helper, "h" + headingLevel, Css.PanelTitle)
         {
             if (headingLevel < 1 || headingLevel > 6)
             {
@@ -39,7 +39,7 @@ namespace FluentBootstrap.Panels
             // Make sure we're in a PanelHeading
             if (GetComponent<IPanelHeading>() == null)
             {
-                new PanelHeading<THelper>(Helper).Start(writer);
+                new PanelHeading<TConfig>(Helper).Start(writer);
             }
 
             base.OnStart(writer);
