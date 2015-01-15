@@ -8,28 +8,14 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class Table : Tag,
+        ICanCreate<TableSection>,
+        ICanCreate<TableRow>,
+        ICanCreate<TableCell>
     {
-    }
+        private Element _responsiveDiv;
 
-    public class TableWrapper<TConfig> : TagWrapper<TConfig>,
-        ITableSectionCreator<TConfig>,
-        ITableRowCreator<TConfig>,
-        ITableCellCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface ITable : ITag
-    {
-    }
-
-    public class Table<TConfig> : Tag<TConfig, Table<TConfig>, TableWrapper<TConfig>>, ITable
-        where TConfig : BootstrapConfig
-    {
-        internal bool Responsive { get; set; }
-        private Element<TConfig> _responsiveDiv;
+        public bool Responsive { get; set; }
 
         internal Table(BootstrapHelper helper)
             : base(helper, "table", Css.Table)
@@ -40,7 +26,7 @@ namespace FluentBootstrap.Tables
         {
             if (Responsive)
             {
-                _responsiveDiv = new Element<TConfig>(Helper, "div").AddCss(Css.TableResponsive);
+                _responsiveDiv = GetHelper().Element("div").AddCss(Css.TableResponsive).Component;
                 _responsiveDiv.Start(writer);
             }
 

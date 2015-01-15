@@ -27,7 +27,7 @@ namespace FluentBootstrap
         {
             if (!string.IsNullOrWhiteSpace(href))
             {
-                builder.Component.MergeAttribute("href", href)
+                builder.Component.MergeAttribute("href", href);
             }
             return builder;
         }

@@ -1,4 +1,4 @@
-﻿//using FluentBootstrap.Thumbnails;
+﻿using FluentBootstrap.Thumbnails;
 using System;
 using System.Collections.Generic;
 using System.Linq;

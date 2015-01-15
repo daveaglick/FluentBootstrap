@@ -7,24 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelSectionCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class PanelSectionWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IPanelSection : ITag
-    {
-    }
-
-    public abstract class PanelSection<TConfig, TThis, TWrapper> : Tag<TConfig, TThis, TWrapper>, IPanelSection
-        where TConfig : BootstrapConfig
-        where TThis : PanelSection<TConfig, TThis, TWrapper>
-        where TWrapper : PanelSectionWrapper<TConfig>, new()
+    public abstract class PanelSection : Tag
     {
         protected PanelSection(BootstrapHelper helper, params string[] cssClasses)
             : base(helper, "div", cssClasses)
@@ -33,7 +16,7 @@ namespace FluentBootstrap.Panels
         
         protected override void OnStart(TextWriter writer)
         {
-            Pop<IPanelSection>(writer);
+            Pop<PanelSection>(writer);
 
             base.OnStart(writer);
         }

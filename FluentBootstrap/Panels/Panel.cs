@@ -7,27 +7,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
+    public class Panel : Tag,
+        ICanCreate<PanelSection>,
+        ICanCreate<PanelTitle>,
+        ICanCreate<ListGroup>
     {
-    }
-
-    public class PanelWrapper<TConfig> : TagWrapper<TConfig>, 
-        IPanelSectionCreator<TConfig>, 
-        IPanelTitleCreator<TConfig>,
-        IListGroupCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IPanel : ITag
-    {
-    }
-
-    public class Panel<TConfig> : Tag<TConfig, Panel<TConfig>, PanelWrapper<TConfig>>, IPanel
-        where TConfig : BootstrapConfig
-    {
-        internal Panel(IComponentCreator<TConfig> creator)
+        internal Panel(BootstrapHelper helper)
             : base(helper, "div", Css.Panel, Css.PanelDefault)
         {
         }

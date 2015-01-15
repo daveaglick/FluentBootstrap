@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Navbars
 {
-    public class NavbarButton : Tag, IButton, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, 
+    public class NavbarButton : Tag, IHasIconExtensions, IHasButtonExtensions, IHasButtonStateExtensions, 
         IHasDisabledAttribute, IHasTextContent, IHasValueAttribute, INavbarComponent
     {
         internal NavbarButton(BootstrapHelper helper)

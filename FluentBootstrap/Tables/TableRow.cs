@@ -2,23 +2,8 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableRowCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class TableRowWrapper<TConfig> : TagWrapper<TConfig>,
-        ITableCellCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface ITableRow : ITag
-    {
-    }
-
-    public class TableRow<TConfig> : Tag<TConfig, TableRow<TConfig>, TableRowWrapper<TConfig>>, ITableRow, IHasTableStateExtensions
-        where TConfig : BootstrapConfig
+    public class TableRow : Tag, IHasTableStateExtensions,
+        ICanCreate<TableCell>
     {
         internal bool HeadRow { get; set; }
 
@@ -29,34 +14,34 @@ namespace FluentBootstrap.Tables
         
         protected override void OnStart(TextWriter writer)
         {
-            Pop<ITableRow>(writer);
+            Pop<TableRow>(writer);
 
             // Make sure we're in a section, but only if we're also in a table
-            if (GetComponent<ITable>() != null)
+            if (GetComponent<Table>() != null)
             {
-                ITableSection tableSection = GetComponent<ITableSection>();
+                TableSection tableSection = GetComponent<TableSection>();
                 if (HeadRow)
                 {
-                    if (tableSection != null && !(tableSection is ITableHeadSection) && tableSection.Implicit)
+                    if (tableSection != null && !(tableSection is TableHeadSection) && tableSection.Implicit)
                     {
                         Pop(tableSection, writer);
                         tableSection = null;
                     }
                     if (tableSection == null)
                     {
-                        new TableHeadSection<TConfig>(Helper).Start(writer);
+                        GetHelper().TableHeadSection().Component.Start(writer);
                     }
                 }
                 else
                 {
-                    if (tableSection != null && !(tableSection is ITableBodySection) && tableSection.Implicit)
+                    if (tableSection != null && !(tableSection is TableBodySection) && tableSection.Implicit)
                     {
                         Pop(tableSection, writer);
                         tableSection = null;
                     }
                     if (tableSection == null)
                     {
-                        new TableBodySection<TConfig>(Helper).Start(writer);
+                        GetHelper().TableBodySection().Component.Start(writer);
                     }
                 }
             }

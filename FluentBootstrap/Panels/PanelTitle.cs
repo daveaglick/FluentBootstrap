@@ -7,22 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Panels
 {
-    public interface IPanelTitleCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class PanelTitleWrapper<TConfig> : TagWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface IPanelTitle : ITag
-    {
-    }
-
-    public class PanelTitle<TConfig> : Tag<TConfig, PanelTitle<TConfig>, PanelTitleWrapper<TConfig>>, IPanelTitle, IHasTextContent
-        where TConfig : BootstrapConfig
+    public class PanelTitle : Tag, IHasTextContent
     {
         internal PanelTitle(BootstrapHelper helper, string text, int headingLevel)
             : base(helper, "h" + headingLevel, Css.PanelTitle)
@@ -37,9 +22,9 @@ namespace FluentBootstrap.Panels
         protected override void OnStart(TextWriter writer)
         {
             // Make sure we're in a PanelHeading
-            if (GetComponent<IPanelHeading>() == null)
+            if (GetComponent<PanelHeading>() == null)
             {
-                new PanelHeading<TConfig>(Helper).Start(writer);
+                GetHelper().PanelHeading().Component.Start(writer);
             }
 
             base.OnStart(writer);

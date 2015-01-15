@@ -8,11 +8,12 @@ namespace FluentBootstrap
 {
     public static class ComponentExtensions
     {
-        public static TComponent RenderIf<TComponent>(this TComponent component, bool condition)
+        public static ComponentBuilder<TConfig, TComponent> RenderIf<TConfig, TComponent>(this ComponentBuilder<TConfig, TComponent> builder, bool condition)
+            where TConfig : BootstrapConfig
             where TComponent : Component
         {
-            component.Render = condition;
-            return component;
+            builder.Component.Render = condition;
+            return builder;
         }
     }
 }

@@ -12,115 +12,127 @@ namespace FluentBootstrap
     {
         // Table
 
-        public static Table<TConfig> Table<TConfig>(this ITableCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, Table> Table<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Table>
         {
-            return new Table<TConfig>(creator);
+            return new ComponentBuilder<TConfig, Table>(helper.Config, new Table(helper));
         }
 
-        public static Table<TConfig> SetStyle<TConfig>(this Table<TConfig> table, TableStyle style)
+        public static ComponentBuilder<TConfig, Table> SetStyle<TConfig>(this ComponentBuilder<TConfig, Table> builder, TableStyle style)
             where TConfig : BootstrapConfig
         {
-            return table.ToggleCss(style);
+            builder.Component.ToggleCss(style);
+            return builder;
         }
 
-        public static Table<TConfig> SetResponsive<TConfig>(this Table<TConfig> table, bool responsive = true)
+        public static ComponentBuilder<TConfig, Table> SetResponsive<TConfig>(this ComponentBuilder<TConfig, Table> builder, bool responsive = true)
             where TConfig : BootstrapConfig
         {
-            table.Responsive = responsive;
-            return table;
+            builder.Component.Responsive = responsive;
+            return builder;
         }
 
         // Sections
 
-        public static TableHeadSection<TConfig> TableHeadSection<TConfig>(this ITableSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, TableHeadSection> TableHeadSection<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableHeadSection>
         {
-            return new TableHeadSection<TConfig>(creator);
+            return new ComponentBuilder<TConfig, TableHeadSection>(helper.Config, new TableHeadSection(helper));
         }
 
-        public static TableBodySection<TConfig> TableBodySection<TConfig>(this ITableSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, TableBodySection> TableBodySection<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableBodySection>
         {
-            return new TableBodySection<TConfig>(creator);
+            return new ComponentBuilder<TConfig, TableBodySection>(helper.Config, new TableBodySection(helper));
         }
 
-        public static TableFootSection<TConfig> TableFootSection<TConfig>(this ITableSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, TableFootSection> TableFootSection<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableFootSection>
         {
-            return new TableFootSection<TConfig>(creator);
+            return new ComponentBuilder<TConfig, TableFootSection>(helper.Config, new TableFootSection(helper));
         }
 
         // TableRow
 
-        public static TableRow<TConfig> TableRow<TConfig>(this ITableRowCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, TableRow> TableRow<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableRow>
         {
-            return new TableRow<TConfig>(creator);
+            return new ComponentBuilder<TConfig, TableRow>(helper.Config, new TableRow(helper));
         }
 
         // Cells
 
-        public static TableHeader<TConfig> TableHeader<TConfig>(this ITableCellCreator<TConfig> creator, object content = null)
+        public static ComponentBuilder<TConfig, TableHeader> TableHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableHeader>
         {
-            return new TableHeader<TConfig>(creator).AddContent(content);
+            return new ComponentBuilder<TConfig, TableHeader>(helper.Config, new TableHeader(helper))
+                .AddContent(content);
         }
 
-        public static TableData<TConfig> TableData<TConfig>(this ITableCellCreator<TConfig> creator, object content = null)
+        public static ComponentBuilder<TConfig, TableData> TableData<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableData>
         {
-            return new TableData<TConfig>(creator).AddContent(content);
+            return new ComponentBuilder<TConfig, TableData>(helper.Config, new TableData(helper))
+                .AddContent(content);
         }
 
-        public static TableRow<TConfig> TableHeaderRow<TConfig>(this ITableCellCreator<TConfig> creator, params object[] content)
+        public static ComponentBuilder<TConfig, TableRow> TableHeaderRow<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, params object[] content)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableRow>
         {
-            TableRow<TConfig> row = new TableRow<TConfig>(creator) { HeadRow = true };
+            ComponentBuilder<TConfig, TableRow> builder = new ComponentBuilder<TConfig, TableRow>(helper.Config, new TableRow(helper) { HeadRow = true });
             foreach (object c in content)
             {
-                row.AddChild(new TableHeader<TConfig>(creator).AddContent(c));
+                builder.AddChild(x => x.TableHeader().AddContent(c));
             }
-            return row;
+            return builder;
         }
 
-        public static TableRow<TConfig> TableDataRow<TConfig>(this ITableCellCreator<TConfig> creator, params object[] content)
+        public static ComponentBuilder<TConfig, TableRow> TableDataRow<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, params object[] content)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<TableRow>
         {
-            TableRow<TConfig> row = new TableRow<TConfig>(creator);
+            ComponentBuilder<TConfig, TableRow> builder = new ComponentBuilder<TConfig, TableRow>(helper.Config, new TableRow(helper));
             foreach (object c in content)
             {
-                row.AddChild(new TableData<TConfig>(creator).AddContent(c));
+                builder.AddChild(x => x.TableHeader().AddContent(c));
             }
-            return row;
+            return builder;
         }
 
         // IHasTableStateExtensions
 
-        public static TThis SetState<TConfig, TThis, TWrapper>(this Component<TConfig, TThis, TWrapper> component, TableState state)
+        public static ComponentBuilder<TConfig, TTag> SetState<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, TableState state)
             where TConfig : BootstrapConfig
-            where TThis : Tag<TConfig, TThis, TWrapper>, IHasTableStateExtensions
-            where TWrapper : TagWrapper<TConfig>, new()
+            where TTag : Tag, IHasTableStateExtensions
         {
-            return component.GetThis().ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
 
         // TableCell
 
-        public static TThis ColSpan<TConfig, TThis, TWrapper>(this Component<TConfig, TThis, TWrapper> component, int? colSpan)
+        public static ComponentBuilder<TConfig, TTableCell> ColSpan<TConfig, TTableCell>(this ComponentBuilder<TConfig, TTableCell> builder, int? colSpan)
             where TConfig : BootstrapConfig
-            where TThis : TableCell<TConfig, TThis, TWrapper>
-            where TWrapper : TableCellWrapper<TConfig>, new()
+            where TTableCell : TableCell
         {
-            return component.GetThis().MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
+            builder.Component.MergeAttribute("colspan", colSpan == null ? null : colSpan.Value.ToString());
+            return builder;
         }
 
-        public static TThis RowSpan<TConfig, TThis, TWrapper>(this Component<TConfig, TThis, TWrapper> component, int? rowSpan)
+        public static ComponentBuilder<TConfig, TTableCell> RowSpan<TConfig, TTableCell>(this ComponentBuilder<TConfig, TTableCell> builder, int? rowSpan)
             where TConfig : BootstrapConfig
-            where TThis : TableCell<TConfig, TThis, TWrapper>
-            where TWrapper : TableCellWrapper<TConfig>, new()
+            where TTableCell : TableCell
         {
-            return component.GetThis().MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
+            builder.Component.MergeAttribute("rowspan", rowSpan == null ? null : rowSpan.Value.ToString());
+            return builder;
         }
     }
 }

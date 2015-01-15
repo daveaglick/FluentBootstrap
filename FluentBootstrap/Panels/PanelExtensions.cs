@@ -11,55 +11,62 @@ namespace FluentBootstrap
     {
         // Panel
 
-        public static Panel<TConfig> Panel<TConfig>(this IPanelCreator<TConfig> creator, string title = null, int titleHeadingLevel = 4)
+        public static ComponentBuilder<TConfig, Panel> Panel<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title = null, int titleHeadingLevel = 4)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Panel>
         {
-            Panel<TConfig> panel = new Panel<TConfig>(creator);
+            ComponentBuilder<TConfig, Panel> builder = new ComponentBuilder<TConfig, Panel>(helper.Config, new Panel(helper));
             if (!string.IsNullOrWhiteSpace(title))
             {
-                panel.AddChild(x => x.PanelHeading().AddChild(y => y.PanelTitle(title, titleHeadingLevel)));
+                builder.AddChild(x => x.PanelHeading().AddChild(y => y.PanelTitle(title, titleHeadingLevel)));
             }
-            return panel;
+            return builder;
         }
 
-        public static Panel<TConfig> SetState<TConfig>(this Panel<TConfig> panel, PanelState state)
+        public static ComponentBuilder<TConfig, Panel> SetState<TConfig>(this ComponentBuilder<TConfig, Panel> builder, PanelState state)
             where TConfig : BootstrapConfig
         {
-            return panel.ToggleCss(state);
+            builder.Component.ToggleCss(state);
+            return builder;
         }
 
         // Sections
 
-        public static PanelHeading<TConfig> PanelHeading<TConfig>(this IPanelSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, PanelHeading> PanelHeading<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PanelHeading>
         {
-            return new PanelHeading<TConfig>(creator);
+            return new ComponentBuilder<TConfig, PanelHeading>(helper.Config, new PanelHeading(helper));
         }
 
-        public static PanelBody<TConfig> PanelBody<TConfig>(this IPanelSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, PanelBody> PanelBody<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PanelBody>
         {
-            return new PanelBody<TConfig>(creator);
+            return new ComponentBuilder<TConfig, PanelBody>(helper.Config, new PanelBody(helper));
         }
 
-        public static PanelFooter<TConfig> PanelFooter<TConfig>(this IPanelSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, PanelFooter> PanelFooter<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PanelFooter>
         {
-            return new PanelFooter<TConfig>(creator);
+            return new ComponentBuilder<TConfig, PanelFooter>(helper.Config, new PanelFooter(helper));
         }
 
-        public static PanelTable<TConfig> PanelTable<TConfig>(this IPanelSectionCreator<TConfig> creator)
+        public static ComponentBuilder<TConfig, PanelTable> PanelTable<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PanelTable>
         {
-            return new PanelTable<TConfig>(creator);
+            return new ComponentBuilder<TConfig, PanelTable>(helper.Config, new PanelTable(helper));
         }
 
         // PanelTitle
 
-        public static PanelTitle<TConfig> PanelTitle<TConfig>(this IPanelTitleCreator<TConfig> creator, string text = null, int headingLevel = 4)
+        public static ComponentBuilder<TConfig, PanelTitle> PanelTitle<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, int headingLevel = 4)
             where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<PanelTitle>
         {
-            return new PanelTitle<TConfig>(creator, text, headingLevel);
+            return new ComponentBuilder<TConfig, PanelTitle>(helper.Config, new PanelTitle(helper, text, headingLevel));
         }
     }
 }

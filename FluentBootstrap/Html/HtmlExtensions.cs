@@ -36,12 +36,5 @@ namespace FluentBootstrap
         {
             return new ComponentBuilder<TConfig, Paragraph>(helper.Config, new Paragraph(helper)).SetText(text);
         }
-
-        public static ComponentBuilder<TConfig, Element> Strong<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
-            where TConfig : BootstrapConfig
-            where TComponent : Component, ICanCreate<Tag>
-        {
-            return new ComponentBuilder<TConfig, Element>(helper.Config, new Element(helper, "strong")).SetText(text);
-        }
     }
 }

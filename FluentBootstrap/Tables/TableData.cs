@@ -2,22 +2,7 @@ using System.IO;
 
 namespace FluentBootstrap.Tables
 {
-    public interface ITableDataCreator<TConfig> : IComponentCreator<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    public class TableDataWrapper<TConfig> : TableCellWrapper<TConfig>
-        where TConfig : BootstrapConfig
-    {
-    }
-
-    internal interface ITableData : ITableCell
-    {
-    }
-
-    public class TableData<TConfig> : TableCell<TConfig, TableData<TConfig>, TableDataWrapper<TConfig>>, ITableData
-        where TConfig : BootstrapConfig
+    public class TableData : TableCell
     {
         internal TableData(BootstrapHelper helper)
             : base(helper, "td")
@@ -27,15 +12,15 @@ namespace FluentBootstrap.Tables
         protected override void OnStart(TextWriter writer)
         {
             // Only add implicit components if we're in a table
-            if (GetComponent<ITable>() != null)
+            if (GetComponent<Table>() != null)
             {
                 // If we're in a head section, exit out
-                Pop<ITableHeadSection>(writer);
+                Pop<TableHeadSection>(writer);
 
                 // Make sure we're in a row
-                if (GetComponent<ITableRow>() == null)
+                if (GetComponent<TableRow>() == null)
                 {
-                    new TableRow<TConfig>(Helper).Start(writer);
+                    GetHelper().TableRow().Component.Start(writer);
                 }
             }
 
