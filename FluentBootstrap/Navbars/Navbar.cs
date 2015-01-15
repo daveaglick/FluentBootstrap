@@ -19,7 +19,8 @@ namespace FluentBootstrap.Navbars
         ICanCreate<Dropdown>,
         ICanCreate<NavbarForm>,
         ICanCreate<NavbarButton>,
-        ICanCreate<NavbarText>
+        ICanCreate<NavbarText>,
+        ICanCreate<NavbarLink>
     {
         private Container _container;
 

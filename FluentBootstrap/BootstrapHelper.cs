@@ -39,5 +39,12 @@ namespace FluentBootstrap
         {
             return Config;
         }
+
+        // This allows an alternate syntax by using a func inside the Begin method
+        public ComponentWrapper<TConfig, TNewComponent> Begin<TNewComponent>(Func<BootstrapHelper<TConfig, TComponent>, ComponentBuilder<TConfig, TNewComponent>> component)
+            where TNewComponent : Component
+        {
+            return component(this).Begin();
+        }
     }
 }

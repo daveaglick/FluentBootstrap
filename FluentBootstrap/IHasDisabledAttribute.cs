@@ -12,7 +12,7 @@ namespace FluentBootstrap
 
     public static class DisabledAttributeExtensions
     {
-        public static ComponentBuilder<TConfig, TTag> SetDisabled<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool disabled = true)
+        public static ComponentBuilder<TConfig, TTag> IsDisabled<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool disabled = true)
             where TConfig : BootstrapConfig
             where TTag : Tag, IHasDisabledAttribute
         {

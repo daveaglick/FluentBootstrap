@@ -32,7 +32,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Pager> AddComponentBuilder<TConfig, Page>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
+        public static ComponentBuilder<TConfig, Pager> AddPage<TConfig>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
             builder.AddChild(x => x.Page(text, href).SetDisabled(disabled));

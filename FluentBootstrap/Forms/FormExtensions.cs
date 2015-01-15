@@ -483,28 +483,32 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, Input> Input<TConfig>(this ComponentWrapper<TConfig, InputGroup> wrapper, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
             where TConfig : BootstrapConfig
         {
-            return wrapper.Input(name, value, format, inputType)
+
+            return new ComponentBuilder<TConfig, Input>(wrapper.Config, new Input(wrapper, inputType))
+                .SetName(name)
+                .SetValue(value, format)
                 .EnsureFormGroup(false);
         }
 
         public static ComponentBuilder<TConfig, CheckedControl> CheckBox<TConfig>(this ComponentWrapper<TConfig, InputGroupAddon> wrapper, string name = null, bool isChecked = false)
             where TConfig : BootstrapConfig
         {
-            ComponentBuilder<TConfig, CheckedControl> builder = wrapper.CheckBox(name, isChecked)
+            return new ComponentBuilder<TConfig, CheckedControl>(wrapper.Config, new CheckedControl(wrapper, Css.Checkbox))
+                .SetName(name)
+                .SetChecked(isChecked)
                 .EnsureFormGroup(false)
                 .SetInline(true);
-            builder.Component.SuppressLabelWrapper = true;
-            return builder;
         }
 
         public static ComponentBuilder<TConfig, CheckedControl> Radio<TConfig>(this ComponentWrapper<TConfig, InputGroupAddon> wrapper, string name = null, object value = null, bool isChecked = false)
             where TConfig : BootstrapConfig
         {
-            ComponentBuilder<TConfig, CheckedControl> builder = wrapper.Radio(name, value, isChecked)
+            return new ComponentBuilder<TConfig, CheckedControl>(wrapper.Config, new CheckedControl(wrapper, Css.Radio))
+                .SetName(name)
+                .SetValue(value)
+                .SetChecked(isChecked)
                 .EnsureFormGroup(false)
                 .SetInline(true);
-            builder.Component.SuppressLabelWrapper = true;
-            return builder;
         }
     }
 }

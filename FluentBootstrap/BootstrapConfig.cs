@@ -14,12 +14,12 @@ namespace FluentBootstrap
         internal bool PrettyPrint { get; set; }
         internal int DefaultFormLabelWidth { get; set; }
 
-        private readonly object _componentOverridesLock = new object();
-        private static ConcurrentDictionary<Type, Func<BootstrapConfig, Component, ComponentOverride>> _componentOverrides;
+        private readonly Dictionary<Type, Func<BootstrapConfig, Component, ComponentOverride>> _componentOverrides
+            = new Dictionary<Type,Func<BootstrapConfig,Component,ComponentOverride>>();
         private readonly bool _registeringComponentOverrides;
 
         // Only allow access through the instance to make sure the dictionary has been initialized
-        internal ConcurrentDictionary<Type, Func<BootstrapConfig, Component, ComponentOverride>> ComponentOverrides
+        internal Dictionary<Type, Func<BootstrapConfig, Component, ComponentOverride>> ComponentOverrides
         {
             get { return _componentOverrides; }
         }
@@ -31,16 +31,9 @@ namespace FluentBootstrap
             PrettyPrint = true;
             DefaultFormLabelWidth = 4;
 
-            if (_componentOverrides == null)
-            {
-                lock (_componentOverridesLock)
-                {
-                    _componentOverrides = new ConcurrentDictionary<Type, Func<BootstrapConfig, Component, ComponentOverride>>();
-                    _registeringComponentOverrides = true;
-                    RegisterComponentOverrides();
-                    _registeringComponentOverrides = false;
-                }
-            }
+            _registeringComponentOverrides = true;
+            RegisterComponentOverrides();
+            _registeringComponentOverrides = false;
         }
 
         protected internal string FormatValue(object value, string format)
