@@ -1,4 +1,5 @@
 ﻿using FluentBootstrap.Buttons;
+using FluentBootstrap.Internals;
 using FluentBootstrap.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace FluentBootstrap
 {
     public static class MvcButtonExtensions
     {
-        public static LinkButton<MvcBootstrapHelper<TModel>> LinkButton<TModel>(this ILinkButtonCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, LinkButton> LinkButton<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null) 
+            where TComponent : Component, ICanCreate<LinkButton>
         {
-            return creator.LinkButton(text, null).SetAction(actionName, controllerName, routeValues);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, LinkButton>(helper.GetConfig(), helper.LinkButton(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues);
         }
     }
 }

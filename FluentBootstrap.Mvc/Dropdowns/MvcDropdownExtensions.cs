@@ -1,4 +1,5 @@
 ﻿using FluentBootstrap.Dropdowns;
+using FluentBootstrap.Internals;
 using FluentBootstrap.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,13 @@ namespace FluentBootstrap
 {
     public static class MvcDropdownExtensions
     {
-        public static DropdownLink<MvcBootstrapHelper<TModel>> DropdownLink<TModel>(this IDropdownLinkCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, DropdownLink> DropdownLink<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<DropdownLink>
         {
-            return creator.DropdownLink(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, DropdownLink>(helper.GetConfig(), helper.DropdownLink(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues)
+                .SetText(text);
         }
     }
 }

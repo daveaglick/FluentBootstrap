@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Links;
+﻿using FluentBootstrap.Internals;
+using FluentBootstrap.Links;
 using FluentBootstrap.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,35 +13,41 @@ namespace FluentBootstrap
 {
     public static class MvcLinkExtensions
     {
-        public static Link<MvcBootstrapHelper<TModel>> Link<TModel>(this ILinkCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Link> Link<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<Link>
         {
-            return creator.Link(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Link>(helper.GetConfig(), helper.Link(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues)
+                .SetText(text);
         }
 
-        public static TThis SetAction<TModel, TThis, TWrapper>(this Component<MvcBootstrapHelper<TModel>, TThis, TWrapper> component, string actionName, string controllerName, object routeValues = null)
-            where TThis : Tag<MvcBootstrapHelper<TModel>, TThis, TWrapper>, IHasLinkExtensions
-            where TWrapper : TagWrapper<MvcBootstrapHelper<TModel>>, new()
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> SetAction<TTag, TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> builder, string actionName, string controllerName, object routeValues = null)
+            where TTag : Tag, IHasLinkExtensions
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
             {
                 new RouteValueDictionary(routeValues);
             }
-            return component.GetThis().SetHref(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
-                component.Helper.HtmlHelper.RouteCollection, component.Helper.HtmlHelper.ViewContext.RequestContext, true));
+            builder.SetHref(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
+                builder.GetConfig().HtmlHelper.RouteCollection, builder.GetConfig().HtmlHelper.ViewContext.RequestContext, true));
+            return builder;
         }
 
-        public static TThis SetRoute<TModel, TThis, TWrapper>(this Component<MvcBootstrapHelper<TModel>, TThis, TWrapper> component, string routeName, object routeValues = null)
-            where TThis : Tag<MvcBootstrapHelper<TModel>, TThis, TWrapper>, IHasLinkExtensions
-            where TWrapper : TagWrapper<MvcBootstrapHelper<TModel>>, new()
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> SetRoute<TTag, TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> builder, string routeName, object routeValues = null)
+            where TTag : Tag, IHasLinkExtensions
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
             {
                 new RouteValueDictionary(routeValues);
             }
-            return component.GetThis().SetHref(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
-                component.Helper.HtmlHelper.RouteCollection, component.Helper.HtmlHelper.ViewContext.RequestContext, false));
+            builder.SetHref(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
+                builder.GetConfig().HtmlHelper.RouteCollection, builder.GetConfig().HtmlHelper.ViewContext.RequestContext, false));
+            return builder;
         }
     }
 }

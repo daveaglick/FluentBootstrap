@@ -36,7 +36,7 @@ namespace FluentBootstrap.Forms
 
         // This prepares the outer form group if we need one
         // Needs to be in a separate method so that derived classes can create the form group before outputting any wrappers of their own
-        protected void Prepare(TextWriter writer)
+        public void Prepare(TextWriter writer)
         {
             // Only prepare once
             if(_prepared)

@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.ListGroups;
+﻿using FluentBootstrap.Internals;
+using FluentBootstrap.ListGroups;
 using FluentBootstrap.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace FluentBootstrap
 {
     public static class MvcListGroupExtensions
     {
-        public static ListGroupItem<MvcBootstrapHelper<TModel>> ListGroupItem<TModel>(this IListGroupItemCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, ListGroupItem> ListGroupItem<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<ListGroupItem>
         {
-            return creator.ListGroupItem(text, null).SetAction(actionName, controllerName, routeValues);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, ListGroupItem>(helper.GetConfig(), helper.ListGroupItem(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues);
         }
     }
 }

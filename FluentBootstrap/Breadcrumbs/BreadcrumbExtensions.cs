@@ -18,7 +18,7 @@ namespace FluentBootstrap
 
         public static ComponentBuilder<TConfig, Crumb> Crumb<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
             where TConfig : BootstrapConfig
-            where TComponent : Component, ICanCreate<Breadcrumb>
+            where TComponent : Component, ICanCreate<Crumb>
         {
             return new ComponentBuilder<TConfig, Crumb>(helper.Config, new Crumb(helper))
                 .SetHref(href).SetText(text);

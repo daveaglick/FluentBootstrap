@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Mvc;
+﻿using FluentBootstrap.Internals;
+using FluentBootstrap.Mvc;
 using FluentBootstrap.Navbars;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,30 @@ namespace FluentBootstrap
 {
     public static class MvcNavbarExtensions
     {
-        public static Navbar<MvcBootstrapHelper<TModel>> Navbar<TModel>(this INavbarCreator<MvcBootstrapHelper<TModel>> creator, string brand, string actionName, string controllerName, object routeValues = null, bool fluid = true)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Navbar> Navbar<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string brand, string actionName, string controllerName, object routeValues = null, bool fluid = true)
+            where TComponent : Component, ICanCreate<Navbar>
         {
-            return creator.Navbar(fluid).AddChild(x => x.Brand(brand, actionName, controllerName, routeValues));
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Navbar>(helper.GetConfig(), helper.Navbar(fluid).GetComponent())
+                .AddChild(x => x.Brand(brand, actionName, controllerName, routeValues));
         }
 
-        public static Brand<MvcBootstrapHelper<TModel>> Brand<TModel>(this IBrandCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Brand> Brand<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<Brand>
         {
-            return creator.Brand(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Brand>(helper.GetConfig(), helper.Brand(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues)
+                .SetText(text);
         }
 
-        public static NavbarLink<MvcBootstrapHelper<TModel>> NavbarLink<TModel>(this INavbarLinkCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, NavbarLink> NavbarLink<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<NavbarLink>
         {
-            return creator.NavbarLink(text, null).SetAction(actionName, controllerName, routeValues).SetText(text);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, NavbarLink>(helper.GetConfig(), helper.NavbarLink(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues)
+                .SetText(text);
         }
     }
 }

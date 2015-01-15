@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Mvc;
+﻿using FluentBootstrap.Internals;
+using FluentBootstrap.Mvc;
 using FluentBootstrap.Paginations;
 using System;
 using System.Collections.Generic;
@@ -10,27 +11,33 @@ namespace FluentBootstrap
 {
     public static class MvcPaginationExtensions
     {
-        public static Pagination<MvcBootstrapHelper<TModel>> AddPrevious<TModel>(this Pagination<MvcBootstrapHelper<TModel>> pagination, string actionName, string controllerName, object routeValues = null, bool active = false, bool disabled = false)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> AddPrevious<TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, string actionName, string controllerName, object routeValues = null, bool active = false, bool disabled = false)
         {
-            pagination.AddChild(pagination.GetWrapper().PageNum("&laquo;", actionName, controllerName, routeValues).SetActive(active).SetDisabled(disabled));
-            return pagination;
+            builder.AddChild(x => x.PageNum("&laquo;", actionName, controllerName, routeValues).SetActive(active).SetDisabled(disabled));
+            return builder;
         }
 
-        public static Pagination<MvcBootstrapHelper<TModel>> AddNext<TModel>(this Pagination<MvcBootstrapHelper<TModel>> pagination, string actionName, string controllerName, object routeValues = null, bool active = false, bool disabled = false)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> AddNext<TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, string actionName, string controllerName, object routeValues = null, bool active = false, bool disabled = false)
         {
-            pagination.AddChild(pagination.GetWrapper().PageNum("&raquo;", actionName, controllerName, routeValues).SetActive(active).SetDisabled(disabled));
-            return pagination;
+            builder.AddChild(x => x.PageNum("&raquo;", actionName, controllerName, routeValues).SetActive(active).SetDisabled(disabled));
+            return builder;
         }
 
-        public static Pagination<MvcBootstrapHelper<TModel>> AddPage<TModel>(this Pagination<MvcBootstrapHelper<TModel>> pagination, string actionName, string controllerName, object routeValues = null, bool active = false, bool disabled = false)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> AddPage<TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, string actionName, string controllerName, object routeValues = null, bool active = false, bool disabled = false)
         {
-            pagination.AddChild(pagination.GetWrapper().PageNum((++pagination.AutoPageNumber).ToString(), actionName, controllerName, routeValues).SetActive(active).SetDisabled(disabled));
-            return pagination;
+            builder.AddChild(x => x.PageNum((++builder.GetComponent().AutoPageNumber).ToString(), actionName, controllerName, routeValues).SetActive(active).SetDisabled(disabled));
+            return builder;
         }
 
-        public static PageNum<MvcBootstrapHelper<TModel>> PageNum<TModel>(this IPageNumCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, PageNum> PageNum<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<PageNum>
         {
-            return creator.PageNum(text, null).SetAction(actionName, controllerName, routeValues);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, PageNum>(helper.GetConfig(), helper.PageNum(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues);
         }
     }
 }

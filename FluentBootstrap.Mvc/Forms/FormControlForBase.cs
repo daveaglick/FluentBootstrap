@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using FluentBootstrap.Internals;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -11,41 +12,37 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using FluentBootstrap.Html;
 using FluentBootstrap.Forms;
+using FluentBootstrap.Mvc.Internals;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IFormControlForBaseCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
+    public abstract class FormControlForBase : FormControl
     {
+        public bool AddDescription { get; set; }
+        public bool AddValidationMessage { get; set; }
+        public bool AddHidden { get; set; }   // No effect if Editor == true
+        public bool AddFormControlClass { get; set; }  // No effect if Editor == false
+        public string TemplateName { get; set; }
+        public object AdditionalViewData { get; set; }
+
+        protected FormControlForBase(BootstrapHelper helper, bool editor)
+            : base(helper, "div", editor ? null : Css.FormControlStatic)
+        {
+            AddFormControlClass = true;
+        }
     }
 
-    public class FormControlForBaseWrapper<TModel> : FormControlWrapper<MvcBootstrapHelper<TModel>>
-    {
-    }
-
-    internal interface IFormControlForBase : IFormControl
-    {
-    }
-
-    public abstract class FormControlForBase<TModel, TValue, TThis, TWrapper> : FormControl<MvcBootstrapHelper<TModel>, TThis, TWrapper>, IFormControlForBase
-        where TThis : FormControlForBase<TModel, TValue, TThis, TWrapper>
-        where TWrapper : FormControlForBaseWrapper<TModel>, new()
+    public abstract class FormControlForBase<TModel, TValue> : FormControlForBase
     {
         private readonly bool _editor;
         protected Expression<Func<TModel, TValue>> Expression { get; private set; }
 
-        internal bool AddDescription { get; set; }
-        internal bool AddValidationMessage { get; set; }
-        internal bool AddHidden { get; set; }   // No effect if Editor == true
-        internal bool AddFormControlClass { get; set; }  // No effect if Editor == false
-        internal string TemplateName { get; set; }
-        internal object AdditionalViewData { get; set; }
 
-        protected FormControlForBase(IComponentCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, TValue>> expression)
-            : base(creator, "div", editor ? null : Css.FormControlStatic)
+        protected FormControlForBase(BootstrapHelper helper, bool editor, Expression<Func<TModel, TValue>> expression)
+            : base(helper, editor)
         {
             _editor = editor;
             Expression = expression;
-            AddFormControlClass = true;
         }
 
         protected override void OnStart(TextWriter writer)
@@ -64,7 +61,7 @@ namespace FluentBootstrap.Mvc.Forms
             // Add the validation message if requested
             if (AddValidationMessage)
             {
-                writer.Write(Helper.HtmlHelper.ValidationMessageFor(Expression));
+                writer.Write(this.GetHtmlHelper<TModel>().ValidationMessageFor(Expression));
             }
         }
 
@@ -73,11 +70,11 @@ namespace FluentBootstrap.Mvc.Forms
             // Add the description text if requested
             if (AddDescription)
             {
-                ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, Helper.HtmlHelper.ViewData);
+                ModelMetadata metadata = ModelMetadata.FromLambdaExpression(Expression, this.GetHtmlHelper<TModel>().ViewData);
                 if (!string.IsNullOrWhiteSpace(metadata.Description))
                 {
-                    Element<MvcBootstrapHelper<TModel>> element = Helper.Element("p").AddCss(Css.HelpBlock);
-                    element.AddChild(new Content<MvcBootstrapHelper<TModel>>(Helper, metadata.Description));
+                    Element element = GetHelper().Element("p").AddCss(Css.HelpBlock).GetComponent();
+                    element.AddChild(GetHelper().Content(metadata.Description));
                     element.StartAndFinish(writer);
                 }
             }
@@ -90,15 +87,15 @@ namespace FluentBootstrap.Mvc.Forms
             // Insert the hidden control if requested
             if (AddHidden)
             {
-                Helper.HiddenFor(Expression).StartAndFinish(writer);
+                this.GetHelper<TModel>().HiddenFor(Expression).GetComponent().StartAndFinish(writer);
             }
 
-            writer.Write(Helper.HtmlHelper.DisplayFor(Expression, TemplateName, AdditionalViewData));
+            writer.Write(this.GetHtmlHelper<TModel>().DisplayFor(Expression, TemplateName, AdditionalViewData));
         }
 
         protected virtual void WriteEditor(TextWriter writer)
         {
-            writer.Write(GetEditor(Helper.HtmlHelper.EditorFor(Expression, TemplateName, AdditionalViewData).ToString()));
+            writer.Write(GetEditor(this.GetHtmlHelper<TModel>().EditorFor(Expression, TemplateName, AdditionalViewData).ToString()));
         }
 
         protected string GetEditor(string html)

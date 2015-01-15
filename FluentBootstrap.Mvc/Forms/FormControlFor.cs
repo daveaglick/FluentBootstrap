@@ -13,22 +13,10 @@ using FluentBootstrap.Forms;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    public interface IFormControlForCreator<TModel> : IComponentCreator<MvcBootstrapHelper<TModel>>
+    public class FormControlFor<TModel, TValue> : FormControlForBase<TModel, TValue>
     {
-    }
-
-    public class FormControlForWrapper<TModel> : FormControlForBaseWrapper<TModel>
-    {
-    }
-
-    internal interface IFormControlFor : IFormControlForBase
-    {
-    }
-
-    public class FormControlFor<TModel, TValue> : FormControlForBase<TModel, TValue, FormControlFor<TModel, TValue>, FormControlForWrapper<TModel>>, IFormControlFor
-    {
-        public FormControlFor(IComponentCreator<MvcBootstrapHelper<TModel>> creator, bool editor, Expression<Func<TModel, TValue>> expression)
-            : base(creator, editor, expression)
+        public FormControlFor(BootstrapHelper helper, bool editor, Expression<Func<TModel, TValue>> expression)
+            : base(helper, editor, expression)
         {
         }
     }

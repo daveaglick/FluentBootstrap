@@ -28,21 +28,21 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, Pagination> AddPrevious<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, string href = "#", bool active = false, bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            builder.AddChild(builder.GetWrapper().PageNum("&laquo;", href).SetActive(active).SetDisabled(disabled));
+            builder.AddChild(x => x.PageNum("&laquo;", href).SetActive(active).SetDisabled(disabled));
             return builder;
         }
 
         public static ComponentBuilder<TConfig, Pagination> AddNext<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, string href = "#", bool active = false, bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            builder.AddChild(builder.GetWrapper().PageNum("&raquo;", href).SetActive(active).SetDisabled(disabled));
+            builder.AddChild(x => x.PageNum("&raquo;", href).SetActive(active).SetDisabled(disabled));
             return builder;
         }
 
         public static ComponentBuilder<TConfig, Pagination> AddPage<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, string href = "#", bool active = false, bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            builder.AddChild(builder.GetWrapper().PageNum((++builder.Component.AutoPageNumber).ToString(), href).SetActive(active).SetDisabled(disabled));
+            builder.AddChild(x => x.PageNum((++builder.Component.AutoPageNumber).ToString(), href).SetActive(active).SetDisabled(disabled));
             return builder;
         }
         

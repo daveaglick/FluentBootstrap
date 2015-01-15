@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.MediaObjects;
+﻿using FluentBootstrap.Internals;
+using FluentBootstrap.MediaObjects;
 using FluentBootstrap.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace FluentBootstrap
 {
     public static class MvcMediaObjectExtensions
     {
-        public static MediaObject<MvcBootstrapHelper<TModel>> MediaObject<TModel>(this IMediaObjectCreator<MvcBootstrapHelper<TModel>> creator, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, MediaObject> MediaObject<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
+            where TComponent : Component, ICanCreate<MediaObject>
         {
-            return creator.MediaObject(src, null, alt).SetAction(actionName, controllerName, routeValues);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, MediaObject>(helper.GetConfig(), helper.MediaObject(src, null, alt).GetComponent())
+                .SetAction(actionName, controllerName, routeValues);
         }
     }
 }

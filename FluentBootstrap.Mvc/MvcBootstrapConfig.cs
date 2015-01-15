@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using FluentBootstrap.Forms;
+using FluentBootstrap.Mvc.Forms;
 
 namespace FluentBootstrap.Mvc
 {
@@ -19,8 +21,8 @@ namespace FluentBootstrap.Mvc
 
         protected override void RegisterComponentOverrides()
         {
-            //RegisterComponentOverride<Form, FormOverride<TModel>>();
-        //    RegisterComponentOverride<IFormControl, FormControlOverride<TModel>>((h, c) => new FormControlOverride<TModel>(h, (IFormControl)c));
+            RegisterComponentOverride<Form, FormOverride<TModel>>();
+            RegisterComponentOverride<FormControl, FormControlOverride<TModel>>();
         }
 
         protected override string GetFullHtmlFieldName(string name)

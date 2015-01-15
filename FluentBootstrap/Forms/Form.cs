@@ -14,7 +14,8 @@ namespace FluentBootstrap.Forms
         ICanCreate<FormControl>,
         ICanCreate<HelpBlock>,
         ICanCreate<FieldSet>,
-        ICanCreate<InputGroup>
+        ICanCreate<InputGroup>,
+        ICanCreate<Hidden>
     {
         internal Form(BootstrapHelper helper, params string[] cssClasses)
             : base(helper, "form", cssClasses)

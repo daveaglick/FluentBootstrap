@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Mvc;
+﻿using FluentBootstrap.Internals;
+using FluentBootstrap.Mvc;
 using FluentBootstrap.Navs;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,20 @@ namespace FluentBootstrap
 {
     public static class MvcNavExtensions
     {
-        public static Pill<MvcBootstrapHelper<TModel>> Pill<TModel>(this IPillCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pill> Pill<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<Pill>
         {
-            return creator.Pill(text, null).SetAction(actionName, controllerName, routeValues);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Pill>(helper.GetConfig(), helper.Pill(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues);
         }
 
-        public static Tab<MvcBootstrapHelper<TModel>> Tab<TModel>(this ITabCreator<MvcBootstrapHelper<TModel>> creator, string text, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Tab> Tab<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string text, string actionName, string controllerName, object routeValues = null)
+            where TComponent : Component, ICanCreate<Tab>
         {
-            return creator.Tab(text, null).SetAction(actionName, controllerName, routeValues);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Tab>(helper.GetConfig(), helper.Tab(text, null).GetComponent())
+                .SetAction(actionName, controllerName, routeValues);
         }
     }
 }

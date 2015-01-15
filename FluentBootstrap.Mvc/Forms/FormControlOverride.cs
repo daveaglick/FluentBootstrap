@@ -9,14 +9,9 @@ using System.Web.Mvc;
 
 namespace FluentBootstrap.Mvc.Forms
 {
-    internal class FormControlOverride<TModel> : ComponentOverride<MvcBootstrapHelper<TModel>, IFormControl>
+    internal class FormControlOverride<TModel> : ComponentOverride<FormControl>
     {
-        public FormControlOverride(MvcBootstrapHelper<TModel> helper, IFormControl component)
-            : base(helper, component)
-        {
-        }
-
-        protected internal override void OnStart(TextWriter writer)
+        protected override void OnStart(TextWriter writer)
         {
             Component.Prepare(writer);
 
@@ -36,13 +31,14 @@ namespace FluentBootstrap.Mvc.Forms
 
                 // Set the validation class
                 ModelState modelState;
-                if (Helper.HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
+                MvcBootstrapConfig<TModel> config = (MvcBootstrapConfig<TModel>)Config;
+                if (config.HtmlHelper.ViewData.ModelState.TryGetValue(name, out modelState) && modelState.Errors.Count > 0)
                 {
                     Component.CssClasses.Add(System.Web.Mvc.HtmlHelper.ValidationInputCssClassName);
                 }
 
                 // Add other validation attributes
-                Component.MergeAttributes<string, object>(Helper.HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
+                Component.MergeAttributes<string, object>(config.HtmlHelper.GetUnobtrusiveValidationAttributes(name, null));
             }
 
             base.OnStart(writer);

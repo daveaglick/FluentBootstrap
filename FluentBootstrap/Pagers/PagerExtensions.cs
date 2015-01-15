@@ -21,21 +21,21 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, Pager> AddPrevious<TConfig>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            builder.AddChild(builder.GetWrapper().Page(text, href).SetAlignment(PageAlignment.Previous).SetDisabled(disabled));
+            builder.AddChild(x => x.Page(text, href).SetAlignment(PageAlignment.Previous).SetDisabled(disabled));
             return builder;
         }
 
         public static ComponentBuilder<TConfig, Pager> AddNext<TConfig>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            builder.AddChild(builder.GetWrapper().Page(text, href).SetAlignment(PageAlignment.Next).SetDisabled(disabled));
+            builder.AddChild(x => x.Page(text, href).SetAlignment(PageAlignment.Next).SetDisabled(disabled));
             return builder;
         }
 
         public static ComponentBuilder<TConfig, Pager> AddComponentBuilder<TConfig, Page>(this ComponentBuilder<TConfig, Pager> builder, string text, string href = "#", bool disabled = false)
             where TConfig : BootstrapConfig
         {
-            builder.AddChild(builder.GetWrapper().Page(text, href).SetDisabled(disabled));
+            builder.AddChild(x => x.Page(text, href).SetDisabled(disabled));
             return builder;
         }
         
