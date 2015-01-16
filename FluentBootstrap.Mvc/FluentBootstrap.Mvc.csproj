@@ -71,9 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Breadcrumbs\MvcBreadcrumbExtensions.cs" />
-    <Compile Include="Buttons\MvcButtonExtensions.cs" />
-    <Compile Include="Dropdowns\MvcDropdownExtensions.cs" />
     <Compile Include="Forms\FormControlFor.cs" />
     <Compile Include="Forms\FormControlForBase.cs" />
     <Compile Include="Forms\FormControlListFor.cs" />
@@ -86,19 +83,10 @@
     <Compile Include="Forms\ValidationSummary.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="InternalsExtensions.cs" />
-    <Compile Include="Links\MvcLinkExtensions.cs" />
-    <Compile Include="ListGroups\MvcListGroupExtensions.cs" />
-    <Compile Include="MediaObjects\MvcMediaObjectExtensions.cs" />
     <Compile Include="MvcBootstrapConfig.cs" />
     <Compile Include="MvcBootstrapHelper.cs" />
-    <Compile Include="MvcTagExtensions.cs" />
-    <Compile Include="Navbars\MvcNavbarExtensions.cs" />
-    <Compile Include="Navs\MvcNavExtensions.cs" />
-    <Compile Include="Pagers\MvcPagerExtensions.cs" />
-    <Compile Include="Paginations\MvcPaginationExtensions.cs" />
+    <Compile Include="MvcExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Thumbnails\MvcThumbnailExtensions.cs" />
-    <Compile Include="Typography\MvcTypographyExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentBootstrap\FluentBootstrap.csproj">
