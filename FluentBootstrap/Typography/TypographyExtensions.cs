@@ -301,14 +301,16 @@ namespace FluentBootstrap
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<DescriptionTerm>
         {
-            return new ComponentBuilder<TConfig, DescriptionTerm>(helper.Config, new DescriptionTerm(helper));
+            return new ComponentBuilder<TConfig, DescriptionTerm>(helper.Config, new DescriptionTerm(helper))
+                .AddContent(content);
         }
 
         public static ComponentBuilder<TConfig, Description> Description<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object content = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Description>
         {
-            return new ComponentBuilder<TConfig, Description>(helper.Config, new Description(helper));
+            return new ComponentBuilder<TConfig, Description>(helper.Config, new Description(helper))
+                .AddContent(content);
         }
 
         // Code, etc.

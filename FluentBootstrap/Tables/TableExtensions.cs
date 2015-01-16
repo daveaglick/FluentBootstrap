@@ -102,7 +102,7 @@ namespace FluentBootstrap
             ComponentBuilder<TConfig, TableRow> builder = new ComponentBuilder<TConfig, TableRow>(helper.Config, new TableRow(helper));
             foreach (object c in content)
             {
-                builder.AddChild(x => x.TableHeader().AddContent(c));
+                builder.AddChild(x => x.TableData().AddContent(c));
             }
             return builder;
         }

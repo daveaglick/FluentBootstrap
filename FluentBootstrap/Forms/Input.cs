@@ -15,6 +15,7 @@ namespace FluentBootstrap.Forms
         internal Input(BootstrapHelper helper, FormInputType inputType)
             : base(helper, "input", Css.FormControl)
         {
+            Icon = Icon.None;
             MergeAttribute("type", inputType.GetDescription());
         }
 

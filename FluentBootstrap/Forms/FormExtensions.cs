@@ -493,7 +493,7 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, CheckedControl> CheckBox<TConfig>(this ComponentWrapper<TConfig, InputGroupAddon> wrapper, string name = null, bool isChecked = false)
             where TConfig : BootstrapConfig
         {
-            return new ComponentBuilder<TConfig, CheckedControl>(wrapper.Config, new CheckedControl(wrapper, Css.Checkbox))
+            return new ComponentBuilder<TConfig, CheckedControl>(wrapper.Config, new CheckedControl(wrapper, Css.Checkbox) { SuppressLabelWrapper = true })
                 .SetName(name)
                 .SetChecked(isChecked)
                 .EnsureFormGroup(false)
@@ -503,7 +503,7 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, CheckedControl> Radio<TConfig>(this ComponentWrapper<TConfig, InputGroupAddon> wrapper, string name = null, object value = null, bool isChecked = false)
             where TConfig : BootstrapConfig
         {
-            return new ComponentBuilder<TConfig, CheckedControl>(wrapper.Config, new CheckedControl(wrapper, Css.Radio))
+            return new ComponentBuilder<TConfig, CheckedControl>(wrapper.Config, new CheckedControl(wrapper, Css.Radio) { SuppressLabelWrapper = true })
                 .SetName(name)
                 .SetValue(value)
                 .SetChecked(isChecked)
