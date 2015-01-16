@@ -11,7 +11,7 @@
     <projectUrl>http://fluentbootstrap.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Provides HtmlHelpers for the Bootstrap CSS framework in ASP.NET Web Pages.</description>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2015</copyright>
     <tags>Bootstrap AspNet WebPages AspNetWebPages</tags>
 	<dependencies>
       <dependency id="FluentBootstrap" version="$version$" />

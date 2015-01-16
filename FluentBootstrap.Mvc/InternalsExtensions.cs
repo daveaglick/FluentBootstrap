@@ -12,24 +12,29 @@ namespace FluentBootstrap.Mvc.Internals
     {
         // Convenience methods - these just cast, so make sure they're only used from BootstrapHelpers that are actually MvcBootstrapHelpers
 
-        internal static HtmlHelper<TModel> GetHtmlHelper<TModel>(this Component component)
+        public static HtmlHelper<TModel> GetHtmlHelper<TModel>(this Component component)
         {
             return ((MvcBootstrapConfig<TModel>)component.Config).HtmlHelper;
         }
 
-        internal static MvcBootstrapHelper<TModel> GetHelper<TModel>(this Component component)
+        public static MvcBootstrapHelper<TModel> GetHelper<TModel>(this Component component)
         {
             return new MvcBootstrapHelper<TModel>(component.GetHtmlHelper<TModel>());
         }
 
-        internal static HtmlHelper<TModel> GetHtmlHelper<TModel>(this ComponentOverride componentOverride)
+        public static HtmlHelper<TModel> GetHtmlHelper<TModel>(this ComponentOverride componentOverride)
         {
             return ((MvcBootstrapConfig<TModel>)componentOverride.Config).HtmlHelper;
         }
 
-        internal static MvcBootstrapHelper<TModel> GetHelper<TModel>(this ComponentOverride componentOverride)
+        public static MvcBootstrapHelper<TModel> GetHelper<TModel>(this ComponentOverride componentOverride)
         {
             return new MvcBootstrapHelper<TModel>(componentOverride.GetHtmlHelper<TModel>());
+        }
+
+        public static HtmlHelper<TModel> GetHtmlHelper<TModel>(this MvcBootstrapConfig<TModel> config)
+        {
+            return config.HtmlHelper;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap", "FluentBootstrap\FluentBootstrap.csproj", "{FE49CF3B-6563-447B-B94E-018B334096E4}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Mvc", "FluentBootstrap.Mvc\FluentBootstrap.Mvc.csproj", "{DC78EF6D-B139-447E-989E-562AACB4F52F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.WebPages", "FluentBootstrap.WebPages\FluentBootstrap.WebPages.csproj", "{65741EA5-B5DA-4CD3-8A87-5873602DA30A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Mvc.T4MVC", "FluentBootstrap.Mvc.T4MVC\FluentBootstrap.Mvc.T4MVC.csproj", "{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65741EA5-B5DA-4CD3-8A87-5873602DA30A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@
     <projectUrl>http://fluentbootstrap.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>It's what happens when Bootstrap and ASP.NET MVC make sweet, sweet love. Provides HtmlHelpers for the Bootstrap CSS framework.</description>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2015</copyright>
     <tags>Bootstrap AspNet Mvc AspNetMvc</tags>
 	<dependencies>
       <dependency id="FluentBootstrap" version="$version$" />

@@ -1,18 +1,21 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>FluentBootstrap</id>
+    <id>FluentBootstrap.Mvc.T4MVC</id>
     <version>$version$</version>
-    <title>FluentBootstrap</title>
+    <title>FluentBootstrap.Mvc.T4MVC</title>
     <authors>Dave Glick</authors>
     <owners>Dave Glick</owners>
     <licenseUrl>https://github.com/somedave/FluentBootstrap/blob/master/license.txt</licenseUrl>
 	<iconUrl>http://fluentbootstrap.com/Content/fb-icon.png</iconUrl>
     <projectUrl>http://fluentbootstrap.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This provides programmatic control and helper classes for the Bootstrap CSS framework. This is the core library and only provides simple text output. You probably also want FluentBootstrap.Mvc or FluentBootstrap.WebPages, which provide the appropriate HtmlHelpers.</description>
+    <description>Support for T4MVC with FluentBootstrap and ASP.NET MVC.</description>
     <copyright>Copyright 2015</copyright>
-    <tags>Bootstrap</tags>
+    <tags>Bootstrap AspNet Mvc AspNetMvc T4MVC</tags>
+	<dependencies>
+      <dependency id="FluentBootstrap" version="$version$" />
+      <dependency id="FluentBootstrap.Mvc" version="$version$" />
+	</dependencies>
   </metadata>
-  <files></files>
 </package>
