@@ -133,11 +133,6 @@ namespace FluentBootstrap
         // Instead, use Component.StartAndFinish() to write out the content of a component during Prepare, OnStart, or OnFinish
         public override string ToString()
         {
-            return "ARG!!!";
-        }
-
-        public string ToString2()
-        {
             // Write this component out as a string
             using (StringWriter writer = new StringWriter())
             {

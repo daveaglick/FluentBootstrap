@@ -129,8 +129,10 @@
     <Compile Include="IHasTitleAttribute.cs" />
     <Compile Include="IHasValueAttribute.cs" />
     <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\ImageBase.cs" />
     <Compile Include="Images\ImageExtensions.cs" />
     <Compile Include="Images\ImageStyle.cs" />
+    <Compile Include="Images\Placeholder.cs" />
     <Compile Include="InternalsExtensions.cs" />
     <Compile Include="Labels\Label.cs" />
     <Compile Include="Labels\LabelExtensions.cs" />

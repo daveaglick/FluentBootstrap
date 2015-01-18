@@ -95,6 +95,7 @@
     <Compile Include="DropdownsFixture.cs" />
     <Compile Include="FormsFixture.cs" />
     <Compile Include="GridsFixture.cs" />
+    <Compile Include="ImagesFixture.cs" />
     <Compile Include="IconsFixture.cs" />
     <Compile Include="LabelsFixture.cs" />
     <Compile Include="ListGroupsFixture.cs" />

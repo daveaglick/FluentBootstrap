@@ -11,12 +11,11 @@ namespace FluentBootstrap
     {
         // Thumbnail
 
-        public static ComponentBuilder<TConfig, Thumbnail> Thumbnail<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string src, string href = null, string alt = null)
+        public static ComponentBuilder<TConfig, Thumbnail> Thumbnail<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string src, string alt = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Thumbnail>
         {
             return new ComponentBuilder<TConfig, Thumbnail>(helper.Config, new Thumbnail(helper))
-                .SetHref(href)
                 .SetSrc(src)
                 .SetAlt(alt);
         }

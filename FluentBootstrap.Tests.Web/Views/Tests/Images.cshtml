@@ -1,0 +1,27 @@
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("Images")
+    using (Html.Bootstrap().Div().SetId("test-images").Begin())
+    {
+        @Html.Bootstrap().Image("http://placehold.it/64x64")
+        @Html.Bootstrap().Image("http://placehold.it/64x64", "With Alt")
+    }
+
+    <hr />
+    
+    @Html.Bootstrap().Heading1("Image Links")
+    using (Html.Bootstrap().Div().SetId("test-image-links").Begin())
+    {
+        @Html.Bootstrap().Image("http://placehold.it/64x64", "Alt").SetHref("http://www.google.com")
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Placeholder")
+    using (Html.Bootstrap().Div().SetId("test-placeholder").Begin())
+    {
+        @Html.Bootstrap().Placeholder(200, 40).SetText("Placeholder!").SetColors("#800000", "CC0000").SetHref("http://www.google.com").SetAlt("This is my placeholder")
+    }
+}

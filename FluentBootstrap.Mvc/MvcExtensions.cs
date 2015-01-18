@@ -8,6 +8,7 @@ using System.Web.WebPages;
 using FluentBootstrap.Breadcrumbs;
 using FluentBootstrap.Buttons;
 using FluentBootstrap.Dropdowns;
+using FluentBootstrap.Images;
 using FluentBootstrap.Internals;
 using FluentBootstrap.Links;
 using FluentBootstrap.ListGroups;
@@ -229,16 +230,6 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<PageNum>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, PageNum>(helper.GetConfig(), helper.PageNum(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
-        }
-
-        // Thumbnail
-
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Thumbnail> Thumbnail<TComponent, TModel>(
-            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string src, string actionName, string controllerName, object routeValues = null, string alt = null)
-            where TComponent : Component, ICanCreate<Thumbnail>
-        {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Thumbnail>(helper.GetConfig(), helper.Thumbnail(src, null, alt).GetComponent())
                 .SetAction(actionName, controllerName, routeValues);
         }
 

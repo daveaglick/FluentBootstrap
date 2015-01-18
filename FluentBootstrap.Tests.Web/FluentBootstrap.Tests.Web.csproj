@@ -150,6 +150,7 @@
     <Content Include="Views\Tests\ListGroups.cshtml" />
     <Content Include="Views\Tests\Architecture.cshtml" />
     <Content Include="Views\Tests\Tables.cshtml" />
+    <Content Include="Views\Tests\Images.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />

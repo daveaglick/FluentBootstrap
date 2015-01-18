@@ -18,9 +18,9 @@ namespace FluentBootstrap
         public MergeableDictionary InlineStyles { get; private set; }
         public HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
-        private bool _prettyPrint;
 
         public string TextContent { get; set; }   // Can be used to set simple text content for the tag
+        public bool PrettyPrint { get; set; }
 
         protected Tag(BootstrapHelper helper, string tagName, params string[] cssClasses)
             : base(helper)
@@ -33,7 +33,7 @@ namespace FluentBootstrap
             {
                 CssClasses.Add(cssClass);
             }
-            _prettyPrint = helper.GetConfig().PrettyPrint;
+            PrettyPrint = helper.GetConfig().PrettyPrint;
         }
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes
@@ -159,7 +159,7 @@ namespace FluentBootstrap
             base.OnStart(writer);
 
             // Pretty print
-            if (_prettyPrint && !(writer is SuppressOutputWriter))
+            if (PrettyPrint && !(writer is SuppressOutputWriter))
             {
                 writer.WriteLine();
                 int tagIndent = (int)Config.GetItem(TagIndentKey, 0);
@@ -169,7 +169,7 @@ namespace FluentBootstrap
             }
             else
             {
-                _prettyPrint = false;
+                PrettyPrint = false;
             }
 
             // Merge CSS classes
@@ -205,7 +205,7 @@ namespace FluentBootstrap
         protected override void OnFinish(TextWriter writer)
         {
             // Pretty print
-            if (_prettyPrint)
+            if (PrettyPrint)
             {
                 int tagIndent = ((int)Config.GetItem(TagIndentKey, 0)) - 1;
                 Config.AddItem(TagIndentKey, tagIndent);

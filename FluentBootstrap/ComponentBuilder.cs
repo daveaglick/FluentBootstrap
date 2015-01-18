@@ -77,7 +77,7 @@ namespace FluentBootstrap
 
         public override string ToString()
         {
-            return Component.ToString2();
+            return Component.ToString();
         }
     }
 }

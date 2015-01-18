@@ -1,14 +1,16 @@
-﻿@using (Html.Bootstrap().Container().Begin())
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Standard")
     using (Html.Bootstrap().Div().SetId("test-standard").Begin())
     {
         using (var row = Html.Bootstrap().GridRow().Begin())
         {
-            @row.GridColumn(4).WithChild().Thumbnail("http://placehold.it/400x400", "#")
+            @row.GridColumn(4).WithChild().Thumbnail("http://placehold.it/400x400").SetHref("#")
             using(var col = row.GridColumn(4).Begin())
             {
-                @col.Thumbnail("http://placehold.it/400x400", "#")
+                @col.Thumbnail("http://placehold.it/400x400").SetHref("#")
             }
             @row.GridColumn(4).WithChild().Thumbnail("http://placehold.it/400x400")
         }
@@ -23,7 +25,7 @@
         {
             using(var thumbnail = row.GridColumn(3).WithChild().ThumbnailContainer().Begin())
             {
-                @thumbnail.Thumbnail("http://placehold.it/400x400", "#")
+                @thumbnail.Thumbnail("http://placehold.it/400x400").SetHref("#")
             }
             using (var thumbnail = row.GridColumn(3).WithChild().ThumbnailContainer().Begin())
             {
@@ -31,7 +33,7 @@
             }
             using (var thumbnail = row.GridColumn(3).WithChild().ThumbnailContainer().Begin())
             {
-                @thumbnail.Thumbnail("http://placehold.it/400x400", "#")
+                @thumbnail.Thumbnail("http://placehold.it/400x400").SetHref("#")
                 using(@thumbnail.Caption().Begin())
                 {
                     @Html.Bootstrap().Heading3("Heading")

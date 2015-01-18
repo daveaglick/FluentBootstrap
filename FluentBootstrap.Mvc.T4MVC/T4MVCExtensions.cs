@@ -17,6 +17,7 @@ using FluentBootstrap.Pagers;
 using FluentBootstrap.Paginations;
 using FluentBootstrap.Thumbnails;
 using FluentBootstrap.Forms;
+using FluentBootstrap.Images;
 
 namespace FluentBootstrap
 {
@@ -200,16 +201,6 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<PageNum>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, PageNum>(helper.GetConfig(), helper.PageNum(text, (string)null).GetComponent())
-                .SetAction(result);
-        }
-
-        // Thumbnail
-
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Thumbnail> Thumbnail<TComponent, TModel>(
-            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string src, ActionResult result, string alt = null)
-            where TComponent : Component, ICanCreate<Thumbnail>
-        {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Thumbnail>(helper.GetConfig(), helper.Thumbnail(src, (string)null, alt).GetComponent())
                 .SetAction(result);
         }
 
