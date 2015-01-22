@@ -1,4 +1,5 @@
 ﻿using FluentBootstrap.Grids;
+using FluentBootstrap.Html;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ namespace FluentBootstrap.Forms
     public class FormControl : Tag, IHasGridColumnExtensions, IFormValidation, IHasDisabledAttribute,
         ICanCreate<HelpBlock>
     {
-        private FormGroup _formGroup = null;
+        private Tag _wrapper = null;
         private ControlLabel _label = null;
         private bool _prepared = false;
 
@@ -46,29 +47,37 @@ namespace FluentBootstrap.Forms
             _prepared = true;
 
             // Make sure we're in a form group
-            FormGroup formGroup = GetComponent<FormGroup>();
-            if (formGroup == null && EnsureFormGroup)
+            FormGroup formGroup = null;
+            if (GetComponent<FormGroup>() == null && EnsureFormGroup)
             {
-                _formGroup = new FormGroup(GetHelper());
-                formGroup = _formGroup;
+                formGroup = new FormGroup(GetHelper());
+                _wrapper = formGroup;
             }
 
-            // Move any validation classes to the form group, but only if it's implicit for this control and doesn't already have any
-            if (CssClasses.Any(x => x.StartsWith("has-")) && _formGroup != null && formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("has-")))
+            // Move any validation classes to the wrapper
+            if (CssClasses.Any(x => x.StartsWith("has-")))
             {
+                if(_wrapper == null)
+                {
+                    _wrapper = GetHelper().Element("div").Component;
+                }
                 foreach (string formValidation in CssClasses.Where(x => x.StartsWith("has-")))
                 {
-                    formGroup.CssClasses.Add(formValidation);
+                    _wrapper.CssClasses.Add(formValidation);
                 }
                 CssClasses.RemoveWhere(x => x.StartsWith("has-"));
             }
 
-            // Move any grid column classes to the form group, but only if it's implicit for this control and doesn't already have any
-            if (CssClasses.Any(x => x.StartsWith("col-")) && _formGroup != null && formGroup != null && !formGroup.CssClasses.Any(x => x.StartsWith("col-")))
+            // Move any grid column classes to the wrapper
+            if (CssClasses.Any(x => x.StartsWith("col-")))
             {
+                if (_wrapper == null)
+                {
+                    _wrapper = GetHelper().Element("div").Component;
+                }
                 foreach (string col in CssClasses.Where(x => x.StartsWith("col-")))
                 {
-                    formGroup.CssClasses.Add(col);
+                    _wrapper.CssClasses.Add(col);
                 }
                 CssClasses.RemoveWhere(x => x.StartsWith("col-"));
             }
@@ -84,9 +93,9 @@ namespace FluentBootstrap.Forms
                 }
 
                 // Add or write the label
-                if (_formGroup != null)
+                if (formGroup != null)
                 {
-                    _formGroup.ControlLabel = _label;
+                    formGroup.ControlLabel = _label;
                 }
                 else
                 {
@@ -95,9 +104,9 @@ namespace FluentBootstrap.Forms
             }
 
             // Start the new form group if we created one
-            if (_formGroup != null)
+            if (_wrapper != null)
             {
-                _formGroup.Start(writer);
+                _wrapper.Start(writer);
             }
 
             _prepared = true;
@@ -120,7 +129,7 @@ namespace FluentBootstrap.Forms
                 GetBuilder(new HelpBlock(GetHelper())).SetText(Help).Component.StartAndFinish(writer);
             }
 
-            Pop(_formGroup, writer);
+            Pop(_wrapper, writer);
         }
     }
 }

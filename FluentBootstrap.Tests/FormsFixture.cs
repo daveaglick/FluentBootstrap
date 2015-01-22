@@ -53,12 +53,93 @@ namespace FluentBootstrap.Tests
     <label class=""control-label"" for=""Success"">Success</label>
     <div class=""radio"">
      <label class=""radio"">
-      <input id=""Success"" name=""Success"" type=""radio"">Description here
+      <input id=""Success"" name=""Success"" type=""radio""> Description here
      </label>
     </div>
    </div>
    <div class=""form-group"">
     <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void InlineFormProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-inline",
+@"<form class=""form-inline"" method=""post"" role=""form"">
+   <div class=""form-group"">
+    <label class=""control-label"" for=""input"">Input</label>
+    <input class=""form-control"" id=""input"" name=""input"" type=""text"">
+   </div>
+   <div class=""form-group"">
+    <label class=""control-label"" for=""b"">B</label>
+    <input class=""form-control"" id=""b"" name=""b"" type=""text"">
+   </div>
+   <div class=""form-group"">
+    <label class=""control-label"" for=""Check"">Check It</label>
+    <div class=""checkbox"">
+     <label class=""checkbox"">
+      <input id=""Check"" name=""Check"" type=""checkbox""> Some text...
+     </label>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""text-danger form-control-static""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void HorizontalFormProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-horizontal",
+@"<form class=""form-horizontal"" method=""post"" role=""form"">
+   <div class=""form-group"">
+    <label class=""col-md-6 control-label"" for=""horizontal"">Horizontal</label>
+    <div class=""col-md-6"">
+     <input class=""form-control"" id=""horizontal"" name=""horizontal"" type=""text"">
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-12"">
+     <label class=""control-label"" for=""not-horizontal"">Not Horizontal</label>
+     <input class=""form-control"" id=""not-horizontal"" name=""not-horizontal"" type=""text"">
+    </div>
+   </div>
+   <div class=""form-group"">
+    <label class=""col-md-3 control-label"">Explicit Widths</label>
+    <div class=""col-md-9"">
+     <input class=""form-control"" id=""explicit-widths"" name=""explicit-widths"" type=""text"">
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-offset-6 col-md-6"">
+     <div class=""col-md-9"">
+      <input class=""form-control"" id=""no-label"" name=""no-label"" type=""text"">
+     </div>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-offset-2 col-md-8"">
+     <label class=""control-label"" for=""group-md"">Group Md</label>
+     <input class=""form-control"" id=""group-md"" name=""group-md"" type=""text"">
+    </div>
+   </div>
+   <div class=""form-group"">
+    <label class=""col-md-6 control-label"" for=""Check"">Check It</label>
+    <div class=""col-md-6"">
+     <div style=""padding-top: 0;"" class=""checkbox"">
+      <label class=""checkbox"">
+       <input id=""Check"" name=""Check"" type=""checkbox""> Some text...
+      </label>
+     </div>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-offset-6 col-md-6"">
+     <div class=""text-danger form-control-static""></div>
+    </div>
    </div>
   </form>");
         }

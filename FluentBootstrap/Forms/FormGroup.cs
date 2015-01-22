@@ -28,45 +28,51 @@ namespace FluentBootstrap.Forms
             get { return _label != null; }
         }
 
-        public bool? Horizontal { get; set; }
+        public bool? Horizontal { get; set; }   // null = same as the form, or false if no form
+
+        public bool AutoColumns { get; set; }   // indicates if columns should automatically be generated if horizontal
 
         internal FormGroup(BootstrapHelper helper)
             : base(helper, "div", Css.FormGroup)
         {
+            AutoColumns = true;
         }
         
         protected override void OnStart(TextWriter writer)
         {
-            // Set column classes if we're horizontal          
-            ComponentBuilder<BootstrapConfig, FormGroup> builder = GetBuilder(this);
-            Form form = GetComponent<Form>();
-            if ((form != null && form.Horizontal && (!Horizontal.HasValue || Horizontal.Value)) || (Horizontal.HasValue && Horizontal.Value))
+            // Set column classes if we're horizontal       
+            if (AutoColumns)
             {
-                int labelWidth = form == null ? Config.DefaultFormLabelWidth : form.DefaultLabelWidth;
-
-                // Set label column class
-                if (_label != null && !_label.CssClasses.Any(x => x.StartsWith("col-")))
+                ComponentBuilder<BootstrapConfig, FormGroup> builder = GetBuilder(this);
+                Form form = GetComponent<Form>();
+                if ((form != null && form.Horizontal && (!Horizontal.HasValue || Horizontal.Value)) || (Horizontal.HasValue && Horizontal.Value))
                 {
-                    _label.SetColumnClass(Config, "col-md-", labelWidth);
-                }
+                    int labelWidth = form == null ? Config.DefaultFormLabelWidth : form.DefaultLabelWidth;
 
-                // Add column classes to this (these will get moved to a wrapper later in this method)
-                if (!CssClasses.Any(x => x.StartsWith("col-")))
-                {
-                    builder.SetMd(Config.GridColumns - labelWidth);
-
-                    // Also need to add an offset if no label
-                    if (_label == null)
+                    // Set label column class
+                    if (_label != null && !_label.CssClasses.Any(x => x.StartsWith("col-")))
                     {
-                        builder.SetMdOffset(labelWidth);
+                        _label.SetColumnClass(Config, "col-md-", labelWidth);
+                    }
+
+                    // Add column classes to this (these will get moved to a wrapper later in this method)
+                    if (!CssClasses.Any(x => x.StartsWith("col-")))
+                    {
+                        builder.SetMd(Config.GridColumns - labelWidth);
+
+                        // Also need to add an offset if no label
+                        if (_label == null)
+                        {
+                            builder.SetMdOffset(labelWidth);
+                        }
                     }
                 }
-            }
-            else if (form != null && form.Horizontal)
-            {
-                // If the form is horizontal but we requested not to be, create a full-width column wrapper
-                builder.SetMd(Config.GridColumns);
-                _columnWrapperBeforeLabel = true;
+                else if (form != null && form.Horizontal)
+                {
+                    // If the form is horizontal but we requested not to be, create a full-width column wrapper
+                    builder.SetMd(Config.GridColumns);
+                    _columnWrapperBeforeLabel = true;
+                }
             }
 
             // Move any grid column classes to a container class

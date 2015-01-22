@@ -35,13 +35,23 @@ namespace FluentBootstrap.Forms
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))
             {
-                AddChild(GetHelper().Content(Description));
+                AddChild(GetHelper().Content(" " + Description));
             }
 
             // Add the wrapper
             if (!Inline)
             {
-                _wrapper = GetHelper().Element("div").AddCss(GetAttribute("type")).Component;
+                ComponentBuilder<BootstrapConfig, Element> builder = GetHelper().Element("div").AddCss(GetAttribute("type"));
+
+                // Hack to make manual padding adjustments if we're in a horizontal form or form group
+                Form form = GetComponent<Form>();
+                FormGroup formGroup = GetComponent<FormGroup>();
+                if(form != null && form.Horizontal && (formGroup == null || !formGroup.Horizontal.HasValue || formGroup.Horizontal.Value))
+                {
+                    builder.AddStyle("padding-top", "0");
+                }
+
+                _wrapper = builder.Component;
                 _wrapper.Start(writer);
             }
 

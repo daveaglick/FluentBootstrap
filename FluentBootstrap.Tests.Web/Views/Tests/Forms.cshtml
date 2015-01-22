@@ -1,4 +1,6 @@
-﻿@using (Html.Bootstrap().Container().Begin())
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Readonly")
     using (Html.Bootstrap().Div().SetId("test-readonly").Begin())
@@ -20,6 +22,48 @@
             @form.Input("Error", "Error").SetState(ValidationState.Error)
             @form.CheckBox("Warning", "Warning").SetState(ValidationState.Warning)
             @form.Radio("Success", "Success", "Description here").SetState(ValidationState.Success)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Inline")
+    using (Html.Bootstrap().Div().SetId("test-inline").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().SetInline().Begin())
+        {
+            @form.Input("input", "Input")
+            @form.Input("b", "B")
+            @form.CheckBox("Check", "Check It", "Some text...")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Horizontal")
+    using (Html.Bootstrap().Div().SetId("test-horizontal").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().SetHorizontal(6).Begin())
+        {
+            @form.Input("horizontal", "Horizontal")
+            using(form.FormGroup().SetHorizontal(false).Begin())
+            {
+                @form.Input("not-horizontal", "Not Horizontal")
+            }
+            using (form.FormGroup().SetAutoColumns(false).Begin())
+            {
+                @form.ControlLabel("Explicit Widths").SetMd(3)
+                @form.Input("explicit-widths").SetMd(9)
+            }
+            using (form.FormGroup().Begin())
+            {
+                @form.Input("no-label").SetMd(9)
+            }
+            using (form.FormGroup().SetMd(8).SetMdOffset(2).Begin())
+            {
+                @form.Input("group-md", "Group Md")
+            }
+            @form.CheckBox("Check", "Check It", "Some text...")
         }
     }
 

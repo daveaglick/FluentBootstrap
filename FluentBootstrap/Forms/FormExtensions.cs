@@ -89,7 +89,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, FormGroup> SetGroupLabel<TConfig, TThis>(this ComponentBuilder<TConfig, FormGroup> builder, string label, string labelFor = null, Action<ComponentBuilder<TConfig, ControlLabel>> labelAction = null)
+        public static ComponentBuilder<TConfig, FormGroup> SetGroupLabel<TConfig>(this ComponentBuilder<TConfig, FormGroup> builder, string label, string labelFor = null, Action<ComponentBuilder<TConfig, ControlLabel>> labelAction = null)
             where TConfig : BootstrapConfig
         {
             if (label != null)
@@ -104,10 +104,17 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, FormGroup> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, FormGroup> builder, bool? horizontal = true)
+        public static ComponentBuilder<TConfig, FormGroup> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, FormGroup> builder, bool horizontal = true)
             where TConfig : BootstrapConfig
         {
             builder.Component.Horizontal = horizontal;
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, FormGroup> SetAutoColumns<TConfig>(this ComponentBuilder<TConfig, FormGroup> builder, bool autoColumns = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.AutoColumns = autoColumns;
             return builder;
         }
 
