@@ -18,16 +18,16 @@ namespace FluentBootstrap
             Dictionary = new Dictionary<string, string>();
         }
 
-        public void Merge(object values, bool replaceExisting = true)
+        public void Merge(object values)
         {
             if (values == null)
             {
                 return;
             }
-            AnonymousObjectToHtmlAttributes(values, replaceExisting);
+            AnonymousObjectToHtmlAttributes(values);
         }
 
-        public void Merge<TKey, TValue>(IDictionary<TKey, TValue> dictionary, bool replaceExisting = true)
+        public void Merge<TKey, TValue>(IDictionary<TKey, TValue> dictionary)
         {
             if (dictionary == null)
             {
@@ -37,21 +37,21 @@ namespace FluentBootstrap
             {
                 string key = Convert.ToString(kvp.Key, CultureInfo.InvariantCulture);
                 string value = Convert.ToString(kvp.Value, CultureInfo.InvariantCulture);
-                Merge(key, value, replaceExisting);
+                Merge(key, value);
             }
         }
 
-        public void Merge(string key, string value, bool replaceExisting = true)
+        public void Merge(string key, string value)
         {
             if (string.IsNullOrWhiteSpace(key))
             {
                 return;
             }
-            if (value == null && replaceExisting && Dictionary.ContainsKey(key))
+            if (value == null && Dictionary.ContainsKey(key))
             {
                 Dictionary.Remove(key);
             }
-            else if (value != null && (replaceExisting || !Dictionary.ContainsKey(key)))
+            else if (value != null)
             {
                 Dictionary[key] = value;
             }
@@ -68,7 +68,7 @@ namespace FluentBootstrap
             return string.Empty;
         }
 
-        private void AnonymousObjectToHtmlAttributes(object htmlAttributes, bool replaceExisting)
+        private void AnonymousObjectToHtmlAttributes(object htmlAttributes)
         {
             if (htmlAttributes != null)
             {
