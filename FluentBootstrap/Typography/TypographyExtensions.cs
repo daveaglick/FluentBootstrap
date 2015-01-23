@@ -13,6 +13,23 @@ namespace FluentBootstrap
     {
         // Headings
 
+
+        public static ComponentBuilder<TConfig, Heading> Heading<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, int size, string text = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Heading>
+        {
+            if(size < 1)
+            {
+                size = 1;
+            }
+            else if(size > 6)
+            {
+                size = 6;
+            }
+            return new ComponentBuilder<TConfig, Heading>(helper.Config, new Heading(helper, "h" + size))
+                .SetText(text);
+        }
+
         public static ComponentBuilder<TConfig, Heading> Heading1<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
