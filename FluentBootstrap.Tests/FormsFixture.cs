@@ -145,6 +145,34 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void HorizontalInlineCheckedControlsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-horizontal-inline-checked",
+@"<form class=""form-horizontal"" method=""post"" role=""form"">
+   <div class=""form-group"">
+    <div class=""col-md-offset-4 col-md-8"">
+     <label class=""control-label"" for=""a"">A</label>
+     <label style=""padding-top: 0;"" class=""checkbox-inline"">
+      <input id=""a"" name=""a"" type=""checkbox""> Option A
+     </label>
+     <label style=""padding-top: 0;"" class=""checkbox-inline"">
+      <input id=""b"" name=""b"" type=""checkbox""> Option B
+     </label>
+     <label class=""control-label"" for=""c"">C</label>
+     <label style=""padding-top: 0;"" class=""checkbox-inline"">
+      <input id=""c"" name=""c"" type=""checkbox"">&nbsp;
+     </label>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-offset-4 col-md-8"">
+     <div class=""text-danger form-control-static""></div>
+    </div>
+   </div>
+  </form>");
+        }
+
+        [Test]
         public void BasicInputGroupProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-basic-input-group",

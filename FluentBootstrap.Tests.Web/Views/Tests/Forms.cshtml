@@ -69,6 +69,22 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Horizontal Inline Checked")
+    using (Html.Bootstrap().Div().SetId("test-horizontal-inline-checked").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().SetHorizontal().Begin())
+        {
+            using (form.FormGroup().Begin())
+            {
+                @form.CheckBox("a", "A", "Option A").SetInline()
+                @form.CheckBox("b", null, "Option B").SetInline()
+                @form.CheckBox("c", "C").SetInline()
+            }
+        }
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Basic Input Group")
     using (Html.Bootstrap().Div().SetId("test-basic-input-group").Begin())
     {

@@ -155,14 +155,14 @@ namespace FluentBootstrap
 
         // Input
 
-        public static ComponentBuilder<TConfig, Input> Input<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        public static ComponentBuilder<TConfig, Input> Input<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, object value = null, string valueFormat = null, FormInputType inputType = FormInputType.Text)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Input>
         {
             return new ComponentBuilder<TConfig, Input>(helper.Config, new Input(helper, inputType))
                 .SetName(name)
                 .SetControlLabel(label)
-                .SetValue(value, format);
+                .SetValue(value, valueFormat);
         }
 
         public static ComponentBuilder<TConfig, Input> SetPlaceholder<TConfig>(this ComponentBuilder<TConfig, Input> builder, string placeholder)
@@ -192,14 +192,14 @@ namespace FluentBootstrap
 
         // TextArea
 
-        public static ComponentBuilder<TConfig, TextArea> TextArea<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, object value = null, string format = null, int? rows = null)
+        public static ComponentBuilder<TConfig, TextArea> TextArea<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, object value = null, string valueFormat = null, int? rows = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<TextArea>
         {
             return new ComponentBuilder<TConfig, TextArea>(helper.Config, new TextArea(helper))
                 .SetName(name)
                 .SetControlLabel(label)
-                .SetValue(value, format)
+                .SetValue(value, valueFormat)
                 .SetRows(rows);
         }
 
@@ -312,13 +312,13 @@ namespace FluentBootstrap
 
         // Static
 
-        public static ComponentBuilder<TConfig, Static> Static<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string label = null, object value = null, string format = null)
+        public static ComponentBuilder<TConfig, Static> Static<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string label = null, object value = null, string valueFormat = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Static>
         {
             return new ComponentBuilder<TConfig, Static>(helper.Config, new Static(helper))
                 .SetControlLabel(label)
-                .SetValue(value, format);
+                .SetValue(value, valueFormat);
         }
 
         public static ComponentBuilder<TConfig, Static> SetValue<TConfig>(this ComponentBuilder<TConfig, Static> builder, object value, string format = null)
@@ -487,13 +487,13 @@ namespace FluentBootstrap
 
         // Use special creator extensions to create input group addons so we can control the output more closely (I.e., no labels, form groups, etc.)
 
-        public static ComponentBuilder<TConfig, Input> Input<TConfig>(this ComponentWrapper<TConfig, InputGroup> wrapper, string name = null, object value = null, string format = null, FormInputType inputType = FormInputType.Text)
+        public static ComponentBuilder<TConfig, Input> Input<TConfig>(this ComponentWrapper<TConfig, InputGroup> wrapper, string name = null, object value = null, string valueFormat = null, FormInputType inputType = FormInputType.Text)
             where TConfig : BootstrapConfig
         {
 
             return new ComponentBuilder<TConfig, Input>(wrapper.Config, new Input(wrapper, inputType))
                 .SetName(name)
-                .SetValue(value, format)
+                .SetValue(value, valueFormat)
                 .EnsureFormGroup(false);
         }
 

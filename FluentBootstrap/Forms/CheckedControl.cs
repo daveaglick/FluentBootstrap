@@ -37,16 +37,26 @@ namespace FluentBootstrap.Forms
             {
                 AddChild(GetHelper().Content(" " + Description));
             }
+            else if (Inline && !SuppressLabelWrapper)
+            {
+                // Add a space if we're inline without a description
+                // This counters the problem of non-labeled checked controls when inline not positioning properly
+                // From Bootstrap docs: "Currently only works on non-inline checkboxes and radios."
+                AddChild(GetHelper().Content("&nbsp;"));
+            }
+
+            // See if we're in a horizontal form or form group
+            Form form = GetComponent<Form>();
+            FormGroup formGroup = GetComponent<FormGroup>();
+            bool horizontal = form != null && form.Horizontal && (formGroup == null || !formGroup.Horizontal.HasValue || formGroup.Horizontal.Value);
 
             // Add the wrapper
             if (!Inline)
             {
                 ComponentBuilder<BootstrapConfig, Element> builder = GetHelper().Element("div").AddCss(GetAttribute("type"));
 
-                // Hack to make manual padding adjustments if we're in a horizontal form or form group
-                Form form = GetComponent<Form>();
-                FormGroup formGroup = GetComponent<FormGroup>();
-                if(form != null && form.Horizontal && (formGroup == null || !formGroup.Horizontal.HasValue || formGroup.Horizontal.Value))
+                // Hack to make manual padding adjustments if we're horizontal
+                if(horizontal)
                 {
                     builder.AddStyle("padding-top", "0");
                 }
@@ -58,7 +68,15 @@ namespace FluentBootstrap.Forms
             // Add the label wrapper
             if (!SuppressLabelWrapper)
             {
-                _label = GetHelper().Element("label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type")).Component;
+                ComponentBuilder<BootstrapConfig, Element> labelBuilder = GetHelper().Element("label").AddCss(Inline ? GetAttribute("type") + "-inline" : GetAttribute("type"));
+
+                // Another hack for manual padding adjustments if inline and horizontal
+                if(Inline && horizontal)
+                {
+                    labelBuilder.AddStyle("padding-top", "0");
+                }
+
+                _label = labelBuilder.Component;
                 _label.Start(writer);
             }
 
