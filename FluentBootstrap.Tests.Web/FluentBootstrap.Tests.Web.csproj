@@ -117,10 +117,12 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MvcTestsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MvcTests\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +153,7 @@
     <Content Include="Views\Tests\Architecture.cshtml" />
     <Content Include="Views\Tests\Tables.cshtml" />
     <Content Include="Views\Tests\Images.cshtml" />
+    <Content Include="Views\MvcTests\MvcForms.cshtml" />
     <None Include="Views\Tests\Typography.cshtml" />
     <None Include="Views\Tests\Buttons.cshtml" />
     <None Include="Views\Tests\Dropdowns.cshtml" />
@@ -165,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentBootstrap.Mvc\FluentBootstrap.Mvc.csproj">

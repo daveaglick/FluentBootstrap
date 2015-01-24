@@ -14,6 +14,7 @@ namespace FluentBootstrap.Tests.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute("Index", "", new { controller = "Home", action = "Index" });
             routes.MapRoute("Tests", "Tests/{*view}", new { controller = "Tests", action = "Tests" });
+            routes.MapRoute("MvcTests", "MvcTests/{*view}", new { controller = "MvcTests", action = "MvcTests" });
         }
     }
 }

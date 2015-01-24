@@ -1,0 +1,72 @@
+﻿@using FluentBootstrap;
+
+@model FluentBootstrap.Tests.Web.Models.MvcTests.ViewModel
+
+@using (Html.Bootstrap().Container().Begin())
+{    
+    @Html.Bootstrap().Heading1("Validation Summary")
+    using (Html.Bootstrap().Div().SetId("test-validation-summary").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.EditorFor(x => x.PropA)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Explicit Validation Summary")
+    using (Html.Bootstrap().Div().SetId("test-explicit-validation-summary").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.ValidationSummary()
+            @form.DisplayFor(x => x.PropA)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Property Validation")
+    using (Html.Bootstrap().Div().SetId("test-property-validation").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.EditorFor(x => x.PropB)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Editor Or Display For")
+    using (Html.Bootstrap().Div().SetId("test-editor-or-display-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.EditorOrDisplayFor(true, x => x.PropA)
+            @form.EditorOrDisplayFor(false, x => x.PropB)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Display List For")
+    using (Html.Bootstrap().Div().SetId("test-display-list-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.DisplayListFor(x => x.PropC.Values)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Editor List For")
+    using (Html.Bootstrap().Div().SetId("test-editor-list-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.EditorListFor(x => x.PropC.Values)
+        }
+    }
+}

@@ -75,7 +75,6 @@ namespace FluentBootstrap
         }
 
         // Gets a temporary ComponentBuilder that can be used to access extension methods from overrides
-        // Needs to be static since it can't know the current component type unless passed in
         // Generally you'll pass in "this" for the component argument
         protected ComponentBuilder<BootstrapConfig, TComponent> GetBuilder<TComponent>(TComponent component)
             where TComponent : Component

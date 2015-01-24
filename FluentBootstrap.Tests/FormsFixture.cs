@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Tests
 {
-    // Note that HtmlAgilityPack strips the closing </input> tag off inputs, which is actually more valid HTML5
-    // Whether FluentBootstrap should be outputting the closing </input> in the first place is a problem for another day
     [TestFixture]
     public class FormsFixture
     {

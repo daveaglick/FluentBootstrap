@@ -25,4 +25,9 @@
         @list.ListItem(Html.Bootstrap().Link("Tables", "/Tests/Tables"))
         @list.ListItem(Html.Bootstrap().Link("Typography", "/Tests/Typography"))
     }
+    @Html.Bootstrap().Heading1("FluentBootstrap.Mvc Tests")
+    using (var list = Html.Bootstrap().List().Begin())
+    {
+        @list.ListItem(Html.Bootstrap().Link("Forms", "/MvcTests/MvcForms"))
+    }
 }

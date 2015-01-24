@@ -93,6 +93,7 @@
     <Compile Include="BreadcrumbsFixture.cs" />
     <Compile Include="ButtonsFixture.cs" />
     <Compile Include="DropdownsFixture.cs" />
+    <Compile Include="MvcFormsFixture.cs" />
     <Compile Include="FormsFixture.cs" />
     <Compile Include="GridsFixture.cs" />
     <Compile Include="ImagesFixture.cs" />
