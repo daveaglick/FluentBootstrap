@@ -67,7 +67,7 @@ namespace FluentBootstrap.Tests
         public void MultipleTextClassesProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Typography_cshtml>("test-multiple-text-classes",
-@"<p class=""text-center text-uppercase"">Multiple</p>");
+@"<p class=""text-uppercase text-center"">Multiple</p>");
         }
 
         [Test]

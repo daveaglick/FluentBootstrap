@@ -15,7 +15,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Labels_cshtml>("test-inline",
 @"<p>This is a 
-  <span class=""label-default label"">inline</span> label.</p>");
+  <span class=""label label-default"">inline</span> label.</p>");
         }
 
         [Test]
@@ -23,10 +23,10 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Labels_cshtml>("test-headers",
 @"<h1>A label in a 
-   <span class=""label-default label"">heading</span>
+   <span class=""label label-default"">heading</span>
   </h1>
   <h3>            Another heading with a 
-   <span class=""label-danger label"">label</span>
+   <span class=""label label-danger"">label</span>
 
   </h3>");
         }

@@ -16,12 +16,12 @@ namespace FluentBootstrap.Tests
             TestHelper.AssertHtml<ASP._Views_Tests_Thumbnails_cshtml>("test-standard",
 @"<div class=""row"">
    <div class=""col-md-4"">
-    <a class=""thumbnail"" href=""#"">
+    <a href=""#"" class=""thumbnail"">
      <img src=""http://placehold.it/400x400"">
     </a>
    </div>
    <div class=""col-md-4"">
-    <a class=""thumbnail"" href=""#"">
+    <a href=""#"" class=""thumbnail"">
      <img src=""http://placehold.it/400x400"">
     </a>
    </div>

@@ -15,17 +15,17 @@ namespace FluentBootstrap.Tests
         public void ReadonlyProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-readonly",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""readonly"">Readonly Input</label>
-    <input class=""form-control"" id=""readonly"" readonly="""" value=""Initial Value"" name=""readonly"" type=""text"">
+    <label for=""readonly"" class=""control-label"">Readonly Input</label>
+    <input type=""text"" name=""readonly"" value=""Initial Value"" readonly="""" id=""readonly"" class=""form-control"">
    </div>
    <div class=""form-group"">
-    <label class=""control-label"" for=""readonly2"">Normal Input</label>
-    <input class=""form-control"" id=""readonly2"" value=""Initial Value"" name=""readonly2"" type=""text"">
+    <label for=""readonly2"" class=""control-label"">Normal Input</label>
+    <input type=""text"" name=""readonly2"" value=""Initial Value"" id=""readonly2"" class=""form-control"">
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -34,29 +34,29 @@ namespace FluentBootstrap.Tests
         public void ValidationClassesProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-validation",
-@"<form method=""post"" role=""form"">
-   <div class=""has-error form-group"">
-    <label class=""control-label"" for=""Error"">Error</label>
-    <input class=""form-control"" id=""Error"" name=""Error"" type=""text"">
+@"<form role=""form"" method=""post"">
+   <div class=""form-group has-error"">
+    <label for=""Error"" class=""control-label"">Error</label>
+    <input type=""text"" name=""Error"" id=""Error"" class=""form-control"">
    </div>
-   <div class=""has-warning form-group"">
-    <label class=""control-label"" for=""Warning"">Warning</label>
+   <div class=""form-group has-warning"">
+    <label for=""Warning"" class=""control-label"">Warning</label>
     <div class=""checkbox"">
      <label class=""checkbox"">
-      <input id=""Warning"" name=""Warning"" type=""checkbox"">
+      <input type=""checkbox"" name=""Warning"" id=""Warning"">
      </label>
     </div>
    </div>
-   <div class=""has-success form-group"">
-    <label class=""control-label"" for=""Success"">Success</label>
+   <div class=""form-group has-success"">
+    <label for=""Success"" class=""control-label"">Success</label>
     <div class=""radio"">
      <label class=""radio"">
-      <input id=""Success"" name=""Success"" type=""radio""> Description here
+      <input type=""radio"" name=""Success"" id=""Success""> Description here
      </label>
     </div>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -65,25 +65,25 @@ namespace FluentBootstrap.Tests
         public void InlineFormProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-inline",
-@"<form class=""form-inline"" method=""post"" role=""form"">
+@"<form role=""form"" method=""post"" class=""form-inline"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""input"">Input</label>
-    <input class=""form-control"" id=""input"" name=""input"" type=""text"">
+    <label for=""input"" class=""control-label"">Input</label>
+    <input type=""text"" name=""input"" id=""input"" class=""form-control"">
    </div>
    <div class=""form-group"">
-    <label class=""control-label"" for=""b"">B</label>
-    <input class=""form-control"" id=""b"" name=""b"" type=""text"">
+    <label for=""b"" class=""control-label"">B</label>
+    <input type=""text"" name=""b"" id=""b"" class=""form-control"">
    </div>
    <div class=""form-group"">
-    <label class=""control-label"" for=""Check"">Check It</label>
+    <label for=""Check"" class=""control-label"">Check It</label>
     <div class=""checkbox"">
      <label class=""checkbox"">
-      <input id=""Check"" name=""Check"" type=""checkbox""> Some text...
+      <input type=""checkbox"" name=""Check"" id=""Check""> Some text...
      </label>
     </div>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -92,51 +92,51 @@ namespace FluentBootstrap.Tests
         public void HorizontalFormProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-horizontal",
-@"<form class=""form-horizontal"" method=""post"" role=""form"">
+@"<form role=""form"" method=""post"" class=""form-horizontal"">
    <div class=""form-group"">
-    <label class=""col-md-6 control-label"" for=""horizontal"">Horizontal</label>
+    <label for=""horizontal"" class=""control-label col-md-6"">Horizontal</label>
     <div class=""col-md-6"">
-     <input class=""form-control"" id=""horizontal"" name=""horizontal"" type=""text"">
+     <input type=""text"" name=""horizontal"" id=""horizontal"" class=""form-control"">
     </div>
    </div>
    <div class=""form-group"">
     <div class=""col-md-12"">
-     <label class=""control-label"" for=""not-horizontal"">Not Horizontal</label>
-     <input class=""form-control"" id=""not-horizontal"" name=""not-horizontal"" type=""text"">
+     <label for=""not-horizontal"" class=""control-label"">Not Horizontal</label>
+     <input type=""text"" name=""not-horizontal"" id=""not-horizontal"" class=""form-control"">
     </div>
    </div>
    <div class=""form-group"">
-    <label class=""col-md-3 control-label"">Explicit Widths</label>
+    <label class=""control-label col-md-3"">Explicit Widths</label>
     <div class=""col-md-9"">
-     <input class=""form-control"" id=""explicit-widths"" name=""explicit-widths"" type=""text"">
+     <input type=""text"" name=""explicit-widths"" id=""explicit-widths"" class=""form-control"">
     </div>
    </div>
    <div class=""form-group"">
-    <div class=""col-md-offset-6 col-md-6"">
+    <div class=""col-md-6 col-md-offset-6"">
      <div class=""col-md-9"">
-      <input class=""form-control"" id=""no-label"" name=""no-label"" type=""text"">
+      <input type=""text"" name=""no-label"" id=""no-label"" class=""form-control"">
      </div>
     </div>
    </div>
    <div class=""form-group"">
-    <div class=""col-md-offset-2 col-md-8"">
-     <label class=""control-label"" for=""group-md"">Group Md</label>
-     <input class=""form-control"" id=""group-md"" name=""group-md"" type=""text"">
+    <div class=""col-md-8 col-md-offset-2"">
+     <label for=""group-md"" class=""control-label"">Group Md</label>
+     <input type=""text"" name=""group-md"" id=""group-md"" class=""form-control"">
     </div>
    </div>
    <div class=""form-group"">
-    <label class=""col-md-6 control-label"" for=""Check"">Check It</label>
+    <label for=""Check"" class=""control-label col-md-6"">Check It</label>
     <div class=""col-md-6"">
-     <div style=""padding-top: 0;"" class=""checkbox"">
+     <div class=""checkbox"" style=""padding-top: 0;"">
       <label class=""checkbox"">
-       <input id=""Check"" name=""Check"" type=""checkbox""> Some text...
+       <input type=""checkbox"" name=""Check"" id=""Check""> Some text...
       </label>
      </div>
     </div>
    </div>
    <div class=""form-group"">
-    <div class=""col-md-offset-6 col-md-6"">
-     <div class=""text-danger form-control-static""></div>
+    <div class=""col-md-6 col-md-offset-6"">
+     <div class=""form-control-static text-danger""></div>
     </div>
    </div>
   </form>");
@@ -146,25 +146,25 @@ namespace FluentBootstrap.Tests
         public void HorizontalInlineCheckedControlsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-horizontal-inline-checked",
-@"<form class=""form-horizontal"" method=""post"" role=""form"">
+@"<form role=""form"" method=""post"" class=""form-horizontal"">
    <div class=""form-group"">
-    <div class=""col-md-offset-4 col-md-8"">
-     <label class=""control-label"" for=""a"">A</label>
-     <label style=""padding-top: 0;"" class=""checkbox-inline"">
-      <input id=""a"" name=""a"" type=""checkbox""> Option A
+    <div class=""col-md-8 col-md-offset-4"">
+     <label for=""a"" class=""control-label"">A</label>
+     <label class=""checkbox-inline"" style=""padding-top: 0;"">
+      <input type=""checkbox"" name=""a"" id=""a""> Option A
      </label>
-     <label style=""padding-top: 0;"" class=""checkbox-inline"">
-      <input id=""b"" name=""b"" type=""checkbox""> Option B
+     <label class=""checkbox-inline"" style=""padding-top: 0;"">
+      <input type=""checkbox"" name=""b"" id=""b""> Option B
      </label>
-     <label class=""control-label"" for=""c"">C</label>
-     <label style=""padding-top: 0;"" class=""checkbox-inline"">
-      <input id=""c"" name=""c"" type=""checkbox"">&nbsp;
+     <label for=""c"" class=""control-label"">C</label>
+     <label class=""checkbox-inline"" style=""padding-top: 0;"">
+      <input type=""checkbox"" name=""c"" id=""c"">&nbsp;
      </label>
     </div>
    </div>
    <div class=""form-group"">
-    <div class=""col-md-offset-4 col-md-8"">
-     <div class=""text-danger form-control-static""></div>
+    <div class=""col-md-8 col-md-offset-4"">
+     <div class=""form-control-static text-danger""></div>
     </div>
    </div>
   </form>");
@@ -174,22 +174,22 @@ namespace FluentBootstrap.Tests
         public void BasicInputGroupProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-basic-input-group",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""input-group"">
     <span class=""input-group-addon"">@</span>
-    <input class=""form-control"" placeholder=""Username"" type=""text"">
+    <input type=""text"" placeholder=""Username"" class=""form-control"">
    </div>
    <div class=""input-group"">
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
     <span class=""input-group-addon"">.00</span>
    </div>
    <div class=""input-group"">
     <span class=""input-group-addon"">$</span>
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
     <span class=""input-group-addon"">.00</span>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -198,17 +198,17 @@ namespace FluentBootstrap.Tests
         public void InputGroupSizingProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-sizing",
-@"<form method=""post"" role=""form"">
-   <div class=""input-group-lg input-group"">
+@"<form role=""form"" method=""post"">
+   <div class=""input-group input-group-lg"">
     <span class=""input-group-addon"">@</span>
-    <input class=""form-control"" placeholder=""Username"" type=""text"">
+    <input type=""text"" placeholder=""Username"" class=""form-control"">
    </div>
-   <div class=""input-group-sm input-group"">
+   <div class=""input-group input-group-sm"">
     <span class=""input-group-addon"">@</span>
-    <input class=""form-control"" placeholder=""Username"" type=""text"">
+    <input type=""text"" placeholder=""Username"" class=""form-control"">
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -217,21 +217,21 @@ namespace FluentBootstrap.Tests
         public void InputGroupCheckedProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-checked",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""input-group"">
     <span class=""input-group-addon"">
      <input type=""checkbox"">
     </span>
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
    </div>
    <div class=""input-group"">
     <span class=""input-group-addon"">
      <input type=""radio"">
     </span>
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -240,21 +240,21 @@ namespace FluentBootstrap.Tests
         public void InputGroupButtonAddonsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-button-addons",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""input-group"">
     <span class=""input-group-btn"">
-     <button class=""btn-default btn"" type=""button"">Go!</button>
+     <button type=""button"" class=""btn btn-default"">Go!</button>
     </span>
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
    </div>
    <div class=""input-group"">
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
     <span class=""input-group-btn"">
-     <button class=""btn-warning btn"" type=""button"">Go!</button>
+     <button type=""button"" class=""btn btn-warning"">Go!</button>
     </span>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -263,41 +263,41 @@ namespace FluentBootstrap.Tests
         public void InputGroupButtonDropdownsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-button-dropdowns",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""input-group"">
     <span class=""input-group-btn"">
-     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+     <button type=""button"" data-toggle=""dropdown"" class=""btn dropdown-toggle btn-default"">Dropdown 
       <span class=""caret""></span>
      </button>
-     <ul class=""dropdown-menu"" role=""menu"">
+     <ul role=""menu"" class=""dropdown-menu"">
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">A</a>
+       <a role=""menuitem"" href=""#"">A</a>
       </li>
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">B</a>
+       <a role=""menuitem"" href=""#"">B</a>
       </li>
      </ul>
     </span>
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
    </div>
    <div class=""input-group"">
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
     <span class=""input-group-btn"">
-     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">Dropdown 
+     <button type=""button"" data-toggle=""dropdown"" class=""btn dropdown-toggle btn-default"">Dropdown 
       <span class=""caret""></span>
      </button>
-     <ul class=""dropdown-menu"" role=""menu"">
+     <ul role=""menu"" class=""dropdown-menu"">
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">A</a>
+       <a role=""menuitem"" href=""#"">A</a>
       </li>
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">B</a>
+       <a role=""menuitem"" href=""#"">B</a>
       </li>
      </ul>
     </span>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -306,45 +306,45 @@ namespace FluentBootstrap.Tests
         public void InputGroupSegmentedButtonsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-group-segmented-buttons",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""input-group"">
     <span class=""input-group-btn"">
-     <button class=""btn-default btn"" type=""button"">Action</button>
-     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
+     <button type=""button"" class=""btn btn-default"">Action</button>
+     <button type=""button"" data-toggle=""dropdown"" class=""btn dropdown-toggle btn-default"">
       <span class=""sr-only"">Toggle Dropdown</span>
       <span class=""caret""></span>
      </button>
-     <ul class=""dropdown-menu"" role=""menu"">
+     <ul role=""menu"" class=""dropdown-menu"">
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">A</a>
+       <a role=""menuitem"" href=""#"">A</a>
       </li>
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">B</a>
+       <a role=""menuitem"" href=""#"">B</a>
       </li>
      </ul>
     </span>
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
    </div>
    <div class=""input-group"">
-    <input class=""form-control"" type=""text"">
+    <input type=""text"" class=""form-control"">
     <span class=""input-group-btn"">
-     <button class=""btn-default btn"" type=""button"">Action</button>
-     <button class=""btn-default dropdown-toggle btn"" data-toggle=""dropdown"" type=""button"">
+     <button type=""button"" class=""btn btn-default"">Action</button>
+     <button type=""button"" data-toggle=""dropdown"" class=""btn dropdown-toggle btn-default"">
       <span class=""sr-only"">Toggle Dropdown</span>
       <span class=""caret""></span>
      </button>
-     <ul class=""dropdown-menu"" role=""menu"">
+     <ul role=""menu"" class=""dropdown-menu"">
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">A</a>
+       <a role=""menuitem"" href=""#"">A</a>
       </li>
       <li role=""presentation"">
-       <a href=""#"" role=""menuitem"">B</a>
+       <a role=""menuitem"" href=""#"">B</a>
       </li>
      </ul>
     </span>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }

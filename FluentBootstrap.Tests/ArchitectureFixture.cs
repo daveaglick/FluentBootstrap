@@ -15,24 +15,24 @@ namespace FluentBootstrap.Tests
         public void AlternateModelProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Architecture_cshtml>("test-alternate-model",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""Foo"">Foo</label>
+    <label for=""Foo"" class=""control-label"">Foo</label>
     <div><partial></partial>
 </div>
    </div>
    <div class=""form-group"">
-    <label class=""control-label"" for=""Bar"">Bar</label>
+    <label for=""Bar"" class=""control-label"">Bar</label>
     <div class=""form-control-static""><input id=""Bar"" name=""Bar"" type=""hidden"" value=""True""><partial></partial>
 </div>
    </div>
    <div class=""form-group"">
-    <label class=""control-label"" for=""Baz"">Baz</label>
+    <label for=""Baz"" class=""control-label"">Baz</label>
     <div><partial></partial>
 </div>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -42,10 +42,10 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Architecture_cshtml>("test-alternate-begin",
 @"<div class=""btn-group"">
-   <button class=""btn-default btn"" type=""button"">
-    <span class=""glyphicon-music glyphicon""></span> A
+   <button type=""button"" class=""btn btn-default"">
+    <span class=""glyphicon glyphicon-music""></span> A
    </button>
-   <button class=""btn-default btn"" type=""button"">B</button>
+   <button type=""button"" class=""btn btn-default"">B</button>
   </div>");
         }
     }

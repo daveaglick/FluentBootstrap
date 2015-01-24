@@ -38,7 +38,7 @@ namespace FluentBootstrap.Tests
     <li class=""previous"">
      <a href=""#"">Oldest</a>
     </li>
-    <li class=""previous disabled"">
+    <li class=""disabled previous"">
      <a href=""#"">Old</a>
     </li>
     <li>

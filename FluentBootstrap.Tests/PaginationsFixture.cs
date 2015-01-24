@@ -65,7 +65,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-sizes",
 @"<nav>
-   <ul class=""pagination-lg pagination"">
+   <ul class=""pagination pagination-lg"">
     <li>
      <a href=""#"">&laquo;</a>
     </li>
@@ -87,7 +87,7 @@ namespace FluentBootstrap.Tests
    </ul>
   </nav>
   <nav>
-   <ul class=""pagination-sm pagination"">
+   <ul class=""pagination pagination-sm"">
     <li>
      <a href=""#"">&laquo;</a>
     </li>

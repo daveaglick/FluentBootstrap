@@ -54,7 +54,7 @@ namespace FluentBootstrap.Tests
 </div>
    <div class=""col-lg-4"">                Lg4
 </div>
-   <div class=""col-lg-3 col-xs-2"">                Xs2Lg3
+   <div class=""col-xs-2 col-lg-3"">                Xs2Lg3
 </div>
   </div>");
         }
@@ -64,15 +64,15 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Grids_cshtml>("test-offset-pull-push-grid",
 @"<div class=""row"">
-   <div class=""col-md-6 col-sm-5"">                A
+   <div class=""col-sm-5 col-md-6"">                A
 </div>
-   <div class=""col-md-offset-0 col-md-6 col-sm-offset-2 col-sm-5"">                B
+   <div class=""col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0"">                B
 </div>
   </div>
   <div class=""row"">
-   <div class=""col-md-push-3 col-md-9"">                D
+   <div class=""col-md-9 col-md-push-3"">                D
 </div>
-   <div class=""col-md-pull-9 col-md-3"">                C
+   <div class=""col-md-3 col-md-pull-9"">                C
 </div>
   </div>");
         }

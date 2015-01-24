@@ -14,7 +14,7 @@ namespace FluentBootstrap.Tests
         public void TabsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-tabs",
-@"<ul class=""nav-tabs nav"" role=""tablist"">
+@"<ul role=""tablist"" class=""nav nav-tabs"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -31,7 +31,7 @@ namespace FluentBootstrap.Tests
         public void PillsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-pills",
-@"<ul class=""nav-pills nav"">
+@"<ul class=""nav nav-pills"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -48,7 +48,7 @@ namespace FluentBootstrap.Tests
         public void StackedPillsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-stacked-pills",
-@"<ul class=""nav-stacked nav-pills nav"">
+@"<ul class=""nav nav-pills nav-stacked"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -65,7 +65,7 @@ namespace FluentBootstrap.Tests
         public void JustifiedTabsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-justified-tabs",
-@"<ul class=""nav-justified nav-tabs nav"" role=""tablist"">
+@"<ul role=""tablist"" class=""nav nav-tabs nav-justified"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -82,7 +82,7 @@ namespace FluentBootstrap.Tests
         public void JustifiedPillsProduceCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-justified-pills",
-@"<ul class=""nav-justified nav-pills nav"">
+@"<ul class=""nav nav-pills nav-justified"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -99,7 +99,7 @@ namespace FluentBootstrap.Tests
         public void DisabledPillProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-disabled-pill",
-@"<ul class=""nav-pills nav"">
+@"<ul class=""nav nav-pills"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -116,7 +116,7 @@ namespace FluentBootstrap.Tests
         public void TabsDropdownProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-tabs-dropdown",
-@"<ul class=""nav-tabs nav"" role=""tablist"">
+@"<ul role=""tablist"" class=""nav nav-tabs"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -124,16 +124,16 @@ namespace FluentBootstrap.Tests
     <a href=""http://www.google.com"">Profile</a>
    </li>
    <li class=""dropdown"">
-    <a class=""dropdown-toggle"" data-toggle=""dropdown"" href=""#"">Dropdown 
+    <a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle"">Dropdown 
      <span class=""caret""></span>
     </a>
-    <ul class=""dropdown-menu"" role=""menu"">
+    <ul role=""menu"" class=""dropdown-menu"">
      <li role=""presentation"">
-      <a href=""#"" role=""menuitem"">Item 1</a>
+      <a role=""menuitem"" href=""#"">Item 1</a>
      </li>
-     <li class=""divider"" role=""presentation""></li>
+     <li role=""presentation"" class=""divider""></li>
      <li role=""presentation"">
-      <a href=""#"" role=""menuitem"">Item 2</a>
+      <a role=""menuitem"" href=""#"">Item 2</a>
      </li>
     </ul>
    </li>
@@ -144,7 +144,7 @@ namespace FluentBootstrap.Tests
         public void PillsDropdownProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-pills-dropdown",
-@"<ul class=""nav-pills nav"">
+@"<ul class=""nav nav-pills"">
    <li class=""active"">
     <a href=""#"">Home</a>
    </li>
@@ -152,16 +152,16 @@ namespace FluentBootstrap.Tests
     <a href=""http://www.google.com"">Profile</a>
    </li>
    <li class=""dropdown"">
-    <a class=""dropdown-toggle"" data-toggle=""dropdown"" href=""#"">Dropdown 
+    <a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle"">Dropdown 
      <span class=""caret""></span>
     </a>
-    <ul class=""dropdown-menu"" role=""menu"">
+    <ul role=""menu"" class=""dropdown-menu"">
      <li role=""presentation"">
-      <a href=""#"" role=""menuitem"">Item 1</a>
+      <a role=""menuitem"" href=""#"">Item 1</a>
      </li>
-     <li class=""divider"" role=""presentation""></li>
+     <li role=""presentation"" class=""divider""></li>
      <li role=""presentation"">
-      <a href=""#"" role=""menuitem"">Item 2</a>
+      <a role=""menuitem"" href=""#"">Item 2</a>
      </li>
     </ul>
    </li>

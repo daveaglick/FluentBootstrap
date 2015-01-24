@@ -32,10 +32,10 @@ namespace FluentBootstrap.Tests
         public void ButtonBadgeProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-button",
-@"<button class=""btn-default btn"" type=""button"">Button
+@"<button type=""button"" class=""btn btn-default"">Button
    <span class=""badge"">4</span>
   </button>
-  <button class=""btn-primary btn"" type=""button"">Button
+  <button type=""button"" class=""btn btn-primary"">Button
    <span class=""badge"">456</span>
   </button>");
         }
@@ -44,7 +44,7 @@ namespace FluentBootstrap.Tests
         public void PillsBadgeProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-pills",
-@"<ul class=""nav-pills nav"">
+@"<ul class=""nav nav-pills"">
    <li>
     <a href=""#"">A
      <span class=""badge"">3</span>

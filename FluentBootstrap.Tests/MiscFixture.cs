@@ -51,7 +51,7 @@ namespace FluentBootstrap.Tests
    <h1>            Header
 
     <small>Some small text</small>
-    <span class=""label-default label"">A label</span>
+    <span class=""label label-default"">A label</span>
    </h1>
   </div>");
         }

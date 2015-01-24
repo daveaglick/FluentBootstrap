@@ -14,17 +14,17 @@ namespace FluentBootstrap.Tests
         public void AlertStatesProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-states",
-@"<div class=""alert-success alert"" role=""alert"">Success</div>
-  <div class=""alert-info alert"" role=""alert"">Info</div>
-  <div class=""alert-warning alert"" role=""alert"">Warning</div>
-  <div class=""alert-danger alert"" role=""alert"">Danger</div>");
+@"<div role=""alert"" class=""alert alert-success"">Success</div>
+  <div role=""alert"" class=""alert alert-info"">Info</div>
+  <div role=""alert"" class=""alert alert-warning"">Warning</div>
+  <div role=""alert"" class=""alert alert-danger"">Danger</div>");
         }
 
         [Test]
         public void AlertHeadingProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-heading",
-@"<div class=""alert-warning alert"" role=""alert"">
+@"<div role=""alert"" class=""alert alert-warning"">
    <strong>Warning </strong>Yikes, this is a warning.
   </div>");
         }
@@ -33,8 +33,8 @@ namespace FluentBootstrap.Tests
         public void DismissibleAlertProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-dismissible",
-@"<div class=""alert-dismissible alert-warning alert"" role=""alert"">
-   <button class=""close"" data-dismiss=""alert"" type=""button"">
+@"<div role=""alert"" class=""alert alert-warning alert-dismissible"">
+   <button type=""button"" data-dismiss=""alert"" class=""close"">
     <span aria-hidden=""true"">&times;</span>
     <span class=""sr-only"">Close</span>
    </button>Yikes, this is a warning.
@@ -45,8 +45,8 @@ namespace FluentBootstrap.Tests
         public void DismissibleAlertWithHeadingProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-dismissible-with-heading",
-@"<div class=""alert-dismissible alert-warning alert"" role=""alert"">
-   <button class=""close"" data-dismiss=""alert"" type=""button"">
+@"<div role=""alert"" class=""alert alert-warning alert-dismissible"">
+   <button type=""button"" data-dismiss=""alert"" class=""close"">
     <span aria-hidden=""true"">&times;</span>
     <span class=""sr-only"">Close</span>
    </button>
@@ -58,9 +58,9 @@ namespace FluentBootstrap.Tests
         public void AlertLinksProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-links",
-@"<div class=""alert-warning alert"" role=""alert"">
+@"<div role=""alert"" class=""alert alert-warning"">
    <strong>Yikes! </strong>            This is 
-   <a class=""alert-link"" href=""#"">link</a> inside the alert.
+   <a href=""#"" class=""alert-link"">link</a> inside the alert.
 
   </div>");
         }

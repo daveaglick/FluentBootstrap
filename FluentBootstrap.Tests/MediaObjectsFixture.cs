@@ -15,7 +15,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-default",
 @"<div class=""media"">
-   <a class=""media-left"" href=""#"">
+   <a href=""#"" class=""media-left"">
     <img src=""http://placehold.it/64x64"">
    </a>
    <div class=""media-body"">
@@ -42,7 +42,7 @@ namespace FluentBootstrap.Tests
     <h4 class=""media-heading"">Media</h4>                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
    </div>
-   <a class=""media-right"" href=""#"">
+   <a href=""#"" class=""media-right"">
     <img src=""http://placehold.it/64x64"">
    </a>
   </div>");
@@ -53,7 +53,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-explicit-heading",
 @"<div class=""media"">
-   <a class=""media-left"" href=""#"">
+   <a href=""#"" class=""media-left"">
     <img src=""http://placehold.it/64x64"">
    </a>
    <div class=""media-body"">
@@ -68,14 +68,14 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-nested",
 @"<div class=""media"">
-   <a class=""media-left"" href=""#"">
+   <a href=""#"" class=""media-left"">
     <img src=""http://placehold.it/64x64"">
    </a>
    <div class=""media-body"">
     <h3 class=""media-heading"">Heading</h3>                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
     <div class=""media"">
-     <a class=""media-left"" href=""#"">
+     <a href=""#"" class=""media-left"">
       <img src=""http://placehold.it/64x64"">
      </a>
      <div class=""media-body"">
@@ -93,7 +93,7 @@ namespace FluentBootstrap.Tests
             TestHelper.AssertHtml<ASP._Views_Tests_MediaObjects_cshtml>("test-list",
 @"<ul class=""media-list"">
    <li class=""media"">
-    <a class=""media-left"" href=""#"">
+    <a href=""#"" class=""media-left"">
      <img src=""http://placehold.it/64x64"">
     </a>
     <div class=""media-body"">
@@ -101,13 +101,13 @@ namespace FluentBootstrap.Tests
     </div>
    </li>
    <li class=""media"">
-    <a class=""media-left"" href=""#"">
+    <a href=""#"" class=""media-left"">
      <img src=""http://placehold.it/64x64"">
     </a>
     <div class=""media-body"">
      <h4 class=""media-heading"">Heading</h4>Text content.
      <div class=""media"">
-      <a class=""media-left"" href=""#"">
+      <a href=""#"" class=""media-left"">
        <img src=""http://placehold.it/64x64"">
       </a>
       <div class=""media-body"">

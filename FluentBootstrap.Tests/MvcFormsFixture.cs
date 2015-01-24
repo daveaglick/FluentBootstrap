@@ -16,14 +16,14 @@ namespace FluentBootstrap.Tests
         public void ValidationSummaryProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-validation-summary",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""PropA"">Property A</label>
+    <label for=""PropA"" class=""control-label"">Property A</label>
     <div><partial></partial>
 </div>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -32,12 +32,12 @@ namespace FluentBootstrap.Tests
         public void ExplicitValidationSummaryProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-explicit-validation-summary",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
    <div class=""form-group"">
-    <label class=""control-label"" for=""PropA"">Property A</label>
+    <label for=""PropA"" class=""control-label"">Property A</label>
     <div class=""form-control-static""><input id=""PropA"" name=""PropA"" type=""hidden"" value=""""><partial></partial>
 </div>
    </div>
@@ -48,14 +48,14 @@ namespace FluentBootstrap.Tests
         public void PropertyValidationProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-property-validation",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""PropB"">PropB</label>
+    <label for=""PropB"" class=""control-label"">PropB</label>
     <div><partial></partial>
 </div>
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }
@@ -64,9 +64,9 @@ namespace FluentBootstrap.Tests
         public void EditorOrDisplayForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-display-list-for",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""PropC_Values"">Values</label>
+    <label for=""PropC_Values"" class=""control-label"">Values</label>
     <div class=""form-control-static""><input id=""PropC_Values"" name=""PropC.Values"" type=""hidden"" value=""""><partial></partial>
 </div>
    </div>
@@ -77,9 +77,9 @@ namespace FluentBootstrap.Tests
         public void DisplayListForForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-editor-list-for",
-@"<form method=""post"" role=""form"">
+@"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label class=""control-label"" for=""PropC_Values"">Values</label>
+    <label for=""PropC_Values"" class=""control-label"">Values</label>
     <div><partial></partial>
 </div>
    </div>

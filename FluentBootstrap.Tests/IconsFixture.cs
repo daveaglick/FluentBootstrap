@@ -16,15 +16,15 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-inline-icon",
 @"This is an inline 
-  <span class=""glyphicon-arrow-up glyphicon""></span> icon.");
+  <span class=""glyphicon glyphicon-arrow-up""></span> icon.");
         }
 
         [Test]
         public void ButtonIconProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-button-icon",
-@"<button class=""btn-default btn"" type=""button"">
-   <span class=""glyphicon-bell glyphicon""></span> Icon Button
+@"<button type=""button"" class=""btn btn-default"">
+   <span class=""glyphicon glyphicon-bell""></span> Icon Button
   </button>");
         }
 
@@ -32,8 +32,8 @@ namespace FluentBootstrap.Tests
         public void LinkButtonIconProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-link-button-icon",
-@"<a class=""btn-default btn"" href=""#"" role=""button"">
-   <span class=""glyphicon-picture glyphicon""></span> Link Button
+@"<a role=""button"" href=""#"" class=""btn btn-default"">
+   <span class=""glyphicon glyphicon-picture""></span> Link Button
   </a>");
         }
 
@@ -42,7 +42,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-link-icon",
 @"<a href=""#"">
-   <span class=""glyphicon-road glyphicon""></span> Link
+   <span class=""glyphicon glyphicon-road""></span> Link
   </a>");
         }
 
@@ -50,27 +50,27 @@ namespace FluentBootstrap.Tests
         public void FormFeedbackProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-form-feedback",
-@"<form method=""post"" role=""form"">
-   <div class=""has-feedback form-group"">
-    <label class=""control-label"" for=""Normal"">Normal</label>
-    <input class=""form-control"" id=""Normal"" name=""Normal"" type=""text"">
-     <span class=""form-control-feedback glyphicon-ok-circle glyphicon""></span>
+@"<form role=""form"" method=""post"">
+   <div class=""form-group has-feedback"">
+    <label for=""Normal"" class=""control-label"">Normal</label>
+    <input type=""text"" name=""Normal"" id=""Normal"" class=""form-control"">
+     <span class=""glyphicon glyphicon-ok-circle form-control-feedback""></span>
     
    </div>
-   <div class=""has-feedback has-error form-group"">
-    <label class=""control-label"" for=""Error"">Error</label>
-    <input class=""form-control"" id=""Error"" name=""Error"" type=""text"">
-     <span class=""form-control-feedback glyphicon-remove-circle glyphicon""></span>
+   <div class=""form-group has-error has-feedback"">
+    <label for=""Error"" class=""control-label"">Error</label>
+    <input type=""text"" name=""Error"" id=""Error"" class=""form-control"">
+     <span class=""glyphicon glyphicon-remove-circle form-control-feedback""></span>
     
    </div>
-   <div class=""has-feedback has-warning form-group"">
-    <label class=""sr-only control-label"" for=""SrOnly"">SrOnly Label</label>
-    <input class=""form-control"" id=""SrOnly"" name=""SrOnly"" type=""text"">
-     <span class=""form-control-feedback glyphicon-check glyphicon""></span>
+   <div class=""form-group has-warning has-feedback"">
+    <label for=""SrOnly"" class=""control-label sr-only"">SrOnly Label</label>
+    <input type=""text"" name=""SrOnly"" id=""SrOnly"" class=""form-control"">
+     <span class=""glyphicon glyphicon-check form-control-feedback""></span>
     
    </div>
    <div class=""form-group"">
-    <div class=""text-danger form-control-static""></div>
+    <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
         }

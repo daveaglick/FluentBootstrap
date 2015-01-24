@@ -14,7 +14,7 @@ namespace FluentBootstrap.Tests
         public void StripedTableProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Tables_cshtml>("test-striped",
-@"<table class=""table-striped table"">
+@"<table class=""table table-striped"">
    <thead>
     <tr>
      <th>#</th>

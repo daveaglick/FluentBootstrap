@@ -40,8 +40,8 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-links",
 @"<div class=""list-group"">
-   <a class=""list-group-item"" href=""#"">Item one</a>
-   <a class=""list-group-item"" href=""#"">Item two</a>
+   <a href=""#"" class=""list-group-item"">Item one</a>
+   <a href=""#"" class=""list-group-item"">Item two</a>
   </div>");
         }
 
@@ -50,9 +50,9 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-active-disabled",
 @"<div class=""list-group"">
-   <a class=""active list-group-item"" href=""#"">Item one</a>
-   <a class=""disabled list-group-item"" href=""#"">Item two</a>
-   <a class=""list-group-item"" href=""#"">Item three</a>
+   <a href=""#"" class=""list-group-item active"">Item one</a>
+   <a href=""#"" class=""list-group-item disabled"">Item two</a>
+   <a href=""#"" class=""list-group-item"">Item three</a>
   </div>");
         }
 
@@ -61,14 +61,14 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-state",
 @"<div class=""list-group"">
-   <div class=""list-group-item-success list-group-item"">Success</div>
-   <div class=""list-group-item-info list-group-item"">Info</div>
-   <div class=""list-group-item-warning list-group-item"">Warning</div>
-   <div class=""list-group-item-danger list-group-item"">Danger</div>
-   <a class=""list-group-item-success list-group-item"" href=""#"">Success</a>
-   <a class=""list-group-item-info list-group-item"" href=""#"">Info</a>
-   <a class=""list-group-item-warning list-group-item"" href=""#"">Warning</a>
-   <a class=""list-group-item-danger list-group-item"" href=""#"">Danger</a>
+   <div class=""list-group-item list-group-item-success"">Success</div>
+   <div class=""list-group-item list-group-item-info"">Info</div>
+   <div class=""list-group-item list-group-item-warning"">Warning</div>
+   <div class=""list-group-item list-group-item-danger"">Danger</div>
+   <a href=""#"" class=""list-group-item list-group-item-success"">Success</a>
+   <a href=""#"" class=""list-group-item list-group-item-info"">Info</a>
+   <a href=""#"" class=""list-group-item list-group-item-warning"">Warning</a>
+   <a href=""#"" class=""list-group-item list-group-item-danger"">Danger</a>
   </div>");
         }
 
@@ -77,7 +77,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-implicit-custom",
 @"<div class=""list-group"">
-   <a class=""list-group-item"" href=""#"">
+   <a href=""#"" class=""list-group-item"">
     <h4 class=""list-group-item-heading"">Heading</h4>
     <p class=""list-group-item-text"">Some text.</p>
    </a>
@@ -98,7 +98,7 @@ namespace FluentBootstrap.Tests
     <p class=""list-group-item-text"">                    Some text.
 </p>
    </div>
-   <a class=""list-group-item"" href=""#"">
+   <a href=""#"" class=""list-group-item"">
     <h5 class=""list-group-item-heading"">Heading</h5>
     <p class=""list-group-item-text"">                    Some text.
 </p>
