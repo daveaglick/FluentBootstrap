@@ -101,6 +101,19 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Form Groups")
+    using (Html.Bootstrap().Div().SetId("test-form-groups").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.Input("With Form Group")
+            @form.Input("Without Form Group").EnsureFormGroup(false)
+        }
+        @Html.Bootstrap().Input("Outside Form")
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Basic Input Group")
     using (Html.Bootstrap().Div().SetId("test-basic-input-group").Begin())
     {

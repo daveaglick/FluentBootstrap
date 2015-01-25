@@ -200,6 +200,22 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void FormGroupsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-form-groups",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <input type=""text"" name=""With Form Group"" id=""With_Form_Group"" class=""form-control"">
+   </div>
+   <input type=""text"" name=""Without Form Group"" id=""Without_Form_Group"" class=""form-control"">
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>
+  <input type=""text"" name=""Outside Form"" id=""Outside_Form"" class=""form-control"">");
+        }
+
+        [Test]
         public void BasicInputGroupProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-basic-input-group",

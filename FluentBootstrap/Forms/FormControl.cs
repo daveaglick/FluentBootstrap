@@ -46,9 +46,9 @@ namespace FluentBootstrap.Forms
             }
             _prepared = true;
 
-            // Make sure we're in a form group
+            // Make sure we're in a form group, but only if we're also in a form
             FormGroup formGroup = null;
-            if (GetComponent<FormGroup>() == null && EnsureFormGroup)
+            if (GetComponent<Form>() != null && GetComponent<FormGroup>() == null && EnsureFormGroup)
             {
                 formGroup = new FormGroup(GetHelper());
                 _wrapper = formGroup;
