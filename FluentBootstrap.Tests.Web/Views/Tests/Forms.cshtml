@@ -85,6 +85,22 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Buttons")
+    using (Html.Bootstrap().Div().SetId("test-buttons").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.InputButton("Input")
+            @form.InputButton("Input Submit", buttonType: ButtonType.Submit)
+            @form.FormButton("Button")
+            @form.FormButton("Button Submit", buttonType: ButtonType.Submit)
+            @form.Submit("Submit")
+            @form.Reset("Reset")
+        }
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Basic Input Group")
     using (Html.Bootstrap().Div().SetId("test-basic-input-group").Begin())
     {

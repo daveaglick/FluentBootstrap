@@ -9,7 +9,7 @@ namespace FluentBootstrap.Forms
 {
     public class InputButton : FormControl,
         IHasButtonExtensions, IHasButtonStateExtensions, IHasDisabledAttribute, 
-        IHasTextContent, IHasValueAttribute, IHasNameAttribute
+        IHasValueAttribute, IHasNameAttribute
     {
         internal InputButton(BootstrapHelper helper, ButtonType buttonType)
             : base(helper, "input", Css.Btn, Css.BtnDefault)

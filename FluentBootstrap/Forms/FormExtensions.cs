@@ -330,17 +330,16 @@ namespace FluentBootstrap
 
         // Buttons
 
-        public static ComponentBuilder<TConfig, InputButton> InputButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
+        public static ComponentBuilder<TConfig, InputButton> InputButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string value = null, string label = null, ButtonType buttonType = ButtonType.Button)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<InputButton>
         {
             return new ComponentBuilder<TConfig, InputButton>(helper.Config, new InputButton(helper, buttonType))
-                .SetText(text)
-                .SetControlLabel(label)
-                .SetValue(value);
+                .SetValue(value)
+                .SetControlLabel(label);
         }
 
-        public static ComponentBuilder<TConfig, FormButton> FormButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, ButtonType buttonType = ButtonType.Button, string text = null, string label = null, object value = null)
+        public static ComponentBuilder<TConfig, FormButton> FormButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, string label = null, object value = null, ButtonType buttonType = ButtonType.Button)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<FormButton>
         {

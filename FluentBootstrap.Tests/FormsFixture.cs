@@ -171,6 +171,35 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void ButtonsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-buttons",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <input type=""button"" value=""Input"" class=""btn btn-default"">
+   </div>
+   <div class=""form-group"">
+    <input type=""submit"" value=""Input Submit"" class=""btn btn-default"">
+   </div>
+   <div class=""form-group"">
+    <button type=""button"" class=""btn btn-default"">Button</button>
+   </div>
+   <div class=""form-group"">
+    <button type=""submit"" class=""btn btn-default"">Button Submit</button>
+   </div>
+   <div class=""form-group"">
+    <button type=""submit"" class=""btn btn-primary"">Submit</button>
+   </div>
+   <div class=""form-group"">
+    <button type=""reset"" class=""btn btn-default"">Reset</button>
+   </div>
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
         public void BasicInputGroupProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-basic-input-group",
