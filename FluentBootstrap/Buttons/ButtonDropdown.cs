@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Buttons
 {
-    public class DropdownButton : Tag,
+    public class ButtonDropdown : Tag,
         ICanCreate<Button>,
         ICanCreate<LinkButton>,
         ICanCreate<Dropdown>
     {
-        internal DropdownButton(BootstrapHelper helper)
+        internal ButtonDropdown(BootstrapHelper helper)
             : base(helper, "div", Css.BtnGroup)
         {
         }

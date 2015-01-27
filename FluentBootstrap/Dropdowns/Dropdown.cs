@@ -85,7 +85,7 @@ namespace FluentBootstrap.Dropdowns
             // Check if we're in a IDropdownButton or IInputGroupButton, then
             // Check if we're in a button group, and if so change the outer CSS class
             // Do this after copying over the btn classes so this doesn't get copied
-            if (GetComponent<DropdownButton>(true) != null || GetComponent<InputGroupButton>(true) != null)
+            if (GetComponent<ButtonDropdown>(true) != null || GetComponent<InputGroupButton>(true) != null)
             {
                 _dropdownButton = true;
             }

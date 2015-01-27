@@ -60,7 +60,7 @@
     <Compile Include="Buttons\ButtonState.cs" />
     <Compile Include="Buttons\ButtonToolbar.cs" />
     <Compile Include="Buttons\ButtonType.cs" />
-    <Compile Include="Buttons\DropdownButton.cs" />
+    <Compile Include="Buttons\ButtonDropdown.cs" />
     <Compile Include="Buttons\IHasButtonExtensions.cs" />
     <Compile Include="Buttons\IHasButtonStateExtensions.cs" />
     <Compile Include="Buttons\LinkButton.cs" />

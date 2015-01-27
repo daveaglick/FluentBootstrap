@@ -66,16 +66,16 @@ namespace FluentBootstrap
             return new ComponentBuilder<TConfig, ButtonToolbar>(helper.Config, new ButtonToolbar(helper));
         }
 
-        // Dropdown buttons
+        // Button dropdowns
 
-        public static ComponentBuilder<TConfig, DropdownButton> DropdownButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+        public static ComponentBuilder<TConfig, ButtonDropdown> ButtonDropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
             where TConfig : BootstrapConfig
-            where TComponent : Component, ICanCreate<DropdownButton>
+            where TComponent : Component, ICanCreate<ButtonDropdown>
         {
-            return new ComponentBuilder<TConfig, DropdownButton>(helper.Config, new DropdownButton(helper));
+            return new ComponentBuilder<TConfig, ButtonDropdown>(helper.Config, new ButtonDropdown(helper));
         }
 
-        public static ComponentBuilder<TConfig, DropdownButton> SetDropup<TConfig>(this ComponentBuilder<TConfig, DropdownButton> builder, bool dropup = true)
+        public static ComponentBuilder<TConfig, ButtonDropdown> SetDropup<TConfig>(this ComponentBuilder<TConfig, ButtonDropdown> builder, bool dropup = true)
             where TConfig : BootstrapConfig
         {
             builder.Component.ToggleCss(Css.Dropup, dropup);

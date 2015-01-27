@@ -156,7 +156,7 @@
     @Html.Bootstrap().Heading1("Single Button Dropdown")
     using (Html.Bootstrap().Div().SetId("test-single-button-dropdown").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().DropdownButton().Begin())
+        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
         {
             using (var dropdown = dropdownButton.Dropdown("Dropdown").SetState(ButtonState.Success).Begin())
             {
@@ -171,7 +171,7 @@
     @Html.Bootstrap().Heading1("Split Button Dropdown")
     using (Html.Bootstrap().Div().SetId("test-split-button-dropdown").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().DropdownButton().Begin())
+        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
         {
             @dropdownButton.Button("A").SetState(ButtonState.Success)
             using (var dropdown = dropdownButton.Dropdown().SetState(ButtonState.Success).Begin())
@@ -187,7 +187,7 @@
     @Html.Bootstrap().Heading1("Button Dropdown Sizes")
     using (Html.Bootstrap().Div().SetId("test-button-dropdown-sizes").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().DropdownButton().Begin())
+        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
         {
             using (var dropdown = dropdownButton.Dropdown("Large").SetSize(ButtonSize.Lg).Begin())
             {
@@ -195,7 +195,7 @@
                 @dropdown.DropdownLink("B")
             }
         }
-        using (var dropdownButton = Html.Bootstrap().DropdownButton().Begin())
+        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
         {
             using (var dropdown = dropdownButton.Dropdown("XSmall").SetSize(ButtonSize.Xs).Begin())
             {
@@ -210,7 +210,7 @@
     @Html.Bootstrap().Heading1("Dropup")
     using (Html.Bootstrap().Div().SetId("test-dropup").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().DropdownButton().SetDropup().Begin())
+        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().SetDropup().Begin())
         {
             @dropdownButton.Button("A").SetState(ButtonState.Success)
             using (var dropdown = dropdownButton.Dropdown().SetState(ButtonState.Success).Begin())
