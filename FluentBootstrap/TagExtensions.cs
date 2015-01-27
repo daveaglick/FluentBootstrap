@@ -168,5 +168,29 @@ namespace FluentBootstrap
             builder.Component.ToggleCss(backgroundState);
             return builder;
         }
+
+        public static ComponentBuilder<TConfig, TTag> SetPullLeft<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool pullLeft = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag
+        {
+            builder.Component.ToggleCss(Css.PullLeft, pullLeft);
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, TTag> SetPullRight<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool pullRight = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag
+        {
+            builder.Component.ToggleCss(Css.PullRight, pullRight);
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, TTag> SetCenterBlock<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool centerBlock = true)
+            where TConfig : BootstrapConfig
+            where TTag : Tag
+        {
+            builder.Component.ToggleCss(Css.CenterBlock, centerBlock);
+            return builder;
+        }
     }
 }
