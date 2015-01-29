@@ -19,7 +19,7 @@ namespace FluentBootstrap.Dropdowns
         ICanCreate<DropdownHeader>,
         ICanCreate<DropdownLink>
     {
-        private bool _dropdownButton = false;
+        private bool _inputGroupButton = false;
         private Component _toggle;
         private Typography.List _list;
 
@@ -82,12 +82,12 @@ namespace FluentBootstrap.Dropdowns
                 _toggle.AddChild(GetHelper().Caret());
             }
 
-            // Check if we're in a IDropdownButton or IInputGroupButton, then
+            // Check if we're in a InputGroupButton, then
             // Check if we're in a button group, and if so change the outer CSS class
             // Do this after copying over the btn classes so this doesn't get copied
-            if (GetComponent<ButtonDropdown>(true) != null || GetComponent<InputGroupButton>(true) != null)
+            if (GetComponent<InputGroupButton>(true) != null)
             {
-                _dropdownButton = true;
+                _inputGroupButton = true;
             }
             else if (GetComponent<ButtonGroup>(true) != null)
             {
@@ -108,7 +108,7 @@ namespace FluentBootstrap.Dropdowns
             }
 
             // Start this component
-            base.OnStart(_dropdownButton ? new SuppressOutputWriter() : writer);
+            base.OnStart(_inputGroupButton ? new SuppressOutputWriter() : writer);
 
             // Output the button
             _toggle.StartAndFinish(writer);
@@ -120,7 +120,7 @@ namespace FluentBootstrap.Dropdowns
         protected override void OnFinish(TextWriter writer)
         {
             _list.Finish(writer);
-            base.OnFinish(_dropdownButton ? new SuppressOutputWriter() : writer);
+            base.OnFinish(_inputGroupButton ? new SuppressOutputWriter() : writer);
         }
     }
 }

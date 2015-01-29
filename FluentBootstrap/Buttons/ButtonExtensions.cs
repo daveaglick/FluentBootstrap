@@ -68,17 +68,25 @@ namespace FluentBootstrap
 
         // Button dropdowns
 
-        public static ComponentBuilder<TConfig, ButtonDropdown> ButtonDropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
+        public static ComponentBuilder<TConfig, ButtonDropdown> ButtonDropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<ButtonDropdown>
         {
-            return new ComponentBuilder<TConfig, ButtonDropdown>(helper.Config, new ButtonDropdown(helper));
+            return new ComponentBuilder<TConfig, ButtonDropdown>(helper.Config, new ButtonDropdown(helper))
+                .SetText(text);
+        }
+
+        public static ComponentBuilder<TConfig, ButtonDropdown> SetSplit<TConfig>(this ComponentBuilder<TConfig, ButtonDropdown> builder, bool split = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Split = split;
+            return builder;
         }
 
         public static ComponentBuilder<TConfig, ButtonDropdown> SetDropup<TConfig>(this ComponentBuilder<TConfig, ButtonDropdown> builder, bool dropup = true)
             where TConfig : BootstrapConfig
         {
-            builder.Component.ToggleCss(Css.Dropup, dropup);
+            builder.Component.Dropup = dropup;
             return builder;
         }
 

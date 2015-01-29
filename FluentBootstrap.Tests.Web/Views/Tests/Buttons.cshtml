@@ -1,4 +1,6 @@
-﻿@using (Html.Bootstrap().Container().Begin())
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Group")
     using (Html.Bootstrap().Div().SetId("test-group").Begin())
@@ -156,13 +158,42 @@
     @Html.Bootstrap().Heading1("Single Button Dropdown")
     using (Html.Bootstrap().Div().SetId("test-single-button-dropdown").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").Begin())
         {
-            using (var dropdown = dropdownButton.Dropdown("Dropdown").SetState(ButtonState.Success).Begin())
-            {
-                @dropdown.DropdownLink("A")
-                @dropdown.DropdownLink("B")
-            }
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    // TODO: Add to tests
+    @Html.Bootstrap().Heading1("Single Button Dropdown No Text")
+    using (Html.Bootstrap().Div().SetId("test-single-button-dropdown-no-text").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown().Begin())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    // TODO: Add to tests
+    @Html.Bootstrap().Heading1("Single Button Dropdown With State")
+    using (Html.Bootstrap().Div().SetId("test-single-button-dropdown-with-state").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetState(ButtonState.Danger).Begin())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
         }
     }
 
@@ -171,14 +202,42 @@
     @Html.Bootstrap().Heading1("Split Button Dropdown")
     using (Html.Bootstrap().Div().SetId("test-split-button-dropdown").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetSplit().Begin())
         {
-            @dropdownButton.Button("A").SetState(ButtonState.Success)
-            using (var dropdown = dropdownButton.Dropdown().SetState(ButtonState.Success).Begin())
-            {
-                @dropdown.DropdownLink("A")
-                @dropdown.DropdownLink("B")
-            }
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    // TODO: Add to tests
+    @Html.Bootstrap().Heading1("Split Button Dropdown No Text")
+    using (Html.Bootstrap().Div().SetId("test-split-button-dropdown-no-text").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown().SetSplit().Begin())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    // TODO: Add to tests
+    @Html.Bootstrap().Heading1("Split Button Dropdown With State")
+    using (Html.Bootstrap().Div().SetId("test-split-button-dropdown-with-state").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetSplit().SetState(ButtonState.Danger).Begin())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
         }
     }
 
@@ -187,21 +246,33 @@
     @Html.Bootstrap().Heading1("Button Dropdown Sizes")
     using (Html.Bootstrap().Div().SetId("test-button-dropdown-sizes").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Lg").SetSize(ButtonSize.Lg).Begin())
         {
-            using (var dropdown = dropdownButton.Dropdown("Large").SetSize(ButtonSize.Lg).Begin())
-            {
-                @dropdown.DropdownLink("A")
-                @dropdown.DropdownLink("B")
-            }
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B")
         }
-        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("XSmall").SetSize(ButtonSize.Xs).Begin())
         {
-            using (var dropdown = dropdownButton.Dropdown("XSmall").SetSize(ButtonSize.Xs).Begin())
-            {
-                @dropdown.DropdownLink("A")
-                @dropdown.DropdownLink("B")
-            }
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B")
+        }
+    }
+
+    <hr />
+
+    // TODO: Add to tests
+    @Html.Bootstrap().Heading1("Split Button Dropdown Sizes")
+    using (Html.Bootstrap().Div().SetId("test-split-button-dropdown-sizes").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Lg").SetSplit().SetSize(ButtonSize.Lg).Begin())
+        {
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B")
+        }
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("XSmall").SetSplit().SetSize(ButtonSize.Xs).Begin())
+        {
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B")
         }
     }
 
@@ -210,14 +281,10 @@
     @Html.Bootstrap().Heading1("Dropup")
     using (Html.Bootstrap().Div().SetId("test-dropup").Begin())
     {
-        using (var dropdownButton = Html.Bootstrap().ButtonDropdown().SetDropup().Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("A").SetDropup().Begin())
         {
-            @dropdownButton.Button("A").SetState(ButtonState.Success)
-            using (var dropdown = dropdownButton.Dropdown().SetState(ButtonState.Success).Begin())
-            {
-                @dropdown.DropdownLink("A")
-                @dropdown.DropdownLink("B")
-            }
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B")
         }
     }
 }
