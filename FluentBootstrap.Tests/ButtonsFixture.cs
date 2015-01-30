@@ -214,7 +214,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-single-button-dropdown",
 @"<div class=""btn-group"">
-   <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle"">Dropdown 
+   <button type=""button"" data-toggle=""dropdown"" id=""dd1"" class=""btn btn-default dropdown-toggle"">Dropdown 
     <span class=""caret""></span>
    </button>
    <ul role=""menu"" class=""dropdown-menu"">
@@ -278,7 +278,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-split-button-dropdown",
 @"<div class=""btn-group"">
-   <button type=""button"" class=""btn btn-default"">Dropdown</button>
+   <button type=""button"" id=""dd2"" class=""btn btn-default"">Dropdown</button>
    <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle"">
     <span class=""sr-only"">Toggle Dropdown</span>
     <span class=""caret""></span>

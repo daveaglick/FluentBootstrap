@@ -21,7 +21,6 @@ namespace FluentBootstrap.Buttons
         internal ButtonDropdown(BootstrapHelper helper)
             : base(helper, "ul")
         {
-            MergeAttribute("role", "menu");
         }
 
         protected override void OnStart(System.IO.TextWriter writer)
@@ -44,6 +43,8 @@ namespace FluentBootstrap.Buttons
                 {
                     button.CssClasses.Add(cssClass);
                 }
+                button.MergeAttributes(Attributes.Dictionary);
+                Attributes.Dictionary.Clear();
                 button.StartAndFinish(writer);
             }
 
@@ -55,6 +56,8 @@ namespace FluentBootstrap.Buttons
             {
                 dropdown.CssClasses.Add(cssClass);
             }
+            dropdown.MergeAttributes(Attributes.Dictionary);
+            Attributes.Dictionary.Clear();
             CssClasses.Clear();
             if (!string.IsNullOrWhiteSpace(TextContent))
             {
@@ -70,7 +73,10 @@ namespace FluentBootstrap.Buttons
             TextContent = null;
             dropdown.StartAndFinish(writer);
 
-            AddCss(Css.DropdownMenu);   // Add the DropdownMenu class after we've copied all the user-specified classes to the buttons
+            // Add CSS and attributes after we've copied all the user-specified stuff to the buttons
+            MergeAttribute("role", "menu");
+            AddCss(Css.DropdownMenu);   
+
             base.OnStart(writer);
         }
 

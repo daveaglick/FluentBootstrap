@@ -158,7 +158,7 @@
     @Html.Bootstrap().Heading1("Single Button Dropdown")
     using (Html.Bootstrap().Div().SetId("test-single-button-dropdown").Begin())
     {
-        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetId("dd1").Begin())
         {
             @dropdown.DropdownHeader("Header")
             @dropdown.DropdownDivider()
@@ -202,7 +202,7 @@
     @Html.Bootstrap().Heading1("Split Button Dropdown")
     using (Html.Bootstrap().Div().SetId("test-split-button-dropdown").Begin())
     {
-        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetSplit().Begin())
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetId("dd2").SetSplit().Begin())
         {
             @dropdown.DropdownHeader("Header")
             @dropdown.DropdownDivider()
