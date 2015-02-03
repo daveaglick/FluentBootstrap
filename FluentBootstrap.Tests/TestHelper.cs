@@ -80,7 +80,8 @@ namespace FluentBootstrap.Tests
                     { 1, "One"},
                     { 2, "Two"},
                     { 3, "Three"}
-                }
+                },
+                PropD = true
             };
             HtmlDocument doc = Render<TView, ViewModel>(model);
             expected = expected.Replace("\r\n", "\n");

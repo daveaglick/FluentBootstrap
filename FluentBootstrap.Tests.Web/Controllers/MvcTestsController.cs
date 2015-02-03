@@ -20,7 +20,8 @@ namespace FluentBootstrap.Tests.Web.Controllers
                     { 1, "One"},
                     { 2, "Two"},
                     { 3, "Three"}
-                }
+                },
+                PropD = true
             };
             ModelState.AddModelError(string.Empty, "General error message.");
             ModelState.AddModelError("PropB", "Property B error message.");

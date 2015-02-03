@@ -69,4 +69,37 @@
             @form.EditorListFor(x => x.PropC.Values)
         }
     }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input For")
+    using (Html.Bootstrap().Div().SetId("test-input-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.InputFor(x => x.PropA)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("CheckBox For")
+    using (Html.Bootstrap().Div().SetId("test-checkbox-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.CheckBoxFor(x => x.PropD)
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Radio For")
+    using (Html.Bootstrap().Div().SetId("test-radio-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.RadioFor(x => x.PropD)
+        }
+    }
 }

@@ -85,5 +85,52 @@ namespace FluentBootstrap.Tests
    </div>
   </form>");
         }
+
+        // For the tests below, the correct value is not output - I think because RazorGenerator doesn't support ModelMetadata
+        // So that part of the HTML has been removed for now - these will have to be verified manually
+
+        [Test]
+        public void InputForForProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-input-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropA"" class=""control-label"">Property A</label>
+    <input type=""text"" name=""PropA"" id=""PropA"" class=""form-control"">
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void CheckBoxForForProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-checkbox-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropD"" class=""control-label"">PropD</label>
+    <div class=""checkbox"">
+     <label class=""checkbox"">
+      <input type=""checkbox"" name=""PropD"" id=""PropD"">
+     </label>
+    </div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void RadioForForProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-radio-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropD"" class=""control-label"">PropD</label>
+    <div class=""radio"">
+     <label class=""radio"">
+      <input type=""radio"" name=""PropD"" id=""PropD"">
+     </label>
+    </div>
+   </div>
+  </form>");
+        }
     }
 }

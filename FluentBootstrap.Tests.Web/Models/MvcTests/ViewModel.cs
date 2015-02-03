@@ -12,5 +12,6 @@ namespace FluentBootstrap.Tests.Web.Models.MvcTests
         public string PropA { get; set; }
         public int PropB { get; set; }
         public Dictionary<int, string> PropC { get; set; }
+        public bool PropD { get; set; }
     }
 }

@@ -108,7 +108,7 @@ namespace FluentBootstrap
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, FormGroup> SetGroupLabel<TModel, TValue, TThis>(
             this ComponentBuilder<MvcBootstrapConfig<TModel>, FormGroup> builder, Expression<Func<TModel, TValue>> expression, Action<ControlLabel> labelAction = null)
         {
-            ControlLabel controlLabel = GetControlLabelBuilder(builder.GetHelper(), expression).GetComponent();
+            ControlLabel controlLabel = GetControlLabel(builder.GetHelper(), expression).GetComponent();
             builder.GetComponent().ControlLabel = controlLabel;
             if (labelAction != null)
             {
@@ -118,30 +118,10 @@ namespace FluentBootstrap
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, ControlLabel> ControlLabel<TComponent, TModel, TValue>(
-            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> textExpression)
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
             where TComponent : Component, ICanCreate<ControlLabel>
         {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, ControlLabel>(helper.GetConfig(), GetControlLabelBuilder(helper, textExpression).GetComponent());
-        }
-
-        private static ComponentBuilder<MvcBootstrapConfig<TModel>, ControlLabel> GetControlLabelBuilder<TComponent, TModel, TValue>(
-            BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
-            where TComponent : Component
-        {
-            string htmlFieldName = ExpressionHelper.GetExpressionText(expression);
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
-            string text = metadata.DisplayName;
-            if (text == null)
-            {
-                text = metadata.PropertyName;
-                if (text == null)
-                {
-                    char[] chrArray = new char[] { '.' };
-                    text = htmlFieldName.Split(chrArray).Last<string>();
-                }
-            }
-            return new MvcBootstrapHelper<TModel>(helper.GetConfig().HtmlHelper).ControlLabel(text).For(TagBuilder.CreateSanitizedId(
-                helper.GetConfig().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(htmlFieldName)));
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, ControlLabel>(helper.GetConfig(), GetControlLabel(helper, expression).GetComponent());
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, FormControlFor<TModel, TValue>> DisplayFor<TComponent, TModel, TValue>(
@@ -172,7 +152,7 @@ namespace FluentBootstrap
                     .AddValidationMessage(addValidationMessage)
                     .SetTemplateName(templateName)
                     .AddAdditionalViewData(additionalViewData);
-            builder.GetComponent().Label = GetControlLabelBuilder(helper, expression).GetComponent();
+            builder.GetComponent().Label = GetControlLabel(helper, expression).GetComponent();
             return builder;
         }
 
@@ -204,7 +184,7 @@ namespace FluentBootstrap
                     .AddValidationMessage(addValidationMessage)
                     .SetTemplateName(templateName)
                     .AddAdditionalViewData(additionalViewData);
-            builder.GetComponent().Label = GetControlLabelBuilder(helper, expression).GetComponent();
+            builder.GetComponent().Label = GetControlLabel(helper, expression).GetComponent();
             return builder;
         }
 
@@ -264,6 +244,49 @@ namespace FluentBootstrap
             return builder;
         }
 
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Input> InputFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, FormInputType inputType = FormInputType.Text)
+            where TComponent : Component, ICanCreate<Input>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return helper.Input(name, label, metadata.Model, null, inputType);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> CheckBoxFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
+            where TComponent : Component, ICanCreate<CheckedControl>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            bool isChecked = false;
+            if(metadata.Model == null || !bool.TryParse(metadata.Model.ToString(), out isChecked))
+            {
+                isChecked = false;
+            }
+            return helper.CheckBox(name, label, null, isChecked);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> RadioFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, object value = null)
+            where TComponent : Component, ICanCreate<CheckedControl>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            bool isChecked = false;
+            if (metadata.Model == null || !bool.TryParse(metadata.Model.ToString(), out isChecked))
+            {
+                isChecked = false;
+            }
+            return helper.Radio(name, label, null, value, isChecked);
+        }
+
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, HiddenFor<TModel, TValue>> HiddenFor<TComponent, TModel, TValue>(
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
             where TComponent : Component, ICanCreate<Hidden>
@@ -283,13 +306,46 @@ namespace FluentBootstrap
             this ComponentBuilder<MvcBootstrapConfig<TModel>, TFormControl> builder, Expression<Func<TModel, TValue>> expression, Action<ControlLabel> labelAction = null)
             where TFormControl : FormControl
         {
-            ControlLabel controlLabel = GetControlLabelBuilder(builder.GetHelper(), expression).For(builder.GetComponent().GetAttribute("name")).GetComponent();
+            ControlLabel controlLabel = GetControlLabel(builder.GetHelper(), expression).For(builder.GetComponent().GetAttribute("name")).GetComponent();
             if (labelAction != null)
             {
                 labelAction(controlLabel);
             }
             builder.GetComponent().Label = controlLabel;
             return builder;
+        }
+
+        private static ComponentBuilder<MvcBootstrapConfig<TModel>, ControlLabel> GetControlLabel<TComponent, TModel, TValue>(
+            BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
+            where TComponent : Component
+        {
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return new MvcBootstrapHelper<TModel>(helper.GetConfig().HtmlHelper).ControlLabel(label).For(name);
+        }
+
+        private static string GetControlName<TComponent, TModel>(BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string expressionText)
+            where TComponent : Component
+        {
+            return TagBuilder.CreateSanitizedId(
+                helper.GetConfig().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText));
+        }
+
+        private static string GetControlLabel(ModelMetadata metadata, string expressionText)
+        {
+            string label = metadata.DisplayName;
+            if (label == null)
+            {
+                label = metadata.PropertyName;
+                if (label == null)
+                {
+                    char[] chrArray = new char[] { '.' };
+                    label = expressionText.Split(chrArray).Last<string>();
+                }
+            }
+            return label;
         }
     }
 }
