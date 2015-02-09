@@ -20,7 +20,7 @@ namespace FluentBootstrap
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string actionName, string controllerName, FormMethod method = FormMethod.Post, object routeValues = null)
             where TComponent : Component, ICanCreate<Form>
         {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Form>(helper.GetConfig(), helper.Form().GetComponent())
+            return helper.Form()
                 .SetAction(actionName, controllerName, routeValues)
                 .SetFormMethod(method);
         }
@@ -29,7 +29,7 @@ namespace FluentBootstrap
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, FormMethod method)
             where TComponent : Component, ICanCreate<Form>
         {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Form>(helper.GetConfig(), helper.Form().GetComponent())
+            return helper.Form()
                 .SetAction(null)
                 .SetFormMethod(method);
         }
@@ -38,7 +38,7 @@ namespace FluentBootstrap
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string action, FormMethod method)
             where TComponent : Component, ICanCreate<Form>
         {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Form>(helper.GetConfig(), helper.Form().GetComponent())
+            return helper.Form()
                 .SetAction(action)
                 .SetFormMethod(method);
         }
@@ -99,8 +99,7 @@ namespace FluentBootstrap
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> labelExpression)
             where TComponent : Component, ICanCreate<FormGroup>
         {
-            ComponentBuilder<MvcBootstrapConfig<TModel>, FormGroup> builder = 
-                new ComponentBuilder<MvcBootstrapConfig<TModel>, FormGroup>(helper.GetConfig(), helper.FormGroup().GetComponent());
+            ComponentBuilder<MvcBootstrapConfig<TModel>, FormGroup> builder = helper.FormGroup();
             builder.GetComponent().ControlLabel = builder.GetHelper().ControlLabel(labelExpression).GetComponent();
             return builder;
         }
@@ -121,7 +120,7 @@ namespace FluentBootstrap
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
             where TComponent : Component, ICanCreate<ControlLabel>
         {
-            return new ComponentBuilder<MvcBootstrapConfig<TModel>, ControlLabel>(helper.GetConfig(), GetControlLabel(helper, expression).GetComponent());
+            return GetControlLabel(helper, expression);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, FormControlFor<TModel, TValue>> DisplayFor<TComponent, TModel, TValue>(
@@ -285,6 +284,57 @@ namespace FluentBootstrap
                 isChecked = false;
             }
             return helper.Radio(name, label, null, value, isChecked);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, params string[] options)
+            where TComponent : Component, ICanCreate<Select>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return helper.Select(name, label, options);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, IEnumerable<KeyValuePair<string, string>> options)
+            where TComponent : Component, ICanCreate<Select>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return helper.Select(name, label, options);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, IEnumerable<SelectListItem> selectList = null)
+            where TComponent : Component, ICanCreate<Select>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return helper.Select(name, label, selectList);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> Select<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string name, string label, IEnumerable<SelectListItem> selectList)
+            where TComponent : Component, ICanCreate<Select>
+        {
+            return helper.Select(name, label)
+                .AddOptions(selectList);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> AddOptions<TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, Select> builder, IEnumerable<SelectListItem> selectList)
+        {
+            foreach (SelectListItem item in selectList)
+            {
+                builder.AddChild(x => x.SelectOption(item.Text, item.Value, item.Selected));
+            }
+            return builder;
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, HiddenFor<TModel, TValue>> HiddenFor<TComponent, TModel, TValue>(

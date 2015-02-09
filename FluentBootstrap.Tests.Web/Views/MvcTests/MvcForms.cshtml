@@ -102,4 +102,15 @@
             @form.RadioFor(x => x.PropD)
         }
     }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Select For")
+    using (Html.Bootstrap().Div().SetId("test-select-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.SelectFor(x => x.PropC, Model.PropC.Select(y => new KeyValuePair<string, string>(y.Key.ToString(), y.Value)))
+        }
+    }
 }

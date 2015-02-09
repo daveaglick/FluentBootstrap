@@ -102,6 +102,7 @@
     <Compile Include="Forms\InputGroupSize.cs" />
     <Compile Include="Forms\InputSize.cs" />
     <Compile Include="Forms\Select.cs" />
+    <Compile Include="Forms\SelectOption.cs" />
     <Compile Include="Forms\Static.cs" />
     <Compile Include="Forms\TextArea.cs" />
     <Compile Include="Forms\ValidationState.cs" />

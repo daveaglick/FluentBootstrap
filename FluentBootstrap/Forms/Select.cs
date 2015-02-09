@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
-    public class Select : FormControl, IHasNameAttribute
+    public class Select : FormControl, IHasNameAttribute,
+        ICanCreate<SelectOption>
     {
-        public List<string> Options { get; private set; }
+        public bool Multiple { get; set; }
 
         internal Select(BootstrapHelper helper)
             : base(helper, "select", Css.FormControl)
         {
-            Options = new List<string>();
         }
         
         protected override void OnStart(TextWriter writer)
         {
-            // Add options as child tags
-            foreach (string option in Options)
+            if(Multiple)
             {
-                AddChild(GetHelper().Element("option").AddChild(GetHelper().Content(option)));
+                MergeAttribute("multiple", "multiple");
             }
 
             base.OnStart(writer);

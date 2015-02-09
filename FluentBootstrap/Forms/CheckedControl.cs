@@ -10,6 +10,7 @@ namespace FluentBootstrap.Forms
 {
     public class CheckedControl : FormControl, IHasValueAttribute, IHasNameAttribute
     {
+        public bool Checked { get; set; }
         public bool Inline { get; set; }
         public string Description { get; set; }
         public bool SuppressLabelWrapper { get; set; }
@@ -29,8 +30,13 @@ namespace FluentBootstrap.Forms
         }
         
         protected override void OnStart(TextWriter writer)
-        {
+        {            
             Prepare(writer);
+
+            if(Checked)
+            {
+                MergeAttribute("checked", "checked");
+            }
 
             // Add the description as child content
             if (!string.IsNullOrEmpty(Description))

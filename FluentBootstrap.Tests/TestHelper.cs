@@ -18,7 +18,7 @@ namespace FluentBootstrap.Tests
         {
             WebViewPage<dynamic> view = new TView() as WebViewPage<dynamic>;
             HtmlDocument doc = view.RenderAsHtml();
-            Assert.IsEmpty(doc.ParseErrors);
+            Assert.IsEmpty(doc.ParseErrors.Where(x => x.Code != HtmlParseErrorCode.EndTagNotRequired));
             return doc;
         }
 
@@ -26,8 +26,8 @@ namespace FluentBootstrap.Tests
             where TView : WebViewPage<TModel>, new()
         {
             var view = new TView();
-            HtmlDocument doc = view.RenderAsHtml();
-            Assert.IsEmpty(doc.ParseErrors);
+            HtmlDocument doc = view.RenderAsHtml(model);
+            Assert.IsEmpty(doc.ParseErrors.Where(x => x.Code != HtmlParseErrorCode.EndTagNotRequired));
             return doc;
         }
 

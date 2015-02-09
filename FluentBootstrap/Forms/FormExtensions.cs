@@ -263,16 +263,26 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, CheckedControl> SetChecked<TConfig>(this ComponentBuilder<TConfig, CheckedControl> builder, bool @checked = true)
+        public static ComponentBuilder<TConfig, CheckedControl> SetChecked<TConfig>(this ComponentBuilder<TConfig, CheckedControl> builder, bool isChecked = true)
             where TConfig : BootstrapConfig
         {
-            builder.Component.MergeAttribute("checked", @checked ? "checked" : null);
+            builder.Component.Checked = isChecked;
             return builder;
         }
 
         // Select
 
-        public static ComponentBuilder<TConfig, Select> Select<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, params object[] options)
+        public static ComponentBuilder<TConfig, Select> Select<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name = null, string label = null, params string[] options)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Select>
+        {
+            return new ComponentBuilder<TConfig, Select>(helper.Config, new Select(helper))
+                .SetName(name)
+                .SetControlLabel(label)
+                .AddOptions(options);
+        }
+
+        public static ComponentBuilder<TConfig, Select> Select<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string name, string label, IEnumerable<KeyValuePair<string, string>> options)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Select>
         {
@@ -285,28 +295,58 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, Select> SetMultiple<TConfig>(this ComponentBuilder<TConfig, Select> builder, bool multiple = true)
             where TConfig : BootstrapConfig
         {
-            builder.Component.MergeAttribute("multiple", multiple ? "multiple" : null);
+            builder.Component.Multiple = multiple;
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Select> AddOptions<TConfig>(this ComponentBuilder<TConfig, Select> builder, params object[] options)
+        public static ComponentBuilder<TConfig, Select> AddOptions<TConfig>(this ComponentBuilder<TConfig, Select> builder, params string[] options)
             where TConfig : BootstrapConfig
         {
-            builder.Component.Options.Clear();
-            foreach (object option in options)
+            foreach (string option in options)
             {
-                builder.AddOption(option);
+                builder.AddChild(x => x.SelectOption(option));
             }
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Select> AddOption<TConfig>(this ComponentBuilder<TConfig, Select> builder, object option, string format = null)
+        public static ComponentBuilder<TConfig, Select> AddOptions<TConfig>(this ComponentBuilder<TConfig, Select> builder, IEnumerable<KeyValuePair<string, string>> options)
             where TConfig : BootstrapConfig
         {
-            if (option != null)
+            foreach (KeyValuePair<string, string> option in options)
             {
-                builder.Component.Options.Add(builder.Config.FormatValue(option, format));
+                builder.AddChild(x => x.SelectOption(option.Key, option.Value));
             }
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, Select> AddOption<TConfig>(this ComponentBuilder<TConfig, Select> builder, string text, string value = null, bool selected = false)
+            where TConfig : BootstrapConfig
+        {
+            builder.AddChild(x => x.SelectOption(text, value, selected));
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, SelectOption> SelectOption<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string value = null, bool selected = false)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<SelectOption>
+        {
+            return new ComponentBuilder<TConfig, SelectOption>(helper.Config, new SelectOption(helper))
+                .SetText(text)
+                .SetValue(value)
+                .SetSelected(selected);
+        }
+
+        public static ComponentBuilder<TConfig, SelectOption> SetValue<TConfig>(this ComponentBuilder<TConfig, SelectOption> builder, string value)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Value = value;
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, SelectOption> SetSelected<TConfig>(this ComponentBuilder<TConfig, SelectOption> builder, bool selected = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.Selected = selected;
             return builder;
         }
 

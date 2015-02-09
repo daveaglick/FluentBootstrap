@@ -101,6 +101,42 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Inline Select")
+    using (Html.Bootstrap().Div().SetId("test-inline-select").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.Select("Select", "Select", "Option A", "Option B", "Option C")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Fluent Select")
+    using (Html.Bootstrap().Div().SetId("test-fluent-select").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.Select("Select", "Select").AddOption("Option A", "A").AddOption("Option B", "B", true).AddOption("Option C", "C")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Child Select")
+    using (Html.Bootstrap().Div().SetId("test-child-select").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @(form.Select("Select", "Select")
+                .AddChild(x => x.SelectOption("Option A", "A"))
+                .AddChild(x => x.SelectOption("Option B", "B", true))
+                .AddChild(x => x.SelectOption("Option C", "C")))
+        }
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Form Groups")
     using (Html.Bootstrap().Div().SetId("test-form-groups").Begin())
     {

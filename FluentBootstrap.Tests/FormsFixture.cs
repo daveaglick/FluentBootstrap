@@ -199,6 +199,66 @@ namespace FluentBootstrap.Tests
   </form>");
         }
 
+        // HtmlAgilityPack strips the closing </option> tag - very annoying!!
+        [Test]
+        public void InlineSelectProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-inline-select",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""Select"" class=""control-label"">Select</label>
+    <select name=""Select"" id=""Select"" class=""form-control"">
+     <option>Option A
+     <option>Option B
+     <option>Option C
+    </select>
+   </div>
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>");
+        }
+
+        // HtmlAgilityPack strips the closing </option> tag - very annoying!!
+        [Test]
+        public void FluentSelectProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-fluent-select",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""Select"" class=""control-label"">Select</label>
+    <select name=""Select"" id=""Select"" class=""form-control"">
+     <option value=""A"">Option A
+     <option value=""B"" selected=""selected"">Option B
+     <option value=""C"">Option C
+    </select>
+   </div>
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>");
+        }
+
+        // HtmlAgilityPack strips the closing </option> tag - very annoying!!
+        [Test]
+        public void ChildSelectProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-child-select",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""Select"" class=""control-label"">Select</label>
+    <select name=""Select"" id=""Select"" class=""form-control"">
+     <option value=""A"">Option A
+     <option value=""B"" selected=""selected"">Option B
+     <option value=""C"">Option C
+    </select>
+   </div>
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>");
+        }
+
         [Test]
         public void FormGroupsProduceCorrectHtml()
         {

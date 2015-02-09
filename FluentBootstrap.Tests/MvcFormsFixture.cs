@@ -132,5 +132,22 @@ namespace FluentBootstrap.Tests
    </div>
   </form>");
         }
+
+        // HtmlAgilityPack strips the closing </option> tag - very annoying!!
+        [Test]
+        public void SelectForForProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-select-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropC"" class=""control-label"">PropC</label>
+    <select name=""PropC"" id=""PropC"" class=""form-control"">
+     <option value=""One"">1
+     <option value=""Two"">2
+     <option value=""Three"">3
+    </select>
+   </div>
+  </form>");
+        }
     }
 }
