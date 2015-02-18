@@ -6,11 +6,15 @@ FluentBootstrap provides extensions, helper classes, model binding, and other go
 
 ## Status
 
-* **AppVeyor Build** ![BuildAppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?style=flat-square)
-* **[FluentBootstrap](http://www.nuget.org/packages/FluentBootstrap/)** ![FluentBootstrapNuGet](https://img.shields.io/nuget/v/FluentBootstrap.svg?style=flat-square)
-* **[FluentBootstrap.WebPages](http://www.nuget.org/packages/FluentBootstrap.WebPages/)** ![FluentBootstrapWebPagesNuGet](https://img.shields.io/nuget/v/FluentBootstrap.WebPages.svg?style=flat-square)
-* **[FluentBootstrap.Mvc](http://www.nuget.org/packages/FluentBootstrap.Mvc/)** ![FluentBootstrapMvcNuGet](https://img.shields.io/nuget/v/FluentBootstrap.Mvc.svg?style=flat-square)
-* **[FluentBootstrap.Mvc.T4MVC](http://www.nuget.org/packages/FluentBootstrap.Mvc.T4MVC/)** ![FluentBootstrapMvcT4MVCNuGet](https://img.shields.io/nuget/v/FluentBootstrap.Mvc.T4MVC.svg?style=flat-square)
+![BuildAppVeyor](https://img.shields.io/appveyor/ci/DaveGlick/fluentbootstrap-341.svg?style=flat-square&label=AppVeyor%20Build)
+
+[![FluentBootstrapNuGet](https://img.shields.io/nuget/v/FluentBootstrap.svg?style=flat-square&label=FluentBootstrap)](http://www.nuget.org/packages/FluentBootstrap/)
+
+[![FluentBootstrapWebPagesNuGet](https://img.shields.io/nuget/v/FluentBootstrap.WebPages.svg?style=flat-square&label=FluentBootstrap.WebPages)](http://www.nuget.org/packages/FluentBootstrap.WebPages/) 
+
+[![FluentBootstrapMvcNuGet](https://img.shields.io/nuget/v/FluentBootstrap.Mvc.svg?style=flat-square&label=FluentBootstrap.Mvc)](http://www.nuget.org/packages/FluentBootstrap.Mvc/) 
+
+[![FluentBootstrapMvcT4MVCNuGet](https://img.shields.io/nuget/v/FluentBootstrap.Mvc.T4MVC.svg?style=flat-square&label=FluentBootstrap.Mvc.T4MVC)](http://www.nuget.org/packages/FluentBootstrap.Mvc.T4MVC/) 
 
 ## Example
 
