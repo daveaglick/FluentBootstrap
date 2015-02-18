@@ -116,6 +116,40 @@ namespace FluentBootstrap
             return builder;
         }
 
+        public static ComponentBuilder<TConfig, TTag> AddContentAtEnd<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, object content)
+            where TConfig : BootstrapConfig 
+            where TTag : Tag
+        {
+            if (content != null)
+            {
+                // Make sure that this isn't a component
+                ComponentBuilder contentBuilder = content as ComponentBuilder;
+                if (contentBuilder != null)
+                {
+                    builder.Component.AddChildAtEnd(contentBuilder.GetComponent());
+                }
+
+                // Now check if it's an IHtmlString
+                string str;
+                IHtmlString htmlString = content as IHtmlString;
+                if (htmlString != null)
+                {
+                    str = htmlString.ToHtmlString();
+                }
+                else
+                {
+                    // Just convert to a string using the standard conversion logic
+                    str = Convert.ToString(content, CultureInfo.InvariantCulture);
+                }
+
+                if (!string.IsNullOrEmpty(str))
+                {
+                    builder.Component.AddChildAtEnd(builder.GetHelper().Content(str));
+                }
+            }
+            return builder;
+        }
+
         public static ComponentBuilder<TConfig, TTag> AddChild<TConfig, TTag, TChild>(this ComponentBuilder<TConfig, TTag> builder, Func<ComponentWrapper<TConfig, TTag>, ComponentBuilder<TConfig, TChild>> childFunc)
             where TConfig : BootstrapConfig 
             where TTag : Tag
@@ -131,6 +165,24 @@ namespace FluentBootstrap
             where TChild : Component
         {
             builder.Component.AddChild(child);
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, TTag> AddChildAtEnd<TConfig, TTag, TChild>(this ComponentBuilder<TConfig, TTag> builder, Func<ComponentWrapper<TConfig, TTag>, ComponentBuilder<TConfig, TChild>> childFunc)
+            where TConfig : BootstrapConfig 
+            where TTag : Tag
+            where TChild : Component
+        {
+            builder.Component.AddChildAtEnd(childFunc(builder.GetWrapper()).Component);
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, TTag> AddChildAtEnd<TConfig, TTag, TChild>(this ComponentBuilder<TConfig, TTag> builder, ComponentBuilder<TConfig, TChild> child)
+            where TConfig : BootstrapConfig 
+            where TTag : Tag
+            where TChild : Component
+        {
+            builder.Component.AddChildAtEnd(child);
             return builder;
         }
 

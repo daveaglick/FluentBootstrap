@@ -452,6 +452,113 @@ namespace FluentBootstrap.Tests
     <div class=""form-control-static text-danger""></div>
    </div>
   </form>");
+        }        
+
+        [Test]
+        public void InputFeedbackProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-input-feedback",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group has-feedback"">
+    <label for=""Normal"" class=""control-label"">Normal</label>
+    <input type=""text"" name=""Normal"" id=""Normal"" class=""form-control"">
+     <span class=""glyphicon glyphicon-ok-circle form-control-feedback""></span>
+    
+   </div>
+   <div class=""form-group has-error has-feedback"">
+    <label for=""Error"" class=""control-label"">Error</label>
+    <input type=""text"" name=""Error"" id=""Error"" class=""form-control"">
+     <span class=""glyphicon glyphicon-remove-circle form-control-feedback""></span>
+    
+   </div>
+   <div class=""form-group has-warning has-feedback"">
+    <label for=""SrOnly"" class=""control-label sr-only"">SrOnly Label</label>
+    <input type=""text"" name=""SrOnly"" id=""SrOnly"" class=""form-control"">
+     <span class=""glyphicon glyphicon-check form-control-feedback""></span>
+    
+   </div>
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>");
+        }   
+
+        [Test]
+        public void FormGroupFeedbackProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-form-group-feedback",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group has-feedback"">
+    <div class=""input-group"">
+     <span class=""input-group-addon"">@</span>
+     <input type=""text"" placeholder=""Username"" class=""form-control"">
+    </div>
+    <span class=""glyphicon glyphicon-music form-control-feedback""></span>
+   </div>
+   <div class=""form-group has-feedback has-success"">
+    <div class=""input-group"">
+     <span class=""input-group-addon"">@</span>
+     <input type=""text"" placeholder=""Username"" class=""form-control"">
+    </div>
+    <span class=""glyphicon glyphicon-ok-circle form-control-feedback""></span>
+   </div>
+   <div class=""form-group"">
+    <div class=""form-control-static text-danger""></div>
+   </div>
+  </form>");
+        }
+
+        [Test]
+        public void FormGroupHorizontalFeedbackProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Forms_cshtml>("test-form-group-horizontal-feedback",
+@"<form role=""form"" method=""post"" class=""form-horizontal"">
+   <div class=""form-group has-feedback"">
+    <div class=""col-md-12"">
+     <label for=""not-horizontal"" class=""control-label"">Not Horizontal</label>
+     <input type=""text"" name=""not-horizontal"" id=""not-horizontal"" class=""form-control"">
+     <span class=""glyphicon glyphicon-open form-control-feedback""></span>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <label class=""control-label col-md-3"">Explicit Widths</label>
+    <div class=""has-feedback col-md-9"">
+     <input type=""text"" name=""explicit-widths"" id=""explicit-widths"" class=""form-control"">
+      <span class=""glyphicon glyphicon-oil form-control-feedback""></span>
+     
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-6 col-md-offset-6"">
+     <div class=""has-feedback col-md-9"">
+      <input type=""text"" name=""no-label"" id=""no-label"" class=""form-control"">
+       <span class=""glyphicon glyphicon-sort form-control-feedback""></span>
+      
+     </div>
+    </div>
+   </div>
+   <div class=""form-group has-feedback"">
+    <div class=""col-md-6 col-md-offset-6"">
+     <div class=""input-group"">
+      <span class=""input-group-addon"">@</span>
+      <input type=""text"" placeholder=""Username"" class=""form-control"">
+     </div>
+     <span class=""glyphicon glyphicon-ok-circle form-control-feedback""></span>
+    </div>
+   </div>
+   <div class=""form-group has-feedback"">
+    <div class=""col-md-8 col-md-offset-2"">
+     <label for=""group-md"" class=""control-label"">Group Md</label>
+     <input type=""text"" name=""group-md"" id=""group-md"" class=""form-control"">
+     <span class=""glyphicon glyphicon-signal form-control-feedback""></span>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""col-md-6 col-md-offset-6"">
+     <div class=""form-control-static text-danger""></div>
+    </div>
+   </div>
+  </form>");
         }
     }
 }

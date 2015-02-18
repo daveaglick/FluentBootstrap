@@ -1,4 +1,5 @@
-﻿using FluentBootstrap.Images;
+﻿using FluentBootstrap.Html;
+using FluentBootstrap.Images;
 using FluentBootstrap.Links;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace FluentBootstrap.MediaObjects
 {
     public class MediaObject : Tag, IHasLinkExtensions
     {
+        private Element _wrapper;
         private Image _image;
 
         public string Src { get; set; }
@@ -23,16 +25,27 @@ namespace FluentBootstrap.MediaObjects
 
         protected override void OnStart(TextWriter writer)
         {
-            // Change to a div if no link was provided
+            // Change to a div if no link was provided, otherwise wrap in a div
             string href = GetAttribute("href");
             if (string.IsNullOrWhiteSpace(href))
             {
                 TagName = "div";
             }
+            else
+            {
+                // Copy media CSS classes to the wrapping div
+                _wrapper = GetHelper().Div().Component;
+                foreach(string mediaClass in CssClasses.Where(x => x.StartsWith("media-")).ToList())
+                {
+                    _wrapper.AddCss(mediaClass);
+                    CssClasses.Remove(mediaClass);
+                }
+                _wrapper.Start(writer);
+            }
 
             base.OnStart(writer);
 
-            _image = GetHelper().Image(Src, Alt).Component;
+            _image = GetHelper().Image(Src, Alt).AddCss(Css.MediaObject).Component;
             _image.Start(writer);
         }
 
@@ -41,6 +54,11 @@ namespace FluentBootstrap.MediaObjects
             _image.Finish(writer);
 
             base.OnFinish(writer);
+
+            if(_wrapper != null)
+            {
+                _wrapper.Finish(writer);
+            }
         }
     }
 }

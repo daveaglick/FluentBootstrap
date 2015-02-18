@@ -1,4 +1,6 @@
-﻿@using (Html.Bootstrap().Container().Begin())
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Default")
     using (Html.Bootstrap().Div().SetId("test-default").Begin())
@@ -30,6 +32,37 @@
                 <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
             }
             @media.MediaObject("http://placehold.it/64x64", "#").SetRight()
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Vertical Alignment")
+    using (Html.Bootstrap().Div().SetId("test-vertical-alignment").Begin())
+    {
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#")
+            using (media.MediaBody("Media").Begin())
+            {
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+            }
+        }
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#").SetMiddle()
+            using (media.MediaBody("Media").Begin())
+            {
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+            }
+        }
+        using (var media = Html.Bootstrap().Media().Begin())
+        {
+            @media.MediaObject("http://placehold.it/64x64", "#").SetBottom()
+            using (media.MediaBody("Media").Begin())
+            {
+                <text>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</text>
+            }
         }
     }
 

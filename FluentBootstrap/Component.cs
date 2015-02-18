@@ -18,6 +18,7 @@ namespace FluentBootstrap
         private bool _finished;
         private readonly BootstrapConfig _config;
         private readonly List<Component> _children = new List<Component>();
+        private readonly List<Component> _endChildren = new List<Component>();
         private readonly Component _parent;  // If this is set, all rendering calls get deferred to the parent - see .WithChild() extension
         private readonly Queue<ComponentOverride> _componentOverrides = new Queue<ComponentOverride>();
 
@@ -106,6 +107,16 @@ namespace FluentBootstrap
             _children.Add(builder.GetComponent());
         }
 
+        public void AddChildAtEnd(Component child)
+        {
+            _endChildren.Add(child);
+        }
+
+        public void AddChildAtEnd(ComponentBuilder builder)
+        {
+            _endChildren.Add(builder.GetComponent());
+        }
+
         internal void Begin(TextWriter writer)
         {
             // If we have a parent, it needs to be started
@@ -189,7 +200,7 @@ namespace FluentBootstrap
             }
 
             // Write any children
-            WriteChildren(writer);
+            WriteChildren(_children, writer);
         }
 
         internal void Finish(TextWriter writer)
@@ -206,6 +217,9 @@ namespace FluentBootstrap
             {
                 return;
             }
+
+            // Write any end children
+            WriteChildren(_endChildren, writer);
 
             // Get the stack
             Stack<Component> stack = GetComponentStack();
@@ -278,9 +292,9 @@ namespace FluentBootstrap
             }
         }
 
-        private void WriteChildren(TextWriter writer)
+        private void WriteChildren(List<Component> children, TextWriter writer)
         {
-            foreach (Component child in _children.Cast<Component>())
+            foreach (Component child in children)
             {
                 child.StartAndFinish(writer);
             }

@@ -45,34 +45,5 @@ namespace FluentBootstrap.Tests
    <span class=""glyphicon glyphicon-road""></span> Link
   </a>");
         }
-
-        [Test]
-        public void FormFeedbackProducesCorrectHtml()
-        {
-            TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-form-feedback",
-@"<form role=""form"" method=""post"">
-   <div class=""form-group has-feedback"">
-    <label for=""Normal"" class=""control-label"">Normal</label>
-    <input type=""text"" name=""Normal"" id=""Normal"" class=""form-control"">
-     <span class=""glyphicon glyphicon-ok-circle form-control-feedback""></span>
-    
-   </div>
-   <div class=""form-group has-error has-feedback"">
-    <label for=""Error"" class=""control-label"">Error</label>
-    <input type=""text"" name=""Error"" id=""Error"" class=""form-control"">
-     <span class=""glyphicon glyphicon-remove-circle form-control-feedback""></span>
-    
-   </div>
-   <div class=""form-group has-warning has-feedback"">
-    <label for=""SrOnly"" class=""control-label sr-only"">SrOnly Label</label>
-    <input type=""text"" name=""SrOnly"" id=""SrOnly"" class=""form-control"">
-     <span class=""glyphicon glyphicon-check form-control-feedback""></span>
-    
-   </div>
-   <div class=""form-group"">
-    <div class=""form-control-static text-danger""></div>
-   </div>
-  </form>");
-        }
     }
 }

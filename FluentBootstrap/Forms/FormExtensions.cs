@@ -116,6 +116,17 @@ namespace FluentBootstrap
         {
             builder.Component.AutoColumns = autoColumns;
             return builder;
+        }        
+
+        public static ComponentBuilder<TConfig, FormGroup> SetFeedback<TConfig>(this ComponentBuilder<TConfig, FormGroup> builder, Icon icon)
+            where TConfig : BootstrapConfig
+        {
+            if (icon != Icon.None)
+            {
+                builder.Component.ToggleCss(Css.HasFeedback, true);
+                builder.Component.Icon = icon;
+            }
+            return builder;
         }
 
         // ControlLabel

@@ -359,6 +359,7 @@ namespace FluentBootstrap
 		public const string MediaLeft = "media-left";
 		public const string MediaList = "media-list";
 		public const string MediaMiddle = "media-middle";
+		public const string MediaObject = "media-object";
 		public const string MediaRight = "media-right";
 		public const string Microsoft = "Microsoft";
 		public const string Modal = "modal";
@@ -499,5 +500,6 @@ namespace FluentBootstrap
 		public const string WellLg = "well-lg";
 		public const string WellSm = "well-sm";
 		public const string Woff = "woff";
+		public const string Woff2 = "woff2";
 	}
 }

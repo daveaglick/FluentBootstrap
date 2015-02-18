@@ -27,6 +27,8 @@ namespace FluentBootstrap.Forms
         {
             get { return _label != null; }
         }
+        
+        public Icon Icon { get; set; }
 
         public bool? Horizontal { get; set; }   // null = same as the form, or false if no form
 
@@ -35,6 +37,7 @@ namespace FluentBootstrap.Forms
         internal FormGroup(BootstrapHelper helper)
             : base(helper, "div", Css.FormGroup)
         {
+            Icon = Icon.None;
             AutoColumns = true;
         }
         
@@ -101,11 +104,26 @@ namespace FluentBootstrap.Forms
             {
                 _columnWrapper.Start(writer);
             }
+            
+            // Add the feedback icon as a final child of either this or the wrapper
+            if (Icon != Icon.None)
+            {
+                Component icon = GetHelper().Icon(Icon).AddCss(Css.FormControlFeedback).Component;
+                if(_columnWrapper == null)
+                {
+                    AddChildAtEnd(icon);
+                }
+                else
+                {
+                    _columnWrapper.AddChildAtEnd(icon);
+                }
+            }
         }
 
         protected override void OnFinish(TextWriter writer)
         {
             Pop(_columnWrapper, writer);
+
             base.OnFinish(writer);
         }
     }

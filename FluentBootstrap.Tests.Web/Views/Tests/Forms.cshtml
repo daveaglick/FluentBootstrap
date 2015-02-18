@@ -315,4 +315,78 @@
             }
         }
     }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Input Feedback")
+    using (Html.Bootstrap().Div().SetId("test-input-feedback").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            @form.Input("Normal", "Normal").SetFeedback(Icon.OkCircle)
+            @form.Input("Error", "Error").SetState(ValidationState.Error).SetFeedback(Icon.RemoveCircle)
+            @form.Input("SrOnly").SetState(ValidationState.Warning).SetFeedback(Icon.Check).SetControlLabel("SrOnly Label", x => x.SetVisibility(Visibility.SrOnly))
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Form Group Feedback")
+    using (Html.Bootstrap().Div().SetId("test-form-group-feedback").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().Begin())
+        {
+            using (form.FormGroup().SetFeedback(Icon.Music).Begin())
+            {
+                using (var inputGroup = form.InputGroup().Begin())
+                {
+                    @inputGroup.InputGroupAddon("@")
+                    @inputGroup.Input().SetPlaceholder("Username")
+                }
+            }
+            using (form.FormGroup().SetFeedback(Icon.OkCircle).SetState(ValidationState.Success).Begin())
+            {
+                using (var inputGroup = form.InputGroup().Begin())
+                {
+                    @inputGroup.InputGroupAddon("@")
+                    @inputGroup.Input().SetPlaceholder("Username")
+                }
+            }
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Form Group Horizontal Feedback")
+    using (Html.Bootstrap().Div().SetId("test-form-group-horizontal-feedback").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().SetHorizontal(6).Begin())
+        {
+            using (form.FormGroup().SetHorizontal(false).SetFeedback(Icon.Open).Begin())
+            {
+                @form.Input("not-horizontal", "Not Horizontal")
+            }
+            using (form.FormGroup().SetAutoColumns(false).Begin())
+            {
+                @form.ControlLabel("Explicit Widths").SetMd(3)
+                @form.Input("explicit-widths").SetMd(9).SetFeedback(Icon.Oil)
+            }
+            using (form.FormGroup().Begin())
+            {
+                @form.Input("no-label").SetMd(9).SetFeedback(Icon.Sort)
+            }
+            using (form.FormGroup().SetFeedback(Icon.OkCircle).Begin())
+            {
+                using (var inputGroup = form.InputGroup().Begin())
+                {
+                    @inputGroup.InputGroupAddon("@")
+                    @inputGroup.Input().SetPlaceholder("Username")
+                }
+            }
+            using (form.FormGroup().SetMd(8).SetMdOffset(2).SetFeedback(Icon.Signal).Begin())
+            {
+                @form.Input("group-md", "Group Md")
+            }
+        }
+    }
 }

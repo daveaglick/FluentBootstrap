@@ -250,6 +250,7 @@
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Icons\Icon.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Icon.cs</LastGenOutput>

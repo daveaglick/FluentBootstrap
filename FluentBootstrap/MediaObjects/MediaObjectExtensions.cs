@@ -58,6 +58,20 @@ namespace FluentBootstrap
             return builder;
         }
 
+        public static ComponentBuilder<TConfig, MediaObject> SetMiddle<TConfig>(this ComponentBuilder<TConfig, MediaObject> builder, bool middle = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.MediaMiddle, middle, Css.MediaBottom);
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, MediaObject> SetBottom<TConfig>(this ComponentBuilder<TConfig, MediaObject> builder, bool bottom = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.MediaBottom, bottom, Css.MediaMiddle);
+            return builder;
+        }
+
         // Media Body
 
         public static ComponentBuilder<TConfig, MediaBody> MediaBody<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string heading = null, string text = null)
