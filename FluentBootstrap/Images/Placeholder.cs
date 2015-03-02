@@ -19,13 +19,9 @@ namespace FluentBootstrap.Images
         internal Placeholder(BootstrapHelper helper, int width, int? height = null) 
             : base(helper)
         {
+            OutputEndTag = false;
             Width = width;
             Height = height;
-        }
-
-        protected override bool OutputEndTag
-        {
-            get { return false; }
         }
 
         protected override void OnStart(TextWriter writer)

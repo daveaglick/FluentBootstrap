@@ -1,0 +1,10 @@
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
+{
+    @Html.Bootstrap().Heading1("No Pretty Printing")
+    using (Html.Bootstrap().Div().SetId("test-no-pretty-printing").Begin())
+    {
+        <text>@Html.Bootstrap().Link("Link 1")|@Html.Bootstrap().Link("Link 2")</text>
+    }
+}

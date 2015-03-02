@@ -175,10 +175,8 @@ namespace FluentBootstrap.Tests
       <li>
        <a href=""#"">A</a>
       </li>
-      <li class=""dropdown"">
-       <a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle navbar-link"">B 
-        <span class=""caret""></span>
-       </a>
+      <li class=""dropdown""><a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle navbar-link"">B 
+       <span class=""caret""></span></a>
        <ul role=""menu"" class=""dropdown-menu"">
         <li role=""presentation"">
          <a role=""menuitem"" href=""#"">C</a>
@@ -206,10 +204,8 @@ namespace FluentBootstrap.Tests
       </li>
      </div>
      <button type=""button"" class=""btn btn-warning navbar-btn navbar-left"">Warn</button>
-     <p class=""navbar-text navbar-right"">                    Logged in as 
-      <a href=""#"" class=""navbar-link"">Dave</a>
-
-     </p>
+     <p class=""navbar-text navbar-right"">                    Logged in as <a href=""#"" class=""navbar-link"">Dave</a>
+</p>
      <div class=""nav navbar-nav navbar-right"">
       <li>
        <a href=""#"">R</a>
@@ -240,10 +236,8 @@ namespace FluentBootstrap.Tests
       <li>
        <a href=""#"">A</a>
       </li>
-      <li class=""dropdown"">
-       <a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle navbar-link"">B 
-        <span class=""caret""></span>
-       </a>
+      <li class=""dropdown""><a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle navbar-link"">B 
+       <span class=""caret""></span></a>
        <ul role=""menu"" class=""dropdown-menu"">
         <li role=""presentation"">
          <a role=""menuitem"" href=""#"">C</a>
@@ -271,10 +265,8 @@ namespace FluentBootstrap.Tests
       </li>
      </div>
      <button type=""button"" class=""btn btn-warning navbar-btn navbar-left"">Warn</button>
-     <p class=""navbar-text navbar-right"">                Logged in as 
-      <a href=""#"" class=""navbar-link"">Dave</a>
-
-     </p>
+     <p class=""navbar-text navbar-right"">                Logged in as <a href=""#"" class=""navbar-link"">Dave</a>
+</p>
     </div>
    </div>
   </nav>");

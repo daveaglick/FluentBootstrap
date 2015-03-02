@@ -20,7 +20,8 @@ namespace FluentBootstrap
         private bool _startTagOutput;
 
         public string TextContent { get; set; }   // Can be used to set simple text content for the tag
-        public bool PrettyPrint { get; set; }
+        public bool PrettyPrint { get; set; }  // Set to false to suppress pretty printing, even if turned on globally (I.e., for links)
+        public bool OutputEndTag { get; set; }
 
         protected Tag(BootstrapHelper helper, string tagName, params string[] cssClasses)
             : base(helper)
@@ -34,6 +35,7 @@ namespace FluentBootstrap
                 CssClasses.Add(cssClass);
             }
             PrettyPrint = helper.GetConfig().PrettyPrint;
+            OutputEndTag = true;
         }
 
         // Setting this will create a new TagBuilder and copy over all items in Attributes
@@ -141,11 +143,6 @@ namespace FluentBootstrap
                     ToggleCss(description, flags ? css.HasFlag(value) : css.Equals(value));
                 }
             }
-        }
-
-        protected virtual bool OutputEndTag
-        {
-            get { return true; }
         }
 
         protected override void OnStart(TextWriter writer)

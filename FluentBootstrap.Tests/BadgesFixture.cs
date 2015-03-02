@@ -22,10 +22,8 @@ namespace FluentBootstrap.Tests
         public void LinkBadgeProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Badges_cshtml>("test-link",
-@"<p>
-  <a href=""#"">Link
-   <span class=""badge"">789</span>
-  </a></p>");
+@"<p><a href=""#"">Link
+  <span class=""badge"">789</span></a></p>");
         }
 
         [Test]

@@ -14,11 +14,7 @@ namespace FluentBootstrap.Images
         protected ImageBase(BootstrapHelper helper)
             : base(helper, "img")
         {
-        }
-
-        protected override bool OutputEndTag
-        {
-            get { return false; }
+            OutputEndTag = false;
         }
 
         protected override void OnStart(System.IO.TextWriter writer)

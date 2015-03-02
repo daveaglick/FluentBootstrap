@@ -59,8 +59,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-links",
 @"<div role=""alert"" class=""alert alert-warning"">
-   <strong>Yikes! </strong>            This is 
-   <a href=""#"" class=""alert-link"">link</a> inside the alert.
+   <strong>Yikes! </strong>            This is <a href=""#"" class=""alert-link"">link</a> inside the alert.
 
   </div>");
         }

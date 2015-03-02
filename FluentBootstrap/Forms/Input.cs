@@ -15,6 +15,7 @@ namespace FluentBootstrap.Forms
         internal Input(BootstrapHelper helper, FormInputType inputType)
             : base(helper, "input", Css.FormControl)
         {
+            OutputEndTag = false;
             Icon = Icon.None;
             MergeAttribute("type", inputType.GetDescription());
         }
@@ -28,11 +29,6 @@ namespace FluentBootstrap.Forms
             }
 
             base.OnFinish(writer);
-        }
-
-        protected override bool OutputEndTag
-        {
-            get { return false; }
         }
     }
 }

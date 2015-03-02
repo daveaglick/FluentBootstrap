@@ -14,12 +14,8 @@ namespace FluentBootstrap.Forms
         internal InputButton(BootstrapHelper helper, ButtonType buttonType)
             : base(helper, "input", Css.Btn, Css.BtnDefault)
         {
+            OutputEndTag = false;
             MergeAttribute("type", buttonType.GetDescription());
-        }
-
-        protected override bool OutputEndTag
-        {
-            get { return false; }
         }
     }
 }

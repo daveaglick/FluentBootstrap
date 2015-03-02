@@ -123,10 +123,8 @@ namespace FluentBootstrap.Tests
    <li class=""disabled"">
     <a href=""http://www.google.com"">Profile</a>
    </li>
-   <li class=""dropdown"">
-    <a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle"">Dropdown 
-     <span class=""caret""></span>
-    </a>
+   <li class=""dropdown""><a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle"">Dropdown 
+    <span class=""caret""></span></a>
     <ul role=""menu"" class=""dropdown-menu"">
      <li role=""presentation"">
       <a role=""menuitem"" href=""#"">Item 1</a>
@@ -151,10 +149,8 @@ namespace FluentBootstrap.Tests
    <li class=""disabled"">
     <a href=""http://www.google.com"">Profile</a>
    </li>
-   <li class=""dropdown"">
-    <a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle"">Dropdown 
-     <span class=""caret""></span>
-    </a>
+   <li class=""dropdown""><a href=""#"" data-toggle=""dropdown"" class=""dropdown-toggle"">Dropdown 
+    <span class=""caret""></span></a>
     <ul role=""menu"" class=""dropdown-menu"">
      <li role=""presentation"">
       <a role=""menuitem"" href=""#"">Item 1</a>

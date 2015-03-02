@@ -42,8 +42,7 @@ namespace FluentBootstrap.Tests
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Icons_cshtml>("test-link-icon",
 @"<a href=""#"">
-   <span class=""glyphicon glyphicon-road""></span> Link
-  </a>");
+  <span class=""glyphicon glyphicon-road""></span> Link</a>");
         }
     }
 }

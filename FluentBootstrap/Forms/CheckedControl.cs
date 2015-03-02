@@ -21,12 +21,8 @@ namespace FluentBootstrap.Forms
         internal CheckedControl(BootstrapHelper helper, string type)
             : base(helper, "input")
         {
+            OutputEndTag = false;
             MergeAttribute("type", type);
-        }
-
-        protected override bool OutputEndTag
-        {
-            get { return false; }
         }
         
         protected override void OnStart(TextWriter writer)

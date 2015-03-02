@@ -18,6 +18,7 @@ namespace FluentBootstrap.Links
         internal Link(BootstrapHelper helper)
             : base(helper, "a")
         {
+            PrettyPrint = false;
         }
 
         protected override void OnStart(TextWriter writer)
