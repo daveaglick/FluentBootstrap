@@ -18,7 +18,7 @@ namespace FluentBootstrap.Forms
 
         protected override void OnStart(TextWriter writer)
         {
-            if (!string.IsNullOrWhiteSpace(Value))
+            if (Value != null)
             {
                 MergeAttribute("value", Value);
             }
