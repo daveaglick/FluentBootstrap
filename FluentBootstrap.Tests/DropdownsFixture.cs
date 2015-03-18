@@ -84,7 +84,7 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void DisabledDropdownProducesCorrectHtml()
+        public void DisabledDropdownLinkProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-disabled",
 @"<div class=""dropdown"">
@@ -116,6 +116,28 @@ namespace FluentBootstrap.Tests
     </li>
     <li role=""presentation"">
      <a role=""menuitem"" href=""http://www.google.com"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void ActiveDropdownLinkProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-active-link",
+@"<div class=""dropdown"">
+   <button type=""button"" data-toggle=""dropdown"" class=""btn dropdown-toggle btn-default"">Dropdown 
+    <span class=""caret""></span>
+   </button>
+   <ul role=""menu"" class=""dropdown-menu"">
+    <li role=""presentation"">
+     <a role=""menuitem"" href=""http://www.google.com"">A</a>
+    </li>
+    <li role=""presentation"" class=""active"">
+     <a role=""menuitem"" href=""http://www.google.com"">B</a>
+    </li>
+    <li role=""presentation"">
+     <a role=""menuitem"" href=""http://www.google.com"">C</a>
     </li>
    </ul>
   </div>");

@@ -14,6 +14,7 @@ namespace FluentBootstrap.Dropdowns
         private Element _listItem = null;
 
         public bool Disabled { get; set; }
+        public bool Active { get; set; }
         
         internal DropdownLink(BootstrapHelper helper)
             : base(helper, "a")
@@ -28,6 +29,10 @@ namespace FluentBootstrap.Dropdowns
             if(Disabled)
             {
                 _listItem.AddCss(Css.Disabled);
+            }
+            if (Active)
+            {
+                _listItem.AddCss(Css.Active);
             }
             _listItem.Start(writer);
 

@@ -65,6 +65,13 @@ namespace FluentBootstrap
             return dropdownLink;
         }
 
+        public static ComponentBuilder<TConfig, DropdownLink> SetActive<TConfig>(this ComponentBuilder<TConfig, DropdownLink> dropdownLink, bool active = true)
+            where TConfig : BootstrapConfig
+        {
+            dropdownLink.Component.Active = active;
+            return dropdownLink;
+        }
+
         public static ComponentBuilder<TConfig, DropdownHeader> DropdownHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<DropdownHeader>

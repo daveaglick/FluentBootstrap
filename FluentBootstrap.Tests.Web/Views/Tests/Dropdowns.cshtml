@@ -1,4 +1,6 @@
-﻿@using (Html.Bootstrap().Container().Begin())
+﻿@using FluentBootstrap;
+
+@using (Html.Bootstrap().Container().Begin())
 {
     @Html.Bootstrap().Heading1("Simple")
     using (Html.Bootstrap().Div().SetId("test-simple").Begin())
@@ -69,6 +71,19 @@
         {
             @dropdown.DropdownLink("A", "http://www.google.com")
             @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("Active Link")
+    using (Html.Bootstrap().Div().SetId("test-active-link").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().Dropdown("Dropdown").Begin())
+        {
+            @dropdown.DropdownLink("A", "http://www.google.com")
+            @dropdown.DropdownLink("B", "http://www.google.com").SetActive()
+            @dropdown.DropdownLink("C", "http://www.google.com")
         }
     }
 }
