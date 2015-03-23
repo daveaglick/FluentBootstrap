@@ -108,6 +108,7 @@
     <Compile Include="PaginationsFixture.cs" />
     <Compile Include="ProgressBarsFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleBootstrapHelperFixture.cs" />
     <Compile Include="TablesFixture.cs" />
     <Compile Include="TagsFixture.cs" />
     <Compile Include="TestHelper.cs" />
