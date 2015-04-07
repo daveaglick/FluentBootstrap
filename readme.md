@@ -6,7 +6,7 @@ FluentBootstrap provides extensions, helper classes, model binding, and other go
 
 ## Status
 
-[![BuildAppVeyor](https://img.shields.io/appveyor/ci/DaveGlick/fluentbootstrap-341.svg?style=flat-square&label=AppVeyor%20Build)](http://www.nuget.org/packages/FluentBootstrap/)<br />
+[![BuildAppVeyor](https://img.shields.io/appveyor/ci/DaveGlick/fluentbootstrap.svg?style=flat-square&label=AppVeyor%20Build)](http://www.nuget.org/packages/FluentBootstrap/)<br />
 [![FluentBootstrapNuGet](https://img.shields.io/nuget/v/FluentBootstrap.svg?style=flat-square&label=FluentBootstrap)](http://www.nuget.org/packages/FluentBootstrap/)<br />
 [![FluentBootstrapWebPagesNuGet](https://img.shields.io/nuget/v/FluentBootstrap.WebPages.svg?style=flat-square&label=FluentBootstrap.WebPages)](http://www.nuget.org/packages/FluentBootstrap.WebPages/) <br />
 [![FluentBootstrapMvcNuGet](https://img.shields.io/nuget/v/FluentBootstrap.Mvc.svg?style=flat-square&label=FluentBootstrap.Mvc)](http://www.nuget.org/packages/FluentBootstrap.Mvc/) <br />
