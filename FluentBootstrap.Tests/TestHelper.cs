@@ -61,10 +61,10 @@ namespace FluentBootstrap.Tests
             HtmlDocument doc = Render<TView>();
             expected = expected.Replace("\r\n", "\n");
             string actual = collapsed ? doc.GetElementbyId(containerId).CollapsedInnerHtml().Replace("\r\n", "\n") : doc.GetElementbyId(containerId).InnerHtml.Trim().Replace("\r\n", "\n");
-            Console.WriteLine("EXPECTED");
-            Console.WriteLine(expected);
-            Console.WriteLine("ACTUAL");
-            Console.WriteLine(actual);
+            //Console.WriteLine("EXPECTED");
+            //Console.WriteLine(expected);
+            //Console.WriteLine("ACTUAL");
+            //Console.WriteLine(actual);
             Assert.AreEqual(expected, actual);
         }
 
@@ -86,10 +86,10 @@ namespace FluentBootstrap.Tests
             HtmlDocument doc = Render<TView, ViewModel>(model);
             expected = expected.Replace("\r\n", "\n");
             string actual = collapsed ? doc.GetElementbyId(containerId).CollapsedInnerHtml().Replace("\r\n", "\n") : doc.GetElementbyId(containerId).InnerHtml.Trim().Replace("\r\n", "\n");
-            Console.WriteLine("EXPECTED");
-            Console.WriteLine(expected);
-            Console.WriteLine("ACTUAL");
-            Console.WriteLine(actual);
+            //Console.WriteLine("EXPECTED");
+            //Console.WriteLine(expected);
+            //Console.WriteLine("ACTUAL");
+            //Console.WriteLine(actual);
             Assert.AreEqual(expected, actual);
         }
     }

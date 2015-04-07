@@ -17,7 +17,7 @@ namespace FluentBootstrap.Tests
             SimpleBootstrapHelper helper = new SimpleBootstrapHelper();
 
             // When
-            string input = helper.Input("input-name", "My Input").ToString();
+            string input = helper.Input("input-name", "My Input").ToString().Replace("\r\n", Environment.NewLine);
 
             // Then
             Assert.AreEqual(@"
