@@ -106,7 +106,7 @@ namespace FluentBootstrap.Tests
         public void DropupProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Dropdowns_cshtml>("test-dropup",
-@"<div class=""dropdown dropup"">
+@"<div class=""dropup"">
    <button type=""button"" data-toggle=""dropdown"" class=""btn dropdown-toggle btn-default"">Dropup 
     <span class=""caret""></span>
    </button>

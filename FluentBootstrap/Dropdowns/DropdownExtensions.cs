@@ -43,7 +43,14 @@ namespace FluentBootstrap
         public static ComponentBuilder<TConfig, Dropdown> SetDropup<TConfig>(this ComponentBuilder<TConfig, Dropdown> builder, bool dropup = true)
             where TConfig : BootstrapConfig
         {
-            builder.Component.ToggleCss(Css.Dropup, dropup);
+            if (dropup)
+            {
+                builder.Component.ToggleCss(Css.Dropup, true, Css.Dropdown);
+            }
+            else
+            {
+                builder.Component.ToggleCss(Css.Dropdown, false, Css.Dropup);
+            }
             return builder;
         }
 
