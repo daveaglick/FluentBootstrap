@@ -17,12 +17,12 @@ namespace FluentBootstrap.Tests
             SimpleBootstrapHelper helper = new SimpleBootstrapHelper();
 
             // When
-            string input = helper.Input("input-name", "My Input").ToString().Replace("\r\n", Environment.NewLine);
+            string input = helper.Input("input-name", "My Input").ToString().Replace("\r\n", "\n");
 
             // Then
             Assert.AreEqual(@"
 <label for=""input-name"" class=""control-label"">My Input</label>
-<input type=""text"" name=""input-name"" class=""form-control"">", input);
+<input type=""text"" name=""input-name"" class=""form-control"">".Replace("\r\n", "\n"), input);
         }
     }
 }
