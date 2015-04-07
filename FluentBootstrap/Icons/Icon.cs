@@ -455,10 +455,18 @@ namespace FluentBootstrap
 		Scissors,
 		[Description("glyphicon-bitcoin")]
 		Bitcoin,
+		[Description("glyphicon-btc")]
+		Btc,
+		[Description("glyphicon-xbt")]
+		Xbt,
 		[Description("glyphicon-yen")]
 		Yen,
+		[Description("glyphicon-jpy")]
+		Jpy,
 		[Description("glyphicon-ruble")]
 		Ruble,
+		[Description("glyphicon-rub")]
+		Rub,
 		[Description("glyphicon-scale")]
 		Scale,
 		[Description("glyphicon-ice-lolly")]
