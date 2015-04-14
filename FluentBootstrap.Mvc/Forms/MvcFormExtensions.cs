@@ -5,12 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 using FluentBootstrap.Internals;
-using FluentBootstrap.Mvc.Internals;
 
 namespace FluentBootstrap
 {
@@ -396,6 +393,16 @@ namespace FluentBootstrap
                 }
             }
             return label;
+        }
+
+        public static ComponentBuilder<TConfig, TTag> AddLabelCss<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, params string[] cssClasses)
+            where TConfig : BootstrapConfig
+            where TTag : FormControl
+        {
+            var formControl = builder.GetComponent();
+            formControl.AddLabelCss(cssClasses);
+
+            return builder;
         }
     }
 }

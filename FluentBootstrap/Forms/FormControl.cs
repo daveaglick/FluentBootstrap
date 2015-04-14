@@ -1,11 +1,6 @@
 ﻿using FluentBootstrap.Grids;
-using FluentBootstrap.Html;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FluentBootstrap.Forms
 {
@@ -33,6 +28,7 @@ namespace FluentBootstrap.Forms
         public ControlLabel Label
         {
             set { _label = value; }
+            protected get { return _label; }
         }
 
         // This prepares the outer form group if we need one
@@ -130,6 +126,27 @@ namespace FluentBootstrap.Forms
             }
 
             Pop(_wrapper, writer);
+        }
+
+        public virtual bool HasLabel
+        {
+            get { return _label != null; }
+        }
+
+        public virtual void AddLabelCss(params string[] cssClasses)
+        {
+            if (_label != null)
+            {
+                _label.AddCss(cssClasses);                
+            }
+        }
+
+        public virtual void RemoveLabelCss(params string[] cssClasses)
+        {
+            if (_label != null)
+            {
+                _label.RemoveCss(cssClasses);
+            }
         }
     }
 }
