@@ -97,6 +97,11 @@ namespace FluentBootstrap
             }
         }
 
+        protected List<Component> Children
+        {
+            get { return _children; }
+        }
+
         public void AddChild(Component child)
         {
             _children.Add(child);

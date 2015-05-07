@@ -210,9 +210,9 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void SingleButtonDropdownProducesCorrectHtml()
+        public void ButtonDropdownProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-single-button-dropdown",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-button-dropdown",
 @"<div class=""btn-group"">
    <button type=""button"" data-toggle=""dropdown"" id=""dd1"" class=""btn btn-default dropdown-toggle"">Dropdown 
     <span class=""caret""></span>
@@ -231,9 +231,9 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void SingleButtonDropdownNoTextProducesCorrectHtml()
+        public void ButtonDropdownNoTextProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-single-button-dropdown-no-text",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-button-dropdown-no-text",
 @"<div class=""btn-group"">
    <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle"">
     <span class=""sr-only"">Toggle Dropdown</span>
@@ -253,11 +253,33 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void SingleButtonDropdownWithStateProducesCorrectHtml()
+        public void ButtonDropdownWithStateProducesCorrectHtml()
         {
-            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-single-button-dropdown-with-state",
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-button-dropdown-with-state",
 @"<div class=""btn-group"">
    <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle btn-danger"">Dropdown 
+    <span class=""caret""></span>
+   </button>
+   <ul role=""menu"" class=""dropdown-menu"">
+    <li role=""presentation"" class=""dropdown-header"">Header</li>
+    <li role=""presentation"" class=""divider""></li>
+    <li role=""presentation"">
+     <a role=""menuitem"" href=""#"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a role=""menuitem"" href=""http://www.google.com"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void ButtonDropdownWithIconProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-button-dropdown-with-icon",
+@"<div class=""btn-group"">
+   <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle"">
+    <span class=""glyphicon glyphicon-alert""></span> Dropdown 
     <span class=""caret""></span>
    </button>
    <ul role=""menu"" class=""dropdown-menu"">
@@ -325,6 +347,31 @@ namespace FluentBootstrap.Tests
 @"<div class=""btn-group"">
    <button type=""button"" class=""btn btn-default btn-danger"">Dropdown</button>
    <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle btn-danger"">
+    <span class=""sr-only"">Toggle Dropdown</span>
+    <span class=""caret""></span>
+   </button>
+   <ul role=""menu"" class=""dropdown-menu"">
+    <li role=""presentation"" class=""dropdown-header"">Header</li>
+    <li role=""presentation"" class=""divider""></li>
+    <li role=""presentation"">
+     <a role=""menuitem"" href=""#"">A</a>
+    </li>
+    <li role=""presentation"">
+     <a role=""menuitem"" href=""http://www.google.com"">B</a>
+    </li>
+   </ul>
+  </div>");
+        }
+
+        [Test]
+        public void SplitButtonDropdownWithIconProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Buttons_cshtml>("test-split-button-dropdown-with-icon",
+@"<div class=""btn-group"">
+   <button type=""button"" class=""btn btn-default"">
+    <span class=""glyphicon glyphicon-alert""></span> Dropdown
+   </button>
+   <button type=""button"" data-toggle=""dropdown"" class=""btn btn-default dropdown-toggle"">
     <span class=""sr-only"">Toggle Dropdown</span>
     <span class=""caret""></span>
    </button>

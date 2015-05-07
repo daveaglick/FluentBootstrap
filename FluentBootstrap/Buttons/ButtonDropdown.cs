@@ -34,10 +34,12 @@ namespace FluentBootstrap.Buttons
             _buttonGroup.Start(writer);
 
             // Add the action button if split and copy over button CSS classes
+            // Also move the icon to the button (if one is present)
             // But only create the split if we actually have some text to put in it
             if (Split && !string.IsNullOrWhiteSpace(TextContent))
             {
                 Button button = GetHelper().Button(TextContent).Component;
+                MoveIcons(button);
                 TextContent = null;
                 foreach (string cssClass in CssClasses)
                 {
@@ -50,6 +52,7 @@ namespace FluentBootstrap.Buttons
 
             // Create the dropdown button, copy over CSS, add the text and caret, then render
             Button dropdown = GetHelper().Button(buttonType: ButtonType.Button).Component;
+            MoveIcons(dropdown);
             dropdown.AddCss(Css.Btn, Css.BtnDefault, Css.DropdownToggle);
             dropdown.MergeAttribute("data-toggle", "dropdown");
             foreach (string cssClass in CssClasses)
@@ -78,6 +81,19 @@ namespace FluentBootstrap.Buttons
             AddCss(Css.DropdownMenu);   
 
             base.OnStart(writer);
+        }
+
+        private void MoveIcons(Button button)
+        {
+            int icon = Children.FindIndex(x => x is IconSpan);
+            while (icon != -1)
+            {
+                button.AddChild(Children[icon]);
+                button.AddChild(Children[icon + 1]); // Don't forget the extra space
+                Children.RemoveAt(icon + 1);
+                Children.RemoveAt(icon);
+                icon = Children.FindIndex(x => x is IconSpan);
+            }
         }
 
         protected override void OnFinish(System.IO.TextWriter writer)

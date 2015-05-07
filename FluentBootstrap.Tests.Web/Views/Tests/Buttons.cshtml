@@ -155,8 +155,8 @@
 
     <hr />
 
-    @Html.Bootstrap().Heading1("Single Button Dropdown")
-    using (Html.Bootstrap().Div().SetId("test-single-button-dropdown").Begin())
+    @Html.Bootstrap().Heading1("Button Dropdown")
+    using (Html.Bootstrap().Div().SetId("test-button-dropdown").Begin())
     {
         using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetId("dd1").Begin())
         {
@@ -169,9 +169,8 @@
 
     <hr />
 
-    // TODO: Add to tests
-    @Html.Bootstrap().Heading1("Single Button Dropdown No Text")
-    using (Html.Bootstrap().Div().SetId("test-single-button-dropdown-no-text").Begin())
+    @Html.Bootstrap().Heading1("Button Dropdown No Text")
+    using (Html.Bootstrap().Div().SetId("test-button-dropdown-no-text").Begin())
     {
         using (var dropdown = Html.Bootstrap().ButtonDropdown().Begin())
         {
@@ -184,11 +183,24 @@
 
     <hr />
 
-    // TODO: Add to tests
-    @Html.Bootstrap().Heading1("Single Button Dropdown With State")
-    using (Html.Bootstrap().Div().SetId("test-single-button-dropdown-with-state").Begin())
+    @Html.Bootstrap().Heading1("Button Dropdown With State")
+    using (Html.Bootstrap().Div().SetId("test-button-dropdown-with-state").Begin())
     {
         using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetState(ButtonState.Danger).Begin())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Button Dropdown With Icon")
+    using (Html.Bootstrap().Div().SetId("test-button-dropdown-with-icon").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetIcon(Icon.Alert).Begin())
         {
             @dropdown.DropdownHeader("Header")
             @dropdown.DropdownDivider()
@@ -213,7 +225,6 @@
 
     <hr />
 
-    // TODO: Add to tests
     @Html.Bootstrap().Heading1("Split Button Dropdown No Text")
     using (Html.Bootstrap().Div().SetId("test-split-button-dropdown-no-text").Begin())
     {
@@ -228,11 +239,24 @@
 
     <hr />
 
-    // TODO: Add to tests
     @Html.Bootstrap().Heading1("Split Button Dropdown With State")
     using (Html.Bootstrap().Div().SetId("test-split-button-dropdown-with-state").Begin())
     {
         using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetSplit().SetState(ButtonState.Danger).Begin())
+        {
+            @dropdown.DropdownHeader("Header")
+            @dropdown.DropdownDivider()
+            @dropdown.DropdownLink("A")
+            @dropdown.DropdownLink("B", "http://www.google.com")
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Split Button Dropdown With Icon")
+    using (Html.Bootstrap().Div().SetId("test-split-button-dropdown-with-icon").Begin())
+    {
+        using (var dropdown = Html.Bootstrap().ButtonDropdown("Dropdown").SetSplit().SetIcon(Icon.Alert).Begin())
         {
             @dropdown.DropdownHeader("Header")
             @dropdown.DropdownDivider()
