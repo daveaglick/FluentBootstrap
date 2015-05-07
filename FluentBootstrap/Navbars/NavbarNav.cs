@@ -13,7 +13,7 @@ namespace FluentBootstrap.Navbars
         ICanCreate<Dropdown>
     {
         internal NavbarNav(BootstrapHelper helper)
-            : base(helper, "div", Css.Nav, Css.NavbarNav, Css.NavbarLeft)
+            : base(helper, "ul", Css.Nav, Css.NavbarNav, Css.NavbarLeft)
         {
         }
         

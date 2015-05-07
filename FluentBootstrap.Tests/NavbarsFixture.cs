@@ -26,14 +26,14 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""navbar-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
     </div>
    </div>
   </nav>");
@@ -55,14 +55,14 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""nav2-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
     </div>
    </div>
   </nav>");
@@ -84,14 +84,14 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""nav3-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
     </div>
    </div>
   </nav>");
@@ -113,14 +113,14 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""nav4-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
     </div>
    </div>
   </nav>");
@@ -142,14 +142,14 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""nav5-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
     </div>
    </div>
   </nav>");
@@ -171,7 +171,7 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""nav6-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
@@ -186,7 +186,7 @@ namespace FluentBootstrap.Tests
         </li>
        </ul>
       </li>
-     </div>
+     </ul>
      <form role=""form"" class=""navbar-form navbar-left"">
       <div class=""form-group"">
        <input type=""text"" name=""Search"" placeholder=""Search"" id=""Search"" class=""form-control"">
@@ -198,19 +198,19 @@ namespace FluentBootstrap.Tests
        <div class=""form-control-static text-danger""></div>
       </div>
      </form>
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
      <button type=""button"" class=""btn btn-warning navbar-btn navbar-left"">Warn</button>
      <p class=""navbar-text navbar-right"">                    Logged in as <a href=""#"" class=""navbar-link"">Dave</a>
 </p>
-     <div class=""nav navbar-nav navbar-right"">
+     <ul class=""nav navbar-nav navbar-right"">
       <li>
        <a href=""#"">R</a>
       </li>
-     </div>
+     </ul>
     </div>
    </div>
   </nav>");
@@ -232,7 +232,7 @@ namespace FluentBootstrap.Tests
      </button>
     </div>
     <div id=""nav7-collapse"" class=""navbar-collapse collapse"">
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">A</a>
       </li>
@@ -247,7 +247,7 @@ namespace FluentBootstrap.Tests
         </li>
        </ul>
       </li>
-     </div>
+     </ul>
      <form role=""form"" class=""navbar-form navbar-left"">
       <div class=""form-group"">
        <input type=""text"" name=""Search"" placeholder=""Search"" id=""Search"" class=""form-control"">
@@ -259,11 +259,11 @@ namespace FluentBootstrap.Tests
        <div class=""form-control-static text-danger""></div>
       </div>
      </form>
-     <div class=""nav navbar-nav navbar-left"">
+     <ul class=""nav navbar-nav navbar-left"">
       <li>
        <a href=""#"">B</a>
       </li>
-     </div>
+     </ul>
      <button type=""button"" class=""btn btn-warning navbar-btn navbar-left"">Warn</button>
      <p class=""navbar-text navbar-right"">                Logged in as <a href=""#"" class=""navbar-link"">Dave</a>
 </p>
