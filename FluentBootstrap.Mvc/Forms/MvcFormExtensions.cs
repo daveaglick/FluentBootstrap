@@ -41,15 +41,17 @@ namespace FluentBootstrap
                 .SetFormMethod(method);
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetFormMethod<TModel>(
-            this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, FormMethod method)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> SetFormMethod<TModel, TForm>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> builder, FormMethod method)
+            where TForm : Form
         {
             builder.GetComponent().MergeAttribute("method", HtmlHelper.GetFormMethodString(method));
             return builder;
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetAction<TModel>(
-            this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, string actionName, string controllerName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> SetAction<TModel, TForm>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> builder, string actionName, string controllerName, object routeValues = null)
+            where TForm : Form
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
@@ -61,8 +63,9 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetRoute<TModel>(
-            this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, string routeName, object routeValues = null)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> SetRoute<TModel, TForm>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> builder, string routeName, object routeValues = null)
+            where TForm : Form
         {
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
@@ -73,8 +76,9 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> HideValidationSummary<TModel>(
-            this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, bool hideValidationSummary = true)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> HideValidationSummary<TModel, TForm>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> builder, bool hideValidationSummary = true)
+            where TForm : Form
         {
             builder.GetComponent().GetOverride<FormOverride<TModel>>().HideValidationSummary = hideValidationSummary;
             return builder;

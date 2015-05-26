@@ -127,7 +127,7 @@
     @Html.Bootstrap().Heading1("Horizontal Description List")
     using (Html.Bootstrap().Div().SetId("test-horizontal-description-list").Begin())
     {
-        using (var list = Html.Bootstrap().DescriptionList().SetHorizontal().Begin())
+        using (var list = Html.Bootstrap().DescriptionList().SetHorizontalDescription().Begin())
         {
             @list.DescriptionTerm("Term")
             @list.Description("Desc")

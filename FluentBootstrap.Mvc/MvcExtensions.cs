@@ -41,11 +41,11 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Link>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Link>(helper.GetConfig(), helper.Link(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues)
+                .SetLinkAction(actionName, controllerName, routeValues)
                 .SetText(text);
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> SetAction<TTag, TModel>(
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> SetLinkAction<TTag, TModel>(
             this ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> builder, string actionName, string controllerName, object routeValues = null)
             where TTag : Tag, IHasLinkExtensions
         {
@@ -80,7 +80,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Crumb>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Crumb>(helper.GetConfig(), helper.Crumb(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues)
+                .SetLinkAction(actionName, controllerName, routeValues)
                 .SetText(text);
         }
 
@@ -91,7 +91,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<LinkButton>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, LinkButton>(helper.GetConfig(), helper.LinkButton(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         // Dropdown
@@ -101,7 +101,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<DropdownLink>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, DropdownLink>(helper.GetConfig(), helper.DropdownLink(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues)
+                .SetLinkAction(actionName, controllerName, routeValues)
                 .SetText(text);
         }
 
@@ -112,7 +112,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<ListGroupItem>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, ListGroupItem>(helper.GetConfig(), helper.ListGroupItem(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         // MediaObject
@@ -122,7 +122,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<MediaObject>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, MediaObject>(helper.GetConfig(), helper.MediaObject(src, null, alt).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         // Navbar
@@ -140,7 +140,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Brand>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Brand>(helper.GetConfig(), helper.Brand(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues)
+                .SetLinkAction(actionName, controllerName, routeValues)
                 .SetText(text);
         }
 
@@ -149,7 +149,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<NavbarLink>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, NavbarLink>(helper.GetConfig(), helper.NavbarLink(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues)
+                .SetLinkAction(actionName, controllerName, routeValues)
                 .SetText(text);
         }
 
@@ -160,7 +160,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Pill>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Pill>(helper.GetConfig(), helper.Pill(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Tab> Tab<TComponent, TModel>(
@@ -168,7 +168,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Tab>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Tab>(helper.GetConfig(), helper.Tab(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pager> AddPrevious<TModel>(
@@ -199,7 +199,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Page>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Page>(helper.GetConfig(), helper.Page(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         // Pagination
@@ -230,7 +230,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<PageNum>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, PageNum>(helper.GetConfig(), helper.PageNum(text, null).GetComponent())
-                .SetAction(actionName, controllerName, routeValues);
+                .SetLinkAction(actionName, controllerName, routeValues);
         }
 
         // Typography

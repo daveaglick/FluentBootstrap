@@ -33,15 +33,17 @@ namespace FluentBootstrap
                 .SetMethod(method);
         }
 
-        public static ComponentBuilder<TConfig, Form> SetInline<TConfig>(this ComponentBuilder<TConfig, Form> builder, bool inline = true)
+        public static ComponentBuilder<TConfig, TForm> SetInline<TConfig, TForm>(this ComponentBuilder<TConfig, TForm> builder, bool inline = true)
             where TConfig : BootstrapConfig
+            where TForm : Form
         {
             builder.Component.ToggleCss(Css.FormInline, inline, Css.FormHorizontal);
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Form> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, Form> builder, int? defaultlabelWidth = null, bool horizontal = true)
+        public static ComponentBuilder<TConfig, TForm> SetHorizontal<TConfig, TForm>(this ComponentBuilder<TConfig, TForm> builder, int? defaultlabelWidth = null, bool horizontal = true)
             where TConfig : BootstrapConfig
+            where TForm : Form
         {
             builder.Component.ToggleCss(Css.FormHorizontal, horizontal, Css.FormInline);
             if (defaultlabelWidth.HasValue)
@@ -52,15 +54,17 @@ namespace FluentBootstrap
         }
 
         // Use action = null to reset form action to current request url
-        public static ComponentBuilder<TConfig, Form> SetAction<TConfig>(this ComponentBuilder<TConfig, Form> builder, string action)
+        public static ComponentBuilder<TConfig, TForm> SetAction<TConfig, TForm>(this ComponentBuilder<TConfig, TForm> builder, string action)
             where TConfig : BootstrapConfig
+            where TForm : Form
         {
             builder.Component.MergeAttribute("action", action);
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Form> SetMethod<TConfig>(this ComponentBuilder<TConfig, Form> builder, string method)
+        public static ComponentBuilder<TConfig, TForm> SetMethod<TConfig, TForm>(this ComponentBuilder<TConfig, TForm> builder, string method)
             where TConfig : BootstrapConfig
+            where TForm : Form
         {
             builder.Component.MergeAttribute("method", method);
             return builder;

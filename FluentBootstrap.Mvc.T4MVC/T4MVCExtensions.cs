@@ -30,11 +30,11 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Link>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Link>(helper.GetConfig(), helper.Link(text, (string)null).GetComponent())
-                .SetAction(result)
+                .SetLinkAction(result)
                 .SetText(text);
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> SetAction<TTag, TModel>(
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> SetLinkAction<TTag, TModel>(
             this ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> builder, ActionResult result)
             where TTag : Tag, IHasLinkExtensions
         {
@@ -51,7 +51,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Crumb>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Crumb>(helper.GetConfig(), helper.Crumb(text, (string)null).GetComponent())
-                .SetAction(result)
+                .SetLinkAction(result)
                 .SetText(text);
         }
 
@@ -62,7 +62,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<LinkButton>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, LinkButton>(helper.GetConfig(), helper.LinkButton(text, (string)null).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         // Dropdown
@@ -72,7 +72,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<DropdownLink>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, DropdownLink>(helper.GetConfig(), helper.DropdownLink(text, (string)null).GetComponent())
-                .SetAction(result)
+                .SetLinkAction(result)
                 .SetText(text);
         }
 
@@ -83,7 +83,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<ListGroupItem>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, ListGroupItem>(helper.GetConfig(), helper.ListGroupItem(text, (string)null).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         // MediaObject
@@ -93,7 +93,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<MediaObject>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, MediaObject>(helper.GetConfig(), helper.MediaObject(src, (string)null, alt).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         // Navbar
@@ -111,7 +111,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Brand>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Brand>(helper.GetConfig(), helper.Brand(text, (string)null).GetComponent())
-                .SetAction(result)
+                .SetLinkAction(result)
                 .SetText(text);
         }
 
@@ -120,7 +120,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<NavbarLink>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, NavbarLink>(helper.GetConfig(), helper.NavbarLink(text, (string)null).GetComponent())
-                .SetAction(result)
+                .SetLinkAction(result)
                 .SetText(text);
         }
 
@@ -131,7 +131,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Pill>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Pill>(helper.GetConfig(), helper.Pill(text, (string)null).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Tab> Tab<TComponent, TModel>(
@@ -139,7 +139,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Tab>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Tab>(helper.GetConfig(), helper.Tab(text, (string)null).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pager> AddPrevious<TModel>(
@@ -170,7 +170,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<Page>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, Page>(helper.GetConfig(), helper.Page(text, (string)null).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         // Pagination
@@ -201,7 +201,7 @@ namespace FluentBootstrap
             where TComponent : Component, ICanCreate<PageNum>
         {
             return new ComponentBuilder<MvcBootstrapConfig<TModel>, PageNum>(helper.GetConfig(), helper.PageNum(text, (string)null).GetComponent())
-                .SetAction(result);
+                .SetLinkAction(result);
         }
 
         // Form
@@ -215,8 +215,9 @@ namespace FluentBootstrap
                 .SetFormMethod(method);
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Form> SetAction<TModel>(
-            this ComponentBuilder<MvcBootstrapConfig<TModel>, Form> builder, ActionResult result)
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> SetAction<TModel, TForm>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, TForm> builder, ActionResult result)
+            where TForm : Form
         {
             IT4MVCActionResult callInfo = result.GetT4MVCResult();
             builder.SetAction(UrlHelper.GenerateUrl(null, callInfo.Action, callInfo.Controller, callInfo.Protocol, null, null, result.GetRouteValueDictionary(),

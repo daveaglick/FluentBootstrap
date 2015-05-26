@@ -306,7 +306,7 @@ namespace FluentBootstrap
             return new ComponentBuilder<TConfig, DescriptionList>(helper.Config, new DescriptionList(helper));
         }
 
-        public static ComponentBuilder<TConfig, DescriptionList> SetHorizontal<TConfig>(this ComponentBuilder<TConfig, DescriptionList> builder, bool horizontal = true)
+        public static ComponentBuilder<TConfig, DescriptionList> SetHorizontalDescription<TConfig>(this ComponentBuilder<TConfig, DescriptionList> builder, bool horizontal = true)
             where TConfig : BootstrapConfig
         {
             builder.Component.ToggleCss(Css.DlHorizontal, horizontal);
