@@ -102,6 +102,18 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void PasswordForForProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-password-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropA"" class=""control-label"">Property A</label>
+    <input type=""password"" name=""PropA"" id=""PropA"" class=""form-control"">
+   </div>
+  </form>");
+        }
+
+        [Test]
         public void CheckBoxForForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-checkbox-for",

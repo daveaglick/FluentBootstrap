@@ -83,6 +83,17 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Password For")
+    using (Html.Bootstrap().Div().SetId("test-password-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.PasswordFor(x => x.PropA)
+        }
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("CheckBox For")
     using (Html.Bootstrap().Div().SetId("test-checkbox-for").Begin())
     {

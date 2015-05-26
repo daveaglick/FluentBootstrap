@@ -251,6 +251,17 @@ namespace FluentBootstrap
             return helper.Input(name, label, metadata.Model, null, inputType);
         }
 
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Input> PasswordFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
+            where TComponent : Component, ICanCreate<Input>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return helper.Input(name, label, null, null, FormInputType.Password);
+        }
+
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> CheckBoxFor<TComponent, TModel, TValue>(
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
             where TComponent : Component, ICanCreate<CheckedControl>
