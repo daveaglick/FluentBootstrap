@@ -135,10 +135,23 @@ namespace FluentBootstrap.Tests
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-radio-for",
 @"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label for=""PropD"" class=""control-label"">PropD</label>
     <div class=""radio"">
      <label class=""radio"">
-      <input type=""radio"" name=""PropD"" id=""PropD"">
+      <input type=""radio"" name=""PropB"" value=""1"" id=""PropB""> 1
+     </label>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""radio"">
+     <label class=""radio"">
+      <input type=""radio"" name=""PropB"" value=""2"" id=""PropB""> 2
+     </label>
+    </div>
+   </div>
+   <div class=""form-group"">
+    <div class=""radio"">
+     <label class=""radio"">
+      <input type=""radio"" name=""PropB"" value=""3"" id=""PropB""> 3
      </label>
     </div>
    </div>

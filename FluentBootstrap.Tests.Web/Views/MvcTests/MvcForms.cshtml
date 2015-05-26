@@ -1,4 +1,6 @@
-﻿@using FluentBootstrap;
+﻿@using System.Collections.Generic
+@using System.Linq
+@using FluentBootstrap;
 
 @model FluentBootstrap.Tests.Web.Models.MvcTests.ViewModel
 
@@ -110,7 +112,9 @@
     {
         using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
         {
-            @form.RadioFor(x => x.PropD)
+            @form.RadioFor(x => x.PropB, 1).SetControlLabel(null).SetDescription("1")
+            @form.RadioFor(x => x.PropB, 2).SetControlLabel(null).SetDescription("2")
+            @form.RadioFor(x => x.PropB, 3).SetControlLabel(null).SetDescription("3")
         }
     }
 

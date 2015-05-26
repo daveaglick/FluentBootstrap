@@ -3,6 +3,7 @@ using FluentBootstrap.Mvc;
 using FluentBootstrap.Mvc.Forms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
@@ -286,11 +287,8 @@ namespace FluentBootstrap
             string expressionText = ExpressionHelper.GetExpressionText(expression);
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
-            bool isChecked = false;
-            if (metadata.Model == null || !bool.TryParse(metadata.Model.ToString(), out isChecked))
-            {
-                isChecked = false;
-            }
+            string valueString = Convert.ToString(value, (IFormatProvider)CultureInfo.CurrentCulture);
+            bool isChecked = metadata.Model != null && !string.IsNullOrEmpty(name) && string.Equals(metadata.Model.ToString(), valueString, StringComparison.OrdinalIgnoreCase);
             return helper.Radio(name, label, null, value, isChecked);
         }
 
