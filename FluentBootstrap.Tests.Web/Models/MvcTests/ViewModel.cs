@@ -11,7 +11,8 @@ namespace FluentBootstrap.Tests.Web.Models.MvcTests
         [Display(Name = "Property A")]
         public string PropA { get; set; }
         public int PropB { get; set; }
-        public Dictionary<int, string> PropC { get; set; }
+        public string PropC { get; set; }
+        public Dictionary<int, string> PropCOptions { get; set; }
         public bool PropD { get; set; }
     }
 }

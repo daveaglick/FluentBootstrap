@@ -57,7 +57,7 @@
     {
         using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
         {
-            @form.DisplayListFor(x => x.PropC.Values)
+            @form.DisplayListFor(x => x.PropCOptions.Values)
         }
     }
 
@@ -68,7 +68,7 @@
     {
         using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
         {
-            @form.EditorListFor(x => x.PropC.Values)
+            @form.EditorListFor(x => x.PropCOptions.Values)
         }
     }
 
@@ -125,7 +125,18 @@
     {
         using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
         {
-            @form.SelectFor(x => x.PropC, Model.PropC.Select(y => new KeyValuePair<string, string>(y.Key.ToString(), y.Value)))
+            @form.SelectFor(x => x.PropC, Model.PropCOptions.Select(y => new KeyValuePair<string, string>(y.Key.ToString(), y.Value)))
+        }
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Select For With Add Options")
+    using (Html.Bootstrap().Div().SetId("test-select-for-with-add-options").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.SelectFor(x => x.PropC).AddOptions(Model.PropCOptions.Select(y => new KeyValuePair<string, string>(y.Key.ToString(), y.Value)))
         }
     }
 }

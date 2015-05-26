@@ -15,7 +15,8 @@ namespace FluentBootstrap.Tests.Web.Controllers
             {
                 PropA = "A",
                 PropB = 2,
-                PropC = new Dictionary<int, string>()
+                PropC = "Two",
+                PropCOptions = new Dictionary<int, string>()
                 {
                     { 1, "One"},
                     { 2, "Two"},

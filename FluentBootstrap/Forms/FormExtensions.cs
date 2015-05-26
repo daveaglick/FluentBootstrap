@@ -315,7 +315,8 @@ namespace FluentBootstrap
         {
             foreach (string option in options)
             {
-                builder.AddChild(x => x.SelectOption(option));
+                var option1 = option;  // Avoid foreach variable access in closure
+                builder.AddChild(x => x.SelectOption(option1));
             }
             return builder;
         }
@@ -325,7 +326,9 @@ namespace FluentBootstrap
         {
             foreach (KeyValuePair<string, string> option in options)
             {
-                builder.AddChild(x => x.SelectOption(option.Key, option.Value));
+                var option1 = option;  // Avoid foreach variable access in closure
+                builder.AddChild(x => x.SelectOption(option1.Key, option1.Value, 
+                    builder.Component.ModelValue != null && string.Equals(builder.Component.ModelValue, option1.Value, StringComparison.OrdinalIgnoreCase)));
             }
             return builder;
         }

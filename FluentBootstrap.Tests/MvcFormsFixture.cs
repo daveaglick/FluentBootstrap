@@ -66,20 +66,20 @@ namespace FluentBootstrap.Tests
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-display-list-for",
 @"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label for=""PropC_Values"" class=""control-label"">Values</label>
-    <div class=""form-control-static""><input id=""PropC_Values"" name=""PropC.Values"" type=""hidden"" value=""""><partial></partial>
+    <label for=""PropCOptions_Values"" class=""control-label"">Values</label>
+    <div class=""form-control-static""><input id=""PropCOptions_Values"" name=""PropCOptions.Values"" type=""hidden"" value=""""><partial></partial>
 </div>
    </div>
   </form>");
         }
 
         [Test]
-        public void DisplayListForForProducesCorrectHtml()
+        public void DisplayListForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-editor-list-for",
 @"<form role=""form"" method=""post"">
    <div class=""form-group"">
-    <label for=""PropC_Values"" class=""control-label"">Values</label>
+    <label for=""PropCOptions_Values"" class=""control-label"">Values</label>
     <div><partial></partial>
 </div>
    </div>
@@ -90,7 +90,7 @@ namespace FluentBootstrap.Tests
         // So that part of the HTML has been removed for now - these will have to be verified manually
 
         [Test]
-        public void InputForForProducesCorrectHtml()
+        public void InputForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-input-for",
 @"<form role=""form"" method=""post"">
@@ -102,7 +102,7 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void PasswordForForProducesCorrectHtml()
+        public void PasswordForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-password-for",
 @"<form role=""form"" method=""post"">
@@ -114,7 +114,7 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void CheckBoxForForProducesCorrectHtml()
+        public void CheckBoxForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-checkbox-for",
 @"<form role=""form"" method=""post"">
@@ -130,7 +130,7 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
-        public void RadioForForProducesCorrectHtml()
+        public void RadioForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-radio-for",
 @"<form role=""form"" method=""post"">
@@ -160,9 +160,26 @@ namespace FluentBootstrap.Tests
 
         // HtmlAgilityPack strips the closing </option> tag - very annoying!!
         [Test]
-        public void SelectForForProducesCorrectHtml()
+        public void SelectForProducesCorrectHtml()
         {
             TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-select-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropC"" class=""control-label"">PropC</label>
+    <select name=""PropC"" id=""PropC"" class=""form-control"">
+     <option value=""One"">1
+     <option value=""Two"">2
+     <option value=""Three"">3
+    </select>
+   </div>
+  </form>");
+        }
+
+        // HtmlAgilityPack strips the closing </option> tag - very annoying!!
+        [Test]
+        public void SelectForWithAddOptionsProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-select-for-with-add-options",
 @"<form role=""form"" method=""post"">
    <div class=""form-group"">
     <label for=""PropC"" class=""control-label"">PropC</label>

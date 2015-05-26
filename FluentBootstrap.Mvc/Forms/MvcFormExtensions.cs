@@ -300,7 +300,13 @@ namespace FluentBootstrap
             string expressionText = ExpressionHelper.GetExpressionText(expression);
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
-            return helper.Select(name, label, options);
+            ComponentBuilder<MvcBootstrapConfig<TModel>, Select> builder = helper.Select(name, label);
+            if (metadata.Model != null && !string.IsNullOrEmpty(name))
+            {
+                // Add the model value before adding options so they'll get selected on a match
+                builder.GetComponent().ModelValue = metadata.Model.ToString();
+            }
+            return builder.AddOptions(options);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
@@ -311,7 +317,13 @@ namespace FluentBootstrap
             string expressionText = ExpressionHelper.GetExpressionText(expression);
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
-            return helper.Select(name, label, options);
+            ComponentBuilder<MvcBootstrapConfig<TModel>, Select> builder = helper.Select(name, label);
+            if (metadata.Model != null && !string.IsNullOrEmpty(name))
+            {
+                // Add the model value before adding options so they'll get selected on a match
+                builder.GetComponent().ModelValue = metadata.Model.ToString();
+            }
+            return builder.AddOptions(options);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
@@ -322,7 +334,13 @@ namespace FluentBootstrap
             string expressionText = ExpressionHelper.GetExpressionText(expression);
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
-            return helper.Select(name, label, selectList);
+            ComponentBuilder<MvcBootstrapConfig<TModel>, Select> builder = helper.Select(name, label);
+            if (metadata.Model != null && !string.IsNullOrEmpty(name))
+            {
+                // Add the model value before adding options so they'll get selected on a match
+                builder.GetComponent().ModelValue = metadata.Model.ToString();
+            }
+            return builder.AddOptions(selectList);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> Select<TComponent, TModel>(
@@ -336,9 +354,13 @@ namespace FluentBootstrap
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> AddOptions<TModel>(
             this ComponentBuilder<MvcBootstrapConfig<TModel>, Select> builder, IEnumerable<SelectListItem> selectList)
         {
-            foreach (SelectListItem item in selectList)
+            if (selectList != null)
             {
-                builder.AddChild(x => x.SelectOption(item.Text, item.Value, item.Selected));
+                foreach (SelectListItem item in selectList)
+                {
+                    var item1 = item; // Avoid foreach variable access in closure
+                    builder.AddChild(x => x.SelectOption(item1.Text, item1.Value, item1.Selected));
+                }
             }
             return builder;
         }
