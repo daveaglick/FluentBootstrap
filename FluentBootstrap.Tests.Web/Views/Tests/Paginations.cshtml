@@ -22,6 +22,27 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Add Pages")
+    using (Html.Bootstrap().Div().SetId("test-add-pages").Begin())
+    {
+        @Html.Bootstrap().Pagination().AddPages(new [] {"http://google.com", "http://bing.com", "http://yahoo.com"}, 5, 4)
+    }
+
+    <hr />
+
+    @Html.Bootstrap().Heading1("Add Pages With Text")
+    using (Html.Bootstrap().Div().SetId("test-add-pages-with-text").Begin())
+    {
+        @Html.Bootstrap().Pagination().AddPages(new[]
+        {
+            new KeyValuePair<string, string>("Google", "http://google.com"),
+            new KeyValuePair<string, string>("Bing", "http://bing.com"),
+            new KeyValuePair<string, string>("Yahoo!", "http://yahoo.com")
+        }, 2)
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Sizes")
     using (Html.Bootstrap().Div().SetId("test-sizes").Begin())
     {

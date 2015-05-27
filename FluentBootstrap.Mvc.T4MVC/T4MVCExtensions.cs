@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -193,6 +194,28 @@ namespace FluentBootstrap
             this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, ActionResult result, bool active = false, bool disabled = false)
         {
             builder.AddChild(x => x.PageNum((++builder.GetComponent().AutoPageNumber).ToString(), result).SetActive(active).SetDisabled(disabled));
+            return builder;
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> AddPages<TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, IEnumerable<ActionResult> results, int? activePageNumber = null, int? firstPageNumber = null)
+        {
+            return builder.AddPages(results.Select(x => new KeyValuePair<string, ActionResult>(null, x)), activePageNumber, firstPageNumber);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> AddPages<TModel>(
+            this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, IEnumerable<KeyValuePair<string, ActionResult>> textAndResults, int? activePageNumber = null, int? firstPageNumber = null)
+        {
+            if (firstPageNumber.HasValue)
+            {
+                builder.GetComponent().AutoPageNumber = firstPageNumber.Value - 1;
+            }
+            foreach (KeyValuePair<string, ActionResult> textAndResult in textAndResults)
+            {
+                KeyValuePair<string, ActionResult> localTextAndResult = textAndResult;  // avoid access in closure
+                builder.GetComponent().AutoPageNumber++;
+                builder.AddChild(x => x.PageNum(localTextAndResult.Key ?? builder.GetComponent().AutoPageNumber.ToString(), localTextAndResult.Value).SetActive(builder.GetComponent().AutoPageNumber == activePageNumber));
+            }
             return builder;
         }
 

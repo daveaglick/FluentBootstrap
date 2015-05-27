@@ -61,6 +61,44 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void AddPagesProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-add-pages",
+@"<nav>
+   <ul class=""pagination"">
+    <li>
+     <a href=""http://google.com"">4</a>
+    </li>
+    <li class=""active"">
+     <a href=""http://bing.com"">5</a>
+    </li>
+    <li>
+     <a href=""http://yahoo.com"">6</a>
+    </li>
+   </ul>
+  </nav>");
+        }
+
+        [Test]
+        public void AddPagesWithTextProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-add-pages-with-text",
+@"<nav>
+   <ul class=""pagination"">
+    <li>
+     <a href=""http://google.com"">Google</a>
+    </li>
+    <li class=""active"">
+     <a href=""http://bing.com"">Bing</a>
+    </li>
+    <li>
+     <a href=""http://yahoo.com"">Yahoo!</a>
+    </li>
+   </ul>
+  </nav>");
+        }
+
+        [Test]
         public void PaginationSizesProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-sizes",

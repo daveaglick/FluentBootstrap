@@ -18,6 +18,14 @@ namespace FluentBootstrap
             return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper));
         }
 
+        public static ComponentBuilder<TConfig, Pagination> Pagination<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, IEnumerable<string> pageHrefs, int startAt = 1, string previousHref = null, string nextHref = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pagination>
+        {
+
+            return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper));
+        }
+
         public static ComponentBuilder<TConfig, Pagination> SetSize<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, PaginationSize size)
             where TConfig : BootstrapConfig
         {
@@ -43,6 +51,28 @@ namespace FluentBootstrap
             where TConfig : BootstrapConfig
         {
             builder.AddChild(x => x.PageNum((++builder.Component.AutoPageNumber).ToString(), href).SetActive(active).SetDisabled(disabled));
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, Pagination> AddPages<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, IEnumerable<string> hrefs, int? activePageNumber = null, int? firstPageNumber = null)
+            where TConfig : BootstrapConfig
+        {
+            return builder.AddPages(hrefs.Select(x => new KeyValuePair<string, string>(null, x)), activePageNumber, firstPageNumber);
+        }
+
+        public static ComponentBuilder<TConfig, Pagination> AddPages<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, IEnumerable<KeyValuePair<string, string>> textAndHrefs, int? activePageNumber = null, int? firstPageNumber = null)
+            where TConfig : BootstrapConfig
+        {
+            if (firstPageNumber.HasValue)
+            {
+                builder.Component.AutoPageNumber = firstPageNumber.Value - 1;
+            }
+            foreach (KeyValuePair<string, string> textAndHref in textAndHrefs)
+            {
+                KeyValuePair<string, string> localTextAndHref = textAndHref;  // avoid access in closure
+                builder.Component.AutoPageNumber++;
+                builder.AddChild(x => x.PageNum(localTextAndHref.Key ?? builder.Component.AutoPageNumber.ToString(), localTextAndHref.Value).SetActive(builder.Component.AutoPageNumber == activePageNumber));
+            }
             return builder;
         }
         
