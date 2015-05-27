@@ -52,7 +52,7 @@ namespace FluentBootstrap
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
             {
-                new RouteValueDictionary(routeValues);
+                routeValueDictionary = new RouteValueDictionary(routeValues);
             }
             builder.SetHref(UrlHelper.GenerateUrl(null, actionName, controllerName, routeValueDictionary,
                 builder.GetConfig().HtmlHelper.RouteCollection, builder.GetConfig().HtmlHelper.ViewContext.RequestContext, true));
@@ -66,7 +66,7 @@ namespace FluentBootstrap
             RouteValueDictionary routeValueDictionary = routeValues == null ? new RouteValueDictionary() : routeValues as RouteValueDictionary;
             if (routeValueDictionary == null)
             {
-                new RouteValueDictionary(routeValues);
+                routeValueDictionary = new RouteValueDictionary(routeValues);
             }
             builder.SetHref(UrlHelper.GenerateUrl(routeName, null, null, routeValueDictionary,
                 builder.GetConfig().HtmlHelper.RouteCollection, builder.GetConfig().HtmlHelper.ViewContext.RequestContext, false));
