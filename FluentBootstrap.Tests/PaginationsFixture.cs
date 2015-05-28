@@ -99,6 +99,40 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void AddPagesWithTextAndNullsProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-add-pages-with-text-and-nulls",
+@"<nav>
+   <ul class=""pagination"">
+    <li class=""disabled"">
+     <a>Previous</a>
+    </li>
+    <li class=""active"">
+     <a href=""#"">1</a>
+    </li>
+    <li>
+     <a href=""#"">2</a>
+    </li>
+    <li>
+     <a href=""#"">3</a>
+    </li>
+    <li>
+     <a href=""#"">4</a>
+    </li>
+    <li class=""disabled"">
+     <a>...</a>
+    </li>
+    <li>
+     <a href=""#"">8</a>
+    </li>
+    <li>
+     <a href=""#"">Next</a>
+    </li>
+   </ul>
+  </nav>");
+        }
+
+        [Test]
         public void PaginationSizesProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_Paginations_cshtml>("test-sizes",

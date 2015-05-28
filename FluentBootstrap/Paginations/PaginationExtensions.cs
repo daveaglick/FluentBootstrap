@@ -18,12 +18,20 @@ namespace FluentBootstrap
             return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper));
         }
 
-        public static ComponentBuilder<TConfig, Pagination> Pagination<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, IEnumerable<string> pageHrefs, int startAt = 1, string previousHref = null, string nextHref = null)
+        public static ComponentBuilder<TConfig, Pagination> Pagination<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, IEnumerable<string> hrefs, int? activePageNumber = null, int? firstPageNumber = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Pagination>
         {
+            return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper))
+                .AddPages(hrefs, activePageNumber, firstPageNumber);
+        }
 
-            return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper));
+        public static ComponentBuilder<TConfig, Pagination> Pagination<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, IEnumerable<KeyValuePair<string, string>> textAndHrefs, int? activePageNumber = null, int? firstPageNumber = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<Pagination>
+        {
+            return new ComponentBuilder<TConfig, Pagination>(helper.Config, new Pagination(helper))
+                .AddPages(textAndHrefs, activePageNumber, firstPageNumber);
         }
 
         public static ComponentBuilder<TConfig, Pagination> SetSize<TConfig>(this ComponentBuilder<TConfig, Pagination> builder, PaginationSize size)
@@ -71,7 +79,9 @@ namespace FluentBootstrap
             {
                 KeyValuePair<string, string> localTextAndHref = textAndHref;  // avoid access in closure
                 builder.Component.AutoPageNumber++;
-                builder.AddChild(x => x.PageNum(localTextAndHref.Key ?? builder.Component.AutoPageNumber.ToString(), localTextAndHref.Value).SetActive(builder.Component.AutoPageNumber == activePageNumber));
+                builder.AddChild(x => x.PageNum(localTextAndHref.Key ?? builder.Component.AutoPageNumber.ToString(), localTextAndHref.Value)
+                    .SetActive(builder.Component.AutoPageNumber == activePageNumber)
+                    .SetDisabled(localTextAndHref.Value == null));
             }
             return builder;
         }

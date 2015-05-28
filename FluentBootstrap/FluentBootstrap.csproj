@@ -135,6 +135,7 @@
     <Compile Include="Images\ImageStyle.cs" />
     <Compile Include="Images\Placeholder.cs" />
     <Compile Include="InternalsExtensions.cs" />
+    <Compile Include="KeyValueList.cs" />
     <Compile Include="Labels\Label.cs" />
     <Compile Include="Labels\LabelExtensions.cs" />
     <Compile Include="Labels\LabelState.cs" />

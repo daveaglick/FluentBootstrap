@@ -43,6 +43,24 @@
 
     <hr />
 
+    @Html.Bootstrap().Heading1("Add Pages With Text And Nulls")
+    using (Html.Bootstrap().Div().SetId("test-add-pages-with-text-and-nulls").Begin())
+    {
+        @Html.Bootstrap().Pagination(new StringKeyValueList
+        {
+            { "Previous", null },
+            { "1", "#" },
+            { "2", "#" },
+            { "3", "#" },
+            { "4", "#" },
+            { "...", null },
+            { "8", "#" },
+            { "Next", "#" }
+        }, 2)
+    }
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Sizes")
     using (Html.Bootstrap().Div().SetId("test-sizes").Begin())
     {

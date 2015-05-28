@@ -39,9 +39,12 @@ namespace FluentBootstrap
             this ComponentBuilder<MvcBootstrapConfig<TModel>, TTag> builder, ActionResult result)
             where TTag : Tag, IHasLinkExtensions
         {
-            IT4MVCActionResult callInfo = result.GetT4MVCResult();
-            builder.SetHref(UrlHelper.GenerateUrl(null, callInfo.Action, callInfo.Controller, callInfo.Protocol, null, null, result.GetRouteValueDictionary(),
-                builder.GetConfig().GetHtmlHelper().RouteCollection, builder.GetConfig().GetHtmlHelper().ViewContext.RequestContext, true));
+            if (result != null)
+            {
+                IT4MVCActionResult callInfo = result.GetT4MVCResult();
+                builder.SetHref(UrlHelper.GenerateUrl(null, callInfo.Action, callInfo.Controller, callInfo.Protocol, null, null, result.GetRouteValueDictionary(),
+                    builder.GetConfig().GetHtmlHelper().RouteCollection, builder.GetConfig().GetHtmlHelper().ViewContext.RequestContext, true));
+            }
             return builder;
         }
 
@@ -176,6 +179,22 @@ namespace FluentBootstrap
 
         // Pagination
 
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> Pagination<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, IEnumerable<ActionResult> results, int? activePageNumber = null, int? firstPageNumber = null)
+            where TComponent : Component, ICanCreate<Pagination>
+        {
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination>(helper.GetConfig(), helper.Pagination().GetComponent())
+                .AddPages(results, activePageNumber, firstPageNumber);
+        }
+
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> Pagination<TComponent, TModel>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, IEnumerable<KeyValuePair<string, ActionResult>> textAndResults, int? activePageNumber = null, int? firstPageNumber = null)
+            where TComponent : Component, ICanCreate<Pagination>
+        {
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination>(helper.GetConfig(), helper.Pagination().GetComponent())
+                .AddPages(textAndResults, activePageNumber, firstPageNumber);
+        }
+
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> AddPrevious<TModel>(
             this ComponentBuilder<MvcBootstrapConfig<TModel>, Pagination> builder, ActionResult result, bool active = false, bool disabled = false)
         {
@@ -214,7 +233,9 @@ namespace FluentBootstrap
             {
                 KeyValuePair<string, ActionResult> localTextAndResult = textAndResult;  // avoid access in closure
                 builder.GetComponent().AutoPageNumber++;
-                builder.AddChild(x => x.PageNum(localTextAndResult.Key ?? builder.GetComponent().AutoPageNumber.ToString(), localTextAndResult.Value).SetActive(builder.GetComponent().AutoPageNumber == activePageNumber));
+                builder.AddChild(x => x.PageNum(localTextAndResult.Key ?? builder.GetComponent().AutoPageNumber.ToString(), localTextAndResult.Value)
+                    .SetActive(builder.GetComponent().AutoPageNumber == activePageNumber)
+                    .SetDisabled(localTextAndResult.Value == null));
             }
             return builder;
         }
