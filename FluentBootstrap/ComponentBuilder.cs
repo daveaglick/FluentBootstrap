@@ -12,6 +12,7 @@ namespace FluentBootstrap
         internal abstract Component GetComponent();
     }
 
+    // TODO: ASP.NET MVC 5 doesn't use System.Web so there's no IHtmlString, instead it has it's own HtmlString class and/or HelperResult class - need to think of a way to deal with both old and new
     public class ComponentBuilder<TConfig, TComponent> : ComponentBuilder, IHtmlString
         where TConfig : BootstrapConfig
         where TComponent : Component
