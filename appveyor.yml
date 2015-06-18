@@ -1,15 +1,6 @@
-version: 3.3.4.4
-
 branches:
   only:
     - master
-
-assembly_info:
-  patch: true
-  file: AssemblyInfo.*
-  assembly_version: "{version}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
 
 configuration: Release
 
