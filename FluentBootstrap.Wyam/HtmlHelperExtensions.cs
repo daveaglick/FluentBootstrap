@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentBootstrap.Wyam;
 using Wyam.Modules.Razor;
 
-namespace FluentBootstrap.Wyam
+namespace FluentBootstrap
 {
     public static class HtmlHelperExtensions
     {
