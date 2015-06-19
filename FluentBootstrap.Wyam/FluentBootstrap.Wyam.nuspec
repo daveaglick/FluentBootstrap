@@ -13,8 +13,5 @@
     <description>Provides HtmlHelpers for the Bootstrap CSS framework in the Wyam static content generator.</description>
     <copyright>Copyright 2015</copyright>
     <tags>Bootstrap Wyam</tags>
-	<dependencies>
-      <dependency id="FluentBootstrap" version="$version$" />
-	</dependencies>
   </metadata>
 </package>

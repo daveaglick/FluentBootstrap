@@ -7,14 +7,11 @@
     <authors>Dave Glick</authors>
     <owners>Dave Glick</owners>
     <licenseUrl>https://github.com/somedave/FluentBootstrap/blob/master/license.txt</licenseUrl>
-	<iconUrl>http://fluentbootstrap.com/Content/fb-icon.png</iconUrl>
+    <iconUrl>http://fluentbootstrap.com/Content/fb-icon.png</iconUrl>
     <projectUrl>http://fluentbootstrap.com</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>It's what happens when Bootstrap and ASP.NET MVC make sweet, sweet love. Provides HtmlHelpers for the Bootstrap CSS framework.</description>
     <copyright>Copyright 2015</copyright>
     <tags>Bootstrap AspNet Mvc AspNetMvc</tags>
-	<dependencies>
-      <dependency id="FluentBootstrap" version="$version$" />
-	</dependencies>
   </metadata>
 </package>

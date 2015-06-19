@@ -10,6 +10,7 @@ before_build:
 build:
   project: FluentBootstrap.sln
   publish_nuget: true
+  include_nuget_references: true
   
 artifacts:
   - path: FluentBootstrap\bin\Release\FluentBootstrap.dll
