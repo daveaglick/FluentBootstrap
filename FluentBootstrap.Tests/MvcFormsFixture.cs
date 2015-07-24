@@ -191,5 +191,17 @@ namespace FluentBootstrap.Tests
    </div>
   </form>");
         }
+
+        [Test]
+        public void InputForDottedProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-input-for-dotted",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""Child_ChildPropA"" class=""control-label"">Child Property A</label>
+    <input type=""text"" name=""Child.ChildPropA"" id=""Child_ChildPropA"" class=""form-control"">
+   </div>
+  </form>");
+        }
     }
 }

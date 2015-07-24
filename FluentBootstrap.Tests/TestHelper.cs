@@ -82,7 +82,11 @@ namespace FluentBootstrap.Tests
                     { 2, "Two"},
                     { 3, "Three"}
                 },
-                PropD = true
+                PropD = true,
+                Child = new ChildModel()
+                {
+                    ChildPropA = "ChildA"
+                }
             };
             HtmlDocument doc = Render<TView, ViewModel>(model);
             expected = expected.Replace("\r\n", "\n");
