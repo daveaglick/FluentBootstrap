@@ -129,7 +129,7 @@ namespace FluentBootstrap.Tests
      <li role=""presentation"">
       <a role=""menuitem"" href=""#"">Item 1</a>
      </li>
-     <li role=""presentation"" class=""divider""></li>
+     <li role=""separator"" class=""divider""></li>
      <li role=""presentation"">
       <a role=""menuitem"" href=""#"">Item 2</a>
      </li>
@@ -155,7 +155,7 @@ namespace FluentBootstrap.Tests
      <li role=""presentation"">
       <a role=""menuitem"" href=""#"">Item 1</a>
      </li>
-     <li role=""presentation"" class=""divider""></li>
+     <li role=""separator"" class=""divider""></li>
      <li role=""presentation"">
       <a role=""menuitem"" href=""#"">Item 2</a>
      </li>

@@ -18,7 +18,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""/"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#navbar-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#navbar-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>
@@ -47,7 +47,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""/"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#nav2-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#nav2-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>
@@ -76,7 +76,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""/"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#nav3-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#nav3-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>
@@ -105,7 +105,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""/"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#nav4-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#nav4-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>
@@ -134,7 +134,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""/"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#nav5-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#nav5-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>
@@ -163,7 +163,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""#"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#nav6-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#nav6-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>
@@ -224,7 +224,7 @@ namespace FluentBootstrap.Tests
    <div class=""container-fluid"">
     <div class=""navbar-header"">
      <a href=""#"" class=""navbar-brand"">MyApp</a>
-     <button type=""button"" data-toggle=""collapse"" data-target=""#nav7-collapse"" class=""navbar-toggle collapsed"">
+     <button type=""button"" data-toggle=""collapse"" aria-expanded=""false"" data-target=""#nav7-collapse"" class=""navbar-toggle collapsed"">
       <span class=""sr-only"">Toggle Navigation</span>
       <span class=""icon-bar""></span>
       <span class=""icon-bar""></span>

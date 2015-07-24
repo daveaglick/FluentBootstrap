@@ -19,6 +19,7 @@ namespace FluentBootstrap.Navbars
             Hamburger = true;
             MergeAttribute("type", "button");
             MergeAttribute("data-toggle", "collapse");
+            MergeAttribute("aria-expanded", "false");
         }
         
         protected override void OnStart(TextWriter writer)

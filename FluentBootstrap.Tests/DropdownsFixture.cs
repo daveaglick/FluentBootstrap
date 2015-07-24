@@ -21,7 +21,7 @@ namespace FluentBootstrap.Tests
    </button>
    <ul role=""menu"" class=""dropdown-menu"">
     <li role=""presentation"" class=""dropdown-header"">Header</li>
-    <li role=""presentation"" class=""divider""></li>
+    <li role=""separator"" class=""divider""></li>
     <li role=""presentation"">
      <a role=""menuitem"" href=""#"">A</a>
     </li>
@@ -72,7 +72,7 @@ namespace FluentBootstrap.Tests
    </button>
    <ul role=""menu"" class=""dropdown-menu dropdown-menu-right"">
     <li role=""presentation"" class=""dropdown-header"">Header</li>
-    <li role=""presentation"" class=""divider""></li>
+    <li role=""separator"" class=""divider""></li>
     <li role=""presentation"">
      <a role=""menuitem"" href=""#"">A</a>
     </li>

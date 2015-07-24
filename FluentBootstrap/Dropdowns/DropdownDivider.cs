@@ -11,7 +11,7 @@ namespace FluentBootstrap.Dropdowns
         internal DropdownDivider(BootstrapHelper hepler)
             : base(hepler, "li", Css.Divider)
         {
-            MergeAttribute("role", "presentation");
+            MergeAttribute("role", "separator");
         }
     }
 }
