@@ -111,4 +111,37 @@
             }
         }
     }
+    
+    @Html.Bootstrap().Heading1("Tabs with JavaScript")
+    using (Html.Bootstrap().Div().SetId("test-tabs-with-javascript").Begin())
+    {
+        using (var tabs = Html.Bootstrap().Tabs().Begin())
+        {
+            @tabs.Tab("Home", "#home").SetActive().AddAttribute("aria-controls", "home").AddAttribute("role", "tab").AddAttribute("data-toggle", "tab")
+            @tabs.Tab("Profile", "#profile").AddAttribute("aria-controls", "profile").AddAttribute("role", "tab").AddAttribute("data-toggle", "tab")
+            @tabs.Tab("Messages", "#messages").AddAttribute("aria-controls", "messages").AddAttribute("role", "tab").AddAttribute("data-toggle", "tab")
+            @tabs.Tab("Settings", "#settings").AddAttribute("aria-controls", "settings").AddAttribute("role", "tab").AddAttribute("data-toggle", "tab")
+        }
+        using (Html.Bootstrap().Div().AddCss("tab-content").Begin())
+        {
+            using (Html.Bootstrap().Div().SetId("home").AddCss("tab-pane", "active").AddAttribute("role", "tabpanel").Begin())
+            {
+                <text>This is the home tab.</text>
+            }
+            using (Html.Bootstrap().Div().SetId("profile").AddCss("tab-pane").AddAttribute("role", "tabpanel").Begin())
+            {
+                <text>This is the profile tab.</text>
+            }
+            using (Html.Bootstrap().Div().SetId("messages").AddCss("tab-pane").AddAttribute("role", "tabpanel").Begin())
+            {
+                <text>This is the messages tab.</text>
+            }
+            using (Html.Bootstrap().Div().SetId("settings").AddCss("tab-pane").AddAttribute("role", "tabpanel").Begin())
+            {
+                <text>This is the settings tab.</text>
+            }
+        }
+    }
+
+    <hr />
 }

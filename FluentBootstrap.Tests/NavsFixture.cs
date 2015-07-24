@@ -163,5 +163,35 @@ namespace FluentBootstrap.Tests
    </li>
   </ul>");
         }
+
+        [Test]
+        public void TabsWithJavaScriptProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Navs_cshtml>("test-tabs-with-javascript",
+@"<ul role=""tablist"" class=""nav nav-tabs"">
+   <li class=""active"">
+    <a href=""#home"" aria-controls=""home"" role=""tab"" data-toggle=""tab"">Home</a>
+   </li>
+   <li>
+    <a href=""#profile"" aria-controls=""profile"" role=""tab"" data-toggle=""tab"">Profile</a>
+   </li>
+   <li>
+    <a href=""#messages"" aria-controls=""messages"" role=""tab"" data-toggle=""tab"">Messages</a>
+   </li>
+   <li>
+    <a href=""#settings"" aria-controls=""settings"" role=""tab"" data-toggle=""tab"">Settings</a>
+   </li>
+  </ul>
+  <div class=""tab-content"">
+   <div id=""home"" role=""tabpanel"" class=""tab-pane active"">                This is the home tab.
+</div>
+   <div id=""profile"" role=""tabpanel"" class=""tab-pane"">                This is the profile tab.
+</div>
+   <div id=""messages"" role=""tabpanel"" class=""tab-pane"">                This is the messages tab.
+</div>
+   <div id=""settings"" role=""tabpanel"" class=""tab-pane"">                This is the settings tab.
+</div>
+  </div>");
+        }
     }
 }
