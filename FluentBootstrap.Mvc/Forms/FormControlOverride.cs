@@ -13,9 +13,6 @@ namespace FluentBootstrap.Mvc.Forms
     {
         protected override void OnStart(TextWriter writer)
         {
-            Component.Prepare(writer);
-
-            // Add the validation data
             string name = Component.GetAttribute("name");
             if (!string.IsNullOrWhiteSpace(name))
             {
@@ -28,7 +25,13 @@ namespace FluentBootstrap.Mvc.Forms
                 }
                 tagBuilder.GenerateId(name);
                 Component.MergeAttribute("id", tagBuilder.Attributes["id"]);
+            }
 
+            Component.Prepare(writer);
+
+            // Add the validation data
+            if (!string.IsNullOrWhiteSpace(name))
+            {
                 // Set the validation class
                 ModelState modelState;
                 MvcBootstrapConfig<TModel> config = (MvcBootstrapConfig<TModel>)Config;

@@ -389,7 +389,7 @@ namespace FluentBootstrap
             this ComponentBuilder<MvcBootstrapConfig<TModel>, TFormControl> builder, Expression<Func<TModel, TValue>> expression, Action<ControlLabel> labelAction = null)
             where TFormControl : FormControl
         {
-            ControlLabel controlLabel = GetControlLabel(builder.GetHelper(), expression).For(builder.GetComponent().GetAttribute("name")).GetComponent();
+            ControlLabel controlLabel = GetControlLabel(builder.GetHelper(), expression).For(TagBuilder.CreateSanitizedId(builder.GetComponent().GetAttribute("name"))).GetComponent();
             if (labelAction != null)
             {
                 labelAction(controlLabel);
@@ -406,14 +406,13 @@ namespace FluentBootstrap
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
-            return new MvcBootstrapHelper<TModel>(helper.GetConfig().HtmlHelper).ControlLabel(label).For(name);
+            return new MvcBootstrapHelper<TModel>(helper.GetConfig().HtmlHelper).ControlLabel(label).For(TagBuilder.CreateSanitizedId(name));
         }
 
         private static string GetControlName<TComponent, TModel>(BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string expressionText)
             where TComponent : Component
         {
-            return TagBuilder.CreateSanitizedId(
-                helper.GetConfig().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText));
+            return helper.GetConfig().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
         }
 
         private static string GetControlLabel(ModelMetadata metadata, string expressionText)
