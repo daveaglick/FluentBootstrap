@@ -22,7 +22,11 @@ namespace FluentBootstrap.Tests.Web.Controllers
                     { 2, "Two"},
                     { 3, "Three"}
                 },
-                PropD = true
+                PropD = true,
+                Child = new ChildModel()
+                {
+                    ChildPropA = "Child A"
+                }
             };
             ModelState.AddModelError(string.Empty, "General error message.");
             ModelState.AddModelError("PropB", "Property B error message.");

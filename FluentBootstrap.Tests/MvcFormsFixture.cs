@@ -203,5 +203,17 @@ namespace FluentBootstrap.Tests
    </div>
   </form>");
         }
+
+        [Test]
+        public void TextAreaForProducesCorrectHtml()
+        {
+            TestHelper.AssertMvcHtml<ASP._Views_MvcTests_MvcForms_cshtml>("test-textarea-for",
+@"<form role=""form"" method=""post"">
+   <div class=""form-group"">
+    <label for=""PropA"" class=""control-label"">Property A</label>
+    <textarea name=""PropA"" id=""PropA"" class=""form-control""></textarea>
+   </div>
+  </form>");
+        }
     }
 }

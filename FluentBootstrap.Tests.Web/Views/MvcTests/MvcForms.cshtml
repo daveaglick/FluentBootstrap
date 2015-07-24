@@ -139,13 +139,26 @@
             @form.SelectFor(x => x.PropC).AddOptions(Model.PropCOptions.Select(y => new KeyValuePair<string, string>(y.Key.ToString(), y.Value)))
         }
     }
-    
+
+    <hr />
+
     @Html.Bootstrap().Heading1("Input For With Dotted Child")
     using (Html.Bootstrap().Div().SetId("test-input-for-dotted").Begin())
     {
         using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
         {
             @form.InputFor(x => x.Child.ChildPropA)
+        }
+    }
+
+    <hr/>
+
+    @Html.Bootstrap().Heading1("TextArea For")
+    using (Html.Bootstrap().Div().SetId("test-textarea-for").Begin())
+    {
+        using (var form = Html.Bootstrap().Form().HideValidationSummary().Begin())
+        {
+            @form.TextAreaFor(x => x.PropA)
         }
     }
 }

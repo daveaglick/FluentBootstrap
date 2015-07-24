@@ -370,6 +370,17 @@ namespace FluentBootstrap
             return builder;
         }
 
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, TextArea> TextAreaFor<TComponent, TModel, TValue>(
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, int? rows = null)
+            where TComponent : Component, ICanCreate<TextArea>
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(helper, expressionText);
+            string label = GetControlLabel(metadata, expressionText);
+            return helper.TextArea(name, label, metadata.Model, null, rows);
+        }
+
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, HiddenFor<TModel, TValue>> HiddenFor<TComponent, TModel, TValue>(
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
             where TComponent : Component, ICanCreate<Hidden>
