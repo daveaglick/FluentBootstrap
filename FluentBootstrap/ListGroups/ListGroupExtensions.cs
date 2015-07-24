@@ -56,5 +56,16 @@ namespace FluentBootstrap
             builder.Component.ToggleCss(state);
             return builder;
         }
+
+        // ListGroupButton
+
+        public static ComponentBuilder<TConfig, ListGroupButton> ListGroupButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, object value = null)
+            where TConfig : BootstrapConfig
+            where TComponent : Component, ICanCreate<ListGroupButton>
+        {
+            return new ComponentBuilder<TConfig, ListGroupButton>(helper.Config, new ListGroupButton(helper))
+                .SetText(text)
+                .SetValue(value);
+        }
     }
 }

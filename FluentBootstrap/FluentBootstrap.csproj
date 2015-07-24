@@ -144,6 +144,7 @@
     <Compile Include="Links\LinkExtensions.cs" />
     <Compile Include="ListGroups\ListGroup.cs" />
     <Compile Include="ListGroups\ListGroupExtensions.cs" />
+    <Compile Include="ListGroups\ListGroupButton.cs" />
     <Compile Include="ListGroups\ListGroupItem.cs" />
     <Compile Include="ListGroups\ListGroupItemState.cs" />
     <Compile Include="MediaObjects\Media.cs" />

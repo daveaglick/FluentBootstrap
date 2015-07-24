@@ -46,6 +46,24 @@ namespace FluentBootstrap.Tests
         }
 
         [Test]
+        public void ListGroupButtonsProduceCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-buttons",
+@"<div class=""list-group"">
+   <button type=""button"" class=""list-group-item"">A</button>
+   <button type=""button"" value=""foo"" class=""list-group-item"">B</button>
+   <button type=""button"" class=""list-group-item"">
+    <span class=""glyphicon glyphicon-check""></span> C
+   </button>
+   <div class=""list-group-item"">Normal item</div>
+   <button type=""button"" disabled=""disabled"" class=""list-group-item"">D</button>
+   <button type=""button"" class=""list-group-item"">E
+    <span class=""badge"">Badge!</span>
+   </button>
+  </div>");
+        }
+
+        [Test]
         public void ActiveAndDisabledListGroupProducesCorrectHtml()
         {
             TestHelper.AssertHtml<ASP._Views_Tests_ListGroups_cshtml>("test-active-disabled",
