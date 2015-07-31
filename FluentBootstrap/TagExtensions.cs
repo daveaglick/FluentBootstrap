@@ -220,7 +220,18 @@ namespace FluentBootstrap
             builder.Component.ToggleCss(backgroundState);
             return builder;
         }
+        
+        public static ComponentBuilder<TConfig, TTag> SetBackground<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, string imageUri)
+            where TConfig : BootstrapConfig
+            where TTag : Tag, IHasTextContent
+        {
+            builder.AddStyle("background-image", "url(" + imageUri + ")")
+                   .AddStyle("background-position", "center")
+                   .AddStyle("background-repeat", "no-repeat")
+                   .AddStyle("background-size", "cover");
 
+            return builder;
+        }
         public static ComponentBuilder<TConfig, TTag> SetPullLeft<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, bool pullLeft = true)
             where TConfig : BootstrapConfig
             where TTag : Tag
