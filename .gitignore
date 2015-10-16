@@ -23,3 +23,5 @@ ipch
 *UpgradeWizard*
 packages/*
 !packages/Microsoft.CodeAnalysis.*
+*ncrunch*
+*crunch*.local.xml
