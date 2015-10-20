@@ -19,7 +19,14 @@ namespace FluentBootstrap
                 .SetText(text)
                 .SetValue(value);
         }
-        
+
+        public static ComponentBuilder<TConfig, Button> SetActive<TConfig>(this ComponentBuilder<TConfig, Button> builder, bool active = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.Active, active);
+            return builder;
+        }
+
         // Button groups
 
         public static ComponentBuilder<TConfig, ButtonGroup> ButtonGroup<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper)
@@ -105,6 +112,13 @@ namespace FluentBootstrap
             where TConfig : BootstrapConfig
         {
             builder.Component.ToggleCss(Css.Disabled, disabled);
+            return builder;
+        }
+
+        public static ComponentBuilder<TConfig, LinkButton> SetActive<TConfig>(this ComponentBuilder<TConfig, LinkButton> builder, bool active = true)
+            where TConfig : BootstrapConfig
+        {
+            builder.Component.ToggleCss(Css.Active, active);
             return builder;
         }
 
