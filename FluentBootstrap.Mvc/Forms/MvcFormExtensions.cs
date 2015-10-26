@@ -254,7 +254,7 @@ namespace FluentBootstrap
             string expressionText = ExpressionHelper.GetExpressionText(expression);
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
-            return helper.Input(name, label, metadata.Model, null, inputType);
+            return helper.Input(name, label, metadata.Model, metadata.EditFormatString, inputType);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Input> PasswordFor<TComponent, TModel, TValue>(
