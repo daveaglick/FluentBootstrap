@@ -281,18 +281,11 @@ namespace FluentBootstrap
             {
                 isChecked = false;
             }
-            if (isNameInLabel)
-            {
-                return helper.CheckBox(name, label, null, isChecked);
-            }
-            else
-            {
-                return helper.CheckBox(name, null, label, isChecked);
-            }
+            return isNameInLabel ? helper.CheckBox(name, label, null, isChecked) : helper.CheckBox(name, null, label, isChecked);
         }
         
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> RadioFor<TComponent, TModel, TValue>(
-            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, object value = null, int isNameInLabel = true)
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, object value = null, bool isNameInLabel = true)
             where TComponent : Component, ICanCreate<CheckedControl>
         {
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
@@ -301,14 +294,7 @@ namespace FluentBootstrap
             string label = GetControlLabel(metadata, expressionText);
             string valueString = Convert.ToString(value, (IFormatProvider)CultureInfo.CurrentCulture);
             bool isChecked = metadata.Model != null && !string.IsNullOrEmpty(name) && string.Equals(metadata.Model.ToString(), valueString, StringComparison.OrdinalIgnoreCase);
-            if(isNameInLabel)
-            {
-                return helper.Radio(name, label, null, value, isChecked);
-            }
-            else
-            {
-                return helper.Radio(name, null, label, value, isChecked);
-            }
+            return isNameInLabel ? helper.Radio(name, label, null, value, isChecked) : helper.Radio(name, null, label, value, isChecked);
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
