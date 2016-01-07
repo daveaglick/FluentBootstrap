@@ -269,7 +269,7 @@ namespace FluentBootstrap
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> CheckBoxFor<TComponent, TModel, TValue>(
-            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression)
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, bool isNameInLabel = true)
             where TComponent : Component, ICanCreate<CheckedControl>
         {
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
@@ -277,15 +277,22 @@ namespace FluentBootstrap
             string name = GetControlName(helper, expressionText);
             string label = GetControlLabel(metadata, expressionText);
             bool isChecked = false;
-            if(metadata.Model == null || !bool.TryParse(metadata.Model.ToString(), out isChecked))
+            if (metadata.Model == null || !bool.TryParse(metadata.Model.ToString(), out isChecked))
             {
                 isChecked = false;
             }
-            return helper.CheckBox(name, label, null, isChecked);
+            if (isNameInLabel)
+            {
+                return helper.CheckBox(name, label, null, isChecked);
+            }
+            else
+            {
+                return helper.CheckBox(name, null, label, isChecked);
+            }
         }
-
+        
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> RadioFor<TComponent, TModel, TValue>(
-            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, object value = null)
+            this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, object value = null, int isNameInLabel = true)
             where TComponent : Component, ICanCreate<CheckedControl>
         {
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
@@ -294,7 +301,14 @@ namespace FluentBootstrap
             string label = GetControlLabel(metadata, expressionText);
             string valueString = Convert.ToString(value, (IFormatProvider)CultureInfo.CurrentCulture);
             bool isChecked = metadata.Model != null && !string.IsNullOrEmpty(name) && string.Equals(metadata.Model.ToString(), valueString, StringComparison.OrdinalIgnoreCase);
-            return helper.Radio(name, label, null, value, isChecked);
+            if(isNameInLabel)
+            {
+                return helper.Radio(name, label, null, value, isChecked);
+            }
+            else
+            {
+                return helper.Radio(name, null, label, value, isChecked);
+            }
         }
 
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Select> SelectFor<TComponent, TModel, TValue>(
