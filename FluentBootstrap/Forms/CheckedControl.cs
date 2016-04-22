@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace FluentBootstrap.Forms
 {
@@ -44,7 +45,7 @@ namespace FluentBootstrap.Forms
                 // Add a space if we're inline without a description
                 // This counters the problem of non-labeled checked controls when inline not positioning properly
                 // From Bootstrap docs: "Currently only works on non-inline checkboxes and radios."
-                AddChild(GetHelper().Content("&nbsp;"));
+                AddChild(GetHelper().Content(new HtmlString("&nbsp;")));
             }
 
             // See if we're in a horizontal form or form group
