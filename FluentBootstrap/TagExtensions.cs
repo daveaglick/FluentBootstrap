@@ -107,11 +107,11 @@ namespace FluentBootstrap
                     // Just convert to a string using the standard conversion logic
                     str = Convert.ToString(content, CultureInfo.InvariantCulture);
                     str = HttpUtility.HtmlEncode(str);
-                    htmlString = new HtmlString(str);
                 }
 
                 if (!string.IsNullOrEmpty(str))
                 {
+                    htmlString = new HtmlString(str);
                     builder.Component.AddChild(builder.GetHelper().Content(htmlString));
                 }
             }
