@@ -38,5 +38,13 @@
     using (Html.Bootstrap().Div().SetId("test-add-child").Begin())
     {
         @Html.Bootstrap().GridRow().AddChild(x => x.GridColumn(6).AddContent("A")).AddChild(x => x.GridColumn(6).AddContent("B").AddChild(y => Html.Bootstrap().Container()))
+    }    
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("AddContent adds a component")
+    using (Html.Bootstrap().Div().SetId("test-addcontent-adds-component").Begin())
+    {
+        @Html.Bootstrap().Div().AddContent(Html.Bootstrap().Span("span-component"))
     }
 }

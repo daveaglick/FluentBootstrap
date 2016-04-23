@@ -8,11 +8,12 @@ namespace FluentBootstrap
 {
     public static class ContentExtensions
     {
-        public static ComponentBuilder<TConfig, Content> Content<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string content)
+        public static ComponentBuilder<TConfig, Content> Content<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string content, bool isEncoded = false)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Content>
         {
-            content = HttpUtility.HtmlEncode(content);
+            if (!isEncoded)
+                content = HttpUtility.HtmlEncode(content);
             return new ComponentBuilder<TConfig, Content>(helper.Config, new Content(helper, content));
         }
 

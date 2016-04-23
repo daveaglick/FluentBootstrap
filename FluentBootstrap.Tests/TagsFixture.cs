@@ -53,5 +53,13 @@ namespace FluentBootstrap.Tests
    </div>
   </div>");
         }
+
+        [Test]
+        public void AddContentWithComponentProducesCorrectHtml()
+        {
+            TestHelper.AssertHtml<ASP._Views_Tests_Tags_cshtml>("test-addcontent-adds-component",
+@"<div>
+  <span>span-component</span></div>");
+        }
     }
 }

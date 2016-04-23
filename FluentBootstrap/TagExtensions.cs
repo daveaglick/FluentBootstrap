@@ -83,7 +83,7 @@ namespace FluentBootstrap
         }
 
         public static ComponentBuilder<TConfig, TTag> AddContent<TConfig, TTag>(this ComponentBuilder<TConfig, TTag> builder, object content)
-            where TConfig : BootstrapConfig 
+            where TConfig : BootstrapConfig
             where TTag : Tag
         {
             if (content != null)
@@ -100,7 +100,11 @@ namespace FluentBootstrap
                 IHtmlString htmlString = content as IHtmlString;
                 if (htmlString != null)
                 {
+                    //component.ToHtmlString() sets _startet = true, so the next .ToHtmlString() call will be a empty result
+                    //so we can't pass the htmlString to .Content()
                     str = htmlString.ToHtmlString();
+                    if (!string.IsNullOrEmpty(str))
+                        builder.Component.AddChild(builder.GetHelper().Content(str, isEncoded: true));
                 }
                 else
                 {
@@ -108,11 +112,8 @@ namespace FluentBootstrap
                     str = Convert.ToString(content, CultureInfo.InvariantCulture);
                     str = HttpUtility.HtmlEncode(str);
                     htmlString = new HtmlString(str);
-                }
-
-                if (!string.IsNullOrEmpty(str))
-                {
-                    builder.Component.AddChild(builder.GetHelper().Content(htmlString));
+                    if (!string.IsNullOrEmpty(str))
+                        builder.Component.AddChild(builder.GetHelper().Content(htmlString));
                 }
             }
             return builder;
