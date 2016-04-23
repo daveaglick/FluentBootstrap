@@ -47,4 +47,12 @@
     {
         @Html.Bootstrap().Div().AddContent(Html.Bootstrap().Span("span-component"))
     }
+    
+    <hr />
+
+    @Html.Bootstrap().Heading1("AddContentAtEnd adds a component")
+    using (Html.Bootstrap().Div().SetId("test-addcontentatend-adds-component").Begin())
+    {
+        @Html.Bootstrap().Div().AddContentAtEnd(Html.Bootstrap().Span("span-component1")).AddContentAtEnd(Html.Bootstrap().Span("span-component2"))
+    }
 }

@@ -137,17 +137,20 @@ namespace FluentBootstrap
                 IHtmlString htmlString = content as IHtmlString;
                 if (htmlString != null)
                 {
+                    //component.ToHtmlString() sets _startet = true, so the next .ToHtmlString() call will be a empty result
+                    //so we can't pass the htmlString to .Content()
                     str = htmlString.ToHtmlString();
+                    if (!string.IsNullOrEmpty(str))
+                        builder.Component.AddChildAtEnd(builder.GetHelper().Content(str, isEncoded: true));
                 }
                 else
                 {
                     // Just convert to a string using the standard conversion logic
                     str = Convert.ToString(content, CultureInfo.InvariantCulture);
-                }
-
-                if (!string.IsNullOrEmpty(str))
-                {
-                    builder.Component.AddChildAtEnd(builder.GetHelper().Content(str));
+                    str = HttpUtility.HtmlEncode(str);
+                    htmlString = new HtmlString(str);
+                    if (!string.IsNullOrEmpty(str))
+                        builder.Component.AddChildAtEnd(builder.GetHelper().Content(htmlString));
                 }
             }
             return builder;
