@@ -35,7 +35,7 @@ namespace FluentBootstrap.Tests
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-dismissible",
 @"<div role=""alert"" class=""alert alert-warning alert-dismissible"">
    <button type=""button"" data-dismiss=""alert"" class=""close"">
-    <span aria-hidden=""true"">&times;</span>
+    <span aria-hidden=""true"">&#215;</span>
     <span class=""sr-only"">Close</span>
    </button>Yikes, this is a warning.
   </div>");
@@ -47,7 +47,7 @@ namespace FluentBootstrap.Tests
             TestHelper.AssertHtml<ASP._Views_Tests_Alerts_cshtml>("test-dismissible-with-heading",
 @"<div role=""alert"" class=""alert alert-warning alert-dismissible"">
    <button type=""button"" data-dismiss=""alert"" class=""close"">
-    <span aria-hidden=""true"">&times;</span>
+    <span aria-hidden=""true"">&#215;</span>
     <span class=""sr-only"">Close</span>
    </button>
    <strong>Warning </strong>Yikes, this is a warning.

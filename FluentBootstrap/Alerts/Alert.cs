@@ -30,7 +30,7 @@ namespace FluentBootstrap.Alerts
             if (Dismissible)
             {
                 GetHelper().Element("button").AddAttribute("type", "button").AddCss(Css.Close).AddAttribute("data-dismiss", "alert")
-                    .AddChild(_ => GetHelper().Span().AddAttribute("aria-hidden", "true").SetText("&times;"))
+                    .AddChild(_ => GetHelper().Span().AddAttribute("aria-hidden", "true").SetText("\u00D7"))
                     .AddChild(_ => GetHelper().Span().AddCss(Css.SrOnly).SetText("Close"))
                     .Component.StartAndFinish(writer);
             }

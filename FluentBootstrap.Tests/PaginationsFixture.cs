@@ -39,7 +39,7 @@ namespace FluentBootstrap.Tests
 @"<nav>
    <ul class=""pagination"">
     <li>
-     <a href=""#"">&laquo;</a>
+     <a href=""#"">&#171;</a>
     </li>
     <li>
      <a href=""http://google.com"">1</a>
@@ -54,7 +54,7 @@ namespace FluentBootstrap.Tests
      <a href=""#"">4</a>
     </li>
     <li>
-     <a href=""#"">&raquo;</a>
+     <a href=""#"">&#187;</a>
     </li>
    </ul>
   </nav>");
@@ -139,7 +139,7 @@ namespace FluentBootstrap.Tests
 @"<nav>
    <ul class=""pagination pagination-lg"">
     <li>
-     <a href=""#"">&laquo;</a>
+     <a href=""#"">&#171;</a>
     </li>
     <li>
      <a href=""http://google.com"">1</a>
@@ -154,14 +154,14 @@ namespace FluentBootstrap.Tests
      <a href=""#"">4</a>
     </li>
     <li>
-     <a href=""#"">&raquo;</a>
+     <a href=""#"">&#187;</a>
     </li>
    </ul>
   </nav>
   <nav>
    <ul class=""pagination pagination-sm"">
     <li>
-     <a href=""#"">&laquo;</a>
+     <a href=""#"">&#171;</a>
     </li>
     <li>
      <a href=""http://google.com"">1</a>
@@ -176,7 +176,7 @@ namespace FluentBootstrap.Tests
      <a href=""#"">4</a>
     </li>
     <li>
-     <a href=""#"">&raquo;</a>
+     <a href=""#"">&#187;</a>
     </li>
    </ul>
   </nav>");

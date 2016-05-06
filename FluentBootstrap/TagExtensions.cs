@@ -106,11 +106,13 @@ namespace FluentBootstrap
                 {
                     // Just convert to a string using the standard conversion logic
                     str = Convert.ToString(content, CultureInfo.InvariantCulture);
+                    str = HttpUtility.HtmlEncode(str);
                 }
 
                 if (!string.IsNullOrEmpty(str))
                 {
-                    builder.Component.AddChild(builder.GetHelper().Content(str));
+                    htmlString = new HtmlString(str);
+                    builder.Component.AddChild(builder.GetHelper().Content(htmlString));
                 }
             }
             return builder;
@@ -140,11 +142,13 @@ namespace FluentBootstrap
                 {
                     // Just convert to a string using the standard conversion logic
                     str = Convert.ToString(content, CultureInfo.InvariantCulture);
+                    str = HttpUtility.HtmlEncode(str);
                 }
 
                 if (!string.IsNullOrEmpty(str))
                 {
-                    builder.Component.AddChildAtEnd(builder.GetHelper().Content(str));
+                    htmlString = new HtmlString(str);
+                    builder.Component.AddChildAtEnd(builder.GetHelper().Content(htmlString));
                 }
             }
             return builder;
