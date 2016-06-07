@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentBootstrap.Wyam;
-using Wyam.Modules.Razor;
+using Wyam.Razor;
 
 namespace FluentBootstrap
 {

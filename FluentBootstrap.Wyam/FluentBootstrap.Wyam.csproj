@@ -70,8 +70,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Wyam.Modules.Razor, Version=0.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Wyam.Modules.Razor.0.10.0-beta\lib\net46\Wyam.Modules.Razor.dll</HintPath>
+    <Reference Include="Wyam.Razor, Version=0.12.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Wyam.Razor.0.12.4-beta\lib\net46\Wyam.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
