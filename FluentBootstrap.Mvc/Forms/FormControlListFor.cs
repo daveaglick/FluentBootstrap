@@ -11,6 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using FluentBootstrap.Html;
@@ -41,9 +42,9 @@ namespace FluentBootstrap.Mvc.Forms
             ComponentBuilder<MvcBootstrapConfig<TModel>, List> list = this.GetHelper<TModel>().List(_listType);
             foreach (TValue value in values)
             {
-                list.AddChild(x => x.ListItem(
+                list.AddChild(x => x.ListItem(new HtmlString(
                     (AddHidden ? this.GetHelper<TModel>().HiddenFor(_ => value).ToHtmlString() : string.Empty)
-                        + this.GetHtmlHelper<TModel>().DisplayFor(_ => value, TemplateName, AdditionalViewData).ToString()));
+                        + this.GetHtmlHelper<TModel>().DisplayFor(_ => value, TemplateName, AdditionalViewData).ToString())));
             }
             list.GetComponent().StartAndFinish(writer);
         }
@@ -63,7 +64,7 @@ namespace FluentBootstrap.Mvc.Forms
             int c = 0;
             foreach (TValue value in values)
             {
-                list.AddChild(x => x.ListItem(GetEditor(this.GetHtmlHelper<TModel>().EditorFor(_ => value, TemplateName, AdditionalViewData).ToString())));
+                list.AddChild(x => x.ListItem(new HtmlString(GetEditor(this.GetHtmlHelper<TModel>().EditorFor(_ => value, TemplateName, AdditionalViewData).ToString()))));
                 c++;
             }
             list.GetComponent().StartAndFinish(writer);
