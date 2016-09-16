@@ -246,6 +246,15 @@ namespace FluentBootstrap
             return builder;
         }
 
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, Input> InputFor<TModel, TValue>(
+            this ComponentWrapper<MvcBootstrapConfig<TModel>, InputGroup> wrapper, Expression<Func<TModel, TValue>> expression, FormInputType inputType = FormInputType.Text)
+        {
+            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, wrapper.GetConfig().HtmlHelper.ViewData);
+            string expressionText = ExpressionHelper.GetExpressionText(expression);
+            string name = GetControlName(wrapper, expressionText);
+            return wrapper.Input(name, metadata.Model, metadata.EditFormatString, inputType);
+        }
+
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, Input> InputFor<TComponent, TModel, TValue>(
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, FormInputType inputType = FormInputType.Text)
             where TComponent : Component, ICanCreate<Input>
