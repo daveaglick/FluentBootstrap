@@ -55,5 +55,17 @@ By writing this (for example, if using from an ASP.NET MVC view):
 }
 ```
 
+## Download
+
+The easiest way to download is via NuGet:
+```
+Install-Package FluentBootstrap
+```
+
+If you're using FluentBootstrap with ASP.NET MVC:
+```
+Install-Package FluentBootstrap.Mvc
+```
+
 ## More Information
 Please see the project site at http://www.fluentbootstrap.com for more information, installation instructions, and code examples.
