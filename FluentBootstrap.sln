@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap", "FluentBootstrap\FluentBootstrap.csproj", "{FE49CF3B-6563-447B-B94E-018B334096E4}"
 EndProject
@@ -14,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.WebPages", "FluentBootstrap.WebPages\FluentBootstrap.WebPages.csproj", "{65741EA5-B5DA-4CD3-8A87-5873602DA30A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Mvc.T4MVC", "FluentBootstrap.Mvc.T4MVC\FluentBootstrap.Mvc.T4MVC.csproj", "{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentBootstrap.Wyam", "FluentBootstrap.Wyam\FluentBootstrap.Wyam.csproj", "{E8283358-3C65-43AB-A5C4-E5A468C8A18D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +45,6 @@ Global
 		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5072FFDE-A86B-416D-9E3A-C2ACD42ED532}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8283358-3C65-43AB-A5C4-E5A468C8A18D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8283358-3C65-43AB-A5C4-E5A468C8A18D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8283358-3C65-43AB-A5C4-E5A468C8A18D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8283358-3C65-43AB-A5C4-E5A468C8A18D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
