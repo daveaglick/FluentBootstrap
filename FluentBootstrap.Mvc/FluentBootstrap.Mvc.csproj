@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\CheckBoxFor.cs" />
     <Compile Include="Forms\FormControlFor.cs" />
     <Compile Include="Forms\FormControlForBase.cs" />
     <Compile Include="Forms\FormControlListFor.cs" />

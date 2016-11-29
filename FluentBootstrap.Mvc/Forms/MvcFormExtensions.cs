@@ -277,22 +277,13 @@ namespace FluentBootstrap
             return helper.Input(name, label, null, null, FormInputType.Password);
         }
 
-        public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> CheckBoxFor<TComponent, TModel, TValue>(
+        public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckBoxFor<TModel, TValue>> CheckBoxFor<TComponent, TModel, TValue>(
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, bool isNameInLabel = true)
             where TComponent : Component, ICanCreate<CheckedControl>
         {
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.GetConfig().HtmlHelper.ViewData);
-            string expressionText = ExpressionHelper.GetExpressionText(expression);
-            string name = GetControlName(helper, expressionText);
-            string label = GetControlLabel(metadata, expressionText);
-            bool isChecked = false;
-            if (metadata.Model == null || !bool.TryParse(metadata.Model.ToString(), out isChecked))
-            {
-                isChecked = false;
-            }
-            return isNameInLabel ? helper.CheckBox(name, label, null, isChecked) : helper.CheckBox(name, null, label, isChecked);
+            return new ComponentBuilder<MvcBootstrapConfig<TModel>, CheckBoxFor<TModel, TValue>>(helper.GetConfig(), new CheckBoxFor<TModel, TValue>(helper, expression, isNameInLabel));
         }
-        
+
         public static ComponentBuilder<MvcBootstrapConfig<TModel>, CheckedControl> RadioFor<TComponent, TModel, TValue>(
             this BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, Expression<Func<TModel, TValue>> expression, object value = null, bool isNameInLabel = true)
             where TComponent : Component, ICanCreate<CheckedControl>
@@ -429,13 +420,13 @@ namespace FluentBootstrap
             return new MvcBootstrapHelper<TModel>(helper.GetConfig().HtmlHelper).ControlLabel(label).For(TagBuilder.CreateSanitizedId(name));
         }
 
-        private static string GetControlName<TComponent, TModel>(BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string expressionText)
+        internal static string GetControlName<TComponent, TModel>(BootstrapHelper<MvcBootstrapConfig<TModel>, TComponent> helper, string expressionText)
             where TComponent : Component
         {
             return helper.GetConfig().HtmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(expressionText);
         }
 
-        private static string GetControlLabel(ModelMetadata metadata, string expressionText)
+        internal static string GetControlLabel(ModelMetadata metadata, string expressionText)
         {
             string label = metadata.DisplayName;
             if (label == null)
