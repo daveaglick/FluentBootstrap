@@ -1,5 +1,9 @@
 # FluentBootstrap
 
+## ** Looking For A Maintainer **
+
+This project isn't "dead", but at the same time I won't be doing much more to it beyond fixing bugs. It's complete and production-worthy but my personal interests have shifted more towards code generation ([scripting](https://github.com/daveaglick/Scripty), [static sites](http://wyam.io), etc.) and I am unable to give this project the attention it deserves going forward. If you're interested in taking over, please drop me a line by opening an issue. 
+
 ## Overview
 
 FluentBootstrap provides extensions, helper classes, model binding, and other goodies to help you use the Bootstrap CSS framework from .NET code. It enables using Bootstrap (and to some extent, regular HTML elements) in a variety of different ways without having to worry about HTML, CSS, etc. The goal is to have strongly-typed classes, methods, and extensions that cover as much of the Bootstrap library as possible. Support for generating HTML strings without a web framework, ASP.NET WebPages, ASP.NET MVC, and T4MVC is currently provided.
