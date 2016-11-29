@@ -25,7 +25,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Pill> Pill<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, Pill> Pill<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Pill>
         {
@@ -43,7 +43,7 @@ namespace FluentBootstrap
             return new ComponentBuilder<TConfig, Tabs>(helper.Config, new Tabs(helper));
         }
 
-        public static ComponentBuilder<TConfig, Tab> Tab<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, Tab> Tab<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tab>
         {

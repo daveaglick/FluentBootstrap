@@ -9,12 +9,12 @@ namespace FluentBootstrap.Panels
 {
     public class PanelTitle : Tag, IHasTextContent
     {
-        internal PanelTitle(BootstrapHelper helper, string text, int headingLevel)
+        internal PanelTitle(BootstrapHelper helper, object text, int headingLevel)
             : base(helper, "h" + headingLevel, Css.PanelTitle)
         {
             if (headingLevel < 1 || headingLevel > 6)
             {
-                throw new ArgumentOutOfRangeException("headingLevel");
+                throw new ArgumentOutOfRangeException(nameof(headingLevel));
             }
             TextContent = text;
         }

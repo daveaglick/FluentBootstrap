@@ -36,7 +36,7 @@ namespace FluentBootstrap.Buttons
             // Add the action button if split and copy over button CSS classes
             // Also move the icon to the button (if one is present)
             // But only create the split if we actually have some text to put in it
-            if (Split && !string.IsNullOrWhiteSpace(TextContent))
+            if (Split && TextContent != null)
             {
                 Button button = GetHelper().Button(TextContent).Component;
                 MoveIcons(button);
@@ -62,9 +62,10 @@ namespace FluentBootstrap.Buttons
             dropdown.MergeAttributes(Attributes.Dictionary);
             Attributes.Dictionary.Clear();
             CssClasses.Clear();
-            if (!string.IsNullOrWhiteSpace(TextContent))
+            if (TextContent != null)
             {
-                dropdown.AddChild(GetHelper().Content(TextContent + " "));
+                dropdown.AddChild(GetHelper().Content(TextContent));
+                dropdown.AddChild(GetHelper().Content(" "));
             }
             else
             {

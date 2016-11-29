@@ -74,7 +74,7 @@ namespace FluentBootstrap
 
         // Media Body
 
-        public static ComponentBuilder<TConfig, MediaBody> MediaBody<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string heading = null, string text = null)
+        public static ComponentBuilder<TConfig, MediaBody> MediaBody<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string heading = null, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<MediaBody>
         {

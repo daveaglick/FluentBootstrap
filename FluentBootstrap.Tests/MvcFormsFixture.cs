@@ -122,10 +122,11 @@ namespace FluentBootstrap.Tests
     <label for=""PropD"" class=""control-label"">PropD</label>
     <div class=""checkbox"">
      <label class=""checkbox"">
-      <input type=""checkbox"" name=""PropD"" id=""PropD"">
+      <input type=""checkbox"" name=""PropD"" value=""False"" id=""PropD"">
      </label>
     </div>
    </div>
+   <input type=""hidden"" name=""PropD"" value=""False"">
   </form>");
         }
 

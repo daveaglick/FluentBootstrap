@@ -4,14 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace FluentBootstrap
 {
     public class Content : Component
     {
-        private readonly string _content;
+        private readonly object _content;
 
-        internal Content(BootstrapHelper helper, string content)
+        internal Content(BootstrapHelper helper, object content)
             : base(helper)
         {
             _content = content;
@@ -20,7 +21,8 @@ namespace FluentBootstrap
         protected override void OnStart(TextWriter writer)
         {
             base.OnStart(writer);
-            writer.Write(_content);
+            IHtmlString htmlString = _content as IHtmlString;
+            writer.Write(htmlString != null ? htmlString.ToHtmlString() : HttpUtility.HtmlEncode(_content));
         }
     }
 }

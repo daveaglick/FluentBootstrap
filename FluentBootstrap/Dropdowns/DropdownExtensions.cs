@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
         // Dropdown
 
-        public static ComponentBuilder<TConfig, Dropdown> Dropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Dropdown> Dropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Dropdown>
         {
@@ -56,7 +56,7 @@ namespace FluentBootstrap
 
         // Dropdown items
 
-        public static ComponentBuilder<TConfig, DropdownLink> DropdownLink<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, DropdownLink> DropdownLink<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<DropdownLink>
         {
@@ -79,7 +79,7 @@ namespace FluentBootstrap
             return dropdownLink;
         }
 
-        public static ComponentBuilder<TConfig, DropdownHeader> DropdownHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, DropdownHeader> DropdownHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<DropdownHeader>
         {

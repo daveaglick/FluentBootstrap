@@ -66,9 +66,10 @@ namespace FluentBootstrap.Dropdowns
             CssClasses.RemoveWhere(x => x.StartsWith("btn"));
 
             // Add the text and caret
-            if (!string.IsNullOrWhiteSpace(TextContent))
+            if (TextContent != null)
             {
-                _toggle.AddChild(GetHelper().Content(TextContent + " "));
+                _toggle.AddChild(GetHelper().Content(TextContent));
+                _toggle.AddChild(GetHelper().Content(" "));
             }
             else
             {

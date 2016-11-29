@@ -83,7 +83,7 @@ namespace FluentBootstrap
 
         // Brand
 
-        public static ComponentBuilder<TConfig, Brand> Brand<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, Brand> Brand<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Brand>
         {
@@ -121,7 +121,7 @@ namespace FluentBootstrap
 
         // NavbarButton
 
-        public static ComponentBuilder<TConfig, NavbarButton> NavbarButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, object value = null)
+        public static ComponentBuilder<TConfig, NavbarButton> NavbarButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null, object value = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<NavbarButton>
         {
@@ -132,7 +132,7 @@ namespace FluentBootstrap
 
         // NavbarText
 
-        public static ComponentBuilder<TConfig, NavbarText> NavbarText<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, NavbarText> NavbarText<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<NavbarText>
         {
@@ -142,7 +142,7 @@ namespace FluentBootstrap
         
         // NavbarLink
 
-        public static ComponentBuilder<TConfig, NavbarLink> NavbarLink<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, NavbarLink> NavbarLink<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<NavbarLink>
         {

@@ -13,7 +13,7 @@ namespace FluentBootstrap
     {
         // Headings
 
-        public static ComponentBuilder<TConfig, Heading> Heading<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, int size, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, int size, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -29,7 +29,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Heading> Heading1<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading1<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -37,7 +37,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Heading> Heading2<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading2<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -45,7 +45,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Heading> Heading3<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading3<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -53,7 +53,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Heading> Heading4<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading4<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -61,7 +61,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Heading> Heading5<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading5<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -69,7 +69,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Heading> Heading6<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Heading> Heading6<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Heading>
         {
@@ -87,7 +87,7 @@ namespace FluentBootstrap
 
         // Body copy
 
-        public static ComponentBuilder<TConfig, Small> Small<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Small> Small<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Small>
 
@@ -104,7 +104,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Element> Lead<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Lead<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -113,7 +113,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Marked<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Marked<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -121,7 +121,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Deleted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Deleted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -129,7 +129,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Strikethrough<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Strikethrough<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -137,7 +137,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Inserted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Inserted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -145,7 +145,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Underlined<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Underlined<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -153,7 +153,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Strong<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Strong<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -161,7 +161,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Bold<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Bold<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -169,7 +169,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Emphasis<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Emphasis<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -177,7 +177,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Italics<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Italics<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -205,7 +205,7 @@ namespace FluentBootstrap
 
         // Abbreviation
 
-        public static ComponentBuilder<TConfig, Abbr> Abbreviation<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title, string text)
+        public static ComponentBuilder<TConfig, Abbr> Abbreviation<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title, object text)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Abbr>
         {
@@ -223,7 +223,7 @@ namespace FluentBootstrap
 
         // Address
 
-        public static ComponentBuilder<TConfig, Element> Address<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Address<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -263,7 +263,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Element> Footer<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Footer<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -271,7 +271,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Cite> Cite<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title = null, string text = null)
+        public static ComponentBuilder<TConfig, Cite> Cite<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string title = null, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Cite>
         {
@@ -331,7 +331,7 @@ namespace FluentBootstrap
 
         // Code, etc.
 
-        public static ComponentBuilder<TConfig, Element> Code<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Code<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -339,7 +339,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Keyboard<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Keyboard<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -347,7 +347,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Pre> Preformatted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Pre> Preformatted<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Pre>
         {
@@ -362,7 +362,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, Element> Variable<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Variable<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {
@@ -370,7 +370,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Element> Sample<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, Element> Sample<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Tag>
         {

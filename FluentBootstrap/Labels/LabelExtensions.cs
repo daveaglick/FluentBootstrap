@@ -9,7 +9,7 @@ namespace FluentBootstrap
 {
     public static class LabelExtensions
     {
-        public static ComponentBuilder<TConfig, Label> Label<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text)
+        public static ComponentBuilder<TConfig, Label> Label<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Label>
         {

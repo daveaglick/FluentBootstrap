@@ -11,7 +11,7 @@ namespace FluentBootstrap
     {
         // Button
 
-        public static ComponentBuilder<TConfig, Button> Button<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, ButtonType buttonType = ButtonType.Button, object value = null)
+        public static ComponentBuilder<TConfig, Button> Button<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null, ButtonType buttonType = ButtonType.Button, object value = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Button>
         {
@@ -75,7 +75,7 @@ namespace FluentBootstrap
 
         // Button dropdowns
 
-        public static ComponentBuilder<TConfig, ButtonDropdown> ButtonDropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, ButtonDropdown> ButtonDropdown<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<ButtonDropdown>
         {
@@ -99,7 +99,7 @@ namespace FluentBootstrap
 
         // LinkButton
 
-        public static ComponentBuilder<TConfig, LinkButton> LinkButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, LinkButton> LinkButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<LinkButton>
         {

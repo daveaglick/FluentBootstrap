@@ -20,7 +20,7 @@ namespace FluentBootstrap
 
         // ListGroupItem
 
-        public static ComponentBuilder<TConfig, ListGroupItem> ListGroupItem<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, string href = null)
+        public static ComponentBuilder<TConfig, ListGroupItem> ListGroupItem<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null, string href = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<ListGroupItem>
         {
@@ -59,7 +59,7 @@ namespace FluentBootstrap
 
         // ListGroupButton
 
-        public static ComponentBuilder<TConfig, ListGroupButton> ListGroupButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null, object value = null)
+        public static ComponentBuilder<TConfig, ListGroupButton> ListGroupButton<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null, object value = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<ListGroupButton>
         {

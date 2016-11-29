@@ -44,7 +44,7 @@ namespace FluentBootstrap.ListGroups
             }
 
             // Cache the text content for after opening tag
-            string textContent = null;
+            object textContent = null;
             if (!string.IsNullOrWhiteSpace(Heading))
             {
                 textContent = TextContent;
@@ -59,7 +59,7 @@ namespace FluentBootstrap.ListGroups
                 GetHelper().Heading4(Heading).Component.StartAndFinish(writer);
 
                 // Put text in a paragraph, but only if there's also a heading
-                if(!string.IsNullOrWhiteSpace(textContent))
+                if(textContent != null)
                 {
                     GetHelper().Paragraph(textContent).Component.StartAndFinish(writer);
                 }

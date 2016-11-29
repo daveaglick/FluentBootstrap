@@ -9,7 +9,7 @@ namespace FluentBootstrap
 {
     public static class AlertExtensions
     {
-        public static ComponentBuilder<TConfig, Alert> Alert<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, AlertState state, string text = null)
+        public static ComponentBuilder<TConfig, Alert> Alert<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, AlertState state, object text = null)
             where TConfig: BootstrapConfig
             where TComponent : Component, ICanCreate<Alert>
         {
@@ -18,7 +18,7 @@ namespace FluentBootstrap
                 .SetText(text);
         }
 
-        public static ComponentBuilder<TConfig, Alert> Alert<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, AlertState state, string heading, string text)
+        public static ComponentBuilder<TConfig, Alert> Alert<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, AlertState state, string heading, object text)
             where TConfig: BootstrapConfig
             where TComponent : Component, ICanCreate<Alert>
         {

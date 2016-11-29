@@ -41,7 +41,7 @@ namespace FluentBootstrap
         
         // Page
 
-        public static ComponentBuilder<TConfig, Page> Page<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, Page> Page<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Page>
         {

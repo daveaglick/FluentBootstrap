@@ -19,7 +19,7 @@ namespace FluentBootstrap
         public HashSet<string> CssClasses { get; private set; }
         private bool _startTagOutput;
 
-        public string TextContent { get; set; }   // Can be used to set simple text content for the tag
+        public object TextContent { get; set; }   // Can be used to set simple text content for the tag
         public bool PrettyPrint { get; set; }  // Set to false to suppress pretty printing, even if turned on globally (I.e., for links)
         public bool OutputEndTag { get; set; }
 
@@ -148,9 +148,9 @@ namespace FluentBootstrap
         protected override void OnStart(TextWriter writer)
         {
             // Add the text content as a child
-            if (!string.IsNullOrEmpty(TextContent))
+            if (TextContent != null)
             {
-                this.AddChild(GetHelper().Content(TextContent));
+                AddChild(GetHelper().Content(TextContent));
             }
 
             base.OnStart(writer);

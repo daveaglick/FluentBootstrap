@@ -21,7 +21,7 @@ namespace FluentBootstrap
 
         // PageHeader
 
-        public static ComponentBuilder<TConfig, PageHeader> PageHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, PageHeader> PageHeader<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<PageHeader>
         {

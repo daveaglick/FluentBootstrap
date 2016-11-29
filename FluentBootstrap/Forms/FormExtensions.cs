@@ -135,7 +135,7 @@ namespace FluentBootstrap
 
         // ControlLabel
 
-        public static ComponentBuilder<TConfig, ControlLabel> ControlLabel<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string labelFor = null)
+        public static ComponentBuilder<TConfig, ControlLabel> ControlLabel<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string labelFor = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<ControlLabel>
         {
@@ -344,7 +344,7 @@ namespace FluentBootstrap
             return builder;
         }
 
-        public static ComponentBuilder<TConfig, SelectOption> SelectOption<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string value = null, bool selected = false)
+        public static ComponentBuilder<TConfig, SelectOption> SelectOption<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string value = null, bool selected = false)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<SelectOption>
         {
@@ -448,7 +448,7 @@ namespace FluentBootstrap
 
         // Help
 
-        public static ComponentBuilder<TConfig, HelpBlock> HelpBlock<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text = null)
+        public static ComponentBuilder<TConfig, HelpBlock> HelpBlock<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text = null)
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<HelpBlock>
         {
@@ -457,7 +457,7 @@ namespace FluentBootstrap
 
         // FormControl
 
-        public static ComponentBuilder<TConfig, TFormControl> SetControlLabel<TConfig, TFormControl>(this ComponentBuilder<TConfig, TFormControl> builder, string label, Action<ComponentBuilder<TConfig, ControlLabel>> labelAction = null)
+        public static ComponentBuilder<TConfig, TFormControl> SetControlLabel<TConfig, TFormControl>(this ComponentBuilder<TConfig, TFormControl> builder, object label, Action<ComponentBuilder<TConfig, ControlLabel>> labelAction = null)
             where TConfig : BootstrapConfig
             where TFormControl : FormControl
         {

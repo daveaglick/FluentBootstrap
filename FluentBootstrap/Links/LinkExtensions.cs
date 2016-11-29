@@ -12,7 +12,7 @@ namespace FluentBootstrap
     {
         // Link
 
-        public static ComponentBuilder<TConfig, Link> Link<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, string text, string href = "#")
+        public static ComponentBuilder<TConfig, Link> Link<TConfig, TComponent>(this BootstrapHelper<TConfig, TComponent> helper, object text, string href = "#")
             where TConfig : BootstrapConfig
             where TComponent : Component, ICanCreate<Link>
         {
